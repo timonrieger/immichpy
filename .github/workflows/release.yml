@@ -39,6 +39,12 @@ jobs:
         run: |
           git reset --hard ${{ github.event.workflow_run.head_sha }}
 
+      - name: Setup | Install uv + Python
+        uses: astral-sh/setup-uv@v6
+        with:
+          version: "0.9.17"
+          python-version: "3.11"
+
       - name: Evaluate | Verify upstream has NOT changed
         # Last chance to abort before causing an error as another PR/push was applied to
         # the upstream branch while this workflow was running. This is important
