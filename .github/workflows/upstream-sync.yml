@@ -28,9 +28,6 @@ jobs:
       - name: Install mise
         uses: jdx/mise-action@v2
 
-      - name: Install project dependencies
-        run: mise exec -- uv sync --locked
-
       - name: Fetch latest stable Immich tag
         id: fetch_tag
         run: |

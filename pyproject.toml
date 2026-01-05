@@ -42,7 +42,7 @@ build_command = """
     uv lock --upgrade-package "$PACKAGE_NAME"
     git add uv.lock
     uv build
-""" 
+"""
 
 # https://python-semantic-release.readthedocs.io/en/latest/multibranch_releases.html#multibranch-releases
 [tool.semantic_release.branches.dev]
