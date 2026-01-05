@@ -75,6 +75,7 @@ jobs:
         run: |
           LATEST_TAG="${{ steps.fetch_tag.outputs.latest_tag }}"
           STORED_TAG="${{ steps.stored_tag.outputs.stored_tag }}"
+          RELEASE_URL="https://github.com/immich-app/immich/releases/tag/$LATEST_TAG"
 
           # Remove 'v' prefix for comparison
           LATEST_VERSION=$(echo "$LATEST_TAG" | sed 's/^v//')
@@ -83,7 +84,7 @@ jobs:
           # If no stored tag, default to feat
           if [ -z "$STORED_TAG" ]; then
             COMMIT_TYPE="feat"
-            COMMIT_BODY="Synced client with immich $LATEST_TAG"
+            COMMIT_BODY=$'Sync generated client to Immich '"$LATEST_TAG"$'\n\nUpstream release notes: '"$RELEASE_URL"
             echo "commit_type=$COMMIT_TYPE" >> "$GITHUB_OUTPUT"
             echo "commit_body=$COMMIT_BODY" >> "$GITHUB_OUTPUT"
             {
@@ -101,16 +102,16 @@ jobs:
           # Determine commit type based on semver diff
           if [ "$LATEST_MAJOR" != "$STORED_MAJOR" ]; then
             # Major version bump
-            COMMIT_TYPE="feat!"
-            COMMIT_BODY=$'Synced client with immich '"$LATEST_TAG"$'\n\nBREAKING CHANGE: Sync generated client to Immich '"$LATEST_TAG"
+            COMMIT_TYPE="feat"
+            COMMIT_BODY=$'Sync generated client to Immich '"$LATEST_TAG"$'\n\nBREAKING CHANGE: Immich server had a major release. Review upstream release notes for potential client-impacting changes: '"$RELEASE_URL"
           elif [ "$LATEST_MINOR" != "$STORED_MINOR" ]; then
             # Minor version bump
             COMMIT_TYPE="feat"
-            COMMIT_BODY="Synced client with immich $LATEST_TAG"
+            COMMIT_BODY=$'Sync generated client to Immich '"$LATEST_TAG"$'\n\nUpstream release notes: '"$RELEASE_URL"
           else
             # Patch version bump
             COMMIT_TYPE="fix"
-            COMMIT_BODY="Synced client with immich $LATEST_TAG"
+            COMMIT_BODY=$'Sync generated client to Immich '"$LATEST_TAG"$'\n\nUpstream release notes: '"$RELEASE_URL"
           fi
 
           echo "commit_type=$COMMIT_TYPE" >> "$GITHUB_OUTPUT"
@@ -126,6 +127,14 @@ jobs:
             echo "EOF"
           } >> "$GITHUB_OUTPUT"
 
+      - name: Compute PR branch name
+        id: pr_branch
+        if: steps.check_sync.outputs.sync_needed == 'true'
+        run: |
+          LATEST_TAG="${{ steps.fetch_tag.outputs.latest_tag }}"
+          # keep it deterministic so create-pull-request can update the same PR
+          echo "branch=automation/sync-${LATEST_TAG}" >> "$GITHUB_OUTPUT"
+
       - name: Run CI (generate + lint)
         if: steps.check_sync.outputs.sync_needed == 'true'
         env:
@@ -138,13 +147,13 @@ jobs:
           LATEST_TAG="${{ steps.fetch_tag.outputs.latest_tag }}"
           echo "$LATEST_TAG" > IMMICH-VERSION
 
-      - name: Create or update PR (dev -> main)
+      - name: Create or update PR (automation branch -> main)
         if: steps.check_sync.outputs.sync_needed == 'true'
         uses: peter-evans/create-pull-request@v8
         with:
           commit-message: ${{ steps.commit_msg.outputs.commit_message }}
           committer: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>
-          branch: dev
+          branch: ${{ steps.pr_branch.outputs.branch }}
           base: main
           title: Sync Immich ${{ steps.fetch_tag.outputs.latest_tag }}
           body: |
@@ -153,5 +162,5 @@ jobs:
             This PR was created by the upstream sync workflow.
 
             Upstream tag: https://github.com/immich-app/immich/releases/tag/${{ steps.fetch_tag.outputs.latest_tag }}
-          delete-branch: false
+          delete-branch: true
 
