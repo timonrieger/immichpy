@@ -45,10 +45,6 @@ build_command = """
 """
 
 # https://python-semantic-release.readthedocs.io/en/latest/multibranch_releases.html#multibranch-releases
-[tool.semantic_release.branches.dev]
-match = "dev"
-prerelease = true
-prerelease_token = "rc"
 
 [tool.semantic_release.branches.main]
 match = "main"
