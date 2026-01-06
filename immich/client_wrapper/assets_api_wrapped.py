@@ -8,7 +8,7 @@ from pydantic import StrictStr
 
 from immich.client.api.assets_api import AssetsApi
 from immich.client.models.asset_media_size import AssetMediaSize
-from immich.utils import filename_from_headers
+from immich.utils import resolve_output_filename
 
 
 class AssetsApiWrapped(AssetsApi):
@@ -18,7 +18,7 @@ class AssetsApiWrapped(AssetsApi):
         out_dir: Path,
         key: Optional[StrictStr] = None,
         slug: Optional[StrictStr] = None,
-        fallback_base: Optional[str] = None,
+        filename: Optional[str] = None,
         **kwargs: Any,
     ) -> Path:
         """
@@ -28,7 +28,7 @@ class AssetsApiWrapped(AssetsApi):
         :param out_dir: The directory to write the asset to.
         :param key: Public share key (the last path segment of a public share URL, i.e. `/share/<key>`). When provided, the asset can be accessed via the public share link without an API key. Typically you pass either `key` or `slug`.
         :param slug: Public share slug for custom share URLs (the last path segment of `/s/<slug>`). Allows access without authentication. Typically you pass either `slug` or `key`.
-        :param fallback_base: The fallback base for the filename. We try to derive the original filename from the headers, but if we fail, we use this base. For example, you could use "video-" + asset_id as a prefix. Defaults to "orig-" + asset_id.
+        :param filename: The filename to use. If not provided, we use the original filename from the headers or default to "orig-" + asset_id.
         :param kwargs: Additional arguments to pass to the `download_asset_with_http_info` method.
 
         For exact request/response behavior, inspect `AssetsApi.download_asset_with_http_info`
@@ -37,12 +37,11 @@ class AssetsApiWrapped(AssetsApi):
         resp = await super().download_asset_with_http_info(
             id=id, key=key, slug=slug, **kwargs
         )
-        name = filename_from_headers(
+        name = resolve_output_filename(
             resp.headers,
-            fallback_base=fallback_base or f"orig-{id}",
+            name=filename,
+            default_base=f"orig-{id}",
         )
-        if not name:
-            raise ValueError(f"Cannot derive filename from headers={resp.headers!r}")
 
         out_dir.mkdir(parents=True, exist_ok=True)
         out_path = out_dir / name
@@ -76,12 +75,10 @@ class AssetsApiWrapped(AssetsApi):
         resp = await super().view_asset_with_http_info(
             id=id, key=key, size=size, slug=slug, **kwargs
         )
-        name = filename_from_headers(
+        name = resolve_output_filename(
             resp.headers,
-            fallback_base=fallback_base or f"thumb-{id}",
+            default_base=fallback_base or f"thumb-{id}",
         )
-        if not name:
-            raise ValueError(f"Cannot derive filename from headers={resp.headers!r}")
 
         out_dir.mkdir(parents=True, exist_ok=True)
         out_path = out_dir / name

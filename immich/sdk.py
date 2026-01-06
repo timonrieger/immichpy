@@ -14,7 +14,7 @@ from immich.client_wrapper.assets_api_wrapped import AssetsApiWrapped
 from immich.client.api.authentication_admin_api import AuthenticationAdminApi
 from immich.client.api.authentication_api import AuthenticationApi
 from immich.client.api.deprecated_api import DeprecatedApi
-from immich.client.api.download_api import DownloadApi
+from immich.client_wrapper.download_api_wrapped import DownloadApiWrapped
 from immich.client.api.duplicates_api import DuplicatesApi
 from immich.client.api.faces_api import FacesApi
 from immich.client.api.jobs_api import JobsApi
@@ -116,7 +116,7 @@ class AsyncClient:
     https://api.immich.app/endpoints/deprecated
     """
 
-    download: DownloadApi
+    download: DownloadApiWrapped
     """Endpoints for downloading assets or collections of assets.
 
     https://api.immich.app/endpoints/download
@@ -322,7 +322,7 @@ class AsyncClient:
         self.authentication = AuthenticationApi(self.base_client)
         self.authentication_admin = AuthenticationAdminApi(self.base_client)
         self.deprecated = DeprecatedApi(self.base_client)
-        self.download = DownloadApi(self.base_client)
+        self.download = DownloadApiWrapped(self.base_client)
         self.duplicates = DuplicatesApi(self.base_client)
         self.faces = FacesApi(self.base_client)
         self.jobs = JobsApi(self.base_client)
