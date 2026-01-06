@@ -40,7 +40,7 @@ from immich.client.api.tags_api import TagsApi
 from immich.client.api.timeline_api import TimelineApi
 from immich.client.api.trash_api import TrashApi
 from immich.client.api.users_admin_api import UsersAdminApi
-from immich.client.api.users_api import UsersApi
+from immich.client_wrapper.users_api_wrapped import UsersApiWrapped
 from immich.client.api.views_api import ViewsApi
 from immich.client.api.workflows_api import WorkflowsApi
 
@@ -272,7 +272,7 @@ class AsyncClient:
     https://api.immich.app/endpoints/users-(admin)
     """
 
-    users: UsersApi
+    users: UsersApiWrapped
     """Endpoints for viewing and updating the current users, including product key information, profile picture data, onboarding progress, and more.
 
     https://api.immich.app/endpoints/users
@@ -347,7 +347,7 @@ class AsyncClient:
         self.tags = TagsApi(self.base_client)
         self.timeline = TimelineApi(self.base_client)
         self.trash = TrashApi(self.base_client)
-        self.users = UsersApi(self.base_client)
+        self.users = UsersApiWrapped(self.base_client)
         self.users_admin = UsersAdminApi(self.base_client)
         self.views = ViewsApi(self.base_client)
         self.workflows = WorkflowsApi(self.base_client)
