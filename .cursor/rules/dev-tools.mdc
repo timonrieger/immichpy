@@ -1,0 +1,5 @@
+---
+description: when running commands on the project
+alwaysApply: false
+---
+Use the mise tasks to run commands on the project. See the mise.toml file for the available tasks.

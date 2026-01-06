@@ -1,7 +1,7 @@
 ---
-alwaysApply: true
+description: when generating commit messages
+alwaysApply: false
 ---
-
 commit_message
 - Always follow the Conventional Commits specification:
   https://www.conventionalcommits.org/en/v1.0.0/
