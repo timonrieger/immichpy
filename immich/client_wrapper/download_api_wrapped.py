@@ -10,6 +10,7 @@ from pydantic import StrictStr
 from immich.client.api.download_api import DownloadApi
 from immich.client.models.asset_ids_dto import AssetIdsDto
 from immich.client.models.download_info_dto import DownloadInfoDto
+from immich.utils import download_file
 
 
 class DownloadApiWrapped(DownloadApi):
@@ -19,7 +20,7 @@ class DownloadApiWrapped(DownloadApi):
         out_dir: Path,
         key: Optional[StrictStr] = None,
         slug: Optional[StrictStr] = None,
-        show_progress_bars: bool = True,
+        show_progress: bool = True,
         **kwargs: Any,
     ) -> list[Path]:
         """
@@ -34,7 +35,7 @@ class DownloadApiWrapped(DownloadApi):
         :param out_dir: The directory to write the ZIP archive to.
         :param key: Public share key (the last path segment of a public share URL, i.e. `/share/<key>`). Allows access without authentication. Typically you pass either `key` or `slug`.
         :param slug: Public share slug for custom share URLs (the last path segment of `/s/<slug>`). Allows access without authentication. Typically you pass either `slug` or `key`.
-        :param show_progress_bars: Whether to show tqdm progress bars (per-archive bytes + overall archive count).
+        :param show_progress: Whether to show tqdm progress bars (per-archive bytes + overall archive count).
         :param kwargs: Additional arguments to pass to the underlying SDK calls.
 
         :return: The list of paths to the downloaded archives.
@@ -62,48 +63,40 @@ class DownloadApiWrapped(DownloadApi):
             position=0,
             leave=True,
             dynamic_ncols=True,
-            disable=not show_progress_bars,
+            disable=not show_progress,
         )
         try:
             for asset_ids_dto, expected_size in archive_requests:
-                resp = await super().download_archive_without_preload_content(
-                    asset_ids_dto=asset_ids_dto,
-                    key=key,
-                    slug=slug,
-                    **kwargs,
-                )
+                filename = f"archive-{uuid.uuid4()}.zip"
 
-                out_path = out_dir / f"archive-{uuid.uuid4()}.zip"
-                temp_path = out_path.with_suffix(out_path.suffix + ".part")
+                def make_request(extra_headers: Optional[dict[str, str]]):
+                    return self.download_archive_without_preload_content(
+                        asset_ids_dto=asset_ids_dto,
+                        key=key,
+                        slug=slug,
+                        _headers=kwargs.get("_headers", {}) | (extra_headers or {}),
+                        **kwargs,
+                    )
 
-                bytes_pbar = tqdm.tqdm(
+                pbar = tqdm.tqdm(
                     total=expected_size or None,
                     unit="B",
                     unit_scale=True,
-                    desc=str(out_path.name),
+                    desc=str(filename),
                     position=1,
                     leave=False,
                     dynamic_ncols=True,
-                    disable=not show_progress_bars,
+                    disable=not show_progress,
                 )
-                try:
-                    async with resp:
-                        with temp_path.open("wb") as f:
-                            async for chunk in resp.content.iter_chunked(1024 * 1024):
-                                if not chunk:
-                                    continue
-                                f.write(chunk)
-                                bytes_pbar.update(len(chunk))
-                except Exception:
-                    # Clean up partial download on error
-                    if temp_path.exists():
-                        temp_path.unlink()
-                    raise
-                finally:
-                    bytes_pbar.close()
-
-                temp_path.replace(out_path)
-                out_paths.append(out_path)
+                await download_file(
+                    make_request=make_request,
+                    out_dir=out_dir,
+                    resolve_filename=lambda headers: filename,
+                    show_progress=show_progress,
+                    pbar=pbar,
+                    resumeable=False,  # zip files are not resumable
+                )
+                out_paths.append(out_dir / filename)
                 archives_pbar.update(1)
         finally:
             archives_pbar.close()

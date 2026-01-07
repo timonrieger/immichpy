@@ -11,7 +11,7 @@ from __future__ import annotations
 import argparse
 import os
 import shutil
-import subprocess
+import subprocess  # nosec: B404
 from pathlib import Path
 
 
@@ -108,7 +108,7 @@ def main() -> int:
         "--library",
         "asyncio",
     ]
-    subprocess.run(generator_cmd, cwd=str(root), check=True)
+    subprocess.run(generator_cmd, cwd=str(root), check=True)  # nosec: B603
 
     if not client_dir.exists():
         print(f"Expected generated directory not found: {client_dir}")

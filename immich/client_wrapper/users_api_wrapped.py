@@ -5,7 +5,7 @@ from typing import Any, Optional
 from uuid import UUID
 
 from immich.client.api.users_api import UsersApi
-from immich.utils import resolve_output_filename
+from immich.utils import download_file, resolve_output_filename
 
 
 class UsersApiWrapped(UsersApi):
@@ -14,6 +14,7 @@ class UsersApiWrapped(UsersApi):
         id: UUID,
         out_dir: Path,
         filename: Optional[str] = None,
+        show_progress: bool = True,
         **kwargs: Any,
     ) -> Path:
         """
@@ -23,19 +24,28 @@ class UsersApiWrapped(UsersApi):
         :param out_dir: The directory to write the profile image to.
         :param filename: The filename to use. If not provided, we try to derive it from the headers
             or default to "profile-" + user_id.
-        :param kwargs: Additional arguments to pass to the `get_profile_image_with_http_info` method.
+        :param show_progress: Whether to show a tqdm progress bar while downloading.
+        :param kwargs: Additional arguments to pass to the `get_profile_image_without_preload_content` method.
 
-        For exact request/response behavior, inspect `UsersApi.get_profile_image_with_http_info`
+        For exact request/response behavior, inspect `UsersApi.get_profile_image_without_preload_content`
         in the generated client.
         """
-        resp = await super().get_profile_image_with_http_info(id=id, **kwargs)
-        name = resolve_output_filename(
-            resp.headers,
-            name=filename,
-            default_base=f"profile-{id}",
-        )
-
         out_dir.mkdir(parents=True, exist_ok=True)
-        out_path = out_dir / name
-        out_path.write_bytes(bytes(resp.data))
-        return out_path
+
+        def make_request(extra_headers: Optional[dict[str, str]]):
+            return self.get_profile_image_without_preload_content(
+                id=id,
+                _headers=kwargs.get("_headers", {}) | (extra_headers or {}),
+                **kwargs,
+            )
+
+        return await download_file(
+            make_request=make_request,
+            out_dir=out_dir,
+            resolve_filename=lambda headers: resolve_output_filename(
+                headers,
+                name=filename,
+                default_base=f"profile-{id}",
+            ),
+            show_progress=show_progress,
+        )
