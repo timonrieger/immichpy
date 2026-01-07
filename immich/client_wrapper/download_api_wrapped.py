@@ -94,6 +94,11 @@ class DownloadApiWrapped(DownloadApi):
                                     continue
                                 f.write(chunk)
                                 bytes_pbar.update(len(chunk))
+                except Exception:
+                    # Clean up partial download on error
+                    if temp_path.exists():
+                        temp_path.unlink()
+                    raise
                 finally:
                     bytes_pbar.close()
 
