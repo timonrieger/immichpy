@@ -24,6 +24,7 @@ jobs:
         with:
           fetch-depth: 0
           token: ${{ secrets.GITHUB_TOKEN }}
+          persist-credentials: false
 
       - name: Fetch latest stable Immich tag
         id: fetch_tag
@@ -50,9 +51,6 @@ jobs:
       - name: Check if sync is needed
         id: check_sync
         run: |
-          LATEST_TAG="${{ steps.fetch_tag.outputs.latest_tag }}"
-          STORED_TAG="${{ steps.stored_tag.outputs.stored_tag }}"
-
           if [ "$LATEST_TAG" = "$STORED_TAG" ]; then
             echo "sync_needed=false" >> "$GITHUB_OUTPUT"
             echo "No new tag: $LATEST_TAG"
@@ -61,13 +59,14 @@ jobs:
 
           echo "sync_needed=true" >> "$GITHUB_OUTPUT"
           echo "New tag found: $LATEST_TAG (was $STORED_TAG)"
+        env:
+          LATEST_TAG: ${{ steps.fetch_tag.outputs.latest_tag }}
+          STORED_TAG: ${{ steps.stored_tag.outputs.stored_tag }}
 
       - name: Determine commit message type
         id: commit_msg
         if: steps.check_sync.outputs.sync_needed == 'true'
         run: |
-          LATEST_TAG="${{ steps.fetch_tag.outputs.latest_tag }}"
-          STORED_TAG="${{ steps.stored_tag.outputs.stored_tag }}"
           RELEASE_URL="https://github.com/immich-app/immich/releases/tag/$LATEST_TAG"
 
           # Remove 'v' prefix for comparison
@@ -101,14 +100,18 @@ jobs:
             COMMIT_MESSAGE="$COMMIT_MESSAGE"$'\n\n'"$COMMIT_BODY"
           fi
           echo "commit_message=$COMMIT_MESSAGE" >> "$GITHUB_OUTPUT"
+        env:
+          LATEST_TAG: ${{ steps.fetch_tag.outputs.latest_tag }}
+          STORED_TAG: ${{ steps.stored_tag.outputs.stored_tag }}
 
       - name: Compute PR branch name
         id: pr_branch
         if: steps.check_sync.outputs.sync_needed == 'true'
         run: |
-          LATEST_TAG="${{ steps.fetch_tag.outputs.latest_tag }}"
           # keep it deterministic so create-pull-request can update the same PR
           echo "branch=automation/sync-${LATEST_TAG}" >> "$GITHUB_OUTPUT"
+        env:
+          LATEST_TAG: ${{ steps.fetch_tag.outputs.latest_tag }}
 
       - name: Install mise
         uses: jdx/mise-action@146a28175021df8ca24f8ee1828cc2a60f980bd5 # v3
@@ -122,8 +125,9 @@ jobs:
       - name: Update stored tag file
         if: steps.check_sync.outputs.sync_needed == 'true'
         run: |
-          LATEST_TAG="${{ steps.fetch_tag.outputs.latest_tag }}"
           echo "$LATEST_TAG" > IMMICH-VERSION
+        env:
+          LATEST_TAG: ${{ steps.fetch_tag.outputs.latest_tag }}
 
       - name: Create or update PR (automation branch -> main)
         if: steps.check_sync.outputs.sync_needed == 'true'
