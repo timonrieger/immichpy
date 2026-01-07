@@ -50,7 +50,18 @@ This SDK is **async-only**. The client exposes API groups as attributes, and end
 
 Some API groups include custom convenience methods that are **preferred** over the auto-generated ones for common operations:
 
-- **assets.download_asset_to_file**: Download an asset directly to a file on disk.
+### Assets API
+
+- **assets.download_asset_to_file**: Download an asset (original file) directly to disk.
+- **assets.view_asset_to_file**: Download an asset thumbnail directly to disk .
+
+### Download API
+
+- **download.download_archive_to_file**: Download asset archives (ZIP files) directly to disk. You can download whole albums or user-specified assets in a single request.
+
+### Users API
+
+- **users.get_profile_image_to_file**: Download a user's profile image directly to disk.
 
 ## Authentication
 
