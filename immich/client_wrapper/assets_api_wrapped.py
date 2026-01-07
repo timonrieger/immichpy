@@ -77,7 +77,8 @@ class AssetsApiWrapped(AssetsApi):
         )
         name = resolve_output_filename(
             resp.headers,
-            default_base=filename or f"thumb-{id}",
+            name=filename,
+            default_base=f"thumb-{id}",
         )
 
         out_dir.mkdir(parents=True, exist_ok=True)
