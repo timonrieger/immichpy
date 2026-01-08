@@ -65,15 +65,18 @@ async def scan_files(
                     continue
                 files.append(path)
         elif path.is_dir():
-            for ext in extensions:
-                for file_path in path.rglob(f"*{ext}"):
-                    if not include_hidden and file_path.name.startswith("."):
-                        continue
-                    if ignore_pattern and fnmatch.fnmatch(
-                        str(file_path), f"*{ignore_pattern}"
-                    ):
-                        continue
-                    files.append(file_path)
+            for file_path in path.rglob("*"):
+                if not file_path.is_file():
+                    continue
+                if file_path.suffix.lower() not in extensions:
+                    continue
+                if not include_hidden and file_path.name.startswith("."):
+                    continue
+                if ignore_pattern and fnmatch.fnmatch(
+                    str(file_path), f"*{ignore_pattern}"
+                ):
+                    continue
+                files.append(file_path)
     return sorted(set(files))
 
 
