@@ -49,6 +49,17 @@ async def scan_files(
     ignore_pattern: Optional[str] = None,
     include_hidden: bool = False,
 ) -> list[Path]:
+    """
+    Collects media files from given paths that match the server-supported image and video extensions.
+    
+    Parameters:
+        paths (Path | list[Path] | str | list[str]): A path or list of paths (files or directories) to scan.
+        ignore_pattern (Optional[str]): If provided, skip any file whose path matches this fnmatch pattern fragment.
+        include_hidden (bool): If False, skip files whose names start with a dot; if True, include hidden files.
+    
+    Returns:
+        list[Path]: A sorted list of unique file paths with extensions supported by the server's media types.
+    """
     if isinstance(paths, (str, Path)):
         paths = [paths]
     paths = [Path(p) for p in paths]
@@ -78,6 +89,12 @@ async def scan_files(
 
 
 async def compute_sha1(filepath: Path) -> str:
+    """
+    Compute the SHA-1 checksum of a file and return its hexadecimal digest.
+    
+    Returns:
+        sha1_hex (str): SHA-1 hex digest of the file contents.
+    """
     sha1 = hashlib.sha1(usedforsecurity=False)
     with open(filepath, "rb") as f:
         while chunk := f.read(1024 * 1024):
@@ -91,6 +108,18 @@ async def check_duplicates(
     check_duplicates: bool = True,
     show_progress: bool = True,
 ) -> tuple[list[Path], list[tuple[Path, str]]]:
+    """
+    Compute SHA-1 checksums for the given files and use the Assets API to determine which files are new versus duplicates.
+    
+    Parameters:
+    	files (list[Path]): File paths to check.
+    	assets_api (AssetsApi): Client used to call the bulk duplicate-check API.
+    	check_duplicates (bool): If False, skip checks and return the input files as all new.
+    	show_progress (bool): If True, display progress bars for hashing and duplicate checking.
+    
+    Returns:
+    	tuple[list[Path], list[tuple[Path, str]]]: A pair where the first element is a list of Paths accepted for upload, and the second is a list of tuples (Path, asset_id) for files identified as duplicates (asset_id may be an empty string if unavailable).
+    """
     if not check_duplicates:
         return files, []
 
@@ -160,6 +189,17 @@ async def upload_file(
     include_sidecars: bool = True,
     dry_run: bool = False,
 ) -> AssetMediaResponseDto:
+    """
+    Upload a single media file to the server, optionally including an XMP sidecar or simulating the upload.
+    
+    Parameters:
+        filepath (Path): Path to the local media file to upload.
+        include_sidecars (bool): If true, attempt to locate and upload an adjacent XMP sidecar file when present.
+        dry_run (bool): If true, do not call the API and return a synthetic created response.
+    
+    Returns:
+        AssetMediaResponseDto: The server's asset response for the uploaded file. When `dry_run` is true, returns a synthetic `AssetMediaResponseDto` with a generated id and `CREATED` status.
+    """
     if dry_run:
         return AssetMediaResponseDto(
             id=str(uuid.uuid4()), status=AssetMediaStatus.CREATED
@@ -195,6 +235,22 @@ async def upload_files(
     include_sidecars: bool = True,
     dry_run: bool = False,
 ) -> tuple[list[tuple[AssetMediaResponseDto, Path]], list[tuple[Path, str]]]:
+    """
+    Upload multiple files to the assets API concurrently, optionally including sidecar files and showing a progress bar.
+    
+    Parameters:
+        files (list[Path]): File system paths of assets to upload.
+        assets_api (AssetsApi): API client used to perform the uploads.
+        concurrency (int): Maximum number of simultaneous uploads.
+        show_progress (bool): Show a size-based progress bar when True.
+        include_sidecars (bool): If True, attempt to include corresponding sidecar (XMP) files with uploads.
+        dry_run (bool): If True, simulate uploads without sending file data.
+    
+    Returns:
+        tuple:
+            - uploaded (list[tuple[AssetMediaResponseDto, Path]]): Tuples of the API response and the source Path for each successful upload.
+            - failed (list[tuple[Path, str]]): Tuples of the source Path and an error message for each failed upload.
+    """
     if not files:
         return [], []
 
@@ -212,6 +268,14 @@ async def upload_files(
     failed: list[tuple[Path, str]] = []
 
     async def upload_with_semaphore(filepath: Path) -> None:
+        """
+        Acquire the upload semaphore, upload the given file, and record success or failure.
+        
+        Attempts to upload `filepath` using configured flags; on success appends (response, filepath) to the outer `uploaded` list and advances the progress bar by the file size (unless `dry_run`), and on failure appends (filepath, error_message) to the outer `failed` list and logs an error.
+        
+        Parameters:
+            filepath (Path): Path to the file to be uploaded.
+        """
         async with semaphore:
             try:
                 response = await upload_file(
@@ -240,6 +304,16 @@ async def update_albums(
     album_name: Optional[str],
     albums_api: AlbumsApi,
 ) -> None:
+    """
+    Add uploaded assets to the specified album, creating the album if it does not exist.
+    
+    Parameters:
+        uploaded (list[tuple[AssetMediaResponseDto, Path]]): Uploaded assets paired with their source file paths; each tuple's first element provides the asset ID used for album assignment.
+        album_name (Optional[str]): Name of the album to add assets to. If falsy or if `uploaded` is empty, the function does nothing.
+    
+    Notes:
+        Assets are added in batches (up to 1000 IDs per request) to avoid oversized requests.
+    """
     if not album_name or not uploaded:
         return
 
@@ -270,6 +344,17 @@ async def delete_files(
     include_sidecars: bool = True,
     dry_run: bool = False,
 ) -> None:
+    """
+    Delete original files and their sidecar files according to the provided flags.
+    
+    Parameters:
+        uploaded (list[tuple[AssetMediaResponseDto, Path]]): List of tuples pairing uploaded asset responses with their source file paths.
+        duplicates (list[tuple[Path, str]]): List of tuples of duplicate file paths and their associated reason or asset id.
+        delete_after_upload (bool): If True, delete files that were uploaded.
+        delete_duplicates (bool): If True, delete files identified as duplicates.
+        include_sidecars (bool): If True, also delete corresponding sidecar files (e.g., `.xmp`) when present.
+        dry_run (bool): If True, only log which files would be deleted without removing them.
+    """
     to_delete: list[Path] = []
     if delete_after_upload:
         for _, filepath in uploaded:

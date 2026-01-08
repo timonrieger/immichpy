@@ -180,21 +180,23 @@ class AssetsApiWrapped(AssetsApi):
         dry_run: bool = False,
     ) -> UploadResult:
         """
-        Upload assets with smart features (duplicate detection, album management, sidecar support, dry run).
-
-        :param paths: File or directory paths to upload. Can be a single path or list of paths. Directories are automatically walked recursively. To ignore subdirectories, use the `ignore_pattern` parameter.
-        :param ignore_pattern: Wildcard pattern to ignore files (uses `fnmatch` stdlib module). Examples: "*.tmp" (ignore all .tmp files), "*/subdir/*" (ignore files in subdir at any level).
-        :param include_hidden: Whether to include hidden files (starting with ".").
-        :param check_duplicates: Whether to check for duplicates using SHA1 hashes before uploading.
-        :param concurrency: Number of concurrent uploads. Defaults to 5. A higher number may increase upload speed, but also increases the risk of rate limiting or other issues.
-        :param show_progress: Whether to show progress bars.
-        :param include_sidecars: Whether to automatically detect and upload XMP sidecar files.
-        :param album_name: Album name to create or use. If None, no album operations are performed.
-        :param delete_after_upload: Whether to delete successfully uploaded files locally.
-        :param delete_duplicates: Whether to delete duplicate files locally.
-        :param dry_run: If True, simulate uploads without actually uploading.
-
-        :return: UploadResult with uploaded assets, duplicates, failures, and statistics.
+        Upload files from the given paths with duplicate detection, optional album assignment, sidecar handling, and configurable deletion or dry-run behavior.
+        
+        Parameters:
+            paths: A Path, string, or list of those pointing to files and/or directories to upload. Directories are scanned recursively.
+            ignore_pattern: Wildcard pattern (fnmatch) to exclude matching files.
+            include_hidden: Include files and directories whose names start with '.'.
+            check_duplicates: If true, skip files already present on the server by comparing SHA1 hashes.
+            concurrency: Maximum number of concurrent uploads.
+            show_progress: Display progress indicators during scanning and uploading.
+            include_sidecars: Detect and upload XMP sidecar files alongside their primary files.
+            album_name: If provided, add uploaded assets to this album (create it if necessary).
+            delete_after_upload: Remove successfully uploaded files from local disk.
+            delete_duplicates: Remove locally detected duplicate files.
+            dry_run: Simulate the entire workflow without performing uploads or deletions.
+        
+        Returns:
+            UploadResult: Lists of uploaded asset identifiers, duplicates, failed uploads, and an UploadStats summary.
         """
         server_api = ServerApi(self.api_client)
         albums_api = AlbumsApi(self.api_client)

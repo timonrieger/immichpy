@@ -13,6 +13,16 @@ from immich.upload import scan_files
 
 @pytest.fixture
 def mock_server_api():
+    """
+    Provide a MagicMock that simulates the server API's supported media types.
+    
+    Returns:
+        MagicMock: A mock API object whose asynchronous `get_supported_media_types` method
+        returns a ServerMediaTypesResponseDto with:
+          - image: [".jpg", ".jpeg", ".png"]
+          - video: [".mp4", ".mov"]
+          - sidecar: [".xmp"]
+    """
     api = MagicMock()
     api.get_supported_media_types = AsyncMock(
         return_value=ServerMediaTypesResponseDto(
@@ -83,6 +93,11 @@ async def test_scan_files_directory_recursive(mock_server_api, tmp_path: Path) -
 async def test_scan_files_unsupported_extension(
     mock_server_api, tmp_path: Path
 ) -> None:
+    """
+    Verifies that scan_files excludes files whose extensions are not supported by the server.
+    
+    Asserts that a single `.txt` file (an unsupported extension in the test fixture) yields no results.
+    """
     test_file = tmp_path / "test.txt"
     test_file.write_bytes(b"test")
     result = await scan_files(test_file, mock_server_api)
@@ -131,6 +146,11 @@ async def test_scan_files_ignore_pattern_wildcard(
 async def test_scan_files_ignore_pattern_directory(
     mock_server_api, tmp_path: Path
 ) -> None:
+    """
+    Verifies that scan_files excludes files located in directories matching the provided ignore pattern.
+    
+    Calls scan_files on a directory containing a subdirectory and asserts only files not under "subdir/*" are returned.
+    """
     subdir = tmp_path / "subdir"
     subdir.mkdir()
     file1 = tmp_path / "test.jpg"
