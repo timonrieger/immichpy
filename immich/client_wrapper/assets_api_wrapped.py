@@ -205,7 +205,7 @@ class AssetsApiWrapped(AssetsApi):
                 uploaded=[],
                 duplicates=[],
                 failed=[],
-                stats={"total": 0, "uploaded": 0, "duplicates": 0, "failed": 0},
+                stats=UploadStats(total=0, uploaded=0, duplicates=0, failed=0),
             )
 
         new_files, duplicates = await check_dupes(
