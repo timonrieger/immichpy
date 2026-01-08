@@ -1,18 +1,23 @@
 # Immich API Client
 
 <p align="center">
-    <a href="https://coderabbit.ai" target="_blank" rel="noopener noreferrer">
-        <img src="https://img.shields.io/coderabbit/prs/github/timonrieger/immich-python-client?utm_source=oss&utm_medium=github&utm_campaign=timonrieger%2Fimmich-python-client&labelColor=171717&color=FF570A&link=https%3A%2F%2Fcoderabbit.ai&label=CodeRabbit+Reviews" alt="CodeRabbit Pull Request Reviews">
-    </a>
-    <a href="https://github.com/timonrieger/immich-python-client/actions/workflows/test.yml">
-        <img src="https://github.com/timonrieger/immich-python-client/actions/workflows/test.yml/badge.svg" alt="Tests">
+<a href="https://github.com/immich-app/immich/releases" target="_blank" rel="noopener noreferrer">
+    <img src="https://img.shields.io/badge/dynamic/regex?url=https://raw.githubusercontent.com/timonrieger/immich-python-client/main/IMMICH-VERSION&search=(.*)&replace=%241%20-%20$1&label=supports&color=blue" alt="Supported Immich version">
+</a>
+    <a href="https://pypi.org/project/immich" target="_blank" rel="noopener noreferrer">
+        <img src="https://img.shields.io/pypi/v/immich?color=blue&label=pypi%20package" alt="Package version">
     </a>
     <a href="https://pypi.org/project/immich" target="_blank" rel="noopener noreferrer">
-        <img src="https://img.shields.io/pypi/v/immich?color=%2334D058&label=pypi%20package" alt="Package version">
+        <img src="https://img.shields.io/pypi/pyversions/immich.svg?color=blue" alt="Supported Python versions">
     </a>
     <a href="https://pypi.org/project/immich" target="_blank" rel="noopener noreferrer">
-        <img src="https://img.shields.io/pypi/pyversions/immich.svg?color=%2334D058" alt="Supported Python versions">
+        <img alt="PyPI - Downloads" src="https://img.shields.io/pypi/dm/immich?color=blue">
     </a>
+    <img alt="GitHub Actions Workflow Status" src="https://img.shields.io/github/actions/workflow/status/timonrieger/immich-python-client/cd.yml?branch=main&event=push&logo=github&label=Continuous%20Delivery&color=blue">
+    <a href="https://github.com/timonrieger/immich-python-client" target="_blank" rel="noopener noreferrer">
+        <img alt="GitHub Repository" src="https://img.shields.io/badge/Github-repository-blue?logo=github&color=blue">
+    </a>
+
 </p>
 
 Unofficial Python client for the [Immich](https://immich.app) API.
@@ -148,6 +153,6 @@ This package follows **[Semantic Versioning](https://semver.org)**.
 
 - **Package version is not the server version**: `immich` package `X.Y.Z` is the client’s own version.
 - **Upstream breaking changes ⇒ major bump**: Breaking Immich changes that require breaking client changes produce a new **major** version.
-- **Supported Immich server version**: `IMMICH-VERSION` (repo root) tracks the Immich version this client was generated from.
+- **Supported Immich server version**: [IMMICH-VERSION](./IMMICH-VERSION) tracks the Immich version this client was generated from.
   - If you run an **older** Immich server version, you can install an **older** `immich` package release where `IMMICH-VERSION` matches your server.
   - This client supports **Immich v2.4.1** and above.
