@@ -6,8 +6,19 @@ from uuid import UUID
 
 from pydantic import StrictStr
 
+from immich.client.api.albums_api import AlbumsApi
 from immich.client.api.assets_api import AssetsApi
+from immich.client.api.server_api import ServerApi
 from immich.client.models.asset_media_size import AssetMediaSize
+from immich.upload import (
+    UploadResult,
+    UploadStats,
+    check_duplicates as check_dupes,
+    delete_files,
+    scan_files,
+    update_albums,
+    upload_files,
+)
 from immich.utils import download_file, resolve_output_filename
 
 
@@ -151,4 +162,74 @@ class AssetsApiWrapped(AssetsApi):
                 default_base=f"thumb-{id}",
             ),
             show_progress=show_progress,
+        )
+
+    async def upload_asset_smart(
+        self,
+        paths: Path | list[Path] | str | list[str],
+        *,
+        ignore_pattern: Optional[str] = None,
+        include_hidden: bool = False,
+        check_duplicates: bool = True,
+        concurrency: int = 5,
+        show_progress: bool = True,
+        include_sidecars: bool = True,
+        album_name: Optional[str] = None,
+        delete_after_upload: bool = False,
+        delete_duplicates: bool = False,
+        dry_run: bool = False,
+    ) -> UploadResult:
+        """
+        Upload assets with smart features like duplicate detection, album management, and more.
+
+        The `paths` parameter accepts files or directories. Directories are automatically walked recursively
+        (if `path.is_dir()` is True). To ignore subdirectories, use the `ignore_pattern` parameter.
+
+        :param paths: File or directory paths to upload. Can be a single path or list of paths.
+        :param ignore_pattern: Pattern to ignore files (e.g., "*.tmp").
+        :param include_hidden: Whether to include hidden files (starting with ".").
+        :param check_duplicates: Whether to check for duplicates using SHA1 hashes before uploading.
+        :param concurrency: Number of concurrent uploads. Defaults to 5. A higher number may increase upload speed, but also increases the risk of rate limiting or other issues.
+        :param show_progress: Whether to show progress bars.
+        :param include_sidecars: Whether to automatically detect and upload XMP sidecar files.
+        :param album_name: Album name to create or use. If None, no album operations are performed.
+        :param delete_after_upload: Whether to delete successfully uploaded files locally.
+        :param delete_duplicates: Whether to delete duplicate files locally.
+        :param dry_run: If True, simulate uploads without actually uploading.
+        :return: UploadResult with uploaded assets, duplicates, failures, and statistics.
+        """
+        server_api = ServerApi(self.api_client)
+        albums_api = AlbumsApi(self.api_client)
+
+        files = await scan_files(paths, server_api, ignore_pattern, include_hidden)
+        if not files:
+            return UploadResult(
+                uploaded=[],
+                duplicates=[],
+                failed=[],
+                stats={"total": 0, "uploaded": 0, "duplicates": 0, "failed": 0},
+            )
+
+        new_files, duplicates = await check_dupes(
+            files=files, assets_api=self, check_duplicates=check_duplicates, show_progress=show_progress
+        )
+
+        uploaded, failed = await upload_files(
+            files=new_files,
+            assets_api=self,
+            concurrency=concurrency,
+            show_progress=show_progress,
+            include_sidecars=include_sidecars,
+            dry_run=dry_run,
+        )
+
+        await update_albums(uploaded=uploaded, album_name=album_name, albums_api=albums_api)
+
+        await delete_files(uploaded=uploaded, duplicates=duplicates, delete_after_upload=delete_after_upload, delete_duplicates=delete_duplicates, dry_run=dry_run)
+
+        return UploadResult(
+            uploaded=[asset for asset, _ in uploaded],
+            duplicates=duplicates,
+            failed=failed,
+            stats=UploadStats(total=len(files), uploaded=len(uploaded), duplicates=len(duplicates), failed=len(failed)),
         )
