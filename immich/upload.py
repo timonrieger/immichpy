@@ -184,7 +184,6 @@ async def upload_file(
         device_id="immich-python-client",
         file_created_at=datetime.fromtimestamp(stats.st_ctime),
         file_modified_at=datetime.fromtimestamp(stats.st_mtime),
-        metadata=[],
         sidecar_data=sidecar_data,
     )
     return response
