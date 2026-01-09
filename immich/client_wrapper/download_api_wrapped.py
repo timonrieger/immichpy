@@ -52,7 +52,7 @@ class DownloadApiWrapped(DownloadApi):
         archive_requests: list[tuple[AssetIdsDto, int]] = [
             (
                 AssetIdsDto(
-                    asset_ids=[UUID(str(asset_id)) for asset_id in archive.asset_ids]
+                    assetIds=[UUID(str(asset_id)) for asset_id in archive.asset_ids]
                 ),
                 int(archive.size),
             )

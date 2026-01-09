@@ -251,7 +251,8 @@ def get_file_times(path: Path, stats: os.stat_result) -> tuple[datetime, datetim
     mtime = stats.st_mtime
 
     try:
-        ctime = stats.st_birthtime
+        # not available on all platforms and python versions, thus the AttributeError guard and type ignore
+        ctime = stats.st_birthtime  # type: ignore[attr-defined]
     except AttributeError:
         if sys.platform == "win32":
             ctime = stats.st_ctime
@@ -417,7 +418,7 @@ async def update_albums(
 
     if album_name not in album_map:
         album = await albums_api.create_album(
-            create_album_dto=CreateAlbumDto(album_name=album_name)
+            create_album_dto=CreateAlbumDto(albumName=album_name)
         )
         album_map[album_name] = album.id
 
