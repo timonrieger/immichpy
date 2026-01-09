@@ -38,7 +38,7 @@ This package follows **[Semantic Versioning](https://semver.org)**. Some importa
 
 - **Package version is not the server version**: `immich` package `x.y.z` is the client’s own version.
 - **Upstream breaking changes ⇒ major bump**: Breaking Immich changes produce a new **major** version of this package.
-- **Supported Immich server version**: [IMMICH-VERSION](./IMMICH-VERSION) tracks the Immich version the client was generated from. [COMPATIBILITY.csv](./COMPATIBILITY.csv) maps package versions to supported server versions.
+- **Supported Immich server version**: [IMMICH-VERSION](./IMMICH-VERSION) tracks the Immich version the client was generated from. To find a compatible package version for your server's version, see [COMPATIBILITY.csv](./COMPATIBILITY.csv).
 
 ## Installation
 
