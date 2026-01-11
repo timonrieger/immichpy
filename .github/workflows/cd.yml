@@ -68,12 +68,12 @@ jobs:
 
       - name: Clone Immich repository
         run: |
-          git clone --depth 1 --branch $IMMICH_VERSION https://github.com/immich-app/immich.git immich
+          git clone --depth 1 --branch $IMMICH_VERSION https://github.com/immich-app/immich.git immich-git-repo
         env:
           IMMICH_VERSION: ${{ steps.immich-version.outputs.version }}
 
       - name: Start Immich server
-        working-directory: ./immich/e2e
+        working-directory: ./immich-git-repo/e2e
         run: |
           docker compose up -d --build
           echo "Waiting for Immich server to be ready..."
@@ -99,12 +99,12 @@ jobs:
 
       - name: Show docker logs on failure
         if: failure()
-        working-directory: ./immich/e2e
+        working-directory: ./immich-git-repo/e2e
         run: docker compose logs
 
       - name: Teardown Immich server
         if: always()
-        working-directory: ./immich/e2e
+        working-directory: ./immich-git-repo/e2e
         run: docker compose down -v
 
   release:
