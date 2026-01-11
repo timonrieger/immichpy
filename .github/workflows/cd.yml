@@ -57,22 +57,18 @@ jobs:
         with:
           persist-credentials: false
 
-      - name: Install uv + Python 3.14
-        uses: astral-sh/setup-uv@681c641aba71e4a1c380be3ab5e12ad51f415867 # v7
+      - name: Install mise
+        uses: jdx/mise-action@146a28175021df8ca24f8ee1828cc2a60f980bd5 # v3
         with:
-          version: "0.9.21"
-          python-version: "3.14"
-
-      - name: Install the project
-        run: uv sync --locked --dev
+          install-args: "python@3.14"
 
       - name: Read Immich version
         id: immich-version
-        run: echo "version=$(cat IMMICH-VERSION | tr -d 'v')" >> $GITHUB_OUTPUT
+        run: echo "version=$(cat IMMICH-VERSION | tr -d '[:space:]')" >> $GITHUB_OUTPUT
 
       - name: Clone Immich repository
         run: |
-          git clone --depth 1 --branch v${{ steps.immich-version.outputs.version }} https://github.com/immich-app/immich.git immich
+          git clone --depth 1 --branch $IMMICH_VERSION https://github.com/immich-app/immich.git immich
         env:
           IMMICH_VERSION: ${{ steps.immich-version.outputs.version }}
 
@@ -99,7 +95,7 @@ jobs:
         env:
           IMMICH_URL: http://127.0.0.1:2285
           IMMICH_API_URL: http://127.0.0.1:2285/api
-        run: uv run pytest tests/e2e
+        run: mise run ci:test:e2e
 
       - name: Show docker logs on failure
         if: failure()
