@@ -47,6 +47,7 @@ build-backend = "uv_build"
 
 [dependency-groups]
 dev = [
+    "pillow>=12.1.0,<13.0.0",
     "pytest>=9.0.0,<10.0.0",
     "pytest-asyncio>=1.2.0,<2.0.0",
     "pytest-cov>=7.0.0,<8.0.0",
@@ -84,6 +85,10 @@ lint.ignore = ["E721", "F403"]
 
 [tool.pytest.ini_options]
 asyncio_default_fixture_loop_scope = "function"
+asyncio_mode = "auto"
+markers = [
+    "e2e: marks tests as end-to-end tests (deselect with '-m \"not e2e\"')",
+]
 
 [tool.ty]
 environment.root = ['immich']
