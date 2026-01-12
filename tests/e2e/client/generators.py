@@ -3,7 +3,6 @@
 from __future__ import annotations
 
 import io
-import time
 from typing import Iterator
 
 from PIL import Image
@@ -42,15 +41,15 @@ def make_random_image() -> bytes:
 def _create_minimal_mp4(seed: int) -> bytes:
     """Create a minimal valid MP4 with variable seed data."""
     import base64
-    
+
     # Use the original minimal MP4 template (valid MP4 header)
     # This is a minimal valid MP4 file that Immich can process
     mp4_base64 = "AAAAIGZ0eXBtcDQyAAAAAG1wNDJtcDQxaXNvbWF2YzEAAAGhtZGF0AAACrgYF//+q3EXpvebZSLeWLNgg2SPu73gyNjQgLSBjb3JlIDE0OCByMjA1OCBlYjc2Y2U1IC0gSC4yNjQvTVBFRy00IEFWQyBjb2RlYyAtIENvcHlsZWZ0IDIwMDMtMjAxNyAtIGh0dHA6Ly93d3cudmlkZW9sYW4ub3JnL3gyNjQuaHRtbCAtIG9wdGlvbnM6IGNhYmFjPTEgcmVmPTMgZGVibG9jaz0xOjA6MCBhbmFseXNlPTB4MzoweDExMyBtZT1oZXggc3VibWU9NyBwc3k9MSBwc3lfcmQ9MS4wMDowLjAwIG1peGVkX3JlZj0xIG1lX3JhbmdlPTE2IGNocm9tYV9tZT0xIHRyZWxsaXM9MSA4eDhkY3Q9MSBjcW09MCBkZWFkem9uZT0yMSwxMSBmYXN0X3Bza2lwPTEgY2hyb21hX3FwX29mZnNldD0tMiB0aHJlYWRzPTEgbG9va2FoZWFkX3RocmVhZHM9MSBzbGljZWRfdGhyZWFkcz0wIG5yPTAgZGVjaW1hdGU9MSBpbnRlcmxhY2VkPTAgYmx1cmF5X2NvbXBhdD0wIGNvbnN0cmFpbmVkX2ludHJhPTAgYmZyYW1lcz0zIGJfcHlyYW1pZD0yIGJfYWRhcHQ9MSBiX2JpYXM9MCBkaXJlY3Q9MSB3ZWlnaHRiPTEgb3Blbl9nb3A9MCB3ZWlnaHRwPTIga2V5aW50PTI1MCBrZXlpbnRfbWluPTI1IHNjZW5lY3V0PTQwIGludHJhX3JlZnJlc2g9MCByY19sb29rYWhlYWQ9NDAgcmM9Y3JmIG1idHJlZT0xIGNyZj0yMy4wIHFjb21wPTAuNjAgcXBtaW49MCBxcG1heD02OSBxcHN0ZXA9NCBpcF9yYXRpbz0xLjQwIGFxPTE6MS4wMAA="
     mp4_bytes = bytearray(base64.b64decode(mp4_base64))
-    
+
     # Make each MP4 unique by replacing a section with seed-based data
     # Replace bytes in multiple locations to ensure significant content difference
-    seed_bytes = seed.to_bytes(8, byteorder='big')
+    seed_bytes = seed.to_bytes(8, byteorder="big")
     # Modify multiple sections to ensure uniqueness
     offsets = [100, 200, 300, 400]
     for offset in offsets:
@@ -58,8 +57,10 @@ def _create_minimal_mp4(seed: int) -> bytes:
             for i, byte_val in enumerate(seed_bytes):
                 if offset + i < len(mp4_bytes):
                     # Replace with seed data to ensure uniqueness
-                    mp4_bytes[offset + i] = (mp4_bytes[offset + i] + byte_val + seed) % 256
-    
+                    mp4_bytes[offset + i] = (
+                        mp4_bytes[offset + i] + byte_val + seed
+                    ) % 256
+
     return bytes(mp4_bytes)
 
 

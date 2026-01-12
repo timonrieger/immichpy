@@ -111,7 +111,7 @@ async def cleanup_assets_teardown(
             )
         except Exception:
             pass  # Ignore cleanup errors
-    
+
     # Teardown: Clean up profile image if uploaded
     if asset_cleanup.get("profile_image", False):
         try:
@@ -142,7 +142,7 @@ async def test_assets_upload(
     assert len(result.uploaded) == 2
     assert len(result.rejected) == 0
     assert len(result.failed) == 0
-    
+
     # Track uploaded assets for cleanup
     for uploaded in result.uploaded:
         asset_cleanup["asset_ids"].append(UUID(uploaded.asset.id))
@@ -277,7 +277,9 @@ async def test_users_get_profile_image_to_file(
     # Upload profile image
     img_bytes = test_image.read_bytes()
     # Pass as tuple (filename, bytes) to ensure proper content type detection
-    await client_with_api_key.users.create_profile_image(file=("profile.jpg", img_bytes))
+    await client_with_api_key.users.create_profile_image(
+        file=("profile.jpg", img_bytes)
+    )
     asset_cleanup["profile_image"] = True
 
     # Download profile image
