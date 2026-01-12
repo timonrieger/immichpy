@@ -80,10 +80,10 @@ jobs:
       - name: Start Immich server
         working-directory: ./immich-git-repo/e2e
         run: |
-          # matching with upstream Immich e2e setup (`e2e/src/setup/docker-compose.ts`)
+          # Match upstream Immich e2e setup (`e2e/src/setup/docker-compose.ts`):
           docker compose up -d --build --renew-anon-volumes --force-recreate --remove-orphans
           echo "Waiting for Immich e2e environment to be ready..."
-          timeout 60s bash -lc 'docker compose logs -f --no-color --tail=0 | grep -m 1 "Immich Microservices is running"'
+          timeout 60s bash -lc 'until docker logs immich-e2e-server 2>&1 | grep -q "Immich Microservices is running"; do sleep 1; done'
           echo "Immich e2e environment is ready!"
 
       - name: Run e2e tests
