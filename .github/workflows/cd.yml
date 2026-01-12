@@ -81,7 +81,7 @@ jobs:
         run: |
           docker compose up -d --build
           echo "Waiting for Immich server to be ready..."
-          timeout=120
+          timeout=180
           elapsed=0
           while ! curl -f http://127.0.0.1:2285/api/server-info/ping > /dev/null 2>&1; do
             if [ $elapsed -ge $timeout ]; then
