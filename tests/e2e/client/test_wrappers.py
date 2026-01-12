@@ -126,7 +126,6 @@ async def test_assets_upload(
     client_with_api_key: AsyncClient,
     test_image: Path,
     test_video: Path,
-    tmp_path: Path,
     asset_cleanup: dict,
 ):
     """Test AssetsApiWrapped.upload method."""
