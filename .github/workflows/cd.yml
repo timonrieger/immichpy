@@ -44,9 +44,9 @@ jobs:
           MISE_PYTHON_VERSION: ${{ matrix.python-version }}
 
       - name: Run unit tests
-        run: mise run ci:test:unit
         env:
           MISE_PYTHON_VERSION: ${{ matrix.python-version }}
+        run: mise run ci:test:unit
 
   e2e-tests:
     runs-on: ubuntu-latest
