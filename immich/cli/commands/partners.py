@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import typer
+from typing import Literal
 
 from immich.cli.runtime import (
     deserialize_request_body,
@@ -105,7 +106,7 @@ def remove_partner(
 def update_partner(
     ctx: typer.Context,
     id: str,
-    in_timeline: bool = typer.Option(
+    in_timeline: Literal["true", "false"] = typer.Option(
         ..., "--inTimeline", help="""Show partner assets in timeline"""
     ),
 ) -> None:
@@ -120,7 +121,7 @@ def update_partner(
         raise SystemExit("Error: Request body is required. Use dotted body flags.")
     if any([in_timeline]):
         json_data = {}
-        set_nested(json_data, ["inTimeline"], in_timeline)
+        set_nested(json_data, ["inTimeline"], in_timeline.lower() == "true")
         from immich.client.models.partner_update_dto import PartnerUpdateDto
 
         partner_update_dto = deserialize_request_body(json_data, PartnerUpdateDto)

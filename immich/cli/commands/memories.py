@@ -2,8 +2,9 @@
 
 from __future__ import annotations
 
-from datetime import datetime
 import typer
+from datetime import datetime
+from typing import Literal
 
 from immich.cli.runtime import (
     deserialize_request_body,
@@ -58,7 +59,9 @@ def create_memory(
     data_year: float = typer.Option(
         ..., "--data.year", help="""Year for on this day memory""", min=1
     ),
-    is_saved: bool | None = typer.Option(None, "--isSaved", help="""Is memory saved"""),
+    is_saved: Literal["true", "false"] | None = typer.Option(
+        None, "--isSaved", help="""Is memory saved"""
+    ),
     memory_at: datetime = typer.Option(..., "--memoryAt", help="""Memory date"""),
     seen_at: datetime | None = typer.Option(
         None, "--seenAt", help="""Date when memory was seen"""
@@ -79,7 +82,7 @@ def create_memory(
             set_nested(json_data, ["assetIds"], asset_ids)
         set_nested(json_data, ["data", "year"], data_year)
         if is_saved is not None:
-            set_nested(json_data, ["isSaved"], is_saved)
+            set_nested(json_data, ["isSaved"], is_saved.lower() == "true")
         set_nested(json_data, ["memoryAt"], memory_at)
         if seen_at is not None:
             set_nested(json_data, ["seenAt"], seen_at)
@@ -132,10 +135,10 @@ def get_memory(
 def memories_statistics(
     ctx: typer.Context,
     for_: datetime | None = typer.Option(None, "--for", help="""Filter by date"""),
-    is_saved: str | None = typer.Option(
+    is_saved: Literal["true", "false"] | None = typer.Option(
         None, "--is-saved", help="""Filter by saved status"""
     ),
-    is_trashed: str | None = typer.Option(
+    is_trashed: Literal["true", "false"] | None = typer.Option(
         None, "--is-trashed", help="""Include trashed memories"""
     ),
     order: MemorySearchOrder | None = typer.Option(
@@ -201,10 +204,10 @@ def remove_memory_assets(
 def search_memories(
     ctx: typer.Context,
     for_: datetime | None = typer.Option(None, "--for", help="""Filter by date"""),
-    is_saved: str | None = typer.Option(
+    is_saved: Literal["true", "false"] | None = typer.Option(
         None, "--is-saved", help="""Filter by saved status"""
     ),
-    is_trashed: str | None = typer.Option(
+    is_trashed: Literal["true", "false"] | None = typer.Option(
         None, "--is-trashed", help="""Include trashed memories"""
     ),
     order: MemorySearchOrder | None = typer.Option(
@@ -242,7 +245,9 @@ def search_memories(
 def update_memory(
     ctx: typer.Context,
     id: str,
-    is_saved: bool | None = typer.Option(None, "--isSaved", help="""Is memory saved"""),
+    is_saved: Literal["true", "false"] | None = typer.Option(
+        None, "--isSaved", help="""Is memory saved"""
+    ),
     memory_at: datetime | None = typer.Option(
         None, "--memoryAt", help="""Memory date"""
     ),
@@ -262,7 +267,7 @@ def update_memory(
     if any([is_saved, memory_at, seen_at]):
         json_data = {}
         if is_saved is not None:
-            set_nested(json_data, ["isSaved"], is_saved)
+            set_nested(json_data, ["isSaved"], is_saved.lower() == "true")
         if memory_at is not None:
             set_nested(json_data, ["memoryAt"], memory_at)
         if seen_at is not None:

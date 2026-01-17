@@ -2,8 +2,9 @@
 
 from __future__ import annotations
 
-from datetime import datetime
 import typer
+from datetime import datetime
+from typing import Literal
 
 from immich.cli.runtime import (
     deserialize_request_body,
@@ -115,7 +116,7 @@ def get_notification_template_admin(
 @app.command("send-test-email-admin")
 def send_test_email_admin(
     ctx: typer.Context,
-    enabled: bool = typer.Option(
+    enabled: Literal["true", "false"] = typer.Option(
         ..., "--enabled", help="""Whether SMTP email notifications are enabled"""
     ),
     from_: str = typer.Option(..., "--from", help="""Email address to send from"""),
@@ -125,7 +126,7 @@ def send_test_email_admin(
     transport_host: str = typer.Option(
         ..., "--transport.host", help="""SMTP server hostname"""
     ),
-    transport_ignore_cert: bool = typer.Option(
+    transport_ignore_cert: Literal["true", "false"] = typer.Option(
         ...,
         "--transport.ignoreCert",
         help="""Whether to ignore SSL certificate errors""",
@@ -136,7 +137,7 @@ def send_test_email_admin(
     transport_port: float = typer.Option(
         ..., "--transport.port", help="""SMTP server port""", min=0, max=65535
     ),
-    transport_secure: bool = typer.Option(
+    transport_secure: Literal["true", "false"] = typer.Option(
         ..., "--transport.secure", help="""Whether to use secure connection (TLS/SSL)"""
     ),
     transport_username: str = typer.Option(
@@ -177,14 +178,20 @@ def send_test_email_admin(
         ]
     ):
         json_data = {}
-        set_nested(json_data, ["enabled"], enabled)
+        set_nested(json_data, ["enabled"], enabled.lower() == "true")
         set_nested(json_data, ["from"], from_)
         set_nested(json_data, ["replyTo"], reply_to)
         set_nested(json_data, ["transport", "host"], transport_host)
-        set_nested(json_data, ["transport", "ignoreCert"], transport_ignore_cert)
+        set_nested(
+            json_data,
+            ["transport", "ignoreCert"],
+            transport_ignore_cert.lower() == "true",
+        )
         set_nested(json_data, ["transport", "password"], transport_password)
         set_nested(json_data, ["transport", "port"], transport_port)
-        set_nested(json_data, ["transport", "secure"], transport_secure)
+        set_nested(
+            json_data, ["transport", "secure"], transport_secure.lower() == "true"
+        )
         set_nested(json_data, ["transport", "username"], transport_username)
         from immich.client.models.system_config_smtp_dto import SystemConfigSmtpDto
 

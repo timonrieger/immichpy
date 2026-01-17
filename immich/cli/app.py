@@ -60,7 +60,7 @@ app = typer.Typer(
         "Install: pip install immich[cli]\n"
         "Auth/config via env: IMMICH_API_URL + one of IMMICH_API_KEY / "
         "IMMICH_BEARER_TOKEN / IMMICH_COOKIE.\n"
-        "Request bodies: --json JSON. Responses: JSON."
+        "Responses are always JSON."
     ),
     context_settings={"help_option_names": ["-h", "--help"]},
 )

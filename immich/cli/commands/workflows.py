@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import typer
+from typing import Literal
 
 from immich.cli.runtime import (
     deserialize_request_body,
@@ -34,7 +35,9 @@ Example: --actions key1=value1,key2=value2""",
     description: str | None = typer.Option(
         None, "--description", help="""Workflow description"""
     ),
-    enabled: bool | None = typer.Option(None, "--enabled", help="""Workflow enabled"""),
+    enabled: Literal["true", "false"] | None = typer.Option(
+        None, "--enabled", help="""Workflow enabled"""
+    ),
     filters: list[str] = typer.Option(
         ...,
         "--filters",
@@ -60,7 +63,7 @@ Example: --filters key1=value1,key2=value2""",
         if description is not None:
             set_nested(json_data, ["description"], description)
         if enabled is not None:
-            set_nested(json_data, ["enabled"], enabled)
+            set_nested(json_data, ["enabled"], enabled.lower() == "true")
         value_filters = parse_complex_list(filters)
         set_nested(json_data, ["filters"], value_filters)
         set_nested(json_data, ["name"], name)
@@ -138,7 +141,9 @@ Example: --actions key1=value1,key2=value2""",
     description: str | None = typer.Option(
         None, "--description", help="""Workflow description"""
     ),
-    enabled: bool | None = typer.Option(None, "--enabled", help="""Workflow enabled"""),
+    enabled: Literal["true", "false"] | None = typer.Option(
+        None, "--enabled", help="""Workflow enabled"""
+    ),
     filters: list[str] | None = typer.Option(
         None,
         "--filters",
@@ -168,7 +173,7 @@ Example: --filters key1=value1,key2=value2""",
         if description is not None:
             set_nested(json_data, ["description"], description)
         if enabled is not None:
-            set_nested(json_data, ["enabled"], enabled)
+            set_nested(json_data, ["enabled"], enabled.lower() == "true")
         if filters is not None:
             value_filters = parse_complex_list(filters)
             set_nested(json_data, ["filters"], value_filters)

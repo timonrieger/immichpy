@@ -82,7 +82,7 @@ def python_type_from_schema(
     elif schema_type == "number":
         return "float"
     elif schema_type == "boolean":
-        return "bool"
+        return "Literal['true', 'false']"
     elif schema_type == "array":
         items = nschema.get("items", {})
         item_type = python_type_from_schema(items, spec)
@@ -283,8 +283,6 @@ def generate_command_function(
     used_param_names: set[str] = {"ctx"}
     # Track all option names for collision detection
     used_option_names: set[str] = set()
-    # Track boolean query params for conversion
-    boolean_query_params: set[str] = set()
 
     # Process all parameters (path, query, header)
     processed_params: list[tuple[dict[str, Any], str, str, str, str, bool, bool]] = []
@@ -313,15 +311,11 @@ def generate_command_function(
             used_option_names.add(full_opt_name)
 
             if location == "query":
-                # Convert boolean query params to str to allow explicit true/false values
-                # This matches server behavior where shared=true, shared=false, and undefined are distinct
+                # Boolean query params are now str type (handled by python_type_from_schema)
                 schema_type = schema.get("type")
                 if schema_type == "boolean":
-                    param_type = "str"
                     is_boolean_query = True
-                    boolean_query_params.add(param_name)
-                else:
-                    param_type = python_type_from_schema(schema, spec)
+                param_type = python_type_from_schema(schema, spec)
             else:  # header
                 param_type = python_type_from_schema(schema, spec)
 
@@ -537,7 +531,10 @@ def generate_command_function(
                     opt_name,
                 ) in body_flags:
                     is_complex = is_complex_type(leaf_schema, spec)
-                    value_expr = param_name
+                    # Check if this is a boolean field (converted to str)
+                    normalized_schema = normalize_schema(leaf_schema, spec)
+                    schema_type = normalized_schema.get("type")
+                    is_boolean = schema_type == "boolean"
 
                     if is_required:
                         if is_complex:
@@ -548,9 +545,14 @@ def generate_command_function(
                                 f"        set_nested(json_data, {path_parts!r}, value_{param_name})"
                             )
                         else:
-                            lines.append(
-                                f"        set_nested(json_data, {path_parts!r}, {value_expr})"
-                            )
+                            if is_boolean:
+                                lines.append(
+                                    f"        set_nested(json_data, {path_parts!r}, {param_name}.lower() == 'true')"
+                                )
+                            else:
+                                lines.append(
+                                    f"        set_nested(json_data, {path_parts!r}, {param_name})"
+                                )
                     else:
                         lines.append(f"        if {param_name} is not None:")
                         if is_complex:
@@ -561,9 +563,14 @@ def generate_command_function(
                                 f"            set_nested(json_data, {path_parts!r}, value_{param_name})"
                             )
                         else:
-                            lines.append(
-                                f"            set_nested(json_data, {path_parts!r}, {value_expr})"
-                            )
+                            if is_boolean:
+                                lines.append(
+                                    f"            set_nested(json_data, {path_parts!r}, {param_name}.lower() == 'true')"
+                                )
+                            else:
+                                lines.append(
+                                    f"            set_nested(json_data, {path_parts!r}, {param_name})"
+                                )
 
                 # Validate and create model
                 lines.append(
@@ -650,9 +657,10 @@ def generate_tag_app(
         "",
         "from __future__ import annotations",
         "",
+        "import typer",
         "from datetime import datetime",
         "from pathlib import Path",
-        "import typer",
+        "from typing import Literal",
         "",
         "from immich.cli.runtime import load_file_bytes, deserialize_request_body, parse_complex_list, print_response, run_command, set_nested",
         "from immich.client.models import *",

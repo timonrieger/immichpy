@@ -2,8 +2,9 @@
 
 from __future__ import annotations
 
-from pathlib import Path
 import typer
+from pathlib import Path
+from typing import Literal
 
 from immich.cli.runtime import (
     load_file_bytes,
@@ -97,20 +98,20 @@ def check_existing_assets(
 @app.command("copy-asset")
 def copy_asset(
     ctx: typer.Context,
-    albums: bool | None = typer.Option(
+    albums: Literal["true", "false"] | None = typer.Option(
         None, "--albums", help="""Copy album associations"""
     ),
-    favorite: bool | None = typer.Option(
+    favorite: Literal["true", "false"] | None = typer.Option(
         None, "--favorite", help="""Copy favorite status"""
     ),
-    shared_links: bool | None = typer.Option(
+    shared_links: Literal["true", "false"] | None = typer.Option(
         None, "--sharedLinks", help="""Copy shared links"""
     ),
-    sidecar: bool | None = typer.Option(
+    sidecar: Literal["true", "false"] | None = typer.Option(
         None, "--sidecar", help="""Copy sidecar file"""
     ),
     source_id: str = typer.Option(..., "--sourceId", help="""Source asset ID"""),
-    stack: bool | None = typer.Option(
+    stack: Literal["true", "false"] | None = typer.Option(
         None, "--stack", help="""Copy stack association"""
     ),
     target_id: str = typer.Option(..., "--targetId", help="""Target asset ID"""),
@@ -128,16 +129,16 @@ def copy_asset(
     if any([albums, favorite, shared_links, sidecar, source_id, stack, target_id]):
         json_data = {}
         if albums is not None:
-            set_nested(json_data, ["albums"], albums)
+            set_nested(json_data, ["albums"], albums.lower() == "true")
         if favorite is not None:
-            set_nested(json_data, ["favorite"], favorite)
+            set_nested(json_data, ["favorite"], favorite.lower() == "true")
         if shared_links is not None:
-            set_nested(json_data, ["sharedLinks"], shared_links)
+            set_nested(json_data, ["sharedLinks"], shared_links.lower() == "true")
         if sidecar is not None:
-            set_nested(json_data, ["sidecar"], sidecar)
+            set_nested(json_data, ["sidecar"], sidecar.lower() == "true")
         set_nested(json_data, ["sourceId"], source_id)
         if stack is not None:
-            set_nested(json_data, ["stack"], stack)
+            set_nested(json_data, ["stack"], stack.lower() == "true")
         set_nested(json_data, ["targetId"], target_id)
         from immich.client.models.asset_copy_dto import AssetCopyDto
 
@@ -171,7 +172,7 @@ def delete_asset_metadata(
 @app.command("delete-assets")
 def delete_assets(
     ctx: typer.Context,
-    force: bool | None = typer.Option(
+    force: Literal["true", "false"] | None = typer.Option(
         None, "--force", help="""Force delete even if in use"""
     ),
     ids: list[str] = typer.Option(..., "--ids", help="""IDs to process"""),
@@ -187,7 +188,7 @@ def delete_assets(
     if any([force, ids]):
         json_data = {}
         if force is not None:
-            set_nested(json_data, ["force"], force)
+            set_nested(json_data, ["force"], force.lower() == "true")
         set_nested(json_data, ["ids"], ids)
         from immich.client.models.asset_bulk_delete_dto import AssetBulkDeleteDto
 
@@ -240,7 +241,7 @@ Example: --items key1=value1,key2=value2""",
 def download_asset(
     ctx: typer.Context,
     id: str,
-    edited: str | None = typer.Option(
+    edited: Literal["true", "false"] | None = typer.Option(
         None, "--edited", help="""Return edited asset if available"""
     ),
     key: str | None = typer.Option(
@@ -426,10 +427,10 @@ def get_asset_ocr(
 @app.command("get-asset-statistics")
 def get_asset_statistics(
     ctx: typer.Context,
-    is_favorite: str | None = typer.Option(
+    is_favorite: Literal["true", "false"] | None = typer.Option(
         None, "--is-favorite", help="""Filter by favorite status"""
     ),
-    is_trashed: str | None = typer.Option(
+    is_trashed: Literal["true", "false"] | None = typer.Option(
         None, "--is-trashed", help="""Filter by trash status"""
     ),
     visibility: AssetVisibility | None = typer.Option(
@@ -626,7 +627,7 @@ def update_asset(
     description: str | None = typer.Option(
         None, "--description", help="""Asset description"""
     ),
-    is_favorite: bool | None = typer.Option(
+    is_favorite: Literal["true", "false"] | None = typer.Option(
         None, "--isFavorite", help="""Mark as favorite"""
     ),
     latitude: float | None = typer.Option(
@@ -683,7 +684,7 @@ def update_asset(
         if description is not None:
             set_nested(json_data, ["description"], description)
         if is_favorite is not None:
-            set_nested(json_data, ["isFavorite"], is_favorite)
+            set_nested(json_data, ["isFavorite"], is_favorite.lower() == "true")
         if latitude is not None:
             set_nested(json_data, ["latitude"], latitude)
         if live_photo_video_id is not None:
@@ -759,7 +760,7 @@ def update_assets(
         None, "--duplicateId", help="""Duplicate asset ID"""
     ),
     ids: list[str] = typer.Option(..., "--ids", help="""Asset IDs to update"""),
-    is_favorite: bool | None = typer.Option(
+    is_favorite: Literal["true", "false"] | None = typer.Option(
         None, "--isFavorite", help="""Mark as favorite"""
     ),
     latitude: float | None = typer.Option(
@@ -826,7 +827,7 @@ def update_assets(
             set_nested(json_data, ["duplicateId"], duplicate_id)
         set_nested(json_data, ["ids"], ids)
         if is_favorite is not None:
-            set_nested(json_data, ["isFavorite"], is_favorite)
+            set_nested(json_data, ["isFavorite"], is_favorite.lower() == "true")
         if latitude is not None:
             set_nested(json_data, ["latitude"], latitude)
         if longitude is not None:
@@ -985,7 +986,7 @@ def upload_asset(
 def view_asset(
     ctx: typer.Context,
     id: str,
-    edited: str | None = typer.Option(
+    edited: Literal["true", "false"] | None = typer.Option(
         None, "--edited", help="""Return edited asset if available"""
     ),
     key: str | None = typer.Option(

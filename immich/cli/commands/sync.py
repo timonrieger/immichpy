@@ -2,8 +2,9 @@
 
 from __future__ import annotations
 
-from datetime import datetime
 import typer
+from datetime import datetime
+from typing import Literal
 
 from immich.cli.runtime import (
     deserialize_request_body,
@@ -138,7 +139,9 @@ def get_sync_ack(
 @app.command("get-sync-stream")
 def get_sync_stream(
     ctx: typer.Context,
-    reset: bool | None = typer.Option(None, "--reset", help="""Reset sync state"""),
+    reset: Literal["true", "false"] | None = typer.Option(
+        None, "--reset", help="""Reset sync state"""
+    ),
     types: list[str] = typer.Option(..., "--types", help="""Sync request types"""),
 ) -> None:
     """Stream sync changes
@@ -152,7 +155,7 @@ def get_sync_stream(
     if any([reset, types]):
         json_data = {}
         if reset is not None:
-            set_nested(json_data, ["reset"], reset)
+            set_nested(json_data, ["reset"], reset.lower() == "true")
         set_nested(json_data, ["types"], types)
         from immich.client.models.sync_stream_dto import SyncStreamDto
 

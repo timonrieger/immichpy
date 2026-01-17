@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import typer
+from typing import Literal
 
 from immich.cli.runtime import (
     deserialize_request_body,
@@ -74,7 +75,7 @@ def get_version_check_state(
 @app.command("update-admin-onboarding")
 def update_admin_onboarding(
     ctx: typer.Context,
-    is_onboarded: bool = typer.Option(
+    is_onboarded: Literal["true", "false"] = typer.Option(
         ..., "--isOnboarded", help="""Is admin onboarded"""
     ),
 ) -> None:
@@ -88,7 +89,7 @@ def update_admin_onboarding(
         raise SystemExit("Error: Request body is required. Use dotted body flags.")
     if any([is_onboarded]):
         json_data = {}
-        set_nested(json_data, ["isOnboarded"], is_onboarded)
+        set_nested(json_data, ["isOnboarded"], is_onboarded.lower() == "true")
         from immich.client.models.admin_onboarding_update_dto import (
             AdminOnboardingUpdateDto,
         )

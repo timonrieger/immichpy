@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import typer
+from typing import Literal
 
 from immich.cli.runtime import (
     deserialize_request_body,
@@ -28,10 +29,10 @@ def create_person(
         None, "--birthDate", help="""Person date of birth"""
     ),
     color: str | None = typer.Option(None, "--color", help="""Person color (hex)"""),
-    is_favorite: bool | None = typer.Option(
+    is_favorite: Literal["true", "false"] | None = typer.Option(
         None, "--isFavorite", help="""Mark as favorite"""
     ),
-    is_hidden: bool | None = typer.Option(
+    is_hidden: Literal["true", "false"] | None = typer.Option(
         None, "--isHidden", help="""Person visibility (hidden)"""
     ),
     name: str | None = typer.Option(None, "--name", help="""Person name"""),
@@ -51,9 +52,9 @@ def create_person(
         if color is not None:
             set_nested(json_data, ["color"], color)
         if is_favorite is not None:
-            set_nested(json_data, ["isFavorite"], is_favorite)
+            set_nested(json_data, ["isFavorite"], is_favorite.lower() == "true")
         if is_hidden is not None:
-            set_nested(json_data, ["isHidden"], is_hidden)
+            set_nested(json_data, ["isHidden"], is_hidden.lower() == "true")
         if name is not None:
             set_nested(json_data, ["name"], name)
         from immich.client.models.person_create_dto import PersonCreateDto
@@ -124,7 +125,7 @@ def get_all_people(
     size: float | None = typer.Option(
         None, "--size", help="""Number of items per page""", min=1, max=1000
     ),
-    with_hidden: str | None = typer.Option(
+    with_hidden: Literal["true", "false"] | None = typer.Option(
         None, "--with-hidden", help="""Include hidden people"""
     ),
 ) -> None:
@@ -309,10 +310,10 @@ def update_person(
         "--featureFaceAssetId",
         help="""Asset ID used for feature face thumbnail""",
     ),
-    is_favorite: bool | None = typer.Option(
+    is_favorite: Literal["true", "false"] | None = typer.Option(
         None, "--isFavorite", help="""Mark as favorite"""
     ),
-    is_hidden: bool | None = typer.Option(
+    is_hidden: Literal["true", "false"] | None = typer.Option(
         None, "--isHidden", help="""Person visibility (hidden)"""
     ),
     name: str | None = typer.Option(None, "--name", help="""Person name"""),
@@ -337,9 +338,9 @@ def update_person(
         if feature_face_asset_id is not None:
             set_nested(json_data, ["featureFaceAssetId"], feature_face_asset_id)
         if is_favorite is not None:
-            set_nested(json_data, ["isFavorite"], is_favorite)
+            set_nested(json_data, ["isFavorite"], is_favorite.lower() == "true")
         if is_hidden is not None:
-            set_nested(json_data, ["isHidden"], is_hidden)
+            set_nested(json_data, ["isHidden"], is_hidden.lower() == "true")
         if name is not None:
             set_nested(json_data, ["name"], name)
         from immich.client.models.person_update_dto import PersonUpdateDto

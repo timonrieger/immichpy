@@ -2,8 +2,9 @@
 
 from __future__ import annotations
 
-from datetime import datetime
 import typer
+from datetime import datetime
+from typing import Literal
 
 from immich.cli.runtime import (
     deserialize_request_body,
@@ -55,7 +56,7 @@ def get_explore_data(
 def get_search_suggestions(
     ctx: typer.Context,
     country: str | None = typer.Option(None, "--country", help="""Filter by country"""),
-    include_null: str | None = typer.Option(
+    include_null: Literal["true", "false"] | None = typer.Option(
         None, "--include-null", help="""Include null values in suggestions"""
     ),
     lens_model: str | None = typer.Option(
@@ -118,19 +119,19 @@ def search_asset_statistics(
     device_id: str | None = typer.Option(
         None, "--deviceId", help="""Device ID to filter by"""
     ),
-    is_encoded: bool | None = typer.Option(
+    is_encoded: Literal["true", "false"] | None = typer.Option(
         None, "--isEncoded", help="""Filter by encoded status"""
     ),
-    is_favorite: bool | None = typer.Option(
+    is_favorite: Literal["true", "false"] | None = typer.Option(
         None, "--isFavorite", help="""Filter by favorite status"""
     ),
-    is_motion: bool | None = typer.Option(
+    is_motion: Literal["true", "false"] | None = typer.Option(
         None, "--isMotion", help="""Filter by motion photo status"""
     ),
-    is_not_in_album: bool | None = typer.Option(
+    is_not_in_album: Literal["true", "false"] | None = typer.Option(
         None, "--isNotInAlbum", help="""Filter assets not in any album"""
     ),
-    is_offline: bool | None = typer.Option(
+    is_offline: Literal["true", "false"] | None = typer.Option(
         None, "--isOffline", help="""Filter by offline status"""
     ),
     lens_model: str | None = typer.Option(
@@ -270,15 +271,15 @@ def search_asset_statistics(
         if device_id is not None:
             set_nested(json_data, ["deviceId"], device_id)
         if is_encoded is not None:
-            set_nested(json_data, ["isEncoded"], is_encoded)
+            set_nested(json_data, ["isEncoded"], is_encoded.lower() == "true")
         if is_favorite is not None:
-            set_nested(json_data, ["isFavorite"], is_favorite)
+            set_nested(json_data, ["isFavorite"], is_favorite.lower() == "true")
         if is_motion is not None:
-            set_nested(json_data, ["isMotion"], is_motion)
+            set_nested(json_data, ["isMotion"], is_motion.lower() == "true")
         if is_not_in_album is not None:
-            set_nested(json_data, ["isNotInAlbum"], is_not_in_album)
+            set_nested(json_data, ["isNotInAlbum"], is_not_in_album.lower() == "true")
         if is_offline is not None:
-            set_nested(json_data, ["isOffline"], is_offline)
+            set_nested(json_data, ["isOffline"], is_offline.lower() == "true")
         if lens_model is not None:
             set_nested(json_data, ["lensModel"], lens_model)
         if library_id is not None:
@@ -355,19 +356,19 @@ def search_assets(
         None, "--encodedVideoPath", help="""Filter by encoded video file path"""
     ),
     id: str | None = typer.Option(None, "--id", help="""Filter by asset ID"""),
-    is_encoded: bool | None = typer.Option(
+    is_encoded: Literal["true", "false"] | None = typer.Option(
         None, "--isEncoded", help="""Filter by encoded status"""
     ),
-    is_favorite: bool | None = typer.Option(
+    is_favorite: Literal["true", "false"] | None = typer.Option(
         None, "--isFavorite", help="""Filter by favorite status"""
     ),
-    is_motion: bool | None = typer.Option(
+    is_motion: Literal["true", "false"] | None = typer.Option(
         None, "--isMotion", help="""Filter by motion photo status"""
     ),
-    is_not_in_album: bool | None = typer.Option(
+    is_not_in_album: Literal["true", "false"] | None = typer.Option(
         None, "--isNotInAlbum", help="""Filter assets not in any album"""
     ),
-    is_offline: bool | None = typer.Option(
+    is_offline: Literal["true", "false"] | None = typer.Option(
         None, "--isOffline", help="""Filter by offline status"""
     ),
     lens_model: str | None = typer.Option(
@@ -434,16 +435,16 @@ def search_assets(
     visibility: str | None = typer.Option(
         None, "--visibility", help="""Asset visibility"""
     ),
-    with_deleted: bool | None = typer.Option(
+    with_deleted: Literal["true", "false"] | None = typer.Option(
         None, "--withDeleted", help="""Include deleted assets"""
     ),
-    with_exif: bool | None = typer.Option(
+    with_exif: Literal["true", "false"] | None = typer.Option(
         None, "--withExif", help="""Include EXIF data in response"""
     ),
-    with_people: bool | None = typer.Option(
+    with_people: Literal["true", "false"] | None = typer.Option(
         None, "--withPeople", help="""Include assets with people"""
     ),
-    with_stacked: bool | None = typer.Option(
+    with_stacked: Literal["true", "false"] | None = typer.Option(
         None, "--withStacked", help="""Include stacked assets"""
     ),
 ) -> None:
@@ -574,15 +575,15 @@ def search_assets(
         if id is not None:
             set_nested(json_data, ["id"], id)
         if is_encoded is not None:
-            set_nested(json_data, ["isEncoded"], is_encoded)
+            set_nested(json_data, ["isEncoded"], is_encoded.lower() == "true")
         if is_favorite is not None:
-            set_nested(json_data, ["isFavorite"], is_favorite)
+            set_nested(json_data, ["isFavorite"], is_favorite.lower() == "true")
         if is_motion is not None:
-            set_nested(json_data, ["isMotion"], is_motion)
+            set_nested(json_data, ["isMotion"], is_motion.lower() == "true")
         if is_not_in_album is not None:
-            set_nested(json_data, ["isNotInAlbum"], is_not_in_album)
+            set_nested(json_data, ["isNotInAlbum"], is_not_in_album.lower() == "true")
         if is_offline is not None:
-            set_nested(json_data, ["isOffline"], is_offline)
+            set_nested(json_data, ["isOffline"], is_offline.lower() == "true")
         if lens_model is not None:
             set_nested(json_data, ["lensModel"], lens_model)
         if library_id is not None:
@@ -632,13 +633,13 @@ def search_assets(
         if visibility is not None:
             set_nested(json_data, ["visibility"], visibility)
         if with_deleted is not None:
-            set_nested(json_data, ["withDeleted"], with_deleted)
+            set_nested(json_data, ["withDeleted"], with_deleted.lower() == "true")
         if with_exif is not None:
-            set_nested(json_data, ["withExif"], with_exif)
+            set_nested(json_data, ["withExif"], with_exif.lower() == "true")
         if with_people is not None:
-            set_nested(json_data, ["withPeople"], with_people)
+            set_nested(json_data, ["withPeople"], with_people.lower() == "true")
         if with_stacked is not None:
-            set_nested(json_data, ["withStacked"], with_stacked)
+            set_nested(json_data, ["withStacked"], with_stacked.lower() == "true")
         from immich.client.models.metadata_search_dto import MetadataSearchDto
 
         metadata_search_dto = deserialize_request_body(json_data, MetadataSearchDto)
@@ -668,19 +669,19 @@ def search_large_assets(
     device_id: str | None = typer.Option(
         None, "--device-id", help="""Device ID to filter by"""
     ),
-    is_encoded: str | None = typer.Option(
+    is_encoded: Literal["true", "false"] | None = typer.Option(
         None, "--is-encoded", help="""Filter by encoded status"""
     ),
-    is_favorite: str | None = typer.Option(
+    is_favorite: Literal["true", "false"] | None = typer.Option(
         None, "--is-favorite", help="""Filter by favorite status"""
     ),
-    is_motion: str | None = typer.Option(
+    is_motion: Literal["true", "false"] | None = typer.Option(
         None, "--is-motion", help="""Filter by motion photo status"""
     ),
-    is_not_in_album: str | None = typer.Option(
+    is_not_in_album: Literal["true", "false"] | None = typer.Option(
         None, "--is-not-in-album", help="""Filter assets not in any album"""
     ),
-    is_offline: str | None = typer.Option(
+    is_offline: Literal["true", "false"] | None = typer.Option(
         None, "--is-offline", help="""Filter by offline status"""
     ),
     lens_model: str | None = typer.Option(
@@ -738,10 +739,10 @@ def search_large_assets(
     visibility: AssetVisibility | None = typer.Option(
         None, "--visibility", help="""Filter by visibility"""
     ),
-    with_deleted: str | None = typer.Option(
+    with_deleted: Literal["true", "false"] | None = typer.Option(
         None, "--with-deleted", help="""Include deleted assets"""
     ),
-    with_exif: str | None = typer.Option(
+    with_exif: Literal["true", "false"] | None = typer.Option(
         None, "--with-exif", help="""Include EXIF data in response"""
     ),
 ) -> None:
@@ -824,7 +825,7 @@ def search_large_assets(
 def search_person(
     ctx: typer.Context,
     name: str = typer.Option(..., "--name", help="""Person name to search for"""),
-    with_hidden: str | None = typer.Option(
+    with_hidden: Literal["true", "false"] | None = typer.Option(
         None, "--with-hidden", help="""Include hidden people"""
     ),
 ) -> None:
@@ -878,19 +879,19 @@ def search_random(
     device_id: str | None = typer.Option(
         None, "--deviceId", help="""Device ID to filter by"""
     ),
-    is_encoded: bool | None = typer.Option(
+    is_encoded: Literal["true", "false"] | None = typer.Option(
         None, "--isEncoded", help="""Filter by encoded status"""
     ),
-    is_favorite: bool | None = typer.Option(
+    is_favorite: Literal["true", "false"] | None = typer.Option(
         None, "--isFavorite", help="""Filter by favorite status"""
     ),
-    is_motion: bool | None = typer.Option(
+    is_motion: Literal["true", "false"] | None = typer.Option(
         None, "--isMotion", help="""Filter by motion photo status"""
     ),
-    is_not_in_album: bool | None = typer.Option(
+    is_not_in_album: Literal["true", "false"] | None = typer.Option(
         None, "--isNotInAlbum", help="""Filter assets not in any album"""
     ),
-    is_offline: bool | None = typer.Option(
+    is_offline: Literal["true", "false"] | None = typer.Option(
         None, "--isOffline", help="""Filter by offline status"""
     ),
     lens_model: str | None = typer.Option(
@@ -943,16 +944,16 @@ def search_random(
     visibility: str | None = typer.Option(
         None, "--visibility", help="""Asset visibility"""
     ),
-    with_deleted: bool | None = typer.Option(
+    with_deleted: Literal["true", "false"] | None = typer.Option(
         None, "--withDeleted", help="""Include deleted assets"""
     ),
-    with_exif: bool | None = typer.Option(
+    with_exif: Literal["true", "false"] | None = typer.Option(
         None, "--withExif", help="""Include EXIF data in response"""
     ),
-    with_people: bool | None = typer.Option(
+    with_people: Literal["true", "false"] | None = typer.Option(
         None, "--withPeople", help="""Include assets with people"""
     ),
-    with_stacked: bool | None = typer.Option(
+    with_stacked: Literal["true", "false"] | None = typer.Option(
         None, "--withStacked", help="""Include stacked assets"""
     ),
 ) -> None:
@@ -1051,15 +1052,15 @@ def search_random(
         if device_id is not None:
             set_nested(json_data, ["deviceId"], device_id)
         if is_encoded is not None:
-            set_nested(json_data, ["isEncoded"], is_encoded)
+            set_nested(json_data, ["isEncoded"], is_encoded.lower() == "true")
         if is_favorite is not None:
-            set_nested(json_data, ["isFavorite"], is_favorite)
+            set_nested(json_data, ["isFavorite"], is_favorite.lower() == "true")
         if is_motion is not None:
-            set_nested(json_data, ["isMotion"], is_motion)
+            set_nested(json_data, ["isMotion"], is_motion.lower() == "true")
         if is_not_in_album is not None:
-            set_nested(json_data, ["isNotInAlbum"], is_not_in_album)
+            set_nested(json_data, ["isNotInAlbum"], is_not_in_album.lower() == "true")
         if is_offline is not None:
-            set_nested(json_data, ["isOffline"], is_offline)
+            set_nested(json_data, ["isOffline"], is_offline.lower() == "true")
         if lens_model is not None:
             set_nested(json_data, ["lensModel"], lens_model)
         if library_id is not None:
@@ -1097,13 +1098,13 @@ def search_random(
         if visibility is not None:
             set_nested(json_data, ["visibility"], visibility)
         if with_deleted is not None:
-            set_nested(json_data, ["withDeleted"], with_deleted)
+            set_nested(json_data, ["withDeleted"], with_deleted.lower() == "true")
         if with_exif is not None:
-            set_nested(json_data, ["withExif"], with_exif)
+            set_nested(json_data, ["withExif"], with_exif.lower() == "true")
         if with_people is not None:
-            set_nested(json_data, ["withPeople"], with_people)
+            set_nested(json_data, ["withPeople"], with_people.lower() == "true")
         if with_stacked is not None:
-            set_nested(json_data, ["withStacked"], with_stacked)
+            set_nested(json_data, ["withStacked"], with_stacked.lower() == "true")
         from immich.client.models.random_search_dto import RandomSearchDto
 
         random_search_dto = deserialize_request_body(json_data, RandomSearchDto)
@@ -1133,19 +1134,19 @@ def search_smart(
     device_id: str | None = typer.Option(
         None, "--deviceId", help="""Device ID to filter by"""
     ),
-    is_encoded: bool | None = typer.Option(
+    is_encoded: Literal["true", "false"] | None = typer.Option(
         None, "--isEncoded", help="""Filter by encoded status"""
     ),
-    is_favorite: bool | None = typer.Option(
+    is_favorite: Literal["true", "false"] | None = typer.Option(
         None, "--isFavorite", help="""Filter by favorite status"""
     ),
-    is_motion: bool | None = typer.Option(
+    is_motion: Literal["true", "false"] | None = typer.Option(
         None, "--isMotion", help="""Filter by motion photo status"""
     ),
-    is_not_in_album: bool | None = typer.Option(
+    is_not_in_album: Literal["true", "false"] | None = typer.Option(
         None, "--isNotInAlbum", help="""Filter assets not in any album"""
     ),
-    is_offline: bool | None = typer.Option(
+    is_offline: Literal["true", "false"] | None = typer.Option(
         None, "--isOffline", help="""Filter by offline status"""
     ),
     language: str | None = typer.Option(
@@ -1208,10 +1209,10 @@ def search_smart(
     visibility: str | None = typer.Option(
         None, "--visibility", help="""Asset visibility"""
     ),
-    with_deleted: bool | None = typer.Option(
+    with_deleted: Literal["true", "false"] | None = typer.Option(
         None, "--withDeleted", help="""Include deleted assets"""
     ),
-    with_exif: bool | None = typer.Option(
+    with_exif: Literal["true", "false"] | None = typer.Option(
         None, "--withExif", help="""Include EXIF data in response"""
     ),
 ) -> None:
@@ -1314,15 +1315,15 @@ def search_smart(
         if device_id is not None:
             set_nested(json_data, ["deviceId"], device_id)
         if is_encoded is not None:
-            set_nested(json_data, ["isEncoded"], is_encoded)
+            set_nested(json_data, ["isEncoded"], is_encoded.lower() == "true")
         if is_favorite is not None:
-            set_nested(json_data, ["isFavorite"], is_favorite)
+            set_nested(json_data, ["isFavorite"], is_favorite.lower() == "true")
         if is_motion is not None:
-            set_nested(json_data, ["isMotion"], is_motion)
+            set_nested(json_data, ["isMotion"], is_motion.lower() == "true")
         if is_not_in_album is not None:
-            set_nested(json_data, ["isNotInAlbum"], is_not_in_album)
+            set_nested(json_data, ["isNotInAlbum"], is_not_in_album.lower() == "true")
         if is_offline is not None:
-            set_nested(json_data, ["isOffline"], is_offline)
+            set_nested(json_data, ["isOffline"], is_offline.lower() == "true")
         if language is not None:
             set_nested(json_data, ["language"], language)
         if lens_model is not None:
@@ -1368,9 +1369,9 @@ def search_smart(
         if visibility is not None:
             set_nested(json_data, ["visibility"], visibility)
         if with_deleted is not None:
-            set_nested(json_data, ["withDeleted"], with_deleted)
+            set_nested(json_data, ["withDeleted"], with_deleted.lower() == "true")
         if with_exif is not None:
-            set_nested(json_data, ["withExif"], with_exif)
+            set_nested(json_data, ["withExif"], with_exif.lower() == "true")
         from immich.client.models.smart_search_dto import SmartSearchDto
 
         smart_search_dto = deserialize_request_body(json_data, SmartSearchDto)

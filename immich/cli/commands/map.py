@@ -2,8 +2,9 @@
 
 from __future__ import annotations
 
-from datetime import datetime
 import typer
+from datetime import datetime
+from typing import Literal
 
 from immich.cli.runtime import print_response, run_command
 from immich.client.models import *
@@ -25,16 +26,16 @@ def get_map_markers(
     file_created_before: datetime | None = typer.Option(
         None, "--file-created-before", help="""Filter assets created before this date"""
     ),
-    is_archived: str | None = typer.Option(
+    is_archived: Literal["true", "false"] | None = typer.Option(
         None, "--is-archived", help="""Filter by archived status"""
     ),
-    is_favorite: str | None = typer.Option(
+    is_favorite: Literal["true", "false"] | None = typer.Option(
         None, "--is-favorite", help="""Filter by favorite status"""
     ),
-    with_partners: str | None = typer.Option(
+    with_partners: Literal["true", "false"] | None = typer.Option(
         None, "--with-partners", help="""Include partner assets"""
     ),
-    with_shared_albums: str | None = typer.Option(
+    with_shared_albums: Literal["true", "false"] | None = typer.Option(
         None, "--with-shared-albums", help="""Include shared album assets"""
     ),
 ) -> None:

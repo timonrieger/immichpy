@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import typer
+from typing import Literal
 
 from immich.cli.runtime import (
     deserialize_request_body,
@@ -125,7 +126,7 @@ def lock_session(
 def update_session(
     ctx: typer.Context,
     id: str,
-    is_pending_sync_reset: bool | None = typer.Option(
+    is_pending_sync_reset: Literal["true", "false"] | None = typer.Option(
         None, "--isPendingSyncReset", help="""Reset pending sync state"""
     ),
 ) -> None:
@@ -141,7 +142,11 @@ def update_session(
     if any([is_pending_sync_reset]):
         json_data = {}
         if is_pending_sync_reset is not None:
-            set_nested(json_data, ["isPendingSyncReset"], is_pending_sync_reset)
+            set_nested(
+                json_data,
+                ["isPendingSyncReset"],
+                is_pending_sync_reset.lower() == "true",
+            )
         from immich.client.models.session_update_dto import SessionUpdateDto
 
         session_update_dto = deserialize_request_body(json_data, SessionUpdateDto)

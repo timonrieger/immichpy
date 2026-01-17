@@ -2,8 +2,9 @@
 
 from __future__ import annotations
 
-from datetime import datetime
 import typer
+from datetime import datetime
+from typing import Literal
 
 from immich.cli.runtime import (
     deserialize_request_body,
@@ -67,10 +68,10 @@ def create_shared_link(
     album_id: str | None = typer.Option(
         None, "--albumId", help="""Album ID (for album sharing)"""
     ),
-    allow_download: bool | None = typer.Option(
+    allow_download: Literal["true", "false"] | None = typer.Option(
         None, "--allowDownload", help="""Allow downloads"""
     ),
-    allow_upload: bool | None = typer.Option(
+    allow_upload: Literal["true", "false"] | None = typer.Option(
         None, "--allowUpload", help="""Allow uploads"""
     ),
     asset_ids: list[str] | None = typer.Option(
@@ -83,7 +84,7 @@ def create_shared_link(
         None, "--expiresAt", help="""Expiration date"""
     ),
     password: str | None = typer.Option(None, "--password", help="""Link password"""),
-    show_metadata: bool | None = typer.Option(
+    show_metadata: Literal["true", "false"] | None = typer.Option(
         None, "--showMetadata", help="""Show metadata"""
     ),
     slug: str | None = typer.Option(None, "--slug", help="""Custom URL slug"""),
@@ -128,9 +129,9 @@ def create_shared_link(
         if album_id is not None:
             set_nested(json_data, ["albumId"], album_id)
         if allow_download is not None:
-            set_nested(json_data, ["allowDownload"], allow_download)
+            set_nested(json_data, ["allowDownload"], allow_download.lower() == "true")
         if allow_upload is not None:
-            set_nested(json_data, ["allowUpload"], allow_upload)
+            set_nested(json_data, ["allowUpload"], allow_upload.lower() == "true")
         if asset_ids is not None:
             set_nested(json_data, ["assetIds"], asset_ids)
         if description is not None:
@@ -140,7 +141,7 @@ def create_shared_link(
         if password is not None:
             set_nested(json_data, ["password"], password)
         if show_metadata is not None:
-            set_nested(json_data, ["showMetadata"], show_metadata)
+            set_nested(json_data, ["showMetadata"], show_metadata.lower() == "true")
         if slug is not None:
             set_nested(json_data, ["slug"], slug)
         set_nested(json_data, ["type"], type)
@@ -288,13 +289,13 @@ def remove_shared_link_assets(
 def update_shared_link(
     ctx: typer.Context,
     id: str,
-    allow_download: bool | None = typer.Option(
+    allow_download: Literal["true", "false"] | None = typer.Option(
         None, "--allowDownload", help="""Allow downloads"""
     ),
-    allow_upload: bool | None = typer.Option(
+    allow_upload: Literal["true", "false"] | None = typer.Option(
         None, "--allowUpload", help="""Allow uploads"""
     ),
-    change_expiry_time: bool | None = typer.Option(
+    change_expiry_time: Literal["true", "false"] | None = typer.Option(
         None,
         "--changeExpiryTime",
         help="""Change expiry time (set to true to remove expiry)""",
@@ -306,7 +307,7 @@ def update_shared_link(
         None, "--expiresAt", help="""Expiration date"""
     ),
     password: str | None = typer.Option(None, "--password", help="""Link password"""),
-    show_metadata: bool | None = typer.Option(
+    show_metadata: Literal["true", "false"] | None = typer.Option(
         None, "--showMetadata", help="""Show metadata"""
     ),
     slug: str | None = typer.Option(None, "--slug", help="""Custom URL slug"""),
@@ -345,11 +346,13 @@ def update_shared_link(
     ):
         json_data = {}
         if allow_download is not None:
-            set_nested(json_data, ["allowDownload"], allow_download)
+            set_nested(json_data, ["allowDownload"], allow_download.lower() == "true")
         if allow_upload is not None:
-            set_nested(json_data, ["allowUpload"], allow_upload)
+            set_nested(json_data, ["allowUpload"], allow_upload.lower() == "true")
         if change_expiry_time is not None:
-            set_nested(json_data, ["changeExpiryTime"], change_expiry_time)
+            set_nested(
+                json_data, ["changeExpiryTime"], change_expiry_time.lower() == "true"
+            )
         if description is not None:
             set_nested(json_data, ["description"], description)
         if expires_at is not None:
@@ -357,7 +360,7 @@ def update_shared_link(
         if password is not None:
             set_nested(json_data, ["password"], password)
         if show_metadata is not None:
-            set_nested(json_data, ["showMetadata"], show_metadata)
+            set_nested(json_data, ["showMetadata"], show_metadata.lower() == "true")
         if slug is not None:
             set_nested(json_data, ["slug"], slug)
         from immich.client.models.shared_link_edit_dto import SharedLinkEditDto

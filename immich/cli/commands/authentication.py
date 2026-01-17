@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import typer
+from typing import Literal
 
 from immich.cli.runtime import (
     deserialize_request_body,
@@ -23,7 +24,7 @@ Docs: https://api.immich.app/endpoints/authentication""",
 @app.command("change-password")
 def change_password(
     ctx: typer.Context,
-    invalidate_sessions: bool | None = typer.Option(
+    invalidate_sessions: Literal["true", "false"] | None = typer.Option(
         None, "--invalidateSessions", help="""Invalidate all other sessions"""
     ),
     new_password: str = typer.Option(
@@ -52,7 +53,9 @@ Example: password""",
     if any([invalidate_sessions, new_password, password]):
         json_data = {}
         if invalidate_sessions is not None:
-            set_nested(json_data, ["invalidateSessions"], invalidate_sessions)
+            set_nested(
+                json_data, ["invalidateSessions"], invalidate_sessions.lower() == "true"
+            )
         set_nested(json_data, ["newPassword"], new_password)
         set_nested(json_data, ["password"], password)
         from immich.client.models.change_password_dto import ChangePasswordDto

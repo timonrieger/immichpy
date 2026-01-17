@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import typer
+from typing import Literal
 
 from immich.cli.runtime import (
     deserialize_request_body,
@@ -66,7 +67,7 @@ def run_queue_command_legacy(
     ctx: typer.Context,
     name: QueueName,
     command: str = typer.Option(..., "--command", help="""Queue command to execute"""),
-    force: bool | None = typer.Option(
+    force: Literal["true", "false"] | None = typer.Option(
         None, "--force", help="""Force the command execution (if applicable)"""
     ),
 ) -> None:
@@ -83,7 +84,7 @@ def run_queue_command_legacy(
         json_data = {}
         set_nested(json_data, ["command"], command)
         if force is not None:
-            set_nested(json_data, ["force"], force)
+            set_nested(json_data, ["force"], force.lower() == "true")
         from immich.client.models.queue_command_dto import QueueCommandDto
 
         queue_command_dto = deserialize_request_body(json_data, QueueCommandDto)

@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import typer
+from typing import Literal
 
 from immich.cli.runtime import (
     deserialize_request_body,
@@ -70,7 +71,7 @@ def create_face(
 def delete_face(
     ctx: typer.Context,
     id: str,
-    force: bool = typer.Option(
+    force: Literal["true", "false"] = typer.Option(
         ..., "--force", help="""Force delete even if person has other faces"""
     ),
 ) -> None:
@@ -85,7 +86,7 @@ def delete_face(
         raise SystemExit("Error: Request body is required. Use dotted body flags.")
     if any([force]):
         json_data = {}
-        set_nested(json_data, ["force"], force)
+        set_nested(json_data, ["force"], force.lower() == "true")
         from immich.client.models.asset_face_delete_dto import AssetFaceDeleteDto
 
         asset_face_delete_dto = deserialize_request_body(json_data, AssetFaceDeleteDto)

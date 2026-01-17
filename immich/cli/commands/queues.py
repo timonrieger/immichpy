@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import typer
+from typing import Literal
 
 from immich.cli.runtime import (
     deserialize_request_body,
@@ -24,7 +25,7 @@ Docs: https://api.immich.app/endpoints/queues""",
 def empty_queue(
     ctx: typer.Context,
     name: QueueName,
-    failed: bool | None = typer.Option(
+    failed: Literal["true", "false"] | None = typer.Option(
         None,
         "--failed",
         help="""If true, will also remove failed jobs from the queue.""",
@@ -42,7 +43,7 @@ def empty_queue(
     if any([failed]):
         json_data = {}
         if failed is not None:
-            set_nested(json_data, ["failed"], failed)
+            set_nested(json_data, ["failed"], failed.lower() == "true")
         from immich.client.models.queue_delete_dto import QueueDeleteDto
 
         queue_delete_dto = deserialize_request_body(json_data, QueueDeleteDto)
@@ -111,7 +112,7 @@ def get_queues(
 def update_queue(
     ctx: typer.Context,
     name: QueueName,
-    is_paused: bool | None = typer.Option(
+    is_paused: Literal["true", "false"] | None = typer.Option(
         None, "--isPaused", help="""Whether to pause the queue"""
     ),
 ) -> None:
@@ -127,7 +128,7 @@ def update_queue(
     if any([is_paused]):
         json_data = {}
         if is_paused is not None:
-            set_nested(json_data, ["isPaused"], is_paused)
+            set_nested(json_data, ["isPaused"], is_paused.lower() == "true")
         from immich.client.models.queue_update_dto import QueueUpdateDto
 
         queue_update_dto = deserialize_request_body(json_data, QueueUpdateDto)

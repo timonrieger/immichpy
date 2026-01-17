@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import typer
+from typing import Literal
 
 from immich.cli.runtime import (
     deserialize_request_body,
@@ -27,18 +28,18 @@ def create_user_admin(
         None, "--avatarColor", help="""Avatar color"""
     ),
     email: str = typer.Option(..., "--email", help="""User email"""),
-    is_admin: bool | None = typer.Option(
+    is_admin: Literal["true", "false"] | None = typer.Option(
         None, "--isAdmin", help="""Grant admin privileges"""
     ),
     name: str = typer.Option(..., "--name", help="""User name"""),
-    notify: bool | None = typer.Option(
+    notify: Literal["true", "false"] | None = typer.Option(
         None, "--notify", help="""Send notification email"""
     ),
     password: str = typer.Option(..., "--password", help="""User password"""),
     quota_size_in_bytes: int | None = typer.Option(
         None, "--quotaSizeInBytes", help="""Storage quota in bytes""", min=0
     ),
-    should_change_password: bool | None = typer.Option(
+    should_change_password: Literal["true", "false"] | None = typer.Option(
         None, "--shouldChangePassword", help="""Require password change on next login"""
     ),
     storage_label: str | None = typer.Option(
@@ -83,15 +84,19 @@ def create_user_admin(
             set_nested(json_data, ["avatarColor"], avatar_color)
         set_nested(json_data, ["email"], email)
         if is_admin is not None:
-            set_nested(json_data, ["isAdmin"], is_admin)
+            set_nested(json_data, ["isAdmin"], is_admin.lower() == "true")
         set_nested(json_data, ["name"], name)
         if notify is not None:
-            set_nested(json_data, ["notify"], notify)
+            set_nested(json_data, ["notify"], notify.lower() == "true")
         set_nested(json_data, ["password"], password)
         if quota_size_in_bytes is not None:
             set_nested(json_data, ["quotaSizeInBytes"], quota_size_in_bytes)
         if should_change_password is not None:
-            set_nested(json_data, ["shouldChangePassword"], should_change_password)
+            set_nested(
+                json_data,
+                ["shouldChangePassword"],
+                should_change_password.lower() == "true",
+            )
         if storage_label is not None:
             set_nested(json_data, ["storageLabel"], storage_label)
         from immich.client.models.user_admin_create_dto import UserAdminCreateDto
@@ -108,7 +113,7 @@ def create_user_admin(
 def delete_user_admin(
     ctx: typer.Context,
     id: str,
-    force: bool | None = typer.Option(
+    force: Literal["true", "false"] | None = typer.Option(
         None, "--force", help="""Force delete even if user has assets"""
     ),
 ) -> None:
@@ -124,7 +129,7 @@ def delete_user_admin(
     if any([force]):
         json_data = {}
         if force is not None:
-            set_nested(json_data, ["force"], force)
+            set_nested(json_data, ["force"], force.lower() == "true")
         from immich.client.models.user_admin_delete_dto import UserAdminDeleteDto
 
         user_admin_delete_dto = deserialize_request_body(json_data, UserAdminDeleteDto)
@@ -194,10 +199,10 @@ def get_user_sessions_admin(
 def get_user_statistics_admin(
     ctx: typer.Context,
     id: str,
-    is_favorite: str | None = typer.Option(
+    is_favorite: Literal["true", "false"] | None = typer.Option(
         None, "--is-favorite", help="""Filter by favorite status"""
     ),
-    is_trashed: str | None = typer.Option(
+    is_trashed: Literal["true", "false"] | None = typer.Option(
         None, "--is-trashed", help="""Filter by trash status"""
     ),
     visibility: AssetVisibility | None = typer.Option(
@@ -245,7 +250,7 @@ def restore_user_admin(
 def search_users_admin(
     ctx: typer.Context,
     id: str | None = typer.Option(None, "--id", help="""User ID filter"""),
-    with_deleted: str | None = typer.Option(
+    with_deleted: Literal["true", "false"] | None = typer.Option(
         None, "--with-deleted", help="""Include deleted users"""
     ),
 ) -> None:
@@ -272,7 +277,7 @@ def update_user_admin(
         None, "--avatarColor", help="""Avatar color"""
     ),
     email: str | None = typer.Option(None, "--email", help="""User email"""),
-    is_admin: bool | None = typer.Option(
+    is_admin: Literal["true", "false"] | None = typer.Option(
         None, "--isAdmin", help="""Grant admin privileges"""
     ),
     name: str | None = typer.Option(None, "--name", help="""User name"""),
@@ -287,7 +292,7 @@ Example: 123456""",
     quota_size_in_bytes: int | None = typer.Option(
         None, "--quotaSizeInBytes", help="""Storage quota in bytes""", min=0
     ),
-    should_change_password: bool | None = typer.Option(
+    should_change_password: Literal["true", "false"] | None = typer.Option(
         None, "--shouldChangePassword", help="""Require password change on next login"""
     ),
     storage_label: str | None = typer.Option(
@@ -334,7 +339,7 @@ Example: 123456""",
         if email is not None:
             set_nested(json_data, ["email"], email)
         if is_admin is not None:
-            set_nested(json_data, ["isAdmin"], is_admin)
+            set_nested(json_data, ["isAdmin"], is_admin.lower() == "true")
         if name is not None:
             set_nested(json_data, ["name"], name)
         if password is not None:
@@ -344,7 +349,11 @@ Example: 123456""",
         if quota_size_in_bytes is not None:
             set_nested(json_data, ["quotaSizeInBytes"], quota_size_in_bytes)
         if should_change_password is not None:
-            set_nested(json_data, ["shouldChangePassword"], should_change_password)
+            set_nested(
+                json_data,
+                ["shouldChangePassword"],
+                should_change_password.lower() == "true",
+            )
         if storage_label is not None:
             set_nested(json_data, ["storageLabel"], storage_label)
         from immich.client.models.user_admin_update_dto import UserAdminUpdateDto
@@ -367,48 +376,48 @@ def update_user_preferences_admin(
     avatar_color: str | None = typer.Option(
         None, "--avatar.color", help="""Avatar color"""
     ),
-    cast_g_cast_enabled: bool | None = typer.Option(
+    cast_g_cast_enabled: Literal["true", "false"] | None = typer.Option(
         None, "--cast.gCastEnabled", help="""Whether Google Cast is enabled"""
     ),
     download_archive_size: int | None = typer.Option(
         None, "--download.archiveSize", help="""Maximum archive size in bytes""", min=1
     ),
-    download_include_embedded_videos: bool | None = typer.Option(
+    download_include_embedded_videos: Literal["true", "false"] | None = typer.Option(
         None,
         "--download.includeEmbeddedVideos",
         help="""Whether to include embedded videos in downloads""",
     ),
-    email_notifications_album_invite: bool | None = typer.Option(
+    email_notifications_album_invite: Literal["true", "false"] | None = typer.Option(
         None,
         "--emailNotifications.albumInvite",
         help="""Whether to receive email notifications for album invites""",
     ),
-    email_notifications_album_update: bool | None = typer.Option(
+    email_notifications_album_update: Literal["true", "false"] | None = typer.Option(
         None,
         "--emailNotifications.albumUpdate",
         help="""Whether to receive email notifications for album updates""",
     ),
-    email_notifications_enabled: bool | None = typer.Option(
+    email_notifications_enabled: Literal["true", "false"] | None = typer.Option(
         None,
         "--emailNotifications.enabled",
         help="""Whether email notifications are enabled""",
     ),
-    folders_enabled: bool | None = typer.Option(
+    folders_enabled: Literal["true", "false"] | None = typer.Option(
         None, "--folders.enabled", help="""Whether folders are enabled"""
     ),
-    folders_sidebar_web: bool | None = typer.Option(
+    folders_sidebar_web: Literal["true", "false"] | None = typer.Option(
         None, "--folders.sidebarWeb", help="""Whether folders appear in web sidebar"""
     ),
     memories_duration: int | None = typer.Option(
         None, "--memories.duration", help="""Memory duration in seconds""", min=1
     ),
-    memories_enabled: bool | None = typer.Option(
+    memories_enabled: Literal["true", "false"] | None = typer.Option(
         None, "--memories.enabled", help="""Whether memories are enabled"""
     ),
-    people_enabled: bool | None = typer.Option(
+    people_enabled: Literal["true", "false"] | None = typer.Option(
         None, "--people.enabled", help="""Whether people are enabled"""
     ),
-    people_sidebar_web: bool | None = typer.Option(
+    people_sidebar_web: Literal["true", "false"] | None = typer.Option(
         None, "--people.sidebarWeb", help="""Whether people appear in web sidebar"""
     ),
     purchase_hide_buy_button_until: str | None = typer.Option(
@@ -416,24 +425,24 @@ def update_user_preferences_admin(
         "--purchase.hideBuyButtonUntil",
         help="""Date until which to hide buy button""",
     ),
-    purchase_show_support_badge: bool | None = typer.Option(
+    purchase_show_support_badge: Literal["true", "false"] | None = typer.Option(
         None, "--purchase.showSupportBadge", help="""Whether to show support badge"""
     ),
-    ratings_enabled: bool | None = typer.Option(
+    ratings_enabled: Literal["true", "false"] | None = typer.Option(
         None, "--ratings.enabled", help="""Whether ratings are enabled"""
     ),
-    shared_links_enabled: bool | None = typer.Option(
+    shared_links_enabled: Literal["true", "false"] | None = typer.Option(
         None, "--sharedLinks.enabled", help="""Whether shared links are enabled"""
     ),
-    shared_links_sidebar_web: bool | None = typer.Option(
+    shared_links_sidebar_web: Literal["true", "false"] | None = typer.Option(
         None,
         "--sharedLinks.sidebarWeb",
         help="""Whether shared links appear in web sidebar""",
     ),
-    tags_enabled: bool | None = typer.Option(
+    tags_enabled: Literal["true", "false"] | None = typer.Option(
         None, "--tags.enabled", help="""Whether tags are enabled"""
     ),
-    tags_sidebar_web: bool | None = typer.Option(
+    tags_sidebar_web: Literal["true", "false"] | None = typer.Option(
         None, "--tags.sidebarWeb", help="""Whether tags appear in web sidebar"""
     ),
 ) -> None:
@@ -503,45 +512,63 @@ def update_user_preferences_admin(
         if avatar_color is not None:
             set_nested(json_data, ["avatar", "color"], avatar_color)
         if cast_g_cast_enabled is not None:
-            set_nested(json_data, ["cast", "gCastEnabled"], cast_g_cast_enabled)
+            set_nested(
+                json_data,
+                ["cast", "gCastEnabled"],
+                cast_g_cast_enabled.lower() == "true",
+            )
         if download_archive_size is not None:
             set_nested(json_data, ["download", "archiveSize"], download_archive_size)
         if download_include_embedded_videos is not None:
             set_nested(
                 json_data,
                 ["download", "includeEmbeddedVideos"],
-                download_include_embedded_videos,
+                download_include_embedded_videos.lower() == "true",
             )
         if email_notifications_album_invite is not None:
             set_nested(
                 json_data,
                 ["emailNotifications", "albumInvite"],
-                email_notifications_album_invite,
+                email_notifications_album_invite.lower() == "true",
             )
         if email_notifications_album_update is not None:
             set_nested(
                 json_data,
                 ["emailNotifications", "albumUpdate"],
-                email_notifications_album_update,
+                email_notifications_album_update.lower() == "true",
             )
         if email_notifications_enabled is not None:
             set_nested(
                 json_data,
                 ["emailNotifications", "enabled"],
-                email_notifications_enabled,
+                email_notifications_enabled.lower() == "true",
             )
         if folders_enabled is not None:
-            set_nested(json_data, ["folders", "enabled"], folders_enabled)
+            set_nested(
+                json_data, ["folders", "enabled"], folders_enabled.lower() == "true"
+            )
         if folders_sidebar_web is not None:
-            set_nested(json_data, ["folders", "sidebarWeb"], folders_sidebar_web)
+            set_nested(
+                json_data,
+                ["folders", "sidebarWeb"],
+                folders_sidebar_web.lower() == "true",
+            )
         if memories_duration is not None:
             set_nested(json_data, ["memories", "duration"], memories_duration)
         if memories_enabled is not None:
-            set_nested(json_data, ["memories", "enabled"], memories_enabled)
+            set_nested(
+                json_data, ["memories", "enabled"], memories_enabled.lower() == "true"
+            )
         if people_enabled is not None:
-            set_nested(json_data, ["people", "enabled"], people_enabled)
+            set_nested(
+                json_data, ["people", "enabled"], people_enabled.lower() == "true"
+            )
         if people_sidebar_web is not None:
-            set_nested(json_data, ["people", "sidebarWeb"], people_sidebar_web)
+            set_nested(
+                json_data,
+                ["people", "sidebarWeb"],
+                people_sidebar_web.lower() == "true",
+            )
         if purchase_hide_buy_button_until is not None:
             set_nested(
                 json_data,
@@ -550,20 +577,32 @@ def update_user_preferences_admin(
             )
         if purchase_show_support_badge is not None:
             set_nested(
-                json_data, ["purchase", "showSupportBadge"], purchase_show_support_badge
+                json_data,
+                ["purchase", "showSupportBadge"],
+                purchase_show_support_badge.lower() == "true",
             )
         if ratings_enabled is not None:
-            set_nested(json_data, ["ratings", "enabled"], ratings_enabled)
+            set_nested(
+                json_data, ["ratings", "enabled"], ratings_enabled.lower() == "true"
+            )
         if shared_links_enabled is not None:
-            set_nested(json_data, ["sharedLinks", "enabled"], shared_links_enabled)
+            set_nested(
+                json_data,
+                ["sharedLinks", "enabled"],
+                shared_links_enabled.lower() == "true",
+            )
         if shared_links_sidebar_web is not None:
             set_nested(
-                json_data, ["sharedLinks", "sidebarWeb"], shared_links_sidebar_web
+                json_data,
+                ["sharedLinks", "sidebarWeb"],
+                shared_links_sidebar_web.lower() == "true",
             )
         if tags_enabled is not None:
-            set_nested(json_data, ["tags", "enabled"], tags_enabled)
+            set_nested(json_data, ["tags", "enabled"], tags_enabled.lower() == "true")
         if tags_sidebar_web is not None:
-            set_nested(json_data, ["tags", "sidebarWeb"], tags_sidebar_web)
+            set_nested(
+                json_data, ["tags", "sidebarWeb"], tags_sidebar_web.lower() == "true"
+            )
         from immich.client.models.user_preferences_update_dto import (
             UserPreferencesUpdateDto,
         )

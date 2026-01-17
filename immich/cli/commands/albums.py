@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import typer
+from typing import Literal
 
 from immich.cli.runtime import (
     deserialize_request_body,
@@ -205,7 +206,7 @@ def get_album_info(
     slug: str | None = typer.Option(
         None, "--slug", help="""Access slug for shared links"""
     ),
-    without_assets: str | None = typer.Option(
+    without_assets: Literal["true", "false"] | None = typer.Option(
         None, "--without-assets", help="""Exclude assets from response"""
     ),
 ) -> None:
@@ -250,7 +251,7 @@ def get_all_albums(
         "--asset-id",
         help="""Filter albums containing this asset ID (ignores shared parameter)""",
     ),
-    shared: str | None = typer.Option(
+    shared: Literal["true", "false"] | None = typer.Option(
         None,
         "--shared",
         help="""Filter by shared status: true = only shared, false = only own, undefined = all""",
@@ -329,7 +330,7 @@ def update_album_info(
     description: str | None = typer.Option(
         None, "--description", help="""Album description"""
     ),
-    is_activity_enabled: bool | None = typer.Option(
+    is_activity_enabled: Literal["true", "false"] | None = typer.Option(
         None, "--isActivityEnabled", help="""Enable activity feed"""
     ),
     order: str | None = typer.Option(None, "--order", help="""Asset sort order"""),
@@ -356,7 +357,9 @@ def update_album_info(
         if description is not None:
             set_nested(json_data, ["description"], description)
         if is_activity_enabled is not None:
-            set_nested(json_data, ["isActivityEnabled"], is_activity_enabled)
+            set_nested(
+                json_data, ["isActivityEnabled"], is_activity_enabled.lower() == "true"
+            )
         if order is not None:
             set_nested(json_data, ["order"], order)
         from immich.client.models.update_album_dto import UpdateAlbumDto

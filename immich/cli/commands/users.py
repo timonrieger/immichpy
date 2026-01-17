@@ -2,8 +2,9 @@
 
 from __future__ import annotations
 
-from pathlib import Path
 import typer
+from pathlib import Path
+from typing import Literal
 
 from immich.cli.runtime import (
     load_file_bytes,
@@ -236,7 +237,7 @@ def set_user_license(
 @app.command("set-user-onboarding")
 def set_user_onboarding(
     ctx: typer.Context,
-    is_onboarded: bool = typer.Option(
+    is_onboarded: Literal["true", "false"] = typer.Option(
         ..., "--isOnboarded", help="""Is user onboarded"""
     ),
 ) -> None:
@@ -250,7 +251,7 @@ def set_user_onboarding(
         raise SystemExit("Error: Request body is required. Use dotted body flags.")
     if any([is_onboarded]):
         json_data = {}
-        set_nested(json_data, ["isOnboarded"], is_onboarded)
+        set_nested(json_data, ["isOnboarded"], is_onboarded.lower() == "true")
         from immich.client.models.onboarding_dto import OnboardingDto
 
         onboarding_dto = deserialize_request_body(json_data, OnboardingDto)
@@ -270,48 +271,48 @@ def update_my_preferences(
     avatar_color: str | None = typer.Option(
         None, "--avatar.color", help="""Avatar color"""
     ),
-    cast_g_cast_enabled: bool | None = typer.Option(
+    cast_g_cast_enabled: Literal["true", "false"] | None = typer.Option(
         None, "--cast.gCastEnabled", help="""Whether Google Cast is enabled"""
     ),
     download_archive_size: int | None = typer.Option(
         None, "--download.archiveSize", help="""Maximum archive size in bytes""", min=1
     ),
-    download_include_embedded_videos: bool | None = typer.Option(
+    download_include_embedded_videos: Literal["true", "false"] | None = typer.Option(
         None,
         "--download.includeEmbeddedVideos",
         help="""Whether to include embedded videos in downloads""",
     ),
-    email_notifications_album_invite: bool | None = typer.Option(
+    email_notifications_album_invite: Literal["true", "false"] | None = typer.Option(
         None,
         "--emailNotifications.albumInvite",
         help="""Whether to receive email notifications for album invites""",
     ),
-    email_notifications_album_update: bool | None = typer.Option(
+    email_notifications_album_update: Literal["true", "false"] | None = typer.Option(
         None,
         "--emailNotifications.albumUpdate",
         help="""Whether to receive email notifications for album updates""",
     ),
-    email_notifications_enabled: bool | None = typer.Option(
+    email_notifications_enabled: Literal["true", "false"] | None = typer.Option(
         None,
         "--emailNotifications.enabled",
         help="""Whether email notifications are enabled""",
     ),
-    folders_enabled: bool | None = typer.Option(
+    folders_enabled: Literal["true", "false"] | None = typer.Option(
         None, "--folders.enabled", help="""Whether folders are enabled"""
     ),
-    folders_sidebar_web: bool | None = typer.Option(
+    folders_sidebar_web: Literal["true", "false"] | None = typer.Option(
         None, "--folders.sidebarWeb", help="""Whether folders appear in web sidebar"""
     ),
     memories_duration: int | None = typer.Option(
         None, "--memories.duration", help="""Memory duration in seconds""", min=1
     ),
-    memories_enabled: bool | None = typer.Option(
+    memories_enabled: Literal["true", "false"] | None = typer.Option(
         None, "--memories.enabled", help="""Whether memories are enabled"""
     ),
-    people_enabled: bool | None = typer.Option(
+    people_enabled: Literal["true", "false"] | None = typer.Option(
         None, "--people.enabled", help="""Whether people are enabled"""
     ),
-    people_sidebar_web: bool | None = typer.Option(
+    people_sidebar_web: Literal["true", "false"] | None = typer.Option(
         None, "--people.sidebarWeb", help="""Whether people appear in web sidebar"""
     ),
     purchase_hide_buy_button_until: str | None = typer.Option(
@@ -319,24 +320,24 @@ def update_my_preferences(
         "--purchase.hideBuyButtonUntil",
         help="""Date until which to hide buy button""",
     ),
-    purchase_show_support_badge: bool | None = typer.Option(
+    purchase_show_support_badge: Literal["true", "false"] | None = typer.Option(
         None, "--purchase.showSupportBadge", help="""Whether to show support badge"""
     ),
-    ratings_enabled: bool | None = typer.Option(
+    ratings_enabled: Literal["true", "false"] | None = typer.Option(
         None, "--ratings.enabled", help="""Whether ratings are enabled"""
     ),
-    shared_links_enabled: bool | None = typer.Option(
+    shared_links_enabled: Literal["true", "false"] | None = typer.Option(
         None, "--sharedLinks.enabled", help="""Whether shared links are enabled"""
     ),
-    shared_links_sidebar_web: bool | None = typer.Option(
+    shared_links_sidebar_web: Literal["true", "false"] | None = typer.Option(
         None,
         "--sharedLinks.sidebarWeb",
         help="""Whether shared links appear in web sidebar""",
     ),
-    tags_enabled: bool | None = typer.Option(
+    tags_enabled: Literal["true", "false"] | None = typer.Option(
         None, "--tags.enabled", help="""Whether tags are enabled"""
     ),
-    tags_sidebar_web: bool | None = typer.Option(
+    tags_sidebar_web: Literal["true", "false"] | None = typer.Option(
         None, "--tags.sidebarWeb", help="""Whether tags appear in web sidebar"""
     ),
 ) -> None:
@@ -405,45 +406,63 @@ def update_my_preferences(
         if avatar_color is not None:
             set_nested(json_data, ["avatar", "color"], avatar_color)
         if cast_g_cast_enabled is not None:
-            set_nested(json_data, ["cast", "gCastEnabled"], cast_g_cast_enabled)
+            set_nested(
+                json_data,
+                ["cast", "gCastEnabled"],
+                cast_g_cast_enabled.lower() == "true",
+            )
         if download_archive_size is not None:
             set_nested(json_data, ["download", "archiveSize"], download_archive_size)
         if download_include_embedded_videos is not None:
             set_nested(
                 json_data,
                 ["download", "includeEmbeddedVideos"],
-                download_include_embedded_videos,
+                download_include_embedded_videos.lower() == "true",
             )
         if email_notifications_album_invite is not None:
             set_nested(
                 json_data,
                 ["emailNotifications", "albumInvite"],
-                email_notifications_album_invite,
+                email_notifications_album_invite.lower() == "true",
             )
         if email_notifications_album_update is not None:
             set_nested(
                 json_data,
                 ["emailNotifications", "albumUpdate"],
-                email_notifications_album_update,
+                email_notifications_album_update.lower() == "true",
             )
         if email_notifications_enabled is not None:
             set_nested(
                 json_data,
                 ["emailNotifications", "enabled"],
-                email_notifications_enabled,
+                email_notifications_enabled.lower() == "true",
             )
         if folders_enabled is not None:
-            set_nested(json_data, ["folders", "enabled"], folders_enabled)
+            set_nested(
+                json_data, ["folders", "enabled"], folders_enabled.lower() == "true"
+            )
         if folders_sidebar_web is not None:
-            set_nested(json_data, ["folders", "sidebarWeb"], folders_sidebar_web)
+            set_nested(
+                json_data,
+                ["folders", "sidebarWeb"],
+                folders_sidebar_web.lower() == "true",
+            )
         if memories_duration is not None:
             set_nested(json_data, ["memories", "duration"], memories_duration)
         if memories_enabled is not None:
-            set_nested(json_data, ["memories", "enabled"], memories_enabled)
+            set_nested(
+                json_data, ["memories", "enabled"], memories_enabled.lower() == "true"
+            )
         if people_enabled is not None:
-            set_nested(json_data, ["people", "enabled"], people_enabled)
+            set_nested(
+                json_data, ["people", "enabled"], people_enabled.lower() == "true"
+            )
         if people_sidebar_web is not None:
-            set_nested(json_data, ["people", "sidebarWeb"], people_sidebar_web)
+            set_nested(
+                json_data,
+                ["people", "sidebarWeb"],
+                people_sidebar_web.lower() == "true",
+            )
         if purchase_hide_buy_button_until is not None:
             set_nested(
                 json_data,
@@ -452,20 +471,32 @@ def update_my_preferences(
             )
         if purchase_show_support_badge is not None:
             set_nested(
-                json_data, ["purchase", "showSupportBadge"], purchase_show_support_badge
+                json_data,
+                ["purchase", "showSupportBadge"],
+                purchase_show_support_badge.lower() == "true",
             )
         if ratings_enabled is not None:
-            set_nested(json_data, ["ratings", "enabled"], ratings_enabled)
+            set_nested(
+                json_data, ["ratings", "enabled"], ratings_enabled.lower() == "true"
+            )
         if shared_links_enabled is not None:
-            set_nested(json_data, ["sharedLinks", "enabled"], shared_links_enabled)
+            set_nested(
+                json_data,
+                ["sharedLinks", "enabled"],
+                shared_links_enabled.lower() == "true",
+            )
         if shared_links_sidebar_web is not None:
             set_nested(
-                json_data, ["sharedLinks", "sidebarWeb"], shared_links_sidebar_web
+                json_data,
+                ["sharedLinks", "sidebarWeb"],
+                shared_links_sidebar_web.lower() == "true",
             )
         if tags_enabled is not None:
-            set_nested(json_data, ["tags", "enabled"], tags_enabled)
+            set_nested(json_data, ["tags", "enabled"], tags_enabled.lower() == "true")
         if tags_sidebar_web is not None:
-            set_nested(json_data, ["tags", "sidebarWeb"], tags_sidebar_web)
+            set_nested(
+                json_data, ["tags", "sidebarWeb"], tags_sidebar_web.lower() == "true"
+            )
         from immich.client.models.user_preferences_update_dto import (
             UserPreferencesUpdateDto,
         )

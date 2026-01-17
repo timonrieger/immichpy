@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import typer
+from typing import Literal
 
 from immich.cli.runtime import print_response, run_command
 from immich.client.models import *
@@ -21,12 +22,12 @@ def get_time_bucket(
     album_id: str | None = typer.Option(
         None, "--album-id", help="""Filter assets belonging to a specific album"""
     ),
-    is_favorite: str | None = typer.Option(
+    is_favorite: Literal["true", "false"] | None = typer.Option(
         None,
         "--is-favorite",
         help="""Filter by favorite status (true for favorites only, false for non-favorites only)""",
     ),
-    is_trashed: str | None = typer.Option(
+    is_trashed: Literal["true", "false"] | None = typer.Option(
         None,
         "--is-trashed",
         help="""Filter by trash status (true for trashed assets only, false for non-trashed only)""",
@@ -63,13 +64,13 @@ def get_time_bucket(
         "--visibility",
         help="""Filter by asset visibility status (ARCHIVE, TIMELINE, HIDDEN, LOCKED)""",
     ),
-    with_coordinates: str | None = typer.Option(
+    with_coordinates: Literal["true", "false"] | None = typer.Option(
         None, "--with-coordinates", help="""Include location data in the response"""
     ),
-    with_partners: str | None = typer.Option(
+    with_partners: Literal["true", "false"] | None = typer.Option(
         None, "--with-partners", help="""Include assets shared by partners"""
     ),
-    with_stacked: str | None = typer.Option(
+    with_stacked: Literal["true", "false"] | None = typer.Option(
         None,
         "--with-stacked",
         help="""Include stacked assets in the response. When true, only primary assets from stacks are returned.""",
@@ -119,12 +120,12 @@ def get_time_buckets(
     album_id: str | None = typer.Option(
         None, "--album-id", help="""Filter assets belonging to a specific album"""
     ),
-    is_favorite: str | None = typer.Option(
+    is_favorite: Literal["true", "false"] | None = typer.Option(
         None,
         "--is-favorite",
         help="""Filter by favorite status (true for favorites only, false for non-favorites only)""",
     ),
-    is_trashed: str | None = typer.Option(
+    is_trashed: Literal["true", "false"] | None = typer.Option(
         None,
         "--is-trashed",
         help="""Filter by trash status (true for trashed assets only, false for non-trashed only)""",
@@ -156,13 +157,13 @@ def get_time_buckets(
         "--visibility",
         help="""Filter by asset visibility status (ARCHIVE, TIMELINE, HIDDEN, LOCKED)""",
     ),
-    with_coordinates: str | None = typer.Option(
+    with_coordinates: Literal["true", "false"] | None = typer.Option(
         None, "--with-coordinates", help="""Include location data in the response"""
     ),
-    with_partners: str | None = typer.Option(
+    with_partners: Literal["true", "false"] | None = typer.Option(
         None, "--with-partners", help="""Include assets shared by partners"""
     ),
-    with_stacked: str | None = typer.Option(
+    with_stacked: Literal["true", "false"] | None = typer.Option(
         None,
         "--with-stacked",
         help="""Include stacked assets in the response. When true, only primary assets from stacks are returned.""",

@@ -2,8 +2,9 @@
 
 from __future__ import annotations
 
-from datetime import datetime
 import typer
+from datetime import datetime
+from typing import Literal
 
 from immich.cli.runtime import (
     deserialize_request_body,
@@ -95,7 +96,7 @@ def get_notifications(
     type: NotificationType | None = typer.Option(
         None, "--type", help="""Filter by notification type"""
     ),
-    unread: str | None = typer.Option(
+    unread: Literal["true", "false"] | None = typer.Option(
         None, "--unread", help="""Filter by unread status"""
     ),
 ) -> None:
