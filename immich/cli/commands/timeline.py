@@ -16,7 +16,7 @@ Docs: https://api.immich.app/endpoints/timeline""",
 )
 
 
-@app.command("get-time-bucket")
+@app.command("get-time-bucket", deprecated=False)
 def get_time_bucket(
     ctx: typer.Context,
     album_id: str | None = typer.Option(
@@ -114,7 +114,7 @@ def get_time_bucket(
     print_response(result, format_mode)
 
 
-@app.command("get-time-buckets")
+@app.command("get-time-buckets", deprecated=False)
 def get_time_buckets(
     ctx: typer.Context,
     album_id: str | None = typer.Option(

@@ -20,7 +20,7 @@ Docs: https://api.immich.app/endpoints/server""",
 )
 
 
-@app.command("delete-server-license")
+@app.command("delete-server-license", deprecated=False)
 def delete_server_license(
     ctx: typer.Context,
 ) -> None:
@@ -35,7 +35,7 @@ def delete_server_license(
     print_response(result, format_mode)
 
 
-@app.command("get-about-info")
+@app.command("get-about-info", deprecated=False)
 def get_about_info(
     ctx: typer.Context,
 ) -> None:
@@ -50,7 +50,7 @@ def get_about_info(
     print_response(result, format_mode)
 
 
-@app.command("get-apk-links")
+@app.command("get-apk-links", deprecated=False)
 def get_apk_links(
     ctx: typer.Context,
 ) -> None:
@@ -65,7 +65,7 @@ def get_apk_links(
     print_response(result, format_mode)
 
 
-@app.command("get-server-config")
+@app.command("get-server-config", deprecated=False)
 def get_server_config(
     ctx: typer.Context,
 ) -> None:
@@ -80,7 +80,7 @@ def get_server_config(
     print_response(result, format_mode)
 
 
-@app.command("get-server-features")
+@app.command("get-server-features", deprecated=False)
 def get_server_features(
     ctx: typer.Context,
 ) -> None:
@@ -95,7 +95,7 @@ def get_server_features(
     print_response(result, format_mode)
 
 
-@app.command("get-server-license")
+@app.command("get-server-license", deprecated=False)
 def get_server_license(
     ctx: typer.Context,
 ) -> None:
@@ -110,7 +110,7 @@ def get_server_license(
     print_response(result, format_mode)
 
 
-@app.command("get-server-statistics")
+@app.command("get-server-statistics", deprecated=False)
 def get_server_statistics(
     ctx: typer.Context,
 ) -> None:
@@ -125,7 +125,7 @@ def get_server_statistics(
     print_response(result, format_mode)
 
 
-@app.command("get-server-version")
+@app.command("get-server-version", deprecated=False)
 def get_server_version(
     ctx: typer.Context,
 ) -> None:
@@ -140,7 +140,7 @@ def get_server_version(
     print_response(result, format_mode)
 
 
-@app.command("get-storage")
+@app.command("get-storage", deprecated=False)
 def get_storage(
     ctx: typer.Context,
 ) -> None:
@@ -155,7 +155,7 @@ def get_storage(
     print_response(result, format_mode)
 
 
-@app.command("get-supported-media-types")
+@app.command("get-supported-media-types", deprecated=False)
 def get_supported_media_types(
     ctx: typer.Context,
 ) -> None:
@@ -170,7 +170,7 @@ def get_supported_media_types(
     print_response(result, format_mode)
 
 
-@app.command("get-theme")
+@app.command("get-theme", deprecated=False)
 def get_theme(
     ctx: typer.Context,
 ) -> None:
@@ -185,7 +185,7 @@ def get_theme(
     print_response(result, format_mode)
 
 
-@app.command("get-version-check")
+@app.command("get-version-check", deprecated=False)
 def get_version_check(
     ctx: typer.Context,
 ) -> None:
@@ -200,7 +200,7 @@ def get_version_check(
     print_response(result, format_mode)
 
 
-@app.command("get-version-history")
+@app.command("get-version-history", deprecated=False)
 def get_version_history(
     ctx: typer.Context,
 ) -> None:
@@ -215,7 +215,7 @@ def get_version_history(
     print_response(result, format_mode)
 
 
-@app.command("ping-server")
+@app.command("ping-server", deprecated=False)
 def ping_server(
     ctx: typer.Context,
 ) -> None:
@@ -230,7 +230,7 @@ def ping_server(
     print_response(result, format_mode)
 
 
-@app.command("set-server-license")
+@app.command("set-server-license", deprecated=False)
 def set_server_license(
     ctx: typer.Context,
     activation_key: str = typer.Option(

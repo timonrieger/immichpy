@@ -21,7 +21,7 @@ Docs: https://api.immich.app/endpoints/partners""",
 )
 
 
-@app.command("create-partner")
+@app.command("create-partner", deprecated=False)
 def create_partner(
     ctx: typer.Context,
     shared_with_id: str = typer.Option(
@@ -49,7 +49,7 @@ def create_partner(
     print_response(result, format_mode)
 
 
-@app.command("create-partner-deprecated")
+@app.command("create-partner-deprecated", deprecated=True)
 def create_partner_deprecated(
     ctx: typer.Context,
     id: str,
@@ -66,7 +66,7 @@ def create_partner_deprecated(
     print_response(result, format_mode)
 
 
-@app.command("get-partners")
+@app.command("get-partners", deprecated=False)
 def get_partners(
     ctx: typer.Context,
     direction: PartnerDirection = typer.Option(
@@ -85,7 +85,7 @@ def get_partners(
     print_response(result, format_mode)
 
 
-@app.command("remove-partner")
+@app.command("remove-partner", deprecated=False)
 def remove_partner(
     ctx: typer.Context,
     id: str,
@@ -102,7 +102,7 @@ def remove_partner(
     print_response(result, format_mode)
 
 
-@app.command("update-partner")
+@app.command("update-partner", deprecated=False)
 def update_partner(
     ctx: typer.Context,
     id: str,

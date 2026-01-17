@@ -20,7 +20,7 @@ Docs: https://api.immich.app/endpoints/activities""",
 )
 
 
-@app.command("create-activity")
+@app.command("create-activity", deprecated=False)
 def create_activity(
     ctx: typer.Context,
     album_id: str = typer.Option(..., "--albumId", help="""Album ID"""),
@@ -58,7 +58,7 @@ def create_activity(
     print_response(result, format_mode)
 
 
-@app.command("delete-activity")
+@app.command("delete-activity", deprecated=False)
 def delete_activity(
     ctx: typer.Context,
     id: str,
@@ -75,7 +75,7 @@ def delete_activity(
     print_response(result, format_mode)
 
 
-@app.command("get-activities")
+@app.command("get-activities", deprecated=False)
 def get_activities(
     ctx: typer.Context,
     album_id: str = typer.Option(..., "--album-id", help="""Album ID"""),
@@ -110,7 +110,7 @@ def get_activities(
     print_response(result, format_mode)
 
 
-@app.command("get-activity-statistics")
+@app.command("get-activity-statistics", deprecated=False)
 def get_activity_statistics(
     ctx: typer.Context,
     album_id: str = typer.Option(..., "--album-id", help="""Album ID"""),

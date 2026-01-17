@@ -2,7 +2,6 @@
 
 from __future__ import annotations
 
-import json
 import typer
 from pathlib import Path
 from typing import Literal
@@ -25,7 +24,7 @@ Docs: https://api.immich.app/endpoints/assets""",
 )
 
 
-@app.command("check-bulk-upload")
+@app.command("check-bulk-upload", deprecated=False)
 def check_bulk_upload(
     ctx: typer.Context,
     assets: list[str] = typer.Option(
@@ -62,7 +61,7 @@ Example: --assets key1=value1,key2=value2""",
     print_response(result, format_mode)
 
 
-@app.command("check-existing-assets")
+@app.command("check-existing-assets", deprecated=False)
 def check_existing_assets(
     ctx: typer.Context,
     device_asset_ids: list[str] = typer.Option(
@@ -96,7 +95,7 @@ def check_existing_assets(
     print_response(result, format_mode)
 
 
-@app.command("copy-asset")
+@app.command("copy-asset", deprecated=False)
 def copy_asset(
     ctx: typer.Context,
     albums: Literal["true", "false"] | None = typer.Option(
@@ -151,7 +150,7 @@ def copy_asset(
     print_response(result, format_mode)
 
 
-@app.command("delete-asset-metadata")
+@app.command("delete-asset-metadata", deprecated=False)
 def delete_asset_metadata(
     ctx: typer.Context,
     id: str,
@@ -170,7 +169,7 @@ def delete_asset_metadata(
     print_response(result, format_mode)
 
 
-@app.command("delete-assets")
+@app.command("delete-assets", deprecated=False)
 def delete_assets(
     ctx: typer.Context,
     force: Literal["true", "false"] | None = typer.Option(
@@ -201,7 +200,7 @@ def delete_assets(
     print_response(result, format_mode)
 
 
-@app.command("delete-bulk-asset-metadata")
+@app.command("delete-bulk-asset-metadata", deprecated=False)
 def delete_bulk_asset_metadata(
     ctx: typer.Context,
     items: list[str] = typer.Option(
@@ -238,7 +237,7 @@ Example: --items key1=value1,key2=value2""",
     print_response(result, format_mode)
 
 
-@app.command("download-asset")
+@app.command("download-asset", deprecated=False)
 def download_asset(
     ctx: typer.Context,
     id: str,
@@ -270,7 +269,7 @@ def download_asset(
     print_response(result, format_mode)
 
 
-@app.command("edit-asset")
+@app.command("edit-asset", deprecated=False)
 def edit_asset(
     ctx: typer.Context,
     id: str,
@@ -309,7 +308,7 @@ Example: --edits key1=value1,key2=value2""",
     print_response(result, format_mode)
 
 
-@app.command("get-all-user-assets-by-device-id")
+@app.command("get-all-user-assets-by-device-id", deprecated=True)
 def get_all_user_assets_by_device_id(
     ctx: typer.Context,
     device_id: str,
@@ -325,11 +324,10 @@ def get_all_user_assets_by_device_id(
         client, client.assets, "get_all_user_assets_by_device_id", **kwargs
     )
     format_mode = ctx.obj.get("format", "pretty")
-    print("This endpoint is deprecated and will be removed in a future version.")
     print_response(result, format_mode)
 
 
-@app.command("get-asset-edits")
+@app.command("get-asset-edits", deprecated=False)
 def get_asset_edits(
     ctx: typer.Context,
     id: str,
@@ -346,7 +344,7 @@ def get_asset_edits(
     print_response(result, format_mode)
 
 
-@app.command("get-asset-info")
+@app.command("get-asset-info", deprecated=False)
 def get_asset_info(
     ctx: typer.Context,
     id: str,
@@ -373,7 +371,7 @@ def get_asset_info(
     print_response(result, format_mode)
 
 
-@app.command("get-asset-metadata")
+@app.command("get-asset-metadata", deprecated=False)
 def get_asset_metadata(
     ctx: typer.Context,
     id: str,
@@ -390,7 +388,7 @@ def get_asset_metadata(
     print_response(result, format_mode)
 
 
-@app.command("get-asset-metadata-by-key")
+@app.command("get-asset-metadata-by-key", deprecated=False)
 def get_asset_metadata_by_key(
     ctx: typer.Context,
     id: str,
@@ -409,7 +407,7 @@ def get_asset_metadata_by_key(
     print_response(result, format_mode)
 
 
-@app.command("get-asset-ocr")
+@app.command("get-asset-ocr", deprecated=False)
 def get_asset_ocr(
     ctx: typer.Context,
     id: str,
@@ -426,7 +424,7 @@ def get_asset_ocr(
     print_response(result, format_mode)
 
 
-@app.command("get-asset-statistics")
+@app.command("get-asset-statistics", deprecated=False)
 def get_asset_statistics(
     ctx: typer.Context,
     is_favorite: Literal["true", "false"] | None = typer.Option(
@@ -456,7 +454,7 @@ def get_asset_statistics(
     print_response(result, format_mode)
 
 
-@app.command("get-random")
+@app.command("get-random", deprecated=True)
 def get_random(
     ctx: typer.Context,
     count: float | None = typer.Option(
@@ -476,7 +474,7 @@ def get_random(
     print_response(result, format_mode)
 
 
-@app.command("play-asset-video")
+@app.command("play-asset-video", deprecated=False)
 def play_asset_video(
     ctx: typer.Context,
     id: str,
@@ -503,7 +501,7 @@ def play_asset_video(
     print_response(result, format_mode)
 
 
-@app.command("remove-asset-edits")
+@app.command("remove-asset-edits", deprecated=False)
 def remove_asset_edits(
     ctx: typer.Context,
     id: str,
@@ -520,7 +518,7 @@ def remove_asset_edits(
     print_response(result, format_mode)
 
 
-@app.command("replace-asset")
+@app.command("replace-asset", deprecated=True)
 def replace_asset(
     ctx: typer.Context,
     id: str,
@@ -591,7 +589,7 @@ def replace_asset(
     print_response(result, format_mode)
 
 
-@app.command("run-asset-jobs")
+@app.command("run-asset-jobs", deprecated=False)
 def run_asset_jobs(
     ctx: typer.Context,
     asset_ids: list[str] = typer.Option(..., "--assetIds", help="""Asset IDs"""),
@@ -619,7 +617,7 @@ def run_asset_jobs(
     print_response(result, format_mode)
 
 
-@app.command("update-asset")
+@app.command("update-asset", deprecated=False)
 def update_asset(
     ctx: typer.Context,
     id: str,
@@ -707,7 +705,7 @@ def update_asset(
     print_response(result, format_mode)
 
 
-@app.command("update-asset-metadata")
+@app.command("update-asset-metadata", deprecated=False)
 def update_asset_metadata(
     ctx: typer.Context,
     id: str,
@@ -731,14 +729,6 @@ Example: --items key1=value1,key2=value2""",
     if any([items]):
         json_data = {}
         value_items = parse_complex_list(items)
-        # Parse JSON values for the 'value' field
-        for item in value_items:
-            if "value" in item:
-                try:
-                    item["value"] = json.loads(item["value"])
-                except (json.JSONDecodeError, TypeError):
-                    # If it's not valid JSON, leave it as a string
-                    pass
         set_nested(json_data, ["items"], value_items)
         from immich.client.models.asset_metadata_upsert_dto import (
             AssetMetadataUpsertDto,
@@ -754,7 +744,7 @@ Example: --items key1=value1,key2=value2""",
     print_response(result, format_mode)
 
 
-@app.command("update-assets")
+@app.command("update-assets", deprecated=False)
 def update_assets(
     ctx: typer.Context,
     date_time_original: str | None = typer.Option(
@@ -858,7 +848,7 @@ def update_assets(
     print_response(result, format_mode)
 
 
-@app.command("update-bulk-asset-metadata")
+@app.command("update-bulk-asset-metadata", deprecated=False)
 def update_bulk_asset_metadata(
     ctx: typer.Context,
     items: list[str] = typer.Option(
@@ -895,7 +885,7 @@ Example: --items key1=value1,key2=value2""",
     print_response(result, format_mode)
 
 
-@app.command("upload-asset")
+@app.command("upload-asset", deprecated=False)
 def upload_asset(
     ctx: typer.Context,
     key: str | None = typer.Option(
@@ -992,7 +982,7 @@ def upload_asset(
     print_response(result, format_mode)
 
 
-@app.command("view-asset")
+@app.command("view-asset", deprecated=False)
 def view_asset(
     ctx: typer.Context,
     id: str,

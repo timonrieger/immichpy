@@ -22,7 +22,7 @@ Docs: https://api.immich.app/endpoints/shared-links""",
 )
 
 
-@app.command("add-shared-link-assets")
+@app.command("add-shared-link-assets", deprecated=False)
 def add_shared_link_assets(
     ctx: typer.Context,
     id: str,
@@ -62,7 +62,7 @@ def add_shared_link_assets(
     print_response(result, format_mode)
 
 
-@app.command("create-shared-link")
+@app.command("create-shared-link", deprecated=False)
 def create_shared_link(
     ctx: typer.Context,
     album_id: str | None = typer.Option(
@@ -157,7 +157,7 @@ def create_shared_link(
     print_response(result, format_mode)
 
 
-@app.command("get-all-shared-links")
+@app.command("get-all-shared-links", deprecated=False)
 def get_all_shared_links(
     ctx: typer.Context,
     album_id: str | None = typer.Option(
@@ -180,7 +180,7 @@ def get_all_shared_links(
     print_response(result, format_mode)
 
 
-@app.command("get-my-shared-link")
+@app.command("get-my-shared-link", deprecated=False)
 def get_my_shared_link(
     ctx: typer.Context,
     key: str | None = typer.Option(
@@ -211,7 +211,7 @@ def get_my_shared_link(
     print_response(result, format_mode)
 
 
-@app.command("get-shared-link-by-id")
+@app.command("get-shared-link-by-id", deprecated=False)
 def get_shared_link_by_id(
     ctx: typer.Context,
     id: str,
@@ -228,7 +228,7 @@ def get_shared_link_by_id(
     print_response(result, format_mode)
 
 
-@app.command("remove-shared-link")
+@app.command("remove-shared-link", deprecated=False)
 def remove_shared_link(
     ctx: typer.Context,
     id: str,
@@ -245,7 +245,7 @@ def remove_shared_link(
     print_response(result, format_mode)
 
 
-@app.command("remove-shared-link-assets")
+@app.command("remove-shared-link-assets", deprecated=False)
 def remove_shared_link_assets(
     ctx: typer.Context,
     id: str,
@@ -285,7 +285,7 @@ def remove_shared_link_assets(
     print_response(result, format_mode)
 
 
-@app.command("update-shared-link")
+@app.command("update-shared-link", deprecated=False)
 def update_shared_link(
     ctx: typer.Context,
     id: str,

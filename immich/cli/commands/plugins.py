@@ -15,7 +15,7 @@ Docs: https://api.immich.app/endpoints/plugins""",
 )
 
 
-@app.command("get-plugin")
+@app.command("get-plugin", deprecated=False)
 def get_plugin(
     ctx: typer.Context,
     id: str,
@@ -32,7 +32,7 @@ def get_plugin(
     print_response(result, format_mode)
 
 
-@app.command("get-plugin-triggers")
+@app.command("get-plugin-triggers", deprecated=False)
 def get_plugin_triggers(
     ctx: typer.Context,
 ) -> None:
@@ -47,7 +47,7 @@ def get_plugin_triggers(
     print_response(result, format_mode)
 
 
-@app.command("get-plugins")
+@app.command("get-plugins", deprecated=False)
 def get_plugins(
     ctx: typer.Context,
 ) -> None:

@@ -22,7 +22,7 @@ Docs: https://api.immich.app/endpoints/memories""",
 )
 
 
-@app.command("add-memory-assets")
+@app.command("add-memory-assets", deprecated=False)
 def add_memory_assets(
     ctx: typer.Context,
     id: str,
@@ -50,7 +50,7 @@ def add_memory_assets(
     print_response(result, format_mode)
 
 
-@app.command("create-memory")
+@app.command("create-memory", deprecated=False)
 def create_memory(
     ctx: typer.Context,
     asset_ids: list[str] | None = typer.Option(
@@ -97,7 +97,7 @@ def create_memory(
     print_response(result, format_mode)
 
 
-@app.command("delete-memory")
+@app.command("delete-memory", deprecated=False)
 def delete_memory(
     ctx: typer.Context,
     id: str,
@@ -114,7 +114,7 @@ def delete_memory(
     print_response(result, format_mode)
 
 
-@app.command("get-memory")
+@app.command("get-memory", deprecated=False)
 def get_memory(
     ctx: typer.Context,
     id: str,
@@ -131,7 +131,7 @@ def get_memory(
     print_response(result, format_mode)
 
 
-@app.command("memories-statistics")
+@app.command("memories-statistics", deprecated=False)
 def memories_statistics(
     ctx: typer.Context,
     for_: datetime | None = typer.Option(None, "--for", help="""Filter by date"""),
@@ -172,7 +172,7 @@ def memories_statistics(
     print_response(result, format_mode)
 
 
-@app.command("remove-memory-assets")
+@app.command("remove-memory-assets", deprecated=False)
 def remove_memory_assets(
     ctx: typer.Context,
     id: str,
@@ -200,7 +200,7 @@ def remove_memory_assets(
     print_response(result, format_mode)
 
 
-@app.command("search-memories")
+@app.command("search-memories", deprecated=False)
 def search_memories(
     ctx: typer.Context,
     for_: datetime | None = typer.Option(None, "--for", help="""Filter by date"""),
@@ -241,7 +241,7 @@ def search_memories(
     print_response(result, format_mode)
 
 
-@app.command("update-memory")
+@app.command("update-memory", deprecated=False)
 def update_memory(
     ctx: typer.Context,
     id: str,

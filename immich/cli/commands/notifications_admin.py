@@ -23,7 +23,7 @@ Docs: https://api.immich.app/endpoints/notifications-admin""",
 )
 
 
-@app.command("create-notification")
+@app.command("create-notification", deprecated=False)
 def create_notification(
     ctx: typer.Context,
     data: str | None = typer.Option(
@@ -83,7 +83,7 @@ Example: --data key1=value1,key2=value2""",
     print_response(result, format_mode)
 
 
-@app.command("get-notification-template-admin")
+@app.command("get-notification-template-admin", deprecated=False)
 def get_notification_template_admin(
     ctx: typer.Context,
     name: str,
@@ -113,7 +113,7 @@ def get_notification_template_admin(
     print_response(result, format_mode)
 
 
-@app.command("send-test-email-admin")
+@app.command("send-test-email-admin", deprecated=False)
 def send_test_email_admin(
     ctx: typer.Context,
     enabled: Literal["true", "false"] = typer.Option(

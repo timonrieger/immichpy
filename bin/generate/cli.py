@@ -274,7 +274,9 @@ def generate_command_function(
     request_body_info = get_request_body_info(operation, spec)
 
     # Build function signature
-    lines = [f'@app.command("{cmd_name}")']
+    lines = [
+        f'@app.command("{cmd_name}", deprecated={operation.get("deprecated", False)})'
+    ]
     lines.append(f"def {func_name}(")
     lines.append("    ctx: typer.Context,")
 

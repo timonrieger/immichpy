@@ -22,7 +22,7 @@ Docs: https://api.immich.app/endpoints/workflows""",
 )
 
 
-@app.command("create-workflow")
+@app.command("create-workflow", deprecated=False)
 def create_workflow(
     ctx: typer.Context,
     actions: list[str] = typer.Option(
@@ -78,7 +78,7 @@ Example: --filters key1=value1,key2=value2""",
     print_response(result, format_mode)
 
 
-@app.command("delete-workflow")
+@app.command("delete-workflow", deprecated=False)
 def delete_workflow(
     ctx: typer.Context,
     id: str,
@@ -95,7 +95,7 @@ def delete_workflow(
     print_response(result, format_mode)
 
 
-@app.command("get-workflow")
+@app.command("get-workflow", deprecated=False)
 def get_workflow(
     ctx: typer.Context,
     id: str,
@@ -112,7 +112,7 @@ def get_workflow(
     print_response(result, format_mode)
 
 
-@app.command("get-workflows")
+@app.command("get-workflows", deprecated=False)
 def get_workflows(
     ctx: typer.Context,
 ) -> None:
@@ -127,7 +127,7 @@ def get_workflows(
     print_response(result, format_mode)
 
 
-@app.command("update-workflow")
+@app.command("update-workflow", deprecated=False)
 def update_workflow(
     ctx: typer.Context,
     id: str,

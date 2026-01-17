@@ -21,7 +21,7 @@ Docs: https://api.immich.app/endpoints/system-config""",
 )
 
 
-@app.command("get-config")
+@app.command("get-config", deprecated=False)
 def get_config(
     ctx: typer.Context,
 ) -> None:
@@ -36,7 +36,7 @@ def get_config(
     print_response(result, format_mode)
 
 
-@app.command("get-config-defaults")
+@app.command("get-config-defaults", deprecated=False)
 def get_config_defaults(
     ctx: typer.Context,
 ) -> None:
@@ -51,7 +51,7 @@ def get_config_defaults(
     print_response(result, format_mode)
 
 
-@app.command("get-storage-template-options")
+@app.command("get-storage-template-options", deprecated=False)
 def get_storage_template_options(
     ctx: typer.Context,
 ) -> None:
@@ -68,7 +68,7 @@ def get_storage_template_options(
     print_response(result, format_mode)
 
 
-@app.command("update-config")
+@app.command("update-config", deprecated=False)
 def update_config(
     ctx: typer.Context,
     backup_database_cron_expression: str = typer.Option(

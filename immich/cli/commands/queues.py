@@ -21,7 +21,7 @@ Docs: https://api.immich.app/endpoints/queues""",
 )
 
 
-@app.command("empty-queue")
+@app.command("empty-queue", deprecated=False)
 def empty_queue(
     ctx: typer.Context,
     name: QueueName,
@@ -54,7 +54,7 @@ def empty_queue(
     print_response(result, format_mode)
 
 
-@app.command("get-queue")
+@app.command("get-queue", deprecated=False)
 def get_queue(
     ctx: typer.Context,
     name: QueueName,
@@ -71,7 +71,7 @@ def get_queue(
     print_response(result, format_mode)
 
 
-@app.command("get-queue-jobs")
+@app.command("get-queue-jobs", deprecated=False)
 def get_queue_jobs(
     ctx: typer.Context,
     name: QueueName,
@@ -93,7 +93,7 @@ def get_queue_jobs(
     print_response(result, format_mode)
 
 
-@app.command("get-queues")
+@app.command("get-queues", deprecated=False)
 def get_queues(
     ctx: typer.Context,
 ) -> None:
@@ -108,7 +108,7 @@ def get_queues(
     print_response(result, format_mode)
 
 
-@app.command("update-queue")
+@app.command("update-queue", deprecated=False)
 def update_queue(
     ctx: typer.Context,
     name: QueueName,

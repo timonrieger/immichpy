@@ -23,7 +23,7 @@ Docs: https://api.immich.app/endpoints/users""",
 )
 
 
-@app.command("create-profile-image")
+@app.command("create-profile-image", deprecated=False)
 def create_profile_image(
     ctx: typer.Context,
     file: Path = typer.Option(..., "--file", help="File to upload for file"),
@@ -48,7 +48,7 @@ def create_profile_image(
     print_response(result, format_mode)
 
 
-@app.command("delete-profile-image")
+@app.command("delete-profile-image", deprecated=False)
 def delete_profile_image(
     ctx: typer.Context,
 ) -> None:
@@ -63,7 +63,7 @@ def delete_profile_image(
     print_response(result, format_mode)
 
 
-@app.command("delete-user-license")
+@app.command("delete-user-license", deprecated=False)
 def delete_user_license(
     ctx: typer.Context,
 ) -> None:
@@ -78,7 +78,7 @@ def delete_user_license(
     print_response(result, format_mode)
 
 
-@app.command("delete-user-onboarding")
+@app.command("delete-user-onboarding", deprecated=False)
 def delete_user_onboarding(
     ctx: typer.Context,
 ) -> None:
@@ -93,7 +93,7 @@ def delete_user_onboarding(
     print_response(result, format_mode)
 
 
-@app.command("get-my-preferences")
+@app.command("get-my-preferences", deprecated=False)
 def get_my_preferences(
     ctx: typer.Context,
 ) -> None:
@@ -108,7 +108,7 @@ def get_my_preferences(
     print_response(result, format_mode)
 
 
-@app.command("get-my-user")
+@app.command("get-my-user", deprecated=False)
 def get_my_user(
     ctx: typer.Context,
 ) -> None:
@@ -123,7 +123,7 @@ def get_my_user(
     print_response(result, format_mode)
 
 
-@app.command("get-profile-image")
+@app.command("get-profile-image", deprecated=False)
 def get_profile_image(
     ctx: typer.Context,
     id: str,
@@ -140,7 +140,7 @@ def get_profile_image(
     print_response(result, format_mode)
 
 
-@app.command("get-user")
+@app.command("get-user", deprecated=False)
 def get_user(
     ctx: typer.Context,
     id: str,
@@ -157,7 +157,7 @@ def get_user(
     print_response(result, format_mode)
 
 
-@app.command("get-user-license")
+@app.command("get-user-license", deprecated=False)
 def get_user_license(
     ctx: typer.Context,
 ) -> None:
@@ -172,7 +172,7 @@ def get_user_license(
     print_response(result, format_mode)
 
 
-@app.command("get-user-onboarding")
+@app.command("get-user-onboarding", deprecated=False)
 def get_user_onboarding(
     ctx: typer.Context,
 ) -> None:
@@ -187,7 +187,7 @@ def get_user_onboarding(
     print_response(result, format_mode)
 
 
-@app.command("search-users")
+@app.command("search-users", deprecated=False)
 def search_users(
     ctx: typer.Context,
 ) -> None:
@@ -202,7 +202,7 @@ def search_users(
     print_response(result, format_mode)
 
 
-@app.command("set-user-license")
+@app.command("set-user-license", deprecated=False)
 def set_user_license(
     ctx: typer.Context,
     activation_key: str = typer.Option(
@@ -234,7 +234,7 @@ def set_user_license(
     print_response(result, format_mode)
 
 
-@app.command("set-user-onboarding")
+@app.command("set-user-onboarding", deprecated=False)
 def set_user_onboarding(
     ctx: typer.Context,
     is_onboarded: Literal["true", "false"] = typer.Option(
@@ -262,7 +262,7 @@ def set_user_onboarding(
     print_response(result, format_mode)
 
 
-@app.command("update-my-preferences")
+@app.command("update-my-preferences", deprecated=False)
 def update_my_preferences(
     ctx: typer.Context,
     albums_default_asset_order: str | None = typer.Option(
@@ -511,7 +511,7 @@ def update_my_preferences(
     print_response(result, format_mode)
 
 
-@app.command("update-my-user")
+@app.command("update-my-user", deprecated=False)
 def update_my_user(
     ctx: typer.Context,
     avatar_color: str | None = typer.Option(

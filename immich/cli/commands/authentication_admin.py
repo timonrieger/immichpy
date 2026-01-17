@@ -15,7 +15,7 @@ Docs: https://api.immich.app/endpoints/authentication-admin""",
 )
 
 
-@app.command("unlink-all-o-auth-accounts-admin")
+@app.command("unlink-all-o-auth-accounts-admin", deprecated=False)
 def unlink_all_o_auth_accounts_admin(
     ctx: typer.Context,
 ) -> None:

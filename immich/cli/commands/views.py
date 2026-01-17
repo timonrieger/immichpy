@@ -15,7 +15,7 @@ Docs: https://api.immich.app/endpoints/views""",
 )
 
 
-@app.command("get-assets-by-original-path")
+@app.command("get-assets-by-original-path", deprecated=False)
 def get_assets_by_original_path(
     ctx: typer.Context,
     path: str = typer.Option(..., "--path", help="""Original path of the folder"""),
@@ -32,7 +32,7 @@ def get_assets_by_original_path(
     print_response(result, format_mode)
 
 
-@app.command("get-unique-original-paths")
+@app.command("get-unique-original-paths", deprecated=False)
 def get_unique_original_paths(
     ctx: typer.Context,
 ) -> None:

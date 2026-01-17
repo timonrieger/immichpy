@@ -22,7 +22,7 @@ Docs: https://api.immich.app/endpoints/albums""",
 )
 
 
-@app.command("add-assets-to-album")
+@app.command("add-assets-to-album", deprecated=False)
 def add_assets_to_album(
     ctx: typer.Context,
     id: str,
@@ -60,7 +60,7 @@ def add_assets_to_album(
     print_response(result, format_mode)
 
 
-@app.command("add-assets-to-albums")
+@app.command("add-assets-to-albums", deprecated=False)
 def add_assets_to_albums(
     ctx: typer.Context,
     key: str | None = typer.Option(
@@ -98,7 +98,7 @@ def add_assets_to_albums(
     print_response(result, format_mode)
 
 
-@app.command("add-users-to-album")
+@app.command("add-users-to-album", deprecated=False)
 def add_users_to_album(
     ctx: typer.Context,
     id: str,
@@ -133,7 +133,7 @@ Example: --album_users key1=value1,key2=value2""",
     print_response(result, format_mode)
 
 
-@app.command("create-album")
+@app.command("create-album", deprecated=False)
 def create_album(
     ctx: typer.Context,
     album_name: str = typer.Option(..., "--albumName", help="""Album name"""),
@@ -179,7 +179,7 @@ Example: --album_users key1=value1,key2=value2""",
     print_response(result, format_mode)
 
 
-@app.command("delete-album")
+@app.command("delete-album", deprecated=False)
 def delete_album(
     ctx: typer.Context,
     id: str,
@@ -196,7 +196,7 @@ def delete_album(
     print_response(result, format_mode)
 
 
-@app.command("get-album-info")
+@app.command("get-album-info", deprecated=False)
 def get_album_info(
     ctx: typer.Context,
     id: str,
@@ -228,7 +228,7 @@ def get_album_info(
     print_response(result, format_mode)
 
 
-@app.command("get-album-statistics")
+@app.command("get-album-statistics", deprecated=False)
 def get_album_statistics(
     ctx: typer.Context,
 ) -> None:
@@ -243,7 +243,7 @@ def get_album_statistics(
     print_response(result, format_mode)
 
 
-@app.command("get-all-albums")
+@app.command("get-all-albums", deprecated=False)
 def get_all_albums(
     ctx: typer.Context,
     asset_id: str | None = typer.Option(
@@ -272,7 +272,7 @@ def get_all_albums(
     print_response(result, format_mode)
 
 
-@app.command("remove-asset-from-album")
+@app.command("remove-asset-from-album", deprecated=False)
 def remove_asset_from_album(
     ctx: typer.Context,
     id: str,
@@ -300,7 +300,7 @@ def remove_asset_from_album(
     print_response(result, format_mode)
 
 
-@app.command("remove-user-from-album")
+@app.command("remove-user-from-album", deprecated=False)
 def remove_user_from_album(
     ctx: typer.Context,
     id: str,
@@ -319,7 +319,7 @@ def remove_user_from_album(
     print_response(result, format_mode)
 
 
-@app.command("update-album-info")
+@app.command("update-album-info", deprecated=False)
 def update_album_info(
     ctx: typer.Context,
     id: str,
@@ -372,7 +372,7 @@ def update_album_info(
     print_response(result, format_mode)
 
 
-@app.command("update-album-user")
+@app.command("update-album-user", deprecated=False)
 def update_album_user(
     ctx: typer.Context,
     id: str,

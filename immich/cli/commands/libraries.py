@@ -20,7 +20,7 @@ Docs: https://api.immich.app/endpoints/libraries""",
 )
 
 
-@app.command("create-library")
+@app.command("create-library", deprecated=False)
 def create_library(
     ctx: typer.Context,
     exclusion_patterns: list[str] | None = typer.Option(
@@ -59,7 +59,7 @@ def create_library(
     print_response(result, format_mode)
 
 
-@app.command("delete-library")
+@app.command("delete-library", deprecated=False)
 def delete_library(
     ctx: typer.Context,
     id: str,
@@ -76,7 +76,7 @@ def delete_library(
     print_response(result, format_mode)
 
 
-@app.command("get-all-libraries")
+@app.command("get-all-libraries", deprecated=False)
 def get_all_libraries(
     ctx: typer.Context,
 ) -> None:
@@ -91,7 +91,7 @@ def get_all_libraries(
     print_response(result, format_mode)
 
 
-@app.command("get-library")
+@app.command("get-library", deprecated=False)
 def get_library(
     ctx: typer.Context,
     id: str,
@@ -108,7 +108,7 @@ def get_library(
     print_response(result, format_mode)
 
 
-@app.command("get-library-statistics")
+@app.command("get-library-statistics", deprecated=False)
 def get_library_statistics(
     ctx: typer.Context,
     id: str,
@@ -125,7 +125,7 @@ def get_library_statistics(
     print_response(result, format_mode)
 
 
-@app.command("scan-library")
+@app.command("scan-library", deprecated=False)
 def scan_library(
     ctx: typer.Context,
     id: str,
@@ -142,7 +142,7 @@ def scan_library(
     print_response(result, format_mode)
 
 
-@app.command("update-library")
+@app.command("update-library", deprecated=False)
 def update_library(
     ctx: typer.Context,
     id: str,
@@ -181,7 +181,7 @@ def update_library(
     print_response(result, format_mode)
 
 
-@app.command("validate")
+@app.command("validate", deprecated=False)
 def validate(
     ctx: typer.Context,
     id: str,

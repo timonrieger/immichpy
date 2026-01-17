@@ -21,7 +21,7 @@ Docs: https://api.immich.app/endpoints/jobs""",
 )
 
 
-@app.command("create-job")
+@app.command("create-job", deprecated=False)
 def create_job(
     ctx: typer.Context,
     name: str = typer.Option(..., "--name", help="""Job name"""),
@@ -47,7 +47,7 @@ def create_job(
     print_response(result, format_mode)
 
 
-@app.command("get-queues-legacy")
+@app.command("get-queues-legacy", deprecated=True)
 def get_queues_legacy(
     ctx: typer.Context,
 ) -> None:
@@ -62,7 +62,7 @@ def get_queues_legacy(
     print_response(result, format_mode)
 
 
-@app.command("run-queue-command-legacy")
+@app.command("run-queue-command-legacy", deprecated=True)
 def run_queue_command_legacy(
     ctx: typer.Context,
     name: QueueName,

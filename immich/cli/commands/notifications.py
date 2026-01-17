@@ -22,7 +22,7 @@ Docs: https://api.immich.app/endpoints/notifications""",
 )
 
 
-@app.command("delete-notification")
+@app.command("delete-notification", deprecated=False)
 def delete_notification(
     ctx: typer.Context,
     id: str,
@@ -39,7 +39,7 @@ def delete_notification(
     print_response(result, format_mode)
 
 
-@app.command("delete-notifications")
+@app.command("delete-notifications", deprecated=False)
 def delete_notifications(
     ctx: typer.Context,
     ids: list[str] = typer.Option(..., "--ids", help="""Notification IDs to delete"""),
@@ -69,7 +69,7 @@ def delete_notifications(
     print_response(result, format_mode)
 
 
-@app.command("get-notification")
+@app.command("get-notification", deprecated=False)
 def get_notification(
     ctx: typer.Context,
     id: str,
@@ -86,7 +86,7 @@ def get_notification(
     print_response(result, format_mode)
 
 
-@app.command("get-notifications")
+@app.command("get-notifications", deprecated=False)
 def get_notifications(
     ctx: typer.Context,
     id: str | None = typer.Option(None, "--id", help="""Filter by notification ID"""),
@@ -119,7 +119,7 @@ def get_notifications(
     print_response(result, format_mode)
 
 
-@app.command("update-notification")
+@app.command("update-notification", deprecated=False)
 def update_notification(
     ctx: typer.Context,
     id: str,
@@ -152,7 +152,7 @@ def update_notification(
     print_response(result, format_mode)
 
 
-@app.command("update-notifications")
+@app.command("update-notifications", deprecated=False)
 def update_notifications(
     ctx: typer.Context,
     ids: list[str] = typer.Option(..., "--ids", help="""Notification IDs to update"""),

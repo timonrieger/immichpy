@@ -21,7 +21,7 @@ Docs: https://api.immich.app/endpoints/system-metadata""",
 )
 
 
-@app.command("get-admin-onboarding")
+@app.command("get-admin-onboarding", deprecated=False)
 def get_admin_onboarding(
     ctx: typer.Context,
 ) -> None:
@@ -38,7 +38,7 @@ def get_admin_onboarding(
     print_response(result, format_mode)
 
 
-@app.command("get-reverse-geocoding-state")
+@app.command("get-reverse-geocoding-state", deprecated=False)
 def get_reverse_geocoding_state(
     ctx: typer.Context,
 ) -> None:
@@ -55,7 +55,7 @@ def get_reverse_geocoding_state(
     print_response(result, format_mode)
 
 
-@app.command("get-version-check-state")
+@app.command("get-version-check-state", deprecated=False)
 def get_version_check_state(
     ctx: typer.Context,
 ) -> None:
@@ -72,7 +72,7 @@ def get_version_check_state(
     print_response(result, format_mode)
 
 
-@app.command("update-admin-onboarding")
+@app.command("update-admin-onboarding", deprecated=False)
 def update_admin_onboarding(
     ctx: typer.Context,
     is_onboarded: Literal["true", "false"] = typer.Option(

@@ -21,7 +21,7 @@ Docs: https://api.immich.app/endpoints/users-admin""",
 )
 
 
-@app.command("create-user-admin")
+@app.command("create-user-admin", deprecated=False)
 def create_user_admin(
     ctx: typer.Context,
     avatar_color: str | None = typer.Option(
@@ -109,7 +109,7 @@ def create_user_admin(
     print_response(result, format_mode)
 
 
-@app.command("delete-user-admin")
+@app.command("delete-user-admin", deprecated=False)
 def delete_user_admin(
     ctx: typer.Context,
     id: str,
@@ -140,7 +140,7 @@ def delete_user_admin(
     print_response(result, format_mode)
 
 
-@app.command("get-user-admin")
+@app.command("get-user-admin", deprecated=False)
 def get_user_admin(
     ctx: typer.Context,
     id: str,
@@ -157,7 +157,7 @@ def get_user_admin(
     print_response(result, format_mode)
 
 
-@app.command("get-user-preferences-admin")
+@app.command("get-user-preferences-admin", deprecated=False)
 def get_user_preferences_admin(
     ctx: typer.Context,
     id: str,
@@ -176,7 +176,7 @@ def get_user_preferences_admin(
     print_response(result, format_mode)
 
 
-@app.command("get-user-sessions-admin")
+@app.command("get-user-sessions-admin", deprecated=False)
 def get_user_sessions_admin(
     ctx: typer.Context,
     id: str,
@@ -195,7 +195,7 @@ def get_user_sessions_admin(
     print_response(result, format_mode)
 
 
-@app.command("get-user-statistics-admin")
+@app.command("get-user-statistics-admin", deprecated=False)
 def get_user_statistics_admin(
     ctx: typer.Context,
     id: str,
@@ -229,7 +229,7 @@ def get_user_statistics_admin(
     print_response(result, format_mode)
 
 
-@app.command("restore-user-admin")
+@app.command("restore-user-admin", deprecated=False)
 def restore_user_admin(
     ctx: typer.Context,
     id: str,
@@ -246,7 +246,7 @@ def restore_user_admin(
     print_response(result, format_mode)
 
 
-@app.command("search-users-admin")
+@app.command("search-users-admin", deprecated=False)
 def search_users_admin(
     ctx: typer.Context,
     id: str | None = typer.Option(None, "--id", help="""User ID filter"""),
@@ -269,7 +269,7 @@ def search_users_admin(
     print_response(result, format_mode)
 
 
-@app.command("update-user-admin")
+@app.command("update-user-admin", deprecated=False)
 def update_user_admin(
     ctx: typer.Context,
     id: str,
@@ -366,7 +366,7 @@ Example: 123456""",
     print_response(result, format_mode)
 
 
-@app.command("update-user-preferences-admin")
+@app.command("update-user-preferences-admin", deprecated=False)
 def update_user_preferences_admin(
     ctx: typer.Context,
     id: str,

@@ -20,7 +20,7 @@ Docs: https://api.immich.app/endpoints/stacks""",
 )
 
 
-@app.command("create-stack")
+@app.command("create-stack", deprecated=False)
 def create_stack(
     ctx: typer.Context,
     asset_ids: list[str] = typer.Option(
@@ -48,7 +48,7 @@ def create_stack(
     print_response(result, format_mode)
 
 
-@app.command("delete-stack")
+@app.command("delete-stack", deprecated=False)
 def delete_stack(
     ctx: typer.Context,
     id: str,
@@ -65,7 +65,7 @@ def delete_stack(
     print_response(result, format_mode)
 
 
-@app.command("delete-stacks")
+@app.command("delete-stacks", deprecated=False)
 def delete_stacks(
     ctx: typer.Context,
     ids: list[str] = typer.Option(..., "--ids", help="""IDs to process"""),
@@ -91,7 +91,7 @@ def delete_stacks(
     print_response(result, format_mode)
 
 
-@app.command("get-stack")
+@app.command("get-stack", deprecated=False)
 def get_stack(
     ctx: typer.Context,
     id: str,
@@ -108,7 +108,7 @@ def get_stack(
     print_response(result, format_mode)
 
 
-@app.command("remove-asset-from-stack")
+@app.command("remove-asset-from-stack", deprecated=False)
 def remove_asset_from_stack(
     ctx: typer.Context,
     asset_id: str,
@@ -127,7 +127,7 @@ def remove_asset_from_stack(
     print_response(result, format_mode)
 
 
-@app.command("search-stacks")
+@app.command("search-stacks", deprecated=False)
 def search_stacks(
     ctx: typer.Context,
     primary_asset_id: str | None = typer.Option(
@@ -147,7 +147,7 @@ def search_stacks(
     print_response(result, format_mode)
 
 
-@app.command("update-stack")
+@app.command("update-stack", deprecated=False)
 def update_stack(
     ctx: typer.Context,
     id: str,

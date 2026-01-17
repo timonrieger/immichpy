@@ -22,7 +22,7 @@ Docs: https://api.immich.app/endpoints/sync""",
 )
 
 
-@app.command("delete-sync-ack")
+@app.command("delete-sync-ack", deprecated=False)
 def delete_sync_ack(
     ctx: typer.Context,
     types: list[str] | None = typer.Option(
@@ -51,7 +51,7 @@ def delete_sync_ack(
     print_response(result, format_mode)
 
 
-@app.command("get-delta-sync")
+@app.command("get-delta-sync", deprecated=True)
 def get_delta_sync(
     ctx: typer.Context,
     updated_after: datetime = typer.Option(
@@ -81,7 +81,7 @@ def get_delta_sync(
     print_response(result, format_mode)
 
 
-@app.command("get-full-sync-for-user")
+@app.command("get-full-sync-for-user", deprecated=True)
 def get_full_sync_for_user(
     ctx: typer.Context,
     last_id: str | None = typer.Option(
@@ -121,7 +121,7 @@ def get_full_sync_for_user(
     print_response(result, format_mode)
 
 
-@app.command("get-sync-ack")
+@app.command("get-sync-ack", deprecated=False)
 def get_sync_ack(
     ctx: typer.Context,
 ) -> None:
@@ -136,7 +136,7 @@ def get_sync_ack(
     print_response(result, format_mode)
 
 
-@app.command("get-sync-stream")
+@app.command("get-sync-stream", deprecated=False)
 def get_sync_stream(
     ctx: typer.Context,
     reset: Literal["true", "false"] | None = typer.Option(
@@ -167,7 +167,7 @@ def get_sync_stream(
     print_response(result, format_mode)
 
 
-@app.command("send-sync-ack")
+@app.command("send-sync-ack", deprecated=False)
 def send_sync_ack(
     ctx: typer.Context,
     acks: list[str] = typer.Option(

@@ -20,7 +20,7 @@ Docs: https://api.immich.app/endpoints/api-keys""",
 )
 
 
-@app.command("create-api-key")
+@app.command("create-api-key", deprecated=False)
 def create_api_key(
     ctx: typer.Context,
     name: str | None = typer.Option(None, "--name", help="""API key name"""),
@@ -51,7 +51,7 @@ def create_api_key(
     print_response(result, format_mode)
 
 
-@app.command("delete-api-key")
+@app.command("delete-api-key", deprecated=False)
 def delete_api_key(
     ctx: typer.Context,
     id: str,
@@ -68,7 +68,7 @@ def delete_api_key(
     print_response(result, format_mode)
 
 
-@app.command("get-api-key")
+@app.command("get-api-key", deprecated=False)
 def get_api_key(
     ctx: typer.Context,
     id: str,
@@ -85,7 +85,7 @@ def get_api_key(
     print_response(result, format_mode)
 
 
-@app.command("get-api-keys")
+@app.command("get-api-keys", deprecated=False)
 def get_api_keys(
     ctx: typer.Context,
 ) -> None:
@@ -100,7 +100,7 @@ def get_api_keys(
     print_response(result, format_mode)
 
 
-@app.command("get-my-api-key")
+@app.command("get-my-api-key", deprecated=False)
 def get_my_api_key(
     ctx: typer.Context,
 ) -> None:
@@ -115,7 +115,7 @@ def get_my_api_key(
     print_response(result, format_mode)
 
 
-@app.command("update-api-key")
+@app.command("update-api-key", deprecated=False)
 def update_api_key(
     ctx: typer.Context,
     id: str,

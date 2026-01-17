@@ -17,7 +17,7 @@ Docs: https://api.immich.app/endpoints/map""",
 )
 
 
-@app.command("get-map-markers")
+@app.command("get-map-markers", deprecated=False)
 def get_map_markers(
     ctx: typer.Context,
     file_created_after: datetime | None = typer.Option(
@@ -62,7 +62,7 @@ def get_map_markers(
     print_response(result, format_mode)
 
 
-@app.command("reverse-geocode")
+@app.command("reverse-geocode", deprecated=False)
 def reverse_geocode(
     ctx: typer.Context,
     lat: float = typer.Option(..., "--lat", help="""Latitude (-90 to 90)"""),

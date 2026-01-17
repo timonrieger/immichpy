@@ -20,7 +20,7 @@ Docs: https://api.immich.app/endpoints/tags""",
 )
 
 
-@app.command("bulk-tag-assets")
+@app.command("bulk-tag-assets", deprecated=False)
 def bulk_tag_assets(
     ctx: typer.Context,
     asset_ids: list[str] = typer.Option(..., "--assetIds", help="""Asset IDs"""),
@@ -48,7 +48,7 @@ def bulk_tag_assets(
     print_response(result, format_mode)
 
 
-@app.command("create-tag")
+@app.command("create-tag", deprecated=False)
 def create_tag(
     ctx: typer.Context,
     color: str | None = typer.Option(None, "--color", help="""Tag color (hex)"""),
@@ -80,7 +80,7 @@ def create_tag(
     print_response(result, format_mode)
 
 
-@app.command("delete-tag")
+@app.command("delete-tag", deprecated=False)
 def delete_tag(
     ctx: typer.Context,
     id: str,
@@ -97,7 +97,7 @@ def delete_tag(
     print_response(result, format_mode)
 
 
-@app.command("get-all-tags")
+@app.command("get-all-tags", deprecated=False)
 def get_all_tags(
     ctx: typer.Context,
 ) -> None:
@@ -112,7 +112,7 @@ def get_all_tags(
     print_response(result, format_mode)
 
 
-@app.command("get-tag-by-id")
+@app.command("get-tag-by-id", deprecated=False)
 def get_tag_by_id(
     ctx: typer.Context,
     id: str,
@@ -129,7 +129,7 @@ def get_tag_by_id(
     print_response(result, format_mode)
 
 
-@app.command("tag-assets")
+@app.command("tag-assets", deprecated=False)
 def tag_assets(
     ctx: typer.Context,
     id: str,
@@ -157,7 +157,7 @@ def tag_assets(
     print_response(result, format_mode)
 
 
-@app.command("untag-assets")
+@app.command("untag-assets", deprecated=False)
 def untag_assets(
     ctx: typer.Context,
     id: str,
@@ -185,7 +185,7 @@ def untag_assets(
     print_response(result, format_mode)
 
 
-@app.command("update-tag")
+@app.command("update-tag", deprecated=False)
 def update_tag(
     ctx: typer.Context,
     id: str,
@@ -214,7 +214,7 @@ def update_tag(
     print_response(result, format_mode)
 
 
-@app.command("upsert-tags")
+@app.command("upsert-tags", deprecated=False)
 def upsert_tags(
     ctx: typer.Context,
     tags: list[str] = typer.Option(..., "--tags", help="""Tag names to upsert"""),

@@ -21,7 +21,7 @@ Docs: https://api.immich.app/endpoints/sessions""",
 )
 
 
-@app.command("create-session")
+@app.command("create-session", deprecated=False)
 def create_session(
     ctx: typer.Context,
     device_os: str | None = typer.Option(None, "--deviceOS", help="""Device OS"""),
@@ -58,7 +58,7 @@ def create_session(
     print_response(result, format_mode)
 
 
-@app.command("delete-all-sessions")
+@app.command("delete-all-sessions", deprecated=False)
 def delete_all_sessions(
     ctx: typer.Context,
 ) -> None:
@@ -73,7 +73,7 @@ def delete_all_sessions(
     print_response(result, format_mode)
 
 
-@app.command("delete-session")
+@app.command("delete-session", deprecated=False)
 def delete_session(
     ctx: typer.Context,
     id: str,
@@ -90,7 +90,7 @@ def delete_session(
     print_response(result, format_mode)
 
 
-@app.command("get-sessions")
+@app.command("get-sessions", deprecated=False)
 def get_sessions(
     ctx: typer.Context,
 ) -> None:
@@ -105,7 +105,7 @@ def get_sessions(
     print_response(result, format_mode)
 
 
-@app.command("lock-session")
+@app.command("lock-session", deprecated=False)
 def lock_session(
     ctx: typer.Context,
     id: str,
@@ -122,7 +122,7 @@ def lock_session(
     print_response(result, format_mode)
 
 
-@app.command("update-session")
+@app.command("update-session", deprecated=False)
 def update_session(
     ctx: typer.Context,
     id: str,

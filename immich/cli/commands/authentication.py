@@ -21,7 +21,7 @@ Docs: https://api.immich.app/endpoints/authentication""",
 )
 
 
-@app.command("change-password")
+@app.command("change-password", deprecated=False)
 def change_password(
     ctx: typer.Context,
     invalidate_sessions: Literal["true", "false"] | None = typer.Option(
@@ -68,7 +68,7 @@ Example: password""",
     print_response(result, format_mode)
 
 
-@app.command("change-pin-code")
+@app.command("change-pin-code", deprecated=False)
 def change_pin_code(
     ctx: typer.Context,
     new_pin_code: str = typer.Option(
@@ -116,7 +116,7 @@ Example: 123456""",
     print_response(result, format_mode)
 
 
-@app.command("finish-o-auth")
+@app.command("finish-o-auth", deprecated=False)
 def finish_o_auth(
     ctx: typer.Context,
     code_verifier: str | None = typer.Option(
@@ -150,7 +150,7 @@ def finish_o_auth(
     print_response(result, format_mode)
 
 
-@app.command("get-auth-status")
+@app.command("get-auth-status", deprecated=False)
 def get_auth_status(
     ctx: typer.Context,
 ) -> None:
@@ -165,7 +165,7 @@ def get_auth_status(
     print_response(result, format_mode)
 
 
-@app.command("link-o-auth-account")
+@app.command("link-o-auth-account", deprecated=False)
 def link_o_auth_account(
     ctx: typer.Context,
     code_verifier: str | None = typer.Option(
@@ -199,7 +199,7 @@ def link_o_auth_account(
     print_response(result, format_mode)
 
 
-@app.command("lock-auth-session")
+@app.command("lock-auth-session", deprecated=False)
 def lock_auth_session(
     ctx: typer.Context,
 ) -> None:
@@ -214,7 +214,7 @@ def lock_auth_session(
     print_response(result, format_mode)
 
 
-@app.command("login")
+@app.command("login", deprecated=False)
 def login(
     ctx: typer.Context,
     email: str = typer.Option(
@@ -254,7 +254,7 @@ Example: password""",
     print_response(result, format_mode)
 
 
-@app.command("logout")
+@app.command("logout", deprecated=False)
 def logout(
     ctx: typer.Context,
 ) -> None:
@@ -269,7 +269,7 @@ def logout(
     print_response(result, format_mode)
 
 
-@app.command("redirect-o-auth-to-mobile")
+@app.command("redirect-o-auth-to-mobile", deprecated=False)
 def redirect_o_auth_to_mobile(
     ctx: typer.Context,
 ) -> None:
@@ -286,7 +286,7 @@ def redirect_o_auth_to_mobile(
     print_response(result, format_mode)
 
 
-@app.command("reset-pin-code")
+@app.command("reset-pin-code", deprecated=False)
 def reset_pin_code(
     ctx: typer.Context,
     password: str | None = typer.Option(
@@ -326,7 +326,7 @@ Example: 123456""",
     print_response(result, format_mode)
 
 
-@app.command("setup-pin-code")
+@app.command("setup-pin-code", deprecated=False)
 def setup_pin_code(
     ctx: typer.Context,
     pin_code: str = typer.Option(
@@ -358,7 +358,7 @@ Example: 123456""",
     print_response(result, format_mode)
 
 
-@app.command("sign-up-admin")
+@app.command("sign-up-admin", deprecated=False)
 def sign_up_admin(
     ctx: typer.Context,
     email: str = typer.Option(
@@ -406,7 +406,7 @@ Example: password""",
     print_response(result, format_mode)
 
 
-@app.command("start-o-auth")
+@app.command("start-o-auth", deprecated=False)
 def start_o_auth(
     ctx: typer.Context,
     code_challenge: str | None = typer.Option(
@@ -442,7 +442,7 @@ def start_o_auth(
     print_response(result, format_mode)
 
 
-@app.command("unlink-o-auth-account")
+@app.command("unlink-o-auth-account", deprecated=False)
 def unlink_o_auth_account(
     ctx: typer.Context,
 ) -> None:
@@ -459,7 +459,7 @@ def unlink_o_auth_account(
     print_response(result, format_mode)
 
 
-@app.command("unlock-auth-session")
+@app.command("unlock-auth-session", deprecated=False)
 def unlock_auth_session(
     ctx: typer.Context,
     password: str | None = typer.Option(
@@ -499,7 +499,7 @@ Example: 123456""",
     print_response(result, format_mode)
 
 
-@app.command("validate-access-token")
+@app.command("validate-access-token", deprecated=False)
 def validate_access_token(
     ctx: typer.Context,
 ) -> None:

@@ -20,7 +20,7 @@ Docs: https://api.immich.app/endpoints/download""",
 )
 
 
-@app.command("download-archive")
+@app.command("download-archive", deprecated=False)
 def download_archive(
     ctx: typer.Context,
     key: str | None = typer.Option(
@@ -56,7 +56,7 @@ def download_archive(
     print_response(result, format_mode)
 
 
-@app.command("get-download-info")
+@app.command("get-download-info", deprecated=False)
 def get_download_info(
     ctx: typer.Context,
     key: str | None = typer.Option(

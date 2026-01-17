@@ -21,7 +21,7 @@ Docs: https://api.immich.app/endpoints/faces""",
 )
 
 
-@app.command("create-face")
+@app.command("create-face", deprecated=False)
 def create_face(
     ctx: typer.Context,
     asset_id: str = typer.Option(..., "--assetId", help="""Asset ID"""),
@@ -67,7 +67,7 @@ def create_face(
     print_response(result, format_mode)
 
 
-@app.command("delete-face")
+@app.command("delete-face", deprecated=False)
 def delete_face(
     ctx: typer.Context,
     id: str,
@@ -97,7 +97,7 @@ def delete_face(
     print_response(result, format_mode)
 
 
-@app.command("get-faces")
+@app.command("get-faces", deprecated=False)
 def get_faces(
     ctx: typer.Context,
     id: str = typer.Option(..., "--id", help="""Asset ID to retrieve faces for"""),
@@ -114,7 +114,7 @@ def get_faces(
     print_response(result, format_mode)
 
 
-@app.command("reassign-faces-by-id")
+@app.command("reassign-faces-by-id", deprecated=False)
 def reassign_faces_by_id(
     ctx: typer.Context,
     id: str,

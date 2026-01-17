@@ -22,7 +22,7 @@ Docs: https://api.immich.app/endpoints/search""",
 )
 
 
-@app.command("get-assets-by-city")
+@app.command("get-assets-by-city", deprecated=False)
 def get_assets_by_city(
     ctx: typer.Context,
 ) -> None:
@@ -37,7 +37,7 @@ def get_assets_by_city(
     print_response(result, format_mode)
 
 
-@app.command("get-explore-data")
+@app.command("get-explore-data", deprecated=False)
 def get_explore_data(
     ctx: typer.Context,
 ) -> None:
@@ -52,7 +52,7 @@ def get_explore_data(
     print_response(result, format_mode)
 
 
-@app.command("get-search-suggestions")
+@app.command("get-search-suggestions", deprecated=False)
 def get_search_suggestions(
     ctx: typer.Context,
     country: str | None = typer.Option(None, "--country", help="""Filter by country"""),
@@ -97,7 +97,7 @@ def get_search_suggestions(
     print_response(result, format_mode)
 
 
-@app.command("search-asset-statistics")
+@app.command("search-asset-statistics", deprecated=False)
 def search_asset_statistics(
     ctx: typer.Context,
     album_ids: list[str] | None = typer.Option(
@@ -324,7 +324,7 @@ def search_asset_statistics(
     print_response(result, format_mode)
 
 
-@app.command("search-assets")
+@app.command("search-assets", deprecated=False)
 def search_assets(
     ctx: typer.Context,
     album_ids: list[str] | None = typer.Option(
@@ -650,7 +650,7 @@ def search_assets(
     print_response(result, format_mode)
 
 
-@app.command("search-large-assets")
+@app.command("search-large-assets", deprecated=False)
 def search_large_assets(
     ctx: typer.Context,
     album_ids: list[str] | None = typer.Option(
@@ -821,7 +821,7 @@ def search_large_assets(
     print_response(result, format_mode)
 
 
-@app.command("search-person")
+@app.command("search-person", deprecated=False)
 def search_person(
     ctx: typer.Context,
     name: str = typer.Option(..., "--name", help="""Person name to search for"""),
@@ -843,7 +843,7 @@ def search_person(
     print_response(result, format_mode)
 
 
-@app.command("search-places")
+@app.command("search-places", deprecated=False)
 def search_places(
     ctx: typer.Context,
     name: str = typer.Option(..., "--name", help="""Place name to search for"""),
@@ -860,7 +860,7 @@ def search_places(
     print_response(result, format_mode)
 
 
-@app.command("search-random")
+@app.command("search-random", deprecated=False)
 def search_random(
     ctx: typer.Context,
     album_ids: list[str] | None = typer.Option(
@@ -1115,7 +1115,7 @@ def search_random(
     print_response(result, format_mode)
 
 
-@app.command("search-smart")
+@app.command("search-smart", deprecated=False)
 def search_smart(
     ctx: typer.Context,
     album_ids: list[str] | None = typer.Option(

@@ -20,7 +20,7 @@ Docs: https://api.immich.app/endpoints/trash""",
 )
 
 
-@app.command("empty-trash")
+@app.command("empty-trash", deprecated=False)
 def empty_trash(
     ctx: typer.Context,
 ) -> None:
@@ -35,7 +35,7 @@ def empty_trash(
     print_response(result, format_mode)
 
 
-@app.command("restore-assets")
+@app.command("restore-assets", deprecated=False)
 def restore_assets(
     ctx: typer.Context,
     ids: list[str] = typer.Option(..., "--ids", help="""IDs to process"""),
@@ -61,7 +61,7 @@ def restore_assets(
     print_response(result, format_mode)
 
 
-@app.command("restore-trash")
+@app.command("restore-trash", deprecated=False)
 def restore_trash(
     ctx: typer.Context,
 ) -> None:

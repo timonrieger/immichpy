@@ -20,7 +20,7 @@ Docs: https://api.immich.app/endpoints/duplicates""",
 )
 
 
-@app.command("delete-duplicate")
+@app.command("delete-duplicate", deprecated=False)
 def delete_duplicate(
     ctx: typer.Context,
     id: str,
@@ -37,7 +37,7 @@ def delete_duplicate(
     print_response(result, format_mode)
 
 
-@app.command("delete-duplicates")
+@app.command("delete-duplicates", deprecated=False)
 def delete_duplicates(
     ctx: typer.Context,
     ids: list[str] = typer.Option(..., "--ids", help="""IDs to process"""),
@@ -63,7 +63,7 @@ def delete_duplicates(
     print_response(result, format_mode)
 
 
-@app.command("get-asset-duplicates")
+@app.command("get-asset-duplicates", deprecated=False)
 def get_asset_duplicates(
     ctx: typer.Context,
 ) -> None:

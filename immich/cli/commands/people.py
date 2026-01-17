@@ -22,7 +22,7 @@ Docs: https://api.immich.app/endpoints/people""",
 )
 
 
-@app.command("create-person")
+@app.command("create-person", deprecated=False)
 def create_person(
     ctx: typer.Context,
     birth_date: str | None = typer.Option(
@@ -67,7 +67,7 @@ def create_person(
     print_response(result, format_mode)
 
 
-@app.command("delete-people")
+@app.command("delete-people", deprecated=False)
 def delete_people(
     ctx: typer.Context,
     ids: list[str] = typer.Option(..., "--ids", help="""IDs to process"""),
@@ -93,7 +93,7 @@ def delete_people(
     print_response(result, format_mode)
 
 
-@app.command("delete-person")
+@app.command("delete-person", deprecated=False)
 def delete_person(
     ctx: typer.Context,
     id: str,
@@ -110,7 +110,7 @@ def delete_person(
     print_response(result, format_mode)
 
 
-@app.command("get-all-people")
+@app.command("get-all-people", deprecated=False)
 def get_all_people(
     ctx: typer.Context,
     closest_asset_id: str | None = typer.Option(
@@ -150,7 +150,7 @@ def get_all_people(
     print_response(result, format_mode)
 
 
-@app.command("get-person")
+@app.command("get-person", deprecated=False)
 def get_person(
     ctx: typer.Context,
     id: str,
@@ -167,7 +167,7 @@ def get_person(
     print_response(result, format_mode)
 
 
-@app.command("get-person-statistics")
+@app.command("get-person-statistics", deprecated=False)
 def get_person_statistics(
     ctx: typer.Context,
     id: str,
@@ -184,7 +184,7 @@ def get_person_statistics(
     print_response(result, format_mode)
 
 
-@app.command("get-person-thumbnail")
+@app.command("get-person-thumbnail", deprecated=False)
 def get_person_thumbnail(
     ctx: typer.Context,
     id: str,
@@ -201,7 +201,7 @@ def get_person_thumbnail(
     print_response(result, format_mode)
 
 
-@app.command("merge-person")
+@app.command("merge-person", deprecated=False)
 def merge_person(
     ctx: typer.Context,
     id: str,
@@ -229,7 +229,7 @@ def merge_person(
     print_response(result, format_mode)
 
 
-@app.command("reassign-faces")
+@app.command("reassign-faces", deprecated=False)
 def reassign_faces(
     ctx: typer.Context,
     id: str,
@@ -264,7 +264,7 @@ Example: --data key1=value1,key2=value2""",
     print_response(result, format_mode)
 
 
-@app.command("update-people")
+@app.command("update-people", deprecated=False)
 def update_people(
     ctx: typer.Context,
     people: list[str] = typer.Option(
@@ -297,7 +297,7 @@ Example: --people key1=value1,key2=value2""",
     print_response(result, format_mode)
 
 
-@app.command("update-person")
+@app.command("update-person", deprecated=False)
 def update_person(
     ctx: typer.Context,
     id: str,
