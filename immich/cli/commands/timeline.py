@@ -11,8 +11,7 @@ from immich.client.models import *
 app = typer.Typer(
     help="""Specialized endpoints related to the timeline implementation used in the web application. External applications or tools should not use or rely on these endpoints, as they are subject to change without notice.
 
-Docs: https://api.immich.app/endpoints/timeline""",
-    context_settings={"help_option_names": ["-h", "--help"]},
+Docs: https://api.immich.app/endpoints/timeline"""
 )
 
 

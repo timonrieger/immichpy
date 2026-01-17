@@ -12,8 +12,7 @@ from immich.client.models import *
 app = typer.Typer(
     help="""Endpoints related to searching assets via text, smart search, optical character recognition (OCR), and other filters like person, album, and other metadata. Search endpoints usually support pagination and sorting.
 
-Docs: https://api.immich.app/endpoints/search""",
-    context_settings={"help_option_names": ["-h", "--help"]},
+Docs: https://api.immich.app/endpoints/search"""
 )
 
 

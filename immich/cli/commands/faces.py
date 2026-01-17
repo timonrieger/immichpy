@@ -11,8 +11,7 @@ from immich.client.models import *
 app = typer.Typer(
     help="""A face is a detected human face within an asset, which can be associated with a person. Faces are normally detected via machine learning, but can also be created via manually.
 
-Docs: https://api.immich.app/endpoints/faces""",
-    context_settings={"help_option_names": ["-h", "--help"]},
+Docs: https://api.immich.app/endpoints/faces"""
 )
 
 

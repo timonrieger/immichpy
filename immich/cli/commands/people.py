@@ -12,8 +12,7 @@ from immich.client.models import *
 app = typer.Typer(
     help="""A person is a collection of faces, which can be favorited and named. A person can also be merged into another person. People are automatically created via the face recognition job.
 
-Docs: https://api.immich.app/endpoints/people""",
-    context_settings={"help_option_names": ["-h", "--help"]},
+Docs: https://api.immich.app/endpoints/people"""
 )
 
 

@@ -12,8 +12,7 @@ from immich.client.models import *
 app = typer.Typer(
     help="""Endpoints for viewing and updating the current users, including product key information, profile picture data, onboarding progress, and more.
 
-Docs: https://api.immich.app/endpoints/users""",
-    context_settings={"help_option_names": ["-h", "--help"]},
+Docs: https://api.immich.app/endpoints/users"""
 )
 
 

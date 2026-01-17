@@ -11,8 +11,7 @@ from immich.client.models import *
 app = typer.Typer(
     help="""A session represents an authenticated login session for a user. Sessions also appear in the web application as "Authorized devices".
 
-Docs: https://api.immich.app/endpoints/sessions""",
-    context_settings={"help_option_names": ["-h", "--help"]},
+Docs: https://api.immich.app/endpoints/sessions"""
 )
 
 

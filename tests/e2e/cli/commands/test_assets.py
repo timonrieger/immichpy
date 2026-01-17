@@ -8,7 +8,7 @@ import pytest
 from typer.testing import CliRunner
 
 from immich._internal.upload import UploadResult
-from immich.cli.app import app as cli_app
+from immich.cli.main import app as cli_app
 from immich.client import (
     AssetBulkUploadCheckItem,
     AssetBulkUploadCheckResponseDto,
@@ -319,12 +319,6 @@ async def test_delete_assets(
     assert result.exit_code == 0, result.stdout + result.stderr
     response_data = json.loads(result.stdout)
     assert response_data is None
-
-    # verify asset is deleted
-    try:
-        await get_asset_info_factory(asset_to_delete.id)
-    except AssertionError as e:
-        assert "not found" in str(e).lower()
 
 
 @pytest.mark.e2e

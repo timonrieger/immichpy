@@ -10,8 +10,7 @@ from immich.client.models import *
 app = typer.Typer(
     help="""An activity is a like or a comment made by a user on an asset or album.
 
-Docs: https://api.immich.app/endpoints/activities""",
-    context_settings={"help_option_names": ["-h", "--help"]},
+Docs: https://api.immich.app/endpoints/activities"""
 )
 
 

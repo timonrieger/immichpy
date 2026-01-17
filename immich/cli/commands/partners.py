@@ -11,8 +11,7 @@ from immich.client.models import *
 app = typer.Typer(
     help="""A partner is a link with another user that allows sharing of assets between two users.
 
-Docs: https://api.immich.app/endpoints/partners""",
-    context_settings={"help_option_names": ["-h", "--help"]},
+Docs: https://api.immich.app/endpoints/partners"""
 )
 
 

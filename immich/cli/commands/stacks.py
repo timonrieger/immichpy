@@ -10,8 +10,7 @@ from immich.client.models import *
 app = typer.Typer(
     help="""A stack is a group of related assets. One asset is the "primary" asset, and the rest are "child" assets. On the main timeline, stack parents are included by default, while child assets are hidden.
 
-Docs: https://api.immich.app/endpoints/stacks""",
-    context_settings={"help_option_names": ["-h", "--help"]},
+Docs: https://api.immich.app/endpoints/stacks"""
 )
 
 

@@ -10,8 +10,7 @@ from immich.client.models import *
 app = typer.Typer(
     help="""Information about the current server deployment, including version and build information, available features, supported media types, and more.
 
-Docs: https://api.immich.app/endpoints/server""",
-    context_settings={"help_option_names": ["-h", "--help"]},
+Docs: https://api.immich.app/endpoints/server"""
 )
 
 

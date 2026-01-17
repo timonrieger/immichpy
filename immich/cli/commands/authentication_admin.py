@@ -10,8 +10,7 @@ from immich.client.models import *
 app = typer.Typer(
     help="""Administrative endpoints related to authentication.
 
-Docs: https://api.immich.app/endpoints/authentication-admin""",
-    context_settings={"help_option_names": ["-h", "--help"]},
+Docs: https://api.immich.app/endpoints/authentication-admin"""
 )
 
 

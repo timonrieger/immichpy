@@ -208,6 +208,7 @@ def flatten_schema(
 
 def option_name_for_path(path_parts: list[str]) -> str:
     """Generate dotted option name from path parts, e.g. ['user', 'name'] -> '--user.name'."""
+    print(path_parts)
     return "--" + ".".join(path_parts)
 
 
@@ -676,9 +677,7 @@ def generate_tag_app(
         func_code = generate_command_function(operation, spec, tag_attr, tag)
         command_codes.append(func_code)
 
-    lines.append(
-        f"app = typer.Typer(help={python_triple_quoted_str(tag_help)}, context_settings={{'help_option_names': ['-h', '--help']}})"
-    )
+    lines.append(f"app = typer.Typer(help={python_triple_quoted_str(tag_help)})")
     lines.append("")
 
     # Add command functions

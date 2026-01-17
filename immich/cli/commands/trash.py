@@ -10,8 +10,7 @@ from immich.client.models import *
 app = typer.Typer(
     help="""Endpoints for managing the trash can, which includes assets that have been discarded. Items in the trash are automatically deleted after a configured amount of time.
 
-Docs: https://api.immich.app/endpoints/trash""",
-    context_settings={"help_option_names": ["-h", "--help"]},
+Docs: https://api.immich.app/endpoints/trash"""
 )
 
 

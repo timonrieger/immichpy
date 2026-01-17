@@ -3,7 +3,7 @@ import json
 import pytest
 from typer.testing import CliRunner
 
-from immich.cli.app import app as cli_app
+from immich.cli.main import app as cli_app
 from immich.client import AlbumResponseDto
 from immich.client.models.activity_response_dto import ActivityResponseDto
 from immich.client.models.activity_statistics_response_dto import (

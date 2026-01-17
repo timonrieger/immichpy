@@ -10,8 +10,7 @@ from immich.client.models import *
 app = typer.Typer(
     help="""An api key can be used to programmatically access the Immich API.
 
-Docs: https://api.immich.app/endpoints/api-keys""",
-    context_settings={"help_option_names": ["-h", "--help"]},
+Docs: https://api.immich.app/endpoints/api-keys"""
 )
 
 

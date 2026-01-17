@@ -10,8 +10,7 @@ from immich.client.models import *
 app = typer.Typer(
     help="""Endpoints for specialized views, such as the folder view.
 
-Docs: https://api.immich.app/endpoints/views""",
-    context_settings={"help_option_names": ["-h", "--help"]},
+Docs: https://api.immich.app/endpoints/views"""
 )
 
 

@@ -13,8 +13,7 @@ from immich.client.models import *
 app = typer.Typer(
     help="""An asset is an image or video that has been uploaded to Immich.
 
-Docs: https://api.immich.app/endpoints/assets""",
-    context_settings={"help_option_names": ["-h", "--help"]},
+Docs: https://api.immich.app/endpoints/assets"""
 )
 
 

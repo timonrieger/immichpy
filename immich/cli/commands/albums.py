@@ -12,8 +12,7 @@ from immich.client.models import *
 app = typer.Typer(
     help="""An album is a collection of assets that can be shared with other users or via shared links.
 
-Docs: https://api.immich.app/endpoints/albums""",
-    context_settings={"help_option_names": ["-h", "--help"]},
+Docs: https://api.immich.app/endpoints/albums"""
 )
 
 

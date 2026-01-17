@@ -10,8 +10,7 @@ from immich.client.models import *
 app = typer.Typer(
     help="""A plugin is an installed module that makes filters and actions available for the workflow feature.
 
-Docs: https://api.immich.app/endpoints/plugins""",
-    context_settings={"help_option_names": ["-h", "--help"]},
+Docs: https://api.immich.app/endpoints/plugins"""
 )
 
 

@@ -12,8 +12,7 @@ from immich.client.models import *
 app = typer.Typer(
     help="""Map endpoints include supplemental functionality related to geolocation, such as reverse geocoding and retrieving map markers for assets with geolocation data.
 
-Docs: https://api.immich.app/endpoints/map""",
-    context_settings={"help_option_names": ["-h", "--help"]},
+Docs: https://api.immich.app/endpoints/map"""
 )
 
 

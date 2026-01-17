@@ -12,8 +12,7 @@ from immich.client.models import *
 app = typer.Typer(
     help="""A workflow is a set of actions that run whenever a triggering event occurs. Workflows also can include filters to further limit execution.
 
-Docs: https://api.immich.app/endpoints/workflows""",
-    context_settings={"help_option_names": ["-h", "--help"]},
+Docs: https://api.immich.app/endpoints/workflows"""
 )
 
 

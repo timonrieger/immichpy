@@ -11,8 +11,7 @@ from immich.client.models import *
 app = typer.Typer(
     help="""Endpoints to view, modify, and validate the system configuration settings.
 
-Docs: https://api.immich.app/endpoints/system-config""",
-    context_settings={"help_option_names": ["-h", "--help"]},
+Docs: https://api.immich.app/endpoints/system-config"""
 )
 
 

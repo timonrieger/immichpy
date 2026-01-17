@@ -10,8 +10,7 @@ from immich.client.models import *
 app = typer.Typer(
     help="""Endpoints for managing and identifying duplicate assets.
 
-Docs: https://api.immich.app/endpoints/duplicates""",
-    context_settings={"help_option_names": ["-h", "--help"]},
+Docs: https://api.immich.app/endpoints/duplicates"""
 )
 
 

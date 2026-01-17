@@ -145,11 +145,12 @@ def _callback(
     """An unofficial CLI for the Immich API written in Python."""
     ctx.ensure_object(dict)
     ctx.obj["format"] = format_mode
-    ctx.obj["client"] = AsyncClient(
-        api_key=api_key,
-        bearer_token=access_token,
-        base_url=DEMO_BASE_URL if base_url == "demo" else base_url,
-    )
+    if ctx.invoked_subcommand is not None:
+        ctx.obj["client"] = AsyncClient(
+            api_key=api_key,
+            bearer_token=access_token,
+            base_url=DEMO_BASE_URL if base_url == "demo" else base_url,
+        )
 
 
 if __name__ == "__main__":

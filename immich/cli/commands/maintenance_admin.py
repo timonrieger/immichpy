@@ -10,8 +10,7 @@ from immich.client.models import *
 app = typer.Typer(
     help="""Maintenance mode allows you to put Immich in a read-only state to perform various operations.
 
-Docs: https://api.immich.app/endpoints/maintenance-admin""",
-    context_settings={"help_option_names": ["-h", "--help"]},
+Docs: https://api.immich.app/endpoints/maintenance-admin"""
 )
 
 

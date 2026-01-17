@@ -11,8 +11,7 @@ from immich.client.models import *
 app = typer.Typer(
     help="""Administrative endpoints for managing users, including creating, updating, deleting, and restoring users. Also includes endpoints for resetting passwords and PIN codes.
 
-Docs: https://api.immich.app/endpoints/users-admin""",
-    context_settings={"help_option_names": ["-h", "--help"]},
+Docs: https://api.immich.app/endpoints/users-admin"""
 )
 
 

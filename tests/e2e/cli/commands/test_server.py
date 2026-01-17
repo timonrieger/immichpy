@@ -3,7 +3,7 @@ import json
 import pytest
 from typer.testing import CliRunner
 
-from immich.cli.app import app as cli_app
+from immich.cli.main import app as cli_app
 from immich.client.models.license_response_dto import LicenseResponseDto
 
 from tests.e2e.conftest import ACTIVATION_KEY, LICENSE_KEY

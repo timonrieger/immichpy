@@ -13,8 +13,7 @@ from immich.client.models import *
 app = typer.Typer(
     help="""Notification administrative endpoints.
 
-Docs: https://api.immich.app/endpoints/notifications-admin""",
-    context_settings={"help_option_names": ["-h", "--help"]},
+Docs: https://api.immich.app/endpoints/notifications-admin"""
 )
 
 

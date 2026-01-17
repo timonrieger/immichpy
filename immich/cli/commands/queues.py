@@ -11,8 +11,7 @@ from immich.client.models import *
 app = typer.Typer(
     help="""Queues and background jobs are used for processing tasks asynchronously. Queues can be paused and resumed as needed.
 
-Docs: https://api.immich.app/endpoints/queues""",
-    context_settings={"help_option_names": ["-h", "--help"]},
+Docs: https://api.immich.app/endpoints/queues"""
 )
 
 

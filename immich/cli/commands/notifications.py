@@ -12,8 +12,7 @@ from immich.client.models import *
 app = typer.Typer(
     help="""A notification is a specialized message sent to users to inform them of important events. Currently, these notifications are only shown in the Immich web application.
 
-Docs: https://api.immich.app/endpoints/notifications""",
-    context_settings={"help_option_names": ["-h", "--help"]},
+Docs: https://api.immich.app/endpoints/notifications"""
 )
 
 
