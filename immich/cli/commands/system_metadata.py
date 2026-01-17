@@ -5,12 +5,7 @@ from __future__ import annotations
 import typer
 from typing import Literal
 
-from immich.cli.runtime import (
-    deserialize_request_body,
-    print_response,
-    run_command,
-    set_nested,
-)
+from immich.cli.runtime import print_response, run_command, set_nested
 from immich.client.models import *
 
 app = typer.Typer(
@@ -94,9 +89,7 @@ def update_admin_onboarding(
             AdminOnboardingUpdateDto,
         )
 
-        admin_onboarding_update_dto = deserialize_request_body(
-            json_data, AdminOnboardingUpdateDto
-        )
+        admin_onboarding_update_dto = AdminOnboardingUpdateDto.model_validate(json_data)
         kwargs["admin_onboarding_update_dto"] = admin_onboarding_update_dto
     client = ctx.obj["client"]
     result = run_command(

@@ -10,7 +10,6 @@ import typer
 
 from immich.cli.commands import download as download_commands
 from immich.cli.runtime import (
-    deserialize_request_body,
     handle_api_error,
     print_response,
     run_async,
@@ -78,7 +77,7 @@ def download_archive_to_file(
         json_data = json.loads(json_str)
         from immich.client.models.download_info_dto import DownloadInfoDto
 
-        download_info = deserialize_request_body(json_data, DownloadInfoDto)
+        download_info = DownloadInfoDto.model_validate(json_data)
     elif has_flags:
         json_data = {}
         if album_id is not None:
@@ -92,7 +91,7 @@ def download_archive_to_file(
         if json_data:
             from immich.client.models.download_info_dto import DownloadInfoDto
 
-            download_info = deserialize_request_body(json_data, DownloadInfoDto)
+            download_info = DownloadInfoDto.model_validate(json_data)
         else:
             raise SystemExit(
                 "Error: At least one field must be provided for download_info"

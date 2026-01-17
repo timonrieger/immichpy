@@ -4,12 +4,7 @@ from __future__ import annotations
 
 import typer
 
-from immich.cli.runtime import (
-    deserialize_request_body,
-    print_response,
-    run_command,
-    set_nested,
-)
+from immich.cli.runtime import print_response, run_command, set_nested
 from immich.client.models import *
 
 app = typer.Typer(
@@ -40,7 +35,7 @@ def create_stack(
         set_nested(json_data, ["assetIds"], asset_ids)
         from immich.client.models.stack_create_dto import StackCreateDto
 
-        stack_create_dto = deserialize_request_body(json_data, StackCreateDto)
+        stack_create_dto = StackCreateDto.model_validate(json_data)
         kwargs["stack_create_dto"] = stack_create_dto
     client = ctx.obj["client"]
     result = run_command(client, client.stacks, "create_stack", **kwargs)
@@ -83,7 +78,7 @@ def delete_stacks(
         set_nested(json_data, ["ids"], ids)
         from immich.client.models.bulk_ids_dto import BulkIdsDto
 
-        bulk_ids_dto = deserialize_request_body(json_data, BulkIdsDto)
+        bulk_ids_dto = BulkIdsDto.model_validate(json_data)
         kwargs["bulk_ids_dto"] = bulk_ids_dto
     client = ctx.obj["client"]
     result = run_command(client, client.stacks, "delete_stacks", **kwargs)
@@ -170,7 +165,7 @@ def update_stack(
             set_nested(json_data, ["primaryAssetId"], primary_asset_id)
         from immich.client.models.stack_update_dto import StackUpdateDto
 
-        stack_update_dto = deserialize_request_body(json_data, StackUpdateDto)
+        stack_update_dto = StackUpdateDto.model_validate(json_data)
         kwargs["stack_update_dto"] = stack_update_dto
     client = ctx.obj["client"]
     result = run_command(client, client.stacks, "update_stack", **kwargs)

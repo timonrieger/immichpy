@@ -5,12 +5,7 @@ from __future__ import annotations
 import typer
 from typing import Literal
 
-from immich.cli.runtime import (
-    deserialize_request_body,
-    print_response,
-    run_command,
-    set_nested,
-)
+from immich.cli.runtime import print_response, run_command, set_nested
 from immich.client.models import *
 
 app = typer.Typer(
@@ -39,7 +34,7 @@ def create_job(
         set_nested(json_data, ["name"], name)
         from immich.client.models.job_create_dto import JobCreateDto
 
-        job_create_dto = deserialize_request_body(json_data, JobCreateDto)
+        job_create_dto = JobCreateDto.model_validate(json_data)
         kwargs["job_create_dto"] = job_create_dto
     client = ctx.obj["client"]
     result = run_command(client, client.jobs, "create_job", **kwargs)
@@ -87,7 +82,7 @@ def run_queue_command_legacy(
             set_nested(json_data, ["force"], force.lower() == "true")
         from immich.client.models.queue_command_dto import QueueCommandDto
 
-        queue_command_dto = deserialize_request_body(json_data, QueueCommandDto)
+        queue_command_dto = QueueCommandDto.model_validate(json_data)
         kwargs["queue_command_dto"] = queue_command_dto
     client = ctx.obj["client"]
     result = run_command(client, client.jobs, "run_queue_command_legacy", **kwargs)

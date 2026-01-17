@@ -5,12 +5,7 @@ from __future__ import annotations
 import typer
 from typing import Literal
 
-from immich.cli.runtime import (
-    deserialize_request_body,
-    print_response,
-    run_command,
-    set_nested,
-)
+from immich.cli.runtime import print_response, run_command, set_nested
 from immich.client.models import *
 
 app = typer.Typer(
@@ -59,7 +54,7 @@ def create_face(
         set_nested(json_data, ["y"], y)
         from immich.client.models.asset_face_create_dto import AssetFaceCreateDto
 
-        asset_face_create_dto = deserialize_request_body(json_data, AssetFaceCreateDto)
+        asset_face_create_dto = AssetFaceCreateDto.model_validate(json_data)
         kwargs["asset_face_create_dto"] = asset_face_create_dto
     client = ctx.obj["client"]
     result = run_command(client, client.faces, "create_face", **kwargs)
@@ -89,7 +84,7 @@ def delete_face(
         set_nested(json_data, ["force"], force.lower() == "true")
         from immich.client.models.asset_face_delete_dto import AssetFaceDeleteDto
 
-        asset_face_delete_dto = deserialize_request_body(json_data, AssetFaceDeleteDto)
+        asset_face_delete_dto = AssetFaceDeleteDto.model_validate(json_data)
         kwargs["asset_face_delete_dto"] = asset_face_delete_dto
     client = ctx.obj["client"]
     result = run_command(client, client.faces, "delete_face", **kwargs)
@@ -134,7 +129,7 @@ def reassign_faces_by_id(
         set_nested(json_data, ["id"], body_id)
         from immich.client.models.face_dto import FaceDto
 
-        face_dto = deserialize_request_body(json_data, FaceDto)
+        face_dto = FaceDto.model_validate(json_data)
         kwargs["face_dto"] = face_dto
     client = ctx.obj["client"]
     result = run_command(client, client.faces, "reassign_faces_by_id", **kwargs)

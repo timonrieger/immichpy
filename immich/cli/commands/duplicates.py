@@ -4,12 +4,7 @@ from __future__ import annotations
 
 import typer
 
-from immich.cli.runtime import (
-    deserialize_request_body,
-    print_response,
-    run_command,
-    set_nested,
-)
+from immich.cli.runtime import print_response, run_command, set_nested
 from immich.client.models import *
 
 app = typer.Typer(
@@ -55,7 +50,7 @@ def delete_duplicates(
         set_nested(json_data, ["ids"], ids)
         from immich.client.models.bulk_ids_dto import BulkIdsDto
 
-        bulk_ids_dto = deserialize_request_body(json_data, BulkIdsDto)
+        bulk_ids_dto = BulkIdsDto.model_validate(json_data)
         kwargs["bulk_ids_dto"] = bulk_ids_dto
     client = ctx.obj["client"]
     result = run_command(client, client.duplicates, "delete_duplicates", **kwargs)

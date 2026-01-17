@@ -5,12 +5,7 @@ from __future__ import annotations
 import typer
 from typing import Literal
 
-from immich.cli.runtime import (
-    deserialize_request_body,
-    print_response,
-    run_command,
-    set_nested,
-)
+from immich.cli.runtime import print_response, run_command, set_nested
 from immich.client.models import *
 
 app = typer.Typer(
@@ -46,7 +41,7 @@ def empty_queue(
             set_nested(json_data, ["failed"], failed.lower() == "true")
         from immich.client.models.queue_delete_dto import QueueDeleteDto
 
-        queue_delete_dto = deserialize_request_body(json_data, QueueDeleteDto)
+        queue_delete_dto = QueueDeleteDto.model_validate(json_data)
         kwargs["queue_delete_dto"] = queue_delete_dto
     client = ctx.obj["client"]
     result = run_command(client, client.queues, "empty_queue", **kwargs)
@@ -131,7 +126,7 @@ def update_queue(
             set_nested(json_data, ["isPaused"], is_paused.lower() == "true")
         from immich.client.models.queue_update_dto import QueueUpdateDto
 
-        queue_update_dto = deserialize_request_body(json_data, QueueUpdateDto)
+        queue_update_dto = QueueUpdateDto.model_validate(json_data)
         kwargs["queue_update_dto"] = queue_update_dto
     client = ctx.obj["client"]
     result = run_command(client, client.queues, "update_queue", **kwargs)

@@ -5,12 +5,7 @@ from __future__ import annotations
 import typer
 from typing import Literal
 
-from immich.cli.runtime import (
-    deserialize_request_body,
-    print_response,
-    run_command,
-    set_nested,
-)
+from immich.cli.runtime import print_response, run_command, set_nested
 from immich.client.models import *
 
 app = typer.Typer(
@@ -50,7 +45,7 @@ def create_session(
             set_nested(json_data, ["duration"], duration)
         from immich.client.models.session_create_dto import SessionCreateDto
 
-        session_create_dto = deserialize_request_body(json_data, SessionCreateDto)
+        session_create_dto = SessionCreateDto.model_validate(json_data)
         kwargs["session_create_dto"] = session_create_dto
     client = ctx.obj["client"]
     result = run_command(client, client.sessions, "create_session", **kwargs)
@@ -149,7 +144,7 @@ def update_session(
             )
         from immich.client.models.session_update_dto import SessionUpdateDto
 
-        session_update_dto = deserialize_request_body(json_data, SessionUpdateDto)
+        session_update_dto = SessionUpdateDto.model_validate(json_data)
         kwargs["session_update_dto"] = session_update_dto
     client = ctx.obj["client"]
     result = run_command(client, client.sessions, "update_session", **kwargs)

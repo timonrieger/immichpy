@@ -4,12 +4,7 @@ from __future__ import annotations
 
 import typer
 
-from immich.cli.runtime import (
-    deserialize_request_body,
-    print_response,
-    run_command,
-    set_nested,
-)
+from immich.cli.runtime import print_response, run_command, set_nested
 from immich.client.models import *
 
 app = typer.Typer(
@@ -43,7 +38,7 @@ def create_api_key(
         set_nested(json_data, ["permissions"], permissions)
         from immich.client.models.api_key_create_dto import APIKeyCreateDto
 
-        api_key_create_dto = deserialize_request_body(json_data, APIKeyCreateDto)
+        api_key_create_dto = APIKeyCreateDto.model_validate(json_data)
         kwargs["api_key_create_dto"] = api_key_create_dto
     client = ctx.obj["client"]
     result = run_command(client, client.api_keys, "create_api_key", **kwargs)
@@ -141,7 +136,7 @@ def update_api_key(
             set_nested(json_data, ["permissions"], permissions)
         from immich.client.models.api_key_update_dto import APIKeyUpdateDto
 
-        api_key_update_dto = deserialize_request_body(json_data, APIKeyUpdateDto)
+        api_key_update_dto = APIKeyUpdateDto.model_validate(json_data)
         kwargs["api_key_update_dto"] = api_key_update_dto
     client = ctx.obj["client"]
     result = run_command(client, client.api_keys, "update_api_key", **kwargs)

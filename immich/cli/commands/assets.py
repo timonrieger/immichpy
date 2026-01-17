@@ -3,17 +3,11 @@
 from __future__ import annotations
 
 import typer
+import json
 from pathlib import Path
 from typing import Literal
 
-from immich.cli.runtime import (
-    load_file_bytes,
-    deserialize_request_body,
-    load_json_data,
-    print_response,
-    run_command,
-    set_nested,
-)
+from immich.cli.runtime import print_response, run_command, set_nested
 from immich.client.models import *
 
 app = typer.Typer(
@@ -32,7 +26,7 @@ def check_bulk_upload(
         "--assets",
         help="""Assets to check
 
-Example: --assets key1=value1,key2=value2""",
+As a JSON string""",
     ),
 ) -> None:
     """Check bulk upload
@@ -45,15 +39,13 @@ Example: --assets key1=value1,key2=value2""",
         raise SystemExit("Error: Request body is required. Use dotted body flags.")
     if any([assets]):
         json_data = {}
-        value_assets = [load_json_data(i) for i in assets]
+        value_assets = [json.loads(i) for i in assets]
         set_nested(json_data, ["assets"], value_assets)
         from immich.client.models.asset_bulk_upload_check_dto import (
             AssetBulkUploadCheckDto,
         )
 
-        asset_bulk_upload_check_dto = deserialize_request_body(
-            json_data, AssetBulkUploadCheckDto
-        )
+        asset_bulk_upload_check_dto = AssetBulkUploadCheckDto.model_validate(json_data)
         kwargs["asset_bulk_upload_check_dto"] = asset_bulk_upload_check_dto
     client = ctx.obj["client"]
     result = run_command(client, client.assets, "check_bulk_upload", **kwargs)
@@ -85,9 +77,7 @@ def check_existing_assets(
             CheckExistingAssetsDto,
         )
 
-        check_existing_assets_dto = deserialize_request_body(
-            json_data, CheckExistingAssetsDto
-        )
+        check_existing_assets_dto = CheckExistingAssetsDto.model_validate(json_data)
         kwargs["check_existing_assets_dto"] = check_existing_assets_dto
     client = ctx.obj["client"]
     result = run_command(client, client.assets, "check_existing_assets", **kwargs)
@@ -142,7 +132,7 @@ def copy_asset(
         set_nested(json_data, ["targetId"], target_id)
         from immich.client.models.asset_copy_dto import AssetCopyDto
 
-        asset_copy_dto = deserialize_request_body(json_data, AssetCopyDto)
+        asset_copy_dto = AssetCopyDto.model_validate(json_data)
         kwargs["asset_copy_dto"] = asset_copy_dto
     client = ctx.obj["client"]
     result = run_command(client, client.assets, "copy_asset", **kwargs)
@@ -192,7 +182,7 @@ def delete_assets(
         set_nested(json_data, ["ids"], ids)
         from immich.client.models.asset_bulk_delete_dto import AssetBulkDeleteDto
 
-        asset_bulk_delete_dto = deserialize_request_body(json_data, AssetBulkDeleteDto)
+        asset_bulk_delete_dto = AssetBulkDeleteDto.model_validate(json_data)
         kwargs["asset_bulk_delete_dto"] = asset_bulk_delete_dto
     client = ctx.obj["client"]
     result = run_command(client, client.assets, "delete_assets", **kwargs)
@@ -208,7 +198,7 @@ def delete_bulk_asset_metadata(
         "--items",
         help="""Metadata items to delete
 
-Example: --items key1=value1,key2=value2""",
+As a JSON string""",
     ),
 ) -> None:
     """Delete asset metadata
@@ -221,14 +211,14 @@ Example: --items key1=value1,key2=value2""",
         raise SystemExit("Error: Request body is required. Use dotted body flags.")
     if any([items]):
         json_data = {}
-        value_items = [load_json_data(i) for i in items]
+        value_items = [json.loads(i) for i in items]
         set_nested(json_data, ["items"], value_items)
         from immich.client.models.asset_metadata_bulk_delete_dto import (
             AssetMetadataBulkDeleteDto,
         )
 
-        asset_metadata_bulk_delete_dto = deserialize_request_body(
-            json_data, AssetMetadataBulkDeleteDto
+        asset_metadata_bulk_delete_dto = AssetMetadataBulkDeleteDto.model_validate(
+            json_data
         )
         kwargs["asset_metadata_bulk_delete_dto"] = asset_metadata_bulk_delete_dto
     client = ctx.obj["client"]
@@ -278,7 +268,7 @@ def edit_asset(
         "--edits",
         help="""List of edit actions to apply (crop, rotate, or mirror)
 
-Example: --edits key1=value1,key2=value2""",
+As a JSON string""",
     ),
 ) -> None:
     """Apply edits to an existing asset
@@ -292,15 +282,13 @@ Example: --edits key1=value1,key2=value2""",
         raise SystemExit("Error: Request body is required. Use dotted body flags.")
     if any([edits]):
         json_data = {}
-        value_edits = [load_json_data(i) for i in edits]
+        value_edits = [json.loads(i) for i in edits]
         set_nested(json_data, ["edits"], value_edits)
         from immich.client.models.asset_edit_action_list_dto import (
             AssetEditActionListDto,
         )
 
-        asset_edit_action_list_dto = deserialize_request_body(
-            json_data, AssetEditActionListDto
-        )
+        asset_edit_action_list_dto = AssetEditActionListDto.model_validate(json_data)
         kwargs["asset_edit_action_list_dto"] = asset_edit_action_list_dto
     client = ctx.obj["client"]
     result = run_command(client, client.assets, "edit_asset", **kwargs)
@@ -544,7 +532,7 @@ def replace_asset(
         kwargs["slug"] = slug
     json_data = {}  # noqa: F841
     missing: list[str] = []
-    kwargs["asset_data"] = load_file_bytes(asset_data)
+    kwargs["asset_data"] = (asset_data.name, asset_data.read_bytes())
     if "deviceAssetId" in json_data:
         kwargs["device_asset_id"] = json_data["deviceAssetId"]
     elif "device_asset_id" in json_data:
@@ -609,7 +597,7 @@ def run_asset_jobs(
         set_nested(json_data, ["name"], name)
         from immich.client.models.asset_jobs_dto import AssetJobsDto
 
-        asset_jobs_dto = deserialize_request_body(json_data, AssetJobsDto)
+        asset_jobs_dto = AssetJobsDto.model_validate(json_data)
         kwargs["asset_jobs_dto"] = asset_jobs_dto
     client = ctx.obj["client"]
     result = run_command(client, client.assets, "run_asset_jobs", **kwargs)
@@ -697,7 +685,7 @@ def update_asset(
             set_nested(json_data, ["visibility"], visibility)
         from immich.client.models.update_asset_dto import UpdateAssetDto
 
-        update_asset_dto = deserialize_request_body(json_data, UpdateAssetDto)
+        update_asset_dto = UpdateAssetDto.model_validate(json_data)
         kwargs["update_asset_dto"] = update_asset_dto
     client = ctx.obj["client"]
     result = run_command(client, client.assets, "update_asset", **kwargs)
@@ -714,7 +702,7 @@ def update_asset_metadata(
         "--items",
         help="""Metadata items to upsert
 
-Example: --items key1=value1,key2=value2""",
+As a JSON string""",
     ),
 ) -> None:
     """Update asset metadata
@@ -728,15 +716,13 @@ Example: --items key1=value1,key2=value2""",
         raise SystemExit("Error: Request body is required. Use dotted body flags.")
     if any([items]):
         json_data = {}
-        value_items = [load_json_data(i) for i in items]
+        value_items = [json.loads(i) for i in items]
         set_nested(json_data, ["items"], value_items)
         from immich.client.models.asset_metadata_upsert_dto import (
             AssetMetadataUpsertDto,
         )
 
-        asset_metadata_upsert_dto = deserialize_request_body(
-            json_data, AssetMetadataUpsertDto
-        )
+        asset_metadata_upsert_dto = AssetMetadataUpsertDto.model_validate(json_data)
         kwargs["asset_metadata_upsert_dto"] = asset_metadata_upsert_dto
     client = ctx.obj["client"]
     result = run_command(client, client.assets, "update_asset_metadata", **kwargs)
@@ -840,7 +826,7 @@ def update_assets(
             set_nested(json_data, ["visibility"], visibility)
         from immich.client.models.asset_bulk_update_dto import AssetBulkUpdateDto
 
-        asset_bulk_update_dto = deserialize_request_body(json_data, AssetBulkUpdateDto)
+        asset_bulk_update_dto = AssetBulkUpdateDto.model_validate(json_data)
         kwargs["asset_bulk_update_dto"] = asset_bulk_update_dto
     client = ctx.obj["client"]
     result = run_command(client, client.assets, "update_assets", **kwargs)
@@ -856,7 +842,7 @@ def update_bulk_asset_metadata(
         "--items",
         help="""Metadata items to upsert
 
-Example: --items key1=value1,key2=value2""",
+As a JSON string""",
     ),
 ) -> None:
     """Upsert asset metadata
@@ -869,14 +855,14 @@ Example: --items key1=value1,key2=value2""",
         raise SystemExit("Error: Request body is required. Use dotted body flags.")
     if any([items]):
         json_data = {}
-        value_items = [load_json_data(i) for i in items]
+        value_items = [json.loads(i) for i in items]
         set_nested(json_data, ["items"], value_items)
         from immich.client.models.asset_metadata_bulk_upsert_dto import (
             AssetMetadataBulkUpsertDto,
         )
 
-        asset_metadata_bulk_upsert_dto = deserialize_request_body(
-            json_data, AssetMetadataBulkUpsertDto
+        asset_metadata_bulk_upsert_dto = AssetMetadataBulkUpsertDto.model_validate(
+            json_data
         )
         kwargs["asset_metadata_bulk_upsert_dto"] = asset_metadata_bulk_upsert_dto
     client = ctx.obj["client"]
@@ -919,7 +905,7 @@ def upload_asset(
         kwargs["x_immich_checksum"] = x_immich_checksum
     json_data = {}  # noqa: F841
     missing: list[str] = []
-    kwargs["asset_data"] = load_file_bytes(asset_data)
+    kwargs["asset_data"] = (asset_data.name, asset_data.read_bytes())
     if "deviceAssetId" in json_data:
         kwargs["device_asset_id"] = json_data["deviceAssetId"]
     elif "device_asset_id" in json_data:
@@ -965,7 +951,7 @@ def upload_asset(
     elif "metadata" in json_data:
         kwargs["metadata"] = json_data["metadata"]
     if sidecar_data is not None:
-        kwargs["sidecar_data"] = load_file_bytes(sidecar_data)
+        kwargs["sidecar_data"] = (sidecar_data.name, sidecar_data.read_bytes())
     if "visibility" in json_data:
         kwargs["visibility"] = json_data["visibility"]
     elif "visibility" in json_data:

@@ -5,12 +5,7 @@ from __future__ import annotations
 import typer
 from typing import Literal
 
-from immich.cli.runtime import (
-    deserialize_request_body,
-    print_response,
-    run_command,
-    set_nested,
-)
+from immich.cli.runtime import print_response, run_command, set_nested
 from immich.client.models import *
 
 app = typer.Typer(
@@ -41,7 +36,7 @@ def create_partner(
         set_nested(json_data, ["sharedWithId"], shared_with_id)
         from immich.client.models.partner_create_dto import PartnerCreateDto
 
-        partner_create_dto = deserialize_request_body(json_data, PartnerCreateDto)
+        partner_create_dto = PartnerCreateDto.model_validate(json_data)
         kwargs["partner_create_dto"] = partner_create_dto
     client = ctx.obj["client"]
     result = run_command(client, client.partners, "create_partner", **kwargs)
@@ -124,7 +119,7 @@ def update_partner(
         set_nested(json_data, ["inTimeline"], in_timeline.lower() == "true")
         from immich.client.models.partner_update_dto import PartnerUpdateDto
 
-        partner_update_dto = deserialize_request_body(json_data, PartnerUpdateDto)
+        partner_update_dto = PartnerUpdateDto.model_validate(json_data)
         kwargs["partner_update_dto"] = partner_update_dto
     client = ctx.obj["client"]
     result = run_command(client, client.partners, "update_partner", **kwargs)

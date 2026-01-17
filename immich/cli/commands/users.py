@@ -6,13 +6,7 @@ import typer
 from pathlib import Path
 from typing import Literal
 
-from immich.cli.runtime import (
-    load_file_bytes,
-    deserialize_request_body,
-    print_response,
-    run_command,
-    set_nested,
-)
+from immich.cli.runtime import print_response, run_command, set_nested
 from immich.client.models import *
 
 app = typer.Typer(
@@ -35,7 +29,7 @@ def create_profile_image(
     kwargs = {}
     json_data = {}  # noqa: F841
     missing: list[str] = []
-    kwargs["file"] = load_file_bytes(file)
+    kwargs["file"] = (file.name, file.read_bytes())
     if missing:
         raise SystemExit(
             "Error: missing required multipart fields: "
@@ -226,7 +220,7 @@ def set_user_license(
         set_nested(json_data, ["licenseKey"], license_key)
         from immich.client.models.license_key_dto import LicenseKeyDto
 
-        license_key_dto = deserialize_request_body(json_data, LicenseKeyDto)
+        license_key_dto = LicenseKeyDto.model_validate(json_data)
         kwargs["license_key_dto"] = license_key_dto
     client = ctx.obj["client"]
     result = run_command(client, client.users, "set_user_license", **kwargs)
@@ -254,7 +248,7 @@ def set_user_onboarding(
         set_nested(json_data, ["isOnboarded"], is_onboarded.lower() == "true")
         from immich.client.models.onboarding_dto import OnboardingDto
 
-        onboarding_dto = deserialize_request_body(json_data, OnboardingDto)
+        onboarding_dto = OnboardingDto.model_validate(json_data)
         kwargs["onboarding_dto"] = onboarding_dto
     client = ctx.obj["client"]
     result = run_command(client, client.users, "set_user_onboarding", **kwargs)
@@ -501,9 +495,7 @@ def update_my_preferences(
             UserPreferencesUpdateDto,
         )
 
-        user_preferences_update_dto = deserialize_request_body(
-            json_data, UserPreferencesUpdateDto
-        )
+        user_preferences_update_dto = UserPreferencesUpdateDto.model_validate(json_data)
         kwargs["user_preferences_update_dto"] = user_preferences_update_dto
     client = ctx.obj["client"]
     result = run_command(client, client.users, "update_my_preferences", **kwargs)
@@ -545,7 +537,7 @@ def update_my_user(
             set_nested(json_data, ["password"], password)
         from immich.client.models.user_update_me_dto import UserUpdateMeDto
 
-        user_update_me_dto = deserialize_request_body(json_data, UserUpdateMeDto)
+        user_update_me_dto = UserUpdateMeDto.model_validate(json_data)
         kwargs["user_update_me_dto"] = user_update_me_dto
     client = ctx.obj["client"]
     result = run_command(client, client.users, "update_my_user", **kwargs)

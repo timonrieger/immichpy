@@ -4,12 +4,7 @@ from __future__ import annotations
 
 import typer
 
-from immich.cli.runtime import (
-    deserialize_request_body,
-    print_response,
-    run_command,
-    set_nested,
-)
+from immich.cli.runtime import print_response, run_command, set_nested
 from immich.client.models import *
 
 app = typer.Typer(
@@ -48,7 +43,7 @@ def download_archive(
         set_nested(json_data, ["assetIds"], asset_ids)
         from immich.client.models.asset_ids_dto import AssetIdsDto
 
-        asset_ids_dto = deserialize_request_body(json_data, AssetIdsDto)
+        asset_ids_dto = AssetIdsDto.model_validate(json_data)
         kwargs["asset_ids_dto"] = asset_ids_dto
     client = ctx.obj["client"]
     result = run_command(client, client.download, "download_archive", **kwargs)
@@ -102,7 +97,7 @@ def get_download_info(
             set_nested(json_data, ["userId"], user_id)
         from immich.client.models.download_info_dto import DownloadInfoDto
 
-        download_info_dto = deserialize_request_body(json_data, DownloadInfoDto)
+        download_info_dto = DownloadInfoDto.model_validate(json_data)
         kwargs["download_info_dto"] = download_info_dto
     client = ctx.obj["client"]
     result = run_command(client, client.download, "get_download_info", **kwargs)

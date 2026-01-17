@@ -3,15 +3,10 @@
 from __future__ import annotations
 
 import typer
+import json
 from typing import Literal
 
-from immich.cli.runtime import (
-    deserialize_request_body,
-    load_json_data,
-    print_response,
-    run_command,
-    set_nested,
-)
+from immich.cli.runtime import print_response, run_command, set_nested
 from immich.client.models import *
 
 app = typer.Typer(
@@ -30,7 +25,7 @@ def create_workflow(
         "--actions",
         help="""Workflow actions
 
-Example: --actions key1=value1,key2=value2""",
+As a JSON string""",
     ),
     description: str | None = typer.Option(
         None, "--description", help="""Workflow description"""
@@ -43,7 +38,7 @@ Example: --actions key1=value1,key2=value2""",
         "--filters",
         help="""Workflow filters
 
-Example: --filters key1=value1,key2=value2""",
+As a JSON string""",
     ),
     name: str = typer.Option(..., "--name", help="""Workflow name"""),
     trigger_type: str = typer.Option(..., "--triggerType", help="""Trigger type"""),
@@ -58,19 +53,19 @@ Example: --filters key1=value1,key2=value2""",
         raise SystemExit("Error: Request body is required. Use dotted body flags.")
     if any([actions, description, enabled, filters, name, trigger_type]):
         json_data = {}
-        value_actions = [load_json_data(i) for i in actions]
+        value_actions = [json.loads(i) for i in actions]
         set_nested(json_data, ["actions"], value_actions)
         if description is not None:
             set_nested(json_data, ["description"], description)
         if enabled is not None:
             set_nested(json_data, ["enabled"], enabled.lower() == "true")
-        value_filters = [load_json_data(i) for i in filters]
+        value_filters = [json.loads(i) for i in filters]
         set_nested(json_data, ["filters"], value_filters)
         set_nested(json_data, ["name"], name)
         set_nested(json_data, ["triggerType"], trigger_type)
         from immich.client.models.workflow_create_dto import WorkflowCreateDto
 
-        workflow_create_dto = deserialize_request_body(json_data, WorkflowCreateDto)
+        workflow_create_dto = WorkflowCreateDto.model_validate(json_data)
         kwargs["workflow_create_dto"] = workflow_create_dto
     client = ctx.obj["client"]
     result = run_command(client, client.workflows, "create_workflow", **kwargs)
@@ -136,7 +131,7 @@ def update_workflow(
         "--actions",
         help="""Workflow actions
 
-Example: --actions key1=value1,key2=value2""",
+As a JSON string""",
     ),
     description: str | None = typer.Option(
         None, "--description", help="""Workflow description"""
@@ -149,7 +144,7 @@ Example: --actions key1=value1,key2=value2""",
         "--filters",
         help="""Workflow filters
 
-Example: --filters key1=value1,key2=value2""",
+As a JSON string""",
     ),
     name: str | None = typer.Option(None, "--name", help="""Workflow name"""),
     trigger_type: str | None = typer.Option(
@@ -168,14 +163,14 @@ Example: --filters key1=value1,key2=value2""",
     if any([actions, description, enabled, filters, name, trigger_type]):
         json_data = {}
         if actions is not None:
-            value_actions = [load_json_data(i) for i in actions]
+            value_actions = [json.loads(i) for i in actions]
             set_nested(json_data, ["actions"], value_actions)
         if description is not None:
             set_nested(json_data, ["description"], description)
         if enabled is not None:
             set_nested(json_data, ["enabled"], enabled.lower() == "true")
         if filters is not None:
-            value_filters = [load_json_data(i) for i in filters]
+            value_filters = [json.loads(i) for i in filters]
             set_nested(json_data, ["filters"], value_filters)
         if name is not None:
             set_nested(json_data, ["name"], name)
@@ -183,7 +178,7 @@ Example: --filters key1=value1,key2=value2""",
             set_nested(json_data, ["triggerType"], trigger_type)
         from immich.client.models.workflow_update_dto import WorkflowUpdateDto
 
-        workflow_update_dto = deserialize_request_body(json_data, WorkflowUpdateDto)
+        workflow_update_dto = WorkflowUpdateDto.model_validate(json_data)
         kwargs["workflow_update_dto"] = workflow_update_dto
     client = ctx.obj["client"]
     result = run_command(client, client.workflows, "update_workflow", **kwargs)

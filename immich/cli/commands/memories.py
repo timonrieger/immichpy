@@ -6,12 +6,7 @@ import typer
 from datetime import datetime
 from typing import Literal
 
-from immich.cli.runtime import (
-    deserialize_request_body,
-    print_response,
-    run_command,
-    set_nested,
-)
+from immich.cli.runtime import print_response, run_command, set_nested
 from immich.client.models import *
 
 app = typer.Typer(
@@ -42,7 +37,7 @@ def add_memory_assets(
         set_nested(json_data, ["ids"], ids)
         from immich.client.models.bulk_ids_dto import BulkIdsDto
 
-        bulk_ids_dto = deserialize_request_body(json_data, BulkIdsDto)
+        bulk_ids_dto = BulkIdsDto.model_validate(json_data)
         kwargs["bulk_ids_dto"] = bulk_ids_dto
     client = ctx.obj["client"]
     result = run_command(client, client.memories, "add_memory_assets", **kwargs)
@@ -89,7 +84,7 @@ def create_memory(
         set_nested(json_data, ["type"], type)
         from immich.client.models.memory_create_dto import MemoryCreateDto
 
-        memory_create_dto = deserialize_request_body(json_data, MemoryCreateDto)
+        memory_create_dto = MemoryCreateDto.model_validate(json_data)
         kwargs["memory_create_dto"] = memory_create_dto
     client = ctx.obj["client"]
     result = run_command(client, client.memories, "create_memory", **kwargs)
@@ -192,7 +187,7 @@ def remove_memory_assets(
         set_nested(json_data, ["ids"], ids)
         from immich.client.models.bulk_ids_dto import BulkIdsDto
 
-        bulk_ids_dto = deserialize_request_body(json_data, BulkIdsDto)
+        bulk_ids_dto = BulkIdsDto.model_validate(json_data)
         kwargs["bulk_ids_dto"] = bulk_ids_dto
     client = ctx.obj["client"]
     result = run_command(client, client.memories, "remove_memory_assets", **kwargs)
@@ -274,7 +269,7 @@ def update_memory(
             set_nested(json_data, ["seenAt"], seen_at)
         from immich.client.models.memory_update_dto import MemoryUpdateDto
 
-        memory_update_dto = deserialize_request_body(json_data, MemoryUpdateDto)
+        memory_update_dto = MemoryUpdateDto.model_validate(json_data)
         kwargs["memory_update_dto"] = memory_update_dto
     client = ctx.obj["client"]
     result = run_command(client, client.memories, "update_memory", **kwargs)

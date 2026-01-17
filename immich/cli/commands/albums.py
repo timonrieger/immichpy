@@ -3,15 +3,10 @@
 from __future__ import annotations
 
 import typer
+import json
 from typing import Literal
 
-from immich.cli.runtime import (
-    deserialize_request_body,
-    load_json_data,
-    print_response,
-    run_command,
-    set_nested,
-)
+from immich.cli.runtime import print_response, run_command, set_nested
 from immich.client.models import *
 
 app = typer.Typer(
@@ -52,7 +47,7 @@ def add_assets_to_album(
         set_nested(json_data, ["ids"], ids)
         from immich.client.models.bulk_ids_dto import BulkIdsDto
 
-        bulk_ids_dto = deserialize_request_body(json_data, BulkIdsDto)
+        bulk_ids_dto = BulkIdsDto.model_validate(json_data)
         kwargs["bulk_ids_dto"] = bulk_ids_dto
     client = ctx.obj["client"]
     result = run_command(client, client.albums, "add_assets_to_album", **kwargs)
@@ -90,7 +85,7 @@ def add_assets_to_albums(
         set_nested(json_data, ["assetIds"], asset_ids)
         from immich.client.models.albums_add_assets_dto import AlbumsAddAssetsDto
 
-        albums_add_assets_dto = deserialize_request_body(json_data, AlbumsAddAssetsDto)
+        albums_add_assets_dto = AlbumsAddAssetsDto.model_validate(json_data)
         kwargs["albums_add_assets_dto"] = albums_add_assets_dto
     client = ctx.obj["client"]
     result = run_command(client, client.albums, "add_assets_to_albums", **kwargs)
@@ -107,7 +102,7 @@ def add_users_to_album(
         "--albumUsers",
         help="""Album users to add
 
-Example: --album_users key1=value1,key2=value2""",
+As a JSON string""",
     ),
 ) -> None:
     """Share album with users
@@ -121,11 +116,11 @@ Example: --album_users key1=value1,key2=value2""",
         raise SystemExit("Error: Request body is required. Use dotted body flags.")
     if any([album_users]):
         json_data = {}
-        value_album_users = [load_json_data(i) for i in album_users]
+        value_album_users = [json.loads(i) for i in album_users]
         set_nested(json_data, ["albumUsers"], value_album_users)
         from immich.client.models.add_users_dto import AddUsersDto
 
-        add_users_dto = deserialize_request_body(json_data, AddUsersDto)
+        add_users_dto = AddUsersDto.model_validate(json_data)
         kwargs["add_users_dto"] = add_users_dto
     client = ctx.obj["client"]
     result = run_command(client, client.albums, "add_users_to_album", **kwargs)
@@ -142,7 +137,7 @@ def create_album(
         "--albumUsers",
         help="""Album users
 
-Example: --album_users key1=value1,key2=value2""",
+As a JSON string""",
     ),
     asset_ids: list[str] | None = typer.Option(
         None, "--assetIds", help="""Initial asset IDs"""
@@ -163,7 +158,7 @@ Example: --album_users key1=value1,key2=value2""",
         json_data = {}
         set_nested(json_data, ["albumName"], album_name)
         if album_users is not None:
-            value_album_users = [load_json_data(i) for i in album_users]
+            value_album_users = [json.loads(i) for i in album_users]
             set_nested(json_data, ["albumUsers"], value_album_users)
         if asset_ids is not None:
             set_nested(json_data, ["assetIds"], asset_ids)
@@ -171,7 +166,7 @@ Example: --album_users key1=value1,key2=value2""",
             set_nested(json_data, ["description"], description)
         from immich.client.models.create_album_dto import CreateAlbumDto
 
-        create_album_dto = deserialize_request_body(json_data, CreateAlbumDto)
+        create_album_dto = CreateAlbumDto.model_validate(json_data)
         kwargs["create_album_dto"] = create_album_dto
     client = ctx.obj["client"]
     result = run_command(client, client.albums, "create_album", **kwargs)
@@ -292,7 +287,7 @@ def remove_asset_from_album(
         set_nested(json_data, ["ids"], ids)
         from immich.client.models.bulk_ids_dto import BulkIdsDto
 
-        bulk_ids_dto = deserialize_request_body(json_data, BulkIdsDto)
+        bulk_ids_dto = BulkIdsDto.model_validate(json_data)
         kwargs["bulk_ids_dto"] = bulk_ids_dto
     client = ctx.obj["client"]
     result = run_command(client, client.albums, "remove_asset_from_album", **kwargs)
@@ -364,7 +359,7 @@ def update_album_info(
             set_nested(json_data, ["order"], order)
         from immich.client.models.update_album_dto import UpdateAlbumDto
 
-        update_album_dto = deserialize_request_body(json_data, UpdateAlbumDto)
+        update_album_dto = UpdateAlbumDto.model_validate(json_data)
         kwargs["update_album_dto"] = update_album_dto
     client = ctx.obj["client"]
     result = run_command(client, client.albums, "update_album_info", **kwargs)
@@ -394,7 +389,7 @@ def update_album_user(
         set_nested(json_data, ["role"], role)
         from immich.client.models.update_album_user_dto import UpdateAlbumUserDto
 
-        update_album_user_dto = deserialize_request_body(json_data, UpdateAlbumUserDto)
+        update_album_user_dto = UpdateAlbumUserDto.model_validate(json_data)
         kwargs["update_album_user_dto"] = update_album_user_dto
     client = ctx.obj["client"]
     result = run_command(client, client.albums, "update_album_user", **kwargs)

@@ -6,12 +6,7 @@ import typer
 from datetime import datetime
 from typing import Literal
 
-from immich.cli.runtime import (
-    deserialize_request_body,
-    print_response,
-    run_command,
-    set_nested,
-)
+from immich.cli.runtime import print_response, run_command, set_nested
 from immich.client.models import *
 
 app = typer.Typer(
@@ -52,7 +47,7 @@ def add_shared_link_assets(
         set_nested(json_data, ["assetIds"], asset_ids)
         from immich.client.models.asset_ids_dto import AssetIdsDto
 
-        asset_ids_dto = deserialize_request_body(json_data, AssetIdsDto)
+        asset_ids_dto = AssetIdsDto.model_validate(json_data)
         kwargs["asset_ids_dto"] = asset_ids_dto
     client = ctx.obj["client"]
     result = run_command(
@@ -147,9 +142,7 @@ def create_shared_link(
         set_nested(json_data, ["type"], type)
         from immich.client.models.shared_link_create_dto import SharedLinkCreateDto
 
-        shared_link_create_dto = deserialize_request_body(
-            json_data, SharedLinkCreateDto
-        )
+        shared_link_create_dto = SharedLinkCreateDto.model_validate(json_data)
         kwargs["shared_link_create_dto"] = shared_link_create_dto
     client = ctx.obj["client"]
     result = run_command(client, client.shared_links, "create_shared_link", **kwargs)
@@ -275,7 +268,7 @@ def remove_shared_link_assets(
         set_nested(json_data, ["assetIds"], asset_ids)
         from immich.client.models.asset_ids_dto import AssetIdsDto
 
-        asset_ids_dto = deserialize_request_body(json_data, AssetIdsDto)
+        asset_ids_dto = AssetIdsDto.model_validate(json_data)
         kwargs["asset_ids_dto"] = asset_ids_dto
     client = ctx.obj["client"]
     result = run_command(
@@ -365,7 +358,7 @@ def update_shared_link(
             set_nested(json_data, ["slug"], slug)
         from immich.client.models.shared_link_edit_dto import SharedLinkEditDto
 
-        shared_link_edit_dto = deserialize_request_body(json_data, SharedLinkEditDto)
+        shared_link_edit_dto = SharedLinkEditDto.model_validate(json_data)
         kwargs["shared_link_edit_dto"] = shared_link_edit_dto
     client = ctx.obj["client"]
     result = run_command(client, client.shared_links, "update_shared_link", **kwargs)

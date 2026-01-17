@@ -6,12 +6,7 @@ import typer
 from datetime import datetime
 from typing import Literal
 
-from immich.cli.runtime import (
-    deserialize_request_body,
-    print_response,
-    run_command,
-    set_nested,
-)
+from immich.cli.runtime import print_response, run_command, set_nested
 from immich.client.models import *
 
 app = typer.Typer(
@@ -43,7 +38,7 @@ def delete_sync_ack(
             set_nested(json_data, ["types"], types)
         from immich.client.models.sync_ack_delete_dto import SyncAckDeleteDto
 
-        sync_ack_delete_dto = deserialize_request_body(json_data, SyncAckDeleteDto)
+        sync_ack_delete_dto = SyncAckDeleteDto.model_validate(json_data)
         kwargs["sync_ack_delete_dto"] = sync_ack_delete_dto
     client = ctx.obj["client"]
     result = run_command(client, client.sync, "delete_sync_ack", **kwargs)
@@ -73,7 +68,7 @@ def get_delta_sync(
         set_nested(json_data, ["userIds"], user_ids)
         from immich.client.models.asset_delta_sync_dto import AssetDeltaSyncDto
 
-        asset_delta_sync_dto = deserialize_request_body(json_data, AssetDeltaSyncDto)
+        asset_delta_sync_dto = AssetDeltaSyncDto.model_validate(json_data)
         kwargs["asset_delta_sync_dto"] = asset_delta_sync_dto
     client = ctx.obj["client"]
     result = run_command(client, client.sync, "get_delta_sync", **kwargs)
@@ -113,7 +108,7 @@ def get_full_sync_for_user(
             set_nested(json_data, ["userId"], user_id)
         from immich.client.models.asset_full_sync_dto import AssetFullSyncDto
 
-        asset_full_sync_dto = deserialize_request_body(json_data, AssetFullSyncDto)
+        asset_full_sync_dto = AssetFullSyncDto.model_validate(json_data)
         kwargs["asset_full_sync_dto"] = asset_full_sync_dto
     client = ctx.obj["client"]
     result = run_command(client, client.sync, "get_full_sync_for_user", **kwargs)
@@ -159,7 +154,7 @@ def get_sync_stream(
         set_nested(json_data, ["types"], types)
         from immich.client.models.sync_stream_dto import SyncStreamDto
 
-        sync_stream_dto = deserialize_request_body(json_data, SyncStreamDto)
+        sync_stream_dto = SyncStreamDto.model_validate(json_data)
         kwargs["sync_stream_dto"] = sync_stream_dto
     client = ctx.obj["client"]
     result = run_command(client, client.sync, "get_sync_stream", **kwargs)
@@ -187,7 +182,7 @@ def send_sync_ack(
         set_nested(json_data, ["acks"], acks)
         from immich.client.models.sync_ack_set_dto import SyncAckSetDto
 
-        sync_ack_set_dto = deserialize_request_body(json_data, SyncAckSetDto)
+        sync_ack_set_dto = SyncAckSetDto.model_validate(json_data)
         kwargs["sync_ack_set_dto"] = sync_ack_set_dto
     client = ctx.obj["client"]
     result = run_command(client, client.sync, "send_sync_ack", **kwargs)

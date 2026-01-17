@@ -3,16 +3,11 @@
 from __future__ import annotations
 
 import typer
+import json
 from datetime import datetime
 from typing import Literal
 
-from immich.cli.runtime import (
-    deserialize_request_body,
-    load_json_data,
-    print_response,
-    run_command,
-    set_nested,
-)
+from immich.cli.runtime import print_response, run_command, set_nested
 from immich.client.models import *
 
 app = typer.Typer(
@@ -31,7 +26,7 @@ def create_notification(
         "--data",
         help="""Additional notification data
 
-Example: --data key1=value1,key2=value2""",
+As a JSON string""",
     ),
     description: str | None = typer.Option(
         None, "--description", help="""Notification description"""
@@ -57,7 +52,7 @@ Example: --data key1=value1,key2=value2""",
     if any([data, description, level, read_at, title, type, user_id]):
         json_data = {}
         if data is not None:
-            value_data = [load_json_data(i) for i in data]
+            value_data = [json.loads(i) for i in data]
             set_nested(json_data, ["data"], value_data)
         if description is not None:
             set_nested(json_data, ["description"], description)
@@ -71,9 +66,7 @@ Example: --data key1=value1,key2=value2""",
         set_nested(json_data, ["userId"], user_id)
         from immich.client.models.notification_create_dto import NotificationCreateDto
 
-        notification_create_dto = deserialize_request_body(
-            json_data, NotificationCreateDto
-        )
+        notification_create_dto = NotificationCreateDto.model_validate(json_data)
         kwargs["notification_create_dto"] = notification_create_dto
     client = ctx.obj["client"]
     result = run_command(
@@ -103,7 +96,7 @@ def get_notification_template_admin(
         set_nested(json_data, ["template"], template)
         from immich.client.models.template_dto import TemplateDto
 
-        template_dto = deserialize_request_body(json_data, TemplateDto)
+        template_dto = TemplateDto.model_validate(json_data)
         kwargs["template_dto"] = template_dto
     client = ctx.obj["client"]
     result = run_command(
@@ -195,9 +188,7 @@ def send_test_email_admin(
         set_nested(json_data, ["transport", "username"], transport_username)
         from immich.client.models.system_config_smtp_dto import SystemConfigSmtpDto
 
-        system_config_smtp_dto = deserialize_request_body(
-            json_data, SystemConfigSmtpDto
-        )
+        system_config_smtp_dto = SystemConfigSmtpDto.model_validate(json_data)
         kwargs["system_config_smtp_dto"] = system_config_smtp_dto
     client = ctx.obj["client"]
     result = run_command(

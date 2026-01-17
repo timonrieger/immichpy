@@ -3,15 +3,10 @@
 from __future__ import annotations
 
 import typer
+import json
 from typing import Literal
 
-from immich.cli.runtime import (
-    deserialize_request_body,
-    load_json_data,
-    print_response,
-    run_command,
-    set_nested,
-)
+from immich.cli.runtime import print_response, run_command, set_nested
 from immich.client.models import *
 
 app = typer.Typer(
@@ -59,7 +54,7 @@ def create_person(
             set_nested(json_data, ["name"], name)
         from immich.client.models.person_create_dto import PersonCreateDto
 
-        person_create_dto = deserialize_request_body(json_data, PersonCreateDto)
+        person_create_dto = PersonCreateDto.model_validate(json_data)
         kwargs["person_create_dto"] = person_create_dto
     client = ctx.obj["client"]
     result = run_command(client, client.people, "create_person", **kwargs)
@@ -85,7 +80,7 @@ def delete_people(
         set_nested(json_data, ["ids"], ids)
         from immich.client.models.bulk_ids_dto import BulkIdsDto
 
-        bulk_ids_dto = deserialize_request_body(json_data, BulkIdsDto)
+        bulk_ids_dto = BulkIdsDto.model_validate(json_data)
         kwargs["bulk_ids_dto"] = bulk_ids_dto
     client = ctx.obj["client"]
     result = run_command(client, client.people, "delete_people", **kwargs)
@@ -221,7 +216,7 @@ def merge_person(
         set_nested(json_data, ["ids"], ids)
         from immich.client.models.merge_person_dto import MergePersonDto
 
-        merge_person_dto = deserialize_request_body(json_data, MergePersonDto)
+        merge_person_dto = MergePersonDto.model_validate(json_data)
         kwargs["merge_person_dto"] = merge_person_dto
     client = ctx.obj["client"]
     result = run_command(client, client.people, "merge_person", **kwargs)
@@ -238,7 +233,7 @@ def reassign_faces(
         "--data",
         help="""Face update items
 
-Example: --data key1=value1,key2=value2""",
+As a JSON string""",
     ),
 ) -> None:
     """Reassign faces
@@ -252,11 +247,11 @@ Example: --data key1=value1,key2=value2""",
         raise SystemExit("Error: Request body is required. Use dotted body flags.")
     if any([data]):
         json_data = {}
-        value_data = [load_json_data(i) for i in data]
+        value_data = [json.loads(i) for i in data]
         set_nested(json_data, ["data"], value_data)
         from immich.client.models.asset_face_update_dto import AssetFaceUpdateDto
 
-        asset_face_update_dto = deserialize_request_body(json_data, AssetFaceUpdateDto)
+        asset_face_update_dto = AssetFaceUpdateDto.model_validate(json_data)
         kwargs["asset_face_update_dto"] = asset_face_update_dto
     client = ctx.obj["client"]
     result = run_command(client, client.people, "reassign_faces", **kwargs)
@@ -272,7 +267,7 @@ def update_people(
         "--people",
         help="""People to update
 
-Example: --people key1=value1,key2=value2""",
+As a JSON string""",
     ),
 ) -> None:
     """Update people
@@ -285,11 +280,11 @@ Example: --people key1=value1,key2=value2""",
         raise SystemExit("Error: Request body is required. Use dotted body flags.")
     if any([people]):
         json_data = {}
-        value_people = [load_json_data(i) for i in people]
+        value_people = [json.loads(i) for i in people]
         set_nested(json_data, ["people"], value_people)
         from immich.client.models.people_update_dto import PeopleUpdateDto
 
-        people_update_dto = deserialize_request_body(json_data, PeopleUpdateDto)
+        people_update_dto = PeopleUpdateDto.model_validate(json_data)
         kwargs["people_update_dto"] = people_update_dto
     client = ctx.obj["client"]
     result = run_command(client, client.people, "update_people", **kwargs)
@@ -345,7 +340,7 @@ def update_person(
             set_nested(json_data, ["name"], name)
         from immich.client.models.person_update_dto import PersonUpdateDto
 
-        person_update_dto = deserialize_request_body(json_data, PersonUpdateDto)
+        person_update_dto = PersonUpdateDto.model_validate(json_data)
         kwargs["person_update_dto"] = person_update_dto
     client = ctx.obj["client"]
     result = run_command(client, client.people, "update_person", **kwargs)

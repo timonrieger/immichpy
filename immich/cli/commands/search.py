@@ -6,12 +6,7 @@ import typer
 from datetime import datetime
 from typing import Literal
 
-from immich.cli.runtime import (
-    deserialize_request_body,
-    print_response,
-    run_command,
-    set_nested,
-)
+from immich.cli.runtime import print_response, run_command, set_nested
 from immich.client.models import *
 
 app = typer.Typer(
@@ -316,7 +311,7 @@ def search_asset_statistics(
             set_nested(json_data, ["visibility"], visibility)
         from immich.client.models.statistics_search_dto import StatisticsSearchDto
 
-        statistics_search_dto = deserialize_request_body(json_data, StatisticsSearchDto)
+        statistics_search_dto = StatisticsSearchDto.model_validate(json_data)
         kwargs["statistics_search_dto"] = statistics_search_dto
     client = ctx.obj["client"]
     result = run_command(client, client.search, "search_asset_statistics", **kwargs)
@@ -642,7 +637,7 @@ def search_assets(
             set_nested(json_data, ["withStacked"], with_stacked.lower() == "true")
         from immich.client.models.metadata_search_dto import MetadataSearchDto
 
-        metadata_search_dto = deserialize_request_body(json_data, MetadataSearchDto)
+        metadata_search_dto = MetadataSearchDto.model_validate(json_data)
         kwargs["metadata_search_dto"] = metadata_search_dto
     client = ctx.obj["client"]
     result = run_command(client, client.search, "search_assets", **kwargs)
@@ -1107,7 +1102,7 @@ def search_random(
             set_nested(json_data, ["withStacked"], with_stacked.lower() == "true")
         from immich.client.models.random_search_dto import RandomSearchDto
 
-        random_search_dto = deserialize_request_body(json_data, RandomSearchDto)
+        random_search_dto = RandomSearchDto.model_validate(json_data)
         kwargs["random_search_dto"] = random_search_dto
     client = ctx.obj["client"]
     result = run_command(client, client.search, "search_random", **kwargs)
@@ -1374,7 +1369,7 @@ def search_smart(
             set_nested(json_data, ["withExif"], with_exif.lower() == "true")
         from immich.client.models.smart_search_dto import SmartSearchDto
 
-        smart_search_dto = deserialize_request_body(json_data, SmartSearchDto)
+        smart_search_dto = SmartSearchDto.model_validate(json_data)
         kwargs["smart_search_dto"] = smart_search_dto
     client = ctx.obj["client"]
     result = run_command(client, client.search, "search_smart", **kwargs)

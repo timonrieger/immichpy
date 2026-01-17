@@ -5,12 +5,7 @@ from __future__ import annotations
 import typer
 from typing import Literal
 
-from immich.cli.runtime import (
-    deserialize_request_body,
-    print_response,
-    run_command,
-    set_nested,
-)
+from immich.cli.runtime import print_response, run_command, set_nested
 from immich.client.models import *
 
 app = typer.Typer(
@@ -60,7 +55,7 @@ Example: password""",
         set_nested(json_data, ["password"], password)
         from immich.client.models.change_password_dto import ChangePasswordDto
 
-        change_password_dto = deserialize_request_body(json_data, ChangePasswordDto)
+        change_password_dto = ChangePasswordDto.model_validate(json_data)
         kwargs["change_password_dto"] = change_password_dto
     client = ctx.obj["client"]
     result = run_command(client, client.authentication, "change_password", **kwargs)
@@ -108,7 +103,7 @@ Example: 123456""",
             set_nested(json_data, ["pinCode"], pin_code)
         from immich.client.models.pin_code_change_dto import PinCodeChangeDto
 
-        pin_code_change_dto = deserialize_request_body(json_data, PinCodeChangeDto)
+        pin_code_change_dto = PinCodeChangeDto.model_validate(json_data)
         kwargs["pin_code_change_dto"] = pin_code_change_dto
     client = ctx.obj["client"]
     result = run_command(client, client.authentication, "change_pin_code", **kwargs)
@@ -142,7 +137,7 @@ def finish_o_auth(
         set_nested(json_data, ["url"], url)
         from immich.client.models.o_auth_callback_dto import OAuthCallbackDto
 
-        o_auth_callback_dto = deserialize_request_body(json_data, OAuthCallbackDto)
+        o_auth_callback_dto = OAuthCallbackDto.model_validate(json_data)
         kwargs["o_auth_callback_dto"] = o_auth_callback_dto
     client = ctx.obj["client"]
     result = run_command(client, client.authentication, "finish_o_auth", **kwargs)
@@ -191,7 +186,7 @@ def link_o_auth_account(
         set_nested(json_data, ["url"], url)
         from immich.client.models.o_auth_callback_dto import OAuthCallbackDto
 
-        o_auth_callback_dto = deserialize_request_body(json_data, OAuthCallbackDto)
+        o_auth_callback_dto = OAuthCallbackDto.model_validate(json_data)
         kwargs["o_auth_callback_dto"] = o_auth_callback_dto
     client = ctx.obj["client"]
     result = run_command(client, client.authentication, "link_o_auth_account", **kwargs)
@@ -246,7 +241,7 @@ Example: password""",
         set_nested(json_data, ["password"], password)
         from immich.client.models.login_credential_dto import LoginCredentialDto
 
-        login_credential_dto = deserialize_request_body(json_data, LoginCredentialDto)
+        login_credential_dto = LoginCredentialDto.model_validate(json_data)
         kwargs["login_credential_dto"] = login_credential_dto
     client = ctx.obj["client"]
     result = run_command(client, client.authentication, "login", **kwargs)
@@ -318,7 +313,7 @@ Example: 123456""",
             set_nested(json_data, ["pinCode"], pin_code)
         from immich.client.models.pin_code_reset_dto import PinCodeResetDto
 
-        pin_code_reset_dto = deserialize_request_body(json_data, PinCodeResetDto)
+        pin_code_reset_dto = PinCodeResetDto.model_validate(json_data)
         kwargs["pin_code_reset_dto"] = pin_code_reset_dto
     client = ctx.obj["client"]
     result = run_command(client, client.authentication, "reset_pin_code", **kwargs)
@@ -350,7 +345,7 @@ Example: 123456""",
         set_nested(json_data, ["pinCode"], pin_code)
         from immich.client.models.pin_code_setup_dto import PinCodeSetupDto
 
-        pin_code_setup_dto = deserialize_request_body(json_data, PinCodeSetupDto)
+        pin_code_setup_dto = PinCodeSetupDto.model_validate(json_data)
         kwargs["pin_code_setup_dto"] = pin_code_setup_dto
     client = ctx.obj["client"]
     result = run_command(client, client.authentication, "setup_pin_code", **kwargs)
@@ -398,7 +393,7 @@ Example: password""",
         set_nested(json_data, ["password"], password)
         from immich.client.models.sign_up_dto import SignUpDto
 
-        sign_up_dto = deserialize_request_body(json_data, SignUpDto)
+        sign_up_dto = SignUpDto.model_validate(json_data)
         kwargs["sign_up_dto"] = sign_up_dto
     client = ctx.obj["client"]
     result = run_command(client, client.authentication, "sign_up_admin", **kwargs)
@@ -434,7 +429,7 @@ def start_o_auth(
             set_nested(json_data, ["state"], state)
         from immich.client.models.o_auth_config_dto import OAuthConfigDto
 
-        o_auth_config_dto = deserialize_request_body(json_data, OAuthConfigDto)
+        o_auth_config_dto = OAuthConfigDto.model_validate(json_data)
         kwargs["o_auth_config_dto"] = o_auth_config_dto
     client = ctx.obj["client"]
     result = run_command(client, client.authentication, "start_o_auth", **kwargs)
@@ -491,7 +486,7 @@ Example: 123456""",
             set_nested(json_data, ["pinCode"], pin_code)
         from immich.client.models.session_unlock_dto import SessionUnlockDto
 
-        session_unlock_dto = deserialize_request_body(json_data, SessionUnlockDto)
+        session_unlock_dto = SessionUnlockDto.model_validate(json_data)
         kwargs["session_unlock_dto"] = session_unlock_dto
     client = ctx.obj["client"]
     result = run_command(client, client.authentication, "unlock_auth_session", **kwargs)

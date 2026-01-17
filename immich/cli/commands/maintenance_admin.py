@@ -4,12 +4,7 @@ from __future__ import annotations
 
 import typer
 
-from immich.cli.runtime import (
-    deserialize_request_body,
-    print_response,
-    run_command,
-    set_nested,
-)
+from immich.cli.runtime import print_response, run_command, set_nested
 from immich.client.models import *
 
 app = typer.Typer(
@@ -39,7 +34,7 @@ def maintenance_login(
             set_nested(json_data, ["token"], token)
         from immich.client.models.maintenance_login_dto import MaintenanceLoginDto
 
-        maintenance_login_dto = deserialize_request_body(json_data, MaintenanceLoginDto)
+        maintenance_login_dto = MaintenanceLoginDto.model_validate(json_data)
         kwargs["maintenance_login_dto"] = maintenance_login_dto
     client = ctx.obj["client"]
     result = run_command(
@@ -67,9 +62,7 @@ def set_maintenance_mode(
         set_nested(json_data, ["action"], action)
         from immich.client.models.set_maintenance_mode_dto import SetMaintenanceModeDto
 
-        set_maintenance_mode_dto = deserialize_request_body(
-            json_data, SetMaintenanceModeDto
-        )
+        set_maintenance_mode_dto = SetMaintenanceModeDto.model_validate(json_data)
         kwargs["set_maintenance_mode_dto"] = set_maintenance_mode_dto
     client = ctx.obj["client"]
     result = run_command(

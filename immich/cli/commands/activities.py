@@ -4,12 +4,7 @@ from __future__ import annotations
 
 import typer
 
-from immich.cli.runtime import (
-    deserialize_request_body,
-    print_response,
-    run_command,
-    set_nested,
-)
+from immich.cli.runtime import print_response, run_command, set_nested
 from immich.client.models import *
 
 app = typer.Typer(
@@ -50,7 +45,7 @@ def create_activity(
         set_nested(json_data, ["type"], type)
         from immich.client.models.activity_create_dto import ActivityCreateDto
 
-        activity_create_dto = deserialize_request_body(json_data, ActivityCreateDto)
+        activity_create_dto = ActivityCreateDto.model_validate(json_data)
         kwargs["activity_create_dto"] = activity_create_dto
     client = ctx.obj["client"]
     result = run_command(client, client.activities, "create_activity", **kwargs)

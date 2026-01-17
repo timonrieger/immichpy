@@ -408,9 +408,7 @@ def generate_command_function(
                     description_parts.append(f"Example: {example}")
 
                 if is_complex:
-                    description_parts.append(
-                        f"Example: --{param_name} key1=value1,key2=value2"
-                    )
+                    description_parts.append("As a JSON string")
 
                 description = (
                     "\n\n".join(description_parts) if description_parts else ""
@@ -541,7 +539,7 @@ def generate_command_function(
                     if is_required:
                         if is_complex:
                             lines.append(
-                                f"        value_{param_name} = [load_json_data(i) for i in {param_name}]"
+                                f"        value_{param_name} = [json.loads(i) for i in {param_name}]"
                             )
                             lines.append(
                                 f"        set_nested(json_data, {path_parts!r}, value_{param_name})"
@@ -559,7 +557,7 @@ def generate_command_function(
                         lines.append(f"        if {param_name} is not None:")
                         if is_complex:
                             lines.append(
-                                f"            value_{param_name} = [load_json_data(i) for i in {param_name}]"
+                                f"            value_{param_name} = [json.loads(i) for i in {param_name}]"
                             )
                             lines.append(
                                 f"            set_nested(json_data, {path_parts!r}, value_{param_name})"
@@ -579,7 +577,7 @@ def generate_command_function(
                     f"        from immich.client.models.{model_module} import {request_body_model}"
                 )
                 lines.append(
-                    f"        {body_param_name} = deserialize_request_body(json_data, {request_body_model})"
+                    f"        {body_param_name} = {request_body_model}.model_validate(json_data)"
                 )
                 lines.append(f"        kwargs['{body_param_name}'] = {body_param_name}")
         elif content_type == "multipart/form-data":
@@ -601,12 +599,12 @@ def generate_command_function(
                     # File fields come from dedicated CLI options
                     if prop_name in required_props:
                         lines.append(
-                            f"    kwargs['{snake}'] = load_file_bytes({snake})"
+                            f"    kwargs['{snake}'] = ({snake}.name, {snake}.read_bytes())"
                         )
                     else:
                         lines.append(f"    if {snake} is not None:")
                         lines.append(
-                            f"        kwargs['{snake}'] = load_file_bytes({snake})"
+                            f"        kwargs['{snake}'] = ({snake}.name, {snake}.read_bytes())"
                         )
                 else:
                     # Prefer original OpenAPI key, fallback to snake_case key
@@ -660,11 +658,12 @@ def generate_tag_app(
         "from __future__ import annotations",
         "",
         "import typer",
+        "import json",
         "from datetime import datetime",
         "from pathlib import Path",
         "from typing import Literal",
         "",
-        "from immich.cli.runtime import load_file_bytes, deserialize_request_body, load_json_data, print_response, run_command, set_nested",
+        "from immich.cli.runtime import print_response, run_command, set_nested",
         "from immich.client.models import *",
         "",
     ]

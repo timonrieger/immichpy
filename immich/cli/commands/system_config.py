@@ -5,12 +5,7 @@ from __future__ import annotations
 import typer
 from typing import Literal
 
-from immich.cli.runtime import (
-    deserialize_request_body,
-    print_response,
-    run_command,
-    set_nested,
-)
+from immich.cli.runtime import print_response, run_command, set_nested
 from immich.client.models import *
 
 app = typer.Typer(
@@ -1056,7 +1051,7 @@ def update_config(
         set_nested(json_data, ["user", "deleteDelay"], user_delete_delay)
         from immich.client.models.system_config_dto import SystemConfigDto
 
-        system_config_dto = deserialize_request_body(json_data, SystemConfigDto)
+        system_config_dto = SystemConfigDto.model_validate(json_data)
         kwargs["system_config_dto"] = system_config_dto
     client = ctx.obj["client"]
     result = run_command(client, client.system_config, "update_config", **kwargs)

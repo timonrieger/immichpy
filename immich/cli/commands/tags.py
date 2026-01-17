@@ -4,12 +4,7 @@ from __future__ import annotations
 
 import typer
 
-from immich.cli.runtime import (
-    deserialize_request_body,
-    print_response,
-    run_command,
-    set_nested,
-)
+from immich.cli.runtime import print_response, run_command, set_nested
 from immich.client.models import *
 
 app = typer.Typer(
@@ -40,7 +35,7 @@ def bulk_tag_assets(
         set_nested(json_data, ["tagIds"], tag_ids)
         from immich.client.models.tag_bulk_assets_dto import TagBulkAssetsDto
 
-        tag_bulk_assets_dto = deserialize_request_body(json_data, TagBulkAssetsDto)
+        tag_bulk_assets_dto = TagBulkAssetsDto.model_validate(json_data)
         kwargs["tag_bulk_assets_dto"] = tag_bulk_assets_dto
     client = ctx.obj["client"]
     result = run_command(client, client.tags, "bulk_tag_assets", **kwargs)
@@ -72,7 +67,7 @@ def create_tag(
             set_nested(json_data, ["parentId"], parent_id)
         from immich.client.models.tag_create_dto import TagCreateDto
 
-        tag_create_dto = deserialize_request_body(json_data, TagCreateDto)
+        tag_create_dto = TagCreateDto.model_validate(json_data)
         kwargs["tag_create_dto"] = tag_create_dto
     client = ctx.obj["client"]
     result = run_command(client, client.tags, "create_tag", **kwargs)
@@ -149,7 +144,7 @@ def tag_assets(
         set_nested(json_data, ["ids"], ids)
         from immich.client.models.bulk_ids_dto import BulkIdsDto
 
-        bulk_ids_dto = deserialize_request_body(json_data, BulkIdsDto)
+        bulk_ids_dto = BulkIdsDto.model_validate(json_data)
         kwargs["bulk_ids_dto"] = bulk_ids_dto
     client = ctx.obj["client"]
     result = run_command(client, client.tags, "tag_assets", **kwargs)
@@ -177,7 +172,7 @@ def untag_assets(
         set_nested(json_data, ["ids"], ids)
         from immich.client.models.bulk_ids_dto import BulkIdsDto
 
-        bulk_ids_dto = deserialize_request_body(json_data, BulkIdsDto)
+        bulk_ids_dto = BulkIdsDto.model_validate(json_data)
         kwargs["bulk_ids_dto"] = bulk_ids_dto
     client = ctx.obj["client"]
     result = run_command(client, client.tags, "untag_assets", **kwargs)
@@ -206,7 +201,7 @@ def update_tag(
             set_nested(json_data, ["color"], color)
         from immich.client.models.tag_update_dto import TagUpdateDto
 
-        tag_update_dto = deserialize_request_body(json_data, TagUpdateDto)
+        tag_update_dto = TagUpdateDto.model_validate(json_data)
         kwargs["tag_update_dto"] = tag_update_dto
     client = ctx.obj["client"]
     result = run_command(client, client.tags, "update_tag", **kwargs)
@@ -232,7 +227,7 @@ def upsert_tags(
         set_nested(json_data, ["tags"], tags)
         from immich.client.models.tag_upsert_dto import TagUpsertDto
 
-        tag_upsert_dto = deserialize_request_body(json_data, TagUpsertDto)
+        tag_upsert_dto = TagUpsertDto.model_validate(json_data)
         kwargs["tag_upsert_dto"] = tag_upsert_dto
     client = ctx.obj["client"]
     result = run_command(client, client.tags, "upsert_tags", **kwargs)

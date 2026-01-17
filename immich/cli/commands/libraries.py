@@ -4,12 +4,7 @@ from __future__ import annotations
 
 import typer
 
-from immich.cli.runtime import (
-    deserialize_request_body,
-    print_response,
-    run_command,
-    set_nested,
-)
+from immich.cli.runtime import print_response, run_command, set_nested
 from immich.client.models import *
 
 app = typer.Typer(
@@ -51,7 +46,7 @@ def create_library(
         set_nested(json_data, ["ownerId"], owner_id)
         from immich.client.models.create_library_dto import CreateLibraryDto
 
-        create_library_dto = deserialize_request_body(json_data, CreateLibraryDto)
+        create_library_dto = CreateLibraryDto.model_validate(json_data)
         kwargs["create_library_dto"] = create_library_dto
     client = ctx.obj["client"]
     result = run_command(client, client.libraries, "create_library", **kwargs)
@@ -173,7 +168,7 @@ def update_library(
             set_nested(json_data, ["name"], name)
         from immich.client.models.update_library_dto import UpdateLibraryDto
 
-        update_library_dto = deserialize_request_body(json_data, UpdateLibraryDto)
+        update_library_dto = UpdateLibraryDto.model_validate(json_data)
         kwargs["update_library_dto"] = update_library_dto
     client = ctx.obj["client"]
     result = run_command(client, client.libraries, "update_library", **kwargs)
@@ -209,7 +204,7 @@ def validate(
             set_nested(json_data, ["importPaths"], import_paths)
         from immich.client.models.validate_library_dto import ValidateLibraryDto
 
-        validate_library_dto = deserialize_request_body(json_data, ValidateLibraryDto)
+        validate_library_dto = ValidateLibraryDto.model_validate(json_data)
         kwargs["validate_library_dto"] = validate_library_dto
     client = ctx.obj["client"]
     result = run_command(client, client.libraries, "validate", **kwargs)

@@ -5,12 +5,7 @@ from __future__ import annotations
 import typer
 from typing import Literal
 
-from immich.cli.runtime import (
-    deserialize_request_body,
-    print_response,
-    run_command,
-    set_nested,
-)
+from immich.cli.runtime import print_response, run_command, set_nested
 from immich.client.models import *
 
 app = typer.Typer(
@@ -101,7 +96,7 @@ def create_user_admin(
             set_nested(json_data, ["storageLabel"], storage_label)
         from immich.client.models.user_admin_create_dto import UserAdminCreateDto
 
-        user_admin_create_dto = deserialize_request_body(json_data, UserAdminCreateDto)
+        user_admin_create_dto = UserAdminCreateDto.model_validate(json_data)
         kwargs["user_admin_create_dto"] = user_admin_create_dto
     client = ctx.obj["client"]
     result = run_command(client, client.users_admin, "create_user_admin", **kwargs)
@@ -132,7 +127,7 @@ def delete_user_admin(
             set_nested(json_data, ["force"], force.lower() == "true")
         from immich.client.models.user_admin_delete_dto import UserAdminDeleteDto
 
-        user_admin_delete_dto = deserialize_request_body(json_data, UserAdminDeleteDto)
+        user_admin_delete_dto = UserAdminDeleteDto.model_validate(json_data)
         kwargs["user_admin_delete_dto"] = user_admin_delete_dto
     client = ctx.obj["client"]
     result = run_command(client, client.users_admin, "delete_user_admin", **kwargs)
@@ -358,7 +353,7 @@ Example: 123456""",
             set_nested(json_data, ["storageLabel"], storage_label)
         from immich.client.models.user_admin_update_dto import UserAdminUpdateDto
 
-        user_admin_update_dto = deserialize_request_body(json_data, UserAdminUpdateDto)
+        user_admin_update_dto = UserAdminUpdateDto.model_validate(json_data)
         kwargs["user_admin_update_dto"] = user_admin_update_dto
     client = ctx.obj["client"]
     result = run_command(client, client.users_admin, "update_user_admin", **kwargs)
@@ -607,9 +602,7 @@ def update_user_preferences_admin(
             UserPreferencesUpdateDto,
         )
 
-        user_preferences_update_dto = deserialize_request_body(
-            json_data, UserPreferencesUpdateDto
-        )
+        user_preferences_update_dto = UserPreferencesUpdateDto.model_validate(json_data)
         kwargs["user_preferences_update_dto"] = user_preferences_update_dto
     client = ctx.obj["client"]
     result = run_command(

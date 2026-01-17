@@ -6,12 +6,7 @@ import typer
 from datetime import datetime
 from typing import Literal
 
-from immich.cli.runtime import (
-    deserialize_request_body,
-    print_response,
-    run_command,
-    set_nested,
-)
+from immich.cli.runtime import print_response, run_command, set_nested
 from immich.client.models import *
 
 app = typer.Typer(
@@ -59,9 +54,7 @@ def delete_notifications(
             NotificationDeleteAllDto,
         )
 
-        notification_delete_all_dto = deserialize_request_body(
-            json_data, NotificationDeleteAllDto
-        )
+        notification_delete_all_dto = NotificationDeleteAllDto.model_validate(json_data)
         kwargs["notification_delete_all_dto"] = notification_delete_all_dto
     client = ctx.obj["client"]
     result = run_command(client, client.notifications, "delete_notifications", **kwargs)
@@ -142,9 +135,7 @@ def update_notification(
             set_nested(json_data, ["readAt"], read_at)
         from immich.client.models.notification_update_dto import NotificationUpdateDto
 
-        notification_update_dto = deserialize_request_body(
-            json_data, NotificationUpdateDto
-        )
+        notification_update_dto = NotificationUpdateDto.model_validate(json_data)
         kwargs["notification_update_dto"] = notification_update_dto
     client = ctx.obj["client"]
     result = run_command(client, client.notifications, "update_notification", **kwargs)
@@ -177,9 +168,7 @@ def update_notifications(
             NotificationUpdateAllDto,
         )
 
-        notification_update_all_dto = deserialize_request_body(
-            json_data, NotificationUpdateAllDto
-        )
+        notification_update_all_dto = NotificationUpdateAllDto.model_validate(json_data)
         kwargs["notification_update_all_dto"] = notification_update_all_dto
     client = ctx.obj["client"]
     result = run_command(client, client.notifications, "update_notifications", **kwargs)

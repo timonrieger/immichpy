@@ -4,12 +4,7 @@ from __future__ import annotations
 
 import typer
 
-from immich.cli.runtime import (
-    deserialize_request_body,
-    print_response,
-    run_command,
-    set_nested,
-)
+from immich.cli.runtime import print_response, run_command, set_nested
 from immich.client.models import *
 
 app = typer.Typer(
@@ -254,7 +249,7 @@ def set_server_license(
         set_nested(json_data, ["licenseKey"], license_key)
         from immich.client.models.license_key_dto import LicenseKeyDto
 
-        license_key_dto = deserialize_request_body(json_data, LicenseKeyDto)
+        license_key_dto = LicenseKeyDto.model_validate(json_data)
         kwargs["license_key_dto"] = license_key_dto
     client = ctx.obj["client"]
     result = run_command(client, client.server, "set_server_license", **kwargs)
