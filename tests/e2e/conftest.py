@@ -48,7 +48,26 @@ def env() -> dict[str, str]:
 
 
 @pytest.fixture
-async def client_with_api_key(env: dict[str, str]):
+async def client_with_api_key(client_with_access_token: AsyncClient):
+    """Set up admin user, create API key, and return authenticated client."""
+    # Create API key with all permissions
+    api_key_response = await client_with_access_token.api_keys.create_api_key(
+        APIKeyCreateDto(name="e2e", permissions=[Permission.ALL]),
+    )
+
+    # Create authenticated client with API key
+    client = AsyncClient(
+        base_url=client_with_access_token.config.host, api_key=api_key_response.secret
+    )
+
+    try:
+        yield client
+    finally:
+        await client.close()
+
+
+@pytest.fixture
+async def client_with_access_token(env: dict[str, str]):
     """Set up admin user, create API key, and return authenticated client."""
 
     # Create unauthenticated client for setup
@@ -71,27 +90,20 @@ async def client_with_api_key(env: dict[str, str]):
             LoginCredentialDto(email="admin@immich.cloud", password="password")
         )
 
+        client = AsyncClient(
+            base_url=env["IMMICH_API_URL"], bearer_token=login_response.access_token
+        )
+
         # Mark admin as onboarded
-        await setup_client.system_metadata.update_admin_onboarding(
+        await client.system_metadata.update_admin_onboarding(
             # NOTE: type ignore likely a ty issue
             AdminOnboardingUpdateDto(isOnboarded=True),
-            _headers={"Authorization": f"Bearer {login_response.access_token}"},
         )
 
-        # Create API key with all permissions
-        api_key_response = await setup_client.api_keys.create_api_key(
-            APIKeyCreateDto(name="e2e", permissions=[Permission.ALL]),
-            _headers={"Authorization": f"Bearer {login_response.access_token}"},
-        )
-
-        # Create authenticated client with API key
-        client = AsyncClient(
-            base_url=env["IMMICH_API_URL"], api_key=api_key_response.secret
-        )
-
-        yield client
-
-        await client.close()
+        try:
+            yield client
+        finally:
+            await client.close()
     finally:
         await setup_client.close()
 

@@ -15,3 +15,14 @@ def runner(client_with_api_key: AsyncClient) -> CliRunner:
             ],
         }
     )
+
+
+@pytest.fixture
+def runner_with_access_token(client_with_access_token: AsyncClient) -> CliRunner:
+    """Fixture to create a runner with an access token."""
+    return CliRunner(
+        env={
+            "IMMICH_API_URL": client_with_access_token.base_client.configuration.host,
+            "IMMICH_ACCESS_TOKEN": client_with_access_token.base_client.configuration.access_token,
+        }
+    )

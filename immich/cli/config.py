@@ -25,13 +25,13 @@ def get_auth() -> tuple[Optional[str], Optional[str], Optional[str]]:
     :return: Tuple of (api_key, bearer_token, cookie)
     """
     api_key = os.environ.get("IMMICH_API_KEY")
-    bearer_token = os.environ.get("IMMICH_BEARER_TOKEN")
+    bearer_token = os.environ.get("IMMICH_ACCESS_TOKEN")
     cookie = os.environ.get("IMMICH_COOKIE")
 
     if not any([api_key, bearer_token, cookie]):
         raise ValueError(
             "At least one auth method required. Set one of: "
-            "IMMICH_API_KEY, IMMICH_BEARER_TOKEN, or IMMICH_COOKIE"
+            "IMMICH_API_KEY, IMMICH_ACCESS_TOKEN, or IMMICH_COOKIE"
         )
 
     return api_key, bearer_token, cookie
