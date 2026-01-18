@@ -4,7 +4,15 @@ from uuid import UUID, uuid4
 from pathlib import Path
 from typing import Any, Optional
 
-import tqdm
+from rich.progress import (
+    Progress,
+    SpinnerColumn,
+    BarColumn,
+    TextColumn,
+    DownloadColumn,
+    TransferSpeedColumn,
+    TimeRemainingColumn,
+)
 from pydantic import StrictStr
 
 from immich.client.api.download_api import DownloadApi
@@ -35,7 +43,7 @@ class DownloadApiWrapped(DownloadApi):
         :param out_dir: The directory to write the ZIP archive to.
         :param key: Public share key (the last path segment of a public share URL, i.e. `/share/<key>`). Allows access without authentication. Typically you pass either `key` or `slug`.
         :param slug: Public share slug for custom share URLs (the last path segment of `/s/<slug>`). Allows access without authentication. Typically you pass either `slug` or `key`.
-        :param show_progress: Whether to show tqdm progress bars (per-archive bytes + overall archive count).
+        :param show_progress: Whether to show progress bars (per-archive bytes + overall archive count).
         :param kwargs: Additional arguments to pass to the underlying SDK calls.
 
         :return: The list of paths to the downloaded archives.
@@ -61,16 +69,21 @@ class DownloadApiWrapped(DownloadApi):
 
         out_paths: list[Path] = []
 
-        archives_pbar = tqdm.tqdm(
-            total=len(archive_requests),
-            desc="archives",
-            unit="archive",
-            position=0,
-            leave=True,
-            dynamic_ncols=True,
-            disable=not show_progress,
-        )
-        try:
+        progress_columns = [
+            SpinnerColumn(),
+            TextColumn("[progress.description]{task.description}"),
+            BarColumn(),
+            TextColumn("[progress.percentage]{task.percentage:>3.0f}%"),
+            DownloadColumn(),
+            TransferSpeedColumn(),
+            TimeRemainingColumn(),
+        ]
+
+        with Progress(*progress_columns, disable=not show_progress) as progress:
+            archives_task = progress.add_task(
+                f"[cyan]Downloading {len(archive_requests)} archives",
+                total=len(archive_requests),
+            )
             for asset_ids_dto, expected_size in archive_requests:
                 filename = f"archive-{uuid4()}.zip"
 
@@ -83,28 +96,20 @@ class DownloadApiWrapped(DownloadApi):
                         **kwargs,
                     )
 
-                pbar = tqdm.tqdm(
+                download_task = progress.add_task(
+                    f"[green]{filename}",
                     total=expected_size or None,
-                    unit="B",
-                    unit_scale=True,
-                    desc=str(filename),
-                    position=1,
-                    leave=False,
-                    dynamic_ncols=True,
-                    disable=not show_progress,
                 )
                 await download_file(
                     make_request=make_request,
                     out_dir=out_dir,
                     resolve_filename=lambda headers: filename,
                     show_progress=show_progress,
-                    pbar=pbar,
+                    progress=progress,
+                    task_id=download_task,
                     resumeable=False,  # zip files are not resumable
                 )
                 out_paths.append(out_dir / filename)
-                archives_pbar.update(1)
-                pbar.close()
-        finally:
-            archives_pbar.close()
+                progress.update(archives_task, advance=1)
 
         return out_paths

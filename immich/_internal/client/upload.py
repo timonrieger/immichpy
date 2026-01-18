@@ -15,7 +15,15 @@ from uuid import UUID
 import uuid
 
 from pydantic import BaseModel, Field
-import tqdm
+from rich.progress import (
+    Progress,
+    SpinnerColumn,
+    BarColumn,
+    TextColumn,
+    DownloadColumn,
+    TransferSpeedColumn,
+    TimeRemainingColumn,
+)
 from immich._internal.consts import DEVICE_ID
 from immich.client.api.albums_api import AlbumsApi
 from immich.client.api.assets_api import AssetsApi
@@ -182,49 +190,55 @@ async def check_duplicates(
     if not check_duplicates:
         return files, []
 
-    pbar = tqdm.tqdm(total=len(files), desc="Hashing files", disable=not show_progress)
-    checksums: list[tuple[Path, str]] = []
-    for filepath in files:
-        checksum = await asyncio.to_thread(compute_sha1_sync, filepath)
-        checksums.append((filepath, checksum))
-        pbar.update(1)
-    pbar.close()
+    progress_columns = [
+        SpinnerColumn(),
+        TextColumn("[progress.description]{task.description}"),
+        BarColumn(),
+        TextColumn("[progress.percentage]{task.percentage:>3.0f}%"),
+    ]
 
-    new_files: list[Path] = []
-    rejected: list[RejectedEntry] = []
+    with Progress(*progress_columns, disable=not show_progress) as progress:
+        hashing_task = progress.add_task("[cyan]Hashing files", total=len(files))
+        checksums: list[tuple[Path, str]] = []
+        for filepath in files:
+            checksum = await asyncio.to_thread(compute_sha1_sync, filepath)
+            checksums.append((filepath, checksum))
+            progress.update(hashing_task, advance=1)
 
-    check_pbar = tqdm.tqdm(
-        total=len(files), desc="Checking duplicates", disable=not show_progress
-    )
+        new_files: list[Path] = []
+        rejected: list[RejectedEntry] = []
 
-    for i in range(0, len(checksums), BATCH_SIZE):
-        batch = checksums[i : i + BATCH_SIZE]
-        items = [
-            AssetBulkUploadCheckItem(id=str(filepath), checksum=checksum)
-            for filepath, checksum in batch
-        ]
-        dto = AssetBulkUploadCheckDto(assets=items)
-        response = await assets_api.check_bulk_upload(asset_bulk_upload_check_dto=dto)
+        check_task = progress.add_task("[cyan]Checking duplicates", total=len(files))
 
-        for result in response.results:
-            filepath = Path(result.id)
-            if result.action == "accept":
-                new_files.append(filepath)
-            elif result.action == "reject":
-                rejected.append(
-                    RejectedEntry(
-                        filepath=filepath,
-                        asset_id=result.asset_id,
-                        reason=cast(Optional[_REJECTED_REASONS], result.reason),
+        for i in range(0, len(checksums), BATCH_SIZE):
+            batch = checksums[i : i + BATCH_SIZE]
+            items = [
+                AssetBulkUploadCheckItem(id=str(filepath), checksum=checksum)
+                for filepath, checksum in batch
+            ]
+            dto = AssetBulkUploadCheckDto(assets=items)
+            response = await assets_api.check_bulk_upload(
+                asset_bulk_upload_check_dto=dto
+            )
+
+            for result in response.results:
+                filepath = Path(result.id)
+                if result.action == "accept":
+                    new_files.append(filepath)
+                elif result.action == "reject":
+                    rejected.append(
+                        RejectedEntry(
+                            filepath=filepath,
+                            asset_id=result.asset_id,
+                            reason=cast(Optional[_REJECTED_REASONS], result.reason),
+                        )
                     )
-                )
-            else:
-                logger.warning(
-                    f"Check upload result returned unexpected action {result.action} for {filepath}"
-                )
+                else:
+                    logger.warning(
+                        f"Check upload result returned unexpected action {result.action} for {filepath}"
+                    )
 
-        check_pbar.update(len(batch))
-    check_pbar.close()
+            progress.update(check_task, advance=len(batch))
 
     return new_files, rejected
 
@@ -348,63 +362,67 @@ async def upload_files(
         return [], [], []
 
     total_size = sum(f.stat().st_size for f in files)
-    pbar = tqdm.tqdm(
-        total=total_size,
-        unit="B",
-        unit_scale=True,
-        desc="Uploading assets",
-        disable=not show_progress,
-    )
+    progress_columns = [
+        SpinnerColumn(),
+        TextColumn("[progress.description]{task.description}"),
+        BarColumn(),
+        TextColumn("[progress.percentage]{task.percentage:>3.0f}%"),
+        DownloadColumn(),
+        TransferSpeedColumn(),
+        TimeRemainingColumn(),
+    ]
 
     semaphore = asyncio.Semaphore(concurrency)
     uploaded: list[UploadedEntry] = []
     rejected: list[RejectedEntry] = []
     failed: list[FailedEntry] = []
 
-    async def upload_with_semaphore(filepath: Path) -> None:
-        async with semaphore:
-            try:
-                response = await upload_file(
-                    filepath, assets_api, include_sidecars, dry_run
-                )
-                if response.status_code == 201:
-                    uploaded.append(
-                        UploadedEntry(asset=response.data, filepath=filepath)
-                    )
-                elif response.status_code == 200:
-                    rejected.append(
-                        RejectedEntry(
-                            filepath=filepath,
-                            asset_id=response.data.id,
-                            reason="duplicate",
-                        )
-                    )
-                else:
-                    failed.append(
-                        FailedEntry(
-                            filepath=filepath,
-                            error=f"Unexpected status_code={response.status_code}",
-                        )
-                    )
-                if not dry_run:
-                    pbar.update(filepath.stat().st_size)
-            except ApiException as e:
-                msg = str(e)
-                if e.body:
-                    try:
-                        body = json.loads(cast(str, e.body))
-                        msg = str(body.get("message", msg))
-                    except Exception:  # nosec: B110
-                        pass
-                failed.append(FailedEntry(filepath=filepath, error=msg))
-                logger.exception("Failed to upload %s: %s", filepath, msg)
-            except Exception as e:
-                msg = str(e)
-                failed.append(FailedEntry(filepath=filepath, error=msg))
-                logger.exception("Failed to upload %s: %s", filepath, msg)
+    with Progress(*progress_columns, disable=not show_progress) as progress:
+        upload_task = progress.add_task("[green]Uploading assets", total=total_size)
 
-    await asyncio.gather(*[upload_with_semaphore(f) for f in files])
-    pbar.close()
+        async def upload_with_semaphore(filepath: Path) -> None:
+            async with semaphore:
+                try:
+                    response = await upload_file(
+                        filepath, assets_api, include_sidecars, dry_run
+                    )
+                    if response.status_code == 201:
+                        uploaded.append(
+                            UploadedEntry(asset=response.data, filepath=filepath)
+                        )
+                    elif response.status_code == 200:
+                        rejected.append(
+                            RejectedEntry(
+                                filepath=filepath,
+                                asset_id=response.data.id,
+                                reason="duplicate",
+                            )
+                        )
+                    else:
+                        failed.append(
+                            FailedEntry(
+                                filepath=filepath,
+                                error=f"Unexpected status_code={response.status_code}",
+                            )
+                        )
+                    if not dry_run:
+                        progress.update(upload_task, advance=filepath.stat().st_size)
+                except ApiException as e:
+                    msg = str(e)
+                    if e.body:
+                        try:
+                            body = json.loads(cast(str, e.body))
+                            msg = str(body.get("message", msg))
+                        except Exception:  # nosec: B110
+                            pass
+                    failed.append(FailedEntry(filepath=filepath, error=msg))
+                    logger.exception("Failed to upload %s: %s", filepath, msg)
+                except Exception as e:
+                    msg = str(e)
+                    failed.append(FailedEntry(filepath=filepath, error=msg))
+                    logger.exception("Failed to upload %s: %s", filepath, msg)
+
+        await asyncio.gather(*[upload_with_semaphore(f) for f in files])
 
     return uploaded, rejected, failed
 

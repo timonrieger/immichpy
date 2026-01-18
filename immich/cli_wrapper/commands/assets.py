@@ -159,23 +159,23 @@ def upload(
     ),
     include_hidden: bool = typer.Option(
         False,
-        "--include-hidden/--no-include-hidden",
+        "--include-hidden/--exclude-hidden",
         help="Include hidden files (starting with '.')",
     ),
     check_duplicates: bool = typer.Option(
         True,
-        "--check-duplicates/--no-check-duplicates",
+        "--check-duplicates/--skip-duplicates",
         help="Check for duplicates using SHA1 hashes before uploading",
     ),
     concurrency: int = typer.Option(
-        5, "--concurrency", help="Number of concurrent uploads (default: 5)"
+        5, "--concurrency", help="Number of concurrent uploads"
     ),
     show_progress: bool = typer.Option(
         True, "--show-progress", help="Show progress bars"
     ),
     include_sidecars: bool = typer.Option(
         True,
-        "--include-sidecars/--no-include-sidecars",
+        "--include-sidecars/--exclude-sidecars",
         help="Automatically detect and upload XMP sidecar files",
     ),
     album_name: str | None = typer.Option(
@@ -185,17 +185,17 @@ def upload(
     ),
     delete_after_upload: bool = typer.Option(
         False,
-        "--delete-after-upload/--no-delete-after-upload",
+        "--delete-after-upload/--keep-after-upload",
         help="Delete successfully uploaded files locally",
     ),
     delete_duplicates: bool = typer.Option(
         False,
-        "--delete-duplicates/--no-delete-duplicates",
+        "--delete-duplicates/--keep-duplicates",
         help="Delete duplicate files locally",
     ),
     dry_run: bool = typer.Option(
         False,
-        "--dry-run/--no-dry-run",
+        "--dry-run",
         help="Simulate uploads without actually uploading",
     ),
 ) -> None:

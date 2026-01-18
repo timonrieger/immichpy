@@ -41,7 +41,7 @@ class AssetsApiWrapped(AssetsApi):
         :param key: Public share key (the last path segment of a public share URL, i.e. `/share/<key>`). When provided, the asset can be accessed via the public share link without an API key. Typically you pass either `key` or `slug`.
         :param slug: Public share slug for custom share URLs (the last path segment of `/s/<slug>`). Allows access without authentication. Typically you pass either `slug` or `key`.
         :param filename: The filename to use. If not provided, we use the original filename from the headers or default to "orig-" + asset_id.
-        :param show_progress: Whether to show a tqdm progress bar while downloading.
+        :param show_progress: Whether to show a progress bar while downloading.
         :param kwargs: Additional arguments to pass to the `download_asset_without_preload_content` method.
 
         For exact request/response behavior, inspect `AssetsApi.download_asset_without_preload_content`
@@ -87,7 +87,7 @@ class AssetsApiWrapped(AssetsApi):
         :param key: Public share key (the last path segment of a public share URL, i.e. `/share/<key>`). When provided, the asset can be accessed via the public share link without an API key. Typically you pass either `key` or `slug`.
         :param slug: Public share slug for custom share URLs (the last path segment of `/s/<slug>`). Allows access without authentication. Typically you pass either `slug` or `key`.
         :param filename: The filename to use. If not provided, we use the original filename from the headers or default to "video-" + asset_id.
-        :param show_progress: Whether to show a tqdm progress bar while downloading.
+        :param show_progress: Whether to show a progress bar while downloading.
         :param kwargs: Additional arguments to pass to the `play_asset_video_without_preload_content` method.
 
         For exact request/response behavior, inspect `AssetsApi.play_asset_video_without_preload_content`
@@ -135,7 +135,7 @@ class AssetsApiWrapped(AssetsApi):
         :param size: Thumbnail size.
         :param slug: Public share slug for custom share URLs (the last path segment of `/s/<slug>`). Allows access without authentication. Typically you pass either `slug` or `key`.
         :param filename: The filename to use. If not provided, we use the original filename from the headers or default to "thumb-" + asset_id.
-        :param show_progress: Whether to show a tqdm progress bar while downloading.
+        :param show_progress: Whether to show a progress bar while downloading.
         :param kwargs: Additional arguments to pass to the `view_asset_without_preload_content` method.
 
         For exact request/response behavior, inspect `AssetsApi.view_asset_without_preload_content`

@@ -24,7 +24,7 @@ class UsersApiWrapped(UsersApi):
         :param out_dir: The directory to write the profile image to.
         :param filename: The filename to use. If not provided, we try to derive it from the headers
             or default to "profile-" + user_id.
-        :param show_progress: Whether to show a tqdm progress bar while downloading.
+        :param show_progress: Whether to show a progress bar while downloading.
         :param kwargs: Additional arguments to pass to the `get_profile_image_without_preload_content` method.
 
         For exact request/response behavior, inspect `UsersApi.get_profile_image_without_preload_content`

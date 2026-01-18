@@ -6,7 +6,16 @@ from pathlib import Path
 from typing import Awaitable, Callable, Optional
 
 import logging
-import tqdm
+from rich.progress import (
+    Progress,
+    SpinnerColumn,
+    BarColumn,
+    TextColumn,
+    DownloadColumn,
+    TransferSpeedColumn,
+    TimeRemainingColumn,
+)
+
 
 from immich.client.rest import RESTResponseType
 
@@ -117,7 +126,8 @@ async def download_file(
     resolve_filename: Callable[[dict[str, str]], str],
     *,
     show_progress: bool = True,
-    pbar: Optional[tqdm.tqdm] = None,
+    progress: Optional[Progress] = None,
+    task_id: Optional[int] = None,
     resumeable: bool = True,
 ) -> Path:
     """
@@ -127,13 +137,14 @@ async def download_file(
     :param out_dir: Output directory where the downloaded file will be written.
     :param resolve_filename: Callable that derives the filename. It takes the response headers and returns a string.
     :param show_progress: Whether to show a progress bar.
-    :param pbar: A tqdm progress bar to use. If not provided, a new one will be created. If provided, show_progress is ignored. Must be closed by the caller.
+    :param progress: A rich Progress instance to use. If not provided, a new one will be created. If provided, show_progress is ignored.
+    :param task_id: The task ID in the progress instance. If not provided, a new task will be created.
     :param resumeable: Whether the download can be resumed from an existing partial `.temp` file via HTTP Range requests.
     :return: The path to the downloaded file.
     """
     resp = None
     temp_path = None
-    pbar_created = False
+    owns_progress = False
 
     try:
         file_size = 0
@@ -192,18 +203,25 @@ async def download_file(
         else:
             logger.info("Starting download")
 
-        if not pbar:
-            pbar = tqdm.tqdm(
-                total=total_size,
-                unit="B",
-                unit_scale=True,
-                desc=str(out_path),
+        if not progress:
+            progress = Progress(
+                SpinnerColumn(),
+                TextColumn("[progress.description]{task.description}"),
+                BarColumn(),
+                TextColumn("[progress.percentage]{task.percentage:>3.0f}%"),
+                DownloadColumn(),
+                TransferSpeedColumn(),
+                TimeRemainingColumn(),
                 disable=not show_progress,
             )
-            pbar_created = True
+            progress.start()
+            owns_progress = True
+
+        if task_id is None:
+            task_id = progress.add_task(str(out_path), total=total_size)
 
         if resumed and file_size > 0:
-            pbar.update(file_size)
+            progress.update(task_id, completed=file_size)
         async with resp:
             mode = "ab" if (resumed and file_size > 0) else "wb"
             with temp_path.open(mode) as f:
@@ -211,7 +229,7 @@ async def download_file(
                     if not chunk:
                         continue
                     f.write(chunk)
-                    pbar.update(len(chunk))
+                    progress.update(task_id, advance=len(chunk))
 
         temp_path.replace(out_path)
         return out_path
@@ -224,6 +242,6 @@ async def download_file(
         if resp and not resp.closed:
             resp.close()
 
-        # Only close pbar if we created it
-        if pbar_created and pbar:
-            pbar.close()
+        # Only stop progress if we created it
+        if owns_progress and progress:
+            progress.stop()
