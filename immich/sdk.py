@@ -46,7 +46,7 @@ from immich.client.api.workflows_api import WorkflowsApi
 
 
 def _normalize_base_url(base_url: str) -> str:
-    return base_url.rstrip("/")
+    return base_url.strip().rstrip("/")
 
 
 def _build_configuration(
@@ -57,9 +57,9 @@ def _build_configuration(
 ) -> Configuration:
     config = Configuration(host=_normalize_base_url(base_url))
     if api_key:
-        config.api_key["api_key"] = api_key
+        config.api_key["api_key"] = api_key.strip()
     if access_token:
-        config.access_token = access_token
+        config.access_token = access_token.strip()
     return config
 
 
