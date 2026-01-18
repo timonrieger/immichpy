@@ -157,6 +157,7 @@ def _callback(
     verbose: bool = typer.Option(
         False,
         "--verbose",
+        "-v",
         help="Show verbose output.",
     ),
     format_mode: _FormatMode = typer.Option(
@@ -183,6 +184,7 @@ def _callback(
     profile: str = typer.Option(
         DEFAULT_PROFILE,
         "--profile",
+        "-p",
         help="The profile to use.",
     ),
     _version: bool = typer.Option(
