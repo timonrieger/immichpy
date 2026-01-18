@@ -7,13 +7,18 @@ from immich._internal.consts import (
     IMMICH_API_KEY,
     IMMICH_API_URL,
 )
-from immich._internal.cli.utils import load_config, set_path, write_config
+from immich._internal.cli.utils import load_config, print_, set_path, write_config
+from immich.cli.runtime import run_command
+
+from immich import AsyncClient
 
 
 def setup(
+    ctx: typer.Context,
     profile: str = typer.Option(
         DEFAULT_PROFILE,
         "--profile",
+        "-p",
         help="Profile name. This can be used to set different server configurations.",
     ),
     base_url: str = typer.Option(
@@ -44,6 +49,19 @@ def setup(
 ):
     """Interactively set up a profile for the CLI to connect to an Immich server."""
     data = load_config(ensure_exists=True)
+
+    # validate the server is reachable
+    client = AsyncClient(base_url=base_url, api_key=api_key, access_token=access_token)
+    try:
+        run_command(client, client.server, "ping_server")
+    except Exception as exc:
+        print_(
+            "Error validating server. Make sure the base URL is correct and the server is reachable.",
+            level="error",
+            ctx=ctx,
+        )
+        print_(str(exc), level="debug", ctx=ctx)
+        raise typer.Exit(1)
 
     set_path(
         data,
