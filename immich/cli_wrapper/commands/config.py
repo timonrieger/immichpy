@@ -57,3 +57,10 @@ def reset(
     check_config()
     CONFIG_FILE.unlink()
     typer.echo("Config file removed")
+
+
+@app.command("open")
+def open():
+    """Open the config file in the default editor."""
+    check_config()
+    typer.launch(str(CONFIG_FILE), locate=True)

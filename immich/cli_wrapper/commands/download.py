@@ -2,26 +2,22 @@
 
 from __future__ import annotations
 
-import asyncio
-import json
 from pathlib import Path
 
 import typer
 
 from immich.cli.commands import download as download_commands
 from immich.cli.runtime import (
-    handle_api_error,
     print_response,
-    run_async,
+    run_command,
     set_nested,
 )
-from immich.client.exceptions import ApiException
 
 # Reuse the existing app from the generated commands
 app = download_commands.app
 
 
-@app.command("download-archive-to-file")
+@app.command("download-archive-to-file", rich_help_panel="Custom commands")
 def download_archive_to_file(
     ctx: typer.Context,
     out_dir: Path = typer.Argument(
@@ -35,11 +31,8 @@ def download_archive_to_file(
     ),
     show_progress: bool = typer.Option(
         True,
-        "--show-progress/--no-show-progress",
+        "--show-progress",
         help="Show progress bars (per-archive bytes + overall archive count)",
-    ),
-    json_str: str | None = typer.Option(
-        None, "--json", help="Inline JSON request body for DownloadInfoDto"
     ),
     album_id: str | None = typer.Option(None, "--albumId", help="Album ID to download"),
     archive_size: int | None = typer.Option(
@@ -57,64 +50,27 @@ def download_archive_to_file(
     Downloads archives sequentially (not in parallel) to avoid overloading the server.
     The download_info parameter can be provided via --json or using dotted flags.
     """
+    json_data = {}
+    if album_id is not None:
+        set_nested(json_data, ["albumId"], album_id)
+    if archive_size is not None:
+        set_nested(json_data, ["archiveSize"], archive_size)
+    if asset_ids is not None:
+        set_nested(json_data, ["assetIds"], asset_ids)
+    if user_id is not None:
+        set_nested(json_data, ["userId"], user_id)
+    from immich.client.models.download_info_dto import DownloadInfoDto
+
+    download_info = DownloadInfoDto.model_validate(json_data)
+
+    kwargs = {}
+    kwargs["download_info"] = download_info
+    kwargs["out_dir"] = out_dir
+    kwargs["key"] = key
+    kwargs["slug"] = slug
+    kwargs["show_progress"] = show_progress
+
     client = ctx.obj["client"]
-    api_group = client.download
-
-    # Build DownloadInfoDto from --json or dotted flags (same pattern as get-download-info)
-    has_json = json_str is not None
-    has_flags = any([album_id, archive_size, asset_ids, user_id])
-
-    if has_json and has_flags:
-        raise SystemExit(
-            "Error: Cannot use both --json and dotted body flags together. Use one or the other."
-        )
-    if not has_json and not has_flags:
-        raise SystemExit(
-            "Error: Request body is required. Provide --json or use dotted body flags."
-        )
-
-    if json_str is not None:
-        json_data = json.loads(json_str)
-        from immich.client.models.download_info_dto import DownloadInfoDto
-
-        download_info = DownloadInfoDto.model_validate(json_data)
-    elif has_flags:
-        json_data = {}
-        if album_id is not None:
-            set_nested(json_data, ["albumId"], album_id)
-        if archive_size is not None:
-            set_nested(json_data, ["archiveSize"], archive_size)
-        if asset_ids is not None:
-            set_nested(json_data, ["assetIds"], asset_ids)
-        if user_id is not None:
-            set_nested(json_data, ["userId"], user_id)
-        if json_data:
-            from immich.client.models.download_info_dto import DownloadInfoDto
-
-            download_info = DownloadInfoDto.model_validate(json_data)
-        else:
-            raise SystemExit(
-                "Error: At least one field must be provided for download_info"
-            )
-
-    async def _call_and_close() -> list[Path]:
-        try:
-            return await api_group.download_archive_to_file(
-                download_info=download_info,
-                out_dir=out_dir,
-                key=key,
-                slug=slug,
-                show_progress=show_progress,
-            )
-        finally:
-            await client.close()
-
-    try:
-        result = asyncio.run(run_async(_call_and_close()))
-    except Exception as e:
-        if isinstance(e, ApiException):
-            handle_api_error(e)
-        raise
-
-    format_mode = ctx.obj.get("format", "pretty")
-    print_response({"paths": [str(p) for p in result]}, format_mode)
+    result = run_command(client, client.download, "download_archive_to_file", **kwargs)
+    format_mode = ctx.obj.get("format")
+    print_response(result, format_mode)

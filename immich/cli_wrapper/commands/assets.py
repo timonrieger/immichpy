@@ -2,22 +2,18 @@
 
 from __future__ import annotations
 
-import asyncio
 from pathlib import Path
-from uuid import UUID
 
 import typer
 
 from immich.cli.commands import assets as assets_commands
-from immich.cli.runtime import handle_api_error, print_response, run_async
-from immich.client.exceptions import ApiException
-from immich.client.models.asset_media_size import AssetMediaSize
+from immich.cli.runtime import print_response, run_command
 
 # Reuse the existing app from the generated commands
 app = assets_commands.app
 
 
-@app.command("download-asset-to-file")
+@app.command("download-asset-to-file", rich_help_panel="Custom commands")
 def download_asset_to_file(
     ctx: typer.Context,
     id: str = typer.Argument(..., help="Asset ID (UUID)"),
@@ -37,7 +33,7 @@ def download_asset_to_file(
     ),
     show_progress: bool = typer.Option(
         True,
-        "--show-progress/--no-show-progress",
+        "--show-progress",
         help="Show progress bar while downloading",
     ),
 ) -> None:
@@ -46,34 +42,23 @@ def download_asset_to_file(
     Downloads the original asset file and saves it to the specified output directory.
     The filename can be specified or will be derived from the response headers.
     """
+    kwargs = {}
+    kwargs["id"] = id
+    kwargs["out_dir"] = out_dir
+    kwargs["show_progress"] = show_progress
+    if key is not None:
+        kwargs["key"] = key
+    if slug is not None:
+        kwargs["slug"] = slug
+    if filename is not None:
+        kwargs["filename"] = filename
     client = ctx.obj["client"]
-    api_group = client.assets
-
-    async def _call_and_close() -> Path:
-        try:
-            return await api_group.download_asset_to_file(
-                id=UUID(id),
-                out_dir=out_dir,
-                key=key,
-                slug=slug,
-                filename=filename,
-                show_progress=show_progress,
-            )
-        finally:
-            await client.close()
-
-    try:
-        result = asyncio.run(run_async(_call_and_close()))
-    except Exception as e:
-        if isinstance(e, ApiException):
-            handle_api_error(e)
-        raise
-
-    format_mode = ctx.obj.get("format", "pretty")
-    print_response({"path": str(result)}, format_mode)
+    result = run_command(client, client.assets, "download_asset_to_file", **kwargs)
+    format_mode = ctx.obj.get("format")
+    print_response(result, format_mode)
 
 
-@app.command("play-asset-video-to-file")
+@app.command("play-asset-video-to-file", rich_help_panel="Custom commands")
 def play_asset_video_to_file(
     ctx: typer.Context,
     id: str = typer.Argument(..., help="Asset ID (UUID)"),
@@ -91,7 +76,7 @@ def play_asset_video_to_file(
     ),
     show_progress: bool = typer.Option(
         True,
-        "--show-progress/--no-show-progress",
+        "--show-progress",
         help="Show progress bar while downloading",
     ),
 ) -> None:
@@ -100,34 +85,23 @@ def play_asset_video_to_file(
     Downloads the video stream for the asset and saves it to the specified output directory.
     The filename can be specified or will be derived from the response headers.
     """
+    kwargs = {}
+    kwargs["id"] = id
+    kwargs["out_dir"] = out_dir
+    kwargs["show_progress"] = show_progress
+    if key is not None:
+        kwargs["key"] = key
+    if slug is not None:
+        kwargs["slug"] = slug
+    if filename is not None:
+        kwargs["filename"] = filename
     client = ctx.obj["client"]
-    api_group = client.assets
-
-    async def _call_and_close() -> Path:
-        try:
-            return await api_group.play_asset_video_to_file(
-                id=UUID(id),
-                out_dir=out_dir,
-                key=key,
-                slug=slug,
-                filename=filename,
-                show_progress=show_progress,
-            )
-        finally:
-            await client.close()
-
-    try:
-        result = asyncio.run(run_async(_call_and_close()))
-    except Exception as e:
-        if isinstance(e, ApiException):
-            handle_api_error(e)
-        raise
-
-    format_mode = ctx.obj.get("format", "pretty")
-    print_response({"path": str(result)}, format_mode)
+    result = run_command(client, client.assets, "play_asset_video_to_file", **kwargs)
+    format_mode = ctx.obj.get("format")
+    print_response(result, format_mode)
 
 
-@app.command("view-asset-to-file")
+@app.command("view-asset-to-file", rich_help_panel="Custom commands")
 def view_asset_to_file(
     ctx: typer.Context,
     id: str = typer.Argument(..., help="Asset ID (UUID)"),
@@ -148,7 +122,7 @@ def view_asset_to_file(
     ),
     show_progress: bool = typer.Option(
         True,
-        "--show-progress/--no-show-progress",
+        "--show-progress",
         help="Show progress bar while downloading",
     ),
 ) -> None:
@@ -157,44 +131,25 @@ def view_asset_to_file(
     Downloads the thumbnail for the asset and saves it to the specified output directory.
     The filename can be specified or will be derived from the response headers.
     """
-    client = ctx.obj["client"]
-    api_group = client.assets
-
-    size_enum: AssetMediaSize | None = None
+    kwargs = {}
+    kwargs["id"] = id
+    kwargs["out_dir"] = out_dir
+    kwargs["show_progress"] = show_progress
+    if key is not None:
+        kwargs["key"] = key
+    if slug is not None:
+        kwargs["slug"] = slug
     if size is not None:
-        try:
-            size_enum = AssetMediaSize(size)
-        except ValueError:
-            raise typer.BadParameter(
-                f"Invalid size '{size}'. Must be one of: fullsize, preview, thumbnail"
-            )
-
-    async def _call_and_close() -> Path:
-        try:
-            return await api_group.view_asset_to_file(
-                id=UUID(id),
-                out_dir=out_dir,
-                key=key,
-                slug=slug,
-                size=size_enum,
-                filename=filename,
-                show_progress=show_progress,
-            )
-        finally:
-            await client.close()
-
-    try:
-        result = asyncio.run(run_async(_call_and_close()))
-    except Exception as e:
-        if isinstance(e, ApiException):
-            handle_api_error(e)
-        raise
-
-    format_mode = ctx.obj.get("format", "pretty")
-    print_response({"path": str(result)}, format_mode)
+        kwargs["size"] = size
+    if filename is not None:
+        kwargs["filename"] = filename
+    client = ctx.obj["client"]
+    result = run_command(client, client.assets, "view_asset_to_file", **kwargs)
+    format_mode = ctx.obj.get("format")
+    print_response(result, format_mode)
 
 
-@app.command("upload")
+@app.command("upload", rich_help_panel="Custom commands")
 def upload(
     ctx: typer.Context,
     paths: list[Path] = typer.Argument(
@@ -219,7 +174,7 @@ def upload(
         5, "--concurrency", help="Number of concurrent uploads (default: 5)"
     ),
     show_progress: bool = typer.Option(
-        True, "--show-progress/--no-show-progress", help="Show progress bars"
+        True, "--show-progress", help="Show progress bars"
     ),
     include_sidecars: bool = typer.Option(
         True,
@@ -252,36 +207,29 @@ def upload(
     Uploads files or directories with duplicate detection, album management, sidecar support, and dry run capability.
     Directories are automatically walked recursively.
     """
-    if concurrency < 1:
-        raise typer.BadParameter("concurrency must be >= 1")
-
+    kwargs = {}
+    kwargs["paths"] = paths
+    if ignore_pattern is not None:
+        kwargs["ignore_pattern"] = ignore_pattern
+    if include_hidden is not None:
+        kwargs["include_hidden"] = include_hidden
+    if check_duplicates is not None:
+        kwargs["check_duplicates"] = check_duplicates
+    if concurrency is not None:
+        kwargs["concurrency"] = concurrency
+    if show_progress is not None:
+        kwargs["show_progress"] = show_progress
+    if include_sidecars is not None:
+        kwargs["include_sidecars"] = include_sidecars
+    if album_name is not None:
+        kwargs["album_name"] = album_name
+    if delete_after_upload is not None:
+        kwargs["delete_after_upload"] = delete_after_upload
+    if delete_duplicates is not None:
+        kwargs["delete_duplicates"] = delete_duplicates
+    if dry_run is not None:
+        kwargs["dry_run"] = dry_run
     client = ctx.obj["client"]
-    api_group = client.assets
-
-    async def _call_and_close():
-        try:
-            return await api_group.upload(
-                paths=paths,
-                ignore_pattern=ignore_pattern,
-                include_hidden=include_hidden,
-                check_duplicates=check_duplicates,
-                concurrency=concurrency,
-                show_progress=show_progress,
-                include_sidecars=include_sidecars,
-                album_name=album_name,
-                delete_after_upload=delete_after_upload,
-                delete_duplicates=delete_duplicates,
-                dry_run=dry_run,
-            )
-        finally:
-            await client.close()
-
-    try:
-        result = asyncio.run(run_async(_call_and_close()))
-    except Exception as e:
-        if isinstance(e, ApiException):
-            handle_api_error(e)
-        raise
-
-    format_mode = ctx.obj.get("format", "pretty")
+    result = run_command(client, client.assets, "upload", **kwargs)
+    format_mode = ctx.obj.get("format")
     print_response(result, format_mode)
