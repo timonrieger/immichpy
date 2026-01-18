@@ -13,6 +13,8 @@ import shutil
 import subprocess  # nosec: B404
 from pathlib import Path
 
+from immich._internal.consts import IMMICH_OPENAPI_REF
+
 
 def project_root() -> Path:
     # This file lives at bin/generate/client.py
@@ -58,7 +60,7 @@ def main() -> int:
     )
     parser.add_argument(
         "--ref",
-        default=os.environ.get("IMMICH_OPENAPI_REF", "main"),
+        default=os.environ.get(IMMICH_OPENAPI_REF, "main"),
         help="Immich git ref for OpenAPI spec (default: IMMICH_OPENAPI_REF or 'main')",
     )
     args = parser.parse_args()

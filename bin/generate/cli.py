@@ -16,6 +16,8 @@ from typing import Annotated, Any, Literal, Optional, Union
 import inflection
 from pydantic import AfterValidator, BaseModel, Field
 
+from immich._internal.consts import IMMICH_OPENAPI_REF
+
 
 def python_triple_quoted_str(value: str) -> str:
     """Return a Python triple-quoted string literal for generated source code."""
@@ -512,7 +514,7 @@ def main() -> None:
     commands_dir = Path(__file__).resolve().parents[2] / "immich" / "cli" / "commands"
 
     # Fetch OpenAPI spec
-    url = openapi_url(os.environ.get("IMMICH_OPENAPI_REF", "main"))
+    url = openapi_url(os.environ.get(IMMICH_OPENAPI_REF, "main"))
     print(f"Fetching OpenAPI spec from: {url}")
 
     spec = urllib3.request("GET", url).json()

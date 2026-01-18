@@ -5,7 +5,7 @@ from typing import Any, Optional
 from uuid import UUID
 
 from immich.client.api.users_api import UsersApi
-from immich._internal.download import download_file, resolve_output_filename
+from immich._internal.client.download import download_file, resolve_output_filename
 
 
 class UsersApiWrapped(UsersApi):

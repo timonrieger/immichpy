@@ -6,7 +6,8 @@ from uuid import UUID, uuid4
 import pytest
 
 from immich import AsyncClient
-from immich._internal.upload import UploadResult
+from immich._internal.consts import IMMICH_API_KEY, IMMICH_API_URL, IMMICH_FORMAT
+from immich._internal.client.upload import UploadResult
 from immich.client import (
     ActivityCreateDto,
     ActivityResponseDto,
@@ -42,9 +43,9 @@ LICENSE_KEY = "IMSV-6ECZ-91TE-WZRM-Q7AQ-MBN4-UW48-2CPT-71X9"
 @pytest.fixture
 def env() -> dict[str, str]:
     return {
-        "IMMICH_API_URL": os.environ.get("IMMICH_API_URL", "http://127.0.0.1:2283/api"),
-        "IMMICH_API_KEY": os.environ.get("IMMICH_API_KEY", ""),
-        "IMMICH_FORMAT": "json",
+        IMMICH_API_URL: os.environ.get(IMMICH_API_URL, "http://127.0.0.1:2283/api"),
+        IMMICH_API_KEY: os.environ.get(IMMICH_API_KEY, ""),
+        IMMICH_FORMAT: "json",
     }
 
 
@@ -72,7 +73,7 @@ async def client_with_access_token(env: dict[str, str]):
     """Set up admin user, create API key, and return authenticated client."""
 
     # Create unauthenticated client for setup
-    setup_client = AsyncClient(base_url=env["IMMICH_API_URL"])
+    setup_client = AsyncClient(base_url=env[IMMICH_API_URL])
 
     try:
         # Sign up admin (idempotent: subsequent tests will hit "already has an admin")
@@ -92,7 +93,7 @@ async def client_with_access_token(env: dict[str, str]):
         )
 
         client = AsyncClient(
-            base_url=env["IMMICH_API_URL"], bearer_token=login_response.access_token
+            base_url=env[IMMICH_API_URL], bearer_token=login_response.access_token
         )
 
         # Mark admin as onboarded

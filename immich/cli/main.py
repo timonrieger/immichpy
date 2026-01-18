@@ -6,7 +6,15 @@ import sys
 from typing import Optional
 from importlib.metadata import version
 
-from immich._internal.consts import API_KEY_URL, DEMO_BASE_URL
+from immich._internal.consts import (
+    API_KEY_URL,
+    DEFAULT_PROFILE,
+    IMMICH_API_KEY,
+    IMMICH_ACCESS_TOKEN,
+    IMMICH_API_URL,
+    IMMICH_FORMAT,
+)
+from immich._internal.cli.utils import resolve_client_config, mask
 
 try:
     import typer
@@ -19,7 +27,7 @@ except ImportError:
     sys.exit(1)
 
 from immich import AsyncClient
-from immich._internal.types import _FormatMode
+from immich._internal.types import _FormatMode, ClientConfig
 
 # Import command modules
 from immich.cli.commands import api_keys as api_keys_commands
@@ -29,6 +37,8 @@ from immich.cli_wrapper.commands import assets as assets_wrapper
 from immich.cli.commands import authentication as authentication_commands
 from immich.cli.commands import authentication_admin as authentication_admin_commands
 from immich.cli_wrapper.commands import download as download_wrapper
+from immich.cli_wrapper.commands import config as config_commands
+from immich.cli_wrapper.commands import setup as setup_commands
 from immich.cli.commands import duplicates as duplicates_commands
 from immich.cli.commands import faces as faces_commands
 from immich.cli.commands import jobs as jobs_commands
@@ -61,46 +71,78 @@ from immich.cli.commands import workflows as workflows_commands
 # Global state
 app = typer.Typer(
     context_settings={"help_option_names": ["-h", "--help"]},
+    no_args_is_help=True,
+    epilog="For more information on a specific command, run 'immich <command> --help'.",
 )
 console = Console()
 stderr_console = Console(file=sys.stderr)
 
 # Add command modules to the main app
-app.add_typer(api_keys_commands.app, name="api-keys")
-app.add_typer(activities_commands.app, name="activities")
-app.add_typer(albums_commands.app, name="albums")
-app.add_typer(assets_wrapper.app, name="assets")
-app.add_typer(authentication_commands.app, name="authentication")
-app.add_typer(authentication_admin_commands.app, name="authentication-admin")
-app.add_typer(download_wrapper.app, name="download")
-app.add_typer(duplicates_commands.app, name="duplicates")
-app.add_typer(faces_commands.app, name="faces")
-app.add_typer(jobs_commands.app, name="jobs")
-app.add_typer(libraries_commands.app, name="libraries")
-app.add_typer(maintenance_admin_commands.app, name="maintenance-admin")
-app.add_typer(map_commands.app, name="map")
-app.add_typer(memories_commands.app, name="memories")
-app.add_typer(notifications_commands.app, name="notifications")
-app.add_typer(notifications_admin_commands.app, name="notifications-admin")
-app.add_typer(partners_commands.app, name="partners")
-app.add_typer(people_commands.app, name="people")
-app.add_typer(plugins_commands.app, name="plugins")
-app.add_typer(queues_commands.app, name="queues")
-app.add_typer(search_commands.app, name="search")
-app.add_typer(server_commands.app, name="server")
-app.add_typer(sessions_commands.app, name="sessions")
-app.add_typer(shared_links_commands.app, name="shared-links")
-app.add_typer(stacks_commands.app, name="stacks")
-app.add_typer(sync_commands.app, name="sync")
-app.add_typer(system_config_commands.app, name="system-config")
-app.add_typer(system_metadata_commands.app, name="system-metadata")
-app.add_typer(tags_commands.app, name="tags")
-app.add_typer(timeline_commands.app, name="timeline")
-app.add_typer(trash_commands.app, name="trash")
-app.add_typer(users_wrapper.app, name="users")
-app.add_typer(users_admin_commands.app, name="users-admin")
-app.add_typer(views_commands.app, name="views")
-app.add_typer(workflows_commands.app, name="workflows")
+app.add_typer(api_keys_commands.app, name="api-keys", rich_help_panel="API commands")
+app.add_typer(
+    activities_commands.app, name="activities", rich_help_panel="API commands"
+)
+app.add_typer(albums_commands.app, name="albums", rich_help_panel="API commands")
+app.add_typer(assets_wrapper.app, name="assets", rich_help_panel="API commands")
+app.add_typer(
+    authentication_commands.app, name="authentication", rich_help_panel="API commands"
+)
+app.add_typer(
+    authentication_admin_commands.app,
+    name="authentication-admin",
+    rich_help_panel="API commands",
+)
+app.add_typer(download_wrapper.app, name="download", rich_help_panel="API commands")
+app.add_typer(config_commands.app, name="config", rich_help_panel="Custom commands")
+app.command(rich_help_panel="Custom commands")(setup_commands.setup)
+app.add_typer(
+    duplicates_commands.app, name="duplicates", rich_help_panel="API commands"
+)
+app.add_typer(faces_commands.app, name="faces", rich_help_panel="API commands")
+app.add_typer(jobs_commands.app, name="jobs", rich_help_panel="API commands")
+app.add_typer(libraries_commands.app, name="libraries", rich_help_panel="API commands")
+app.add_typer(
+    maintenance_admin_commands.app,
+    name="maintenance-admin",
+    rich_help_panel="API commands",
+)
+app.add_typer(map_commands.app, name="map", rich_help_panel="API commands")
+app.add_typer(memories_commands.app, name="memories", rich_help_panel="API commands")
+app.add_typer(
+    notifications_commands.app, name="notifications", rich_help_panel="API commands"
+)
+app.add_typer(
+    notifications_admin_commands.app,
+    name="notifications-admin",
+    rich_help_panel="API commands",
+)
+app.add_typer(partners_commands.app, name="partners", rich_help_panel="API commands")
+app.add_typer(people_commands.app, name="people", rich_help_panel="API commands")
+app.add_typer(plugins_commands.app, name="plugins", rich_help_panel="API commands")
+app.add_typer(queues_commands.app, name="queues", rich_help_panel="API commands")
+app.add_typer(search_commands.app, name="search", rich_help_panel="API commands")
+app.add_typer(server_commands.app, name="server", rich_help_panel="API commands")
+app.add_typer(sessions_commands.app, name="sessions", rich_help_panel="API commands")
+app.add_typer(
+    shared_links_commands.app, name="shared-links", rich_help_panel="API commands"
+)
+app.add_typer(stacks_commands.app, name="stacks", rich_help_panel="API commands")
+app.add_typer(sync_commands.app, name="sync", rich_help_panel="API commands")
+app.add_typer(
+    system_config_commands.app, name="system-config", rich_help_panel="API commands"
+)
+app.add_typer(
+    system_metadata_commands.app, name="system-metadata", rich_help_panel="API commands"
+)
+app.add_typer(tags_commands.app, name="tags", rich_help_panel="API commands")
+app.add_typer(timeline_commands.app, name="timeline", rich_help_panel="API commands")
+app.add_typer(trash_commands.app, name="trash", rich_help_panel="API commands")
+app.add_typer(users_wrapper.app, name="users", rich_help_panel="API commands")
+app.add_typer(
+    users_admin_commands.app, name="users-admin", rich_help_panel="API commands"
+)
+app.add_typer(views_commands.app, name="views", rich_help_panel="API commands")
+app.add_typer(workflows_commands.app, name="workflows", rich_help_panel="API commands")
 
 
 def version_callback(value: bool) -> None:
@@ -112,27 +154,36 @@ def version_callback(value: bool) -> None:
 @app.callback(invoke_without_command=False)
 def _callback(
     ctx: typer.Context,
+    verbose: bool = typer.Option(
+        False,
+        "--verbose",
+        help="Show verbose output.",
+    ),
     format_mode: _FormatMode = typer.Option(
-        "pretty", "--format", help="Output format of the CLI.", envvar="IMMICH_FORMAT"
+        "pretty", "--format", help="Output format of the CLI.", envvar=IMMICH_FORMAT
     ),
     api_key: Optional[str] = typer.Option(
         None,
         "--api-key",
         help=f"Authorize via API key (see {API_KEY_URL}).",
-        envvar="IMMICH_API_KEY",
+        envvar=IMMICH_API_KEY,
     ),
     access_token: Optional[str] = typer.Option(
         None,
         "--access-token",
         help="Authorize via access token.",
-        envvar="IMMICH_ACCESS_TOKEN",
+        envvar=IMMICH_ACCESS_TOKEN,
     ),
-    base_url: str = typer.Option(
-        DEMO_BASE_URL,
+    base_url: Optional[str] = typer.Option(
+        None,
         "--base-url",
         help="The server to connect to.",
-        envvar="IMMICH_API_URL",
-        show_default=DEMO_BASE_URL.replace("https://", ""),
+        envvar=IMMICH_API_URL,
+    ),
+    profile: str = typer.Option(
+        DEFAULT_PROFILE,
+        "--profile",
+        help="The profile to use.",
     ),
     _version: bool = typer.Option(
         False,
@@ -145,11 +196,43 @@ def _callback(
     """An unofficial CLI for the Immich API written in Python."""
     ctx.ensure_object(dict)
     ctx.obj["format"] = format_mode
-    if ctx.invoked_subcommand is not None:
+    ctx.obj["verbose"] = verbose
+    if ctx.invoked_subcommand is not None and ctx.invoked_subcommand not in [
+        "setup",
+        "config",
+    ]:
+        config = resolve_client_config(
+            ClientConfig(
+                api_key=api_key,
+                access_token=access_token,
+                base_url=base_url,
+            ),
+            profile=profile,
+        )
+        if not config.base_url:
+            typer.echo(
+                "No base URL provided. Run 'immich setup' to set up a profile or use '--base-url' to specify a base URL."
+            )
+            raise typer.Exit(code=1)
+        if ctx.obj["verbose"]:
+            cli_vars = {
+                k: v
+                for k, v in ctx.params.items()
+                if k in ClientConfig.model_fields.keys() and v is not None
+            }
+            typer.secho("Configuration used:", fg="yellow")
+            for field in ClientConfig.model_fields.keys():
+                value = getattr(config, field)
+                if field in ("api_key", "access_token") and value:
+                    value = mask(value)
+                elif value is None:
+                    value = "None"
+                source = "cli/env" if field in cli_vars else f"profile '{profile}'"
+                typer.secho(f"- {field}: {value} (from {source})", fg="yellow")
         ctx.obj["client"] = AsyncClient(
-            api_key=api_key,
-            bearer_token=access_token,
-            base_url=DEMO_BASE_URL if base_url == "demo" else base_url,
+            api_key=config.api_key,
+            bearer_token=config.access_token,
+            base_url=config.base_url,
         )
 
 

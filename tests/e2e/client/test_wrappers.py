@@ -9,7 +9,7 @@ from uuid import UUID
 import pytest
 
 from immich import AsyncClient
-from immich._internal.upload import UploadResult
+from immich._internal.client.upload import UploadResult
 from immich.client.models.asset_media_size import AssetMediaSize
 from immich.client.models.download_info_dto import DownloadInfoDto
 

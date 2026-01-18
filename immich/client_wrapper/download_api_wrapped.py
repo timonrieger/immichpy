@@ -10,7 +10,7 @@ from pydantic import StrictStr
 from immich.client.api.download_api import DownloadApi
 from immich.client.models.asset_ids_dto import AssetIdsDto
 from immich.client.models.download_info_dto import DownloadInfoDto
-from immich._internal.download import download_file
+from immich._internal.client.download import download_file
 
 
 class DownloadApiWrapped(DownloadApi):
