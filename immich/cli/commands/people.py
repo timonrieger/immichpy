@@ -51,14 +51,11 @@ Note: the mobile app cannot currently set the birth date to null.""",
         set_nested(json_data, ["is_hidden"], is_hidden.lower() == "true")
     if name is not None:
         set_nested(json_data, ["name"], name)
-    from immich.client.models.person_create_dto import PersonCreateDto
-
     person_create_dto = PersonCreateDto.model_validate(json_data)
     kwargs["person_create_dto"] = person_create_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.people, "create_person", **kwargs)
-    format_mode = ctx.obj.get("format")
-    print_response(result, format_mode)
+    print_response(result, ctx)
 
 
 @app.command("delete-people", deprecated=False, rich_help_panel="API commands")
@@ -73,14 +70,11 @@ def delete_people(
     kwargs = {}
     json_data = {}
     set_nested(json_data, ["ids"], ids)
-    from immich.client.models.bulk_ids_dto import BulkIdsDto
-
     bulk_ids_dto = BulkIdsDto.model_validate(json_data)
     kwargs["bulk_ids_dto"] = bulk_ids_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.people, "delete_people", **kwargs)
-    format_mode = ctx.obj.get("format")
-    print_response(result, format_mode)
+    print_response(result, ctx)
 
 
 @app.command("delete-person", deprecated=False, rich_help_panel="API commands")
@@ -96,8 +90,7 @@ def delete_person(
     kwargs["id"] = id
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.people, "delete_person", **kwargs)
-    format_mode = ctx.obj.get("format")
-    print_response(result, format_mode)
+    print_response(result, ctx)
 
 
 @app.command("get-all-people", deprecated=False, rich_help_panel="API commands")
@@ -136,8 +129,7 @@ def get_all_people(
         kwargs["with_hidden"] = with_hidden.lower() == "true"
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.people, "get_all_people", **kwargs)
-    format_mode = ctx.obj.get("format")
-    print_response(result, format_mode)
+    print_response(result, ctx)
 
 
 @app.command("get-person", deprecated=False, rich_help_panel="API commands")
@@ -153,8 +145,7 @@ def get_person(
     kwargs["id"] = id
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.people, "get_person", **kwargs)
-    format_mode = ctx.obj.get("format")
-    print_response(result, format_mode)
+    print_response(result, ctx)
 
 
 @app.command("get-person-statistics", deprecated=False, rich_help_panel="API commands")
@@ -170,8 +161,7 @@ def get_person_statistics(
     kwargs["id"] = id
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.people, "get_person_statistics", **kwargs)
-    format_mode = ctx.obj.get("format")
-    print_response(result, format_mode)
+    print_response(result, ctx)
 
 
 @app.command("get-person-thumbnail", deprecated=False, rich_help_panel="API commands")
@@ -187,8 +177,7 @@ def get_person_thumbnail(
     kwargs["id"] = id
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.people, "get_person_thumbnail", **kwargs)
-    format_mode = ctx.obj.get("format")
-    print_response(result, format_mode)
+    print_response(result, ctx)
 
 
 @app.command("merge-person", deprecated=False, rich_help_panel="API commands")
@@ -205,14 +194,11 @@ def merge_person(
     json_data = {}
     kwargs["id"] = id
     set_nested(json_data, ["ids"], ids)
-    from immich.client.models.merge_person_dto import MergePersonDto
-
     merge_person_dto = MergePersonDto.model_validate(json_data)
     kwargs["merge_person_dto"] = merge_person_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.people, "merge_person", **kwargs)
-    format_mode = ctx.obj.get("format")
-    print_response(result, format_mode)
+    print_response(result, ctx)
 
 
 @app.command("reassign-faces", deprecated=False, rich_help_panel="API commands")
@@ -230,14 +216,11 @@ def reassign_faces(
     kwargs["id"] = id
     value_data = [json.loads(i) for i in data]
     set_nested(json_data, ["data"], value_data)
-    from immich.client.models.asset_face_update_dto import AssetFaceUpdateDto
-
     asset_face_update_dto = AssetFaceUpdateDto.model_validate(json_data)
     kwargs["asset_face_update_dto"] = asset_face_update_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.people, "reassign_faces", **kwargs)
-    format_mode = ctx.obj.get("format")
-    print_response(result, format_mode)
+    print_response(result, ctx)
 
 
 @app.command("update-people", deprecated=False, rich_help_panel="API commands")
@@ -253,14 +236,11 @@ def update_people(
     json_data = {}
     value_people = [json.loads(i) for i in people]
     set_nested(json_data, ["people"], value_people)
-    from immich.client.models.people_update_dto import PeopleUpdateDto
-
     people_update_dto = PeopleUpdateDto.model_validate(json_data)
     kwargs["people_update_dto"] = people_update_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.people, "update_people", **kwargs)
-    format_mode = ctx.obj.get("format")
-    print_response(result, format_mode)
+    print_response(result, ctx)
 
 
 @app.command("update-person", deprecated=False, rich_help_panel="API commands")
@@ -306,11 +286,8 @@ Note: the mobile app cannot currently set the birth date to null.""",
         set_nested(json_data, ["is_hidden"], is_hidden.lower() == "true")
     if name is not None:
         set_nested(json_data, ["name"], name)
-    from immich.client.models.person_update_dto import PersonUpdateDto
-
     person_update_dto = PersonUpdateDto.model_validate(json_data)
     kwargs["person_update_dto"] = person_update_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.people, "update_person", **kwargs)
-    format_mode = ctx.obj.get("format")
-    print_response(result, format_mode)
+    print_response(result, ctx)

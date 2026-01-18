@@ -39,14 +39,11 @@ def create_library(
     if name is not None:
         set_nested(json_data, ["name"], name)
     set_nested(json_data, ["owner_id"], owner_id)
-    from immich.client.models.create_library_dto import CreateLibraryDto
-
     create_library_dto = CreateLibraryDto.model_validate(json_data)
     kwargs["create_library_dto"] = create_library_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.libraries, "create_library", **kwargs)
-    format_mode = ctx.obj.get("format")
-    print_response(result, format_mode)
+    print_response(result, ctx)
 
 
 @app.command("delete-library", deprecated=False, rich_help_panel="API commands")
@@ -62,8 +59,7 @@ def delete_library(
     kwargs["id"] = id
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.libraries, "delete_library", **kwargs)
-    format_mode = ctx.obj.get("format")
-    print_response(result, format_mode)
+    print_response(result, ctx)
 
 
 @app.command("get-all-libraries", deprecated=False, rich_help_panel="API commands")
@@ -77,8 +73,7 @@ def get_all_libraries(
     kwargs = {}
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.libraries, "get_all_libraries", **kwargs)
-    format_mode = ctx.obj.get("format")
-    print_response(result, format_mode)
+    print_response(result, ctx)
 
 
 @app.command("get-library", deprecated=False, rich_help_panel="API commands")
@@ -94,8 +89,7 @@ def get_library(
     kwargs["id"] = id
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.libraries, "get_library", **kwargs)
-    format_mode = ctx.obj.get("format")
-    print_response(result, format_mode)
+    print_response(result, ctx)
 
 
 @app.command("get-library-statistics", deprecated=False, rich_help_panel="API commands")
@@ -111,8 +105,7 @@ def get_library_statistics(
     kwargs["id"] = id
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.libraries, "get_library_statistics", **kwargs)
-    format_mode = ctx.obj.get("format")
-    print_response(result, format_mode)
+    print_response(result, ctx)
 
 
 @app.command("scan-library", deprecated=False, rich_help_panel="API commands")
@@ -128,8 +121,7 @@ def scan_library(
     kwargs["id"] = id
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.libraries, "scan_library", **kwargs)
-    format_mode = ctx.obj.get("format")
-    print_response(result, format_mode)
+    print_response(result, ctx)
 
 
 @app.command("update-library", deprecated=False, rich_help_panel="API commands")
@@ -155,14 +147,11 @@ def update_library(
         set_nested(json_data, ["import_paths"], import_paths)
     if name is not None:
         set_nested(json_data, ["name"], name)
-    from immich.client.models.update_library_dto import UpdateLibraryDto
-
     update_library_dto = UpdateLibraryDto.model_validate(json_data)
     kwargs["update_library_dto"] = update_library_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.libraries, "update_library", **kwargs)
-    format_mode = ctx.obj.get("format")
-    print_response(result, format_mode)
+    print_response(result, ctx)
 
 
 @app.command("validate", deprecated=False, rich_help_panel="API commands")
@@ -185,11 +174,8 @@ def validate(
         set_nested(json_data, ["exclusion_patterns"], exclusion_patterns)
     if import_paths is not None:
         set_nested(json_data, ["import_paths"], import_paths)
-    from immich.client.models.validate_library_dto import ValidateLibraryDto
-
     validate_library_dto = ValidateLibraryDto.model_validate(json_data)
     kwargs["validate_library_dto"] = validate_library_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.libraries, "validate", **kwargs)
-    format_mode = ctx.obj.get("format")
-    print_response(result, format_mode)
+    print_response(result, ctx)

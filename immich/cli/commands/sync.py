@@ -30,14 +30,11 @@ def delete_sync_ack(
     json_data = {}
     if types is not None:
         set_nested(json_data, ["types"], types)
-    from immich.client.models.sync_ack_delete_dto import SyncAckDeleteDto
-
     sync_ack_delete_dto = SyncAckDeleteDto.model_validate(json_data)
     kwargs["sync_ack_delete_dto"] = sync_ack_delete_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.sync, "delete_sync_ack", **kwargs)
-    format_mode = ctx.obj.get("format")
-    print_response(result, format_mode)
+    print_response(result, ctx)
 
 
 @app.command("get-delta-sync", deprecated=True, rich_help_panel="API commands")
@@ -54,14 +51,11 @@ def get_delta_sync(
     json_data = {}
     set_nested(json_data, ["updated_after"], updated_after)
     set_nested(json_data, ["user_ids"], user_ids)
-    from immich.client.models.asset_delta_sync_dto import AssetDeltaSyncDto
-
     asset_delta_sync_dto = AssetDeltaSyncDto.model_validate(json_data)
     kwargs["asset_delta_sync_dto"] = asset_delta_sync_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.sync, "get_delta_sync", **kwargs)
-    format_mode = ctx.obj.get("format")
-    print_response(result, format_mode)
+    print_response(result, ctx)
 
 
 @app.command("get-full-sync-for-user", deprecated=True, rich_help_panel="API commands")
@@ -84,14 +78,11 @@ def get_full_sync_for_user(
     set_nested(json_data, ["updated_until"], updated_until)
     if user_id is not None:
         set_nested(json_data, ["user_id"], user_id)
-    from immich.client.models.asset_full_sync_dto import AssetFullSyncDto
-
     asset_full_sync_dto = AssetFullSyncDto.model_validate(json_data)
     kwargs["asset_full_sync_dto"] = asset_full_sync_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.sync, "get_full_sync_for_user", **kwargs)
-    format_mode = ctx.obj.get("format")
-    print_response(result, format_mode)
+    print_response(result, ctx)
 
 
 @app.command("get-sync-ack", deprecated=False, rich_help_panel="API commands")
@@ -105,8 +96,7 @@ def get_sync_ack(
     kwargs = {}
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.sync, "get_sync_ack", **kwargs)
-    format_mode = ctx.obj.get("format")
-    print_response(result, format_mode)
+    print_response(result, ctx)
 
 
 @app.command("get-sync-stream", deprecated=False, rich_help_panel="API commands")
@@ -124,14 +114,11 @@ def get_sync_stream(
     if reset is not None:
         set_nested(json_data, ["reset"], reset.lower() == "true")
     set_nested(json_data, ["types"], types)
-    from immich.client.models.sync_stream_dto import SyncStreamDto
-
     sync_stream_dto = SyncStreamDto.model_validate(json_data)
     kwargs["sync_stream_dto"] = sync_stream_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.sync, "get_sync_stream", **kwargs)
-    format_mode = ctx.obj.get("format")
-    print_response(result, format_mode)
+    print_response(result, ctx)
 
 
 @app.command("send-sync-ack", deprecated=False, rich_help_panel="API commands")
@@ -146,11 +133,8 @@ def send_sync_ack(
     kwargs = {}
     json_data = {}
     set_nested(json_data, ["acks"], acks)
-    from immich.client.models.sync_ack_set_dto import SyncAckSetDto
-
     sync_ack_set_dto = SyncAckSetDto.model_validate(json_data)
     kwargs["sync_ack_set_dto"] = sync_ack_set_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.sync, "send_sync_ack", **kwargs)
-    format_mode = ctx.obj.get("format")
-    print_response(result, format_mode)
+    print_response(result, ctx)

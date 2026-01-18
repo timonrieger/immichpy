@@ -28,14 +28,11 @@ def create_job(
     kwargs = {}
     json_data = {}
     set_nested(json_data, ["name"], name)
-    from immich.client.models.job_create_dto import JobCreateDto
-
     job_create_dto = JobCreateDto.model_validate(json_data)
     kwargs["job_create_dto"] = job_create_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.jobs, "create_job", **kwargs)
-    format_mode = ctx.obj.get("format")
-    print_response(result, format_mode)
+    print_response(result, ctx)
 
 
 @app.command("get-queues-legacy", deprecated=True, rich_help_panel="API commands")
@@ -49,8 +46,7 @@ def get_queues_legacy(
     kwargs = {}
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.jobs, "get_queues_legacy", **kwargs)
-    format_mode = ctx.obj.get("format")
-    print_response(result, format_mode)
+    print_response(result, ctx)
 
 
 @app.command(
@@ -72,11 +68,8 @@ def run_queue_command_legacy(
     set_nested(json_data, ["command"], command)
     if force is not None:
         set_nested(json_data, ["force"], force.lower() == "true")
-    from immich.client.models.queue_command_dto import QueueCommandDto
-
     queue_command_dto = QueueCommandDto.model_validate(json_data)
     kwargs["queue_command_dto"] = queue_command_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.jobs, "run_queue_command_legacy", **kwargs)
-    format_mode = ctx.obj.get("format")
-    print_response(result, format_mode)
+    print_response(result, ctx)

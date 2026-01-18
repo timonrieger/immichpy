@@ -36,14 +36,11 @@ def create_activity(
     if comment is not None:
         set_nested(json_data, ["comment"], comment)
     set_nested(json_data, ["type"], type)
-    from immich.client.models.activity_create_dto import ActivityCreateDto
-
     activity_create_dto = ActivityCreateDto.model_validate(json_data)
     kwargs["activity_create_dto"] = activity_create_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.activities, "create_activity", **kwargs)
-    format_mode = ctx.obj.get("format")
-    print_response(result, format_mode)
+    print_response(result, ctx)
 
 
 @app.command("delete-activity", deprecated=False, rich_help_panel="API commands")
@@ -59,8 +56,7 @@ def delete_activity(
     kwargs["id"] = id
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.activities, "delete_activity", **kwargs)
-    format_mode = ctx.obj.get("format")
-    print_response(result, format_mode)
+    print_response(result, ctx)
 
 
 @app.command("get-activities", deprecated=False, rich_help_panel="API commands")
@@ -88,8 +84,7 @@ def get_activities(
         kwargs["user_id"] = user_id
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.activities, "get_activities", **kwargs)
-    format_mode = ctx.obj.get("format")
-    print_response(result, format_mode)
+    print_response(result, ctx)
 
 
 @app.command(
@@ -110,5 +105,4 @@ def get_activity_statistics(
         kwargs["asset_id"] = asset_id
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.activities, "get_activity_statistics", **kwargs)
-    format_mode = ctx.obj.get("format")
-    print_response(result, format_mode)
+    print_response(result, ctx)

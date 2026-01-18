@@ -29,8 +29,7 @@ def delete_duplicate(
     kwargs["id"] = id
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.duplicates, "delete_duplicate", **kwargs)
-    format_mode = ctx.obj.get("format")
-    print_response(result, format_mode)
+    print_response(result, ctx)
 
 
 @app.command("delete-duplicates", deprecated=False, rich_help_panel="API commands")
@@ -45,14 +44,11 @@ def delete_duplicates(
     kwargs = {}
     json_data = {}
     set_nested(json_data, ["ids"], ids)
-    from immich.client.models.bulk_ids_dto import BulkIdsDto
-
     bulk_ids_dto = BulkIdsDto.model_validate(json_data)
     kwargs["bulk_ids_dto"] = bulk_ids_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.duplicates, "delete_duplicates", **kwargs)
-    format_mode = ctx.obj.get("format")
-    print_response(result, format_mode)
+    print_response(result, ctx)
 
 
 @app.command("get-asset-duplicates", deprecated=False, rich_help_panel="API commands")
@@ -66,5 +62,4 @@ def get_asset_duplicates(
     kwargs = {}
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.duplicates, "get_asset_duplicates", **kwargs)
-    format_mode = ctx.obj.get("format")
-    print_response(result, format_mode)
+    print_response(result, ctx)

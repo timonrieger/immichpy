@@ -29,16 +29,13 @@ def maintenance_login(
     json_data = {}
     if token is not None:
         set_nested(json_data, ["token"], token)
-    from immich.client.models.maintenance_login_dto import MaintenanceLoginDto
-
     maintenance_login_dto = MaintenanceLoginDto.model_validate(json_data)
     kwargs["maintenance_login_dto"] = maintenance_login_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(
         client, client.maintenance_admin, "maintenance_login", **kwargs
     )
-    format_mode = ctx.obj.get("format")
-    print_response(result, format_mode)
+    print_response(result, ctx)
 
 
 @app.command("set-maintenance-mode", deprecated=False, rich_help_panel="API commands")
@@ -53,13 +50,10 @@ def set_maintenance_mode(
     kwargs = {}
     json_data = {}
     set_nested(json_data, ["action"], action)
-    from immich.client.models.set_maintenance_mode_dto import SetMaintenanceModeDto
-
     set_maintenance_mode_dto = SetMaintenanceModeDto.model_validate(json_data)
     kwargs["set_maintenance_mode_dto"] = set_maintenance_mode_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(
         client, client.maintenance_admin, "set_maintenance_mode", **kwargs
     )
-    format_mode = ctx.obj.get("format")
-    print_response(result, format_mode)
+    print_response(result, ctx)

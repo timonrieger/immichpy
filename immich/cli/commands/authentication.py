@@ -39,14 +39,11 @@ def change_password(
         )
     set_nested(json_data, ["new_password"], new_password)
     set_nested(json_data, ["password"], password)
-    from immich.client.models.change_password_dto import ChangePasswordDto
-
     change_password_dto = ChangePasswordDto.model_validate(json_data)
     kwargs["change_password_dto"] = change_password_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.authentication, "change_password", **kwargs)
-    format_mode = ctx.obj.get("format")
-    print_response(result, format_mode)
+    print_response(result, ctx)
 
 
 @app.command("change-pin-code", deprecated=False, rich_help_panel="API commands")
@@ -67,14 +64,11 @@ def change_pin_code(
         set_nested(json_data, ["password"], password)
     if pin_code is not None:
         set_nested(json_data, ["pin_code"], pin_code)
-    from immich.client.models.pin_code_change_dto import PinCodeChangeDto
-
     pin_code_change_dto = PinCodeChangeDto.model_validate(json_data)
     kwargs["pin_code_change_dto"] = pin_code_change_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.authentication, "change_pin_code", **kwargs)
-    format_mode = ctx.obj.get("format")
-    print_response(result, format_mode)
+    print_response(result, ctx)
 
 
 @app.command("finish-o-auth", deprecated=False, rich_help_panel="API commands")
@@ -95,14 +89,11 @@ def finish_o_auth(
     if state is not None:
         set_nested(json_data, ["state"], state)
     set_nested(json_data, ["url"], url)
-    from immich.client.models.o_auth_callback_dto import OAuthCallbackDto
-
     o_auth_callback_dto = OAuthCallbackDto.model_validate(json_data)
     kwargs["o_auth_callback_dto"] = o_auth_callback_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.authentication, "finish_o_auth", **kwargs)
-    format_mode = ctx.obj.get("format")
-    print_response(result, format_mode)
+    print_response(result, ctx)
 
 
 @app.command("get-auth-status", deprecated=False, rich_help_panel="API commands")
@@ -116,8 +107,7 @@ def get_auth_status(
     kwargs = {}
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.authentication, "get_auth_status", **kwargs)
-    format_mode = ctx.obj.get("format")
-    print_response(result, format_mode)
+    print_response(result, ctx)
 
 
 @app.command("link-o-auth-account", deprecated=False, rich_help_panel="API commands")
@@ -138,14 +128,11 @@ def link_o_auth_account(
     if state is not None:
         set_nested(json_data, ["state"], state)
     set_nested(json_data, ["url"], url)
-    from immich.client.models.o_auth_callback_dto import OAuthCallbackDto
-
     o_auth_callback_dto = OAuthCallbackDto.model_validate(json_data)
     kwargs["o_auth_callback_dto"] = o_auth_callback_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.authentication, "link_o_auth_account", **kwargs)
-    format_mode = ctx.obj.get("format")
-    print_response(result, format_mode)
+    print_response(result, ctx)
 
 
 @app.command("lock-auth-session", deprecated=False, rich_help_panel="API commands")
@@ -159,8 +146,7 @@ def lock_auth_session(
     kwargs = {}
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.authentication, "lock_auth_session", **kwargs)
-    format_mode = ctx.obj.get("format")
-    print_response(result, format_mode)
+    print_response(result, ctx)
 
 
 @app.command("login", deprecated=False, rich_help_panel="API commands")
@@ -177,14 +163,11 @@ def login(
     json_data = {}
     set_nested(json_data, ["email"], email)
     set_nested(json_data, ["password"], password)
-    from immich.client.models.login_credential_dto import LoginCredentialDto
-
     login_credential_dto = LoginCredentialDto.model_validate(json_data)
     kwargs["login_credential_dto"] = login_credential_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.authentication, "login", **kwargs)
-    format_mode = ctx.obj.get("format")
-    print_response(result, format_mode)
+    print_response(result, ctx)
 
 
 @app.command("logout", deprecated=False, rich_help_panel="API commands")
@@ -198,8 +181,7 @@ def logout(
     kwargs = {}
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.authentication, "logout", **kwargs)
-    format_mode = ctx.obj.get("format")
-    print_response(result, format_mode)
+    print_response(result, ctx)
 
 
 @app.command(
@@ -217,8 +199,7 @@ def redirect_o_auth_to_mobile(
     result = run_command(
         client, client.authentication, "redirect_o_auth_to_mobile", **kwargs
     )
-    format_mode = ctx.obj.get("format")
-    print_response(result, format_mode)
+    print_response(result, ctx)
 
 
 @app.command("reset-pin-code", deprecated=False, rich_help_panel="API commands")
@@ -237,14 +218,11 @@ def reset_pin_code(
         set_nested(json_data, ["password"], password)
     if pin_code is not None:
         set_nested(json_data, ["pin_code"], pin_code)
-    from immich.client.models.pin_code_reset_dto import PinCodeResetDto
-
     pin_code_reset_dto = PinCodeResetDto.model_validate(json_data)
     kwargs["pin_code_reset_dto"] = pin_code_reset_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.authentication, "reset_pin_code", **kwargs)
-    format_mode = ctx.obj.get("format")
-    print_response(result, format_mode)
+    print_response(result, ctx)
 
 
 @app.command("setup-pin-code", deprecated=False, rich_help_panel="API commands")
@@ -259,14 +237,11 @@ def setup_pin_code(
     kwargs = {}
     json_data = {}
     set_nested(json_data, ["pin_code"], pin_code)
-    from immich.client.models.pin_code_setup_dto import PinCodeSetupDto
-
     pin_code_setup_dto = PinCodeSetupDto.model_validate(json_data)
     kwargs["pin_code_setup_dto"] = pin_code_setup_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.authentication, "setup_pin_code", **kwargs)
-    format_mode = ctx.obj.get("format")
-    print_response(result, format_mode)
+    print_response(result, ctx)
 
 
 @app.command("sign-up-admin", deprecated=False, rich_help_panel="API commands")
@@ -285,14 +260,11 @@ def sign_up_admin(
     set_nested(json_data, ["email"], email)
     set_nested(json_data, ["name"], name)
     set_nested(json_data, ["password"], password)
-    from immich.client.models.sign_up_dto import SignUpDto
-
     sign_up_dto = SignUpDto.model_validate(json_data)
     kwargs["sign_up_dto"] = sign_up_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.authentication, "sign_up_admin", **kwargs)
-    format_mode = ctx.obj.get("format")
-    print_response(result, format_mode)
+    print_response(result, ctx)
 
 
 @app.command("start-o-auth", deprecated=False, rich_help_panel="API commands")
@@ -313,14 +285,11 @@ def start_o_auth(
     set_nested(json_data, ["redirect_uri"], redirect_uri)
     if state is not None:
         set_nested(json_data, ["state"], state)
-    from immich.client.models.o_auth_config_dto import OAuthConfigDto
-
     o_auth_config_dto = OAuthConfigDto.model_validate(json_data)
     kwargs["o_auth_config_dto"] = o_auth_config_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.authentication, "start_o_auth", **kwargs)
-    format_mode = ctx.obj.get("format")
-    print_response(result, format_mode)
+    print_response(result, ctx)
 
 
 @app.command("unlink-o-auth-account", deprecated=False, rich_help_panel="API commands")
@@ -336,8 +305,7 @@ def unlink_o_auth_account(
     result = run_command(
         client, client.authentication, "unlink_o_auth_account", **kwargs
     )
-    format_mode = ctx.obj.get("format")
-    print_response(result, format_mode)
+    print_response(result, ctx)
 
 
 @app.command("unlock-auth-session", deprecated=False, rich_help_panel="API commands")
@@ -356,14 +324,11 @@ def unlock_auth_session(
         set_nested(json_data, ["password"], password)
     if pin_code is not None:
         set_nested(json_data, ["pin_code"], pin_code)
-    from immich.client.models.session_unlock_dto import SessionUnlockDto
-
     session_unlock_dto = SessionUnlockDto.model_validate(json_data)
     kwargs["session_unlock_dto"] = session_unlock_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.authentication, "unlock_auth_session", **kwargs)
-    format_mode = ctx.obj.get("format")
-    print_response(result, format_mode)
+    print_response(result, ctx)
 
 
 @app.command("validate-access-token", deprecated=False, rich_help_panel="API commands")
@@ -379,5 +344,4 @@ def validate_access_token(
     result = run_command(
         client, client.authentication, "validate_access_token", **kwargs
     )
-    format_mode = ctx.obj.get("format")
-    print_response(result, format_mode)
+    print_response(result, ctx)

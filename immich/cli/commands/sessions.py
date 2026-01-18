@@ -37,14 +37,11 @@ def create_session(
         set_nested(json_data, ["device_type"], device_type)
     if duration is not None:
         set_nested(json_data, ["duration"], duration)
-    from immich.client.models.session_create_dto import SessionCreateDto
-
     session_create_dto = SessionCreateDto.model_validate(json_data)
     kwargs["session_create_dto"] = session_create_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.sessions, "create_session", **kwargs)
-    format_mode = ctx.obj.get("format")
-    print_response(result, format_mode)
+    print_response(result, ctx)
 
 
 @app.command("delete-all-sessions", deprecated=False, rich_help_panel="API commands")
@@ -58,8 +55,7 @@ def delete_all_sessions(
     kwargs = {}
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.sessions, "delete_all_sessions", **kwargs)
-    format_mode = ctx.obj.get("format")
-    print_response(result, format_mode)
+    print_response(result, ctx)
 
 
 @app.command("delete-session", deprecated=False, rich_help_panel="API commands")
@@ -75,8 +71,7 @@ def delete_session(
     kwargs["id"] = id
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.sessions, "delete_session", **kwargs)
-    format_mode = ctx.obj.get("format")
-    print_response(result, format_mode)
+    print_response(result, ctx)
 
 
 @app.command("get-sessions", deprecated=False, rich_help_panel="API commands")
@@ -90,8 +85,7 @@ def get_sessions(
     kwargs = {}
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.sessions, "get_sessions", **kwargs)
-    format_mode = ctx.obj.get("format")
-    print_response(result, format_mode)
+    print_response(result, ctx)
 
 
 @app.command("lock-session", deprecated=False, rich_help_panel="API commands")
@@ -107,8 +101,7 @@ def lock_session(
     kwargs["id"] = id
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.sessions, "lock_session", **kwargs)
-    format_mode = ctx.obj.get("format")
-    print_response(result, format_mode)
+    print_response(result, ctx)
 
 
 @app.command("update-session", deprecated=False, rich_help_panel="API commands")
@@ -132,11 +125,8 @@ def update_session(
             ["is_pending_sync_reset"],
             is_pending_sync_reset.lower() == "true",
         )
-    from immich.client.models.session_update_dto import SessionUpdateDto
-
     session_update_dto = SessionUpdateDto.model_validate(json_data)
     kwargs["session_update_dto"] = session_update_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.sessions, "update_session", **kwargs)
-    format_mode = ctx.obj.get("format")
-    print_response(result, format_mode)
+    print_response(result, ctx)

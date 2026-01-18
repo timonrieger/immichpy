@@ -27,8 +27,7 @@ def empty_trash(
     kwargs = {}
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.trash, "empty_trash", **kwargs)
-    format_mode = ctx.obj.get("format")
-    print_response(result, format_mode)
+    print_response(result, ctx)
 
 
 @app.command("restore-assets", deprecated=False, rich_help_panel="API commands")
@@ -43,14 +42,11 @@ def restore_assets(
     kwargs = {}
     json_data = {}
     set_nested(json_data, ["ids"], ids)
-    from immich.client.models.bulk_ids_dto import BulkIdsDto
-
     bulk_ids_dto = BulkIdsDto.model_validate(json_data)
     kwargs["bulk_ids_dto"] = bulk_ids_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.trash, "restore_assets", **kwargs)
-    format_mode = ctx.obj.get("format")
-    print_response(result, format_mode)
+    print_response(result, ctx)
 
 
 @app.command("restore-trash", deprecated=False, rich_help_panel="API commands")
@@ -64,5 +60,4 @@ def restore_trash(
     kwargs = {}
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.trash, "restore_trash", **kwargs)
-    format_mode = ctx.obj.get("format")
-    print_response(result, format_mode)
+    print_response(result, ctx)

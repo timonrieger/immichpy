@@ -439,9 +439,6 @@ def generate_command_function(
                 # Validate and create model
                 model_instance = to_snake_case(param.model_name)
                 lines.append(
-                    f"    from immich.client.models.{model_instance} import {param.model_name}"
-                )
-                lines.append(
                     f"    {model_instance} = {param.model_name}.model_validate(json_data)"
                 )
                 lines.append(f"    kwargs['{model_instance}'] = {model_instance}")
@@ -455,8 +452,7 @@ def generate_command_function(
     )
 
     # Print result
-    lines.append("    format_mode = ctx.obj.get('format')")
-    lines.append("    print_response(result, format_mode)")
+    lines.append("    print_response(result, ctx)")
 
     return "\n".join(lines)
 

@@ -34,5 +34,4 @@ def unlink_all_o_auth_accounts_admin(
         "unlink_all_o_auth_accounts_admin",
         **kwargs,
     )
-    format_mode = ctx.obj.get("format")
-    print_response(result, format_mode)
+    print_response(result, ctx)

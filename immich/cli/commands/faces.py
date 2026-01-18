@@ -42,14 +42,11 @@ def create_face(
     set_nested(json_data, ["width"], width)
     set_nested(json_data, ["x"], x)
     set_nested(json_data, ["y"], y)
-    from immich.client.models.asset_face_create_dto import AssetFaceCreateDto
-
     asset_face_create_dto = AssetFaceCreateDto.model_validate(json_data)
     kwargs["asset_face_create_dto"] = asset_face_create_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.faces, "create_face", **kwargs)
-    format_mode = ctx.obj.get("format")
-    print_response(result, format_mode)
+    print_response(result, ctx)
 
 
 @app.command("delete-face", deprecated=False, rich_help_panel="API commands")
@@ -66,14 +63,11 @@ def delete_face(
     json_data = {}
     kwargs["id"] = id
     set_nested(json_data, ["force"], force.lower() == "true")
-    from immich.client.models.asset_face_delete_dto import AssetFaceDeleteDto
-
     asset_face_delete_dto = AssetFaceDeleteDto.model_validate(json_data)
     kwargs["asset_face_delete_dto"] = asset_face_delete_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.faces, "delete_face", **kwargs)
-    format_mode = ctx.obj.get("format")
-    print_response(result, format_mode)
+    print_response(result, ctx)
 
 
 @app.command("get-faces", deprecated=False, rich_help_panel="API commands")
@@ -89,8 +83,7 @@ def get_faces(
     kwargs["id"] = id
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.faces, "get_faces", **kwargs)
-    format_mode = ctx.obj.get("format")
-    print_response(result, format_mode)
+    print_response(result, ctx)
 
 
 @app.command("reassign-faces-by-id", deprecated=False, rich_help_panel="API commands")
@@ -107,11 +100,8 @@ def reassign_faces_by_id(
     json_data = {}
     kwargs["id"] = id
     set_nested(json_data, ["body_id"], body_id)
-    from immich.client.models.face_dto import FaceDto
-
     face_dto = FaceDto.model_validate(json_data)
     kwargs["face_dto"] = face_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.faces, "reassign_faces_by_id", **kwargs)
-    format_mode = ctx.obj.get("format")
-    print_response(result, format_mode)
+    print_response(result, ctx)

@@ -37,16 +37,13 @@ def add_shared_link_assets(
     if slug is not None:
         kwargs["slug"] = slug
     set_nested(json_data, ["asset_ids"], asset_ids)
-    from immich.client.models.asset_ids_dto import AssetIdsDto
-
     asset_ids_dto = AssetIdsDto.model_validate(json_data)
     kwargs["asset_ids_dto"] = asset_ids_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(
         client, client.shared_links, "add_shared_link_assets", **kwargs
     )
-    format_mode = ctx.obj.get("format")
-    print_response(result, format_mode)
+    print_response(result, ctx)
 
 
 @app.command("create-shared-link", deprecated=False, rich_help_panel="API commands")
@@ -94,14 +91,11 @@ def create_shared_link(
     if slug is not None:
         set_nested(json_data, ["slug"], slug)
     set_nested(json_data, ["type"], type)
-    from immich.client.models.shared_link_create_dto import SharedLinkCreateDto
-
     shared_link_create_dto = SharedLinkCreateDto.model_validate(json_data)
     kwargs["shared_link_create_dto"] = shared_link_create_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.shared_links, "create_shared_link", **kwargs)
-    format_mode = ctx.obj.get("format")
-    print_response(result, format_mode)
+    print_response(result, ctx)
 
 
 @app.command("get-all-shared-links", deprecated=False, rich_help_panel="API commands")
@@ -121,8 +115,7 @@ def get_all_shared_links(
         kwargs["id"] = id
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.shared_links, "get_all_shared_links", **kwargs)
-    format_mode = ctx.obj.get("format")
-    print_response(result, format_mode)
+    print_response(result, ctx)
 
 
 @app.command("get-my-shared-link", deprecated=False, rich_help_panel="API commands")
@@ -148,8 +141,7 @@ def get_my_shared_link(
         kwargs["token"] = token
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.shared_links, "get_my_shared_link", **kwargs)
-    format_mode = ctx.obj.get("format")
-    print_response(result, format_mode)
+    print_response(result, ctx)
 
 
 @app.command("get-shared-link-by-id", deprecated=False, rich_help_panel="API commands")
@@ -165,8 +157,7 @@ def get_shared_link_by_id(
     kwargs["id"] = id
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.shared_links, "get_shared_link_by_id", **kwargs)
-    format_mode = ctx.obj.get("format")
-    print_response(result, format_mode)
+    print_response(result, ctx)
 
 
 @app.command("remove-shared-link", deprecated=False, rich_help_panel="API commands")
@@ -182,8 +173,7 @@ def remove_shared_link(
     kwargs["id"] = id
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.shared_links, "remove_shared_link", **kwargs)
-    format_mode = ctx.obj.get("format")
-    print_response(result, format_mode)
+    print_response(result, ctx)
 
 
 @app.command(
@@ -208,16 +198,13 @@ def remove_shared_link_assets(
     if slug is not None:
         kwargs["slug"] = slug
     set_nested(json_data, ["asset_ids"], asset_ids)
-    from immich.client.models.asset_ids_dto import AssetIdsDto
-
     asset_ids_dto = AssetIdsDto.model_validate(json_data)
     kwargs["asset_ids_dto"] = asset_ids_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(
         client, client.shared_links, "remove_shared_link_assets", **kwargs
     )
-    format_mode = ctx.obj.get("format")
-    print_response(result, format_mode)
+    print_response(result, ctx)
 
 
 @app.command("update-shared-link", deprecated=False, rich_help_panel="API commands")
@@ -270,11 +257,8 @@ Clients that can send null values can ignore this.""",
         set_nested(json_data, ["show_metadata"], show_metadata.lower() == "true")
     if slug is not None:
         set_nested(json_data, ["slug"], slug)
-    from immich.client.models.shared_link_edit_dto import SharedLinkEditDto
-
     shared_link_edit_dto = SharedLinkEditDto.model_validate(json_data)
     kwargs["shared_link_edit_dto"] = shared_link_edit_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.shared_links, "update_shared_link", **kwargs)
-    format_mode = ctx.obj.get("format")
-    print_response(result, format_mode)
+    print_response(result, ctx)

@@ -30,8 +30,7 @@ def delete_notification(
     kwargs["id"] = id
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.notifications, "delete_notification", **kwargs)
-    format_mode = ctx.obj.get("format")
-    print_response(result, format_mode)
+    print_response(result, ctx)
 
 
 @app.command("delete-notifications", deprecated=False, rich_help_panel="API commands")
@@ -46,16 +45,11 @@ def delete_notifications(
     kwargs = {}
     json_data = {}
     set_nested(json_data, ["ids"], ids)
-    from immich.client.models.notification_delete_all_dto import (
-        NotificationDeleteAllDto,
-    )
-
     notification_delete_all_dto = NotificationDeleteAllDto.model_validate(json_data)
     kwargs["notification_delete_all_dto"] = notification_delete_all_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.notifications, "delete_notifications", **kwargs)
-    format_mode = ctx.obj.get("format")
-    print_response(result, format_mode)
+    print_response(result, ctx)
 
 
 @app.command("get-notification", deprecated=False, rich_help_panel="API commands")
@@ -71,8 +65,7 @@ def get_notification(
     kwargs["id"] = id
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.notifications, "get_notification", **kwargs)
-    format_mode = ctx.obj.get("format")
-    print_response(result, format_mode)
+    print_response(result, ctx)
 
 
 @app.command("get-notifications", deprecated=False, rich_help_panel="API commands")
@@ -100,8 +93,7 @@ def get_notifications(
         kwargs["unread"] = unread.lower() == "true"
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.notifications, "get_notifications", **kwargs)
-    format_mode = ctx.obj.get("format")
-    print_response(result, format_mode)
+    print_response(result, ctx)
 
 
 @app.command("update-notification", deprecated=False, rich_help_panel="API commands")
@@ -119,14 +111,11 @@ def update_notification(
     kwargs["id"] = id
     if read_at is not None:
         set_nested(json_data, ["read_at"], read_at)
-    from immich.client.models.notification_update_dto import NotificationUpdateDto
-
     notification_update_dto = NotificationUpdateDto.model_validate(json_data)
     kwargs["notification_update_dto"] = notification_update_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.notifications, "update_notification", **kwargs)
-    format_mode = ctx.obj.get("format")
-    print_response(result, format_mode)
+    print_response(result, ctx)
 
 
 @app.command("update-notifications", deprecated=False, rich_help_panel="API commands")
@@ -144,13 +133,8 @@ def update_notifications(
     set_nested(json_data, ["ids"], ids)
     if read_at is not None:
         set_nested(json_data, ["read_at"], read_at)
-    from immich.client.models.notification_update_all_dto import (
-        NotificationUpdateAllDto,
-    )
-
     notification_update_all_dto = NotificationUpdateAllDto.model_validate(json_data)
     kwargs["notification_update_all_dto"] = notification_update_all_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.notifications, "update_notifications", **kwargs)
-    format_mode = ctx.obj.get("format")
-    print_response(result, format_mode)
+    print_response(result, ctx)

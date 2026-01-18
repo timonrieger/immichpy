@@ -31,14 +31,11 @@ def add_memory_assets(
     json_data = {}
     kwargs["id"] = id
     set_nested(json_data, ["ids"], ids)
-    from immich.client.models.bulk_ids_dto import BulkIdsDto
-
     bulk_ids_dto = BulkIdsDto.model_validate(json_data)
     kwargs["bulk_ids_dto"] = bulk_ids_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.memories, "add_memory_assets", **kwargs)
-    format_mode = ctx.obj.get("format")
-    print_response(result, format_mode)
+    print_response(result, ctx)
 
 
 @app.command("create-memory", deprecated=False, rich_help_panel="API commands")
@@ -68,14 +65,11 @@ def create_memory(
     if seen_at is not None:
         set_nested(json_data, ["seen_at"], seen_at)
     set_nested(json_data, ["type"], type)
-    from immich.client.models.memory_create_dto import MemoryCreateDto
-
     memory_create_dto = MemoryCreateDto.model_validate(json_data)
     kwargs["memory_create_dto"] = memory_create_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.memories, "create_memory", **kwargs)
-    format_mode = ctx.obj.get("format")
-    print_response(result, format_mode)
+    print_response(result, ctx)
 
 
 @app.command("delete-memory", deprecated=False, rich_help_panel="API commands")
@@ -91,8 +85,7 @@ def delete_memory(
     kwargs["id"] = id
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.memories, "delete_memory", **kwargs)
-    format_mode = ctx.obj.get("format")
-    print_response(result, format_mode)
+    print_response(result, ctx)
 
 
 @app.command("get-memory", deprecated=False, rich_help_panel="API commands")
@@ -108,8 +101,7 @@ def get_memory(
     kwargs["id"] = id
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.memories, "get_memory", **kwargs)
-    format_mode = ctx.obj.get("format")
-    print_response(result, format_mode)
+    print_response(result, ctx)
 
 
 @app.command("memories-statistics", deprecated=False, rich_help_panel="API commands")
@@ -147,8 +139,7 @@ def memories_statistics(
         kwargs["type"] = type
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.memories, "memories_statistics", **kwargs)
-    format_mode = ctx.obj.get("format")
-    print_response(result, format_mode)
+    print_response(result, ctx)
 
 
 @app.command("remove-memory-assets", deprecated=False, rich_help_panel="API commands")
@@ -165,14 +156,11 @@ def remove_memory_assets(
     json_data = {}
     kwargs["id"] = id
     set_nested(json_data, ["ids"], ids)
-    from immich.client.models.bulk_ids_dto import BulkIdsDto
-
     bulk_ids_dto = BulkIdsDto.model_validate(json_data)
     kwargs["bulk_ids_dto"] = bulk_ids_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.memories, "remove_memory_assets", **kwargs)
-    format_mode = ctx.obj.get("format")
-    print_response(result, format_mode)
+    print_response(result, ctx)
 
 
 @app.command("search-memories", deprecated=False, rich_help_panel="API commands")
@@ -210,8 +198,7 @@ def search_memories(
         kwargs["type"] = type
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.memories, "search_memories", **kwargs)
-    format_mode = ctx.obj.get("format")
-    print_response(result, format_mode)
+    print_response(result, ctx)
 
 
 @app.command("update-memory", deprecated=False, rich_help_panel="API commands")
@@ -237,11 +224,8 @@ def update_memory(
         set_nested(json_data, ["memory_at"], memory_at)
     if seen_at is not None:
         set_nested(json_data, ["seen_at"], seen_at)
-    from immich.client.models.memory_update_dto import MemoryUpdateDto
-
     memory_update_dto = MemoryUpdateDto.model_validate(json_data)
     kwargs["memory_update_dto"] = memory_update_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.memories, "update_memory", **kwargs)
-    format_mode = ctx.obj.get("format")
-    print_response(result, format_mode)
+    print_response(result, ctx)

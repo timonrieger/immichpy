@@ -48,16 +48,13 @@ def create_notification(
     if type is not None:
         set_nested(json_data, ["type"], type)
     set_nested(json_data, ["user_id"], user_id)
-    from immich.client.models.notification_create_dto import NotificationCreateDto
-
     notification_create_dto = NotificationCreateDto.model_validate(json_data)
     kwargs["notification_create_dto"] = notification_create_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(
         client, client.notifications_admin, "create_notification", **kwargs
     )
-    format_mode = ctx.obj.get("format")
-    print_response(result, format_mode)
+    print_response(result, ctx)
 
 
 @app.command(
@@ -76,16 +73,13 @@ def get_notification_template_admin(
     json_data = {}
     kwargs["name"] = name
     set_nested(json_data, ["template"], template)
-    from immich.client.models.template_dto import TemplateDto
-
     template_dto = TemplateDto.model_validate(json_data)
     kwargs["template_dto"] = template_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(
         client, client.notifications_admin, "get_notification_template_admin", **kwargs
     )
-    format_mode = ctx.obj.get("format")
-    print_response(result, format_mode)
+    print_response(result, ctx)
 
 
 @app.command("send-test-email-admin", deprecated=False, rich_help_panel="API commands")
@@ -124,13 +118,10 @@ def send_test_email_admin(
     set_nested(json_data, ["transport_port"], transport_port)
     set_nested(json_data, ["transport_secure"], transport_secure.lower() == "true")
     set_nested(json_data, ["transport_username"], transport_username)
-    from immich.client.models.system_config_smtp_dto import SystemConfigSmtpDto
-
     system_config_smtp_dto = SystemConfigSmtpDto.model_validate(json_data)
     kwargs["system_config_smtp_dto"] = system_config_smtp_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(
         client, client.notifications_admin, "send_test_email_admin", **kwargs
     )
-    format_mode = ctx.obj.get("format")
-    print_response(result, format_mode)
+    print_response(result, ctx)

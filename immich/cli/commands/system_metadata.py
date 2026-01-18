@@ -29,8 +29,7 @@ def get_admin_onboarding(
     result = run_command(
         client, client.system_metadata, "get_admin_onboarding", **kwargs
     )
-    format_mode = ctx.obj.get("format")
-    print_response(result, format_mode)
+    print_response(result, ctx)
 
 
 @app.command(
@@ -48,8 +47,7 @@ def get_reverse_geocoding_state(
     result = run_command(
         client, client.system_metadata, "get_reverse_geocoding_state", **kwargs
     )
-    format_mode = ctx.obj.get("format")
-    print_response(result, format_mode)
+    print_response(result, ctx)
 
 
 @app.command(
@@ -67,8 +65,7 @@ def get_version_check_state(
     result = run_command(
         client, client.system_metadata, "get_version_check_state", **kwargs
     )
-    format_mode = ctx.obj.get("format")
-    print_response(result, format_mode)
+    print_response(result, ctx)
 
 
 @app.command(
@@ -87,15 +84,10 @@ def update_admin_onboarding(
     kwargs = {}
     json_data = {}
     set_nested(json_data, ["is_onboarded"], is_onboarded.lower() == "true")
-    from immich.client.models.admin_onboarding_update_dto import (
-        AdminOnboardingUpdateDto,
-    )
-
     admin_onboarding_update_dto = AdminOnboardingUpdateDto.model_validate(json_data)
     kwargs["admin_onboarding_update_dto"] = admin_onboarding_update_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(
         client, client.system_metadata, "update_admin_onboarding", **kwargs
     )
-    format_mode = ctx.obj.get("format")
-    print_response(result, format_mode)
+    print_response(result, ctx)

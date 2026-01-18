@@ -27,8 +27,7 @@ def delete_server_license(
     kwargs = {}
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.server, "delete_server_license", **kwargs)
-    format_mode = ctx.obj.get("format")
-    print_response(result, format_mode)
+    print_response(result, ctx)
 
 
 @app.command("get-about-info", deprecated=False, rich_help_panel="API commands")
@@ -42,8 +41,7 @@ def get_about_info(
     kwargs = {}
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.server, "get_about_info", **kwargs)
-    format_mode = ctx.obj.get("format")
-    print_response(result, format_mode)
+    print_response(result, ctx)
 
 
 @app.command("get-apk-links", deprecated=False, rich_help_panel="API commands")
@@ -57,8 +55,7 @@ def get_apk_links(
     kwargs = {}
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.server, "get_apk_links", **kwargs)
-    format_mode = ctx.obj.get("format")
-    print_response(result, format_mode)
+    print_response(result, ctx)
 
 
 @app.command("get-server-config", deprecated=False, rich_help_panel="API commands")
@@ -72,8 +69,7 @@ def get_server_config(
     kwargs = {}
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.server, "get_server_config", **kwargs)
-    format_mode = ctx.obj.get("format")
-    print_response(result, format_mode)
+    print_response(result, ctx)
 
 
 @app.command("get-server-features", deprecated=False, rich_help_panel="API commands")
@@ -87,8 +83,7 @@ def get_server_features(
     kwargs = {}
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.server, "get_server_features", **kwargs)
-    format_mode = ctx.obj.get("format")
-    print_response(result, format_mode)
+    print_response(result, ctx)
 
 
 @app.command("get-server-license", deprecated=False, rich_help_panel="API commands")
@@ -102,8 +97,7 @@ def get_server_license(
     kwargs = {}
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.server, "get_server_license", **kwargs)
-    format_mode = ctx.obj.get("format")
-    print_response(result, format_mode)
+    print_response(result, ctx)
 
 
 @app.command("get-server-statistics", deprecated=False, rich_help_panel="API commands")
@@ -117,8 +111,7 @@ def get_server_statistics(
     kwargs = {}
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.server, "get_server_statistics", **kwargs)
-    format_mode = ctx.obj.get("format")
-    print_response(result, format_mode)
+    print_response(result, ctx)
 
 
 @app.command("get-server-version", deprecated=False, rich_help_panel="API commands")
@@ -132,8 +125,7 @@ def get_server_version(
     kwargs = {}
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.server, "get_server_version", **kwargs)
-    format_mode = ctx.obj.get("format")
-    print_response(result, format_mode)
+    print_response(result, ctx)
 
 
 @app.command("get-storage", deprecated=False, rich_help_panel="API commands")
@@ -147,8 +139,7 @@ def get_storage(
     kwargs = {}
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.server, "get_storage", **kwargs)
-    format_mode = ctx.obj.get("format")
-    print_response(result, format_mode)
+    print_response(result, ctx)
 
 
 @app.command(
@@ -164,8 +155,7 @@ def get_supported_media_types(
     kwargs = {}
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.server, "get_supported_media_types", **kwargs)
-    format_mode = ctx.obj.get("format")
-    print_response(result, format_mode)
+    print_response(result, ctx)
 
 
 @app.command("get-theme", deprecated=False, rich_help_panel="API commands")
@@ -179,8 +169,7 @@ def get_theme(
     kwargs = {}
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.server, "get_theme", **kwargs)
-    format_mode = ctx.obj.get("format")
-    print_response(result, format_mode)
+    print_response(result, ctx)
 
 
 @app.command("get-version-check", deprecated=False, rich_help_panel="API commands")
@@ -194,8 +183,7 @@ def get_version_check(
     kwargs = {}
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.server, "get_version_check", **kwargs)
-    format_mode = ctx.obj.get("format")
-    print_response(result, format_mode)
+    print_response(result, ctx)
 
 
 @app.command("get-version-history", deprecated=False, rich_help_panel="API commands")
@@ -209,8 +197,7 @@ def get_version_history(
     kwargs = {}
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.server, "get_version_history", **kwargs)
-    format_mode = ctx.obj.get("format")
-    print_response(result, format_mode)
+    print_response(result, ctx)
 
 
 @app.command("ping-server", deprecated=False, rich_help_panel="API commands")
@@ -224,8 +211,7 @@ def ping_server(
     kwargs = {}
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.server, "ping_server", **kwargs)
-    format_mode = ctx.obj.get("format")
-    print_response(result, format_mode)
+    print_response(result, ctx)
 
 
 @app.command("set-server-license", deprecated=False, rich_help_panel="API commands")
@@ -242,11 +228,8 @@ def set_server_license(
     json_data = {}
     set_nested(json_data, ["activation_key"], activation_key)
     set_nested(json_data, ["license_key"], license_key)
-    from immich.client.models.license_key_dto import LicenseKeyDto
-
     license_key_dto = LicenseKeyDto.model_validate(json_data)
     kwargs["license_key_dto"] = license_key_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.server, "set_server_license", **kwargs)
-    format_mode = ctx.obj.get("format")
-    print_response(result, format_mode)
+    print_response(result, ctx)

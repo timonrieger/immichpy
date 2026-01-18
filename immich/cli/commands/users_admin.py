@@ -62,14 +62,11 @@ def create_user_admin(
         )
     if storage_label is not None:
         set_nested(json_data, ["storage_label"], storage_label)
-    from immich.client.models.user_admin_create_dto import UserAdminCreateDto
-
     user_admin_create_dto = UserAdminCreateDto.model_validate(json_data)
     kwargs["user_admin_create_dto"] = user_admin_create_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.users_admin, "create_user_admin", **kwargs)
-    format_mode = ctx.obj.get("format")
-    print_response(result, format_mode)
+    print_response(result, ctx)
 
 
 @app.command("delete-user-admin", deprecated=False, rich_help_panel="API commands")
@@ -87,14 +84,11 @@ def delete_user_admin(
     kwargs["id"] = id
     if force is not None:
         set_nested(json_data, ["force"], force.lower() == "true")
-    from immich.client.models.user_admin_delete_dto import UserAdminDeleteDto
-
     user_admin_delete_dto = UserAdminDeleteDto.model_validate(json_data)
     kwargs["user_admin_delete_dto"] = user_admin_delete_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.users_admin, "delete_user_admin", **kwargs)
-    format_mode = ctx.obj.get("format")
-    print_response(result, format_mode)
+    print_response(result, ctx)
 
 
 @app.command("get-user-admin", deprecated=False, rich_help_panel="API commands")
@@ -110,8 +104,7 @@ def get_user_admin(
     kwargs["id"] = id
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.users_admin, "get_user_admin", **kwargs)
-    format_mode = ctx.obj.get("format")
-    print_response(result, format_mode)
+    print_response(result, ctx)
 
 
 @app.command(
@@ -131,8 +124,7 @@ def get_user_preferences_admin(
     result = run_command(
         client, client.users_admin, "get_user_preferences_admin", **kwargs
     )
-    format_mode = ctx.obj.get("format")
-    print_response(result, format_mode)
+    print_response(result, ctx)
 
 
 @app.command(
@@ -152,8 +144,7 @@ def get_user_sessions_admin(
     result = run_command(
         client, client.users_admin, "get_user_sessions_admin", **kwargs
     )
-    format_mode = ctx.obj.get("format")
-    print_response(result, format_mode)
+    print_response(result, ctx)
 
 
 @app.command(
@@ -188,8 +179,7 @@ def get_user_statistics_admin(
     result = run_command(
         client, client.users_admin, "get_user_statistics_admin", **kwargs
     )
-    format_mode = ctx.obj.get("format")
-    print_response(result, format_mode)
+    print_response(result, ctx)
 
 
 @app.command("restore-user-admin", deprecated=False, rich_help_panel="API commands")
@@ -205,8 +195,7 @@ def restore_user_admin(
     kwargs["id"] = id
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.users_admin, "restore_user_admin", **kwargs)
-    format_mode = ctx.obj.get("format")
-    print_response(result, format_mode)
+    print_response(result, ctx)
 
 
 @app.command("search-users-admin", deprecated=False, rich_help_panel="API commands")
@@ -228,8 +217,7 @@ def search_users_admin(
         kwargs["with_deleted"] = with_deleted.lower() == "true"
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.users_admin, "search_users_admin", **kwargs)
-    format_mode = ctx.obj.get("format")
-    print_response(result, format_mode)
+    print_response(result, ctx)
 
 
 @app.command("update-user-admin", deprecated=False, rich_help_panel="API commands")
@@ -281,14 +269,11 @@ def update_user_admin(
         )
     if storage_label is not None:
         set_nested(json_data, ["storage_label"], storage_label)
-    from immich.client.models.user_admin_update_dto import UserAdminUpdateDto
-
     user_admin_update_dto = UserAdminUpdateDto.model_validate(json_data)
     kwargs["user_admin_update_dto"] = user_admin_update_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.users_admin, "update_user_admin", **kwargs)
-    format_mode = ctx.obj.get("format")
-    print_response(result, format_mode)
+    print_response(result, ctx)
 
 
 @app.command(
@@ -446,15 +431,10 @@ def update_user_preferences_admin(
         set_nested(json_data, ["tags_enabled"], tags_enabled.lower() == "true")
     if tags_sidebar_web is not None:
         set_nested(json_data, ["tags_sidebar_web"], tags_sidebar_web.lower() == "true")
-    from immich.client.models.user_preferences_update_dto import (
-        UserPreferencesUpdateDto,
-    )
-
     user_preferences_update_dto = UserPreferencesUpdateDto.model_validate(json_data)
     kwargs["user_preferences_update_dto"] = user_preferences_update_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(
         client, client.users_admin, "update_user_preferences_admin", **kwargs
     )
-    format_mode = ctx.obj.get("format")
-    print_response(result, format_mode)
+    print_response(result, ctx)

@@ -45,14 +45,11 @@ def create_workflow(
     set_nested(json_data, ["filters"], value_filters)
     set_nested(json_data, ["name"], name)
     set_nested(json_data, ["trigger_type"], trigger_type)
-    from immich.client.models.workflow_create_dto import WorkflowCreateDto
-
     workflow_create_dto = WorkflowCreateDto.model_validate(json_data)
     kwargs["workflow_create_dto"] = workflow_create_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.workflows, "create_workflow", **kwargs)
-    format_mode = ctx.obj.get("format")
-    print_response(result, format_mode)
+    print_response(result, ctx)
 
 
 @app.command("delete-workflow", deprecated=False, rich_help_panel="API commands")
@@ -68,8 +65,7 @@ def delete_workflow(
     kwargs["id"] = id
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.workflows, "delete_workflow", **kwargs)
-    format_mode = ctx.obj.get("format")
-    print_response(result, format_mode)
+    print_response(result, ctx)
 
 
 @app.command("get-workflow", deprecated=False, rich_help_panel="API commands")
@@ -85,8 +81,7 @@ def get_workflow(
     kwargs["id"] = id
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.workflows, "get_workflow", **kwargs)
-    format_mode = ctx.obj.get("format")
-    print_response(result, format_mode)
+    print_response(result, ctx)
 
 
 @app.command("get-workflows", deprecated=False, rich_help_panel="API commands")
@@ -100,8 +95,7 @@ def get_workflows(
     kwargs = {}
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.workflows, "get_workflows", **kwargs)
-    format_mode = ctx.obj.get("format")
-    print_response(result, format_mode)
+    print_response(result, ctx)
 
 
 @app.command("update-workflow", deprecated=False, rich_help_panel="API commands")
@@ -142,11 +136,8 @@ def update_workflow(
         set_nested(json_data, ["name"], name)
     if trigger_type is not None:
         set_nested(json_data, ["trigger_type"], trigger_type)
-    from immich.client.models.workflow_update_dto import WorkflowUpdateDto
-
     workflow_update_dto = WorkflowUpdateDto.model_validate(json_data)
     kwargs["workflow_update_dto"] = workflow_update_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.workflows, "update_workflow", **kwargs)
-    format_mode = ctx.obj.get("format")
-    print_response(result, format_mode)
+    print_response(result, ctx)

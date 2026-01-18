@@ -29,14 +29,11 @@ def create_profile_image(
     kwargs = {}
     json_data = {}
     kwargs["file"] = (file.name, file.read_bytes())
-    from immich.client.models.create_profile_image_dto import CreateProfileImageDto
-
     create_profile_image_dto = CreateProfileImageDto.model_validate(json_data)
     kwargs["create_profile_image_dto"] = create_profile_image_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.users, "create_profile_image", **kwargs)
-    format_mode = ctx.obj.get("format")
-    print_response(result, format_mode)
+    print_response(result, ctx)
 
 
 @app.command("delete-profile-image", deprecated=False, rich_help_panel="API commands")
@@ -50,8 +47,7 @@ def delete_profile_image(
     kwargs = {}
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.users, "delete_profile_image", **kwargs)
-    format_mode = ctx.obj.get("format")
-    print_response(result, format_mode)
+    print_response(result, ctx)
 
 
 @app.command("delete-user-license", deprecated=False, rich_help_panel="API commands")
@@ -65,8 +61,7 @@ def delete_user_license(
     kwargs = {}
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.users, "delete_user_license", **kwargs)
-    format_mode = ctx.obj.get("format")
-    print_response(result, format_mode)
+    print_response(result, ctx)
 
 
 @app.command("delete-user-onboarding", deprecated=False, rich_help_panel="API commands")
@@ -80,8 +75,7 @@ def delete_user_onboarding(
     kwargs = {}
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.users, "delete_user_onboarding", **kwargs)
-    format_mode = ctx.obj.get("format")
-    print_response(result, format_mode)
+    print_response(result, ctx)
 
 
 @app.command("get-my-preferences", deprecated=False, rich_help_panel="API commands")
@@ -95,8 +89,7 @@ def get_my_preferences(
     kwargs = {}
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.users, "get_my_preferences", **kwargs)
-    format_mode = ctx.obj.get("format")
-    print_response(result, format_mode)
+    print_response(result, ctx)
 
 
 @app.command("get-my-user", deprecated=False, rich_help_panel="API commands")
@@ -110,8 +103,7 @@ def get_my_user(
     kwargs = {}
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.users, "get_my_user", **kwargs)
-    format_mode = ctx.obj.get("format")
-    print_response(result, format_mode)
+    print_response(result, ctx)
 
 
 @app.command("get-profile-image", deprecated=False, rich_help_panel="API commands")
@@ -127,8 +119,7 @@ def get_profile_image(
     kwargs["id"] = id
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.users, "get_profile_image", **kwargs)
-    format_mode = ctx.obj.get("format")
-    print_response(result, format_mode)
+    print_response(result, ctx)
 
 
 @app.command("get-user", deprecated=False, rich_help_panel="API commands")
@@ -144,8 +135,7 @@ def get_user(
     kwargs["id"] = id
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.users, "get_user", **kwargs)
-    format_mode = ctx.obj.get("format")
-    print_response(result, format_mode)
+    print_response(result, ctx)
 
 
 @app.command("get-user-license", deprecated=False, rich_help_panel="API commands")
@@ -159,8 +149,7 @@ def get_user_license(
     kwargs = {}
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.users, "get_user_license", **kwargs)
-    format_mode = ctx.obj.get("format")
-    print_response(result, format_mode)
+    print_response(result, ctx)
 
 
 @app.command("get-user-onboarding", deprecated=False, rich_help_panel="API commands")
@@ -174,8 +163,7 @@ def get_user_onboarding(
     kwargs = {}
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.users, "get_user_onboarding", **kwargs)
-    format_mode = ctx.obj.get("format")
-    print_response(result, format_mode)
+    print_response(result, ctx)
 
 
 @app.command("search-users", deprecated=False, rich_help_panel="API commands")
@@ -189,8 +177,7 @@ def search_users(
     kwargs = {}
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.users, "search_users", **kwargs)
-    format_mode = ctx.obj.get("format")
-    print_response(result, format_mode)
+    print_response(result, ctx)
 
 
 @app.command("set-user-license", deprecated=False, rich_help_panel="API commands")
@@ -207,14 +194,11 @@ def set_user_license(
     json_data = {}
     set_nested(json_data, ["activation_key"], activation_key)
     set_nested(json_data, ["license_key"], license_key)
-    from immich.client.models.license_key_dto import LicenseKeyDto
-
     license_key_dto = LicenseKeyDto.model_validate(json_data)
     kwargs["license_key_dto"] = license_key_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.users, "set_user_license", **kwargs)
-    format_mode = ctx.obj.get("format")
-    print_response(result, format_mode)
+    print_response(result, ctx)
 
 
 @app.command("set-user-onboarding", deprecated=False, rich_help_panel="API commands")
@@ -231,14 +215,11 @@ def set_user_onboarding(
     kwargs = {}
     json_data = {}
     set_nested(json_data, ["is_onboarded"], is_onboarded.lower() == "true")
-    from immich.client.models.onboarding_dto import OnboardingDto
-
     onboarding_dto = OnboardingDto.model_validate(json_data)
     kwargs["onboarding_dto"] = onboarding_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.users, "set_user_onboarding", **kwargs)
-    format_mode = ctx.obj.get("format")
-    print_response(result, format_mode)
+    print_response(result, ctx)
 
 
 @app.command("update-my-preferences", deprecated=False, rich_help_panel="API commands")
@@ -392,16 +373,11 @@ def update_my_preferences(
         set_nested(json_data, ["tags_enabled"], tags_enabled.lower() == "true")
     if tags_sidebar_web is not None:
         set_nested(json_data, ["tags_sidebar_web"], tags_sidebar_web.lower() == "true")
-    from immich.client.models.user_preferences_update_dto import (
-        UserPreferencesUpdateDto,
-    )
-
     user_preferences_update_dto = UserPreferencesUpdateDto.model_validate(json_data)
     kwargs["user_preferences_update_dto"] = user_preferences_update_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.users, "update_my_preferences", **kwargs)
-    format_mode = ctx.obj.get("format")
-    print_response(result, format_mode)
+    print_response(result, ctx)
 
 
 @app.command("update-my-user", deprecated=False, rich_help_panel="API commands")
@@ -426,11 +402,8 @@ def update_my_user(
         set_nested(json_data, ["name"], name)
     if password is not None:
         set_nested(json_data, ["password"], password)
-    from immich.client.models.user_update_me_dto import UserUpdateMeDto
-
     user_update_me_dto = UserUpdateMeDto.model_validate(json_data)
     kwargs["user_update_me_dto"] = user_update_me_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.users, "update_my_user", **kwargs)
-    format_mode = ctx.obj.get("format")
-    print_response(result, format_mode)
+    print_response(result, ctx)

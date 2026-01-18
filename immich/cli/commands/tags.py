@@ -30,14 +30,11 @@ def bulk_tag_assets(
     json_data = {}
     set_nested(json_data, ["asset_ids"], asset_ids)
     set_nested(json_data, ["tag_ids"], tag_ids)
-    from immich.client.models.tag_bulk_assets_dto import TagBulkAssetsDto
-
     tag_bulk_assets_dto = TagBulkAssetsDto.model_validate(json_data)
     kwargs["tag_bulk_assets_dto"] = tag_bulk_assets_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.tags, "bulk_tag_assets", **kwargs)
-    format_mode = ctx.obj.get("format")
-    print_response(result, format_mode)
+    print_response(result, ctx)
 
 
 @app.command("create-tag", deprecated=False, rich_help_panel="API commands")
@@ -58,14 +55,11 @@ def create_tag(
     set_nested(json_data, ["name"], name)
     if parent_id is not None:
         set_nested(json_data, ["parent_id"], parent_id)
-    from immich.client.models.tag_create_dto import TagCreateDto
-
     tag_create_dto = TagCreateDto.model_validate(json_data)
     kwargs["tag_create_dto"] = tag_create_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.tags, "create_tag", **kwargs)
-    format_mode = ctx.obj.get("format")
-    print_response(result, format_mode)
+    print_response(result, ctx)
 
 
 @app.command("delete-tag", deprecated=False, rich_help_panel="API commands")
@@ -81,8 +75,7 @@ def delete_tag(
     kwargs["id"] = id
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.tags, "delete_tag", **kwargs)
-    format_mode = ctx.obj.get("format")
-    print_response(result, format_mode)
+    print_response(result, ctx)
 
 
 @app.command("get-all-tags", deprecated=False, rich_help_panel="API commands")
@@ -96,8 +89,7 @@ def get_all_tags(
     kwargs = {}
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.tags, "get_all_tags", **kwargs)
-    format_mode = ctx.obj.get("format")
-    print_response(result, format_mode)
+    print_response(result, ctx)
 
 
 @app.command("get-tag-by-id", deprecated=False, rich_help_panel="API commands")
@@ -113,8 +105,7 @@ def get_tag_by_id(
     kwargs["id"] = id
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.tags, "get_tag_by_id", **kwargs)
-    format_mode = ctx.obj.get("format")
-    print_response(result, format_mode)
+    print_response(result, ctx)
 
 
 @app.command("tag-assets", deprecated=False, rich_help_panel="API commands")
@@ -131,14 +122,11 @@ def tag_assets(
     json_data = {}
     kwargs["id"] = id
     set_nested(json_data, ["ids"], ids)
-    from immich.client.models.bulk_ids_dto import BulkIdsDto
-
     bulk_ids_dto = BulkIdsDto.model_validate(json_data)
     kwargs["bulk_ids_dto"] = bulk_ids_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.tags, "tag_assets", **kwargs)
-    format_mode = ctx.obj.get("format")
-    print_response(result, format_mode)
+    print_response(result, ctx)
 
 
 @app.command("untag-assets", deprecated=False, rich_help_panel="API commands")
@@ -155,14 +143,11 @@ def untag_assets(
     json_data = {}
     kwargs["id"] = id
     set_nested(json_data, ["ids"], ids)
-    from immich.client.models.bulk_ids_dto import BulkIdsDto
-
     bulk_ids_dto = BulkIdsDto.model_validate(json_data)
     kwargs["bulk_ids_dto"] = bulk_ids_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.tags, "untag_assets", **kwargs)
-    format_mode = ctx.obj.get("format")
-    print_response(result, format_mode)
+    print_response(result, ctx)
 
 
 @app.command("update-tag", deprecated=False, rich_help_panel="API commands")
@@ -180,14 +165,11 @@ def update_tag(
     kwargs["id"] = id
     if color is not None:
         set_nested(json_data, ["color"], color)
-    from immich.client.models.tag_update_dto import TagUpdateDto
-
     tag_update_dto = TagUpdateDto.model_validate(json_data)
     kwargs["tag_update_dto"] = tag_update_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.tags, "update_tag", **kwargs)
-    format_mode = ctx.obj.get("format")
-    print_response(result, format_mode)
+    print_response(result, ctx)
 
 
 @app.command("upsert-tags", deprecated=False, rich_help_panel="API commands")
@@ -202,11 +184,8 @@ def upsert_tags(
     kwargs = {}
     json_data = {}
     set_nested(json_data, ["tags"], tags)
-    from immich.client.models.tag_upsert_dto import TagUpsertDto
-
     tag_upsert_dto = TagUpsertDto.model_validate(json_data)
     kwargs["tag_upsert_dto"] = tag_upsert_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.tags, "upsert_tags", **kwargs)
-    format_mode = ctx.obj.get("format")
-    print_response(result, format_mode)
+    print_response(result, ctx)

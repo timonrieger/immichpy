@@ -28,14 +28,11 @@ def create_partner(
     kwargs = {}
     json_data = {}
     set_nested(json_data, ["shared_with_id"], shared_with_id)
-    from immich.client.models.partner_create_dto import PartnerCreateDto
-
     partner_create_dto = PartnerCreateDto.model_validate(json_data)
     kwargs["partner_create_dto"] = partner_create_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.partners, "create_partner", **kwargs)
-    format_mode = ctx.obj.get("format")
-    print_response(result, format_mode)
+    print_response(result, ctx)
 
 
 @app.command(
@@ -53,8 +50,7 @@ def create_partner_deprecated(
     kwargs["id"] = id
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.partners, "create_partner_deprecated", **kwargs)
-    format_mode = ctx.obj.get("format")
-    print_response(result, format_mode)
+    print_response(result, ctx)
 
 
 @app.command("get-partners", deprecated=False, rich_help_panel="API commands")
@@ -70,8 +66,7 @@ def get_partners(
     kwargs["direction"] = direction
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.partners, "get_partners", **kwargs)
-    format_mode = ctx.obj.get("format")
-    print_response(result, format_mode)
+    print_response(result, ctx)
 
 
 @app.command("remove-partner", deprecated=False, rich_help_panel="API commands")
@@ -87,8 +82,7 @@ def remove_partner(
     kwargs["id"] = id
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.partners, "remove_partner", **kwargs)
-    format_mode = ctx.obj.get("format")
-    print_response(result, format_mode)
+    print_response(result, ctx)
 
 
 @app.command("update-partner", deprecated=False, rich_help_panel="API commands")
@@ -107,11 +101,8 @@ def update_partner(
     json_data = {}
     kwargs["id"] = id
     set_nested(json_data, ["in_timeline"], in_timeline.lower() == "true")
-    from immich.client.models.partner_update_dto import PartnerUpdateDto
-
     partner_update_dto = PartnerUpdateDto.model_validate(json_data)
     kwargs["partner_update_dto"] = partner_update_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.partners, "update_partner", **kwargs)
-    format_mode = ctx.obj.get("format")
-    print_response(result, format_mode)
+    print_response(result, ctx)

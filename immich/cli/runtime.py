@@ -8,6 +8,7 @@ import sys
 from typing import Any, Awaitable, Callable, Union
 
 from pydantic import BaseModel
+from typer import Context
 
 from immich._internal.types import _MaybeBaseModel
 
@@ -31,7 +32,7 @@ def set_nested(d: dict[str, Any], path: list[str], value: Any) -> None:
     current[path[-1]] = value
 
 
-def print_response(data: _MaybeBaseModel, format_mode: str = "pretty") -> None:
+def print_response(data: _MaybeBaseModel, ctx: Context) -> None:
     """Print response data."""
 
     def convert_to_dict(obj: _MaybeBaseModel) -> Union[list[dict], dict, None]:
@@ -45,7 +46,7 @@ def print_response(data: _MaybeBaseModel, format_mode: str = "pretty") -> None:
 
     json_str = json.dumps(convert_to_dict(data), default=str)
 
-    print_json(json_str) if format_mode == "pretty" else print(json_str)
+    print_json(json_str) if ctx.obj.get("format") == "pretty" else print(json_str)
 
 
 def handle_api_error(e: ApiException) -> None:

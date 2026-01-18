@@ -31,14 +31,11 @@ def create_api_key(
     if name is not None:
         set_nested(json_data, ["name"], name)
     set_nested(json_data, ["permissions"], permissions)
-    from immich.client.models.api_key_create_dto import APIKeyCreateDto
-
     api_key_create_dto = APIKeyCreateDto.model_validate(json_data)
     kwargs["api_key_create_dto"] = api_key_create_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.api_keys, "create_api_key", **kwargs)
-    format_mode = ctx.obj.get("format")
-    print_response(result, format_mode)
+    print_response(result, ctx)
 
 
 @app.command("delete-api-key", deprecated=False, rich_help_panel="API commands")
@@ -54,8 +51,7 @@ def delete_api_key(
     kwargs["id"] = id
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.api_keys, "delete_api_key", **kwargs)
-    format_mode = ctx.obj.get("format")
-    print_response(result, format_mode)
+    print_response(result, ctx)
 
 
 @app.command("get-api-key", deprecated=False, rich_help_panel="API commands")
@@ -71,8 +67,7 @@ def get_api_key(
     kwargs["id"] = id
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.api_keys, "get_api_key", **kwargs)
-    format_mode = ctx.obj.get("format")
-    print_response(result, format_mode)
+    print_response(result, ctx)
 
 
 @app.command("get-api-keys", deprecated=False, rich_help_panel="API commands")
@@ -86,8 +81,7 @@ def get_api_keys(
     kwargs = {}
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.api_keys, "get_api_keys", **kwargs)
-    format_mode = ctx.obj.get("format")
-    print_response(result, format_mode)
+    print_response(result, ctx)
 
 
 @app.command("get-my-api-key", deprecated=False, rich_help_panel="API commands")
@@ -101,8 +95,7 @@ def get_my_api_key(
     kwargs = {}
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.api_keys, "get_my_api_key", **kwargs)
-    format_mode = ctx.obj.get("format")
-    print_response(result, format_mode)
+    print_response(result, ctx)
 
 
 @app.command("update-api-key", deprecated=False, rich_help_panel="API commands")
@@ -125,11 +118,8 @@ def update_api_key(
         set_nested(json_data, ["name"], name)
     if permissions is not None:
         set_nested(json_data, ["permissions"], permissions)
-    from immich.client.models.api_key_update_dto import APIKeyUpdateDto
-
     api_key_update_dto = APIKeyUpdateDto.model_validate(json_data)
     kwargs["api_key_update_dto"] = api_key_update_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.api_keys, "update_api_key", **kwargs)
-    format_mode = ctx.obj.get("format")
-    print_response(result, format_mode)
+    print_response(result, ctx)

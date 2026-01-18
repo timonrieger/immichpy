@@ -35,14 +35,11 @@ def empty_queue(
     kwargs["name"] = name
     if failed is not None:
         set_nested(json_data, ["failed"], failed.lower() == "true")
-    from immich.client.models.queue_delete_dto import QueueDeleteDto
-
     queue_delete_dto = QueueDeleteDto.model_validate(json_data)
     kwargs["queue_delete_dto"] = queue_delete_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.queues, "empty_queue", **kwargs)
-    format_mode = ctx.obj.get("format")
-    print_response(result, format_mode)
+    print_response(result, ctx)
 
 
 @app.command("get-queue", deprecated=False, rich_help_panel="API commands")
@@ -58,8 +55,7 @@ def get_queue(
     kwargs["name"] = name
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.queues, "get_queue", **kwargs)
-    format_mode = ctx.obj.get("format")
-    print_response(result, format_mode)
+    print_response(result, ctx)
 
 
 @app.command("get-queue-jobs", deprecated=False, rich_help_panel="API commands")
@@ -78,8 +74,7 @@ def get_queue_jobs(
         kwargs["status"] = status
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.queues, "get_queue_jobs", **kwargs)
-    format_mode = ctx.obj.get("format")
-    print_response(result, format_mode)
+    print_response(result, ctx)
 
 
 @app.command("get-queues", deprecated=False, rich_help_panel="API commands")
@@ -93,8 +88,7 @@ def get_queues(
     kwargs = {}
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.queues, "get_queues", **kwargs)
-    format_mode = ctx.obj.get("format")
-    print_response(result, format_mode)
+    print_response(result, ctx)
 
 
 @app.command("update-queue", deprecated=False, rich_help_panel="API commands")
@@ -114,11 +108,8 @@ def update_queue(
     kwargs["name"] = name
     if is_paused is not None:
         set_nested(json_data, ["is_paused"], is_paused.lower() == "true")
-    from immich.client.models.queue_update_dto import QueueUpdateDto
-
     queue_update_dto = QueueUpdateDto.model_validate(json_data)
     kwargs["queue_update_dto"] = queue_update_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.queues, "update_queue", **kwargs)
-    format_mode = ctx.obj.get("format")
-    print_response(result, format_mode)
+    print_response(result, ctx)

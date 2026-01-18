@@ -27,8 +27,7 @@ def get_config(
     kwargs = {}
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.system_config, "get_config", **kwargs)
-    format_mode = ctx.obj.get("format")
-    print_response(result, format_mode)
+    print_response(result, ctx)
 
 
 @app.command("get-config-defaults", deprecated=False, rich_help_panel="API commands")
@@ -42,8 +41,7 @@ def get_config_defaults(
     kwargs = {}
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.system_config, "get_config_defaults", **kwargs)
-    format_mode = ctx.obj.get("format")
-    print_response(result, format_mode)
+    print_response(result, ctx)
 
 
 @app.command(
@@ -61,8 +59,7 @@ def get_storage_template_options(
     result = run_command(
         client, client.system_config, "get_storage_template_options", **kwargs
     )
-    format_mode = ctx.obj.get("format")
-    print_response(result, format_mode)
+    print_response(result, ctx)
 
 
 @app.command("update-config", deprecated=False, rich_help_panel="API commands")
@@ -759,11 +756,8 @@ def update_config(
     set_nested(json_data, ["trash_days"], trash_days)
     set_nested(json_data, ["trash_enabled"], trash_enabled.lower() == "true")
     set_nested(json_data, ["user_delete_delay"], user_delete_delay)
-    from immich.client.models.system_config_dto import SystemConfigDto
-
     system_config_dto = SystemConfigDto.model_validate(json_data)
     kwargs["system_config_dto"] = system_config_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.system_config, "update_config", **kwargs)
-    format_mode = ctx.obj.get("format")
-    print_response(result, format_mode)
+    print_response(result, ctx)

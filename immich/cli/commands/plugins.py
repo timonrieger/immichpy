@@ -29,8 +29,7 @@ def get_plugin(
     kwargs["id"] = id
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.plugins, "get_plugin", **kwargs)
-    format_mode = ctx.obj.get("format")
-    print_response(result, format_mode)
+    print_response(result, ctx)
 
 
 @app.command("get-plugin-triggers", deprecated=False, rich_help_panel="API commands")
@@ -44,8 +43,7 @@ def get_plugin_triggers(
     kwargs = {}
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.plugins, "get_plugin_triggers", **kwargs)
-    format_mode = ctx.obj.get("format")
-    print_response(result, format_mode)
+    print_response(result, ctx)
 
 
 @app.command("get-plugins", deprecated=False, rich_help_panel="API commands")
@@ -59,5 +57,4 @@ def get_plugins(
     kwargs = {}
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.plugins, "get_plugins", **kwargs)
-    format_mode = ctx.obj.get("format")
-    print_response(result, format_mode)
+    print_response(result, ctx)

@@ -37,14 +37,11 @@ def add_assets_to_album(
     if slug is not None:
         kwargs["slug"] = slug
     set_nested(json_data, ["ids"], ids)
-    from immich.client.models.bulk_ids_dto import BulkIdsDto
-
     bulk_ids_dto = BulkIdsDto.model_validate(json_data)
     kwargs["bulk_ids_dto"] = bulk_ids_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.albums, "add_assets_to_album", **kwargs)
-    format_mode = ctx.obj.get("format")
-    print_response(result, format_mode)
+    print_response(result, ctx)
 
 
 @app.command("add-assets-to-albums", deprecated=False, rich_help_panel="API commands")
@@ -67,14 +64,11 @@ def add_assets_to_albums(
         kwargs["slug"] = slug
     set_nested(json_data, ["album_ids"], album_ids)
     set_nested(json_data, ["asset_ids"], asset_ids)
-    from immich.client.models.albums_add_assets_dto import AlbumsAddAssetsDto
-
     albums_add_assets_dto = AlbumsAddAssetsDto.model_validate(json_data)
     kwargs["albums_add_assets_dto"] = albums_add_assets_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.albums, "add_assets_to_albums", **kwargs)
-    format_mode = ctx.obj.get("format")
-    print_response(result, format_mode)
+    print_response(result, ctx)
 
 
 @app.command("add-users-to-album", deprecated=False, rich_help_panel="API commands")
@@ -94,14 +88,11 @@ def add_users_to_album(
     kwargs["id"] = id
     value_album_users = [json.loads(i) for i in album_users]
     set_nested(json_data, ["album_users"], value_album_users)
-    from immich.client.models.add_users_dto import AddUsersDto
-
     add_users_dto = AddUsersDto.model_validate(json_data)
     kwargs["add_users_dto"] = add_users_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.albums, "add_users_to_album", **kwargs)
-    format_mode = ctx.obj.get("format")
-    print_response(result, format_mode)
+    print_response(result, ctx)
 
 
 @app.command("create-album", deprecated=False, rich_help_panel="API commands")
@@ -128,14 +119,11 @@ def create_album(
         set_nested(json_data, ["asset_ids"], asset_ids)
     if description is not None:
         set_nested(json_data, ["description"], description)
-    from immich.client.models.create_album_dto import CreateAlbumDto
-
     create_album_dto = CreateAlbumDto.model_validate(json_data)
     kwargs["create_album_dto"] = create_album_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.albums, "create_album", **kwargs)
-    format_mode = ctx.obj.get("format")
-    print_response(result, format_mode)
+    print_response(result, ctx)
 
 
 @app.command("delete-album", deprecated=False, rich_help_panel="API commands")
@@ -151,8 +139,7 @@ def delete_album(
     kwargs["id"] = id
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.albums, "delete_album", **kwargs)
-    format_mode = ctx.obj.get("format")
-    print_response(result, format_mode)
+    print_response(result, ctx)
 
 
 @app.command("get-album-info", deprecated=False, rich_help_panel="API commands")
@@ -179,8 +166,7 @@ def get_album_info(
         kwargs["without_assets"] = without_assets.lower() == "true"
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.albums, "get_album_info", **kwargs)
-    format_mode = ctx.obj.get("format")
-    print_response(result, format_mode)
+    print_response(result, ctx)
 
 
 @app.command("get-album-statistics", deprecated=False, rich_help_panel="API commands")
@@ -194,8 +180,7 @@ def get_album_statistics(
     kwargs = {}
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.albums, "get_album_statistics", **kwargs)
-    format_mode = ctx.obj.get("format")
-    print_response(result, format_mode)
+    print_response(result, ctx)
 
 
 @app.command("get-all-albums", deprecated=False, rich_help_panel="API commands")
@@ -223,8 +208,7 @@ undefined: get all albums""",
         kwargs["shared"] = shared.lower() == "true"
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.albums, "get_all_albums", **kwargs)
-    format_mode = ctx.obj.get("format")
-    print_response(result, format_mode)
+    print_response(result, ctx)
 
 
 @app.command(
@@ -243,14 +227,11 @@ def remove_asset_from_album(
     json_data = {}
     kwargs["id"] = id
     set_nested(json_data, ["ids"], ids)
-    from immich.client.models.bulk_ids_dto import BulkIdsDto
-
     bulk_ids_dto = BulkIdsDto.model_validate(json_data)
     kwargs["bulk_ids_dto"] = bulk_ids_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.albums, "remove_asset_from_album", **kwargs)
-    format_mode = ctx.obj.get("format")
-    print_response(result, format_mode)
+    print_response(result, ctx)
 
 
 @app.command("remove-user-from-album", deprecated=False, rich_help_panel="API commands")
@@ -268,8 +249,7 @@ def remove_user_from_album(
     kwargs["user_id"] = user_id
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.albums, "remove_user_from_album", **kwargs)
-    format_mode = ctx.obj.get("format")
-    print_response(result, format_mode)
+    print_response(result, ctx)
 
 
 @app.command("update-album-info", deprecated=False, rich_help_panel="API commands")
@@ -305,14 +285,11 @@ def update_album_info(
         )
     if order is not None:
         set_nested(json_data, ["order"], order)
-    from immich.client.models.update_album_dto import UpdateAlbumDto
-
     update_album_dto = UpdateAlbumDto.model_validate(json_data)
     kwargs["update_album_dto"] = update_album_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.albums, "update_album_info", **kwargs)
-    format_mode = ctx.obj.get("format")
-    print_response(result, format_mode)
+    print_response(result, ctx)
 
 
 @app.command("update-album-user", deprecated=False, rich_help_panel="API commands")
@@ -331,11 +308,8 @@ def update_album_user(
     kwargs["id"] = id
     kwargs["user_id"] = user_id
     set_nested(json_data, ["role"], role)
-    from immich.client.models.update_album_user_dto import UpdateAlbumUserDto
-
     update_album_user_dto = UpdateAlbumUserDto.model_validate(json_data)
     kwargs["update_album_user_dto"] = update_album_user_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.albums, "update_album_user", **kwargs)
-    format_mode = ctx.obj.get("format")
-    print_response(result, format_mode)
+    print_response(result, ctx)

@@ -30,14 +30,11 @@ def create_stack(
     kwargs = {}
     json_data = {}
     set_nested(json_data, ["asset_ids"], asset_ids)
-    from immich.client.models.stack_create_dto import StackCreateDto
-
     stack_create_dto = StackCreateDto.model_validate(json_data)
     kwargs["stack_create_dto"] = stack_create_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.stacks, "create_stack", **kwargs)
-    format_mode = ctx.obj.get("format")
-    print_response(result, format_mode)
+    print_response(result, ctx)
 
 
 @app.command("delete-stack", deprecated=False, rich_help_panel="API commands")
@@ -53,8 +50,7 @@ def delete_stack(
     kwargs["id"] = id
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.stacks, "delete_stack", **kwargs)
-    format_mode = ctx.obj.get("format")
-    print_response(result, format_mode)
+    print_response(result, ctx)
 
 
 @app.command("delete-stacks", deprecated=False, rich_help_panel="API commands")
@@ -69,14 +65,11 @@ def delete_stacks(
     kwargs = {}
     json_data = {}
     set_nested(json_data, ["ids"], ids)
-    from immich.client.models.bulk_ids_dto import BulkIdsDto
-
     bulk_ids_dto = BulkIdsDto.model_validate(json_data)
     kwargs["bulk_ids_dto"] = bulk_ids_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.stacks, "delete_stacks", **kwargs)
-    format_mode = ctx.obj.get("format")
-    print_response(result, format_mode)
+    print_response(result, ctx)
 
 
 @app.command("get-stack", deprecated=False, rich_help_panel="API commands")
@@ -92,8 +85,7 @@ def get_stack(
     kwargs["id"] = id
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.stacks, "get_stack", **kwargs)
-    format_mode = ctx.obj.get("format")
-    print_response(result, format_mode)
+    print_response(result, ctx)
 
 
 @app.command(
@@ -113,8 +105,7 @@ def remove_asset_from_stack(
     kwargs["id"] = id
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.stacks, "remove_asset_from_stack", **kwargs)
-    format_mode = ctx.obj.get("format")
-    print_response(result, format_mode)
+    print_response(result, ctx)
 
 
 @app.command("search-stacks", deprecated=False, rich_help_panel="API commands")
@@ -133,8 +124,7 @@ def search_stacks(
         kwargs["primary_asset_id"] = primary_asset_id
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.stacks, "search_stacks", **kwargs)
-    format_mode = ctx.obj.get("format")
-    print_response(result, format_mode)
+    print_response(result, ctx)
 
 
 @app.command("update-stack", deprecated=False, rich_help_panel="API commands")
@@ -154,11 +144,8 @@ def update_stack(
     kwargs["id"] = id
     if primary_asset_id is not None:
         set_nested(json_data, ["primary_asset_id"], primary_asset_id)
-    from immich.client.models.stack_update_dto import StackUpdateDto
-
     stack_update_dto = StackUpdateDto.model_validate(json_data)
     kwargs["stack_update_dto"] = stack_update_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.stacks, "update_stack", **kwargs)
-    format_mode = ctx.obj.get("format")
-    print_response(result, format_mode)
+    print_response(result, ctx)
