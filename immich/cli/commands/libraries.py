@@ -3,6 +3,10 @@
 from __future__ import annotations
 
 import typer
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from immich import AsyncClient
 
 from immich.cli.runtime import print_response, run_command, set_nested
 from immich.client.models import *
@@ -12,7 +16,7 @@ app = typer.Typer(
 )
 
 
-@app.command("create-library", deprecated=False)
+@app.command("create-library", deprecated=False, rich_help_panel="API commands")
 def create_library(
     ctx: typer.Context,
     exclusion_patterns: list[str] | None = typer.Option(
@@ -39,13 +43,13 @@ def create_library(
 
     create_library_dto = CreateLibraryDto.model_validate(json_data)
     kwargs["create_library_dto"] = create_library_dto
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.libraries, "create_library", **kwargs)
     format_mode = ctx.obj.get("format")
     print_response(result, format_mode)
 
 
-@app.command("delete-library", deprecated=False)
+@app.command("delete-library", deprecated=False, rich_help_panel="API commands")
 def delete_library(
     ctx: typer.Context,
     id: str = typer.Argument(..., help=""""""),
@@ -56,13 +60,13 @@ def delete_library(
     """
     kwargs = {}
     kwargs["id"] = id
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.libraries, "delete_library", **kwargs)
     format_mode = ctx.obj.get("format")
     print_response(result, format_mode)
 
 
-@app.command("get-all-libraries", deprecated=False)
+@app.command("get-all-libraries", deprecated=False, rich_help_panel="API commands")
 def get_all_libraries(
     ctx: typer.Context,
 ) -> None:
@@ -71,13 +75,13 @@ def get_all_libraries(
     Docs: https://api.immich.app/endpoints/libraries/getAllLibraries
     """
     kwargs = {}
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.libraries, "get_all_libraries", **kwargs)
     format_mode = ctx.obj.get("format")
     print_response(result, format_mode)
 
 
-@app.command("get-library", deprecated=False)
+@app.command("get-library", deprecated=False, rich_help_panel="API commands")
 def get_library(
     ctx: typer.Context,
     id: str = typer.Argument(..., help=""""""),
@@ -88,13 +92,13 @@ def get_library(
     """
     kwargs = {}
     kwargs["id"] = id
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.libraries, "get_library", **kwargs)
     format_mode = ctx.obj.get("format")
     print_response(result, format_mode)
 
 
-@app.command("get-library-statistics", deprecated=False)
+@app.command("get-library-statistics", deprecated=False, rich_help_panel="API commands")
 def get_library_statistics(
     ctx: typer.Context,
     id: str = typer.Argument(..., help=""""""),
@@ -105,13 +109,13 @@ def get_library_statistics(
     """
     kwargs = {}
     kwargs["id"] = id
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.libraries, "get_library_statistics", **kwargs)
     format_mode = ctx.obj.get("format")
     print_response(result, format_mode)
 
 
-@app.command("scan-library", deprecated=False)
+@app.command("scan-library", deprecated=False, rich_help_panel="API commands")
 def scan_library(
     ctx: typer.Context,
     id: str = typer.Argument(..., help=""""""),
@@ -122,13 +126,13 @@ def scan_library(
     """
     kwargs = {}
     kwargs["id"] = id
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.libraries, "scan_library", **kwargs)
     format_mode = ctx.obj.get("format")
     print_response(result, format_mode)
 
 
-@app.command("update-library", deprecated=False)
+@app.command("update-library", deprecated=False, rich_help_panel="API commands")
 def update_library(
     ctx: typer.Context,
     id: str = typer.Argument(..., help=""""""),
@@ -155,13 +159,13 @@ def update_library(
 
     update_library_dto = UpdateLibraryDto.model_validate(json_data)
     kwargs["update_library_dto"] = update_library_dto
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.libraries, "update_library", **kwargs)
     format_mode = ctx.obj.get("format")
     print_response(result, format_mode)
 
 
-@app.command("validate", deprecated=False)
+@app.command("validate", deprecated=False, rich_help_panel="API commands")
 def validate(
     ctx: typer.Context,
     id: str = typer.Argument(..., help=""""""),
@@ -185,7 +189,7 @@ def validate(
 
     validate_library_dto = ValidateLibraryDto.model_validate(json_data)
     kwargs["validate_library_dto"] = validate_library_dto
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.libraries, "validate", **kwargs)
     format_mode = ctx.obj.get("format")
     print_response(result, format_mode)

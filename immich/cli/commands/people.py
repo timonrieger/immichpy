@@ -4,7 +4,10 @@ from __future__ import annotations
 
 import typer
 import json
-from typing import Literal
+from typing import Literal, TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from immich import AsyncClient
 
 from immich.cli.runtime import print_response, run_command, set_nested
 from immich.client.models import *
@@ -14,7 +17,7 @@ app = typer.Typer(
 )
 
 
-@app.command("create-person", deprecated=False)
+@app.command("create-person", deprecated=False, rich_help_panel="API commands")
 def create_person(
     ctx: typer.Context,
     birth_date: str | None = typer.Option(
@@ -52,13 +55,13 @@ Note: the mobile app cannot currently set the birth date to null.""",
 
     person_create_dto = PersonCreateDto.model_validate(json_data)
     kwargs["person_create_dto"] = person_create_dto
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.people, "create_person", **kwargs)
     format_mode = ctx.obj.get("format")
     print_response(result, format_mode)
 
 
-@app.command("delete-people", deprecated=False)
+@app.command("delete-people", deprecated=False, rich_help_panel="API commands")
 def delete_people(
     ctx: typer.Context,
     ids: list[str] = typer.Option(..., "--ids", help=""""""),
@@ -74,13 +77,13 @@ def delete_people(
 
     bulk_ids_dto = BulkIdsDto.model_validate(json_data)
     kwargs["bulk_ids_dto"] = bulk_ids_dto
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.people, "delete_people", **kwargs)
     format_mode = ctx.obj.get("format")
     print_response(result, format_mode)
 
 
-@app.command("delete-person", deprecated=False)
+@app.command("delete-person", deprecated=False, rich_help_panel="API commands")
 def delete_person(
     ctx: typer.Context,
     id: str = typer.Argument(..., help=""""""),
@@ -91,13 +94,13 @@ def delete_person(
     """
     kwargs = {}
     kwargs["id"] = id
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.people, "delete_person", **kwargs)
     format_mode = ctx.obj.get("format")
     print_response(result, format_mode)
 
 
-@app.command("get-all-people", deprecated=False)
+@app.command("get-all-people", deprecated=False, rich_help_panel="API commands")
 def get_all_people(
     ctx: typer.Context,
     closest_asset_id: str | None = typer.Option(
@@ -131,13 +134,13 @@ def get_all_people(
         kwargs["size"] = size
     if with_hidden is not None:
         kwargs["with_hidden"] = with_hidden.lower() == "true"
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.people, "get_all_people", **kwargs)
     format_mode = ctx.obj.get("format")
     print_response(result, format_mode)
 
 
-@app.command("get-person", deprecated=False)
+@app.command("get-person", deprecated=False, rich_help_panel="API commands")
 def get_person(
     ctx: typer.Context,
     id: str = typer.Argument(..., help=""""""),
@@ -148,13 +151,13 @@ def get_person(
     """
     kwargs = {}
     kwargs["id"] = id
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.people, "get_person", **kwargs)
     format_mode = ctx.obj.get("format")
     print_response(result, format_mode)
 
 
-@app.command("get-person-statistics", deprecated=False)
+@app.command("get-person-statistics", deprecated=False, rich_help_panel="API commands")
 def get_person_statistics(
     ctx: typer.Context,
     id: str = typer.Argument(..., help=""""""),
@@ -165,13 +168,13 @@ def get_person_statistics(
     """
     kwargs = {}
     kwargs["id"] = id
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.people, "get_person_statistics", **kwargs)
     format_mode = ctx.obj.get("format")
     print_response(result, format_mode)
 
 
-@app.command("get-person-thumbnail", deprecated=False)
+@app.command("get-person-thumbnail", deprecated=False, rich_help_panel="API commands")
 def get_person_thumbnail(
     ctx: typer.Context,
     id: str = typer.Argument(..., help=""""""),
@@ -182,13 +185,13 @@ def get_person_thumbnail(
     """
     kwargs = {}
     kwargs["id"] = id
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.people, "get_person_thumbnail", **kwargs)
     format_mode = ctx.obj.get("format")
     print_response(result, format_mode)
 
 
-@app.command("merge-person", deprecated=False)
+@app.command("merge-person", deprecated=False, rich_help_panel="API commands")
 def merge_person(
     ctx: typer.Context,
     id: str = typer.Argument(..., help=""""""),
@@ -206,13 +209,13 @@ def merge_person(
 
     merge_person_dto = MergePersonDto.model_validate(json_data)
     kwargs["merge_person_dto"] = merge_person_dto
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.people, "merge_person", **kwargs)
     format_mode = ctx.obj.get("format")
     print_response(result, format_mode)
 
 
-@app.command("reassign-faces", deprecated=False)
+@app.command("reassign-faces", deprecated=False, rich_help_panel="API commands")
 def reassign_faces(
     ctx: typer.Context,
     id: str = typer.Argument(..., help=""""""),
@@ -231,13 +234,13 @@ def reassign_faces(
 
     asset_face_update_dto = AssetFaceUpdateDto.model_validate(json_data)
     kwargs["asset_face_update_dto"] = asset_face_update_dto
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.people, "reassign_faces", **kwargs)
     format_mode = ctx.obj.get("format")
     print_response(result, format_mode)
 
 
-@app.command("update-people", deprecated=False)
+@app.command("update-people", deprecated=False, rich_help_panel="API commands")
 def update_people(
     ctx: typer.Context,
     people: list[str] = typer.Option(..., "--people", help="""As a JSON string"""),
@@ -254,13 +257,13 @@ def update_people(
 
     people_update_dto = PeopleUpdateDto.model_validate(json_data)
     kwargs["people_update_dto"] = people_update_dto
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.people, "update_people", **kwargs)
     format_mode = ctx.obj.get("format")
     print_response(result, format_mode)
 
 
-@app.command("update-person", deprecated=False)
+@app.command("update-person", deprecated=False, rich_help_panel="API commands")
 def update_person(
     ctx: typer.Context,
     id: str = typer.Argument(..., help=""""""),
@@ -307,7 +310,7 @@ Note: the mobile app cannot currently set the birth date to null.""",
 
     person_update_dto = PersonUpdateDto.model_validate(json_data)
     kwargs["person_update_dto"] = person_update_dto
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.people, "update_person", **kwargs)
     format_mode = ctx.obj.get("format")
     print_response(result, format_mode)

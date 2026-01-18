@@ -5,7 +5,10 @@ from __future__ import annotations
 import typer
 import json
 from datetime import datetime
-from typing import Literal
+from typing import Literal, TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from immich import AsyncClient
 
 from immich.cli.runtime import print_response, run_command, set_nested
 from immich.client.models import *
@@ -15,7 +18,7 @@ app = typer.Typer(
 )
 
 
-@app.command("create-notification", deprecated=False)
+@app.command("create-notification", deprecated=False, rich_help_panel="API commands")
 def create_notification(
     ctx: typer.Context,
     data: str | None = typer.Option(None, "--data", help="""As a JSON string"""),
@@ -49,7 +52,7 @@ def create_notification(
 
     notification_create_dto = NotificationCreateDto.model_validate(json_data)
     kwargs["notification_create_dto"] = notification_create_dto
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(
         client, client.notifications_admin, "create_notification", **kwargs
     )
@@ -57,7 +60,9 @@ def create_notification(
     print_response(result, format_mode)
 
 
-@app.command("get-notification-template-admin", deprecated=False)
+@app.command(
+    "get-notification-template-admin", deprecated=False, rich_help_panel="API commands"
+)
 def get_notification_template_admin(
     ctx: typer.Context,
     name: str = typer.Argument(..., help=""""""),
@@ -75,7 +80,7 @@ def get_notification_template_admin(
 
     template_dto = TemplateDto.model_validate(json_data)
     kwargs["template_dto"] = template_dto
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(
         client, client.notifications_admin, "get_notification_template_admin", **kwargs
     )
@@ -83,7 +88,7 @@ def get_notification_template_admin(
     print_response(result, format_mode)
 
 
-@app.command("send-test-email-admin", deprecated=False)
+@app.command("send-test-email-admin", deprecated=False, rich_help_panel="API commands")
 def send_test_email_admin(
     ctx: typer.Context,
     enabled: Literal["true", "false"] = typer.Option(..., "--enabled", help=""""""),
@@ -123,7 +128,7 @@ def send_test_email_admin(
 
     system_config_smtp_dto = SystemConfigSmtpDto.model_validate(json_data)
     kwargs["system_config_smtp_dto"] = system_config_smtp_dto
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(
         client, client.notifications_admin, "send_test_email_admin", **kwargs
     )

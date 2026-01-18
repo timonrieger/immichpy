@@ -3,6 +3,10 @@
 from __future__ import annotations
 
 import typer
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from immich import AsyncClient
 
 from immich.cli.runtime import print_response, run_command, set_nested
 from immich.client.models import *
@@ -12,7 +16,7 @@ app = typer.Typer(
 )
 
 
-@app.command("bulk-tag-assets", deprecated=False)
+@app.command("bulk-tag-assets", deprecated=False, rich_help_panel="API commands")
 def bulk_tag_assets(
     ctx: typer.Context,
     asset_ids: list[str] = typer.Option(..., "--asset-ids", help=""""""),
@@ -30,13 +34,13 @@ def bulk_tag_assets(
 
     tag_bulk_assets_dto = TagBulkAssetsDto.model_validate(json_data)
     kwargs["tag_bulk_assets_dto"] = tag_bulk_assets_dto
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.tags, "bulk_tag_assets", **kwargs)
     format_mode = ctx.obj.get("format")
     print_response(result, format_mode)
 
 
-@app.command("create-tag", deprecated=False)
+@app.command("create-tag", deprecated=False, rich_help_panel="API commands")
 def create_tag(
     ctx: typer.Context,
     color: str | None = typer.Option(None, "--color", help=""""""),
@@ -58,13 +62,13 @@ def create_tag(
 
     tag_create_dto = TagCreateDto.model_validate(json_data)
     kwargs["tag_create_dto"] = tag_create_dto
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.tags, "create_tag", **kwargs)
     format_mode = ctx.obj.get("format")
     print_response(result, format_mode)
 
 
-@app.command("delete-tag", deprecated=False)
+@app.command("delete-tag", deprecated=False, rich_help_panel="API commands")
 def delete_tag(
     ctx: typer.Context,
     id: str = typer.Argument(..., help=""""""),
@@ -75,13 +79,13 @@ def delete_tag(
     """
     kwargs = {}
     kwargs["id"] = id
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.tags, "delete_tag", **kwargs)
     format_mode = ctx.obj.get("format")
     print_response(result, format_mode)
 
 
-@app.command("get-all-tags", deprecated=False)
+@app.command("get-all-tags", deprecated=False, rich_help_panel="API commands")
 def get_all_tags(
     ctx: typer.Context,
 ) -> None:
@@ -90,13 +94,13 @@ def get_all_tags(
     Docs: https://api.immich.app/endpoints/tags/getAllTags
     """
     kwargs = {}
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.tags, "get_all_tags", **kwargs)
     format_mode = ctx.obj.get("format")
     print_response(result, format_mode)
 
 
-@app.command("get-tag-by-id", deprecated=False)
+@app.command("get-tag-by-id", deprecated=False, rich_help_panel="API commands")
 def get_tag_by_id(
     ctx: typer.Context,
     id: str = typer.Argument(..., help=""""""),
@@ -107,13 +111,13 @@ def get_tag_by_id(
     """
     kwargs = {}
     kwargs["id"] = id
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.tags, "get_tag_by_id", **kwargs)
     format_mode = ctx.obj.get("format")
     print_response(result, format_mode)
 
 
-@app.command("tag-assets", deprecated=False)
+@app.command("tag-assets", deprecated=False, rich_help_panel="API commands")
 def tag_assets(
     ctx: typer.Context,
     id: str = typer.Argument(..., help=""""""),
@@ -131,13 +135,13 @@ def tag_assets(
 
     bulk_ids_dto = BulkIdsDto.model_validate(json_data)
     kwargs["bulk_ids_dto"] = bulk_ids_dto
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.tags, "tag_assets", **kwargs)
     format_mode = ctx.obj.get("format")
     print_response(result, format_mode)
 
 
-@app.command("untag-assets", deprecated=False)
+@app.command("untag-assets", deprecated=False, rich_help_panel="API commands")
 def untag_assets(
     ctx: typer.Context,
     id: str = typer.Argument(..., help=""""""),
@@ -155,13 +159,13 @@ def untag_assets(
 
     bulk_ids_dto = BulkIdsDto.model_validate(json_data)
     kwargs["bulk_ids_dto"] = bulk_ids_dto
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.tags, "untag_assets", **kwargs)
     format_mode = ctx.obj.get("format")
     print_response(result, format_mode)
 
 
-@app.command("update-tag", deprecated=False)
+@app.command("update-tag", deprecated=False, rich_help_panel="API commands")
 def update_tag(
     ctx: typer.Context,
     id: str = typer.Argument(..., help=""""""),
@@ -180,13 +184,13 @@ def update_tag(
 
     tag_update_dto = TagUpdateDto.model_validate(json_data)
     kwargs["tag_update_dto"] = tag_update_dto
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.tags, "update_tag", **kwargs)
     format_mode = ctx.obj.get("format")
     print_response(result, format_mode)
 
 
-@app.command("upsert-tags", deprecated=False)
+@app.command("upsert-tags", deprecated=False, rich_help_panel="API commands")
 def upsert_tags(
     ctx: typer.Context,
     tags: list[str] = typer.Option(..., "--tags", help=""""""),
@@ -202,7 +206,7 @@ def upsert_tags(
 
     tag_upsert_dto = TagUpsertDto.model_validate(json_data)
     kwargs["tag_upsert_dto"] = tag_upsert_dto
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.tags, "upsert_tags", **kwargs)
     format_mode = ctx.obj.get("format")
     print_response(result, format_mode)

@@ -4,7 +4,10 @@ from __future__ import annotations
 
 import typer
 import json
-from typing import Literal
+from typing import Literal, TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from immich import AsyncClient
 
 from immich.cli.runtime import print_response, run_command, set_nested
 from immich.client.models import *
@@ -14,7 +17,7 @@ app = typer.Typer(
 )
 
 
-@app.command("create-workflow", deprecated=False)
+@app.command("create-workflow", deprecated=False, rich_help_panel="API commands")
 def create_workflow(
     ctx: typer.Context,
     actions: list[str] = typer.Option(..., "--actions", help="""As a JSON string"""),
@@ -46,13 +49,13 @@ def create_workflow(
 
     workflow_create_dto = WorkflowCreateDto.model_validate(json_data)
     kwargs["workflow_create_dto"] = workflow_create_dto
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.workflows, "create_workflow", **kwargs)
     format_mode = ctx.obj.get("format")
     print_response(result, format_mode)
 
 
-@app.command("delete-workflow", deprecated=False)
+@app.command("delete-workflow", deprecated=False, rich_help_panel="API commands")
 def delete_workflow(
     ctx: typer.Context,
     id: str = typer.Argument(..., help=""""""),
@@ -63,13 +66,13 @@ def delete_workflow(
     """
     kwargs = {}
     kwargs["id"] = id
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.workflows, "delete_workflow", **kwargs)
     format_mode = ctx.obj.get("format")
     print_response(result, format_mode)
 
 
-@app.command("get-workflow", deprecated=False)
+@app.command("get-workflow", deprecated=False, rich_help_panel="API commands")
 def get_workflow(
     ctx: typer.Context,
     id: str = typer.Argument(..., help=""""""),
@@ -80,13 +83,13 @@ def get_workflow(
     """
     kwargs = {}
     kwargs["id"] = id
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.workflows, "get_workflow", **kwargs)
     format_mode = ctx.obj.get("format")
     print_response(result, format_mode)
 
 
-@app.command("get-workflows", deprecated=False)
+@app.command("get-workflows", deprecated=False, rich_help_panel="API commands")
 def get_workflows(
     ctx: typer.Context,
 ) -> None:
@@ -95,13 +98,13 @@ def get_workflows(
     Docs: https://api.immich.app/endpoints/workflows/getWorkflows
     """
     kwargs = {}
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.workflows, "get_workflows", **kwargs)
     format_mode = ctx.obj.get("format")
     print_response(result, format_mode)
 
 
-@app.command("update-workflow", deprecated=False)
+@app.command("update-workflow", deprecated=False, rich_help_panel="API commands")
 def update_workflow(
     ctx: typer.Context,
     id: str = typer.Argument(..., help=""""""),
@@ -143,7 +146,7 @@ def update_workflow(
 
     workflow_update_dto = WorkflowUpdateDto.model_validate(json_data)
     kwargs["workflow_update_dto"] = workflow_update_dto
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.workflows, "update_workflow", **kwargs)
     format_mode = ctx.obj.get("format")
     print_response(result, format_mode)

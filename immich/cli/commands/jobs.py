@@ -3,7 +3,10 @@
 from __future__ import annotations
 
 import typer
-from typing import Literal
+from typing import Literal, TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from immich import AsyncClient
 
 from immich.cli.runtime import print_response, run_command, set_nested
 from immich.client.models import *
@@ -13,7 +16,7 @@ app = typer.Typer(
 )
 
 
-@app.command("create-job", deprecated=False)
+@app.command("create-job", deprecated=False, rich_help_panel="API commands")
 def create_job(
     ctx: typer.Context,
     name: str = typer.Option(..., "--name", help=""""""),
@@ -29,13 +32,13 @@ def create_job(
 
     job_create_dto = JobCreateDto.model_validate(json_data)
     kwargs["job_create_dto"] = job_create_dto
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.jobs, "create_job", **kwargs)
     format_mode = ctx.obj.get("format")
     print_response(result, format_mode)
 
 
-@app.command("get-queues-legacy", deprecated=True)
+@app.command("get-queues-legacy", deprecated=True, rich_help_panel="API commands")
 def get_queues_legacy(
     ctx: typer.Context,
 ) -> None:
@@ -44,13 +47,15 @@ def get_queues_legacy(
     Docs: https://api.immich.app/endpoints/jobs/getQueuesLegacy
     """
     kwargs = {}
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.jobs, "get_queues_legacy", **kwargs)
     format_mode = ctx.obj.get("format")
     print_response(result, format_mode)
 
 
-@app.command("run-queue-command-legacy", deprecated=True)
+@app.command(
+    "run-queue-command-legacy", deprecated=True, rich_help_panel="API commands"
+)
 def run_queue_command_legacy(
     ctx: typer.Context,
     name: QueueName = typer.Argument(..., help=""""""),
@@ -71,7 +76,7 @@ def run_queue_command_legacy(
 
     queue_command_dto = QueueCommandDto.model_validate(json_data)
     kwargs["queue_command_dto"] = queue_command_dto
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.jobs, "run_queue_command_legacy", **kwargs)
     format_mode = ctx.obj.get("format")
     print_response(result, format_mode)

@@ -3,7 +3,10 @@
 from __future__ import annotations
 
 import typer
-from typing import Literal
+from typing import Literal, TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from immich import AsyncClient
 
 from immich.cli.runtime import print_response, run_command, set_nested
 from immich.client.models import *
@@ -13,7 +16,7 @@ app = typer.Typer(
 )
 
 
-@app.command("create-face", deprecated=False)
+@app.command("create-face", deprecated=False, rich_help_panel="API commands")
 def create_face(
     ctx: typer.Context,
     asset_id: str = typer.Option(..., "--asset-id", help=""""""),
@@ -43,13 +46,13 @@ def create_face(
 
     asset_face_create_dto = AssetFaceCreateDto.model_validate(json_data)
     kwargs["asset_face_create_dto"] = asset_face_create_dto
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.faces, "create_face", **kwargs)
     format_mode = ctx.obj.get("format")
     print_response(result, format_mode)
 
 
-@app.command("delete-face", deprecated=False)
+@app.command("delete-face", deprecated=False, rich_help_panel="API commands")
 def delete_face(
     ctx: typer.Context,
     id: str = typer.Argument(..., help=""""""),
@@ -67,13 +70,13 @@ def delete_face(
 
     asset_face_delete_dto = AssetFaceDeleteDto.model_validate(json_data)
     kwargs["asset_face_delete_dto"] = asset_face_delete_dto
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.faces, "delete_face", **kwargs)
     format_mode = ctx.obj.get("format")
     print_response(result, format_mode)
 
 
-@app.command("get-faces", deprecated=False)
+@app.command("get-faces", deprecated=False, rich_help_panel="API commands")
 def get_faces(
     ctx: typer.Context,
     id: str = typer.Option(..., "--id", help=""""""),
@@ -84,13 +87,13 @@ def get_faces(
     """
     kwargs = {}
     kwargs["id"] = id
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.faces, "get_faces", **kwargs)
     format_mode = ctx.obj.get("format")
     print_response(result, format_mode)
 
 
-@app.command("reassign-faces-by-id", deprecated=False)
+@app.command("reassign-faces-by-id", deprecated=False, rich_help_panel="API commands")
 def reassign_faces_by_id(
     ctx: typer.Context,
     id: str = typer.Argument(..., help=""""""),
@@ -108,7 +111,7 @@ def reassign_faces_by_id(
 
     face_dto = FaceDto.model_validate(json_data)
     kwargs["face_dto"] = face_dto
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.faces, "reassign_faces_by_id", **kwargs)
     format_mode = ctx.obj.get("format")
     print_response(result, format_mode)

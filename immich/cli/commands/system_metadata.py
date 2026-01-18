@@ -3,7 +3,10 @@
 from __future__ import annotations
 
 import typer
-from typing import Literal
+from typing import Literal, TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from immich import AsyncClient
 
 from immich.cli.runtime import print_response, run_command, set_nested
 from immich.client.models import *
@@ -13,7 +16,7 @@ app = typer.Typer(
 )
 
 
-@app.command("get-admin-onboarding", deprecated=False)
+@app.command("get-admin-onboarding", deprecated=False, rich_help_panel="API commands")
 def get_admin_onboarding(
     ctx: typer.Context,
 ) -> None:
@@ -22,7 +25,7 @@ def get_admin_onboarding(
     Docs: https://api.immich.app/endpoints/system-metadata/getAdminOnboarding
     """
     kwargs = {}
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(
         client, client.system_metadata, "get_admin_onboarding", **kwargs
     )
@@ -30,7 +33,9 @@ def get_admin_onboarding(
     print_response(result, format_mode)
 
 
-@app.command("get-reverse-geocoding-state", deprecated=False)
+@app.command(
+    "get-reverse-geocoding-state", deprecated=False, rich_help_panel="API commands"
+)
 def get_reverse_geocoding_state(
     ctx: typer.Context,
 ) -> None:
@@ -39,7 +44,7 @@ def get_reverse_geocoding_state(
     Docs: https://api.immich.app/endpoints/system-metadata/getReverseGeocodingState
     """
     kwargs = {}
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(
         client, client.system_metadata, "get_reverse_geocoding_state", **kwargs
     )
@@ -47,7 +52,9 @@ def get_reverse_geocoding_state(
     print_response(result, format_mode)
 
 
-@app.command("get-version-check-state", deprecated=False)
+@app.command(
+    "get-version-check-state", deprecated=False, rich_help_panel="API commands"
+)
 def get_version_check_state(
     ctx: typer.Context,
 ) -> None:
@@ -56,7 +63,7 @@ def get_version_check_state(
     Docs: https://api.immich.app/endpoints/system-metadata/getVersionCheckState
     """
     kwargs = {}
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(
         client, client.system_metadata, "get_version_check_state", **kwargs
     )
@@ -64,7 +71,9 @@ def get_version_check_state(
     print_response(result, format_mode)
 
 
-@app.command("update-admin-onboarding", deprecated=False)
+@app.command(
+    "update-admin-onboarding", deprecated=False, rich_help_panel="API commands"
+)
 def update_admin_onboarding(
     ctx: typer.Context,
     is_onboarded: Literal["true", "false"] = typer.Option(
@@ -84,7 +93,7 @@ def update_admin_onboarding(
 
     admin_onboarding_update_dto = AdminOnboardingUpdateDto.model_validate(json_data)
     kwargs["admin_onboarding_update_dto"] = admin_onboarding_update_dto
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(
         client, client.system_metadata, "update_admin_onboarding", **kwargs
     )

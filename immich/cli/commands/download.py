@@ -3,6 +3,10 @@
 from __future__ import annotations
 
 import typer
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from immich import AsyncClient
 
 from immich.cli.runtime import print_response, run_command, set_nested
 from immich.client.models import *
@@ -12,7 +16,7 @@ app = typer.Typer(
 )
 
 
-@app.command("download-archive", deprecated=False)
+@app.command("download-archive", deprecated=False, rich_help_panel="API commands")
 def download_archive(
     ctx: typer.Context,
     asset_ids: list[str] = typer.Option(..., "--asset-ids", help=""""""),
@@ -34,13 +38,13 @@ def download_archive(
 
     asset_ids_dto = AssetIdsDto.model_validate(json_data)
     kwargs["asset_ids_dto"] = asset_ids_dto
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.download, "download_archive", **kwargs)
     format_mode = ctx.obj.get("format")
     print_response(result, format_mode)
 
 
-@app.command("get-download-info", deprecated=False)
+@app.command("get-download-info", deprecated=False, rich_help_panel="API commands")
 def get_download_info(
     ctx: typer.Context,
     album_id: str | None = typer.Option(None, "--album-id", help=""""""),
@@ -72,7 +76,7 @@ def get_download_info(
 
     download_info_dto = DownloadInfoDto.model_validate(json_data)
     kwargs["download_info_dto"] = download_info_dto
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.download, "get_download_info", **kwargs)
     format_mode = ctx.obj.get("format")
     print_response(result, format_mode)

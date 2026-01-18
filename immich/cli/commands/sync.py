@@ -4,7 +4,10 @@ from __future__ import annotations
 
 import typer
 from datetime import datetime
-from typing import Literal
+from typing import Literal, TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from immich import AsyncClient
 
 from immich.cli.runtime import print_response, run_command, set_nested
 from immich.client.models import *
@@ -14,7 +17,7 @@ app = typer.Typer(
 )
 
 
-@app.command("delete-sync-ack", deprecated=False)
+@app.command("delete-sync-ack", deprecated=False, rich_help_panel="API commands")
 def delete_sync_ack(
     ctx: typer.Context,
     types: list[SyncEntityType] | None = typer.Option(None, "--types", help=""""""),
@@ -31,13 +34,13 @@ def delete_sync_ack(
 
     sync_ack_delete_dto = SyncAckDeleteDto.model_validate(json_data)
     kwargs["sync_ack_delete_dto"] = sync_ack_delete_dto
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.sync, "delete_sync_ack", **kwargs)
     format_mode = ctx.obj.get("format")
     print_response(result, format_mode)
 
 
-@app.command("get-delta-sync", deprecated=True)
+@app.command("get-delta-sync", deprecated=True, rich_help_panel="API commands")
 def get_delta_sync(
     ctx: typer.Context,
     updated_after: datetime = typer.Option(..., "--updated-after", help=""""""),
@@ -55,13 +58,13 @@ def get_delta_sync(
 
     asset_delta_sync_dto = AssetDeltaSyncDto.model_validate(json_data)
     kwargs["asset_delta_sync_dto"] = asset_delta_sync_dto
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.sync, "get_delta_sync", **kwargs)
     format_mode = ctx.obj.get("format")
     print_response(result, format_mode)
 
 
-@app.command("get-full-sync-for-user", deprecated=True)
+@app.command("get-full-sync-for-user", deprecated=True, rich_help_panel="API commands")
 def get_full_sync_for_user(
     ctx: typer.Context,
     last_id: str | None = typer.Option(None, "--last-id", help=""""""),
@@ -85,13 +88,13 @@ def get_full_sync_for_user(
 
     asset_full_sync_dto = AssetFullSyncDto.model_validate(json_data)
     kwargs["asset_full_sync_dto"] = asset_full_sync_dto
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.sync, "get_full_sync_for_user", **kwargs)
     format_mode = ctx.obj.get("format")
     print_response(result, format_mode)
 
 
-@app.command("get-sync-ack", deprecated=False)
+@app.command("get-sync-ack", deprecated=False, rich_help_panel="API commands")
 def get_sync_ack(
     ctx: typer.Context,
 ) -> None:
@@ -100,13 +103,13 @@ def get_sync_ack(
     Docs: https://api.immich.app/endpoints/sync/getSyncAck
     """
     kwargs = {}
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.sync, "get_sync_ack", **kwargs)
     format_mode = ctx.obj.get("format")
     print_response(result, format_mode)
 
 
-@app.command("get-sync-stream", deprecated=False)
+@app.command("get-sync-stream", deprecated=False, rich_help_panel="API commands")
 def get_sync_stream(
     ctx: typer.Context,
     reset: Literal["true", "false"] | None = typer.Option(None, "--reset", help=""""""),
@@ -125,13 +128,13 @@ def get_sync_stream(
 
     sync_stream_dto = SyncStreamDto.model_validate(json_data)
     kwargs["sync_stream_dto"] = sync_stream_dto
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.sync, "get_sync_stream", **kwargs)
     format_mode = ctx.obj.get("format")
     print_response(result, format_mode)
 
 
-@app.command("send-sync-ack", deprecated=False)
+@app.command("send-sync-ack", deprecated=False, rich_help_panel="API commands")
 def send_sync_ack(
     ctx: typer.Context,
     acks: list[str] = typer.Option(..., "--acks", help=""""""),
@@ -147,7 +150,7 @@ def send_sync_ack(
 
     sync_ack_set_dto = SyncAckSetDto.model_validate(json_data)
     kwargs["sync_ack_set_dto"] = sync_ack_set_dto
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.sync, "send_sync_ack", **kwargs)
     format_mode = ctx.obj.get("format")
     print_response(result, format_mode)

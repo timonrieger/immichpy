@@ -3,6 +3,10 @@
 from __future__ import annotations
 
 import typer
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from immich import AsyncClient
 
 from immich.cli.runtime import print_response, run_command, set_nested
 from immich.client.models import *
@@ -12,7 +16,7 @@ app = typer.Typer(
 )
 
 
-@app.command("empty-trash", deprecated=False)
+@app.command("empty-trash", deprecated=False, rich_help_panel="API commands")
 def empty_trash(
     ctx: typer.Context,
 ) -> None:
@@ -21,13 +25,13 @@ def empty_trash(
     Docs: https://api.immich.app/endpoints/trash/emptyTrash
     """
     kwargs = {}
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.trash, "empty_trash", **kwargs)
     format_mode = ctx.obj.get("format")
     print_response(result, format_mode)
 
 
-@app.command("restore-assets", deprecated=False)
+@app.command("restore-assets", deprecated=False, rich_help_panel="API commands")
 def restore_assets(
     ctx: typer.Context,
     ids: list[str] = typer.Option(..., "--ids", help=""""""),
@@ -43,13 +47,13 @@ def restore_assets(
 
     bulk_ids_dto = BulkIdsDto.model_validate(json_data)
     kwargs["bulk_ids_dto"] = bulk_ids_dto
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.trash, "restore_assets", **kwargs)
     format_mode = ctx.obj.get("format")
     print_response(result, format_mode)
 
 
-@app.command("restore-trash", deprecated=False)
+@app.command("restore-trash", deprecated=False, rich_help_panel="API commands")
 def restore_trash(
     ctx: typer.Context,
 ) -> None:
@@ -58,7 +62,7 @@ def restore_trash(
     Docs: https://api.immich.app/endpoints/trash/restoreTrash
     """
     kwargs = {}
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.trash, "restore_trash", **kwargs)
     format_mode = ctx.obj.get("format")
     print_response(result, format_mode)

@@ -3,6 +3,10 @@
 from __future__ import annotations
 
 import typer
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from immich import AsyncClient
 
 from immich.cli.runtime import print_response, run_command, set_nested
 from immich.client.models import *
@@ -12,7 +16,7 @@ app = typer.Typer(
 )
 
 
-@app.command("create-api-key", deprecated=False)
+@app.command("create-api-key", deprecated=False, rich_help_panel="API commands")
 def create_api_key(
     ctx: typer.Context,
     name: str | None = typer.Option(None, "--name", help=""""""),
@@ -31,13 +35,13 @@ def create_api_key(
 
     api_key_create_dto = APIKeyCreateDto.model_validate(json_data)
     kwargs["api_key_create_dto"] = api_key_create_dto
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.api_keys, "create_api_key", **kwargs)
     format_mode = ctx.obj.get("format")
     print_response(result, format_mode)
 
 
-@app.command("delete-api-key", deprecated=False)
+@app.command("delete-api-key", deprecated=False, rich_help_panel="API commands")
 def delete_api_key(
     ctx: typer.Context,
     id: str = typer.Argument(..., help=""""""),
@@ -48,13 +52,13 @@ def delete_api_key(
     """
     kwargs = {}
     kwargs["id"] = id
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.api_keys, "delete_api_key", **kwargs)
     format_mode = ctx.obj.get("format")
     print_response(result, format_mode)
 
 
-@app.command("get-api-key", deprecated=False)
+@app.command("get-api-key", deprecated=False, rich_help_panel="API commands")
 def get_api_key(
     ctx: typer.Context,
     id: str = typer.Argument(..., help=""""""),
@@ -65,13 +69,13 @@ def get_api_key(
     """
     kwargs = {}
     kwargs["id"] = id
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.api_keys, "get_api_key", **kwargs)
     format_mode = ctx.obj.get("format")
     print_response(result, format_mode)
 
 
-@app.command("get-api-keys", deprecated=False)
+@app.command("get-api-keys", deprecated=False, rich_help_panel="API commands")
 def get_api_keys(
     ctx: typer.Context,
 ) -> None:
@@ -80,13 +84,13 @@ def get_api_keys(
     Docs: https://api.immich.app/endpoints/api-keys/getApiKeys
     """
     kwargs = {}
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.api_keys, "get_api_keys", **kwargs)
     format_mode = ctx.obj.get("format")
     print_response(result, format_mode)
 
 
-@app.command("get-my-api-key", deprecated=False)
+@app.command("get-my-api-key", deprecated=False, rich_help_panel="API commands")
 def get_my_api_key(
     ctx: typer.Context,
 ) -> None:
@@ -95,13 +99,13 @@ def get_my_api_key(
     Docs: https://api.immich.app/endpoints/api-keys/getMyApiKey
     """
     kwargs = {}
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.api_keys, "get_my_api_key", **kwargs)
     format_mode = ctx.obj.get("format")
     print_response(result, format_mode)
 
 
-@app.command("update-api-key", deprecated=False)
+@app.command("update-api-key", deprecated=False, rich_help_panel="API commands")
 def update_api_key(
     ctx: typer.Context,
     id: str = typer.Argument(..., help=""""""),
@@ -125,7 +129,7 @@ def update_api_key(
 
     api_key_update_dto = APIKeyUpdateDto.model_validate(json_data)
     kwargs["api_key_update_dto"] = api_key_update_dto
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.api_keys, "update_api_key", **kwargs)
     format_mode = ctx.obj.get("format")
     print_response(result, format_mode)

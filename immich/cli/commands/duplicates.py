@@ -3,6 +3,10 @@
 from __future__ import annotations
 
 import typer
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from immich import AsyncClient
 
 from immich.cli.runtime import print_response, run_command, set_nested
 from immich.client.models import *
@@ -12,7 +16,7 @@ app = typer.Typer(
 )
 
 
-@app.command("delete-duplicate", deprecated=False)
+@app.command("delete-duplicate", deprecated=False, rich_help_panel="API commands")
 def delete_duplicate(
     ctx: typer.Context,
     id: str = typer.Argument(..., help=""""""),
@@ -23,13 +27,13 @@ def delete_duplicate(
     """
     kwargs = {}
     kwargs["id"] = id
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.duplicates, "delete_duplicate", **kwargs)
     format_mode = ctx.obj.get("format")
     print_response(result, format_mode)
 
 
-@app.command("delete-duplicates", deprecated=False)
+@app.command("delete-duplicates", deprecated=False, rich_help_panel="API commands")
 def delete_duplicates(
     ctx: typer.Context,
     ids: list[str] = typer.Option(..., "--ids", help=""""""),
@@ -45,13 +49,13 @@ def delete_duplicates(
 
     bulk_ids_dto = BulkIdsDto.model_validate(json_data)
     kwargs["bulk_ids_dto"] = bulk_ids_dto
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.duplicates, "delete_duplicates", **kwargs)
     format_mode = ctx.obj.get("format")
     print_response(result, format_mode)
 
 
-@app.command("get-asset-duplicates", deprecated=False)
+@app.command("get-asset-duplicates", deprecated=False, rich_help_panel="API commands")
 def get_asset_duplicates(
     ctx: typer.Context,
 ) -> None:
@@ -60,7 +64,7 @@ def get_asset_duplicates(
     Docs: https://api.immich.app/endpoints/duplicates/getAssetDuplicates
     """
     kwargs = {}
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.duplicates, "get_asset_duplicates", **kwargs)
     format_mode = ctx.obj.get("format")
     print_response(result, format_mode)

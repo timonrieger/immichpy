@@ -3,7 +3,10 @@
 from __future__ import annotations
 
 import typer
-from typing import Literal
+from typing import Literal, TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from immich import AsyncClient
 
 from immich.cli.runtime import print_response, run_command
 from immich.client.models import *
@@ -13,7 +16,7 @@ app = typer.Typer(
 )
 
 
-@app.command("get-time-bucket", deprecated=False)
+@app.command("get-time-bucket", deprecated=False, rich_help_panel="API commands")
 def get_time_bucket(
     ctx: typer.Context,
     album_id: str | None = typer.Option(
@@ -101,13 +104,13 @@ def get_time_bucket(
         kwargs["with_partners"] = with_partners.lower() == "true"
     if with_stacked is not None:
         kwargs["with_stacked"] = with_stacked.lower() == "true"
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.timeline, "get_time_bucket", **kwargs)
     format_mode = ctx.obj.get("format")
     print_response(result, format_mode)
 
 
-@app.command("get-time-buckets", deprecated=False)
+@app.command("get-time-buckets", deprecated=False, rich_help_panel="API commands")
 def get_time_buckets(
     ctx: typer.Context,
     album_id: str | None = typer.Option(
@@ -189,7 +192,7 @@ def get_time_buckets(
         kwargs["with_partners"] = with_partners.lower() == "true"
     if with_stacked is not None:
         kwargs["with_stacked"] = with_stacked.lower() == "true"
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.timeline, "get_time_buckets", **kwargs)
     format_mode = ctx.obj.get("format")
     print_response(result, format_mode)

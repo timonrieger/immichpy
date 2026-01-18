@@ -3,6 +3,10 @@
 from __future__ import annotations
 
 import typer
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from immich import AsyncClient
 
 from immich.cli.runtime import print_response, run_command, set_nested
 from immich.client.models import *
@@ -12,7 +16,7 @@ app = typer.Typer(
 )
 
 
-@app.command("create-stack", deprecated=False)
+@app.command("create-stack", deprecated=False, rich_help_panel="API commands")
 def create_stack(
     ctx: typer.Context,
     asset_ids: list[str] = typer.Option(
@@ -30,13 +34,13 @@ def create_stack(
 
     stack_create_dto = StackCreateDto.model_validate(json_data)
     kwargs["stack_create_dto"] = stack_create_dto
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.stacks, "create_stack", **kwargs)
     format_mode = ctx.obj.get("format")
     print_response(result, format_mode)
 
 
-@app.command("delete-stack", deprecated=False)
+@app.command("delete-stack", deprecated=False, rich_help_panel="API commands")
 def delete_stack(
     ctx: typer.Context,
     id: str = typer.Argument(..., help=""""""),
@@ -47,13 +51,13 @@ def delete_stack(
     """
     kwargs = {}
     kwargs["id"] = id
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.stacks, "delete_stack", **kwargs)
     format_mode = ctx.obj.get("format")
     print_response(result, format_mode)
 
 
-@app.command("delete-stacks", deprecated=False)
+@app.command("delete-stacks", deprecated=False, rich_help_panel="API commands")
 def delete_stacks(
     ctx: typer.Context,
     ids: list[str] = typer.Option(..., "--ids", help=""""""),
@@ -69,13 +73,13 @@ def delete_stacks(
 
     bulk_ids_dto = BulkIdsDto.model_validate(json_data)
     kwargs["bulk_ids_dto"] = bulk_ids_dto
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.stacks, "delete_stacks", **kwargs)
     format_mode = ctx.obj.get("format")
     print_response(result, format_mode)
 
 
-@app.command("get-stack", deprecated=False)
+@app.command("get-stack", deprecated=False, rich_help_panel="API commands")
 def get_stack(
     ctx: typer.Context,
     id: str = typer.Argument(..., help=""""""),
@@ -86,13 +90,15 @@ def get_stack(
     """
     kwargs = {}
     kwargs["id"] = id
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.stacks, "get_stack", **kwargs)
     format_mode = ctx.obj.get("format")
     print_response(result, format_mode)
 
 
-@app.command("remove-asset-from-stack", deprecated=False)
+@app.command(
+    "remove-asset-from-stack", deprecated=False, rich_help_panel="API commands"
+)
 def remove_asset_from_stack(
     ctx: typer.Context,
     asset_id: str = typer.Argument(..., help=""""""),
@@ -105,13 +111,13 @@ def remove_asset_from_stack(
     kwargs = {}
     kwargs["asset_id"] = asset_id
     kwargs["id"] = id
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.stacks, "remove_asset_from_stack", **kwargs)
     format_mode = ctx.obj.get("format")
     print_response(result, format_mode)
 
 
-@app.command("search-stacks", deprecated=False)
+@app.command("search-stacks", deprecated=False, rich_help_panel="API commands")
 def search_stacks(
     ctx: typer.Context,
     primary_asset_id: str | None = typer.Option(
@@ -125,13 +131,13 @@ def search_stacks(
     kwargs = {}
     if primary_asset_id is not None:
         kwargs["primary_asset_id"] = primary_asset_id
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.stacks, "search_stacks", **kwargs)
     format_mode = ctx.obj.get("format")
     print_response(result, format_mode)
 
 
-@app.command("update-stack", deprecated=False)
+@app.command("update-stack", deprecated=False, rich_help_panel="API commands")
 def update_stack(
     ctx: typer.Context,
     id: str = typer.Argument(..., help=""""""),
@@ -152,7 +158,7 @@ def update_stack(
 
     stack_update_dto = StackUpdateDto.model_validate(json_data)
     kwargs["stack_update_dto"] = stack_update_dto
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.stacks, "update_stack", **kwargs)
     format_mode = ctx.obj.get("format")
     print_response(result, format_mode)

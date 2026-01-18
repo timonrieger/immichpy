@@ -4,7 +4,10 @@ from __future__ import annotations
 
 import typer
 import json
-from typing import Literal
+from typing import Literal, TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from immich import AsyncClient
 
 from immich.cli.runtime import print_response, run_command, set_nested
 from immich.client.models import *
@@ -14,7 +17,7 @@ app = typer.Typer(
 )
 
 
-@app.command("add-assets-to-album", deprecated=False)
+@app.command("add-assets-to-album", deprecated=False, rich_help_panel="API commands")
 def add_assets_to_album(
     ctx: typer.Context,
     id: str = typer.Argument(..., help=""""""),
@@ -38,13 +41,13 @@ def add_assets_to_album(
 
     bulk_ids_dto = BulkIdsDto.model_validate(json_data)
     kwargs["bulk_ids_dto"] = bulk_ids_dto
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.albums, "add_assets_to_album", **kwargs)
     format_mode = ctx.obj.get("format")
     print_response(result, format_mode)
 
 
-@app.command("add-assets-to-albums", deprecated=False)
+@app.command("add-assets-to-albums", deprecated=False, rich_help_panel="API commands")
 def add_assets_to_albums(
     ctx: typer.Context,
     album_ids: list[str] = typer.Option(..., "--album-ids", help=""""""),
@@ -68,13 +71,13 @@ def add_assets_to_albums(
 
     albums_add_assets_dto = AlbumsAddAssetsDto.model_validate(json_data)
     kwargs["albums_add_assets_dto"] = albums_add_assets_dto
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.albums, "add_assets_to_albums", **kwargs)
     format_mode = ctx.obj.get("format")
     print_response(result, format_mode)
 
 
-@app.command("add-users-to-album", deprecated=False)
+@app.command("add-users-to-album", deprecated=False, rich_help_panel="API commands")
 def add_users_to_album(
     ctx: typer.Context,
     id: str = typer.Argument(..., help=""""""),
@@ -95,13 +98,13 @@ def add_users_to_album(
 
     add_users_dto = AddUsersDto.model_validate(json_data)
     kwargs["add_users_dto"] = add_users_dto
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.albums, "add_users_to_album", **kwargs)
     format_mode = ctx.obj.get("format")
     print_response(result, format_mode)
 
 
-@app.command("create-album", deprecated=False)
+@app.command("create-album", deprecated=False, rich_help_panel="API commands")
 def create_album(
     ctx: typer.Context,
     album_name: str = typer.Option(..., "--album-name", help=""""""),
@@ -129,13 +132,13 @@ def create_album(
 
     create_album_dto = CreateAlbumDto.model_validate(json_data)
     kwargs["create_album_dto"] = create_album_dto
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.albums, "create_album", **kwargs)
     format_mode = ctx.obj.get("format")
     print_response(result, format_mode)
 
 
-@app.command("delete-album", deprecated=False)
+@app.command("delete-album", deprecated=False, rich_help_panel="API commands")
 def delete_album(
     ctx: typer.Context,
     id: str = typer.Argument(..., help=""""""),
@@ -146,13 +149,13 @@ def delete_album(
     """
     kwargs = {}
     kwargs["id"] = id
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.albums, "delete_album", **kwargs)
     format_mode = ctx.obj.get("format")
     print_response(result, format_mode)
 
 
-@app.command("get-album-info", deprecated=False)
+@app.command("get-album-info", deprecated=False, rich_help_panel="API commands")
 def get_album_info(
     ctx: typer.Context,
     id: str = typer.Argument(..., help=""""""),
@@ -174,13 +177,13 @@ def get_album_info(
         kwargs["slug"] = slug
     if without_assets is not None:
         kwargs["without_assets"] = without_assets.lower() == "true"
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.albums, "get_album_info", **kwargs)
     format_mode = ctx.obj.get("format")
     print_response(result, format_mode)
 
 
-@app.command("get-album-statistics", deprecated=False)
+@app.command("get-album-statistics", deprecated=False, rich_help_panel="API commands")
 def get_album_statistics(
     ctx: typer.Context,
 ) -> None:
@@ -189,13 +192,13 @@ def get_album_statistics(
     Docs: https://api.immich.app/endpoints/albums/getAlbumStatistics
     """
     kwargs = {}
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.albums, "get_album_statistics", **kwargs)
     format_mode = ctx.obj.get("format")
     print_response(result, format_mode)
 
 
-@app.command("get-all-albums", deprecated=False)
+@app.command("get-all-albums", deprecated=False, rich_help_panel="API commands")
 def get_all_albums(
     ctx: typer.Context,
     asset_id: str | None = typer.Option(
@@ -218,13 +221,15 @@ undefined: get all albums""",
         kwargs["asset_id"] = asset_id
     if shared is not None:
         kwargs["shared"] = shared.lower() == "true"
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.albums, "get_all_albums", **kwargs)
     format_mode = ctx.obj.get("format")
     print_response(result, format_mode)
 
 
-@app.command("remove-asset-from-album", deprecated=False)
+@app.command(
+    "remove-asset-from-album", deprecated=False, rich_help_panel="API commands"
+)
 def remove_asset_from_album(
     ctx: typer.Context,
     id: str = typer.Argument(..., help=""""""),
@@ -242,13 +247,13 @@ def remove_asset_from_album(
 
     bulk_ids_dto = BulkIdsDto.model_validate(json_data)
     kwargs["bulk_ids_dto"] = bulk_ids_dto
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.albums, "remove_asset_from_album", **kwargs)
     format_mode = ctx.obj.get("format")
     print_response(result, format_mode)
 
 
-@app.command("remove-user-from-album", deprecated=False)
+@app.command("remove-user-from-album", deprecated=False, rich_help_panel="API commands")
 def remove_user_from_album(
     ctx: typer.Context,
     id: str = typer.Argument(..., help=""""""),
@@ -261,13 +266,13 @@ def remove_user_from_album(
     kwargs = {}
     kwargs["id"] = id
     kwargs["user_id"] = user_id
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.albums, "remove_user_from_album", **kwargs)
     format_mode = ctx.obj.get("format")
     print_response(result, format_mode)
 
 
-@app.command("update-album-info", deprecated=False)
+@app.command("update-album-info", deprecated=False, rich_help_panel="API commands")
 def update_album_info(
     ctx: typer.Context,
     id: str = typer.Argument(..., help=""""""),
@@ -304,13 +309,13 @@ def update_album_info(
 
     update_album_dto = UpdateAlbumDto.model_validate(json_data)
     kwargs["update_album_dto"] = update_album_dto
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.albums, "update_album_info", **kwargs)
     format_mode = ctx.obj.get("format")
     print_response(result, format_mode)
 
 
-@app.command("update-album-user", deprecated=False)
+@app.command("update-album-user", deprecated=False, rich_help_panel="API commands")
 def update_album_user(
     ctx: typer.Context,
     id: str = typer.Argument(..., help=""""""),
@@ -330,7 +335,7 @@ def update_album_user(
 
     update_album_user_dto = UpdateAlbumUserDto.model_validate(json_data)
     kwargs["update_album_user_dto"] = update_album_user_dto
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.albums, "update_album_user", **kwargs)
     format_mode = ctx.obj.get("format")
     print_response(result, format_mode)

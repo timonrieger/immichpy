@@ -3,6 +3,10 @@
 from __future__ import annotations
 
 import typer
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from immich import AsyncClient
 
 from immich.cli.runtime import print_response, run_command, set_nested
 from immich.client.models import *
@@ -12,7 +16,7 @@ app = typer.Typer(
 )
 
 
-@app.command("maintenance-login", deprecated=False)
+@app.command("maintenance-login", deprecated=False, rich_help_panel="API commands")
 def maintenance_login(
     ctx: typer.Context,
     token: str | None = typer.Option(None, "--token", help=""""""),
@@ -29,7 +33,7 @@ def maintenance_login(
 
     maintenance_login_dto = MaintenanceLoginDto.model_validate(json_data)
     kwargs["maintenance_login_dto"] = maintenance_login_dto
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(
         client, client.maintenance_admin, "maintenance_login", **kwargs
     )
@@ -37,7 +41,7 @@ def maintenance_login(
     print_response(result, format_mode)
 
 
-@app.command("set-maintenance-mode", deprecated=False)
+@app.command("set-maintenance-mode", deprecated=False, rich_help_panel="API commands")
 def set_maintenance_mode(
     ctx: typer.Context,
     action: str = typer.Option(..., "--action", help=""""""),
@@ -53,7 +57,7 @@ def set_maintenance_mode(
 
     set_maintenance_mode_dto = SetMaintenanceModeDto.model_validate(json_data)
     kwargs["set_maintenance_mode_dto"] = set_maintenance_mode_dto
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(
         client, client.maintenance_admin, "set_maintenance_mode", **kwargs
     )

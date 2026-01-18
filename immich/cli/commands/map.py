@@ -4,7 +4,10 @@ from __future__ import annotations
 
 import typer
 from datetime import datetime
-from typing import Literal
+from typing import Literal, TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from immich import AsyncClient
 
 from immich.cli.runtime import print_response, run_command
 from immich.client.models import *
@@ -14,7 +17,7 @@ app = typer.Typer(
 )
 
 
-@app.command("get-map-markers", deprecated=False)
+@app.command("get-map-markers", deprecated=False, rich_help_panel="API commands")
 def get_map_markers(
     ctx: typer.Context,
     file_created_after: datetime | None = typer.Option(
@@ -53,13 +56,13 @@ def get_map_markers(
         kwargs["with_partners"] = with_partners.lower() == "true"
     if with_shared_albums is not None:
         kwargs["with_shared_albums"] = with_shared_albums.lower() == "true"
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.map, "get_map_markers", **kwargs)
     format_mode = ctx.obj.get("format")
     print_response(result, format_mode)
 
 
-@app.command("reverse-geocode", deprecated=False)
+@app.command("reverse-geocode", deprecated=False, rich_help_panel="API commands")
 def reverse_geocode(
     ctx: typer.Context,
     lat: float = typer.Option(..., "--lat", help=""""""),
@@ -72,7 +75,7 @@ def reverse_geocode(
     kwargs = {}
     kwargs["lat"] = lat
     kwargs["lon"] = lon
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.map, "reverse_geocode", **kwargs)
     format_mode = ctx.obj.get("format")
     print_response(result, format_mode)

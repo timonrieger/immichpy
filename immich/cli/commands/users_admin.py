@@ -3,7 +3,10 @@
 from __future__ import annotations
 
 import typer
-from typing import Literal
+from typing import Literal, TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from immich import AsyncClient
 
 from immich.cli.runtime import print_response, run_command, set_nested
 from immich.client.models import *
@@ -13,7 +16,7 @@ app = typer.Typer(
 )
 
 
-@app.command("create-user-admin", deprecated=False)
+@app.command("create-user-admin", deprecated=False, rich_help_panel="API commands")
 def create_user_admin(
     ctx: typer.Context,
     avatar_color: str | None = typer.Option(None, "--avatar-color", help=""""""),
@@ -63,13 +66,13 @@ def create_user_admin(
 
     user_admin_create_dto = UserAdminCreateDto.model_validate(json_data)
     kwargs["user_admin_create_dto"] = user_admin_create_dto
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.users_admin, "create_user_admin", **kwargs)
     format_mode = ctx.obj.get("format")
     print_response(result, format_mode)
 
 
-@app.command("delete-user-admin", deprecated=False)
+@app.command("delete-user-admin", deprecated=False, rich_help_panel="API commands")
 def delete_user_admin(
     ctx: typer.Context,
     id: str = typer.Argument(..., help=""""""),
@@ -88,13 +91,13 @@ def delete_user_admin(
 
     user_admin_delete_dto = UserAdminDeleteDto.model_validate(json_data)
     kwargs["user_admin_delete_dto"] = user_admin_delete_dto
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.users_admin, "delete_user_admin", **kwargs)
     format_mode = ctx.obj.get("format")
     print_response(result, format_mode)
 
 
-@app.command("get-user-admin", deprecated=False)
+@app.command("get-user-admin", deprecated=False, rich_help_panel="API commands")
 def get_user_admin(
     ctx: typer.Context,
     id: str = typer.Argument(..., help=""""""),
@@ -105,13 +108,15 @@ def get_user_admin(
     """
     kwargs = {}
     kwargs["id"] = id
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.users_admin, "get_user_admin", **kwargs)
     format_mode = ctx.obj.get("format")
     print_response(result, format_mode)
 
 
-@app.command("get-user-preferences-admin", deprecated=False)
+@app.command(
+    "get-user-preferences-admin", deprecated=False, rich_help_panel="API commands"
+)
 def get_user_preferences_admin(
     ctx: typer.Context,
     id: str = typer.Argument(..., help=""""""),
@@ -122,7 +127,7 @@ def get_user_preferences_admin(
     """
     kwargs = {}
     kwargs["id"] = id
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(
         client, client.users_admin, "get_user_preferences_admin", **kwargs
     )
@@ -130,7 +135,9 @@ def get_user_preferences_admin(
     print_response(result, format_mode)
 
 
-@app.command("get-user-sessions-admin", deprecated=False)
+@app.command(
+    "get-user-sessions-admin", deprecated=False, rich_help_panel="API commands"
+)
 def get_user_sessions_admin(
     ctx: typer.Context,
     id: str = typer.Argument(..., help=""""""),
@@ -141,7 +148,7 @@ def get_user_sessions_admin(
     """
     kwargs = {}
     kwargs["id"] = id
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(
         client, client.users_admin, "get_user_sessions_admin", **kwargs
     )
@@ -149,7 +156,9 @@ def get_user_sessions_admin(
     print_response(result, format_mode)
 
 
-@app.command("get-user-statistics-admin", deprecated=False)
+@app.command(
+    "get-user-statistics-admin", deprecated=False, rich_help_panel="API commands"
+)
 def get_user_statistics_admin(
     ctx: typer.Context,
     id: str = typer.Argument(..., help=""""""),
@@ -175,7 +184,7 @@ def get_user_statistics_admin(
         kwargs["is_trashed"] = is_trashed.lower() == "true"
     if visibility is not None:
         kwargs["visibility"] = visibility
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(
         client, client.users_admin, "get_user_statistics_admin", **kwargs
     )
@@ -183,7 +192,7 @@ def get_user_statistics_admin(
     print_response(result, format_mode)
 
 
-@app.command("restore-user-admin", deprecated=False)
+@app.command("restore-user-admin", deprecated=False, rich_help_panel="API commands")
 def restore_user_admin(
     ctx: typer.Context,
     id: str = typer.Argument(..., help=""""""),
@@ -194,13 +203,13 @@ def restore_user_admin(
     """
     kwargs = {}
     kwargs["id"] = id
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.users_admin, "restore_user_admin", **kwargs)
     format_mode = ctx.obj.get("format")
     print_response(result, format_mode)
 
 
-@app.command("search-users-admin", deprecated=False)
+@app.command("search-users-admin", deprecated=False, rich_help_panel="API commands")
 def search_users_admin(
     ctx: typer.Context,
     id: str | None = typer.Option(None, "--id", help=""""""),
@@ -217,13 +226,13 @@ def search_users_admin(
         kwargs["id"] = id
     if with_deleted is not None:
         kwargs["with_deleted"] = with_deleted.lower() == "true"
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.users_admin, "search_users_admin", **kwargs)
     format_mode = ctx.obj.get("format")
     print_response(result, format_mode)
 
 
-@app.command("update-user-admin", deprecated=False)
+@app.command("update-user-admin", deprecated=False, rich_help_panel="API commands")
 def update_user_admin(
     ctx: typer.Context,
     id: str = typer.Argument(..., help=""""""),
@@ -276,13 +285,15 @@ def update_user_admin(
 
     user_admin_update_dto = UserAdminUpdateDto.model_validate(json_data)
     kwargs["user_admin_update_dto"] = user_admin_update_dto
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.users_admin, "update_user_admin", **kwargs)
     format_mode = ctx.obj.get("format")
     print_response(result, format_mode)
 
 
-@app.command("update-user-preferences-admin", deprecated=False)
+@app.command(
+    "update-user-preferences-admin", deprecated=False, rich_help_panel="API commands"
+)
 def update_user_preferences_admin(
     ctx: typer.Context,
     id: str = typer.Argument(..., help=""""""),
@@ -441,7 +452,7 @@ def update_user_preferences_admin(
 
     user_preferences_update_dto = UserPreferencesUpdateDto.model_validate(json_data)
     kwargs["user_preferences_update_dto"] = user_preferences_update_dto
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(
         client, client.users_admin, "update_user_preferences_admin", **kwargs
     )

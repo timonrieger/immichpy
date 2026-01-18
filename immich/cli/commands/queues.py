@@ -3,7 +3,10 @@
 from __future__ import annotations
 
 import typer
-from typing import Literal
+from typing import Literal, TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from immich import AsyncClient
 
 from immich.cli.runtime import print_response, run_command, set_nested
 from immich.client.models import *
@@ -13,7 +16,7 @@ app = typer.Typer(
 )
 
 
-@app.command("empty-queue", deprecated=False)
+@app.command("empty-queue", deprecated=False, rich_help_panel="API commands")
 def empty_queue(
     ctx: typer.Context,
     name: QueueName = typer.Argument(..., help=""""""),
@@ -36,13 +39,13 @@ def empty_queue(
 
     queue_delete_dto = QueueDeleteDto.model_validate(json_data)
     kwargs["queue_delete_dto"] = queue_delete_dto
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.queues, "empty_queue", **kwargs)
     format_mode = ctx.obj.get("format")
     print_response(result, format_mode)
 
 
-@app.command("get-queue", deprecated=False)
+@app.command("get-queue", deprecated=False, rich_help_panel="API commands")
 def get_queue(
     ctx: typer.Context,
     name: QueueName = typer.Argument(..., help=""""""),
@@ -53,13 +56,13 @@ def get_queue(
     """
     kwargs = {}
     kwargs["name"] = name
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.queues, "get_queue", **kwargs)
     format_mode = ctx.obj.get("format")
     print_response(result, format_mode)
 
 
-@app.command("get-queue-jobs", deprecated=False)
+@app.command("get-queue-jobs", deprecated=False, rich_help_panel="API commands")
 def get_queue_jobs(
     ctx: typer.Context,
     name: QueueName = typer.Argument(..., help=""""""),
@@ -73,13 +76,13 @@ def get_queue_jobs(
     kwargs["name"] = name
     if status is not None:
         kwargs["status"] = status
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.queues, "get_queue_jobs", **kwargs)
     format_mode = ctx.obj.get("format")
     print_response(result, format_mode)
 
 
-@app.command("get-queues", deprecated=False)
+@app.command("get-queues", deprecated=False, rich_help_panel="API commands")
 def get_queues(
     ctx: typer.Context,
 ) -> None:
@@ -88,13 +91,13 @@ def get_queues(
     Docs: https://api.immich.app/endpoints/queues/getQueues
     """
     kwargs = {}
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.queues, "get_queues", **kwargs)
     format_mode = ctx.obj.get("format")
     print_response(result, format_mode)
 
 
-@app.command("update-queue", deprecated=False)
+@app.command("update-queue", deprecated=False, rich_help_panel="API commands")
 def update_queue(
     ctx: typer.Context,
     name: QueueName = typer.Argument(..., help=""""""),
@@ -115,7 +118,7 @@ def update_queue(
 
     queue_update_dto = QueueUpdateDto.model_validate(json_data)
     kwargs["queue_update_dto"] = queue_update_dto
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.queues, "update_queue", **kwargs)
     format_mode = ctx.obj.get("format")
     print_response(result, format_mode)

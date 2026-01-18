@@ -4,7 +4,10 @@ from __future__ import annotations
 
 import typer
 from datetime import datetime
-from typing import Literal
+from typing import Literal, TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from immich import AsyncClient
 
 from immich.cli.runtime import print_response, run_command, set_nested
 from immich.client.models import *
@@ -14,7 +17,7 @@ app = typer.Typer(
 )
 
 
-@app.command("get-assets-by-city", deprecated=False)
+@app.command("get-assets-by-city", deprecated=False, rich_help_panel="API commands")
 def get_assets_by_city(
     ctx: typer.Context,
 ) -> None:
@@ -23,13 +26,13 @@ def get_assets_by_city(
     Docs: https://api.immich.app/endpoints/search/getAssetsByCity
     """
     kwargs = {}
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.search, "get_assets_by_city", **kwargs)
     format_mode = ctx.obj.get("format")
     print_response(result, format_mode)
 
 
-@app.command("get-explore-data", deprecated=False)
+@app.command("get-explore-data", deprecated=False, rich_help_panel="API commands")
 def get_explore_data(
     ctx: typer.Context,
 ) -> None:
@@ -38,13 +41,13 @@ def get_explore_data(
     Docs: https://api.immich.app/endpoints/search/getExploreData
     """
     kwargs = {}
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.search, "get_explore_data", **kwargs)
     format_mode = ctx.obj.get("format")
     print_response(result, format_mode)
 
 
-@app.command("get-search-suggestions", deprecated=False)
+@app.command("get-search-suggestions", deprecated=False, rich_help_panel="API commands")
 def get_search_suggestions(
     ctx: typer.Context,
     country: str | None = typer.Option(None, "--country", help=""""""),
@@ -75,13 +78,15 @@ def get_search_suggestions(
     if state is not None:
         kwargs["state"] = state
     kwargs["type"] = type
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.search, "get_search_suggestions", **kwargs)
     format_mode = ctx.obj.get("format")
     print_response(result, format_mode)
 
 
-@app.command("search-asset-statistics", deprecated=False)
+@app.command(
+    "search-asset-statistics", deprecated=False, rich_help_panel="API commands"
+)
 def search_asset_statistics(
     ctx: typer.Context,
     album_ids: list[str] | None = typer.Option(None, "--album-ids", help=""""""),
@@ -198,13 +203,13 @@ def search_asset_statistics(
 
     statistics_search_dto = StatisticsSearchDto.model_validate(json_data)
     kwargs["statistics_search_dto"] = statistics_search_dto
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.search, "search_asset_statistics", **kwargs)
     format_mode = ctx.obj.get("format")
     print_response(result, format_mode)
 
 
-@app.command("search-assets", deprecated=False)
+@app.command("search-assets", deprecated=False, rich_help_panel="API commands")
 def search_assets(
     ctx: typer.Context,
     album_ids: list[str] | None = typer.Option(None, "--album-ids", help=""""""),
@@ -378,13 +383,13 @@ def search_assets(
 
     metadata_search_dto = MetadataSearchDto.model_validate(json_data)
     kwargs["metadata_search_dto"] = metadata_search_dto
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.search, "search_assets", **kwargs)
     format_mode = ctx.obj.get("format")
     print_response(result, format_mode)
 
 
-@app.command("search-large-assets", deprecated=False)
+@app.command("search-large-assets", deprecated=False, rich_help_panel="API commands")
 def search_large_assets(
     ctx: typer.Context,
     album_ids: list[str] | None = typer.Option(None, "--album-ids", help=""""""),
@@ -513,13 +518,13 @@ def search_large_assets(
         kwargs["with_deleted"] = with_deleted.lower() == "true"
     if with_exif is not None:
         kwargs["with_exif"] = with_exif.lower() == "true"
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.search, "search_large_assets", **kwargs)
     format_mode = ctx.obj.get("format")
     print_response(result, format_mode)
 
 
-@app.command("search-person", deprecated=False)
+@app.command("search-person", deprecated=False, rich_help_panel="API commands")
 def search_person(
     ctx: typer.Context,
     name: str = typer.Option(..., "--name", help=""""""),
@@ -535,13 +540,13 @@ def search_person(
     kwargs["name"] = name
     if with_hidden is not None:
         kwargs["with_hidden"] = with_hidden.lower() == "true"
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.search, "search_person", **kwargs)
     format_mode = ctx.obj.get("format")
     print_response(result, format_mode)
 
 
-@app.command("search-places", deprecated=False)
+@app.command("search-places", deprecated=False, rich_help_panel="API commands")
 def search_places(
     ctx: typer.Context,
     name: str = typer.Option(..., "--name", help=""""""),
@@ -552,13 +557,13 @@ def search_places(
     """
     kwargs = {}
     kwargs["name"] = name
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.search, "search_places", **kwargs)
     format_mode = ctx.obj.get("format")
     print_response(result, format_mode)
 
 
-@app.command("search-random", deprecated=False)
+@app.command("search-random", deprecated=False, rich_help_panel="API commands")
 def search_random(
     ctx: typer.Context,
     album_ids: list[str] | None = typer.Option(None, "--album-ids", help=""""""),
@@ -695,13 +700,13 @@ def search_random(
 
     random_search_dto = RandomSearchDto.model_validate(json_data)
     kwargs["random_search_dto"] = random_search_dto
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.search, "search_random", **kwargs)
     format_mode = ctx.obj.get("format")
     print_response(result, format_mode)
 
 
-@app.command("search-smart", deprecated=False)
+@app.command("search-smart", deprecated=False, rich_help_panel="API commands")
 def search_smart(
     ctx: typer.Context,
     album_ids: list[str] | None = typer.Option(None, "--album-ids", help=""""""),
@@ -840,7 +845,7 @@ def search_smart(
 
     smart_search_dto = SmartSearchDto.model_validate(json_data)
     kwargs["smart_search_dto"] = smart_search_dto
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.search, "search_smart", **kwargs)
     format_mode = ctx.obj.get("format")
     print_response(result, format_mode)

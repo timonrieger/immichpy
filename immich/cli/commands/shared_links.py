@@ -4,7 +4,10 @@ from __future__ import annotations
 
 import typer
 from datetime import datetime
-from typing import Literal
+from typing import Literal, TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from immich import AsyncClient
 
 from immich.cli.runtime import print_response, run_command, set_nested
 from immich.client.models import *
@@ -14,7 +17,7 @@ app = typer.Typer(
 )
 
 
-@app.command("add-shared-link-assets", deprecated=False)
+@app.command("add-shared-link-assets", deprecated=False, rich_help_panel="API commands")
 def add_shared_link_assets(
     ctx: typer.Context,
     id: str = typer.Argument(..., help=""""""),
@@ -38,7 +41,7 @@ def add_shared_link_assets(
 
     asset_ids_dto = AssetIdsDto.model_validate(json_data)
     kwargs["asset_ids_dto"] = asset_ids_dto
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(
         client, client.shared_links, "add_shared_link_assets", **kwargs
     )
@@ -46,7 +49,7 @@ def add_shared_link_assets(
     print_response(result, format_mode)
 
 
-@app.command("create-shared-link", deprecated=False)
+@app.command("create-shared-link", deprecated=False, rich_help_panel="API commands")
 def create_shared_link(
     ctx: typer.Context,
     album_id: str | None = typer.Option(None, "--album-id", help=""""""),
@@ -95,13 +98,13 @@ def create_shared_link(
 
     shared_link_create_dto = SharedLinkCreateDto.model_validate(json_data)
     kwargs["shared_link_create_dto"] = shared_link_create_dto
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.shared_links, "create_shared_link", **kwargs)
     format_mode = ctx.obj.get("format")
     print_response(result, format_mode)
 
 
-@app.command("get-all-shared-links", deprecated=False)
+@app.command("get-all-shared-links", deprecated=False, rich_help_panel="API commands")
 def get_all_shared_links(
     ctx: typer.Context,
     album_id: str | None = typer.Option(None, "--album-id", help=""""""),
@@ -116,13 +119,13 @@ def get_all_shared_links(
         kwargs["album_id"] = album_id
     if id is not None:
         kwargs["id"] = id
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.shared_links, "get_all_shared_links", **kwargs)
     format_mode = ctx.obj.get("format")
     print_response(result, format_mode)
 
 
-@app.command("get-my-shared-link", deprecated=False)
+@app.command("get-my-shared-link", deprecated=False, rich_help_panel="API commands")
 def get_my_shared_link(
     ctx: typer.Context,
     key: str | None = typer.Option(None, "--key", help=""""""),
@@ -143,13 +146,13 @@ def get_my_shared_link(
         kwargs["slug"] = slug
     if token is not None:
         kwargs["token"] = token
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.shared_links, "get_my_shared_link", **kwargs)
     format_mode = ctx.obj.get("format")
     print_response(result, format_mode)
 
 
-@app.command("get-shared-link-by-id", deprecated=False)
+@app.command("get-shared-link-by-id", deprecated=False, rich_help_panel="API commands")
 def get_shared_link_by_id(
     ctx: typer.Context,
     id: str = typer.Argument(..., help=""""""),
@@ -160,13 +163,13 @@ def get_shared_link_by_id(
     """
     kwargs = {}
     kwargs["id"] = id
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.shared_links, "get_shared_link_by_id", **kwargs)
     format_mode = ctx.obj.get("format")
     print_response(result, format_mode)
 
 
-@app.command("remove-shared-link", deprecated=False)
+@app.command("remove-shared-link", deprecated=False, rich_help_panel="API commands")
 def remove_shared_link(
     ctx: typer.Context,
     id: str = typer.Argument(..., help=""""""),
@@ -177,13 +180,15 @@ def remove_shared_link(
     """
     kwargs = {}
     kwargs["id"] = id
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.shared_links, "remove_shared_link", **kwargs)
     format_mode = ctx.obj.get("format")
     print_response(result, format_mode)
 
 
-@app.command("remove-shared-link-assets", deprecated=False)
+@app.command(
+    "remove-shared-link-assets", deprecated=False, rich_help_panel="API commands"
+)
 def remove_shared_link_assets(
     ctx: typer.Context,
     id: str = typer.Argument(..., help=""""""),
@@ -207,7 +212,7 @@ def remove_shared_link_assets(
 
     asset_ids_dto = AssetIdsDto.model_validate(json_data)
     kwargs["asset_ids_dto"] = asset_ids_dto
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(
         client, client.shared_links, "remove_shared_link_assets", **kwargs
     )
@@ -215,7 +220,7 @@ def remove_shared_link_assets(
     print_response(result, format_mode)
 
 
-@app.command("update-shared-link", deprecated=False)
+@app.command("update-shared-link", deprecated=False, rich_help_panel="API commands")
 def update_shared_link(
     ctx: typer.Context,
     id: str = typer.Argument(..., help=""""""),
@@ -269,7 +274,7 @@ Clients that can send null values can ignore this.""",
 
     shared_link_edit_dto = SharedLinkEditDto.model_validate(json_data)
     kwargs["shared_link_edit_dto"] = shared_link_edit_dto
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.shared_links, "update_shared_link", **kwargs)
     format_mode = ctx.obj.get("format")
     print_response(result, format_mode)

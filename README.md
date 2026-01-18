@@ -84,7 +84,7 @@ Some API groups include custom convenience methods that are **preferred** over t
 
 ## Authentication
 
-Immich supports API keys. Create one in your server and pass it via `api_key=...`. Bearer tokens are also supported.
+This package supports both API keys and bearer tokens. You will likely want to use the former for persistent authentication.
 
 ## Usage
 

@@ -3,7 +3,10 @@
 from __future__ import annotations
 
 import typer
-from typing import Literal
+from typing import Literal, TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from immich import AsyncClient
 
 from immich.cli.runtime import print_response, run_command, set_nested
 from immich.client.models import *
@@ -13,7 +16,7 @@ app = typer.Typer(
 )
 
 
-@app.command("create-partner", deprecated=False)
+@app.command("create-partner", deprecated=False, rich_help_panel="API commands")
 def create_partner(
     ctx: typer.Context,
     shared_with_id: str = typer.Option(..., "--shared-with-id", help=""""""),
@@ -29,13 +32,15 @@ def create_partner(
 
     partner_create_dto = PartnerCreateDto.model_validate(json_data)
     kwargs["partner_create_dto"] = partner_create_dto
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.partners, "create_partner", **kwargs)
     format_mode = ctx.obj.get("format")
     print_response(result, format_mode)
 
 
-@app.command("create-partner-deprecated", deprecated=True)
+@app.command(
+    "create-partner-deprecated", deprecated=True, rich_help_panel="API commands"
+)
 def create_partner_deprecated(
     ctx: typer.Context,
     id: str = typer.Argument(..., help=""""""),
@@ -46,13 +51,13 @@ def create_partner_deprecated(
     """
     kwargs = {}
     kwargs["id"] = id
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.partners, "create_partner_deprecated", **kwargs)
     format_mode = ctx.obj.get("format")
     print_response(result, format_mode)
 
 
-@app.command("get-partners", deprecated=False)
+@app.command("get-partners", deprecated=False, rich_help_panel="API commands")
 def get_partners(
     ctx: typer.Context,
     direction: PartnerDirection = typer.Option(..., "--direction", help=""""""),
@@ -63,13 +68,13 @@ def get_partners(
     """
     kwargs = {}
     kwargs["direction"] = direction
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.partners, "get_partners", **kwargs)
     format_mode = ctx.obj.get("format")
     print_response(result, format_mode)
 
 
-@app.command("remove-partner", deprecated=False)
+@app.command("remove-partner", deprecated=False, rich_help_panel="API commands")
 def remove_partner(
     ctx: typer.Context,
     id: str = typer.Argument(..., help=""""""),
@@ -80,13 +85,13 @@ def remove_partner(
     """
     kwargs = {}
     kwargs["id"] = id
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.partners, "remove_partner", **kwargs)
     format_mode = ctx.obj.get("format")
     print_response(result, format_mode)
 
 
-@app.command("update-partner", deprecated=False)
+@app.command("update-partner", deprecated=False, rich_help_panel="API commands")
 def update_partner(
     ctx: typer.Context,
     id: str = typer.Argument(..., help=""""""),
@@ -106,7 +111,7 @@ def update_partner(
 
     partner_update_dto = PartnerUpdateDto.model_validate(json_data)
     kwargs["partner_update_dto"] = partner_update_dto
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.partners, "update_partner", **kwargs)
     format_mode = ctx.obj.get("format")
     print_response(result, format_mode)

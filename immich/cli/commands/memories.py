@@ -4,7 +4,10 @@ from __future__ import annotations
 
 import typer
 from datetime import datetime
-from typing import Literal
+from typing import Literal, TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from immich import AsyncClient
 
 from immich.cli.runtime import print_response, run_command, set_nested
 from immich.client.models import *
@@ -14,7 +17,7 @@ app = typer.Typer(
 )
 
 
-@app.command("add-memory-assets", deprecated=False)
+@app.command("add-memory-assets", deprecated=False, rich_help_panel="API commands")
 def add_memory_assets(
     ctx: typer.Context,
     id: str = typer.Argument(..., help=""""""),
@@ -32,13 +35,13 @@ def add_memory_assets(
 
     bulk_ids_dto = BulkIdsDto.model_validate(json_data)
     kwargs["bulk_ids_dto"] = bulk_ids_dto
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.memories, "add_memory_assets", **kwargs)
     format_mode = ctx.obj.get("format")
     print_response(result, format_mode)
 
 
-@app.command("create-memory", deprecated=False)
+@app.command("create-memory", deprecated=False, rich_help_panel="API commands")
 def create_memory(
     ctx: typer.Context,
     asset_ids: list[str] | None = typer.Option(None, "--asset-ids", help=""""""),
@@ -69,13 +72,13 @@ def create_memory(
 
     memory_create_dto = MemoryCreateDto.model_validate(json_data)
     kwargs["memory_create_dto"] = memory_create_dto
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.memories, "create_memory", **kwargs)
     format_mode = ctx.obj.get("format")
     print_response(result, format_mode)
 
 
-@app.command("delete-memory", deprecated=False)
+@app.command("delete-memory", deprecated=False, rich_help_panel="API commands")
 def delete_memory(
     ctx: typer.Context,
     id: str = typer.Argument(..., help=""""""),
@@ -86,13 +89,13 @@ def delete_memory(
     """
     kwargs = {}
     kwargs["id"] = id
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.memories, "delete_memory", **kwargs)
     format_mode = ctx.obj.get("format")
     print_response(result, format_mode)
 
 
-@app.command("get-memory", deprecated=False)
+@app.command("get-memory", deprecated=False, rich_help_panel="API commands")
 def get_memory(
     ctx: typer.Context,
     id: str = typer.Argument(..., help=""""""),
@@ -103,13 +106,13 @@ def get_memory(
     """
     kwargs = {}
     kwargs["id"] = id
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.memories, "get_memory", **kwargs)
     format_mode = ctx.obj.get("format")
     print_response(result, format_mode)
 
 
-@app.command("memories-statistics", deprecated=False)
+@app.command("memories-statistics", deprecated=False, rich_help_panel="API commands")
 def memories_statistics(
     ctx: typer.Context,
     for_: datetime | None = typer.Option(None, "--for", help=""""""),
@@ -142,13 +145,13 @@ def memories_statistics(
         kwargs["size"] = size
     if type is not None:
         kwargs["type"] = type
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.memories, "memories_statistics", **kwargs)
     format_mode = ctx.obj.get("format")
     print_response(result, format_mode)
 
 
-@app.command("remove-memory-assets", deprecated=False)
+@app.command("remove-memory-assets", deprecated=False, rich_help_panel="API commands")
 def remove_memory_assets(
     ctx: typer.Context,
     id: str = typer.Argument(..., help=""""""),
@@ -166,13 +169,13 @@ def remove_memory_assets(
 
     bulk_ids_dto = BulkIdsDto.model_validate(json_data)
     kwargs["bulk_ids_dto"] = bulk_ids_dto
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.memories, "remove_memory_assets", **kwargs)
     format_mode = ctx.obj.get("format")
     print_response(result, format_mode)
 
 
-@app.command("search-memories", deprecated=False)
+@app.command("search-memories", deprecated=False, rich_help_panel="API commands")
 def search_memories(
     ctx: typer.Context,
     for_: datetime | None = typer.Option(None, "--for", help=""""""),
@@ -205,13 +208,13 @@ def search_memories(
         kwargs["size"] = size
     if type is not None:
         kwargs["type"] = type
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.memories, "search_memories", **kwargs)
     format_mode = ctx.obj.get("format")
     print_response(result, format_mode)
 
 
-@app.command("update-memory", deprecated=False)
+@app.command("update-memory", deprecated=False, rich_help_panel="API commands")
 def update_memory(
     ctx: typer.Context,
     id: str = typer.Argument(..., help=""""""),
@@ -238,7 +241,7 @@ def update_memory(
 
     memory_update_dto = MemoryUpdateDto.model_validate(json_data)
     kwargs["memory_update_dto"] = memory_update_dto
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.memories, "update_memory", **kwargs)
     format_mode = ctx.obj.get("format")
     print_response(result, format_mode)

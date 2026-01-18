@@ -3,7 +3,10 @@
 from __future__ import annotations
 
 import typer
-from typing import Literal
+from typing import Literal, TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from immich import AsyncClient
 
 from immich.cli.runtime import print_response, run_command, set_nested
 from immich.client.models import *
@@ -13,7 +16,7 @@ app = typer.Typer(
 )
 
 
-@app.command("change-password", deprecated=False)
+@app.command("change-password", deprecated=False, rich_help_panel="API commands")
 def change_password(
     ctx: typer.Context,
     invalidate_sessions: Literal["true", "false"] | None = typer.Option(
@@ -40,13 +43,13 @@ def change_password(
 
     change_password_dto = ChangePasswordDto.model_validate(json_data)
     kwargs["change_password_dto"] = change_password_dto
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.authentication, "change_password", **kwargs)
     format_mode = ctx.obj.get("format")
     print_response(result, format_mode)
 
 
-@app.command("change-pin-code", deprecated=False)
+@app.command("change-pin-code", deprecated=False, rich_help_panel="API commands")
 def change_pin_code(
     ctx: typer.Context,
     new_pin_code: str = typer.Option(..., "--new-pin-code", help="""Example: 123456"""),
@@ -68,13 +71,13 @@ def change_pin_code(
 
     pin_code_change_dto = PinCodeChangeDto.model_validate(json_data)
     kwargs["pin_code_change_dto"] = pin_code_change_dto
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.authentication, "change_pin_code", **kwargs)
     format_mode = ctx.obj.get("format")
     print_response(result, format_mode)
 
 
-@app.command("finish-o-auth", deprecated=False)
+@app.command("finish-o-auth", deprecated=False, rich_help_panel="API commands")
 def finish_o_auth(
     ctx: typer.Context,
     code_verifier: str | None = typer.Option(None, "--code-verifier", help=""""""),
@@ -96,13 +99,13 @@ def finish_o_auth(
 
     o_auth_callback_dto = OAuthCallbackDto.model_validate(json_data)
     kwargs["o_auth_callback_dto"] = o_auth_callback_dto
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.authentication, "finish_o_auth", **kwargs)
     format_mode = ctx.obj.get("format")
     print_response(result, format_mode)
 
 
-@app.command("get-auth-status", deprecated=False)
+@app.command("get-auth-status", deprecated=False, rich_help_panel="API commands")
 def get_auth_status(
     ctx: typer.Context,
 ) -> None:
@@ -111,13 +114,13 @@ def get_auth_status(
     Docs: https://api.immich.app/endpoints/authentication/getAuthStatus
     """
     kwargs = {}
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.authentication, "get_auth_status", **kwargs)
     format_mode = ctx.obj.get("format")
     print_response(result, format_mode)
 
 
-@app.command("link-o-auth-account", deprecated=False)
+@app.command("link-o-auth-account", deprecated=False, rich_help_panel="API commands")
 def link_o_auth_account(
     ctx: typer.Context,
     code_verifier: str | None = typer.Option(None, "--code-verifier", help=""""""),
@@ -139,13 +142,13 @@ def link_o_auth_account(
 
     o_auth_callback_dto = OAuthCallbackDto.model_validate(json_data)
     kwargs["o_auth_callback_dto"] = o_auth_callback_dto
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.authentication, "link_o_auth_account", **kwargs)
     format_mode = ctx.obj.get("format")
     print_response(result, format_mode)
 
 
-@app.command("lock-auth-session", deprecated=False)
+@app.command("lock-auth-session", deprecated=False, rich_help_panel="API commands")
 def lock_auth_session(
     ctx: typer.Context,
 ) -> None:
@@ -154,13 +157,13 @@ def lock_auth_session(
     Docs: https://api.immich.app/endpoints/authentication/lockAuthSession
     """
     kwargs = {}
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.authentication, "lock_auth_session", **kwargs)
     format_mode = ctx.obj.get("format")
     print_response(result, format_mode)
 
 
-@app.command("login", deprecated=False)
+@app.command("login", deprecated=False, rich_help_panel="API commands")
 def login(
     ctx: typer.Context,
     email: str = typer.Option(..., "--email", help="""Example: testuser@email.com"""),
@@ -178,13 +181,13 @@ def login(
 
     login_credential_dto = LoginCredentialDto.model_validate(json_data)
     kwargs["login_credential_dto"] = login_credential_dto
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.authentication, "login", **kwargs)
     format_mode = ctx.obj.get("format")
     print_response(result, format_mode)
 
 
-@app.command("logout", deprecated=False)
+@app.command("logout", deprecated=False, rich_help_panel="API commands")
 def logout(
     ctx: typer.Context,
 ) -> None:
@@ -193,13 +196,15 @@ def logout(
     Docs: https://api.immich.app/endpoints/authentication/logout
     """
     kwargs = {}
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.authentication, "logout", **kwargs)
     format_mode = ctx.obj.get("format")
     print_response(result, format_mode)
 
 
-@app.command("redirect-o-auth-to-mobile", deprecated=False)
+@app.command(
+    "redirect-o-auth-to-mobile", deprecated=False, rich_help_panel="API commands"
+)
 def redirect_o_auth_to_mobile(
     ctx: typer.Context,
 ) -> None:
@@ -208,7 +213,7 @@ def redirect_o_auth_to_mobile(
     Docs: https://api.immich.app/endpoints/authentication/redirectOAuthToMobile
     """
     kwargs = {}
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(
         client, client.authentication, "redirect_o_auth_to_mobile", **kwargs
     )
@@ -216,7 +221,7 @@ def redirect_o_auth_to_mobile(
     print_response(result, format_mode)
 
 
-@app.command("reset-pin-code", deprecated=False)
+@app.command("reset-pin-code", deprecated=False, rich_help_panel="API commands")
 def reset_pin_code(
     ctx: typer.Context,
     password: str | None = typer.Option(None, "--password", help=""""""),
@@ -236,13 +241,13 @@ def reset_pin_code(
 
     pin_code_reset_dto = PinCodeResetDto.model_validate(json_data)
     kwargs["pin_code_reset_dto"] = pin_code_reset_dto
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.authentication, "reset_pin_code", **kwargs)
     format_mode = ctx.obj.get("format")
     print_response(result, format_mode)
 
 
-@app.command("setup-pin-code", deprecated=False)
+@app.command("setup-pin-code", deprecated=False, rich_help_panel="API commands")
 def setup_pin_code(
     ctx: typer.Context,
     pin_code: str = typer.Option(..., "--pin-code", help="""Example: 123456"""),
@@ -258,13 +263,13 @@ def setup_pin_code(
 
     pin_code_setup_dto = PinCodeSetupDto.model_validate(json_data)
     kwargs["pin_code_setup_dto"] = pin_code_setup_dto
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.authentication, "setup_pin_code", **kwargs)
     format_mode = ctx.obj.get("format")
     print_response(result, format_mode)
 
 
-@app.command("sign-up-admin", deprecated=False)
+@app.command("sign-up-admin", deprecated=False, rich_help_panel="API commands")
 def sign_up_admin(
     ctx: typer.Context,
     email: str = typer.Option(..., "--email", help="""Example: testuser@email.com"""),
@@ -284,13 +289,13 @@ def sign_up_admin(
 
     sign_up_dto = SignUpDto.model_validate(json_data)
     kwargs["sign_up_dto"] = sign_up_dto
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.authentication, "sign_up_admin", **kwargs)
     format_mode = ctx.obj.get("format")
     print_response(result, format_mode)
 
 
-@app.command("start-o-auth", deprecated=False)
+@app.command("start-o-auth", deprecated=False, rich_help_panel="API commands")
 def start_o_auth(
     ctx: typer.Context,
     code_challenge: str | None = typer.Option(None, "--code-challenge", help=""""""),
@@ -312,13 +317,13 @@ def start_o_auth(
 
     o_auth_config_dto = OAuthConfigDto.model_validate(json_data)
     kwargs["o_auth_config_dto"] = o_auth_config_dto
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.authentication, "start_o_auth", **kwargs)
     format_mode = ctx.obj.get("format")
     print_response(result, format_mode)
 
 
-@app.command("unlink-o-auth-account", deprecated=False)
+@app.command("unlink-o-auth-account", deprecated=False, rich_help_panel="API commands")
 def unlink_o_auth_account(
     ctx: typer.Context,
 ) -> None:
@@ -327,7 +332,7 @@ def unlink_o_auth_account(
     Docs: https://api.immich.app/endpoints/authentication/unlinkOAuthAccount
     """
     kwargs = {}
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(
         client, client.authentication, "unlink_o_auth_account", **kwargs
     )
@@ -335,7 +340,7 @@ def unlink_o_auth_account(
     print_response(result, format_mode)
 
 
-@app.command("unlock-auth-session", deprecated=False)
+@app.command("unlock-auth-session", deprecated=False, rich_help_panel="API commands")
 def unlock_auth_session(
     ctx: typer.Context,
     password: str | None = typer.Option(None, "--password", help=""""""),
@@ -355,13 +360,13 @@ def unlock_auth_session(
 
     session_unlock_dto = SessionUnlockDto.model_validate(json_data)
     kwargs["session_unlock_dto"] = session_unlock_dto
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.authentication, "unlock_auth_session", **kwargs)
     format_mode = ctx.obj.get("format")
     print_response(result, format_mode)
 
 
-@app.command("validate-access-token", deprecated=False)
+@app.command("validate-access-token", deprecated=False, rich_help_panel="API commands")
 def validate_access_token(
     ctx: typer.Context,
 ) -> None:
@@ -370,7 +375,7 @@ def validate_access_token(
     Docs: https://api.immich.app/endpoints/authentication/validateAccessToken
     """
     kwargs = {}
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(
         client, client.authentication, "validate_access_token", **kwargs
     )

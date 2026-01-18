@@ -6,7 +6,10 @@ import typer
 import json
 from datetime import datetime
 from pathlib import Path
-from typing import Literal
+from typing import Literal, TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from immich import AsyncClient
 
 from immich.cli.runtime import print_response, run_command, set_nested
 from immich.client.models import *
@@ -16,7 +19,7 @@ app = typer.Typer(
 )
 
 
-@app.command("check-bulk-upload", deprecated=False)
+@app.command("check-bulk-upload", deprecated=False, rich_help_panel="API commands")
 def check_bulk_upload(
     ctx: typer.Context,
     assets: list[str] = typer.Option(..., "--assets", help="""As a JSON string"""),
@@ -33,13 +36,13 @@ def check_bulk_upload(
 
     asset_bulk_upload_check_dto = AssetBulkUploadCheckDto.model_validate(json_data)
     kwargs["asset_bulk_upload_check_dto"] = asset_bulk_upload_check_dto
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.assets, "check_bulk_upload", **kwargs)
     format_mode = ctx.obj.get("format")
     print_response(result, format_mode)
 
 
-@app.command("check-existing-assets", deprecated=False)
+@app.command("check-existing-assets", deprecated=False, rich_help_panel="API commands")
 def check_existing_assets(
     ctx: typer.Context,
     device_asset_ids: list[str] = typer.Option(..., "--device-asset-ids", help=""""""),
@@ -57,13 +60,13 @@ def check_existing_assets(
 
     check_existing_assets_dto = CheckExistingAssetsDto.model_validate(json_data)
     kwargs["check_existing_assets_dto"] = check_existing_assets_dto
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.assets, "check_existing_assets", **kwargs)
     format_mode = ctx.obj.get("format")
     print_response(result, format_mode)
 
 
-@app.command("copy-asset", deprecated=False)
+@app.command("copy-asset", deprecated=False, rich_help_panel="API commands")
 def copy_asset(
     ctx: typer.Context,
     albums: Literal["true", "false"] | None = typer.Option(
@@ -104,13 +107,13 @@ def copy_asset(
 
     asset_copy_dto = AssetCopyDto.model_validate(json_data)
     kwargs["asset_copy_dto"] = asset_copy_dto
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.assets, "copy_asset", **kwargs)
     format_mode = ctx.obj.get("format")
     print_response(result, format_mode)
 
 
-@app.command("delete-asset-metadata", deprecated=False)
+@app.command("delete-asset-metadata", deprecated=False, rich_help_panel="API commands")
 def delete_asset_metadata(
     ctx: typer.Context,
     id: str = typer.Argument(..., help=""""""),
@@ -123,13 +126,13 @@ def delete_asset_metadata(
     kwargs = {}
     kwargs["id"] = id
     kwargs["key"] = key
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.assets, "delete_asset_metadata", **kwargs)
     format_mode = ctx.obj.get("format")
     print_response(result, format_mode)
 
 
-@app.command("delete-assets", deprecated=False)
+@app.command("delete-assets", deprecated=False, rich_help_panel="API commands")
 def delete_assets(
     ctx: typer.Context,
     force: Literal["true", "false"] | None = typer.Option(None, "--force", help=""""""),
@@ -148,13 +151,15 @@ def delete_assets(
 
     asset_bulk_delete_dto = AssetBulkDeleteDto.model_validate(json_data)
     kwargs["asset_bulk_delete_dto"] = asset_bulk_delete_dto
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.assets, "delete_assets", **kwargs)
     format_mode = ctx.obj.get("format")
     print_response(result, format_mode)
 
 
-@app.command("delete-bulk-asset-metadata", deprecated=False)
+@app.command(
+    "delete-bulk-asset-metadata", deprecated=False, rich_help_panel="API commands"
+)
 def delete_bulk_asset_metadata(
     ctx: typer.Context,
     items: list[str] = typer.Option(..., "--items", help="""As a JSON string"""),
@@ -175,13 +180,13 @@ def delete_bulk_asset_metadata(
         json_data
     )
     kwargs["asset_metadata_bulk_delete_dto"] = asset_metadata_bulk_delete_dto
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.assets, "delete_bulk_asset_metadata", **kwargs)
     format_mode = ctx.obj.get("format")
     print_response(result, format_mode)
 
 
-@app.command("download-asset", deprecated=False)
+@app.command("download-asset", deprecated=False, rich_help_panel="API commands")
 def download_asset(
     ctx: typer.Context,
     id: str = typer.Argument(..., help=""""""),
@@ -203,13 +208,13 @@ def download_asset(
         kwargs["key"] = key
     if slug is not None:
         kwargs["slug"] = slug
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.assets, "download_asset", **kwargs)
     format_mode = ctx.obj.get("format")
     print_response(result, format_mode)
 
 
-@app.command("edit-asset", deprecated=False)
+@app.command("edit-asset", deprecated=False, rich_help_panel="API commands")
 def edit_asset(
     ctx: typer.Context,
     id: str = typer.Argument(..., help=""""""),
@@ -234,13 +239,15 @@ As a JSON string""",
 
     asset_edit_action_list_dto = AssetEditActionListDto.model_validate(json_data)
     kwargs["asset_edit_action_list_dto"] = asset_edit_action_list_dto
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.assets, "edit_asset", **kwargs)
     format_mode = ctx.obj.get("format")
     print_response(result, format_mode)
 
 
-@app.command("get-all-user-assets-by-device-id", deprecated=True)
+@app.command(
+    "get-all-user-assets-by-device-id", deprecated=True, rich_help_panel="API commands"
+)
 def get_all_user_assets_by_device_id(
     ctx: typer.Context,
     device_id: str = typer.Argument(..., help=""""""),
@@ -251,7 +258,7 @@ def get_all_user_assets_by_device_id(
     """
     kwargs = {}
     kwargs["device_id"] = device_id
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(
         client, client.assets, "get_all_user_assets_by_device_id", **kwargs
     )
@@ -259,7 +266,7 @@ def get_all_user_assets_by_device_id(
     print_response(result, format_mode)
 
 
-@app.command("get-asset-edits", deprecated=False)
+@app.command("get-asset-edits", deprecated=False, rich_help_panel="API commands")
 def get_asset_edits(
     ctx: typer.Context,
     id: str = typer.Argument(..., help=""""""),
@@ -270,13 +277,13 @@ def get_asset_edits(
     """
     kwargs = {}
     kwargs["id"] = id
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.assets, "get_asset_edits", **kwargs)
     format_mode = ctx.obj.get("format")
     print_response(result, format_mode)
 
 
-@app.command("get-asset-info", deprecated=False)
+@app.command("get-asset-info", deprecated=False, rich_help_panel="API commands")
 def get_asset_info(
     ctx: typer.Context,
     id: str = typer.Argument(..., help=""""""),
@@ -293,13 +300,13 @@ def get_asset_info(
         kwargs["key"] = key
     if slug is not None:
         kwargs["slug"] = slug
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.assets, "get_asset_info", **kwargs)
     format_mode = ctx.obj.get("format")
     print_response(result, format_mode)
 
 
-@app.command("get-asset-metadata", deprecated=False)
+@app.command("get-asset-metadata", deprecated=False, rich_help_panel="API commands")
 def get_asset_metadata(
     ctx: typer.Context,
     id: str = typer.Argument(..., help=""""""),
@@ -310,13 +317,15 @@ def get_asset_metadata(
     """
     kwargs = {}
     kwargs["id"] = id
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.assets, "get_asset_metadata", **kwargs)
     format_mode = ctx.obj.get("format")
     print_response(result, format_mode)
 
 
-@app.command("get-asset-metadata-by-key", deprecated=False)
+@app.command(
+    "get-asset-metadata-by-key", deprecated=False, rich_help_panel="API commands"
+)
 def get_asset_metadata_by_key(
     ctx: typer.Context,
     id: str = typer.Argument(..., help=""""""),
@@ -329,13 +338,13 @@ def get_asset_metadata_by_key(
     kwargs = {}
     kwargs["id"] = id
     kwargs["key"] = key
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.assets, "get_asset_metadata_by_key", **kwargs)
     format_mode = ctx.obj.get("format")
     print_response(result, format_mode)
 
 
-@app.command("get-asset-ocr", deprecated=False)
+@app.command("get-asset-ocr", deprecated=False, rich_help_panel="API commands")
 def get_asset_ocr(
     ctx: typer.Context,
     id: str = typer.Argument(..., help=""""""),
@@ -346,13 +355,13 @@ def get_asset_ocr(
     """
     kwargs = {}
     kwargs["id"] = id
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.assets, "get_asset_ocr", **kwargs)
     format_mode = ctx.obj.get("format")
     print_response(result, format_mode)
 
 
-@app.command("get-asset-statistics", deprecated=False)
+@app.command("get-asset-statistics", deprecated=False, rich_help_panel="API commands")
 def get_asset_statistics(
     ctx: typer.Context,
     is_favorite: Literal["true", "false"] | None = typer.Option(
@@ -376,13 +385,13 @@ def get_asset_statistics(
         kwargs["is_trashed"] = is_trashed.lower() == "true"
     if visibility is not None:
         kwargs["visibility"] = visibility
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.assets, "get_asset_statistics", **kwargs)
     format_mode = ctx.obj.get("format")
     print_response(result, format_mode)
 
 
-@app.command("get-random", deprecated=True)
+@app.command("get-random", deprecated=True, rich_help_panel="API commands")
 def get_random(
     ctx: typer.Context,
     count: float | None = typer.Option(None, "--count", help="""""", min=1),
@@ -394,13 +403,13 @@ def get_random(
     kwargs = {}
     if count is not None:
         kwargs["count"] = count
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.assets, "get_random", **kwargs)
     format_mode = ctx.obj.get("format")
     print_response(result, format_mode)
 
 
-@app.command("play-asset-video", deprecated=False)
+@app.command("play-asset-video", deprecated=False, rich_help_panel="API commands")
 def play_asset_video(
     ctx: typer.Context,
     id: str = typer.Argument(..., help=""""""),
@@ -417,13 +426,13 @@ def play_asset_video(
         kwargs["key"] = key
     if slug is not None:
         kwargs["slug"] = slug
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.assets, "play_asset_video", **kwargs)
     format_mode = ctx.obj.get("format")
     print_response(result, format_mode)
 
 
-@app.command("remove-asset-edits", deprecated=False)
+@app.command("remove-asset-edits", deprecated=False, rich_help_panel="API commands")
 def remove_asset_edits(
     ctx: typer.Context,
     id: str = typer.Argument(..., help=""""""),
@@ -434,13 +443,13 @@ def remove_asset_edits(
     """
     kwargs = {}
     kwargs["id"] = id
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.assets, "remove_asset_edits", **kwargs)
     format_mode = ctx.obj.get("format")
     print_response(result, format_mode)
 
 
-@app.command("replace-asset", deprecated=True)
+@app.command("replace-asset", deprecated=True, rich_help_panel="API commands")
 def replace_asset(
     ctx: typer.Context,
     id: str = typer.Argument(..., help=""""""),
@@ -478,13 +487,13 @@ def replace_asset(
 
     asset_media_replace_dto = AssetMediaReplaceDto.model_validate(json_data)
     kwargs["asset_media_replace_dto"] = asset_media_replace_dto
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.assets, "replace_asset", **kwargs)
     format_mode = ctx.obj.get("format")
     print_response(result, format_mode)
 
 
-@app.command("run-asset-jobs", deprecated=False)
+@app.command("run-asset-jobs", deprecated=False, rich_help_panel="API commands")
 def run_asset_jobs(
     ctx: typer.Context,
     asset_ids: list[str] = typer.Option(..., "--asset-ids", help=""""""),
@@ -502,13 +511,13 @@ def run_asset_jobs(
 
     asset_jobs_dto = AssetJobsDto.model_validate(json_data)
     kwargs["asset_jobs_dto"] = asset_jobs_dto
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.assets, "run_asset_jobs", **kwargs)
     format_mode = ctx.obj.get("format")
     print_response(result, format_mode)
 
 
-@app.command("update-asset", deprecated=False)
+@app.command("update-asset", deprecated=False, rich_help_panel="API commands")
 def update_asset(
     ctx: typer.Context,
     id: str = typer.Argument(..., help=""""""),
@@ -554,13 +563,13 @@ def update_asset(
 
     update_asset_dto = UpdateAssetDto.model_validate(json_data)
     kwargs["update_asset_dto"] = update_asset_dto
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.assets, "update_asset", **kwargs)
     format_mode = ctx.obj.get("format")
     print_response(result, format_mode)
 
 
-@app.command("update-asset-metadata", deprecated=False)
+@app.command("update-asset-metadata", deprecated=False, rich_help_panel="API commands")
 def update_asset_metadata(
     ctx: typer.Context,
     id: str = typer.Argument(..., help=""""""),
@@ -579,13 +588,13 @@ def update_asset_metadata(
 
     asset_metadata_upsert_dto = AssetMetadataUpsertDto.model_validate(json_data)
     kwargs["asset_metadata_upsert_dto"] = asset_metadata_upsert_dto
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.assets, "update_asset_metadata", **kwargs)
     format_mode = ctx.obj.get("format")
     print_response(result, format_mode)
 
 
-@app.command("update-assets", deprecated=False)
+@app.command("update-assets", deprecated=False, rich_help_panel="API commands")
 def update_assets(
     ctx: typer.Context,
     date_time_original: str | None = typer.Option(
@@ -637,13 +646,15 @@ def update_assets(
 
     asset_bulk_update_dto = AssetBulkUpdateDto.model_validate(json_data)
     kwargs["asset_bulk_update_dto"] = asset_bulk_update_dto
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.assets, "update_assets", **kwargs)
     format_mode = ctx.obj.get("format")
     print_response(result, format_mode)
 
 
-@app.command("update-bulk-asset-metadata", deprecated=False)
+@app.command(
+    "update-bulk-asset-metadata", deprecated=False, rich_help_panel="API commands"
+)
 def update_bulk_asset_metadata(
     ctx: typer.Context,
     items: list[str] = typer.Option(..., "--items", help="""As a JSON string"""),
@@ -664,13 +675,13 @@ def update_bulk_asset_metadata(
         json_data
     )
     kwargs["asset_metadata_bulk_upsert_dto"] = asset_metadata_bulk_upsert_dto
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.assets, "update_bulk_asset_metadata", **kwargs)
     format_mode = ctx.obj.get("format")
     print_response(result, format_mode)
 
 
-@app.command("upload-asset", deprecated=False)
+@app.command("upload-asset", deprecated=False, rich_help_panel="API commands")
 def upload_asset(
     ctx: typer.Context,
     asset_data: Path = typer.Option(..., "--asset-data", help=""""""),
@@ -737,13 +748,13 @@ def upload_asset(
 
     asset_media_create_dto = AssetMediaCreateDto.model_validate(json_data)
     kwargs["asset_media_create_dto"] = asset_media_create_dto
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.assets, "upload_asset", **kwargs)
     format_mode = ctx.obj.get("format")
     print_response(result, format_mode)
 
 
-@app.command("view-asset", deprecated=False)
+@app.command("view-asset", deprecated=False, rich_help_panel="API commands")
 def view_asset(
     ctx: typer.Context,
     id: str = typer.Argument(..., help=""""""),
@@ -768,7 +779,7 @@ def view_asset(
         kwargs["size"] = size
     if slug is not None:
         kwargs["slug"] = slug
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.assets, "view_asset", **kwargs)
     format_mode = ctx.obj.get("format")
     print_response(result, format_mode)

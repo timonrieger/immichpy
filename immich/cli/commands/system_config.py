@@ -3,7 +3,10 @@
 from __future__ import annotations
 
 import typer
-from typing import Literal
+from typing import Literal, TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from immich import AsyncClient
 
 from immich.cli.runtime import print_response, run_command, set_nested
 from immich.client.models import *
@@ -13,7 +16,7 @@ app = typer.Typer(
 )
 
 
-@app.command("get-config", deprecated=False)
+@app.command("get-config", deprecated=False, rich_help_panel="API commands")
 def get_config(
     ctx: typer.Context,
 ) -> None:
@@ -22,13 +25,13 @@ def get_config(
     Docs: https://api.immich.app/endpoints/system-config/getConfig
     """
     kwargs = {}
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.system_config, "get_config", **kwargs)
     format_mode = ctx.obj.get("format")
     print_response(result, format_mode)
 
 
-@app.command("get-config-defaults", deprecated=False)
+@app.command("get-config-defaults", deprecated=False, rich_help_panel="API commands")
 def get_config_defaults(
     ctx: typer.Context,
 ) -> None:
@@ -37,13 +40,15 @@ def get_config_defaults(
     Docs: https://api.immich.app/endpoints/system-config/getConfigDefaults
     """
     kwargs = {}
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.system_config, "get_config_defaults", **kwargs)
     format_mode = ctx.obj.get("format")
     print_response(result, format_mode)
 
 
-@app.command("get-storage-template-options", deprecated=False)
+@app.command(
+    "get-storage-template-options", deprecated=False, rich_help_panel="API commands"
+)
 def get_storage_template_options(
     ctx: typer.Context,
 ) -> None:
@@ -52,7 +57,7 @@ def get_storage_template_options(
     Docs: https://api.immich.app/endpoints/system-config/getStorageTemplateOptions
     """
     kwargs = {}
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(
         client, client.system_config, "get_storage_template_options", **kwargs
     )
@@ -60,7 +65,7 @@ def get_storage_template_options(
     print_response(result, format_mode)
 
 
-@app.command("update-config", deprecated=False)
+@app.command("update-config", deprecated=False, rich_help_panel="API commands")
 def update_config(
     ctx: typer.Context,
     backup_database_cron_expression: str = typer.Option(
@@ -758,7 +763,7 @@ def update_config(
 
     system_config_dto = SystemConfigDto.model_validate(json_data)
     kwargs["system_config_dto"] = system_config_dto
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.system_config, "update_config", **kwargs)
     format_mode = ctx.obj.get("format")
     print_response(result, format_mode)

@@ -4,7 +4,10 @@ from __future__ import annotations
 
 import typer
 from pathlib import Path
-from typing import Literal
+from typing import Literal, TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from immich import AsyncClient
 
 from immich.cli.runtime import print_response, run_command, set_nested
 from immich.client.models import *
@@ -14,7 +17,7 @@ app = typer.Typer(
 )
 
 
-@app.command("create-profile-image", deprecated=False)
+@app.command("create-profile-image", deprecated=False, rich_help_panel="API commands")
 def create_profile_image(
     ctx: typer.Context,
     file: Path = typer.Option(..., "--file", help=""""""),
@@ -30,13 +33,13 @@ def create_profile_image(
 
     create_profile_image_dto = CreateProfileImageDto.model_validate(json_data)
     kwargs["create_profile_image_dto"] = create_profile_image_dto
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.users, "create_profile_image", **kwargs)
     format_mode = ctx.obj.get("format")
     print_response(result, format_mode)
 
 
-@app.command("delete-profile-image", deprecated=False)
+@app.command("delete-profile-image", deprecated=False, rich_help_panel="API commands")
 def delete_profile_image(
     ctx: typer.Context,
 ) -> None:
@@ -45,13 +48,13 @@ def delete_profile_image(
     Docs: https://api.immich.app/endpoints/users/deleteProfileImage
     """
     kwargs = {}
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.users, "delete_profile_image", **kwargs)
     format_mode = ctx.obj.get("format")
     print_response(result, format_mode)
 
 
-@app.command("delete-user-license", deprecated=False)
+@app.command("delete-user-license", deprecated=False, rich_help_panel="API commands")
 def delete_user_license(
     ctx: typer.Context,
 ) -> None:
@@ -60,13 +63,13 @@ def delete_user_license(
     Docs: https://api.immich.app/endpoints/users/deleteUserLicense
     """
     kwargs = {}
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.users, "delete_user_license", **kwargs)
     format_mode = ctx.obj.get("format")
     print_response(result, format_mode)
 
 
-@app.command("delete-user-onboarding", deprecated=False)
+@app.command("delete-user-onboarding", deprecated=False, rich_help_panel="API commands")
 def delete_user_onboarding(
     ctx: typer.Context,
 ) -> None:
@@ -75,13 +78,13 @@ def delete_user_onboarding(
     Docs: https://api.immich.app/endpoints/users/deleteUserOnboarding
     """
     kwargs = {}
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.users, "delete_user_onboarding", **kwargs)
     format_mode = ctx.obj.get("format")
     print_response(result, format_mode)
 
 
-@app.command("get-my-preferences", deprecated=False)
+@app.command("get-my-preferences", deprecated=False, rich_help_panel="API commands")
 def get_my_preferences(
     ctx: typer.Context,
 ) -> None:
@@ -90,13 +93,13 @@ def get_my_preferences(
     Docs: https://api.immich.app/endpoints/users/getMyPreferences
     """
     kwargs = {}
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.users, "get_my_preferences", **kwargs)
     format_mode = ctx.obj.get("format")
     print_response(result, format_mode)
 
 
-@app.command("get-my-user", deprecated=False)
+@app.command("get-my-user", deprecated=False, rich_help_panel="API commands")
 def get_my_user(
     ctx: typer.Context,
 ) -> None:
@@ -105,13 +108,13 @@ def get_my_user(
     Docs: https://api.immich.app/endpoints/users/getMyUser
     """
     kwargs = {}
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.users, "get_my_user", **kwargs)
     format_mode = ctx.obj.get("format")
     print_response(result, format_mode)
 
 
-@app.command("get-profile-image", deprecated=False)
+@app.command("get-profile-image", deprecated=False, rich_help_panel="API commands")
 def get_profile_image(
     ctx: typer.Context,
     id: str = typer.Argument(..., help=""""""),
@@ -122,13 +125,13 @@ def get_profile_image(
     """
     kwargs = {}
     kwargs["id"] = id
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.users, "get_profile_image", **kwargs)
     format_mode = ctx.obj.get("format")
     print_response(result, format_mode)
 
 
-@app.command("get-user", deprecated=False)
+@app.command("get-user", deprecated=False, rich_help_panel="API commands")
 def get_user(
     ctx: typer.Context,
     id: str = typer.Argument(..., help=""""""),
@@ -139,13 +142,13 @@ def get_user(
     """
     kwargs = {}
     kwargs["id"] = id
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.users, "get_user", **kwargs)
     format_mode = ctx.obj.get("format")
     print_response(result, format_mode)
 
 
-@app.command("get-user-license", deprecated=False)
+@app.command("get-user-license", deprecated=False, rich_help_panel="API commands")
 def get_user_license(
     ctx: typer.Context,
 ) -> None:
@@ -154,13 +157,13 @@ def get_user_license(
     Docs: https://api.immich.app/endpoints/users/getUserLicense
     """
     kwargs = {}
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.users, "get_user_license", **kwargs)
     format_mode = ctx.obj.get("format")
     print_response(result, format_mode)
 
 
-@app.command("get-user-onboarding", deprecated=False)
+@app.command("get-user-onboarding", deprecated=False, rich_help_panel="API commands")
 def get_user_onboarding(
     ctx: typer.Context,
 ) -> None:
@@ -169,13 +172,13 @@ def get_user_onboarding(
     Docs: https://api.immich.app/endpoints/users/getUserOnboarding
     """
     kwargs = {}
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.users, "get_user_onboarding", **kwargs)
     format_mode = ctx.obj.get("format")
     print_response(result, format_mode)
 
 
-@app.command("search-users", deprecated=False)
+@app.command("search-users", deprecated=False, rich_help_panel="API commands")
 def search_users(
     ctx: typer.Context,
 ) -> None:
@@ -184,13 +187,13 @@ def search_users(
     Docs: https://api.immich.app/endpoints/users/searchUsers
     """
     kwargs = {}
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.users, "search_users", **kwargs)
     format_mode = ctx.obj.get("format")
     print_response(result, format_mode)
 
 
-@app.command("set-user-license", deprecated=False)
+@app.command("set-user-license", deprecated=False, rich_help_panel="API commands")
 def set_user_license(
     ctx: typer.Context,
     activation_key: str = typer.Option(..., "--activation-key", help=""""""),
@@ -208,13 +211,13 @@ def set_user_license(
 
     license_key_dto = LicenseKeyDto.model_validate(json_data)
     kwargs["license_key_dto"] = license_key_dto
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.users, "set_user_license", **kwargs)
     format_mode = ctx.obj.get("format")
     print_response(result, format_mode)
 
 
-@app.command("set-user-onboarding", deprecated=False)
+@app.command("set-user-onboarding", deprecated=False, rich_help_panel="API commands")
 def set_user_onboarding(
     ctx: typer.Context,
     is_onboarded: Literal["true", "false"] = typer.Option(
@@ -232,13 +235,13 @@ def set_user_onboarding(
 
     onboarding_dto = OnboardingDto.model_validate(json_data)
     kwargs["onboarding_dto"] = onboarding_dto
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.users, "set_user_onboarding", **kwargs)
     format_mode = ctx.obj.get("format")
     print_response(result, format_mode)
 
 
-@app.command("update-my-preferences", deprecated=False)
+@app.command("update-my-preferences", deprecated=False, rich_help_panel="API commands")
 def update_my_preferences(
     ctx: typer.Context,
     albums_default_asset_order: str | None = typer.Option(
@@ -395,13 +398,13 @@ def update_my_preferences(
 
     user_preferences_update_dto = UserPreferencesUpdateDto.model_validate(json_data)
     kwargs["user_preferences_update_dto"] = user_preferences_update_dto
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.users, "update_my_preferences", **kwargs)
     format_mode = ctx.obj.get("format")
     print_response(result, format_mode)
 
 
-@app.command("update-my-user", deprecated=False)
+@app.command("update-my-user", deprecated=False, rich_help_panel="API commands")
 def update_my_user(
     ctx: typer.Context,
     avatar_color: str | None = typer.Option(None, "--avatar-color", help=""""""),
@@ -427,7 +430,7 @@ def update_my_user(
 
     user_update_me_dto = UserUpdateMeDto.model_validate(json_data)
     kwargs["user_update_me_dto"] = user_update_me_dto
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.users, "update_my_user", **kwargs)
     format_mode = ctx.obj.get("format")
     print_response(result, format_mode)

@@ -329,7 +329,7 @@ def generate_command_function(
 
     # Build function signature
     lines = [
-        f'@app.command("{cmd_name}", deprecated={operation.get("deprecated", False)})'
+        f'@app.command("{cmd_name}", deprecated={operation.get("deprecated", False)}, rich_help_panel="API commands")'
     ]
     lines.append(f"def {func_name}(")
     lines.append("    ctx: typer.Context,")
@@ -446,7 +446,7 @@ def generate_command_function(
                 )
                 lines.append(f"    kwargs['{model_instance}'] = {model_instance}")
     # Get client and API group
-    lines.append("    client = ctx.obj['client']")
+    lines.append("    client: 'AsyncClient' = ctx.obj['client']")
 
     # Call method
     method_name = to_snake_case(operation_id)
@@ -483,7 +483,9 @@ def generate_tag_app(
         "import json",
         "from datetime import datetime",
         "from pathlib import Path",
-        "from typing import Literal",
+        "from typing import Literal, TYPE_CHECKING",
+        "if TYPE_CHECKING:",
+        "    from immich import AsyncClient",
         "",
         "from immich.cli.runtime import print_response, run_command, set_nested",
         "from immich.client.models import *",

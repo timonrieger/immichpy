@@ -3,6 +3,10 @@
 from __future__ import annotations
 
 import typer
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from immich import AsyncClient
 
 from immich.cli.runtime import print_response, run_command
 from immich.client.models import *
@@ -12,7 +16,9 @@ app = typer.Typer(
 )
 
 
-@app.command("get-assets-by-original-path", deprecated=False)
+@app.command(
+    "get-assets-by-original-path", deprecated=False, rich_help_panel="API commands"
+)
 def get_assets_by_original_path(
     ctx: typer.Context,
     path: str = typer.Option(..., "--path", help=""""""),
@@ -23,13 +29,15 @@ def get_assets_by_original_path(
     """
     kwargs = {}
     kwargs["path"] = path
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.views, "get_assets_by_original_path", **kwargs)
     format_mode = ctx.obj.get("format")
     print_response(result, format_mode)
 
 
-@app.command("get-unique-original-paths", deprecated=False)
+@app.command(
+    "get-unique-original-paths", deprecated=False, rich_help_panel="API commands"
+)
 def get_unique_original_paths(
     ctx: typer.Context,
 ) -> None:
@@ -38,7 +46,7 @@ def get_unique_original_paths(
     Docs: https://api.immich.app/endpoints/views/getUniqueOriginalPaths
     """
     kwargs = {}
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.views, "get_unique_original_paths", **kwargs)
     format_mode = ctx.obj.get("format")
     print_response(result, format_mode)

@@ -3,6 +3,10 @@
 from __future__ import annotations
 
 import typer
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from immich import AsyncClient
 
 from immich.cli.runtime import print_response, run_command
 from immich.client.models import *
@@ -12,7 +16,7 @@ app = typer.Typer(
 )
 
 
-@app.command("get-plugin", deprecated=False)
+@app.command("get-plugin", deprecated=False, rich_help_panel="API commands")
 def get_plugin(
     ctx: typer.Context,
     id: str = typer.Argument(..., help=""""""),
@@ -23,13 +27,13 @@ def get_plugin(
     """
     kwargs = {}
     kwargs["id"] = id
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.plugins, "get_plugin", **kwargs)
     format_mode = ctx.obj.get("format")
     print_response(result, format_mode)
 
 
-@app.command("get-plugin-triggers", deprecated=False)
+@app.command("get-plugin-triggers", deprecated=False, rich_help_panel="API commands")
 def get_plugin_triggers(
     ctx: typer.Context,
 ) -> None:
@@ -38,13 +42,13 @@ def get_plugin_triggers(
     Docs: https://api.immich.app/endpoints/plugins/getPluginTriggers
     """
     kwargs = {}
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.plugins, "get_plugin_triggers", **kwargs)
     format_mode = ctx.obj.get("format")
     print_response(result, format_mode)
 
 
-@app.command("get-plugins", deprecated=False)
+@app.command("get-plugins", deprecated=False, rich_help_panel="API commands")
 def get_plugins(
     ctx: typer.Context,
 ) -> None:
@@ -53,7 +57,7 @@ def get_plugins(
     Docs: https://api.immich.app/endpoints/plugins/getPlugins
     """
     kwargs = {}
-    client = ctx.obj["client"]
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.plugins, "get_plugins", **kwargs)
     format_mode = ctx.obj.get("format")
     print_response(result, format_mode)
