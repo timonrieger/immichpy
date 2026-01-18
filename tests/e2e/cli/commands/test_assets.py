@@ -157,9 +157,7 @@ async def test_update_assets(
     """Test update-assets command and validate response structure."""
     img1 = test_image_factory(filename=f"{uuid4()}.jpg")
     img2 = test_image_factory(filename=f"{uuid4()}.jpg")
-    upload_result = await upload_assets(
-        [img1, img2], check_duplicates=False, show_progress=False
-    )
+    upload_result = await upload_assets([img1, img2], skip_duplicates=True)
     assert len(upload_result.uploaded) == 2
 
     asset_ids = [entry.asset.id for entry in upload_result.uploaded]
@@ -210,9 +208,7 @@ async def test_check_existing_assets(
         lambda filepath, stats: device_asset_id,
     )
     # Upload an asset with the specific device_id (via monkey patch)
-    upload_result = await upload_assets(
-        [test_image], check_duplicates=False, show_progress=False
-    )
+    upload_result = await upload_assets([test_image], skip_duplicates=True)
     if upload_result.stats.uploaded == 0:
         pytest.skip(f"No assets uploaded, {upload_result.model_dump_json()}")
 
@@ -278,9 +274,7 @@ async def test_delete_assets(
 ) -> None:
     """Test delete-assets command and validate response structure."""
     # Upload an asset specifically for deletion
-    upload_result = await upload_assets(
-        [test_image], check_duplicates=False, show_progress=False
-    )
+    upload_result = await upload_assets([test_image], skip_duplicates=True)
     if upload_result.stats.uploaded == 0:
         pytest.skip(f"No assets uploaded, {upload_result.model_dump_json()}")
     asset_to_delete = upload_result.uploaded[0].asset
@@ -399,7 +393,7 @@ async def test_copy_asset(
     source_image = test_image_factory(filename="source.jpg")
     target_image = test_image_factory(filename="target.jpg")
     upload_result = await upload_assets(
-        [source_image, target_image], check_duplicates=False, show_progress=False
+        [source_image, target_image], skip_duplicates=True
     )
     assert len(upload_result.uploaded) == 2
     source_asset = upload_result.uploaded[0].asset
@@ -486,7 +480,7 @@ async def test_download_asset_to_file(
     result = await asyncio.to_thread(
         runner.invoke,
         cli_app,
-        ["assets", "download-asset-to-file", asset_id, str(out_dir), "--show-progress"],
+        ["assets", "download-asset-to-file", asset_id, str(out_dir), "--hide-progress"],
     )
     assert result.exit_code == 0, result.stdout + result.stderr
     response_data = json.loads(result.stdout)
@@ -510,9 +504,7 @@ async def test_play_asset_video_to_file(
     """Test play-asset-video-to-file command and verify video file is downloaded."""
     # Upload a video asset
     video = test_video_factory()
-    upload_result = await upload_assets(
-        [video], check_duplicates=False, show_progress=False
-    )
+    upload_result = await upload_assets([video], skip_duplicates=True)
     if upload_result.stats.uploaded == 0:
         pytest.skip(f"No video assets uploaded, {upload_result.model_dump_json()}")
     video_asset = upload_result.uploaded[0].asset
@@ -528,7 +520,7 @@ async def test_play_asset_video_to_file(
             "play-asset-video-to-file",
             video_asset.id,
             str(out_dir),
-            "--show-progress",
+            "--hide-progress",
         ],
     )
     assert result.exit_code == 0, result.stdout + result.stderr
@@ -564,7 +556,7 @@ async def test_view_asset_to_file(
             str(out_dir),
             "--size",
             "thumbnail",
-            "--show-progress",
+            "--hide-progress",
         ],
     )
     assert result.exit_code == 0, result.stdout + result.stderr
@@ -599,7 +591,8 @@ async def test_upload(
             str(img1),
             str(img2),
             "--check-duplicates",
-            "--show-progress--concurrency",
+            "--hide-progress",
+            "--concurrency",
             "1",
         ],
     )

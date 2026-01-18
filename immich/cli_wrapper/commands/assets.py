@@ -32,7 +32,7 @@ def download_asset_to_file(
         help="Filename to use (defaults to original filename or orig-{asset_id})",
     ),
     show_progress: bool = typer.Option(
-        True,
+        False,
         "--show-progress",
         help="Show progress bar while downloading",
     ),
@@ -74,7 +74,7 @@ def play_asset_video_to_file(
         help="Filename to use (defaults to original filename or video-{asset_id})",
     ),
     show_progress: bool = typer.Option(
-        True,
+        False,
         "--show-progress",
         help="Show progress bar while downloading",
     ),
@@ -119,7 +119,7 @@ def view_asset_to_file(
         help="Filename to use (defaults to original filename or thumb-{asset_id})",
     ),
     show_progress: bool = typer.Option(
-        True,
+        False,
         "--show-progress",
         help="Show progress bar while downloading",
     ),
@@ -159,24 +159,24 @@ def upload(
     ),
     include_hidden: bool = typer.Option(
         False,
-        "--include-hidden/--exclude-hidden",
+        "--include-hidden",
         help="Include hidden files (starting with '.')",
     ),
-    check_duplicates: bool = typer.Option(
-        True,
-        "--check-duplicates/--skip-duplicates",
+    skip_duplicates: bool = typer.Option(
+        False,
+        "--skip-duplicates",
         help="Check for duplicates using SHA1 hashes before uploading",
     ),
     concurrency: int = typer.Option(
         5, "--concurrency", help="Number of concurrent uploads"
     ),
     show_progress: bool = typer.Option(
-        True, "--show-progress", help="Show progress bars"
+        False, "--show-progress", help="Show progress bars"
     ),
-    include_sidecars: bool = typer.Option(
-        True,
-        "--include-sidecars/--exclude-sidecars",
-        help="Automatically detect and upload XMP sidecar files",
+    exclude_sidecars: bool = typer.Option(
+        False,
+        "--exclude-sidecars",
+        help="Exclude XMP sidecar files",
     ),
     album_name: str | None = typer.Option(
         None,
@@ -185,12 +185,12 @@ def upload(
     ),
     delete_uploads: bool = typer.Option(
         False,
-        "--delete-uploads/--keep-uploads",
+        "--delete-uploads",
         help="Delete successfully uploaded files locally",
     ),
     delete_duplicates: bool = typer.Option(
         False,
-        "--delete-duplicates/--keep-duplicates",
+        "--delete-duplicates",
         help="Delete rejected duplicate files locally",
     ),
     dry_run: bool = typer.Option(
@@ -208,24 +208,16 @@ def upload(
     kwargs["paths"] = paths
     if ignore_pattern is not None:
         kwargs["ignore_pattern"] = ignore_pattern
-    if include_hidden is not None:
-        kwargs["include_hidden"] = include_hidden
-    if check_duplicates is not None:
-        kwargs["check_duplicates"] = check_duplicates
-    if concurrency is not None:
-        kwargs["concurrency"] = concurrency
-    if show_progress is not None:
-        kwargs["show_progress"] = show_progress
-    if include_sidecars is not None:
-        kwargs["include_sidecars"] = include_sidecars
     if album_name is not None:
         kwargs["album_name"] = album_name
-    if delete_uploads is not None:
-        kwargs["delete_uploads"] = delete_uploads
-    if delete_duplicates is not None:
-        kwargs["delete_duplicates"] = delete_duplicates
-    if dry_run is not None:
-        kwargs["dry_run"] = dry_run
+    kwargs["include_hidden"] = include_hidden
+    kwargs["skip_duplicates"] = skip_duplicates
+    kwargs["concurrency"] = concurrency
+    kwargs["show_progress"] = show_progress
+    kwargs["exclude_sidecars"] = exclude_sidecars
+    kwargs["delete_uploads"] = delete_uploads
+    kwargs["delete_duplicates"] = delete_duplicates
+    kwargs["dry_run"] = dry_run
     client = ctx.obj["client"]
     result = run_command(client, client.assets, "upload", **kwargs)
     print_response(result, ctx)

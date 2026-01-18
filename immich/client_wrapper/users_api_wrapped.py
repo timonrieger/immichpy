@@ -14,7 +14,7 @@ class UsersApiWrapped(UsersApi):
         id: UUID,
         out_dir: Path,
         filename: Optional[str] = None,
-        show_progress: bool = True,
+        show_progress: bool = False,
         **kwargs: Any,
     ) -> Path:
         """

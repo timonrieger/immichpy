@@ -30,7 +30,7 @@ class AssetsApiWrapped(AssetsApi):
         key: Optional[StrictStr] = None,
         slug: Optional[StrictStr] = None,
         filename: Optional[str] = None,
-        show_progress: bool = True,
+        show_progress: bool = False,
         **kwargs: Any,
     ) -> Path:
         """
@@ -76,7 +76,7 @@ class AssetsApiWrapped(AssetsApi):
         key: Optional[StrictStr] = None,
         slug: Optional[StrictStr] = None,
         filename: Optional[str] = None,
-        show_progress: bool = True,
+        show_progress: bool = False,
         **kwargs: Any,
     ) -> Path:
         """
@@ -123,7 +123,7 @@ class AssetsApiWrapped(AssetsApi):
         size: Optional[AssetMediaSize] = None,
         slug: Optional[StrictStr] = None,
         filename: Optional[str] = None,
-        show_progress: bool = True,
+        show_progress: bool = False,
         **kwargs: Any,
     ) -> Path:
         """
@@ -170,10 +170,10 @@ class AssetsApiWrapped(AssetsApi):
         *,
         ignore_pattern: Optional[str] = None,
         include_hidden: bool = False,
-        check_duplicates: bool = True,
+        skip_duplicates: bool = False,
         concurrency: int = 5,
-        show_progress: bool = True,
-        include_sidecars: bool = True,
+        show_progress: bool = False,
+        exclude_sidecars: bool = False,
         album_name: Optional[str] = None,
         delete_uploads: bool = False,
         delete_duplicates: bool = False,
@@ -185,14 +185,14 @@ class AssetsApiWrapped(AssetsApi):
         :param paths: File or directory paths to upload. Can be a single path or list of paths. Directories are automatically walked recursively. To ignore subdirectories, use the `ignore_pattern` parameter.
         :param ignore_pattern: Wildcard pattern to ignore files (uses `fnmatch` stdlib module, not regex). Examples: "*.tmp" (ignore all .tmp files), "*/subdir/*" (ignore files in subdir at any level).
         :param include_hidden: Whether to include hidden files (starting with ".").
-        :param check_duplicates: Whether to check for duplicates using SHA1 hashes before uploading.
+        :param skip_duplicates: Whether to skip duplicate checking (might still get rejected on the server).
         :param concurrency: Number of concurrent uploads. Defaults to 5. A higher number may increase upload speed, but also increases the risk of rate limiting or other issues.
         :param show_progress: Whether to show progress bars.
-        :param include_sidecars: Whether to automatically detect and upload XMP sidecar files.
+        :param exclude_sidecars: Whether to exclude XMP sidecar files.
         :param album_name: Album name to create or use. If None, no album operations are performed.
         :param delete_uploads: Whether to delete successfully uploaded files locally.
         :param delete_duplicates: Whether to delete duplicate files locally.
-        :param dry_run: If True, simulate uploads without actually uploading.
+        :param dry_run: Simulate uploads without actually uploading.
 
         :return: UploadResult with uploaded assets, rejected files, failures, and statistics.
         """
@@ -216,7 +216,7 @@ class AssetsApiWrapped(AssetsApi):
         new_files, checked_rejected = await check_dupes(
             files=files,
             assets_api=self,
-            check_duplicates=check_duplicates,
+            skip_duplicates=skip_duplicates,
             show_progress=show_progress,
         )
 
@@ -225,7 +225,7 @@ class AssetsApiWrapped(AssetsApi):
             assets_api=self,
             concurrency=concurrency,
             show_progress=show_progress,
-            include_sidecars=include_sidecars,
+            exclude_sidecars=exclude_sidecars,
             dry_run=dry_run,
         )
 
@@ -236,14 +236,14 @@ class AssetsApiWrapped(AssetsApi):
 
         # we can either check pre-upload rejected files or on-upload rejected files, so we return the appropriate list
         # alternative would be to use both lists and deduplicate by asset_id, however adds overhead and assumes the API returned different results
-        rejected = checked_rejected if check_duplicates else actual_rejected
+        rejected = actual_rejected if skip_duplicates else checked_rejected
 
         await delete_files(
             uploaded=uploaded,
             rejected=rejected,
             delete_uploads=delete_uploads,
             delete_duplicates=delete_duplicates,
-            include_sidecars=include_sidecars,
+            exclude_sidecars=exclude_sidecars,
             dry_run=dry_run,
         )
 

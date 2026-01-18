@@ -26,7 +26,7 @@ def get_profile_image_to_file(
         help="Filename to use (defaults to original filename or profile-{user_id})",
     ),
     show_progress: bool = typer.Option(
-        True,
+        False,
         "--show-progress",
         help="Show progress bar while downloading",
     ),
@@ -41,8 +41,7 @@ def get_profile_image_to_file(
     kwargs["out_dir"] = out_dir
     if filename is not None:
         kwargs["filename"] = filename
-    if show_progress is not None:
-        kwargs["show_progress"] = show_progress
+    kwargs["show_progress"] = show_progress
     client = ctx.obj["client"]
     result = run_command(client, client.users, "get_profile_image_to_file", **kwargs)
     print_response(result, ctx)

@@ -28,7 +28,7 @@ class DownloadApiWrapped(DownloadApi):
         out_dir: Path,
         key: Optional[StrictStr] = None,
         slug: Optional[StrictStr] = None,
-        show_progress: bool = True,
+        show_progress: bool = False,
         **kwargs: Any,
     ) -> list[Path]:
         """

@@ -37,3 +37,5 @@ This lets you switch between servers or override settings when needed. If you ar
 - Optional flags like --albums let you pass true, false, or omit them — omission lets the server apply its default.
 
 Use "true"/"false" only when the option is optional; required toggles work like normal CLI flags.
+
+Make flags opt-in by default unless it’s universally expected behavior.

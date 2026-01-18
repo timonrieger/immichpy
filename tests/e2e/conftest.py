@@ -279,7 +279,7 @@ async def upload_assets(
     """Factory fixture: yields an async callable to upload assets and auto-clean them up.
 
     Example:
-        upload_result = await upload_assets([test_image], check_duplicates=False, show_progress=False)
+        upload_result = await upload_assets([test_image], skip_duplicates=True)
     """
 
     _uploaded_ids: list[UUID] = []
@@ -315,9 +315,7 @@ async def asset(
     Skips dependent tests if asset upload fails.
     """
     # Set up: Upload asset
-    upload_result = await upload_assets(
-        [test_image], check_duplicates=False, show_progress=False
-    )
+    upload_result = await upload_assets([test_image], skip_duplicates=True)
     assert len(upload_result.uploaded) == 1
     asset = upload_result.uploaded[0].asset
     yield asset

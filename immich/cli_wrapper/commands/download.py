@@ -30,7 +30,7 @@ def download_archive_to_file(
         None, "--slug", help="Public share slug (last path segment of /s/<slug>)"
     ),
     show_progress: bool = typer.Option(
-        True,
+        False,
         "--show-progress",
         help="Show progress bars (per-archive bytes + overall archive count)",
     ),

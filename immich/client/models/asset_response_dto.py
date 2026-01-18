@@ -70,7 +70,6 @@ class AssetResponseDto(BaseModel):
     height: Optional[Union[StrictFloat, StrictInt]]
     id: StrictStr
     is_archived: StrictBool = Field(alias="isArchived")
-    is_edited: StrictBool = Field(alias="isEdited")
     is_favorite: StrictBool = Field(alias="isFavorite")
     is_offline: StrictBool = Field(alias="isOffline")
     is_trashed: StrictBool = Field(alias="isTrashed")
@@ -118,7 +117,6 @@ class AssetResponseDto(BaseModel):
         "height",
         "id",
         "isArchived",
-        "isEdited",
         "isFavorite",
         "isOffline",
         "isTrashed",
@@ -275,7 +273,6 @@ class AssetResponseDto(BaseModel):
                 "height": obj.get("height"),
                 "id": obj.get("id"),
                 "isArchived": obj.get("isArchived"),
-                "isEdited": obj.get("isEdited"),
                 "isFavorite": obj.get("isFavorite"),
                 "isOffline": obj.get("isOffline"),
                 "isTrashed": obj.get("isTrashed"),

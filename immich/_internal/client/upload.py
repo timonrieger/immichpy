@@ -175,19 +175,19 @@ def compute_sha1_sync(filepath: Path) -> str:
 async def check_duplicates(
     files: list[Path],
     assets_api: AssetsApi,
-    check_duplicates: bool = True,
-    show_progress: bool = True,
+    skip_duplicates: bool = False,
+    show_progress: bool = False,
 ) -> tuple[list[Path], list[RejectedEntry]]:
     """Check which files are duplicates on the server.
 
     :param files: List of file paths to check.
     :param assets_api: Assets API instance for duplicate checking.
-    :param check_duplicates: Whether to perform duplicate checking (if False, returns all files as new).
+    :param skip_duplicates: Whether to skip duplicate checking (might still get rejected on the server).
     :param show_progress: Whether to show progress bars.
 
     :return: Tuple of (new_files, rejected_entries) where new_files can be uploaded and rejected_entries are duplicates.
     """
-    if not check_duplicates:
+    if skip_duplicates:
         return files, []
 
     progress_columns = [
@@ -293,15 +293,15 @@ def get_file_times(path: Path, stats: os.stat_result) -> tuple[datetime, datetim
 async def upload_file(
     filepath: Path,
     assets_api: AssetsApi,
-    include_sidecars: bool = True,
+    exclude_sidecars: bool = False,
     dry_run: bool = False,
 ) -> ApiResponse[AssetMediaResponseDto]:
     """Upload a single asset file to the server.
 
     :param filepath: Path to the file to upload.
     :param assets_api: Assets API instance for upload.
-    :param include_sidecars: Whether to include XMP sidecar files if found.
-    :param dry_run: If True, return mock response without actual upload.
+    :param exclude_sidecars: Whether to exclude XMP sidecar files if found.
+    :param dry_run: Return mock response without actual upload.
 
     :return: API response containing the uploaded asset metadata.
     """
@@ -319,7 +319,7 @@ async def upload_file(
     stats = filepath.stat()
 
     sidecar_data: Optional[str] = None
-    if include_sidecars:
+    if not exclude_sidecars:
         sidecar_path = find_sidecar(filepath)
         if sidecar_path:
             sidecar_data = str(sidecar_path)
@@ -343,8 +343,8 @@ async def upload_files(
     files: list[Path],
     assets_api: AssetsApi,
     concurrency: int = 5,
-    show_progress: bool = True,
-    include_sidecars: bool = True,
+    show_progress: bool = False,
+    exclude_sidecars: bool = False,
     dry_run: bool = False,
 ) -> tuple[list[UploadedEntry], list[RejectedEntry], list[FailedEntry]]:
     """Upload multiple asset files concurrently.
@@ -353,8 +353,8 @@ async def upload_files(
     :param assets_api: Assets API instance for upload.
     :param concurrency: Maximum number of concurrent uploads.
     :param show_progress: Whether to show upload progress bar.
-    :param include_sidecars: Whether to include XMP sidecar files if found.
-    :param dry_run: If True, simulate uploads without actual API calls.
+    :param exclude_sidecars: Whether to exclude XMP sidecar files if found.
+    :param dry_run: Simulate uploads without actual API calls.
 
     :return: Tuple of (uploaded_entries, rejected_entries, failed_entries).
     """
@@ -384,7 +384,7 @@ async def upload_files(
             async with semaphore:
                 try:
                     response = await upload_file(
-                        filepath, assets_api, include_sidecars, dry_run
+                        filepath, assets_api, exclude_sidecars, dry_run
                     )
                     if response.status_code == 201:
                         uploaded.append(
@@ -467,7 +467,7 @@ async def delete_files(
     rejected: list[RejectedEntry],
     delete_uploads: bool = False,
     delete_duplicates: bool = False,
-    include_sidecars: bool = True,
+    exclude_sidecars: bool = False,
     dry_run: bool = False,
 ) -> None:
     """Delete local files after upload or if they are duplicates.
@@ -476,8 +476,8 @@ async def delete_files(
     :param rejected: List of rejected entries (e.g., duplicates).
     :param delete_uploads: Whether to delete files that were successfully uploaded.
     :param delete_duplicates: Whether to delete files that were rejected as duplicates.
-    :param include_sidecars: Whether to also delete sidecar files (.xmp).
-    :param dry_run: If True, log deletions without actually deleting files.
+    :param exclude_sidecars: Whether to exclude sidecar files (.xmp).
+    :param dry_run: Log deletions without actually deleting files.
 
     :return: None
     """
@@ -503,7 +503,7 @@ async def delete_files(
                 main_deleted = False
                 logger.exception(f"Failed to delete {filepath}")
 
-        if include_sidecars and main_deleted:
+        if not exclude_sidecars and main_deleted:
             sidecar_path = find_sidecar(filepath)
             if sidecar_path:
                 if dry_run:

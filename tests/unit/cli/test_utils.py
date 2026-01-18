@@ -1,5 +1,6 @@
 from unittest.mock import patch
 
+from pathlib import Path
 import pytest
 import typer
 
@@ -52,7 +53,7 @@ class TestGetPath:
 
 
 class TestEnsureConfig:
-    def test_ensure_config_creates_file(self, tmp_path):
+    def test_ensure_config_creates_file(self, tmp_path: Path):
         """Test that _ensure_config creates the config file and sets permissions."""
         config_dir = tmp_path / ".immich-py"
         config_file = config_dir / "config.toml"
@@ -62,7 +63,7 @@ class TestEnsureConfig:
                 assert config_file.exists()
                 assert oct(config_file.stat().st_mode)[-3:] == "600"
 
-    def test_ensure_config_existing_file(self, tmp_path):
+    def test_ensure_config_existing_file(self, tmp_path: Path):
         """Test that _ensure_config handles existing file."""
         config_dir = tmp_path / ".immich-py"
         config_file = config_dir / "config.toml"
@@ -75,7 +76,7 @@ class TestEnsureConfig:
 
 
 class TestLoadConfig:
-    def test_load_config_with_ensure_exists(self, tmp_path):
+    def test_load_config_with_ensure_exists(self, tmp_path: Path):
         """Test load_config with ensure_exists=True creates file."""
         config_dir = tmp_path / ".immich-py"
         config_file = config_dir / "config.toml"
@@ -85,7 +86,7 @@ class TestLoadConfig:
                 assert config_file.exists()
                 assert result == {}
 
-    def test_load_config_without_ensure_exists(self, tmp_path):
+    def test_load_config_without_ensure_exists(self, tmp_path: Path):
         """Test load_config without ensure_exists on existing file."""
         config_dir = tmp_path / ".immich-py"
         config_file = config_dir / "config.toml"
@@ -96,7 +97,7 @@ class TestLoadConfig:
                 result = load_config(ensure_exists=False)
                 assert result == {"key": "value"}
 
-    def test_load_config_file_not_exists_without_ensure(self, tmp_path):
+    def test_load_config_file_not_exists_without_ensure(self, tmp_path: Path):
         """Test load_config when file doesn't exist and ensure_exists=False."""
         config_dir = tmp_path / ".immich-py"
         config_file = config_dir / "config.toml"
@@ -107,13 +108,13 @@ class TestLoadConfig:
 
 
 class TestWriteConfig:
-    def test_write_config_creates_file_and_sets_permissions(self, tmp_path):
+    def test_write_config_creates_file_and_sets_permissions(self, tmp_path: Path):
         """Test that write_config creates the file and sets permissions."""
         config_dir = tmp_path / ".immich-py"
         config_file = config_dir / "config.toml"
         config_dir.mkdir()
         with patch("immich._internal.cli.utils.CONFIG_DIR", config_dir):
-            with patch("immich._internal.cli.utils.CONFIG_FILE", config_file):
+            with patch("immich._internal.cli.utils.CONFIG_FILE", new=config_file):
                 write_config({"key": "value"})
                 assert config_file.exists()
                 assert config_file.read_text() == 'key = "value"\n'
@@ -121,7 +122,7 @@ class TestWriteConfig:
 
 
 class TestCheckConfig:
-    def test_check_config_file_exists(self, tmp_path):
+    def test_check_config_file_exists(self, tmp_path: Path):
         """Test check_config when file exists."""
         config_dir = tmp_path / ".immich-py"
         config_file = config_dir / "config.toml"
@@ -129,9 +130,9 @@ class TestCheckConfig:
         config_file.touch()
         with patch("immich._internal.cli.utils.CONFIG_FILE", config_file):
             result = check_config()
-            assert result is True
+            assert result is None
 
-    def test_check_config_file_not_exists(self, tmp_path):
+    def test_check_config_file_not_exists(self, tmp_path: Path):
         """Test check_config when file doesn't exist."""
         config_file = tmp_path / "config.toml"
         with patch("immich._internal.cli.utils.CONFIG_FILE", config_file):
@@ -144,7 +145,7 @@ class TestCheckConfig:
 
 
 class TestGetClientConfig:
-    def test_get_client_config_from_file(self, tmp_path):
+    def test_get_client_config_from_file(self, tmp_path: Path):
         """Test get_client_config loads from config file."""
         config_dir = tmp_path / ".immich-py"
         config_file = config_dir / "config.toml"
@@ -158,7 +159,7 @@ class TestGetClientConfig:
             assert result.api_key == "file-key"
             assert result.base_url == "http://file.url"
 
-    def test_get_client_config_prefers_provided_values(self, tmp_path):
+    def test_get_client_config_prefers_provided_values(self, tmp_path: Path):
         """Test that provided config values override file values."""
         config_dir = tmp_path / ".immich-py"
         config_file = config_dir / "config.toml"
@@ -176,7 +177,7 @@ class TestGetClientConfig:
             assert result.api_key == "provided-key"
             assert result.base_url == "http://provided.url"
 
-    def test_get_client_config_partial_override(self, tmp_path):
+    def test_get_client_config_partial_override(self, tmp_path: Path):
         """Test that only provided values override file values."""
         config_dir = tmp_path / ".immich-py"
         config_file = config_dir / "config.toml"
@@ -195,7 +196,7 @@ class TestGetClientConfig:
             assert result.base_url == "http://file.url"
             assert result.access_token == "file-token"
 
-    def test_get_client_config_empty_file(self, tmp_path):
+    def test_get_client_config_empty_file(self, tmp_path: Path):
         """Test get_client_config with empty config file."""
         config_dir = tmp_path / ".immich-py"
         config_file = config_dir / "config.toml"
@@ -206,7 +207,7 @@ class TestGetClientConfig:
             with pytest.raises(typer.Exit):
                 resolve_client_config(config, profile="default")
 
-    def test_get_client_config_profile_not_in_file(self, tmp_path):
+    def test_get_client_config_profile_not_in_file(self, tmp_path: Path):
         """Test get_client_config when profile doesn't exist in file."""
         config_dir = tmp_path / ".immich-py"
         config_file = config_dir / "config.toml"

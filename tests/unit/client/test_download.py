@@ -191,9 +191,7 @@ async def test_download_file_basic_download(tmp_path: Path) -> None:
     def resolve_filename(h):
         return "test.txt"
 
-    result = await download_utils.download_file(
-        make_request, out_dir, resolve_filename, show_progress=False
-    )
+    result = await download_utils.download_file(make_request, out_dir, resolve_filename)
 
     assert result == out_dir / "test.txt"
     assert result.exists()
@@ -224,9 +222,7 @@ async def test_download_file_file_already_exists_complete(tmp_path: Path) -> Non
     def resolve_filename(h):
         return "existing.txt"
 
-    result = await download_utils.download_file(
-        make_request, out_dir, resolve_filename, show_progress=False
-    )
+    result = await download_utils.download_file(make_request, out_dir, resolve_filename)
 
     assert result == existing_file
     assert result.read_bytes() == content_data
@@ -258,9 +254,7 @@ async def test_download_file_file_already_exists_incomplete(tmp_path: Path) -> N
     def resolve_filename(h):
         return "incomplete.txt"
 
-    result = await download_utils.download_file(
-        make_request, out_dir, resolve_filename, show_progress=False
-    )
+    result = await download_utils.download_file(make_request, out_dir, resolve_filename)
 
     # File should not be re-downloaded - original content preserved for security
     assert result == existing_file
@@ -298,7 +292,7 @@ async def test_download_file_resume_from_temp_file(tmp_path: Path) -> None:
         return "resume.txt"
 
     result = await download_utils.download_file(
-        make_request, out_dir, resolve_filename, show_progress=False, resumeable=True
+        make_request, out_dir, resolve_filename, resumeable=True
     )
 
     assert result == out_dir / "resume.txt"
@@ -335,7 +329,7 @@ async def test_download_file_resume_not_supported_by_server(tmp_path: Path) -> N
         return "no_resume.txt"
 
     result = await download_utils.download_file(
-        make_request, out_dir, resolve_filename, show_progress=False, resumeable=True
+        make_request, out_dir, resolve_filename, resumeable=True
     )
 
     assert result == out_dir / "no_resume.txt"
@@ -366,9 +360,7 @@ async def test_download_file_temp_file_complete_deletes_and_restarts(
     def resolve_filename(h):
         return "complete_temp.txt"
 
-    result = await download_utils.download_file(
-        make_request, out_dir, resolve_filename, show_progress=False
-    )
+    result = await download_utils.download_file(make_request, out_dir, resolve_filename)
 
     assert result == out_dir / "complete_temp.txt"
     assert result.read_bytes() == full_content
@@ -397,7 +389,7 @@ async def test_download_file_resume_disabled(tmp_path: Path) -> None:
         return "no_resume_flag.txt"
 
     result = await download_utils.download_file(
-        make_request, out_dir, resolve_filename, show_progress=False, resumeable=False
+        make_request, out_dir, resolve_filename, resumeable=False
     )
 
     assert result == out_dir / "no_resume_flag.txt"
@@ -423,9 +415,7 @@ async def test_download_file_raises_error_if_out_dir_is_not_directory(
 
     # is_dir() check happens before mkdir(), so ValueError is raised
     with pytest.raises(ValueError, match="out_dir must be a directory"):
-        await download_utils.download_file(
-            make_request, out_dir, resolve_filename, show_progress=False
-        )
+        await download_utils.download_file(make_request, out_dir, resolve_filename)
     # Temp file should not exist since error occurred before temp_path was set
     assert not (tmp_path / "test.txt.temp").exists()
 
@@ -478,9 +468,7 @@ async def test_download_file_handles_empty_chunks(tmp_path: Path) -> None:
     def resolve_filename(h):
         return "empty_chunks.txt"
 
-    result = await download_utils.download_file(
-        make_request, out_dir, resolve_filename, show_progress=False
-    )
+    result = await download_utils.download_file(make_request, out_dir, resolve_filename)
 
     assert result.read_bytes() == content_data
 
@@ -514,9 +502,7 @@ async def test_download_file_cleans_up_temp_file_on_error(tmp_path: Path) -> Non
         return "error.txt"
 
     with pytest.raises(RuntimeError, match="Read error"):
-        await download_utils.download_file(
-            make_request, out_dir, resolve_filename, show_progress=False
-        )
+        await download_utils.download_file(make_request, out_dir, resolve_filename)
 
     # Temp file should not exist after error
     assert not (out_dir / "error.txt.temp").exists()
@@ -537,9 +523,7 @@ async def test_download_file_handles_no_content_length(tmp_path: Path) -> None:
     def resolve_filename(h):
         return "no_length.txt"
 
-    result = await download_utils.download_file(
-        make_request, out_dir, resolve_filename, show_progress=False
-    )
+    result = await download_utils.download_file(make_request, out_dir, resolve_filename)
 
     assert result.read_bytes() == content_data
 

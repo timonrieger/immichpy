@@ -126,7 +126,7 @@ async def download_file(
     out_dir: Path,
     resolve_filename: Callable[[dict[str, str]], str],
     *,
-    show_progress: bool = True,
+    show_progress: bool = False,
     progress: Optional[Progress] = None,
     task_id: Optional[TaskID] = None,
     resumeable: bool = True,
