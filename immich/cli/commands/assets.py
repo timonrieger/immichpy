@@ -12,9 +12,7 @@ from immich.cli.runtime import print_response, run_command, set_nested
 from immich.client.models import *
 
 app = typer.Typer(
-    help="""An asset is an image or video that has been uploaded to Immich.
-
-Docs: https://api.immich.app/endpoints/assets"""
+    help="""An asset is an image or video that has been uploaded to Immich.\n\nDocs: https://api.immich.app/endpoints/assets"""
 )
 
 

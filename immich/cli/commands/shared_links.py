@@ -10,9 +10,7 @@ from immich.cli.runtime import print_response, run_command, set_nested
 from immich.client.models import *
 
 app = typer.Typer(
-    help="""A shared link is a public url that provides access to a specific album, asset, or collection of assets. A shared link can be protected with a password, include a specific slug, allow or disallow downloads, and optionally include an expiration date.
-
-Docs: https://api.immich.app/endpoints/shared-links"""
+    help="""A shared link is a public url that provides access to a specific album, asset, or collection of assets. A shared link can be protected with a password, include a specific slug, allow or disallow downloads, and optionally include an expiration date.\n\nDocs: https://api.immich.app/endpoints/shared-links"""
 )
 
 

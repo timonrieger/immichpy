@@ -10,9 +10,7 @@ from immich.cli.runtime import print_response, run_command, set_nested
 from immich.client.models import *
 
 app = typer.Typer(
-    help="""Endpoints for viewing and updating the current users, including product key information, profile picture data, onboarding progress, and more.
-
-Docs: https://api.immich.app/endpoints/users"""
+    help="""Endpoints for viewing and updating the current users, including product key information, profile picture data, onboarding progress, and more.\n\nDocs: https://api.immich.app/endpoints/users"""
 )
 
 

@@ -8,9 +8,7 @@ from immich.cli.runtime import print_response, run_command, set_nested
 from immich.client.models import *
 
 app = typer.Typer(
-    help="""Endpoints for managing and identifying duplicate assets.
-
-Docs: https://api.immich.app/endpoints/duplicates"""
+    help="""Endpoints for managing and identifying duplicate assets.\n\nDocs: https://api.immich.app/endpoints/duplicates"""
 )
 
 

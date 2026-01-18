@@ -8,9 +8,7 @@ from immich.cli.runtime import print_response, run_command, set_nested
 from immich.client.models import *
 
 app = typer.Typer(
-    help="""Endpoints for managing the trash can, which includes assets that have been discarded. Items in the trash are automatically deleted after a configured amount of time.
-
-Docs: https://api.immich.app/endpoints/trash"""
+    help="""Endpoints for managing the trash can, which includes assets that have been discarded. Items in the trash are automatically deleted after a configured amount of time.\n\nDocs: https://api.immich.app/endpoints/trash"""
 )
 
 

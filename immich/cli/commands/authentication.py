@@ -9,9 +9,7 @@ from immich.cli.runtime import print_response, run_command, set_nested
 from immich.client.models import *
 
 app = typer.Typer(
-    help="""Endpoints related to user authentication, including OAuth.
-
-Docs: https://api.immich.app/endpoints/authentication"""
+    help="""Endpoints related to user authentication, including OAuth.\n\nDocs: https://api.immich.app/endpoints/authentication"""
 )
 
 

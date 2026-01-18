@@ -8,9 +8,7 @@ from immich.cli.runtime import print_response, run_command
 from immich.client.models import *
 
 app = typer.Typer(
-    help="""Administrative endpoints related to authentication.
-
-Docs: https://api.immich.app/endpoints/authentication-admin"""
+    help="""Administrative endpoints related to authentication.\n\nDocs: https://api.immich.app/endpoints/authentication-admin"""
 )
 
 

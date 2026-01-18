@@ -10,9 +10,7 @@ from immich.cli.runtime import print_response, run_command, set_nested
 from immich.client.models import *
 
 app = typer.Typer(
-    help="""A memory is a specialized collection of assets with dedicated viewing implementations in the web and mobile clients. A memory includes fields related to visibility and are automatically generated per user via a background job.
-
-Docs: https://api.immich.app/endpoints/memories"""
+    help="""A memory is a specialized collection of assets with dedicated viewing implementations in the web and mobile clients. A memory includes fields related to visibility and are automatically generated per user via a background job.\n\nDocs: https://api.immich.app/endpoints/memories"""
 )
 
 

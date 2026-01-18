@@ -9,9 +9,7 @@ from immich.cli.runtime import print_response, run_command, set_nested
 from immich.client.models import *
 
 app = typer.Typer(
-    help="""A session represents an authenticated login session for a user. Sessions also appear in the web application as "Authorized devices".
-
-Docs: https://api.immich.app/endpoints/sessions"""
+    help="""A session represents an authenticated login session for a user. Sessions also appear in the web application as "Authorized devices".\n\nDocs: https://api.immich.app/endpoints/sessions"""
 )
 
 

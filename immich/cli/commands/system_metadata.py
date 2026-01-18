@@ -9,9 +9,7 @@ from immich.cli.runtime import print_response, run_command, set_nested
 from immich.client.models import *
 
 app = typer.Typer(
-    help="""Endpoints to view, modify, and validate the system metadata, which includes information about things like admin onboarding status.
-
-Docs: https://api.immich.app/endpoints/system-metadata"""
+    help="""Endpoints to view, modify, and validate the system metadata, which includes information about things like admin onboarding status.\n\nDocs: https://api.immich.app/endpoints/system-metadata"""
 )
 
 

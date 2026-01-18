@@ -10,9 +10,7 @@ from immich.cli.runtime import print_response, run_command, set_nested
 from immich.client.models import *
 
 app = typer.Typer(
-    help="""A notification is a specialized message sent to users to inform them of important events. Currently, these notifications are only shown in the Immich web application.
-
-Docs: https://api.immich.app/endpoints/notifications"""
+    help="""A notification is a specialized message sent to users to inform them of important events. Currently, these notifications are only shown in the Immich web application.\n\nDocs: https://api.immich.app/endpoints/notifications"""
 )
 
 

@@ -8,9 +8,7 @@ from immich.cli.runtime import print_response, run_command, set_nested
 from immich.client.models import *
 
 app = typer.Typer(
-    help="""Endpoints for downloading assets or collections of assets.
-
-Docs: https://api.immich.app/endpoints/download"""
+    help="""Endpoints for downloading assets or collections of assets.\n\nDocs: https://api.immich.app/endpoints/download"""
 )
 
 

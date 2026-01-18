@@ -8,9 +8,7 @@ from immich.cli.runtime import print_response, run_command, set_nested
 from immich.client.models import *
 
 app = typer.Typer(
-    help="""A tag is a user-defined label that can be applied to assets for organizational purposes. Tags can also be hierarchical, allowing for parent-child relationships between tags.
-
-Docs: https://api.immich.app/endpoints/tags"""
+    help="""A tag is a user-defined label that can be applied to assets for organizational purposes. Tags can also be hierarchical, allowing for parent-child relationships between tags.\n\nDocs: https://api.immich.app/endpoints/tags"""
 )
 
 

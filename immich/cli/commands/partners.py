@@ -9,9 +9,7 @@ from immich.cli.runtime import print_response, run_command, set_nested
 from immich.client.models import *
 
 app = typer.Typer(
-    help="""A partner is a link with another user that allows sharing of assets between two users.
-
-Docs: https://api.immich.app/endpoints/partners"""
+    help="""A partner is a link with another user that allows sharing of assets between two users.\n\nDocs: https://api.immich.app/endpoints/partners"""
 )
 
 

@@ -11,9 +11,7 @@ from immich.cli.runtime import print_response, run_command, set_nested
 from immich.client.models import *
 
 app = typer.Typer(
-    help="""Notification administrative endpoints.
-
-Docs: https://api.immich.app/endpoints/notifications-admin"""
+    help="""Notification administrative endpoints.\n\nDocs: https://api.immich.app/endpoints/notifications-admin"""
 )
 
 

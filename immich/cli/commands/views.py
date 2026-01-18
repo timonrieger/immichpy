@@ -8,9 +8,7 @@ from immich.cli.runtime import print_response, run_command
 from immich.client.models import *
 
 app = typer.Typer(
-    help="""Endpoints for specialized views, such as the folder view.
-
-Docs: https://api.immich.app/endpoints/views"""
+    help="""Endpoints for specialized views, such as the folder view.\n\nDocs: https://api.immich.app/endpoints/views"""
 )
 
 

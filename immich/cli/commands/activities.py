@@ -8,9 +8,7 @@ from immich.cli.runtime import print_response, run_command, set_nested
 from immich.client.models import *
 
 app = typer.Typer(
-    help="""An activity is a like or a comment made by a user on an asset or album.
-
-Docs: https://api.immich.app/endpoints/activities"""
+    help="""An activity is a like or a comment made by a user on an asset or album.\n\nDocs: https://api.immich.app/endpoints/activities"""
 )
 
 

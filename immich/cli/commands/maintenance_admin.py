@@ -8,9 +8,7 @@ from immich.cli.runtime import print_response, run_command, set_nested
 from immich.client.models import *
 
 app = typer.Typer(
-    help="""Maintenance mode allows you to put Immich in a read-only state to perform various operations.
-
-Docs: https://api.immich.app/endpoints/maintenance-admin"""
+    help="""Maintenance mode allows you to put Immich in a read-only state to perform various operations.\n\nDocs: https://api.immich.app/endpoints/maintenance-admin"""
 )
 
 
