@@ -45,5 +45,4 @@ def get_profile_image_to_file(
         kwargs["show_progress"] = show_progress
     client = ctx.obj["client"]
     result = run_command(client, client.users, "get_profile_image_to_file", **kwargs)
-    format_mode = ctx.obj.get("format")
-    print_response(result, format_mode)
+    print_response(result, ctx)

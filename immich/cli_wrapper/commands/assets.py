@@ -54,8 +54,7 @@ def download_asset_to_file(
         kwargs["filename"] = filename
     client = ctx.obj["client"]
     result = run_command(client, client.assets, "download_asset_to_file", **kwargs)
-    format_mode = ctx.obj.get("format")
-    print_response(result, format_mode)
+    print_response(result, ctx)
 
 
 @app.command("play-asset-video-to-file", rich_help_panel="Custom commands")
@@ -97,8 +96,7 @@ def play_asset_video_to_file(
         kwargs["filename"] = filename
     client = ctx.obj["client"]
     result = run_command(client, client.assets, "play_asset_video_to_file", **kwargs)
-    format_mode = ctx.obj.get("format")
-    print_response(result, format_mode)
+    print_response(result, ctx)
 
 
 @app.command("view-asset-to-file", rich_help_panel="Custom commands")
@@ -145,8 +143,7 @@ def view_asset_to_file(
         kwargs["filename"] = filename
     client = ctx.obj["client"]
     result = run_command(client, client.assets, "view_asset_to_file", **kwargs)
-    format_mode = ctx.obj.get("format")
-    print_response(result, format_mode)
+    print_response(result, ctx)
 
 
 @app.command("upload", rich_help_panel="Custom commands")
@@ -231,5 +228,4 @@ def upload(
         kwargs["dry_run"] = dry_run
     client = ctx.obj["client"]
     result = run_command(client, client.assets, "upload", **kwargs)
-    format_mode = ctx.obj.get("format")
-    print_response(result, format_mode)
+    print_response(result, ctx)

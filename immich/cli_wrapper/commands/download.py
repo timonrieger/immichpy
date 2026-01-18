@@ -72,5 +72,4 @@ def download_archive_to_file(
 
     client = ctx.obj["client"]
     result = run_command(client, client.download, "download_archive_to_file", **kwargs)
-    format_mode = ctx.obj.get("format")
-    print_response(result, format_mode)
+    print_response(result, ctx)
