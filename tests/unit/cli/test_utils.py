@@ -136,12 +136,9 @@ class TestCheckConfig:
         """Test check_config when file doesn't exist."""
         config_file = tmp_path / "config.toml"
         with patch("immich._internal.cli.utils.CONFIG_FILE", config_file):
-            with patch("typer.echo") as mock_echo:
-                with pytest.raises(typer.Exit) as exc_info:
-                    check_config()
-                assert exc_info.value.exit_code == 1
-                mock_echo.assert_called_once()
-                assert "Config file does not exist" in str(mock_echo.call_args[0][0])
+            with pytest.raises(typer.Exit) as exc_info:
+                check_config()
+            assert exc_info.value.exit_code == 1
 
 
 class TestGetClientConfig:

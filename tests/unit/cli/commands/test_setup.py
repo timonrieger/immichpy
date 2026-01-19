@@ -31,7 +31,8 @@ class TestSetup:
         )
         assert config_data["profiles"]["default"]["api_key"] == "test-api-key"
         assert config_data["profiles"]["default"]["access_token"] == "test-access-token"
-        assert "Profile 'default' written to" in result.stdout
+        assert "Success" in result.stdout
+        assert "default" in result.stdout
 
     def test_setup_with_custom_profile(self, runner: CliRunner, mock_config_path: Path):
         """Test setup command with custom profile."""
@@ -59,7 +60,8 @@ class TestSetup:
         )
         assert config_data["profiles"]["production"]["api_key"] == "prod-key"
         assert config_data["profiles"]["production"]["access_token"] == ""
-        assert "Profile 'production' written to" in result.stdout
+        assert "Success" in result.stdout
+        assert "production" in result.stdout
 
     def test_setup_with_only_base_url(self, runner: CliRunner, mock_config_path: Path):
         """Test setup command with only base_url (empty api_key and access_token)."""

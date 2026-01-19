@@ -11,7 +11,7 @@ class TestConfigSet:
         """Test setting a simple key-value pair."""
         result = runner.invoke(
             config_commands.app,
-            ["set", "test_key", "test_value"],
+            ["set", "test_key", "--value", "test_value"],
         )
 
         assert result.exit_code == 0
@@ -23,7 +23,12 @@ class TestConfigSet:
         """Test setting a nested key using dot notation."""
         result = runner.invoke(
             config_commands.app,
-            ["set", "profiles.production.base_url", "https://prod.immich.app/api"],
+            [
+                "set",
+                "profiles.production.base_url",
+                "--value",
+                "https://prod.immich.app/api",
+            ],
         )
 
         assert result.exit_code == 0
@@ -40,7 +45,7 @@ class TestConfigSet:
 
         result = runner.invoke(
             config_commands.app,
-            ["set", "key", "new-value"],
+            ["set", "key", "--value", "new-value"],
         )
 
         assert result.exit_code == 0

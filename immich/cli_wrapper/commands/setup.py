@@ -83,6 +83,12 @@ def setup(
 
     write_config(data)
 
-    typer.echo(
-        f"Profile '{profile}' written to {CONFIG_FILE}. To verify the config, run 'immich config get profiles.{profile}'"
+    print("")
+    print_(
+        f"Profile [bold]{profile}[/bold] written to [bold]{CONFIG_FILE}[/bold].",
+        type="success",
+    )
+    print_(
+        f"To verify the config, run [bold]immich config get profiles.{profile}[/bold]",
+        type="info",
     )

@@ -5,12 +5,12 @@ from __future__ import annotations
 import asyncio
 import json
 import sys
-from typing import Any, Awaitable, Callable
+from typing import Any, Awaitable, Callable, cast
 
 from pydantic import BaseModel
 from typer import Context
 
-from immich._internal.types import _MaybeBaseModel
+from immich._internal.types import _FormatMode, _MaybeBaseModel
 
 from immich import AsyncClient
 from immich.client.exceptions import ApiException
@@ -46,12 +46,26 @@ def print_response(data: _MaybeBaseModel, ctx: Context) -> None:
 
     json_str = json.dumps(convert_to_dict(data), default=str)
 
-    print_json(json_str) if ctx.obj.get("format") == "pretty" else print(json_str)
+    print_json(json_str) if cast(
+        _FormatMode, ctx.obj.get("format")
+    ) == "pretty" else print(json_str)
 
 
-def handle_api_error(e: ApiException) -> None:
+def handle_api_error(e: ApiException, ctx: Context | None = None) -> None:
     """Handle API exceptions and exit with appropriate code."""
-    print_json(e.body) if e.body else None
+    if not e.body:
+        sys.exit(1 if e.status is None else e.status // 100)
+
+    if isinstance(e.body, str):
+        json_str = e.body
+    else:
+        json_str = json.dumps(e.body, default=str)
+
+    if ctx and cast(_FormatMode, ctx.obj.get("format")) == "pretty":
+        print_json(json_str)
+    else:
+        print(json_str)
+
     sys.exit(1 if e.status is None else e.status // 100)
 
 
@@ -64,6 +78,7 @@ def run_command(
     client: AsyncClient,
     api_group: Any,
     method_name: str,
+    ctx: Context | None = None,
     **kwargs: Any,
 ) -> Any:
     """Run a client API method and return result."""
@@ -81,5 +96,5 @@ def run_command(
         return asyncio.run(run_async(_call_and_close()))
     except Exception as e:
         if isinstance(e, ApiException):
-            handle_api_error(e)
+            handle_api_error(e, ctx)
         raise

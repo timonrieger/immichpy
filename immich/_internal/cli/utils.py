@@ -1,10 +1,11 @@
 from typing import Any, Optional, overload
 
+from rich import print
 import rtoml
 import typer
 
 from immich._internal.consts import CONFIG_DIR, CONFIG_FILE, SECRET_KEYS
-from immich._internal.types import ClientConfig, _LogLevel
+from immich._internal.types import ClientConfig, _PrintType
 
 
 def set_path(data: dict[str, Any], path: str, value: Any) -> None:
@@ -64,7 +65,10 @@ def check_config() -> None:
     Check if the config file exists.
     """
     if not CONFIG_FILE.exists():
-        typer.echo("Config file does not exist. Run 'immich config set' to create it.")
+        print_(
+            "Config file does not exist. Run [bold]immich config set[/bold] to create it.",
+            type="error",
+        )
         raise typer.Exit(code=1)
 
 
@@ -81,8 +85,9 @@ def resolve_client_config(config: ClientConfig, profile: str) -> ClientConfig:
     try:
         profile_data: dict[str, Any] = data["profiles"][profile]
     except KeyError:
-        typer.echo(
-            f"Profile {profile} not found in config. Run 'immich config set --profile {profile}' to create it."
+        print_(
+            f"Profile [bold]{profile}[/bold] not found in config. Run [bold]immich config set --profile {profile}[/bold] to create it.",
+            type="error",
         )
         raise typer.Exit(code=1)
 
@@ -155,22 +160,29 @@ def mask(obj: Any, start: int = 3, end: int = 3, key: Optional[str] = None) -> A
 def print_(
     message: str,
     *,
-    level: _LogLevel = "info",
+    type: _PrintType = "info",
     ctx: Optional[typer.Context] = None,
     **kwargs: Any,
 ) -> None:
     """
     Print a message in verbose mode.
     :param message: The message to print
-    :param level: The level of the message
+    :param debug: Whether to only print the message in verbose mode
+    :param type: The type of the message
     :param ctx: The context to use
-    :param kwargs: Additional keyword arguments to pass to typer.secho
+    :param kwargs: Additional keyword arguments to pass to rich.print
     """
-    if ctx is not None and ctx.obj["verbose"] and level == "debug":
-        typer.secho(message, fg="blue", **kwargs)
-    elif level == "info":
-        typer.secho(message, **kwargs)
-    elif level == "warning":
-        typer.secho(message, fg="yellow", **kwargs)
-    elif level == "error":
-        typer.secho(message, fg="red", **kwargs)
+    match type:
+        case "output":
+            print(message, **kwargs)
+        case "info":
+            print(message, **kwargs)
+        case "warning":
+            print(f"[yellow][bold][Warning][/bold] {message}[/yellow]", **kwargs)
+        case "error":
+            print(f"[red][bold][Error][/bold] {message}[/red]", **kwargs)
+        case "success":
+            print(f"[green][bold][Success][/bold][/green] {message}", **kwargs)
+        case "debug":
+            if ctx is not None and ctx.obj["verbose"]:
+                print(f"[blue][bold][Debug][/bold] {message}[/blue]", **kwargs)

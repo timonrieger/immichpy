@@ -147,7 +147,7 @@ app.add_typer(workflows_commands.app, name="workflows", rich_help_panel="API com
 
 def version_callback(value: bool) -> None:
     if value:
-        print_(f"immich CLI (unofficial) {version('immich')}", level="info")
+        print_(f"immich CLI (unofficial) {version('immich')}", level="output")
         raise typer.Exit(0)
 
 
@@ -166,7 +166,7 @@ def _callback(
     api_key: Optional[str] = typer.Option(
         None,
         "--api-key",
-        help=f"Authorize via API key (see {API_KEY_URL}).",
+        help=f"Authorize via API key (get one [link={API_KEY_URL}]here[/link]).",
         envvar=IMMICH_API_KEY,
     ),
     access_token: Optional[str] = typer.Option(
@@ -212,8 +212,9 @@ def _callback(
             profile=profile,
         )
         if not config.base_url:
-            typer.echo(
-                "No base URL provided. Run 'immich setup' to set up a profile or use '--base-url' to specify a base URL."
+            print_(
+                "No base URL provided. Run 'immich setup' to set up a profile or use '--base-url' to specify a base URL.",
+                type="error",
             )
             raise typer.Exit(code=1)
         if ctx.obj["verbose"]:
@@ -222,7 +223,7 @@ def _callback(
                 for k, v in ctx.params.items()
                 if k in ClientConfig.model_fields.keys() and v is not None
             }
-            print_("Configuration used:", level="debug", ctx=ctx)
+            print_("Configuration used:", type="debug", ctx=ctx)
             for field in ClientConfig.model_fields.keys():
                 value = getattr(config, field)
                 if field in ("api_key", "access_token") and value:
@@ -230,7 +231,7 @@ def _callback(
                 elif value is None:
                     value = "None"
                 source = "cli/env" if field in cli_vars else f"profile '{profile}'"
-                print_(f"- {field}: {value} (from {source})", level="debug", ctx=ctx)
+                print_(f"- {field}: {value} (from {source})", type="debug", ctx=ctx)
         ctx.obj["client"] = AsyncClient(
             api_key=config.api_key,
             access_token=config.access_token,

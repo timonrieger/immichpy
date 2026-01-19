@@ -5,6 +5,7 @@ from immich._internal.cli.utils import (
     get_path,
     load_config,
     mask,
+    print_,
     set_path,
     write_config,
 )
@@ -16,13 +17,21 @@ app = typer.Typer(
 
 @app.command("set")
 def set(
+    ctx: typer.Context,
     key: str = typer.Argument(..., help="Dot-separated config key"),
-    value: str = typer.Argument(..., help="Value to set"),
+    value: str = typer.Option(
+        ...,
+        "--value",
+        "-v",
+        help="Value to set (prompts if not provided)",
+        prompt="Enter the value",
+    ),
 ):
     """Set a value in the config file."""
     data = load_config(ensure_exists=True)
     set_path(data, key, value)
     write_config(data)
+    print_(f"Successfully set '{key}'!", type="success")
 
 
 @app.command("get")
@@ -40,7 +49,7 @@ def get(
     value = get_path(data, key)
     if not show_secrets:
         value = mask(value, key=key)
-    typer.echo(value)
+    print_(value, type="output")
 
 
 @app.command("reset")
@@ -56,7 +65,7 @@ def reset(
     """Reset the configuration by deleting the config file."""
     check_config()
     CONFIG_FILE.unlink()
-    typer.echo("Config file removed")
+    print_("Config file removed", type="success")
 
 
 @app.command("open")
