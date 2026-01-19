@@ -21,7 +21,7 @@ app = download_commands.app
 def download_archive_to_file(
     ctx: typer.Context,
     out_dir: Path = typer.Argument(
-        ..., help="Output directory for the downloaded ZIP archives"
+        ..., help="Output directory for the downloaded ZIP archives", exists=True
     ),
     key: str | None = typer.Option(
         None, "--key", help="Public share key (last path segment of /share/<key>)"

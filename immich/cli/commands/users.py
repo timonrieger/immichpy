@@ -20,7 +20,7 @@ app = typer.Typer(
 @app.command("create-profile-image", deprecated=False, rich_help_panel="API commands")
 def create_profile_image(
     ctx: typer.Context,
-    file: Path = typer.Option(..., "--file", help=""""""),
+    file: Path = typer.Option(..., "--file", help="""""", exists=True),
 ) -> None:
     """Create user profile image
 

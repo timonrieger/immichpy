@@ -425,7 +425,7 @@ def remove_asset_edits(
 def replace_asset(
     ctx: typer.Context,
     id: str = typer.Argument(..., help=""""""),
-    asset_data: Path = typer.Option(..., "--asset-data", help=""""""),
+    asset_data: Path = typer.Option(..., "--asset-data", help="""""", exists=True),
     device_asset_id: str = typer.Option(..., "--device-asset-id", help=""""""),
     device_id: str = typer.Option(..., "--device-id", help=""""""),
     duration: str | None = typer.Option(None, "--duration", help=""""""),
@@ -638,7 +638,7 @@ def update_bulk_asset_metadata(
 @app.command("upload-asset", deprecated=False, rich_help_panel="API commands")
 def upload_asset(
     ctx: typer.Context,
-    asset_data: Path = typer.Option(..., "--asset-data", help=""""""),
+    asset_data: Path = typer.Option(..., "--asset-data", help="""""", exists=True),
     device_asset_id: str = typer.Option(..., "--device-asset-id", help=""""""),
     device_id: str = typer.Option(..., "--device-id", help=""""""),
     duration: str | None = typer.Option(None, "--duration", help=""""""),
@@ -655,7 +655,9 @@ def upload_asset(
     metadata: list[str] | None = typer.Option(
         None, "--metadata", help="""As a JSON string"""
     ),
-    sidecar_data: Path | None = typer.Option(None, "--sidecar-data", help=""""""),
+    sidecar_data: Path | None = typer.Option(
+        None, "--sidecar-data", help="""""", exists=True
+    ),
     slug: str | None = typer.Option(None, "--slug", help=""""""),
     visibility: str | None = typer.Option(None, "--visibility", help=""""""),
     x_immich_checksum: str | None = typer.Option(

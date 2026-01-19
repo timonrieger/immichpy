@@ -12,6 +12,7 @@ IMMICH_FORMAT = "IMMICH_FORMAT"
 IMMICH_API_URL = "IMMICH_API_URL"
 IMMICH_API_KEY = "IMMICH_API_KEY"  # nosec: B105
 IMMICH_ACCESS_TOKEN = "IMMICH_ACCESS_TOKEN"  # nosec: B105
+IMMICH_PROFILE = "IMMICH_PROFILE"
 
 # Strings that indicate secret values
 SECRET_KEYS = ["api_key", "access_token"]

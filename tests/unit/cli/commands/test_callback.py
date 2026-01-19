@@ -58,7 +58,7 @@ class TestCallbackConfigResolution:
             ["server", "get-about-info"],
         )
 
-        assert result.exit_code == 0
+        assert result.exit_code == 0, result.output
         mock_api_calls.assert_called_once()
         call_kwargs = mock_api_calls.call_args.kwargs
         assert call_kwargs["base_url"] == "https://profile.immich.app/api"

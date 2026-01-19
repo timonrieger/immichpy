@@ -19,7 +19,6 @@ def mock_config_path(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> Path:
 
     monkeypatch.setattr("immich._internal.consts.CONFIG_DIR", config_dir)
     monkeypatch.setattr("immich._internal.consts.CONFIG_FILE", config_file)
-    monkeypatch.setattr("immich._internal.cli.utils.CONFIG_DIR", config_dir)
     monkeypatch.setattr("immich._internal.cli.utils.CONFIG_FILE", config_file)
     monkeypatch.setattr("immich.cli_wrapper.commands.setup.CONFIG_FILE", config_file)
     monkeypatch.setattr("immich.cli_wrapper.commands.config.CONFIG_FILE", config_file)

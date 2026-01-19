@@ -6,6 +6,8 @@ import sys
 from typing import Optional
 from importlib.metadata import version
 
+from click.core import ParameterSource
+
 from immich._internal.consts import (
     API_KEY_URL,
     DEFAULT_PROFILE,
@@ -13,6 +15,7 @@ from immich._internal.consts import (
     IMMICH_ACCESS_TOKEN,
     IMMICH_API_URL,
     IMMICH_FORMAT,
+    IMMICH_PROFILE,
 )
 from immich._internal.cli.utils import resolve_client_config, mask, print_
 
@@ -185,6 +188,7 @@ def _callback(
         DEFAULT_PROFILE,
         "--profile",
         "-p",
+        envvar=IMMICH_PROFILE,
         help="The profile to use.",
     ),
     _version: bool = typer.Option(
@@ -210,6 +214,10 @@ def _callback(
                 base_url=base_url,
             ),
             profile=profile,
+            # we only consider the profile explicit if it was set via the command line
+            # environment variables are not considered explicit
+            profile_explicit=ctx.get_parameter_source("profile")
+            == ParameterSource.COMMANDLINE,
         )
         if not config.base_url:
             print_(

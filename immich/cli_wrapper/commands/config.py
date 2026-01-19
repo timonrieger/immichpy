@@ -27,7 +27,7 @@ def set(
     ),
 ):
     """Set a value in the config file."""
-    data = load_config(ensure_exists=True)
+    data = load_config()
     set_path(data, key, value)
     write_config(data)
     print_(f"Successfully set '{key}'!", type="success")

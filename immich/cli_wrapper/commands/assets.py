@@ -18,7 +18,7 @@ def download_asset_to_file(
     ctx: typer.Context,
     id: str = typer.Argument(..., help="Asset ID (UUID)"),
     out_dir: Path = typer.Argument(
-        ..., help="Output directory for the downloaded file"
+        ..., help="Output directory for the downloaded file", exists=True
     ),
     key: str | None = typer.Option(
         None, "--key", help="Public share key (last path segment of /share/<key>)"
@@ -61,7 +61,9 @@ def download_asset_to_file(
 def play_asset_video_to_file(
     ctx: typer.Context,
     id: str = typer.Argument(..., help="Asset ID (UUID)"),
-    out_dir: Path = typer.Argument(..., help="Output directory for the video file"),
+    out_dir: Path = typer.Argument(
+        ..., help="Output directory for the video file", exists=True
+    ),
     key: str | None = typer.Option(
         None, "--key", help="Public share key (last path segment of /share/<key>)"
     ),
@@ -103,7 +105,9 @@ def play_asset_video_to_file(
 def view_asset_to_file(
     ctx: typer.Context,
     id: str = typer.Argument(..., help="Asset ID (UUID)"),
-    out_dir: Path = typer.Argument(..., help="Output directory for the thumbnail file"),
+    out_dir: Path = typer.Argument(
+        ..., help="Output directory for the thumbnail file", exists=True
+    ),
     key: str | None = typer.Option(
         None, "--key", help="Public share key (last path segment of /share/<key>)"
     ),
@@ -150,7 +154,9 @@ def view_asset_to_file(
 def upload(
     ctx: typer.Context,
     paths: list[Path] = typer.Argument(
-        ..., help="File or directory paths to upload (can specify multiple)"
+        ...,
+        help="File or directory paths to upload (can specify multiple)",
+        exists=True,
     ),
     ignore_pattern: str | None = typer.Option(
         None,

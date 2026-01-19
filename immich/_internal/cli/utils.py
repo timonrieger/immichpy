@@ -4,7 +4,7 @@ from rich import print
 import rtoml
 import typer
 
-from immich._internal.consts import CONFIG_DIR, CONFIG_FILE, SECRET_KEYS
+from immich._internal.consts import CONFIG_FILE, SECRET_KEYS
 from immich._internal.types import ClientConfig, _PrintType
 
 
@@ -32,22 +32,12 @@ def get_path(data: dict[str, Any], path: str) -> Any:
     return cur
 
 
-def _ensure_config() -> None:
+def load_config() -> dict[str, Any]:
     """
-    Ensure the config directory exists and the config file exists.
+    Load the config file. Returns an empty dict if the file does not exist.
     """
-    CONFIG_DIR.mkdir(parents=True, exist_ok=True)
     if not CONFIG_FILE.exists():
-        CONFIG_FILE.touch()
-        CONFIG_FILE.chmod(0o600)
-
-
-def load_config(ensure_exists: bool = False) -> dict[str, Any]:
-    """
-    Load the config file.
-    """
-    if ensure_exists:
-        _ensure_config()
+        return {}
     return rtoml.load(CONFIG_FILE, none_value="")
 
 
@@ -55,6 +45,7 @@ def write_config(data: dict[str, Any]) -> None:
     """
     Write the config data to the config file and set permissions.
     """
+    CONFIG_FILE.parent.mkdir(parents=True, exist_ok=True)
     with CONFIG_FILE.open("w") as f:
         rtoml.dump(data, f, none_value="")
     CONFIG_FILE.chmod(0o600)
@@ -72,24 +63,29 @@ def check_config() -> None:
         raise typer.Exit(code=1)
 
 
-def resolve_client_config(config: ClientConfig, profile: str) -> ClientConfig:
+def resolve_client_config(
+    config: ClientConfig, profile: str, profile_explicit: bool = False
+) -> ClientConfig:
     """
     Resolve the client config from the config file.
 
     :param config: The config to resolve
     :param profile: The profile to use
+    :param profile_explicit: Whether the profile was explicitly set by the user
     :raises typer.Exit: If the profile is not found in the config
     :return: The resolved config
     """
     data = load_config()
-    try:
-        profile_data: dict[str, Any] = data["profiles"][profile]
-    except KeyError:
+    profiles: dict[str, Any] = data.get("profiles", {})
+
+    if profile_explicit and profile not in profiles:
         print_(
-            f"Profile [bold]{profile}[/bold] not found in config. Run [bold]immich config set --profile {profile}[/bold] to create it.",
+            f"Profile '{profile}' not found. Run immich config set --profile {profile}.",
             type="error",
         )
         raise typer.Exit(code=1)
+
+    profile_data = profiles.get(profile, {})
 
     return ClientConfig(
         api_key=config.api_key or profile_data.get("api_key"),

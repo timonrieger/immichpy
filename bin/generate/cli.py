@@ -342,6 +342,7 @@ def generate_command_function(
         maximum = param.schema.get("maximum")
         min_arg = f", min={minimum}" if minimum is not None else ""
         max_arg = f", max={maximum}" if maximum is not None else ""
+        exists_arg = ", exists=True" if param.type == "Path" else ""
         type_str = param.type if param.required else f"{param.type} | None"
         default_value = "..." if param.required else "None"
         # Only rename non-path params that collide with path params in the same operation
@@ -351,7 +352,7 @@ def generate_command_function(
             param.name = "body_" + param.name
         if param.location == "path":
             lines.append(
-                f"    {param.name}: {param.type} = typer.Argument(...{help_arg}),"
+                f"    {param.name}: {param.type} = typer.Argument(...{help_arg}{exists_arg}),"
             )
         else:
             # use tri-state boolean for optional, but regular boolean for required
@@ -359,7 +360,7 @@ def generate_command_function(
             if param.type == "bool" and not param.required:
                 type_str = "Literal['true', 'false'] | None"
             lines.append(
-                f'    {param.name}: {type_str} = typer.Option({default_value}, "--{param.flag_name}"{help_arg}{min_arg}{max_arg}),'
+                f'    {param.name}: {type_str} = typer.Option({default_value}, "--{param.flag_name}"{help_arg}{min_arg}{max_arg}{exists_arg}),'
             )
 
     lines.append(") -> None:")

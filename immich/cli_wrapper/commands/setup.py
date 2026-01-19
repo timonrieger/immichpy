@@ -50,7 +50,7 @@ def setup(
     ),
 ):
     """Interactively set up a profile for the CLI to connect to an Immich server."""
-    data = load_config(ensure_exists=True)
+    data = load_config()
 
     if not skip_validation:
         # Validate the server is reachable

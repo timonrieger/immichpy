@@ -1,11 +1,8 @@
-from unittest.mock import patch
-
 from pathlib import Path
 import pytest
 import typer
 
 from immich._internal.cli.utils import (
-    _ensure_config,
     check_config,
     resolve_client_config,
     get_path,
@@ -52,168 +49,111 @@ class TestGetPath:
             get_path(data, "user.age")
 
 
-class TestEnsureConfig:
-    def test_ensure_config_creates_file(self, tmp_path: Path):
-        """Test that _ensure_config creates the config file and sets permissions."""
-        config_dir = tmp_path / ".immich-py"
-        config_file = config_dir / "config.toml"
-        with patch("immich._internal.cli.utils.CONFIG_DIR", config_dir):
-            with patch("immich._internal.cli.utils.CONFIG_FILE", config_file):
-                _ensure_config()
-                assert config_file.exists()
-                assert oct(config_file.stat().st_mode)[-3:] == "600"
-
-    def test_ensure_config_existing_file(self, tmp_path: Path):
-        """Test that _ensure_config handles existing file."""
-        config_dir = tmp_path / ".immich-py"
-        config_file = config_dir / "config.toml"
-        config_dir.mkdir()
-        config_file.write_text("existing content")
-        with patch("immich._internal.cli.utils.CONFIG_DIR", config_dir):
-            with patch("immich._internal.cli.utils.CONFIG_FILE", config_file):
-                _ensure_config()
-                assert config_file.read_text() == "existing content"
-
-
 class TestLoadConfig:
-    def test_load_config_with_ensure_exists(self, tmp_path: Path):
-        """Test load_config with ensure_exists=True creates file."""
-        config_dir = tmp_path / ".immich-py"
-        config_file = config_dir / "config.toml"
-        with patch("immich._internal.cli.utils.CONFIG_DIR", config_dir):
-            with patch("immich._internal.cli.utils.CONFIG_FILE", config_file):
-                result = load_config(ensure_exists=True)
-                assert config_file.exists()
-                assert result == {}
+    def test_load_config_does_not_create_file(self, mock_config_path: Path):
+        """Test load_config does not create file if it doesn't exist."""
+        result = load_config()
+        assert not mock_config_path.exists()
+        assert result == {}
 
-    def test_load_config_without_ensure_exists(self, tmp_path: Path):
-        """Test load_config without ensure_exists on existing file."""
-        config_dir = tmp_path / ".immich-py"
-        config_file = config_dir / "config.toml"
-        config_dir.mkdir()
-        config_file.write_text('key = "value"')
-        with patch("immich._internal.cli.utils.CONFIG_DIR", config_dir):
-            with patch("immich._internal.cli.utils.CONFIG_FILE", config_file):
-                result = load_config(ensure_exists=False)
-                assert result == {"key": "value"}
+    def test_load_config_existing_file(self, mock_config_path: Path):
+        """Test load_config on existing file."""
+        mock_config_path.parent.mkdir(parents=True, exist_ok=True)
+        mock_config_path.write_text('key = "value"')
+        result = load_config()
+        assert result == {"key": "value"}
 
-    def test_load_config_file_not_exists_without_ensure(self, tmp_path: Path):
-        """Test load_config when file doesn't exist and ensure_exists=False."""
-        config_dir = tmp_path / ".immich-py"
-        config_file = config_dir / "config.toml"
-        with patch("immich._internal.cli.utils.CONFIG_DIR", config_dir):
-            with patch("immich._internal.cli.utils.CONFIG_FILE", config_file):
-                with pytest.raises(FileNotFoundError):
-                    load_config(ensure_exists=False)
+    def test_load_config_file_not_exists(self, mock_config_path: Path):
+        """Test load_config when file doesn't exist."""
+        result = load_config()
+        assert result == {}
 
 
 class TestWriteConfig:
-    def test_write_config_creates_file_and_sets_permissions(self, tmp_path: Path):
+    def test_write_config_creates_file_and_sets_permissions(
+        self, mock_config_path: Path
+    ):
         """Test that write_config creates the file and sets permissions."""
-        config_dir = tmp_path / ".immich-py"
-        config_file = config_dir / "config.toml"
-        config_dir.mkdir()
-        with patch("immich._internal.cli.utils.CONFIG_DIR", config_dir):
-            with patch("immich._internal.cli.utils.CONFIG_FILE", new=config_file):
-                write_config({"key": "value"})
-                assert config_file.exists()
-                assert config_file.read_text() == 'key = "value"\n'
-                assert oct(config_file.stat().st_mode)[-3:] == "600"
+        mock_config_path.parent.mkdir(parents=True, exist_ok=True)
+        write_config({"key": "value"})
+        assert mock_config_path.exists()
+        assert mock_config_path.read_text() == 'key = "value"\n'
+        assert oct(mock_config_path.stat().st_mode)[-3:] == "600"
 
 
 class TestCheckConfig:
-    def test_check_config_file_exists(self, tmp_path: Path):
+    def test_check_config_file_exists(self, mock_config_path: Path):
         """Test check_config when file exists."""
-        config_dir = tmp_path / ".immich-py"
-        config_file = config_dir / "config.toml"
-        config_dir.mkdir()
-        config_file.touch()
-        with patch("immich._internal.cli.utils.CONFIG_FILE", config_file):
-            result = check_config()
-            assert result is None
+        mock_config_path.parent.mkdir(parents=True, exist_ok=True)
+        mock_config_path.touch()
+        result = check_config()
+        assert result is None
 
-    def test_check_config_file_not_exists(self, tmp_path: Path):
+    def test_check_config_file_not_exists(self, mock_config_path: Path):
         """Test check_config when file doesn't exist."""
-        config_file = tmp_path / "config.toml"
-        with patch("immich._internal.cli.utils.CONFIG_FILE", config_file):
-            with pytest.raises(typer.Exit) as exc_info:
-                check_config()
-            assert exc_info.value.exit_code == 1
+        with pytest.raises(typer.Exit) as exc_info:
+            check_config()
+        assert exc_info.value.exit_code == 1
 
 
 class TestGetClientConfig:
-    def test_get_client_config_from_file(self, tmp_path: Path):
+    def test_get_client_config_from_file(self, mock_config_path: Path):
         """Test get_client_config loads from config file."""
-        config_dir = tmp_path / ".immich-py"
-        config_file = config_dir / "config.toml"
-        config_dir.mkdir()
-        config_file.write_text(
+        mock_config_path.parent.mkdir(parents=True, exist_ok=True)
+        mock_config_path.write_text(
             '[profiles.default]\napi_key = "file-key"\nbase_url = "http://file.url"'
         )
-        with patch("immich._internal.cli.utils.CONFIG_FILE", config_file):
-            config = ClientConfig(api_key=None, base_url=None, access_token=None)
-            result = resolve_client_config(config, profile="default")
-            assert result.api_key == "file-key"
-            assert result.base_url == "http://file.url"
+        config = ClientConfig(api_key=None, base_url=None, access_token=None)
+        result = resolve_client_config(config, profile="default")
+        assert result.api_key == "file-key"
+        assert result.base_url == "http://file.url"
 
-    def test_get_client_config_prefers_provided_values(self, tmp_path: Path):
+    def test_get_client_config_prefers_provided_values(self, mock_config_path: Path):
         """Test that provided config values override file values."""
-        config_dir = tmp_path / ".immich-py"
-        config_file = config_dir / "config.toml"
-        config_dir.mkdir()
-        config_file.write_text(
+        mock_config_path.parent.mkdir(parents=True, exist_ok=True)
+        mock_config_path.write_text(
             '[profiles.default]\napi_key = "file-key"\nbase_url = "http://file.url"'
         )
-        with patch("immich._internal.cli.utils.CONFIG_FILE", config_file):
-            config = ClientConfig(
-                api_key="provided-key",
-                base_url="http://provided.url",
-                access_token=None,
-            )
-            result = resolve_client_config(config, profile="default")
-            assert result.api_key == "provided-key"
-            assert result.base_url == "http://provided.url"
+        config = ClientConfig(
+            api_key="provided-key",
+            base_url="http://provided.url",
+            access_token=None,
+        )
+        result = resolve_client_config(config, profile="default")
+        assert result.api_key == "provided-key"
+        assert result.base_url == "http://provided.url"
 
-    def test_get_client_config_partial_override(self, tmp_path: Path):
+    def test_get_client_config_partial_override(self, mock_config_path: Path):
         """Test that only provided values override file values."""
-        config_dir = tmp_path / ".immich-py"
-        config_file = config_dir / "config.toml"
-        config_dir.mkdir()
-        config_file.write_text(
+        mock_config_path.parent.mkdir(parents=True, exist_ok=True)
+        mock_config_path.write_text(
             '[profiles.default]\napi_key = "file-key"\nbase_url = "http://file.url"\naccess_token = "file-token"'
         )
-        with patch("immich._internal.cli.utils.CONFIG_FILE", config_file):
-            config = ClientConfig(
-                api_key="provided-key",
-                base_url=None,
-                access_token=None,
-            )
-            result = resolve_client_config(config, profile="default")
-            assert result.api_key == "provided-key"
-            assert result.base_url == "http://file.url"
-            assert result.access_token == "file-token"
+        config = ClientConfig(
+            api_key="provided-key",
+            base_url=None,
+            access_token=None,
+        )
+        result = resolve_client_config(config, profile="default")
+        assert result.api_key == "provided-key"
+        assert result.base_url == "http://file.url"
+        assert result.access_token == "file-token"
 
-    def test_get_client_config_empty_file(self, tmp_path: Path):
+    def test_get_client_config_empty_file(self, mock_config_path: Path):
         """Test get_client_config with empty config file."""
-        config_dir = tmp_path / ".immich-py"
-        config_file = config_dir / "config.toml"
-        config_dir.mkdir()
-        config_file.touch()
-        with patch("immich._internal.cli.utils.CONFIG_FILE", config_file):
-            config = ClientConfig(api_key=None, base_url=None, access_token=None)
-            with pytest.raises(typer.Exit):
-                resolve_client_config(config, profile="default")
+        mock_config_path.parent.mkdir(parents=True, exist_ok=True)
+        mock_config_path.touch()
+        config = ClientConfig(api_key=None, base_url=None, access_token=None)
+        with pytest.raises(typer.Exit):
+            resolve_client_config(config, profile="default", profile_explicit=True)
 
-    def test_get_client_config_profile_not_in_file(self, tmp_path: Path):
+    def test_get_client_config_profile_not_in_file(self, mock_config_path: Path):
         """Test get_client_config when profile doesn't exist in file."""
-        config_dir = tmp_path / ".immich-py"
-        config_file = config_dir / "config.toml"
-        config_dir.mkdir()
-        config_file.write_text('[profiles.default]\napi_key = "default-key"')
-        with patch("immich._internal.cli.utils.CONFIG_FILE", config_file):
-            config = ClientConfig(api_key=None, base_url=None, access_token=None)
-            with pytest.raises(typer.Exit):
-                resolve_client_config(config, profile="nonexistent")
+        mock_config_path.parent.mkdir(parents=True, exist_ok=True)
+        mock_config_path.write_text('[profiles.default]\napi_key = "default-key"')
+        config = ClientConfig(api_key=None, base_url=None, access_token=None)
+        with pytest.raises(typer.Exit):
+            resolve_client_config(config, profile="nonexistent", profile_explicit=True)
 
 
 class TestRedactSecret:
