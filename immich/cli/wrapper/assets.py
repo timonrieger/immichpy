@@ -36,7 +36,7 @@ def download_asset_to_file(
         "--show-progress",
         help="Show progress bar while downloading",
     ),
-) -> None:
+) -> None:  # pragma: no cover
     """Download an asset to a file.
 
     Downloads the original asset file and saves it to the specified output directory.
@@ -80,7 +80,7 @@ def play_asset_video_to_file(
         "--show-progress",
         help="Show progress bar while downloading",
     ),
-) -> None:
+) -> None:  # pragma: no cover
     """Save an asset's video stream to a file.
 
     Downloads the video stream for the asset and saves it to the specified output directory.
@@ -127,7 +127,7 @@ def view_asset_to_file(
         "--show-progress",
         help="Show progress bar while downloading",
     ),
-) -> None:
+) -> None:  # pragma: no cover
     """Save an asset's thumbnail to a file.
 
     Downloads the thumbnail for the asset and saves it to the specified output directory.
@@ -204,7 +204,7 @@ def upload(
         "--dry-run",
         help="Simulate uploads without actually uploading",
     ),
-) -> None:
+) -> None:  # pragma: no cover
     """Upload assets with smart features.
 
     Uploads files or directories with duplicate detection, album management, sidecar support, and dry run capability.

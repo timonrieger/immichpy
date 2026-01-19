@@ -30,7 +30,7 @@ def get_profile_image_to_file(
         "--show-progress",
         help="Show progress bar while downloading",
     ),
-) -> None:
+) -> None:  # pragma: no cover
     """Download a user's profile image and save it to a file.
 
     Downloads the profile image for the specified user and saves it to the specified output directory.

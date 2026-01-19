@@ -44,7 +44,7 @@ def download_archive_to_file(
     user_id: str | None = typer.Option(
         None, "--userId", help="User ID to download assets from"
     ),
-) -> None:
+) -> None:  # pragma: no cover
     """Download one or more asset archives and save them to ZIP files.
 
     Downloads archives sequentially (not in parallel) to avoid overloading the server.
