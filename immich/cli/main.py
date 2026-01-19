@@ -8,7 +8,7 @@ from importlib.metadata import version
 
 from click.core import ParameterSource
 
-from immich._internal.consts import (
+from immich.cli.consts import (
     API_KEY_URL,
     DEFAULT_PROFILE,
     IMMICH_API_KEY,
@@ -17,7 +17,7 @@ from immich._internal.consts import (
     IMMICH_FORMAT,
     IMMICH_PROFILE,
 )
-from immich._internal.cli.utils import resolve_client_config, mask, print_
+from immich.cli.utils import resolve_client_config, mask, print_
 
 try:
     import typer
@@ -36,12 +36,12 @@ from immich._internal.types import _FormatMode, ClientConfig
 from immich.cli.commands import api_keys as api_keys_commands
 from immich.cli.commands import activities as activities_commands
 from immich.cli.commands import albums as albums_commands
-from immich.cli_wrapper.commands import assets as assets_wrapper
+from immich.cli.wrapper import assets as assets_wrapper
 from immich.cli.commands import authentication as authentication_commands
 from immich.cli.commands import authentication_admin as authentication_admin_commands
-from immich.cli_wrapper.commands import download as download_wrapper
-from immich.cli_wrapper.commands import config as config_commands
-from immich.cli_wrapper.commands import setup as setup_commands
+from immich.cli.wrapper import download as download_wrapper
+from immich.cli.wrapper import config as config_commands
+from immich.cli.wrapper import setup as setup_commands
 from immich.cli.commands import duplicates as duplicates_commands
 from immich.cli.commands import faces as faces_commands
 from immich.cli.commands import jobs as jobs_commands
@@ -66,7 +66,7 @@ from immich.cli.commands import system_metadata as system_metadata_commands
 from immich.cli.commands import tags as tags_commands
 from immich.cli.commands import timeline as timeline_commands
 from immich.cli.commands import trash as trash_commands
-from immich.cli_wrapper.commands import users as users_wrapper
+from immich.cli.wrapper import users as users_wrapper
 from immich.cli.commands import users_admin as users_admin_commands
 from immich.cli.commands import views as views_commands
 from immich.cli.commands import workflows as workflows_commands

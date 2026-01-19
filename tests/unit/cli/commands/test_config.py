@@ -3,7 +3,7 @@ from pathlib import Path
 import rtoml
 from typer.testing import CliRunner
 
-from immich.cli_wrapper.commands import config as config_commands
+from immich.cli.wrapper import config as config_commands
 
 
 class TestConfigSet:

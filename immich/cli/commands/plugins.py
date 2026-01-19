@@ -9,7 +9,7 @@ if TYPE_CHECKING:
     from immich import AsyncClient
 
 from immich.cli.runtime import print_response, run_command
-from immich.client.models import *
+from immich.client.generated.models import *
 
 app = typer.Typer(
     help="""A plugin is an installed module that makes filters and actions available for the workflow feature.\n\nDocs: https://api.immich.app/endpoints/plugins"""

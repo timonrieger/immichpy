@@ -2,7 +2,7 @@ import pytest
 from typer.testing import CliRunner
 
 from immich import AsyncClient
-from immich._internal.consts import IMMICH_ACCESS_TOKEN, IMMICH_API_URL, IMMICH_API_KEY
+from immich.cli.consts import IMMICH_ACCESS_TOKEN, IMMICH_API_URL, IMMICH_API_KEY
 
 
 @pytest.fixture

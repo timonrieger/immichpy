@@ -6,9 +6,9 @@ from uuid import UUID, uuid4
 import pytest
 
 from immich import AsyncClient
-from immich._internal.consts import IMMICH_API_KEY, IMMICH_API_URL, IMMICH_FORMAT
+from immich.cli.consts import IMMICH_API_KEY, IMMICH_API_URL, IMMICH_FORMAT
 from immich._internal.client.upload import UploadResult
-from immich.client import (
+from immich.client.generated import (
     ActivityCreateDto,
     ActivityResponseDto,
     AlbumResponseDto,
@@ -26,13 +26,15 @@ from immich.client import (
     UserAdminCreateDto,
     UserResponseDto,
 )
-from immich.client.exceptions import BadRequestException
-from immich.client.models.admin_onboarding_update_dto import AdminOnboardingUpdateDto
-from immich.client.models.api_key_create_dto import APIKeyCreateDto
-from immich.client.models.login_credential_dto import LoginCredentialDto
-from immich.client.models.permission import Permission
-from immich.client.models.sign_up_dto import SignUpDto
-from immich.client.models.user_admin_delete_dto import UserAdminDeleteDto
+from immich.client.generated.exceptions import BadRequestException
+from immich.client.generated.models.admin_onboarding_update_dto import (
+    AdminOnboardingUpdateDto,
+)
+from immich.client.generated.models.api_key_create_dto import APIKeyCreateDto
+from immich.client.generated.models.login_credential_dto import LoginCredentialDto
+from immich.client.generated.models.permission import Permission
+from immich.client.generated.models.sign_up_dto import SignUpDto
+from immich.client.generated.models.user_admin_delete_dto import UserAdminDeleteDto
 
 from tests.e2e.client.generators import make_random_image, make_random_video
 

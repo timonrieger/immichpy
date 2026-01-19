@@ -9,7 +9,7 @@ if TYPE_CHECKING:
     from immich import AsyncClient
 
 from immich.cli.runtime import print_response, run_command, set_nested
-from immich.client.models import *
+from immich.client.generated.models import *
 
 app = typer.Typer(
     help="""Endpoints to view, modify, and validate the system configuration settings.\n\nDocs: https://api.immich.app/endpoints/system-config"""

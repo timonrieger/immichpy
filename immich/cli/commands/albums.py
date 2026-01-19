@@ -10,7 +10,7 @@ if TYPE_CHECKING:
     from immich import AsyncClient
 
 from immich.cli.runtime import print_response, run_command, set_nested
-from immich.client.models import *
+from immich.client.generated.models import *
 
 app = typer.Typer(
     help="""An album is a collection of assets that can be shared with other users or via shared links.\n\nDocs: https://api.immich.app/endpoints/albums"""

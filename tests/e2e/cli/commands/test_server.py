@@ -4,25 +4,33 @@ import pytest
 from typer.testing import CliRunner
 
 from immich.cli.main import app as cli_app
-from immich.client.models.license_response_dto import LicenseResponseDto
+from immich.client.generated.models.license_response_dto import LicenseResponseDto
 
 from tests.e2e.conftest import ACTIVATION_KEY, LICENSE_KEY
-from immich.client.models.server_about_response_dto import ServerAboutResponseDto
-from immich.client.models.server_apk_links_dto import ServerApkLinksDto
-from immich.client.models.server_config_dto import ServerConfigDto
-from immich.client.models.server_features_dto import ServerFeaturesDto
-from immich.client.models.server_media_types_response_dto import (
+from immich.client.generated.models.server_about_response_dto import (
+    ServerAboutResponseDto,
+)
+from immich.client.generated.models.server_apk_links_dto import ServerApkLinksDto
+from immich.client.generated.models.server_config_dto import ServerConfigDto
+from immich.client.generated.models.server_features_dto import ServerFeaturesDto
+from immich.client.generated.models.server_media_types_response_dto import (
     ServerMediaTypesResponseDto,
 )
-from immich.client.models.server_ping_response import ServerPingResponse
-from immich.client.models.server_stats_response_dto import ServerStatsResponseDto
-from immich.client.models.server_storage_response_dto import ServerStorageResponseDto
-from immich.client.models.server_theme_dto import ServerThemeDto
-from immich.client.models.server_version_history_response_dto import (
+from immich.client.generated.models.server_ping_response import ServerPingResponse
+from immich.client.generated.models.server_stats_response_dto import (
+    ServerStatsResponseDto,
+)
+from immich.client.generated.models.server_storage_response_dto import (
+    ServerStorageResponseDto,
+)
+from immich.client.generated.models.server_theme_dto import ServerThemeDto
+from immich.client.generated.models.server_version_history_response_dto import (
     ServerVersionHistoryResponseDto,
 )
-from immich.client.models.server_version_response_dto import ServerVersionResponseDto
-from immich.client.models.version_check_state_response_dto import (
+from immich.client.generated.models.server_version_response_dto import (
+    ServerVersionResponseDto,
+)
+from immich.client.generated.models.version_check_state_response_dto import (
     VersionCheckStateResponseDto,
 )
 

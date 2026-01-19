@@ -5,7 +5,7 @@ from unittest.mock import AsyncMock, MagicMock
 
 import pytest
 
-from immich.client.models.server_media_types_response_dto import (
+from immich.client.generated.models.server_media_types_response_dto import (
     ServerMediaTypesResponseDto,
 )
 from immich._internal.client.upload import scan_files

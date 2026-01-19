@@ -10,8 +10,8 @@ import pytest
 
 from immich import AsyncClient
 from immich._internal.client.upload import UploadResult
-from immich.client.models.asset_media_size import AssetMediaSize
-from immich.client.models.download_info_dto import DownloadInfoDto
+from immich.client.generated.models.asset_media_size import AssetMediaSize
+from immich.client.generated.models.download_info_dto import DownloadInfoDto
 
 
 @pytest.mark.asyncio

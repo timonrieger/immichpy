@@ -4,11 +4,11 @@ import pytest
 from typer.testing import CliRunner
 
 from immich.cli.main import app as cli_app
-from immich.client import (
+from immich.client.generated import (
     APIKeyCreateResponseDto,
     APIKeyResponseDto,
 )
-from immich.client.models.permission import Permission
+from immich.client.generated.models.permission import Permission
 
 
 @pytest.mark.e2e

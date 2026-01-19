@@ -491,7 +491,7 @@ def generate_tag_app(
         "    from immich import AsyncClient",
         "",
         "from immich.cli.runtime import print_response, run_command, set_nested",
-        "from immich.client.models import *",
+        "from immich.client.generated.models import *",
         "",
     ]
 

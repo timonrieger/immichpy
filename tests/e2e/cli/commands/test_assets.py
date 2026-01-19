@@ -9,7 +9,7 @@ from typer.testing import CliRunner
 
 from immich._internal.client.upload import UploadResult
 from immich.cli.main import app as cli_app
-from immich.client import (
+from immich.client.generated import (
     AssetBulkUploadCheckItem,
     AssetBulkUploadCheckResponseDto,
     AssetMetadataResponseDto,

@@ -24,18 +24,24 @@ from rich.progress import (
     TransferSpeedColumn,
     TimeRemainingColumn,
 )
-from immich._internal.consts import DEVICE_ID
-from immich.client.api.albums_api import AlbumsApi
-from immich.client.api.assets_api import AssetsApi
-from immich.client.api.server_api import ServerApi
-from immich.client.api_response import ApiResponse
-from immich.client.models.asset_bulk_upload_check_dto import AssetBulkUploadCheckDto
-from immich.client.models.asset_bulk_upload_check_item import AssetBulkUploadCheckItem
-from immich.client.models.asset_media_response_dto import AssetMediaResponseDto
-from immich.client.models.asset_media_status import AssetMediaStatus
-from immich.client.models.bulk_ids_dto import BulkIdsDto
-from immich.client.models.create_album_dto import CreateAlbumDto
-from immich.client.exceptions import ApiException
+from immich.client.consts import DEVICE_ID
+from immich.client.generated.api.albums_api import AlbumsApi
+from immich.client.generated.api.assets_api import AssetsApi
+from immich.client.generated.api.server_api import ServerApi
+from immich.client.generated.api_response import ApiResponse
+from immich.client.generated.models.asset_bulk_upload_check_dto import (
+    AssetBulkUploadCheckDto,
+)
+from immich.client.generated.models.asset_bulk_upload_check_item import (
+    AssetBulkUploadCheckItem,
+)
+from immich.client.generated.models.asset_media_response_dto import (
+    AssetMediaResponseDto,
+)
+from immich.client.generated.models.asset_media_status import AssetMediaStatus
+from immich.client.generated.models.bulk_ids_dto import BulkIdsDto
+from immich.client.generated.models.create_album_dto import CreateAlbumDto
+from immich.client.generated.exceptions import ApiException
 
 logger = logging.getLogger(__name__)
 

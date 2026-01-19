@@ -6,7 +6,7 @@ import pytest
 from typer.testing import CliRunner
 
 from immich.cli.main import app as cli_app
-from immich.client import (
+from immich.client.generated import (
     AuthStatusResponseDto,
     LoginResponseDto,
     LogoutResponseDto,

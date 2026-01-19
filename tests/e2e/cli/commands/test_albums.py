@@ -7,7 +7,7 @@ import pytest
 from typer.testing import CliRunner
 
 from immich.cli.main import app as cli_app
-from immich.client import (
+from immich.client.generated import (
     AlbumResponseDto,
     AlbumStatisticsResponseDto,
     AlbumUserCreateDto,
@@ -17,7 +17,7 @@ from immich.client import (
     CreateAlbumDto,
     UserResponseDto,
 )
-from immich.client.models.asset_response_dto import AssetResponseDto
+from immich.client.generated.models.asset_response_dto import AssetResponseDto
 
 
 @pytest.mark.e2e

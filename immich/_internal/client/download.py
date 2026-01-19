@@ -18,7 +18,7 @@ from rich.progress import (
 )
 
 
-from immich.client.rest import RESTResponseType
+from immich.client.generated.rest import RESTResponseType
 
 logger = logging.getLogger(__name__)
 

@@ -9,7 +9,7 @@ if TYPE_CHECKING:
     from immich import AsyncClient
 
 from immich.cli.runtime import print_response, run_command, set_nested
-from immich.client.models import *
+from immich.client.generated.models import *
 
 app = typer.Typer(
     help="""A face is a detected human face within an asset, which can be associated with a person. Faces are normally detected via machine learning, but can also be created via manually.\n\nDocs: https://api.immich.app/endpoints/faces"""

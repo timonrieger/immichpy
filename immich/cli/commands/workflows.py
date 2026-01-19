@@ -10,7 +10,7 @@ if TYPE_CHECKING:
     from immich import AsyncClient
 
 from immich.cli.runtime import print_response, run_command, set_nested
-from immich.client.models import *
+from immich.client.generated.models import *
 
 app = typer.Typer(
     help="""A workflow is a set of actions that run whenever a triggering event occurs. Workflows also can include filters to further limit execution.\n\nDocs: https://api.immich.app/endpoints/workflows"""

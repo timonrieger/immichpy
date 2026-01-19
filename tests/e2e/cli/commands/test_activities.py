@@ -4,12 +4,12 @@ import pytest
 from typer.testing import CliRunner
 
 from immich.cli.main import app as cli_app
-from immich.client import AlbumResponseDto
-from immich.client.models.activity_response_dto import ActivityResponseDto
-from immich.client.models.activity_statistics_response_dto import (
+from immich.client.generated import AlbumResponseDto
+from immich.client.generated.models.activity_response_dto import ActivityResponseDto
+from immich.client.generated.models.activity_statistics_response_dto import (
     ActivityStatisticsResponseDto,
 )
-from immich.client.models.reaction_type import ReactionType
+from immich.client.generated.models.reaction_type import ReactionType
 
 
 @pytest.mark.e2e

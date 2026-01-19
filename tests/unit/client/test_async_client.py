@@ -2,8 +2,8 @@ import pytest
 from aiohttp import ClientSession
 
 from immich import AsyncClient
-from immich.client.api.assets_api import AssetsApi
-from immich.client.api.users_api import UsersApi
+from immich.client.generated.api.assets_api import AssetsApi
+from immich.client.generated.api.users_api import UsersApi
 
 
 @pytest.mark.asyncio

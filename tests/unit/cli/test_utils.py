@@ -2,7 +2,7 @@ from pathlib import Path
 import pytest
 import typer
 
-from immich._internal.cli.utils import (
+from immich.cli.utils import (
     check_config,
     resolve_client_config,
     get_path,

@@ -9,7 +9,7 @@ if TYPE_CHECKING:
     from immich import AsyncClient
 
 from immich.cli.runtime import print_response, run_command, set_nested
-from immich.client.models import *
+from immich.client.generated.models import *
 
 app = typer.Typer(
     help="""Information about the current server deployment, including version and build information, available features, supported media types, and more.\n\nDocs: https://api.immich.app/endpoints/server"""

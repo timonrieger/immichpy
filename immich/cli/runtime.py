@@ -13,7 +13,7 @@ from typer import Context
 from immich._internal.types import _FormatMode, _MaybeBaseModel
 
 from immich import AsyncClient
-from immich.client.exceptions import ApiException
+from immich.client.generated.exceptions import ApiException
 from rich import print_json
 
 
