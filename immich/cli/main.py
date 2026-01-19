@@ -147,7 +147,7 @@ app.add_typer(workflows_commands.app, name="workflows", rich_help_panel="API com
 
 def version_callback(value: bool) -> None:
     if value:
-        print_(f"immich CLI (unofficial) {version('immich')}", level="output")
+        print_(f"immich CLI (unofficial) {version('immich')}", type="output")
         raise typer.Exit(0)
 
 

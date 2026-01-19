@@ -62,10 +62,10 @@ def setup(
         except Exception as exc:
             print_(
                 "Error validating server. Make sure the base URL is correct and the server is reachable.",
-                level="error",
+                type="error",
                 ctx=ctx,
             )
-            print_(str(exc), level="debug", ctx=ctx)
+            print_(str(exc), type="debug", ctx=ctx)
             raise typer.Exit(1)
 
     set_path(
