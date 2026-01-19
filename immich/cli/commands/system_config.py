@@ -26,7 +26,7 @@ def get_config(
     """
     kwargs = {}
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client, client.system_config, "get_config", **kwargs)
+    result = run_command(client, client.system_config, "get_config", ctx, **kwargs)
     print_response(result, ctx)
 
 
@@ -40,7 +40,9 @@ def get_config_defaults(
     """
     kwargs = {}
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client, client.system_config, "get_config_defaults", **kwargs)
+    result = run_command(
+        client, client.system_config, "get_config_defaults", ctx, **kwargs
+    )
     print_response(result, ctx)
 
 
@@ -57,7 +59,7 @@ def get_storage_template_options(
     kwargs = {}
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(
-        client, client.system_config, "get_storage_template_options", **kwargs
+        client, client.system_config, "get_storage_template_options", ctx, **kwargs
     )
     print_response(result, ctx)
 
@@ -679,5 +681,5 @@ def update_config(
     system_config_dto = SystemConfigDto.model_validate(json_data)
     kwargs["system_config_dto"] = system_config_dto
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client, client.system_config, "update_config", **kwargs)
+    result = run_command(client, client.system_config, "update_config", ctx, **kwargs)
     print_response(result, ctx)

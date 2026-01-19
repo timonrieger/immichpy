@@ -42,7 +42,7 @@ def create_library(
     create_library_dto = CreateLibraryDto.model_validate(json_data)
     kwargs["create_library_dto"] = create_library_dto
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client, client.libraries, "create_library", **kwargs)
+    result = run_command(client, client.libraries, "create_library", ctx, **kwargs)
     print_response(result, ctx)
 
 
@@ -58,7 +58,7 @@ def delete_library(
     kwargs = {}
     kwargs["id"] = id
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client, client.libraries, "delete_library", **kwargs)
+    result = run_command(client, client.libraries, "delete_library", ctx, **kwargs)
     print_response(result, ctx)
 
 
@@ -72,7 +72,7 @@ def get_all_libraries(
     """
     kwargs = {}
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client, client.libraries, "get_all_libraries", **kwargs)
+    result = run_command(client, client.libraries, "get_all_libraries", ctx, **kwargs)
     print_response(result, ctx)
 
 
@@ -88,7 +88,7 @@ def get_library(
     kwargs = {}
     kwargs["id"] = id
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client, client.libraries, "get_library", **kwargs)
+    result = run_command(client, client.libraries, "get_library", ctx, **kwargs)
     print_response(result, ctx)
 
 
@@ -104,7 +104,9 @@ def get_library_statistics(
     kwargs = {}
     kwargs["id"] = id
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client, client.libraries, "get_library_statistics", **kwargs)
+    result = run_command(
+        client, client.libraries, "get_library_statistics", ctx, **kwargs
+    )
     print_response(result, ctx)
 
 
@@ -120,7 +122,7 @@ def scan_library(
     kwargs = {}
     kwargs["id"] = id
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client, client.libraries, "scan_library", **kwargs)
+    result = run_command(client, client.libraries, "scan_library", ctx, **kwargs)
     print_response(result, ctx)
 
 
@@ -150,7 +152,7 @@ def update_library(
     update_library_dto = UpdateLibraryDto.model_validate(json_data)
     kwargs["update_library_dto"] = update_library_dto
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client, client.libraries, "update_library", **kwargs)
+    result = run_command(client, client.libraries, "update_library", ctx, **kwargs)
     print_response(result, ctx)
 
 
@@ -177,5 +179,5 @@ def validate(
     validate_library_dto = ValidateLibraryDto.model_validate(json_data)
     kwargs["validate_library_dto"] = validate_library_dto
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client, client.libraries, "validate", **kwargs)
+    result = run_command(client, client.libraries, "validate", ctx, **kwargs)
     print_response(result, ctx)

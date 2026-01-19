@@ -33,7 +33,7 @@ def bulk_tag_assets(
     tag_bulk_assets_dto = TagBulkAssetsDto.model_validate(json_data)
     kwargs["tag_bulk_assets_dto"] = tag_bulk_assets_dto
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client, client.tags, "bulk_tag_assets", **kwargs)
+    result = run_command(client, client.tags, "bulk_tag_assets", ctx, **kwargs)
     print_response(result, ctx)
 
 
@@ -58,7 +58,7 @@ def create_tag(
     tag_create_dto = TagCreateDto.model_validate(json_data)
     kwargs["tag_create_dto"] = tag_create_dto
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client, client.tags, "create_tag", **kwargs)
+    result = run_command(client, client.tags, "create_tag", ctx, **kwargs)
     print_response(result, ctx)
 
 
@@ -74,7 +74,7 @@ def delete_tag(
     kwargs = {}
     kwargs["id"] = id
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client, client.tags, "delete_tag", **kwargs)
+    result = run_command(client, client.tags, "delete_tag", ctx, **kwargs)
     print_response(result, ctx)
 
 
@@ -88,7 +88,7 @@ def get_all_tags(
     """
     kwargs = {}
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client, client.tags, "get_all_tags", **kwargs)
+    result = run_command(client, client.tags, "get_all_tags", ctx, **kwargs)
     print_response(result, ctx)
 
 
@@ -104,7 +104,7 @@ def get_tag_by_id(
     kwargs = {}
     kwargs["id"] = id
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client, client.tags, "get_tag_by_id", **kwargs)
+    result = run_command(client, client.tags, "get_tag_by_id", ctx, **kwargs)
     print_response(result, ctx)
 
 
@@ -125,7 +125,7 @@ def tag_assets(
     bulk_ids_dto = BulkIdsDto.model_validate(json_data)
     kwargs["bulk_ids_dto"] = bulk_ids_dto
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client, client.tags, "tag_assets", **kwargs)
+    result = run_command(client, client.tags, "tag_assets", ctx, **kwargs)
     print_response(result, ctx)
 
 
@@ -146,7 +146,7 @@ def untag_assets(
     bulk_ids_dto = BulkIdsDto.model_validate(json_data)
     kwargs["bulk_ids_dto"] = bulk_ids_dto
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client, client.tags, "untag_assets", **kwargs)
+    result = run_command(client, client.tags, "untag_assets", ctx, **kwargs)
     print_response(result, ctx)
 
 
@@ -168,7 +168,7 @@ def update_tag(
     tag_update_dto = TagUpdateDto.model_validate(json_data)
     kwargs["tag_update_dto"] = tag_update_dto
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client, client.tags, "update_tag", **kwargs)
+    result = run_command(client, client.tags, "update_tag", ctx, **kwargs)
     print_response(result, ctx)
 
 
@@ -187,5 +187,5 @@ def upsert_tags(
     tag_upsert_dto = TagUpsertDto.model_validate(json_data)
     kwargs["tag_upsert_dto"] = tag_upsert_dto
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client, client.tags, "upsert_tags", **kwargs)
+    result = run_command(client, client.tags, "upsert_tags", ctx, **kwargs)
     print_response(result, ctx)

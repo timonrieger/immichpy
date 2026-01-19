@@ -31,7 +31,7 @@ def create_partner(
     partner_create_dto = PartnerCreateDto.model_validate(json_data)
     kwargs["partner_create_dto"] = partner_create_dto
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client, client.partners, "create_partner", **kwargs)
+    result = run_command(client, client.partners, "create_partner", ctx, **kwargs)
     print_response(result, ctx)
 
 
@@ -49,7 +49,9 @@ def create_partner_deprecated(
     kwargs = {}
     kwargs["id"] = id
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client, client.partners, "create_partner_deprecated", **kwargs)
+    result = run_command(
+        client, client.partners, "create_partner_deprecated", ctx, **kwargs
+    )
     print_response(result, ctx)
 
 
@@ -65,7 +67,7 @@ def get_partners(
     kwargs = {}
     kwargs["direction"] = direction
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client, client.partners, "get_partners", **kwargs)
+    result = run_command(client, client.partners, "get_partners", ctx, **kwargs)
     print_response(result, ctx)
 
 
@@ -81,7 +83,7 @@ def remove_partner(
     kwargs = {}
     kwargs["id"] = id
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client, client.partners, "remove_partner", **kwargs)
+    result = run_command(client, client.partners, "remove_partner", ctx, **kwargs)
     print_response(result, ctx)
 
 
@@ -102,5 +104,5 @@ def update_partner(
     partner_update_dto = PartnerUpdateDto.model_validate(json_data)
     kwargs["partner_update_dto"] = partner_update_dto
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client, client.partners, "update_partner", **kwargs)
+    result = run_command(client, client.partners, "update_partner", ctx, **kwargs)
     print_response(result, ctx)

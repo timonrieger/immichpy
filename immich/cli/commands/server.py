@@ -26,7 +26,7 @@ def delete_server_license(
     """
     kwargs = {}
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client, client.server, "delete_server_license", **kwargs)
+    result = run_command(client, client.server, "delete_server_license", ctx, **kwargs)
     print_response(result, ctx)
 
 
@@ -40,7 +40,7 @@ def get_about_info(
     """
     kwargs = {}
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client, client.server, "get_about_info", **kwargs)
+    result = run_command(client, client.server, "get_about_info", ctx, **kwargs)
     print_response(result, ctx)
 
 
@@ -54,7 +54,7 @@ def get_apk_links(
     """
     kwargs = {}
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client, client.server, "get_apk_links", **kwargs)
+    result = run_command(client, client.server, "get_apk_links", ctx, **kwargs)
     print_response(result, ctx)
 
 
@@ -68,7 +68,7 @@ def get_server_config(
     """
     kwargs = {}
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client, client.server, "get_server_config", **kwargs)
+    result = run_command(client, client.server, "get_server_config", ctx, **kwargs)
     print_response(result, ctx)
 
 
@@ -82,7 +82,7 @@ def get_server_features(
     """
     kwargs = {}
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client, client.server, "get_server_features", **kwargs)
+    result = run_command(client, client.server, "get_server_features", ctx, **kwargs)
     print_response(result, ctx)
 
 
@@ -96,7 +96,7 @@ def get_server_license(
     """
     kwargs = {}
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client, client.server, "get_server_license", **kwargs)
+    result = run_command(client, client.server, "get_server_license", ctx, **kwargs)
     print_response(result, ctx)
 
 
@@ -110,7 +110,7 @@ def get_server_statistics(
     """
     kwargs = {}
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client, client.server, "get_server_statistics", **kwargs)
+    result = run_command(client, client.server, "get_server_statistics", ctx, **kwargs)
     print_response(result, ctx)
 
 
@@ -124,7 +124,7 @@ def get_server_version(
     """
     kwargs = {}
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client, client.server, "get_server_version", **kwargs)
+    result = run_command(client, client.server, "get_server_version", ctx, **kwargs)
     print_response(result, ctx)
 
 
@@ -138,7 +138,7 @@ def get_storage(
     """
     kwargs = {}
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client, client.server, "get_storage", **kwargs)
+    result = run_command(client, client.server, "get_storage", ctx, **kwargs)
     print_response(result, ctx)
 
 
@@ -154,7 +154,9 @@ def get_supported_media_types(
     """
     kwargs = {}
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client, client.server, "get_supported_media_types", **kwargs)
+    result = run_command(
+        client, client.server, "get_supported_media_types", ctx, **kwargs
+    )
     print_response(result, ctx)
 
 
@@ -168,7 +170,7 @@ def get_theme(
     """
     kwargs = {}
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client, client.server, "get_theme", **kwargs)
+    result = run_command(client, client.server, "get_theme", ctx, **kwargs)
     print_response(result, ctx)
 
 
@@ -182,7 +184,7 @@ def get_version_check(
     """
     kwargs = {}
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client, client.server, "get_version_check", **kwargs)
+    result = run_command(client, client.server, "get_version_check", ctx, **kwargs)
     print_response(result, ctx)
 
 
@@ -196,7 +198,7 @@ def get_version_history(
     """
     kwargs = {}
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client, client.server, "get_version_history", **kwargs)
+    result = run_command(client, client.server, "get_version_history", ctx, **kwargs)
     print_response(result, ctx)
 
 
@@ -210,7 +212,7 @@ def ping_server(
     """
     kwargs = {}
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client, client.server, "ping_server", **kwargs)
+    result = run_command(client, client.server, "ping_server", ctx, **kwargs)
     print_response(result, ctx)
 
 
@@ -231,5 +233,5 @@ def set_server_license(
     license_key_dto = LicenseKeyDto.model_validate(json_data)
     kwargs["license_key_dto"] = license_key_dto
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client, client.server, "set_server_license", **kwargs)
+    result = run_command(client, client.server, "set_server_license", ctx, **kwargs)
     print_response(result, ctx)

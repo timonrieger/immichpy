@@ -454,7 +454,7 @@ def generate_command_function(
     # Call method
     method_name = to_snake_case(operation_id)
     lines.append(
-        f"    result = run_command(client, client.{tag_attr}, '{method_name}', **kwargs)"
+        f"    result = run_command(client, client.{tag_attr}, '{method_name}', ctx, **kwargs)"
     )
 
     # Print result

@@ -31,7 +31,7 @@ def create_job(
     job_create_dto = JobCreateDto.model_validate(json_data)
     kwargs["job_create_dto"] = job_create_dto
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client, client.jobs, "create_job", **kwargs)
+    result = run_command(client, client.jobs, "create_job", ctx, **kwargs)
     print_response(result, ctx)
 
 
@@ -45,7 +45,7 @@ def get_queues_legacy(
     """
     kwargs = {}
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client, client.jobs, "get_queues_legacy", **kwargs)
+    result = run_command(client, client.jobs, "get_queues_legacy", ctx, **kwargs)
     print_response(result, ctx)
 
 
@@ -71,5 +71,5 @@ def run_queue_command_legacy(
     queue_command_dto = QueueCommandDto.model_validate(json_data)
     kwargs["queue_command_dto"] = queue_command_dto
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client, client.jobs, "run_queue_command_legacy", **kwargs)
+    result = run_command(client, client.jobs, "run_queue_command_legacy", ctx, **kwargs)
     print_response(result, ctx)

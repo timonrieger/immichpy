@@ -105,7 +105,7 @@ def get_time_bucket(
     if with_stacked is not None:
         kwargs["with_stacked"] = with_stacked.lower() == "true"
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client, client.timeline, "get_time_bucket", **kwargs)
+    result = run_command(client, client.timeline, "get_time_bucket", ctx, **kwargs)
     print_response(result, ctx)
 
 
@@ -192,5 +192,5 @@ def get_time_buckets(
     if with_stacked is not None:
         kwargs["with_stacked"] = with_stacked.lower() == "true"
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client, client.timeline, "get_time_buckets", **kwargs)
+    result = run_command(client, client.timeline, "get_time_buckets", ctx, **kwargs)
     print_response(result, ctx)

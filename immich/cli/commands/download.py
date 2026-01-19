@@ -37,7 +37,7 @@ def download_archive(
     asset_ids_dto = AssetIdsDto.model_validate(json_data)
     kwargs["asset_ids_dto"] = asset_ids_dto
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client, client.download, "download_archive", **kwargs)
+    result = run_command(client, client.download, "download_archive", ctx, **kwargs)
     print_response(result, ctx)
 
 
@@ -72,5 +72,5 @@ def get_download_info(
     download_info_dto = DownloadInfoDto.model_validate(json_data)
     kwargs["download_info_dto"] = download_info_dto
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client, client.download, "get_download_info", **kwargs)
+    result = run_command(client, client.download, "get_download_info", ctx, **kwargs)
     print_response(result, ctx)

@@ -33,7 +33,7 @@ def maintenance_login(
     kwargs["maintenance_login_dto"] = maintenance_login_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(
-        client, client.maintenance_admin, "maintenance_login", **kwargs
+        client, client.maintenance_admin, "maintenance_login", ctx, **kwargs
     )
     print_response(result, ctx)
 
@@ -54,6 +54,6 @@ def set_maintenance_mode(
     kwargs["set_maintenance_mode_dto"] = set_maintenance_mode_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(
-        client, client.maintenance_admin, "set_maintenance_mode", **kwargs
+        client, client.maintenance_admin, "set_maintenance_mode", ctx, **kwargs
     )
     print_response(result, ctx)

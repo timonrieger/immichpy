@@ -28,7 +28,7 @@ def get_plugin(
     kwargs = {}
     kwargs["id"] = id
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client, client.plugins, "get_plugin", **kwargs)
+    result = run_command(client, client.plugins, "get_plugin", ctx, **kwargs)
     print_response(result, ctx)
 
 
@@ -42,7 +42,7 @@ def get_plugin_triggers(
     """
     kwargs = {}
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client, client.plugins, "get_plugin_triggers", **kwargs)
+    result = run_command(client, client.plugins, "get_plugin_triggers", ctx, **kwargs)
     print_response(result, ctx)
 
 
@@ -56,5 +56,5 @@ def get_plugins(
     """
     kwargs = {}
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client, client.plugins, "get_plugins", **kwargs)
+    result = run_command(client, client.plugins, "get_plugins", ctx, **kwargs)
     print_response(result, ctx)

@@ -34,7 +34,7 @@ def add_memory_assets(
     bulk_ids_dto = BulkIdsDto.model_validate(json_data)
     kwargs["bulk_ids_dto"] = bulk_ids_dto
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client, client.memories, "add_memory_assets", **kwargs)
+    result = run_command(client, client.memories, "add_memory_assets", ctx, **kwargs)
     print_response(result, ctx)
 
 
@@ -68,7 +68,7 @@ def create_memory(
     memory_create_dto = MemoryCreateDto.model_validate(json_data)
     kwargs["memory_create_dto"] = memory_create_dto
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client, client.memories, "create_memory", **kwargs)
+    result = run_command(client, client.memories, "create_memory", ctx, **kwargs)
     print_response(result, ctx)
 
 
@@ -84,7 +84,7 @@ def delete_memory(
     kwargs = {}
     kwargs["id"] = id
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client, client.memories, "delete_memory", **kwargs)
+    result = run_command(client, client.memories, "delete_memory", ctx, **kwargs)
     print_response(result, ctx)
 
 
@@ -100,7 +100,7 @@ def get_memory(
     kwargs = {}
     kwargs["id"] = id
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client, client.memories, "get_memory", **kwargs)
+    result = run_command(client, client.memories, "get_memory", ctx, **kwargs)
     print_response(result, ctx)
 
 
@@ -138,7 +138,7 @@ def memories_statistics(
     if type is not None:
         kwargs["type"] = type
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client, client.memories, "memories_statistics", **kwargs)
+    result = run_command(client, client.memories, "memories_statistics", ctx, **kwargs)
     print_response(result, ctx)
 
 
@@ -159,7 +159,7 @@ def remove_memory_assets(
     bulk_ids_dto = BulkIdsDto.model_validate(json_data)
     kwargs["bulk_ids_dto"] = bulk_ids_dto
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client, client.memories, "remove_memory_assets", **kwargs)
+    result = run_command(client, client.memories, "remove_memory_assets", ctx, **kwargs)
     print_response(result, ctx)
 
 
@@ -197,7 +197,7 @@ def search_memories(
     if type is not None:
         kwargs["type"] = type
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client, client.memories, "search_memories", **kwargs)
+    result = run_command(client, client.memories, "search_memories", ctx, **kwargs)
     print_response(result, ctx)
 
 
@@ -227,5 +227,5 @@ def update_memory(
     memory_update_dto = MemoryUpdateDto.model_validate(json_data)
     kwargs["memory_update_dto"] = memory_update_dto
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client, client.memories, "update_memory", **kwargs)
+    result = run_command(client, client.memories, "update_memory", ctx, **kwargs)
     print_response(result, ctx)

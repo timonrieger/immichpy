@@ -48,7 +48,7 @@ def create_workflow(
     workflow_create_dto = WorkflowCreateDto.model_validate(json_data)
     kwargs["workflow_create_dto"] = workflow_create_dto
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client, client.workflows, "create_workflow", **kwargs)
+    result = run_command(client, client.workflows, "create_workflow", ctx, **kwargs)
     print_response(result, ctx)
 
 
@@ -64,7 +64,7 @@ def delete_workflow(
     kwargs = {}
     kwargs["id"] = id
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client, client.workflows, "delete_workflow", **kwargs)
+    result = run_command(client, client.workflows, "delete_workflow", ctx, **kwargs)
     print_response(result, ctx)
 
 
@@ -80,7 +80,7 @@ def get_workflow(
     kwargs = {}
     kwargs["id"] = id
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client, client.workflows, "get_workflow", **kwargs)
+    result = run_command(client, client.workflows, "get_workflow", ctx, **kwargs)
     print_response(result, ctx)
 
 
@@ -94,7 +94,7 @@ def get_workflows(
     """
     kwargs = {}
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client, client.workflows, "get_workflows", **kwargs)
+    result = run_command(client, client.workflows, "get_workflows", ctx, **kwargs)
     print_response(result, ctx)
 
 
@@ -139,5 +139,5 @@ def update_workflow(
     workflow_update_dto = WorkflowUpdateDto.model_validate(json_data)
     kwargs["workflow_update_dto"] = workflow_update_dto
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client, client.workflows, "update_workflow", **kwargs)
+    result = run_command(client, client.workflows, "update_workflow", ctx, **kwargs)
     print_response(result, ctx)

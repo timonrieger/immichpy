@@ -57,7 +57,7 @@ def get_map_markers(
     if with_shared_albums is not None:
         kwargs["with_shared_albums"] = with_shared_albums.lower() == "true"
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client, client.map, "get_map_markers", **kwargs)
+    result = run_command(client, client.map, "get_map_markers", ctx, **kwargs)
     print_response(result, ctx)
 
 
@@ -75,5 +75,5 @@ def reverse_geocode(
     kwargs["lat"] = lat
     kwargs["lon"] = lon
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client, client.map, "reverse_geocode", **kwargs)
+    result = run_command(client, client.map, "reverse_geocode", ctx, **kwargs)
     print_response(result, ctx)

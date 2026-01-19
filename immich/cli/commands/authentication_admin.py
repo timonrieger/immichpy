@@ -32,6 +32,7 @@ def unlink_all_o_auth_accounts_admin(
         client,
         client.authentication_admin,
         "unlink_all_o_auth_accounts_admin",
+        ctx,
         **kwargs,
     )
     print_response(result, ctx)

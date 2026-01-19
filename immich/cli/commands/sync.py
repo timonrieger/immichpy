@@ -33,7 +33,7 @@ def delete_sync_ack(
     sync_ack_delete_dto = SyncAckDeleteDto.model_validate(json_data)
     kwargs["sync_ack_delete_dto"] = sync_ack_delete_dto
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client, client.sync, "delete_sync_ack", **kwargs)
+    result = run_command(client, client.sync, "delete_sync_ack", ctx, **kwargs)
     print_response(result, ctx)
 
 
@@ -54,7 +54,7 @@ def get_delta_sync(
     asset_delta_sync_dto = AssetDeltaSyncDto.model_validate(json_data)
     kwargs["asset_delta_sync_dto"] = asset_delta_sync_dto
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client, client.sync, "get_delta_sync", **kwargs)
+    result = run_command(client, client.sync, "get_delta_sync", ctx, **kwargs)
     print_response(result, ctx)
 
 
@@ -81,7 +81,7 @@ def get_full_sync_for_user(
     asset_full_sync_dto = AssetFullSyncDto.model_validate(json_data)
     kwargs["asset_full_sync_dto"] = asset_full_sync_dto
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client, client.sync, "get_full_sync_for_user", **kwargs)
+    result = run_command(client, client.sync, "get_full_sync_for_user", ctx, **kwargs)
     print_response(result, ctx)
 
 
@@ -95,7 +95,7 @@ def get_sync_ack(
     """
     kwargs = {}
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client, client.sync, "get_sync_ack", **kwargs)
+    result = run_command(client, client.sync, "get_sync_ack", ctx, **kwargs)
     print_response(result, ctx)
 
 
@@ -117,7 +117,7 @@ def get_sync_stream(
     sync_stream_dto = SyncStreamDto.model_validate(json_data)
     kwargs["sync_stream_dto"] = sync_stream_dto
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client, client.sync, "get_sync_stream", **kwargs)
+    result = run_command(client, client.sync, "get_sync_stream", ctx, **kwargs)
     print_response(result, ctx)
 
 
@@ -136,5 +136,5 @@ def send_sync_ack(
     sync_ack_set_dto = SyncAckSetDto.model_validate(json_data)
     kwargs["sync_ack_set_dto"] = sync_ack_set_dto
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client, client.sync, "send_sync_ack", **kwargs)
+    result = run_command(client, client.sync, "send_sync_ack", ctx, **kwargs)
     print_response(result, ctx)

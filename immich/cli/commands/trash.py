@@ -26,7 +26,7 @@ def empty_trash(
     """
     kwargs = {}
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client, client.trash, "empty_trash", **kwargs)
+    result = run_command(client, client.trash, "empty_trash", ctx, **kwargs)
     print_response(result, ctx)
 
 
@@ -45,7 +45,7 @@ def restore_assets(
     bulk_ids_dto = BulkIdsDto.model_validate(json_data)
     kwargs["bulk_ids_dto"] = bulk_ids_dto
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client, client.trash, "restore_assets", **kwargs)
+    result = run_command(client, client.trash, "restore_assets", ctx, **kwargs)
     print_response(result, ctx)
 
 
@@ -59,5 +59,5 @@ def restore_trash(
     """
     kwargs = {}
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client, client.trash, "restore_trash", **kwargs)
+    result = run_command(client, client.trash, "restore_trash", ctx, **kwargs)
     print_response(result, ctx)

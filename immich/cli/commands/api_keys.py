@@ -34,7 +34,7 @@ def create_api_key(
     api_key_create_dto = APIKeyCreateDto.model_validate(json_data)
     kwargs["api_key_create_dto"] = api_key_create_dto
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client, client.api_keys, "create_api_key", **kwargs)
+    result = run_command(client, client.api_keys, "create_api_key", ctx, **kwargs)
     print_response(result, ctx)
 
 
@@ -50,7 +50,7 @@ def delete_api_key(
     kwargs = {}
     kwargs["id"] = id
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client, client.api_keys, "delete_api_key", **kwargs)
+    result = run_command(client, client.api_keys, "delete_api_key", ctx, **kwargs)
     print_response(result, ctx)
 
 
@@ -66,7 +66,7 @@ def get_api_key(
     kwargs = {}
     kwargs["id"] = id
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client, client.api_keys, "get_api_key", **kwargs)
+    result = run_command(client, client.api_keys, "get_api_key", ctx, **kwargs)
     print_response(result, ctx)
 
 
@@ -80,7 +80,7 @@ def get_api_keys(
     """
     kwargs = {}
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client, client.api_keys, "get_api_keys", **kwargs)
+    result = run_command(client, client.api_keys, "get_api_keys", ctx, **kwargs)
     print_response(result, ctx)
 
 
@@ -94,7 +94,7 @@ def get_my_api_key(
     """
     kwargs = {}
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client, client.api_keys, "get_my_api_key", **kwargs)
+    result = run_command(client, client.api_keys, "get_my_api_key", ctx, **kwargs)
     print_response(result, ctx)
 
 
@@ -121,5 +121,5 @@ def update_api_key(
     api_key_update_dto = APIKeyUpdateDto.model_validate(json_data)
     kwargs["api_key_update_dto"] = api_key_update_dto
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client, client.api_keys, "update_api_key", **kwargs)
+    result = run_command(client, client.api_keys, "update_api_key", ctx, **kwargs)
     print_response(result, ctx)

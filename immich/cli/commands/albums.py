@@ -40,7 +40,7 @@ def add_assets_to_album(
     bulk_ids_dto = BulkIdsDto.model_validate(json_data)
     kwargs["bulk_ids_dto"] = bulk_ids_dto
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client, client.albums, "add_assets_to_album", **kwargs)
+    result = run_command(client, client.albums, "add_assets_to_album", ctx, **kwargs)
     print_response(result, ctx)
 
 
@@ -67,7 +67,7 @@ def add_assets_to_albums(
     albums_add_assets_dto = AlbumsAddAssetsDto.model_validate(json_data)
     kwargs["albums_add_assets_dto"] = albums_add_assets_dto
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client, client.albums, "add_assets_to_albums", **kwargs)
+    result = run_command(client, client.albums, "add_assets_to_albums", ctx, **kwargs)
     print_response(result, ctx)
 
 
@@ -91,7 +91,7 @@ def add_users_to_album(
     add_users_dto = AddUsersDto.model_validate(json_data)
     kwargs["add_users_dto"] = add_users_dto
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client, client.albums, "add_users_to_album", **kwargs)
+    result = run_command(client, client.albums, "add_users_to_album", ctx, **kwargs)
     print_response(result, ctx)
 
 
@@ -122,7 +122,7 @@ def create_album(
     create_album_dto = CreateAlbumDto.model_validate(json_data)
     kwargs["create_album_dto"] = create_album_dto
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client, client.albums, "create_album", **kwargs)
+    result = run_command(client, client.albums, "create_album", ctx, **kwargs)
     print_response(result, ctx)
 
 
@@ -138,7 +138,7 @@ def delete_album(
     kwargs = {}
     kwargs["id"] = id
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client, client.albums, "delete_album", **kwargs)
+    result = run_command(client, client.albums, "delete_album", ctx, **kwargs)
     print_response(result, ctx)
 
 
@@ -165,7 +165,7 @@ def get_album_info(
     if without_assets is not None:
         kwargs["without_assets"] = without_assets.lower() == "true"
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client, client.albums, "get_album_info", **kwargs)
+    result = run_command(client, client.albums, "get_album_info", ctx, **kwargs)
     print_response(result, ctx)
 
 
@@ -179,7 +179,7 @@ def get_album_statistics(
     """
     kwargs = {}
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client, client.albums, "get_album_statistics", **kwargs)
+    result = run_command(client, client.albums, "get_album_statistics", ctx, **kwargs)
     print_response(result, ctx)
 
 
@@ -207,7 +207,7 @@ undefined: get all albums""",
     if shared is not None:
         kwargs["shared"] = shared.lower() == "true"
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client, client.albums, "get_all_albums", **kwargs)
+    result = run_command(client, client.albums, "get_all_albums", ctx, **kwargs)
     print_response(result, ctx)
 
 
@@ -230,7 +230,9 @@ def remove_asset_from_album(
     bulk_ids_dto = BulkIdsDto.model_validate(json_data)
     kwargs["bulk_ids_dto"] = bulk_ids_dto
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client, client.albums, "remove_asset_from_album", **kwargs)
+    result = run_command(
+        client, client.albums, "remove_asset_from_album", ctx, **kwargs
+    )
     print_response(result, ctx)
 
 
@@ -248,7 +250,7 @@ def remove_user_from_album(
     kwargs["id"] = id
     kwargs["user_id"] = user_id
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client, client.albums, "remove_user_from_album", **kwargs)
+    result = run_command(client, client.albums, "remove_user_from_album", ctx, **kwargs)
     print_response(result, ctx)
 
 
@@ -288,7 +290,7 @@ def update_album_info(
     update_album_dto = UpdateAlbumDto.model_validate(json_data)
     kwargs["update_album_dto"] = update_album_dto
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client, client.albums, "update_album_info", **kwargs)
+    result = run_command(client, client.albums, "update_album_info", ctx, **kwargs)
     print_response(result, ctx)
 
 
@@ -311,5 +313,5 @@ def update_album_user(
     update_album_user_dto = UpdateAlbumUserDto.model_validate(json_data)
     kwargs["update_album_user_dto"] = update_album_user_dto
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client, client.albums, "update_album_user", **kwargs)
+    result = run_command(client, client.albums, "update_album_user", ctx, **kwargs)
     print_response(result, ctx)

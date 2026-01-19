@@ -33,7 +33,7 @@ def create_stack(
     stack_create_dto = StackCreateDto.model_validate(json_data)
     kwargs["stack_create_dto"] = stack_create_dto
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client, client.stacks, "create_stack", **kwargs)
+    result = run_command(client, client.stacks, "create_stack", ctx, **kwargs)
     print_response(result, ctx)
 
 
@@ -49,7 +49,7 @@ def delete_stack(
     kwargs = {}
     kwargs["id"] = id
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client, client.stacks, "delete_stack", **kwargs)
+    result = run_command(client, client.stacks, "delete_stack", ctx, **kwargs)
     print_response(result, ctx)
 
 
@@ -68,7 +68,7 @@ def delete_stacks(
     bulk_ids_dto = BulkIdsDto.model_validate(json_data)
     kwargs["bulk_ids_dto"] = bulk_ids_dto
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client, client.stacks, "delete_stacks", **kwargs)
+    result = run_command(client, client.stacks, "delete_stacks", ctx, **kwargs)
     print_response(result, ctx)
 
 
@@ -84,7 +84,7 @@ def get_stack(
     kwargs = {}
     kwargs["id"] = id
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client, client.stacks, "get_stack", **kwargs)
+    result = run_command(client, client.stacks, "get_stack", ctx, **kwargs)
     print_response(result, ctx)
 
 
@@ -104,7 +104,9 @@ def remove_asset_from_stack(
     kwargs["asset_id"] = asset_id
     kwargs["id"] = id
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client, client.stacks, "remove_asset_from_stack", **kwargs)
+    result = run_command(
+        client, client.stacks, "remove_asset_from_stack", ctx, **kwargs
+    )
     print_response(result, ctx)
 
 
@@ -123,7 +125,7 @@ def search_stacks(
     if primary_asset_id is not None:
         kwargs["primary_asset_id"] = primary_asset_id
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client, client.stacks, "search_stacks", **kwargs)
+    result = run_command(client, client.stacks, "search_stacks", ctx, **kwargs)
     print_response(result, ctx)
 
 
@@ -147,5 +149,5 @@ def update_stack(
     stack_update_dto = StackUpdateDto.model_validate(json_data)
     kwargs["stack_update_dto"] = stack_update_dto
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client, client.stacks, "update_stack", **kwargs)
+    result = run_command(client, client.stacks, "update_stack", ctx, **kwargs)
     print_response(result, ctx)

@@ -29,7 +29,9 @@ def delete_notification(
     kwargs = {}
     kwargs["id"] = id
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client, client.notifications, "delete_notification", **kwargs)
+    result = run_command(
+        client, client.notifications, "delete_notification", ctx, **kwargs
+    )
     print_response(result, ctx)
 
 
@@ -48,7 +50,9 @@ def delete_notifications(
     notification_delete_all_dto = NotificationDeleteAllDto.model_validate(json_data)
     kwargs["notification_delete_all_dto"] = notification_delete_all_dto
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client, client.notifications, "delete_notifications", **kwargs)
+    result = run_command(
+        client, client.notifications, "delete_notifications", ctx, **kwargs
+    )
     print_response(result, ctx)
 
 
@@ -64,7 +68,9 @@ def get_notification(
     kwargs = {}
     kwargs["id"] = id
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client, client.notifications, "get_notification", **kwargs)
+    result = run_command(
+        client, client.notifications, "get_notification", ctx, **kwargs
+    )
     print_response(result, ctx)
 
 
@@ -92,7 +98,9 @@ def get_notifications(
     if unread is not None:
         kwargs["unread"] = unread.lower() == "true"
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client, client.notifications, "get_notifications", **kwargs)
+    result = run_command(
+        client, client.notifications, "get_notifications", ctx, **kwargs
+    )
     print_response(result, ctx)
 
 
@@ -114,7 +122,9 @@ def update_notification(
     notification_update_dto = NotificationUpdateDto.model_validate(json_data)
     kwargs["notification_update_dto"] = notification_update_dto
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client, client.notifications, "update_notification", **kwargs)
+    result = run_command(
+        client, client.notifications, "update_notification", ctx, **kwargs
+    )
     print_response(result, ctx)
 
 
@@ -136,5 +146,7 @@ def update_notifications(
     notification_update_all_dto = NotificationUpdateAllDto.model_validate(json_data)
     kwargs["notification_update_all_dto"] = notification_update_all_dto
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client, client.notifications, "update_notifications", **kwargs)
+    result = run_command(
+        client, client.notifications, "update_notifications", ctx, **kwargs
+    )
     print_response(result, ctx)

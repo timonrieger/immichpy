@@ -45,7 +45,7 @@ def create_face(
     asset_face_create_dto = AssetFaceCreateDto.model_validate(json_data)
     kwargs["asset_face_create_dto"] = asset_face_create_dto
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client, client.faces, "create_face", **kwargs)
+    result = run_command(client, client.faces, "create_face", ctx, **kwargs)
     print_response(result, ctx)
 
 
@@ -66,7 +66,7 @@ def delete_face(
     asset_face_delete_dto = AssetFaceDeleteDto.model_validate(json_data)
     kwargs["asset_face_delete_dto"] = asset_face_delete_dto
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client, client.faces, "delete_face", **kwargs)
+    result = run_command(client, client.faces, "delete_face", ctx, **kwargs)
     print_response(result, ctx)
 
 
@@ -82,7 +82,7 @@ def get_faces(
     kwargs = {}
     kwargs["id"] = id
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client, client.faces, "get_faces", **kwargs)
+    result = run_command(client, client.faces, "get_faces", ctx, **kwargs)
     print_response(result, ctx)
 
 
@@ -103,5 +103,5 @@ def reassign_faces_by_id(
     face_dto = FaceDto.model_validate(json_data)
     kwargs["face_dto"] = face_dto
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client, client.faces, "reassign_faces_by_id", **kwargs)
+    result = run_command(client, client.faces, "reassign_faces_by_id", ctx, **kwargs)
     print_response(result, ctx)
