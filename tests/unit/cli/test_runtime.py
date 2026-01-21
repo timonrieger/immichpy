@@ -17,7 +17,7 @@ if TYPE_CHECKING:
 from immich.cli.runtime import (
     set_nested,
     print_response,
-    handle_api_error,
+    format_api_error,
     run_async,
     run_command,
 )
@@ -78,56 +78,44 @@ class TestPrintResponse:
         assert "Jane" in captured.out
 
 
-class TestHandleApiError:
-    """Tests for handle_api_error function."""
+class TestFormatApiError:
+    """Tests for format_api_error function."""
 
-    def test_handle_api_error_no_body(self) -> None:
-        """Test handle_api_error with no body (with and without status)."""
+    def test_format_api_error_no_body(self) -> None:
+        """Test format_api_error with no body (with and without status)."""
         e: ApiException = ApiException(status=404)
         e.body = None
 
-        with pytest.raises(Exit) as exc_info:
-            handle_api_error(e, None)
-
-        assert exc_info.value.exit_code == 4
+        message, code = format_api_error(e)
+        assert message == "API error"
+        assert code == 4
 
         # Test with no status
         e = ApiException(status=None)
         e.body = None
 
-        with pytest.raises(Exit) as exc_info:
-            handle_api_error(e, None)
+        message, code = format_api_error(e)
+        assert message == "API error"
+        assert code == 1
 
-        assert exc_info.value.exit_code == 1
-
-    @patch("immich.cli.utils.print_json")
-    def test_handle_api_error_string_body_pretty(self, mock_print_json: Mock) -> None:
-        """Test handle_api_error with string body and pretty format."""
-        ctx: Mock = Mock(spec=Context)
-        ctx.obj = {"format": "pretty"}
-
+    def test_format_api_error_string_body(self) -> None:
+        """Test format_api_error with string body."""
         e: ApiException = ApiException(status=400)
         e.body = '{"error": "test"}'
 
-        with pytest.raises(Exit) as exc_info:
-            handle_api_error(e, ctx)
+        message, code = format_api_error(e)
+        assert message == '{"error": "test"}'
+        assert code == 4
 
-        mock_print_json.assert_called_once_with('{"error": "test"}')
-        assert exc_info.value.exit_code == 4
-
-    @patch("immich.cli.utils.print_json")
-    def test_handle_api_error_dict_body(self, mock_print_json: Mock) -> None:
-        """Test handle_api_error with dict body (converts to JSON)."""
+    def test_format_api_error_dict_body(self) -> None:
+        """Test format_api_error with dict body (converts to JSON)."""
         e: ApiException = ApiException(status=500)
         e.body = {"error": "test", "code": 500}
 
-        with pytest.raises(Exit) as exc_info:
-            handle_api_error(e, None)
-
-        call_args = mock_print_json.call_args[0][0]
-        parsed = json.loads(call_args)
+        message, code = format_api_error(e)
+        parsed = json.loads(message)
         assert parsed == {"error": "test", "code": 500}
-        assert exc_info.value.exit_code == 5
+        assert code == 5
 
 
 class TestRunAsync:
@@ -181,10 +169,11 @@ class TestRunCommand:
         assert result == {"result": "success"}
         mock_asyncio_run.assert_called_once()
 
-    @patch("immich.cli.runtime.handle_api_error")
+    @patch("immich.cli.runtime.print_")
+    @patch("immich.cli.runtime.format_api_error")
     @patch("immich.cli.runtime.asyncio.run")
     def test_run_command_api_exception(
-        self, mock_asyncio_run: Mock, mock_handle_error: Mock
+        self, mock_asyncio_run: Mock, mock_format_error: Mock, mock_print: Mock
     ) -> None:
         """Test run_command with ApiException."""
         mock_client: Mock = Mock(spec=AsyncClient)
@@ -204,18 +193,23 @@ class TestRunCommand:
                 loop.close()
 
         mock_asyncio_run.side_effect = mock_run
-        mock_handle_error.side_effect = Exit(4)
+        mock_format_error.return_value = ("not found", 4)
 
         ctx: Mock = Mock(spec=Context)
         ctx.obj = {"format": "json"}
 
-        with pytest.raises(Exit):
+        with pytest.raises(Exit) as exc_info:
             run_command(mock_client, mock_api_group, "test_method", ctx)
 
-        mock_handle_error.assert_called_once_with(api_error, ctx)
+        assert exc_info.value.exit_code == 4
+        mock_format_error.assert_called_once_with(api_error)
+        mock_print.assert_any_call("not found", type="error", ctx=ctx)
 
+    @patch("immich.cli.runtime.print_")
     @patch("immich.cli.runtime.asyncio.run")
-    def test_run_command_other_exception(self, mock_asyncio_run: Mock) -> None:
+    def test_run_command_other_exception(
+        self, mock_asyncio_run: Mock, mock_print: Mock
+    ) -> None:
         """Test run_command with non-ApiException."""
         mock_client: Mock = Mock(spec=AsyncClient)
         mock_client.close = AsyncMock()
@@ -233,7 +227,12 @@ class TestRunCommand:
 
         mock_asyncio_run.side_effect = mock_run
 
-        with pytest.raises(ValueError, match="test error"):
+        with pytest.raises(Exit) as exc_info:
             run_command(mock_client, mock_api_group, "test_method", None)
+
+        assert exc_info.value.exit_code == 1
+        mock_print.assert_any_call(
+            "Unexpected error: test error", type="error", ctx=None
+        )
 
         mock_asyncio_run.assert_called_once()
