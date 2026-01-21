@@ -13,6 +13,9 @@ from immich.client.generated.api.api_keys_api import APIKeysApi
 from immich.client.wrapper.assets_api_wrapped import AssetsApiWrapped
 from immich.client.generated.api.authentication_admin_api import AuthenticationAdminApi
 from immich.client.generated.api.authentication_api import AuthenticationApi
+from immich.client.generated.api.database_backups_admin_api import (
+    DatabaseBackupsAdminApi,
+)
 from immich.client.generated.api.deprecated_api import DeprecatedApi
 from immich.client.wrapper.download_api_wrapped import DownloadApiWrapped
 from immich.client.generated.api.duplicates_api import DuplicatesApi
@@ -313,6 +316,7 @@ class AsyncClient:
         self.assets = AssetsApiWrapped(self.base_client)
         self.authentication = AuthenticationApi(self.base_client)
         self.authentication_admin = AuthenticationAdminApi(self.base_client)
+        self.backups = DatabaseBackupsAdminApi(self.base_client)
         self.deprecated = DeprecatedApi(self.base_client)
         self.download = DownloadApiWrapped(self.base_client)
         self.duplicates = DuplicatesApi(self.base_client)
