@@ -16,7 +16,10 @@ nav:
       - client/session-management.md
       - Reference:
           - client/reference/client.md
-          - client/reference/*
+          - API:
+              - client/reference/api/*
+          - Wrapper:
+              - client/reference/wrapper/*
   - Info:
       - info/credits.md
       - info/contributing.md
