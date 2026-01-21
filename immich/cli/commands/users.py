@@ -29,8 +29,7 @@ def create_profile_image(
     kwargs = {}
     json_data = {}
     kwargs["file"] = (file.name, file.read_bytes())
-    create_profile_image_dto = CreateProfileImageDto.model_validate(json_data)
-    kwargs["create_profile_image_dto"] = create_profile_image_dto
+    kwargs.update(json_data)
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.users, "create_profile_image", ctx, **kwargs)
     print_response(result, ctx)

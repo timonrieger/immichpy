@@ -103,8 +103,7 @@ def upload_database_backup(
     json_data = {}
     if file is not None:
         set_nested(json_data, ["file"], (file.name, file.read_bytes()))
-    database_backup_upload_dto = DatabaseBackupUploadDto.model_validate(json_data)
-    kwargs["database_backup_upload_dto"] = database_backup_upload_dto
+    kwargs.update(json_data)
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(
         client, client.backups, "upload_database_backup", ctx, **kwargs

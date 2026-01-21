@@ -257,6 +257,16 @@ def flatten_schema(
     return []
 
 
+def _get_media_type(
+    operation: dict[str, Any],
+) -> Optional[Literal["application/json", "multipart/form-data"]]:
+    if "requestBody" not in operation:
+        return None
+    request_body = operation["requestBody"]
+    first_media_type = next(iter(request_body["content"].keys()))
+    return first_media_type
+
+
 def get_request_body_info(
     operation: dict[str, Any], spec: dict[str, Any]
 ) -> list[RequestParam]:
@@ -265,8 +275,7 @@ def get_request_body_info(
         return []
 
     request_body = operation["requestBody"]
-    first_media_type = next(iter(request_body["content"].keys()))
-    ref: str = request_body["content"][first_media_type]["schema"]["$ref"]
+    ref: str = request_body["content"][_get_media_type(operation)]["schema"]["$ref"]
     model_name: str = ref.split("/")[-1]
     resolved_schema = resolve_schema_ref(spec, ref)
     flattened = flatten_schema(resolved_schema, spec)
@@ -458,12 +467,19 @@ def generate_command_function(
                             f"        set_nested(json_data, [{param.name!r}], {param.name})"
                         )
             if idx == len(param_data) - 1:
-                # Validate and create model
-                model_instance = to_snake_case(param.model_name)  # type: ignore[invalid-argument-type]
-                lines.append(
-                    f"    {model_instance} = {param.model_name}.model_validate(json_data)"
-                )
-                lines.append(f"    kwargs['{model_instance}'] = {model_instance}")
+                media_type = _get_media_type(operation)
+                if media_type == "application/json":
+                    # Validate and create model
+                    model_instance = to_snake_case(param.model_name)  # type: ignore[invalid-argument-type]
+                    lines.append(
+                        f"    {model_instance} = {param.model_name}.model_validate(json_data)"
+                    )
+                    lines.append(f"    kwargs['{model_instance}'] = {model_instance}")
+                elif media_type == "multipart/form-data":
+                    # despite having a model name, we don't use it for multipart/form-data as
+                    # openapi-generator doesn't generate a model for multipart/form-data, but use kwargs
+                    # instead we simply merge the json_data into the kwargs
+                    lines.append("    kwargs.update(json_data)")
     # Get client and API group
     lines.append("    client: 'AsyncClient' = ctx.obj['client']")
 

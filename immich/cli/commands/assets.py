@@ -455,8 +455,7 @@ def replace_asset(
     set_nested(json_data, ["file_modified_at"], file_modified_at)
     if filename is not None:
         set_nested(json_data, ["filename"], filename)
-    asset_media_replace_dto = AssetMediaReplaceDto.model_validate(json_data)
-    kwargs["asset_media_replace_dto"] = asset_media_replace_dto
+    kwargs.update(json_data)
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.assets, "replace_asset", ctx, **kwargs)
     print_response(result, ctx)
@@ -700,8 +699,7 @@ def upload_asset(
         )
     if visibility is not None:
         set_nested(json_data, ["visibility"], visibility)
-    asset_media_create_dto = AssetMediaCreateDto.model_validate(json_data)
-    kwargs["asset_media_create_dto"] = asset_media_create_dto
+    kwargs.update(json_data)
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.assets, "upload_asset", ctx, **kwargs)
     print_response(result, ctx)
