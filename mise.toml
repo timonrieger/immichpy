@@ -80,6 +80,7 @@ run = [
 description = "Run generate then lint sequentially"
 run = [
     { task = "generate" },
+    { task = "docs:generate" },
     { task = "lint" },
 ]
 

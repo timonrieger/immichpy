@@ -31,7 +31,6 @@ class ActivityResponseDto(BaseModel):
     """  # noqa: E501
 
     asset_id: Optional[StrictStr] = Field(alias="assetId")
-    """The asset ID."""
     comment: Optional[StrictStr] = None
     created_at: datetime = Field(alias="createdAt")
     id: StrictStr
