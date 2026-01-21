@@ -1,3 +1,3 @@
-## Session management
+# Session management
 
-The client can manage a shared `aiohttp.ClientSession`, or you can pass your own via `http_client=...` (you are responsible for its lifecycle).
+The client manages a shared `aiohttp.ClientSession` by default, alternatively you can pass your own via `http_client=...`. In that case, you are responsible for its lifecycle, meaning you need to close it yourself when you are done with it.

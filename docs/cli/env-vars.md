@@ -20,15 +20,4 @@ Priority order (highest to lowest):
 | `IMMICH_PROFILE` | Profile name | `--profile` |
 | `IMMICH_FORMAT` | Output format (`pretty`, `json`, `table`) | `--format` |
 
-See the [CLI Reference](./reference.md#immich) for full details on each option.
-
-## Example
-
-```bash
-export IMMICH_API_URL="https://demo.immich.app/api"
-export IMMICH_API_KEY="your-api-key-here"
-immich assets list
-```
-
-!!! warning "Security"
-    API keys and access tokens are sensitive credentials. Never commit them to version control.
+See the [CLI Reference](./reference.md) for full details on each option.

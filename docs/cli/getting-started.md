@@ -2,7 +2,7 @@
 
 ## Installation
 
-Install the Immich CLI using pip:
+You need Python 3.10–3.14 installed to be able to use this CLI.
 
 <div class="termy">
 
@@ -13,16 +13,6 @@ $ pip install immich[cli]
 ```
 </div>
 
-=== "pip"
-
-    ``` shell
-    pip install mkdocs-awesome-nav
-    ```
-=== "uv"
-
-    ``` shell
-    uv add mkdocs-awesome-nav
-    ```
 
 ### Shell completion
 
@@ -66,7 +56,7 @@ Profile 'default' created successfully!
 !!! note "Validation"
     The server is validated when you run `immich setup`. The CLI will fail if the server is not reachable.
 
-See [`immich setup`](./reference.md#immich-setup) for the full command reference.
+See [`immich setup`](../cli/reference.md#immich-setup) for the full command reference.
 
 ## First commands
 

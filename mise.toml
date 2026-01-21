@@ -109,9 +109,17 @@ run = [
 ]
 
 [tasks."docs:dev"]
-description = "Run documentation development server"
+description = "Run documentation development server (using zensical)"
 run = "uv run zensical serve"
+
+[tasks."docs:serve"]
+description = "Run documentation development server (using mkdocs)"
+run = "uv run mkdocs serve"
 
 [tasks."docs:build"]
 description = "Build documentation"
 run = "uv run zensical build"
+
+[tasks."docs:publish"]
+description = "Publish documentation"
+run = "vercel build --yes && vercel deploy"

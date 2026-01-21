@@ -1,10 +1,9 @@
 nav:
+  - index.md
   - Overview:
-      - overview/introduction.md
-      - overview/getting-started.md
-      - overview/custom-functions.md
-      - overview/versioning.md
-      - overview/credits.md
+      - getting-started.md
+      - custom-functions.md
+      - versioning.md
   - CLI:
       - cli/getting-started.md
       - cli/examples.md
@@ -13,10 +12,11 @@ nav:
       - cli/reference.md
   - Client:
       - client/getting-started.md
-      - client/structure.md
-      - client/authentication.md
       - client/response-types.md
       - client/session-management.md
       - Reference:
           - client/reference/client.md
           - client/reference/*
+  - About:
+      - credits.md
+      - contributing.md

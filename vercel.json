@@ -1,5 +1,5 @@
 {
-  "installCommand": "pip3 install uv",
-  "buildCommand": "uv sync --group docs && uv run mkdocs build -d site --clean",
+  "installCommand": "uv sync --group docs",
+  "buildCommand": "uv run mkdocs build -d site --clean",
   "outputDirectory": "site"
 }
