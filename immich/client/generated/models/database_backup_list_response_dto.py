@@ -16,23 +16,20 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictStr
-from typing import Any, ClassVar, Dict, List, Optional
-from immich.client.generated.models.maintenance_action import MaintenanceAction
-from typing import Set
+from pydantic import BaseModel, ConfigDict
+from typing import Any, ClassVar, Dict, List
+from immich.client.generated.models.database_backup_dto import DatabaseBackupDto
+from typing import Optional, Set
 from typing_extensions import Self
 
 
-class SetMaintenanceModeDto(BaseModel):
+class DatabaseBackupListResponseDto(BaseModel):
     """
-    SetMaintenanceModeDto
+    DatabaseBackupListResponseDto
     """  # noqa: E501
 
-    action: MaintenanceAction
-    restore_backup_filename: Optional[StrictStr] = Field(
-        default=None, alias="restoreBackupFilename"
-    )
-    __properties: ClassVar[List[str]] = ["action", "restoreBackupFilename"]
+    backups: List[DatabaseBackupDto]
+    __properties: ClassVar[List[str]] = ["backups"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -51,7 +48,7 @@ class SetMaintenanceModeDto(BaseModel):
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
-        """Create an instance of SetMaintenanceModeDto from a JSON string"""
+        """Create an instance of DatabaseBackupListResponseDto from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
     def to_dict(self) -> Dict[str, Any]:
@@ -71,11 +68,18 @@ class SetMaintenanceModeDto(BaseModel):
             exclude=excluded_fields,
             exclude_none=True,
         )
+        # override the default output from pydantic by calling `to_dict()` of each item in backups (list)
+        _items = []
+        if self.backups:
+            for _item_backups in self.backups:
+                if _item_backups:
+                    _items.append(_item_backups.to_dict())
+            _dict["backups"] = _items
         return _dict
 
     @classmethod
     def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
-        """Create an instance of SetMaintenanceModeDto from a dict"""
+        """Create an instance of DatabaseBackupListResponseDto from a dict"""
         if obj is None:
             return None
 
@@ -84,8 +88,11 @@ class SetMaintenanceModeDto(BaseModel):
 
         _obj = cls.model_validate(
             {
-                "action": obj.get("action"),
-                "restoreBackupFilename": obj.get("restoreBackupFilename"),
+                "backups": [
+                    DatabaseBackupDto.from_dict(_item) for _item in obj["backups"]
+                ]
+                if obj.get("backups") is not None
+                else None
             }
         )
         return _obj

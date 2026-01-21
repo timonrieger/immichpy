@@ -23,6 +23,7 @@ __all__ = [
     "AssetsApi",
     "AuthenticationApi",
     "AuthenticationAdminApi",
+    "DatabaseBackupsAdminApi",
     "DeprecatedApi",
     "DownloadApi",
     "DuplicatesApi",
@@ -146,6 +147,9 @@ __all__ = [
     "CreateProfileImageResponseDto",
     "CropParameters",
     "DatabaseBackupConfig",
+    "DatabaseBackupDeleteDto",
+    "DatabaseBackupDto",
+    "DatabaseBackupListResponseDto",
     "DownloadArchiveInfo",
     "DownloadInfoDto",
     "DownloadResponse",
@@ -175,7 +179,10 @@ __all__ = [
     "MachineLearningAvailabilityChecksDto",
     "MaintenanceAction",
     "MaintenanceAuthDto",
+    "MaintenanceDetectInstallResponseDto",
+    "MaintenanceDetectInstallStorageFolderDto",
     "MaintenanceLoginDto",
+    "MaintenanceStatusResponseDto",
     "ManualJobName",
     "MapMarkerResponseDto",
     "MapReverseGeocodeResponseDto",
@@ -291,6 +298,7 @@ __all__ = [
     "StackResponseDto",
     "StackUpdateDto",
     "StatisticsSearchDto",
+    "StorageFolder",
     "SyncAckDeleteDto",
     "SyncAckDto",
     "SyncAckSetDto",
@@ -416,6 +424,9 @@ from immich.client.generated.api.authentication_api import (
 )
 from immich.client.generated.api.authentication_admin_api import (
     AuthenticationAdminApi as AuthenticationAdminApi,
+)
+from immich.client.generated.api.database_backups_admin_api import (
+    DatabaseBackupsAdminApi as DatabaseBackupsAdminApi,
 )
 from immich.client.generated.api.deprecated_api import DeprecatedApi as DeprecatedApi
 from immich.client.generated.api.download_api import DownloadApi as DownloadApi
@@ -694,6 +705,15 @@ from immich.client.generated.models.crop_parameters import (
 from immich.client.generated.models.database_backup_config import (
     DatabaseBackupConfig as DatabaseBackupConfig,
 )
+from immich.client.generated.models.database_backup_delete_dto import (
+    DatabaseBackupDeleteDto as DatabaseBackupDeleteDto,
+)
+from immich.client.generated.models.database_backup_dto import (
+    DatabaseBackupDto as DatabaseBackupDto,
+)
+from immich.client.generated.models.database_backup_list_response_dto import (
+    DatabaseBackupListResponseDto as DatabaseBackupListResponseDto,
+)
 from immich.client.generated.models.download_archive_info import (
     DownloadArchiveInfo as DownloadArchiveInfo,
 )
@@ -769,8 +789,17 @@ from immich.client.generated.models.maintenance_action import (
 from immich.client.generated.models.maintenance_auth_dto import (
     MaintenanceAuthDto as MaintenanceAuthDto,
 )
+from immich.client.generated.models.maintenance_detect_install_response_dto import (
+    MaintenanceDetectInstallResponseDto as MaintenanceDetectInstallResponseDto,
+)
+from immich.client.generated.models.maintenance_detect_install_storage_folder_dto import (
+    MaintenanceDetectInstallStorageFolderDto as MaintenanceDetectInstallStorageFolderDto,
+)
 from immich.client.generated.models.maintenance_login_dto import (
     MaintenanceLoginDto as MaintenanceLoginDto,
+)
+from immich.client.generated.models.maintenance_status_response_dto import (
+    MaintenanceStatusResponseDto as MaintenanceStatusResponseDto,
 )
 from immich.client.generated.models.manual_job_name import (
     ManualJobName as ManualJobName,
@@ -1089,6 +1118,7 @@ from immich.client.generated.models.stack_update_dto import (
 from immich.client.generated.models.statistics_search_dto import (
     StatisticsSearchDto as StatisticsSearchDto,
 )
+from immich.client.generated.models.storage_folder import StorageFolder as StorageFolder
 from immich.client.generated.models.sync_ack_delete_dto import (
     SyncAckDeleteDto as SyncAckDeleteDto,
 )

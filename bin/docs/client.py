@@ -76,7 +76,7 @@ def process_directory(
     files = sorted(source_dir.glob(file_pattern))
     files = [f for f in files if not f.name.startswith("__")]
 
-    for source_file in files[:3]:
+    for source_file in files:
         filename = source_file.name
         class_name = filename_to_class_name(filename)
         module_path = get_module_path(source_file, project_root)

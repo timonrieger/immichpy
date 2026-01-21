@@ -159,6 +159,13 @@ from immich.client.generated.models.create_profile_image_response_dto import (
 )
 from immich.client.generated.models.crop_parameters import CropParameters
 from immich.client.generated.models.database_backup_config import DatabaseBackupConfig
+from immich.client.generated.models.database_backup_delete_dto import (
+    DatabaseBackupDeleteDto,
+)
+from immich.client.generated.models.database_backup_dto import DatabaseBackupDto
+from immich.client.generated.models.database_backup_list_response_dto import (
+    DatabaseBackupListResponseDto,
+)
 from immich.client.generated.models.download_archive_info import DownloadArchiveInfo
 from immich.client.generated.models.download_info_dto import DownloadInfoDto
 from immich.client.generated.models.download_response import DownloadResponse
@@ -200,7 +207,16 @@ from immich.client.generated.models.machine_learning_availability_checks_dto imp
 )
 from immich.client.generated.models.maintenance_action import MaintenanceAction
 from immich.client.generated.models.maintenance_auth_dto import MaintenanceAuthDto
+from immich.client.generated.models.maintenance_detect_install_response_dto import (
+    MaintenanceDetectInstallResponseDto,
+)
+from immich.client.generated.models.maintenance_detect_install_storage_folder_dto import (
+    MaintenanceDetectInstallStorageFolderDto,
+)
 from immich.client.generated.models.maintenance_login_dto import MaintenanceLoginDto
+from immich.client.generated.models.maintenance_status_response_dto import (
+    MaintenanceStatusResponseDto,
+)
 from immich.client.generated.models.manual_job_name import ManualJobName
 from immich.client.generated.models.map_marker_response_dto import MapMarkerResponseDto
 from immich.client.generated.models.map_reverse_geocode_response_dto import (
@@ -374,6 +390,7 @@ from immich.client.generated.models.stack_create_dto import StackCreateDto
 from immich.client.generated.models.stack_response_dto import StackResponseDto
 from immich.client.generated.models.stack_update_dto import StackUpdateDto
 from immich.client.generated.models.statistics_search_dto import StatisticsSearchDto
+from immich.client.generated.models.storage_folder import StorageFolder
 from immich.client.generated.models.sync_ack_delete_dto import SyncAckDeleteDto
 from immich.client.generated.models.sync_ack_dto import SyncAckDto
 from immich.client.generated.models.sync_ack_set_dto import SyncAckSetDto

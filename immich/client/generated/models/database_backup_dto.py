@@ -16,23 +16,20 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictStr
-from typing import Any, ClassVar, Dict, List, Optional
-from immich.client.generated.models.maintenance_action import MaintenanceAction
-from typing import Set
+from pydantic import BaseModel, ConfigDict, StrictFloat, StrictInt, StrictStr
+from typing import Any, ClassVar, Dict, List, Union
+from typing import Optional, Set
 from typing_extensions import Self
 
 
-class SetMaintenanceModeDto(BaseModel):
+class DatabaseBackupDto(BaseModel):
     """
-    SetMaintenanceModeDto
+    DatabaseBackupDto
     """  # noqa: E501
 
-    action: MaintenanceAction
-    restore_backup_filename: Optional[StrictStr] = Field(
-        default=None, alias="restoreBackupFilename"
-    )
-    __properties: ClassVar[List[str]] = ["action", "restoreBackupFilename"]
+    filename: StrictStr
+    filesize: Union[StrictFloat, StrictInt]
+    __properties: ClassVar[List[str]] = ["filename", "filesize"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -51,7 +48,7 @@ class SetMaintenanceModeDto(BaseModel):
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
-        """Create an instance of SetMaintenanceModeDto from a JSON string"""
+        """Create an instance of DatabaseBackupDto from a JSON string"""
         return cls.from_dict(json.loads(json_str))
 
     def to_dict(self) -> Dict[str, Any]:
@@ -75,7 +72,7 @@ class SetMaintenanceModeDto(BaseModel):
 
     @classmethod
     def from_dict(cls, obj: Optional[Dict[str, Any]]) -> Optional[Self]:
-        """Create an instance of SetMaintenanceModeDto from a dict"""
+        """Create an instance of DatabaseBackupDto from a dict"""
         if obj is None:
             return None
 
@@ -83,9 +80,6 @@ class SetMaintenanceModeDto(BaseModel):
             return cls.model_validate(obj)
 
         _obj = cls.model_validate(
-            {
-                "action": obj.get("action"),
-                "restoreBackupFilename": obj.get("restoreBackupFilename"),
-            }
+            {"filename": obj.get("filename"), "filesize": obj.get("filesize")}
         )
         return _obj

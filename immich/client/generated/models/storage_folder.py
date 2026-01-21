@@ -17,20 +17,22 @@ from enum import Enum
 from typing_extensions import Self
 
 
-class MaintenanceAction(str, Enum):
+class StorageFolder(str, Enum):
     """
-    MaintenanceAction
+    StorageFolder
     """
 
     """
     allowed enum values
     """
-    START = "start"
-    END = "end"
-    SELECT_DATABASE_RESTORE = "select_database_restore"
-    RESTORE_DATABASE = "restore_database"
+    ENCODED_MINUS_VIDEO = "encoded-video"
+    LIBRARY = "library"
+    UPLOAD = "upload"
+    PROFILE = "profile"
+    THUMBS = "thumbs"
+    BACKUPS = "backups"
 
     @classmethod
     def from_json(cls, json_str: str) -> Self:
-        """Create an instance of MaintenanceAction from a JSON string"""
+        """Create an instance of StorageFolder from a JSON string"""
         return cls(json.loads(json_str))
