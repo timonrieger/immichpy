@@ -44,23 +44,22 @@ theme:
   palette:
     - media: "(prefers-color-scheme)"
       toggle:
-        icon: lucide/sun-moon
+        icon: material/lightbulb-auto
         name: Switch to light mode
     - media: "(prefers-color-scheme: light)"
       scheme: default
       toggle:
-        icon: lucide/sun
+        icon: material/lightbulb
         name: Switch to dark mode
     - media: "(prefers-color-scheme: dark)"
       scheme: slate
       toggle:
-        icon: lucide/moon
+        icon: material/lightbulb-outline
         name: Switch to system preference
   font:
     text: Google Sans
     code: Google Sans Code
   icon:
-    logo: lucide/terminal
     repo: fontawesome/brands/github
 
 extra:
