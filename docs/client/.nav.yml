@@ -1,0 +1,7 @@
+nav:
+  - getting-started.md
+  - authentication.md
+  - session-management.md
+  - structure.md
+  - response-types.md
+  - reference

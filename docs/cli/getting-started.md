@@ -13,6 +13,17 @@ $ pip install immich[cli]
 ```
 </div>
 
+=== "pip"
+
+    ``` shell
+    pip install mkdocs-awesome-nav
+    ```
+=== "uv"
+
+    ``` shell
+    uv add mkdocs-awesome-nav
+    ```
+
 ### Shell completion
 
 Install shell completion for easier command-line usage. The command auto-detects the shell and installs the completion for it.

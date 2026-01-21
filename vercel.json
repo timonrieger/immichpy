@@ -1,0 +1,5 @@
+{
+  "installCommand": "pip3 install uv",
+  "buildCommand": "uv sync --group docs && uv run zensical build",
+  "outputDirectory": "site"
+}

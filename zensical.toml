@@ -50,29 +50,7 @@ edit_uri = "edit/main/docs"
 
 #
 # Read more: https://zensical.org/docs/setup/navigation/
-nav = [
-  { "Overview" = [
-    "overview/introduction.md",
-    "overview/getting-started.md",
-    "overview/versioning.md",
-    "overview/custom-functions.md",
-    "overview/credits.md"
-  ]},
-  { "CLI" = [
-    "cli/getting-started.md",
-    "cli/examples.md",
-    "cli/env-vars.md",
-    "cli/reference.md"
-  ]},
-  { "Client" = [
-    "client/structure.md",
-    "client/authentication.md",
-    "client/response-types.md",
-    "client/session-management.md",
-    "client/client.md",
-    "client/activities_api.md"
-  ]}
-]
+# Navigation is now defined in docs/.nav.yml
 
 # With the "extra_css" option you can add your own CSS styling to customize
 # your Zensical project according to your needs. You can add any number of
@@ -377,6 +355,9 @@ show_signature_return_annotation = true
 # Customize prompt characters that trigger command lines
 prompt_literal_start = ["$", ">"]
 
+[project.plugins.awesome-nav]
+
 [project.markdown_extensions.admonition]
 [project.markdown_extensions.pymdownx.details]
 [project.markdown_extensions.pymdownx.superfences]
+[project.markdown_extensions.pymdownx.tabbed]

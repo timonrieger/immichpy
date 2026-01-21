@@ -92,7 +92,7 @@ run = [
 
 [tasks."ci:install"]
 description = "Install dependencies in CI"
-run = ["uv sync --locked --dev"]
+run = ["uv sync --locked --all-groups"]
 
 [tasks."ci:test:unit"]
 description = "Run unit tests in CI"
@@ -111,3 +111,7 @@ run = [
 [tasks."docs:dev"]
 description = "Run documentation development server"
 run = "uv run zensical serve"
+
+[tasks."docs:build"]
+description = "Build documentation"
+run = "uv run zensical build"

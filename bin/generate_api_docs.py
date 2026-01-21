@@ -15,11 +15,18 @@ def filename_to_title(filename: str) -> str:
 
 
 def filename_to_class_name(filename: str) -> str:
-    """Convert filename like 'activities_api.py' to 'ActivitiesApi'."""
+    """Convert filename like 'activities_api.py' to 'ActivitiesApi'.
+
+    Special case: 'api_keys_api.py' -> 'APIKeysApi' (API is uppercase acronym).
+    """
     # Remove .py extension
     name = filename.replace(".py", "")
     # Split by underscore, capitalize each part, and join
     parts = name.split("_")
+    # Handle special case: "api" at start should be uppercase "API"
+    if parts and parts[0] == "api":
+        parts[0] = "API"
+        return parts[0] + "".join(part.capitalize() for part in parts[1:])
     return "".join(part.capitalize() for part in parts)
 
 
