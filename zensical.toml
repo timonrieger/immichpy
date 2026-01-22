@@ -121,7 +121,6 @@ nav = [
     { Info = [
         "info/credits.md",
         "info/contributing.md",
-        "info/development.md",
     ] },
 ]
 # With the "extra_css" option you can add your own CSS styling to customize
@@ -425,6 +424,9 @@ show_signature_return_annotation = true
 # Customize prompt characters that trigger command lines
 prompt_literal_start = ["$", ">"]
 
+[project.markdown_extensions.attr_list]
+[project.markdown_extensions.pymdownx.emoji]
+[project.markdown_extensions.footnotes]
 [project.markdown_extensions.admonition]
 [project.markdown_extensions.pymdownx.details]
 [project.markdown_extensions.pymdownx.superfences]
