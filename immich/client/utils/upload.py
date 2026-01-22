@@ -288,7 +288,7 @@ def get_file_times(
 
     try:
         # not available on all platforms and python versions, thus the AttributeError guard and type ignore
-        ctime = stats.st_birthtime  # type: ignore[attr-defined]
+        ctime = stats.st_birthtime
     except AttributeError:
         if sys.platform == "win32":
             ctime = stats.st_ctime
@@ -489,8 +489,7 @@ async def delete_files(
 
     if delete_duplicates:
         for _ in rejected:
-            # mypy false positive
-            if _.reason == "duplicate":  # type: ignore[attr-defined]
+            if _.reason == "duplicate":
                 to_delete.append(_.filepath)
 
     for filepath in to_delete:

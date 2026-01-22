@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from typing import Optional
 
-from aiohttp import ClientSession  # type: ignore[import-not-found]
+from aiohttp import ClientSession
 
 from immich.client.generated.api_client import ApiClient
 from immich.client.generated.configuration import Configuration
