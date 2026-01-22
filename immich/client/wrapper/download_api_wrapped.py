@@ -19,6 +19,7 @@ from immich.client.generated.api.download_api import DownloadApi
 from immich.client.generated.models.asset_ids_dto import AssetIdsDto
 from immich.client.generated.models.download_info_dto import DownloadInfoDto
 from immich.client.utils.download import download_file
+from immich.client.types import HeadersType
 
 
 class DownloadApiWrapped(DownloadApi):
@@ -89,7 +90,7 @@ class DownloadApiWrapped(DownloadApi):
             for asset_ids_dto, expected_size in archive_requests:
                 filename = f"archive-{uuid4()}.zip"
 
-                def make_request(extra_headers: Optional[dict[str, str]]):
+                def make_request(extra_headers: Optional[HeadersType]):
                     return self.download_archive_without_preload_content(
                         asset_ids_dto=asset_ids_dto,
                         key=key,

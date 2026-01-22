@@ -4,6 +4,7 @@ from pathlib import Path
 
 import pytest
 
+from immich.client.types import HeadersType
 import immich.client.utils.download as download_utils
 
 
@@ -46,7 +47,7 @@ import immich.client.utils.download as download_utils
 def test_resolve_output_filename(
     name: str | None,
     default_ext: str | None,
-    headers: dict[str, str] | None,
+    headers: HeadersType | None,
     expected: str,
 ) -> None:
     default_base = "archive-x" if expected.startswith("archive-x") else "orig-123"
@@ -73,7 +74,7 @@ class MockResponse:
 
     def __init__(
         self,
-        headers: dict[str, str],
+        headers: HeadersType,
         status: int = 200,
         content_data: bytes = b"test data",
         chunk_size: int = 1024 * 1024,

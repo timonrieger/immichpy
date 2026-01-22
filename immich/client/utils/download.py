@@ -19,11 +19,12 @@ from rich.progress import (
 
 
 from immich.client.generated.rest import RESTResponseType
+from immich.client.types import HeadersType
 
 logger = logging.getLogger(__name__)
 
 
-def h(name: str, headers: dict[str, str]) -> Optional[str]:
+def h(name: str, headers: HeadersType) -> Optional[str]:
     """
     Get a header value from a dictionary of headers case-insensitive.
     """
@@ -31,7 +32,7 @@ def h(name: str, headers: dict[str, str]) -> Optional[str]:
 
 
 def filename_from_headers(
-    headers: dict[str, str] | None, *, fallback_base: str
+    headers: HeadersType | None, *, fallback_base: str
 ) -> Optional[str]:
     """
     Derive a filename from response headers.
@@ -70,7 +71,7 @@ def filename_from_headers(
 
 
 def resolve_output_filename(
-    headers: dict[str, str] | None,
+    headers: HeadersType | None,
     *,
     name: Optional[str] = None,
     default_base: str,
@@ -122,9 +123,9 @@ def resolve_output_filename(
 
 
 async def download_file(
-    make_request: Callable[[Optional[dict[str, str]]], Awaitable[RESTResponseType]],
+    make_request: Callable[[Optional[HeadersType]], Awaitable[RESTResponseType]],
     out_dir: Path,
-    resolve_filename: Callable[[dict[str, str]], str],
+    resolve_filename: Callable[[HeadersType], str],
     *,
     show_progress: bool = False,
     progress: Optional[Progress] = None,

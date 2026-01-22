@@ -20,6 +20,7 @@ from immich.client.utils.upload import (
     upload_files,
 )
 from immich.client.utils.download import download_file, resolve_output_filename
+from immich.client.types import HeadersType
 
 
 class AssetsApiWrapped(AssetsApi):
@@ -51,7 +52,7 @@ class AssetsApiWrapped(AssetsApi):
         """
         out_dir.mkdir(parents=True, exist_ok=True)
 
-        def make_request(extra_headers: Optional[dict[str, str]]):
+        def make_request(extra_headers: Optional[HeadersType]):
             return self.download_asset_without_preload_content(
                 id=id,
                 key=key,
@@ -97,7 +98,7 @@ class AssetsApiWrapped(AssetsApi):
         """
         out_dir.mkdir(parents=True, exist_ok=True)
 
-        def make_request(extra_headers: Optional[dict[str, str]]):
+        def make_request(extra_headers: Optional[HeadersType]):
             return self.play_asset_video_without_preload_content(
                 id=id,
                 key=key,
@@ -145,7 +146,7 @@ class AssetsApiWrapped(AssetsApi):
         """
         out_dir.mkdir(parents=True, exist_ok=True)
 
-        def make_request(extra_headers: Optional[dict[str, str]]):
+        def make_request(extra_headers: Optional[HeadersType]):
             return self.view_asset_without_preload_content(
                 id=id,
                 key=key,
