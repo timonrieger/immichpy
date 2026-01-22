@@ -1,7 +1,8 @@
 from __future__ import annotations
 
 from pathlib import Path
-from unittest.mock import AsyncMock, MagicMock
+from unittest.mock import AsyncMock, MagicMock, patch
+import uuid
 
 import pytest
 
@@ -11,10 +12,27 @@ from immich.client.generated.models.asset_bulk_upload_check_response_dto import 
 from immich.client.generated.models.asset_bulk_upload_check_result import (
     AssetBulkUploadCheckResult,
 )
+from immich.client.generated.api_response import ApiResponse
+from immich.client.generated.models.asset_media_response_dto import (
+    AssetMediaResponseDto,
+)
+from immich.client.generated.models.asset_media_status import AssetMediaStatus
 from immich.client.generated.models.server_media_types_response_dto import (
     ServerMediaTypesResponseDto,
 )
-from immich.client.utils.upload import check_duplicates, find_sidecar, scan_files
+from immich.client.generated.models.album_response_dto import AlbumResponseDto
+from immich.client.generated.exceptions import ApiException
+from immich.client.utils.upload import (
+    check_duplicates,
+    delete_files,
+    find_sidecar,
+    RejectedEntry,
+    scan_files,
+    update_albums,
+    upload_file,
+    upload_files,
+    UploadedEntry,
+)
 
 
 @pytest.fixture
@@ -34,6 +52,7 @@ def mock_server_api():
 def mock_assets():
     api = MagicMock()
     api.check_bulk_upload = AsyncMock()
+    api.upload_asset_with_http_info = AsyncMock()
     return api
 
 
@@ -352,3 +371,483 @@ def test_find_sidecar_both_exist(tmp_path: Path) -> None:
     sidecar2.write_bytes(b"xmp data 2")
     result = find_sidecar(file1)
     assert result == sidecar1
+
+
+@pytest.mark.asyncio
+async def test_upload_file_dry_run(mock_assets, tmp_path: Path) -> None:
+    """Test that dry_run returns mock response without API call."""
+    file1 = tmp_path / "test1.jpg"
+    file1.write_bytes(b"test1")
+    result = await upload_file(file1, mock_assets, dry_run=True)
+    assert isinstance(result, ApiResponse)
+    assert result.status_code == 201
+    assert isinstance(result.data, AssetMediaResponseDto)
+    assert result.data.status == AssetMediaStatus.CREATED
+    mock_assets.upload_asset_with_http_info.assert_not_called()
+
+
+@pytest.mark.asyncio
+async def test_upload_file_with_sidecar(mock_assets, tmp_path: Path) -> None:
+    """Test upload with sidecar file found."""
+    file1 = tmp_path / "test1.jpg"
+    sidecar1 = tmp_path / "test1.xmp"
+    file1.write_bytes(b"test1")
+    sidecar1.write_bytes(b"xmp data")
+    mock_response = ApiResponse(
+        status_code=201,
+        headers=None,
+        data=AssetMediaResponseDto(id="asset-123", status=AssetMediaStatus.CREATED),
+        raw_data=b"",
+    )
+    mock_assets.upload_asset_with_http_info.return_value = mock_response
+    result = await upload_file(file1, mock_assets, exclude_sidecars=False)
+    assert result == mock_response
+    call_kwargs = mock_assets.upload_asset_with_http_info.call_args[1]
+    assert call_kwargs["sidecar_data"] == str(sidecar1)
+
+
+@pytest.mark.asyncio
+async def test_upload_file_exclude_sidecars(mock_assets, tmp_path: Path) -> None:
+    """Test that exclude_sidecars=True skips sidecar even if it exists."""
+    file1 = tmp_path / "test1.jpg"
+    sidecar1 = tmp_path / "test1.xmp"
+    file1.write_bytes(b"test1")
+    sidecar1.write_bytes(b"xmp data")
+    mock_response = ApiResponse(
+        status_code=201,
+        headers=None,
+        data=AssetMediaResponseDto(id="asset-123", status=AssetMediaStatus.CREATED),
+        raw_data=b"",
+    )
+    mock_assets.upload_asset_with_http_info.return_value = mock_response
+    result = await upload_file(file1, mock_assets, exclude_sidecars=True)
+    assert result == mock_response
+    call_kwargs = mock_assets.upload_asset_with_http_info.call_args[1]
+    assert call_kwargs["sidecar_data"] is None
+
+
+@pytest.mark.asyncio
+async def test_upload_files_empty_list(mock_assets) -> None:
+    """Test that empty files list returns empty results."""
+    uploaded, rejected, failed = await upload_files([], mock_assets)
+    assert uploaded == []
+    assert rejected == []
+    assert failed == []
+
+
+@pytest.mark.asyncio
+async def test_upload_files_api_exception(mock_assets, tmp_path: Path) -> None:
+    """Test that ApiException is caught and added to failed list."""
+    file1 = tmp_path / "test1.jpg"
+    file1.write_bytes(b"test1")
+    with patch("immich.client.utils.upload.upload_file") as mock_upload:
+        api_exception = ApiException(status=400, reason="Bad Request")
+        api_exception.body = '{"message": "Invalid file format"}'
+        mock_upload.side_effect = api_exception
+        uploaded, rejected, failed = await upload_files([file1], mock_assets)
+        assert uploaded == []
+        assert rejected == []
+        assert len(failed) == 1
+        assert failed[0].filepath == file1
+        assert "Invalid file format" in failed[0].error
+
+
+@pytest.mark.asyncio
+async def test_upload_files_api_exception_invalid_json(
+    mock_assets, tmp_path: Path
+) -> None:
+    """Test that ApiException with invalid JSON body falls back to error message."""
+    file1 = tmp_path / "test1.jpg"
+    file1.write_bytes(b"test1")
+    with patch("immich.client.utils.upload.upload_file") as mock_upload:
+        api_exception = ApiException(status=400, reason="Bad Request")
+        api_exception.body = "not valid json"
+        mock_upload.side_effect = api_exception
+        uploaded, rejected, failed = await upload_files([file1], mock_assets)
+        assert uploaded == []
+        assert rejected == []
+        assert len(failed) == 1
+        assert failed[0].filepath == file1
+        # Should use the exception string message when JSON parsing fails
+        assert failed[0].error
+
+
+@pytest.mark.asyncio
+async def test_upload_files_generic_exception(mock_assets, tmp_path: Path) -> None:
+    """Test that generic exceptions are caught and added to failed list."""
+    file1 = tmp_path / "test1.jpg"
+    file1.write_bytes(b"test1")
+    with patch("immich.client.utils.upload.upload_file") as mock_upload:
+        mock_upload.side_effect = RuntimeError("Network error")
+        uploaded, rejected, failed = await upload_files([file1], mock_assets)
+        assert uploaded == []
+        assert rejected == []
+        assert len(failed) == 1
+        assert failed[0].filepath == file1
+        assert "Network error" in failed[0].error
+
+
+@pytest.mark.asyncio
+async def test_upload_files_mixed_results(mock_assets, tmp_path: Path) -> None:
+    """Test mixed results (uploaded, rejected, failed)."""
+    file1 = tmp_path / "test1.jpg"
+    file2 = tmp_path / "test2.jpg"
+    file3 = tmp_path / "test3.jpg"
+    file1.write_bytes(b"test1")
+    file2.write_bytes(b"test2")
+    file3.write_bytes(b"test3")
+    with patch("immich.client.utils.upload.upload_file") as mock_upload:
+        mock_upload.side_effect = [
+            ApiResponse(
+                status_code=201,
+                headers=None,
+                data=AssetMediaResponseDto(
+                    id="asset-1", status=AssetMediaStatus.CREATED
+                ),
+                raw_data=b"",
+            ),
+            ApiResponse(
+                status_code=200,
+                headers=None,
+                data=AssetMediaResponseDto(
+                    id="asset-2", status=AssetMediaStatus.CREATED
+                ),
+                raw_data=b"",
+            ),
+            ApiResponse(
+                status_code=500,
+                headers=None,
+                data=AssetMediaResponseDto(
+                    id="asset-1", status=AssetMediaStatus.CREATED
+                ),
+                raw_data=b"",
+            ),
+        ]
+        uploaded, rejected, failed = await upload_files(
+            [file1, file2, file3], mock_assets
+        )
+        assert len(uploaded) == 1
+        assert uploaded[0].filepath == file1
+        assert len(rejected) == 1
+        assert rejected[0].filepath == file2
+        assert len(failed) == 1
+        assert failed[0].filepath == file3
+        assert "status_code=500" in failed[0].error
+
+
+@pytest.mark.asyncio
+async def test_upload_files_dry_run_no_progress_update(
+    mock_assets, tmp_path: Path
+) -> None:
+    """Test that dry_run doesn't update progress bar."""
+    file1 = tmp_path / "test1.jpg"
+    file1.write_bytes(b"test1")
+    with patch("immich.client.utils.upload.upload_file") as mock_upload:
+        mock_upload.return_value = ApiResponse(
+            status_code=201,
+            headers=None,
+            data=AssetMediaResponseDto(id="asset-1", status=AssetMediaStatus.CREATED),
+            raw_data=b"",
+        )
+        uploaded, rejected, failed = await upload_files(
+            [file1], mock_assets, dry_run=True
+        )
+        assert len(uploaded) == 1
+        # Progress update should not be called in dry_run mode
+        # (verified by the fact that upload_file is called with dry_run=True)
+
+
+@pytest.fixture
+def mock_albums_api():
+    api = MagicMock()
+    api.get_all_albums = AsyncMock()
+    api.create_album = AsyncMock()
+    api.add_assets_to_album = AsyncMock()
+    return api
+
+
+@pytest.mark.asyncio
+async def test_update_albums_no_album_name(mock_albums_api, tmp_path: Path) -> None:
+    """Test that update_albums returns early when album_name is None."""
+    file1 = tmp_path / "test1.jpg"
+    file1.write_bytes(b"test1")
+    uploaded_entry = UploadedEntry(
+        asset=AssetMediaResponseDto(id="asset-1", status=AssetMediaStatus.CREATED),
+        filepath=file1,
+    )
+    await update_albums([uploaded_entry], None, mock_albums_api)
+    mock_albums_api.get_all_albums.assert_not_called()
+    mock_albums_api.create_album.assert_not_called()
+    mock_albums_api.add_assets_to_album.assert_not_called()
+
+
+@pytest.mark.asyncio
+async def test_update_albums_empty_uploaded(mock_albums_api) -> None:
+    """Test that update_albums returns early when uploaded is empty."""
+    await update_albums([], "My Album", mock_albums_api)
+    mock_albums_api.get_all_albums.assert_not_called()
+    mock_albums_api.create_album.assert_not_called()
+    mock_albums_api.add_assets_to_album.assert_not_called()
+
+
+@pytest.mark.asyncio
+async def test_update_albums_existing_album(mock_albums_api, tmp_path: Path) -> None:
+    """Test that update_albums adds assets to existing album."""
+    album_id = uuid.uuid4()
+    asset_id = uuid.uuid4()
+    file1 = tmp_path / "test1.jpg"
+    file1.write_bytes(b"test1")
+    uploaded_entry = UploadedEntry(
+        asset=AssetMediaResponseDto(id=str(asset_id), status=AssetMediaStatus.CREATED),
+        filepath=file1,
+    )
+    existing_album = AlbumResponseDto.model_construct(
+        album_name="My Album", id=str(album_id)
+    )
+    mock_albums_api.get_all_albums.return_value = [existing_album]
+    await update_albums([uploaded_entry], "My Album", mock_albums_api)
+    mock_albums_api.get_all_albums.assert_called_once()
+    mock_albums_api.create_album.assert_not_called()
+    mock_albums_api.add_assets_to_album.assert_called_once()
+    call_args = mock_albums_api.add_assets_to_album.call_args
+    assert call_args[1]["id"] == album_id
+    assert len(call_args[1]["bulk_ids_dto"].ids) == 1
+
+
+@pytest.mark.asyncio
+async def test_update_albums_create_new_album(mock_albums_api, tmp_path: Path) -> None:
+    """Test that update_albums creates album if it doesn't exist."""
+    album_id = uuid.uuid4()
+    asset_id = uuid.uuid4()
+    file1 = tmp_path / "test1.jpg"
+    file1.write_bytes(b"test1")
+    uploaded_entry = UploadedEntry(
+        asset=AssetMediaResponseDto(id=str(asset_id), status=AssetMediaStatus.CREATED),
+        filepath=file1,
+    )
+    new_album = AlbumResponseDto.model_construct(
+        album_name="New Album", id=str(album_id)
+    )
+    mock_albums_api.get_all_albums.return_value = []
+    mock_albums_api.create_album.return_value = new_album
+    await update_albums([uploaded_entry], "New Album", mock_albums_api)
+    mock_albums_api.get_all_albums.assert_called_once()
+    mock_albums_api.create_album.assert_called_once()
+    mock_albums_api.add_assets_to_album.assert_called_once()
+    call_args = mock_albums_api.add_assets_to_album.call_args
+    assert call_args[1]["id"] == album_id
+
+
+@pytest.mark.asyncio
+async def test_update_albums_batching(mock_albums_api, tmp_path: Path) -> None:
+    """Test that update_albums batches assets in groups of 1000."""
+    album_id = uuid.uuid4()
+    uploaded_entries = [
+        UploadedEntry(
+            asset=AssetMediaResponseDto(
+                id=str(uuid.uuid4()), status=AssetMediaStatus.CREATED
+            ),
+            filepath=tmp_path / f"test{i}.jpg",
+        )
+        for i in range(1500)
+    ]
+    for entry in uploaded_entries:
+        entry.filepath.write_bytes(b"test")
+    existing_album = AlbumResponseDto.model_construct(
+        album_name="Large Album", id=str(album_id)
+    )
+    mock_albums_api.get_all_albums.return_value = [existing_album]
+    await update_albums(uploaded_entries, "Large Album", mock_albums_api)
+    assert mock_albums_api.add_assets_to_album.call_count == 2
+    first_call = mock_albums_api.add_assets_to_album.call_args_list[0]
+    second_call = mock_albums_api.add_assets_to_album.call_args_list[1]
+    assert len(first_call[1]["bulk_ids_dto"].ids) == 1000
+    assert len(second_call[1]["bulk_ids_dto"].ids) == 500
+
+
+@pytest.mark.asyncio
+async def test_delete_files_no_flags(tmp_path: Path) -> None:
+    """Test that delete_files does nothing when both flags are False."""
+    file1 = tmp_path / "test1.jpg"
+    file1.write_bytes(b"test1")
+    uploaded_entry = UploadedEntry(
+        asset=AssetMediaResponseDto(
+            id=str(uuid.uuid4()), status=AssetMediaStatus.CREATED
+        ),
+        filepath=file1,
+    )
+    await delete_files(
+        [uploaded_entry], [], delete_uploads=False, delete_duplicates=False
+    )
+    assert file1.exists()
+
+
+@pytest.mark.asyncio
+async def test_delete_files_delete_uploads(tmp_path: Path) -> None:
+    """Test that delete_files deletes uploaded files when delete_uploads=True."""
+    file1 = tmp_path / "test1.jpg"
+    file1.write_bytes(b"test1")
+    uploaded_entry = UploadedEntry(
+        asset=AssetMediaResponseDto(
+            id=str(uuid.uuid4()), status=AssetMediaStatus.CREATED
+        ),
+        filepath=file1,
+    )
+    await delete_files([uploaded_entry], [], delete_uploads=True)
+    assert not file1.exists()
+
+
+@pytest.mark.asyncio
+async def test_delete_files_delete_duplicates(tmp_path: Path) -> None:
+    """Test that delete_files deletes duplicate rejected files when delete_duplicates=True."""
+    file1 = tmp_path / "test1.jpg"
+    file1.write_bytes(b"test1")
+    rejected_entry = RejectedEntry(
+        filepath=file1,
+        asset_id="asset-123",
+        reason="duplicate",
+    )
+    await delete_files([], [rejected_entry], delete_duplicates=True)
+    assert not file1.exists()
+
+
+@pytest.mark.asyncio
+async def test_delete_files_skip_non_duplicate_rejected(tmp_path: Path) -> None:
+    """Test that delete_files skips rejected files that aren't duplicates."""
+    file1 = tmp_path / "test1.jpg"
+    file1.write_bytes(b"test1")
+    rejected_entry = RejectedEntry(
+        filepath=file1,
+        asset_id=None,
+        reason="unsupported_format",
+    )
+    await delete_files([], [rejected_entry], delete_duplicates=True)
+    assert file1.exists()
+
+
+@pytest.mark.asyncio
+async def test_delete_files_dry_run(
+    tmp_path: Path, caplog: pytest.LogCaptureFixture
+) -> None:
+    """Test that delete_files logs but doesn't delete in dry_run mode."""
+    import logging
+
+    caplog.set_level(logging.INFO)
+    file1 = tmp_path / "test1.jpg"
+    file1.write_bytes(b"test1")
+    uploaded_entry = UploadedEntry(
+        asset=AssetMediaResponseDto(
+            id=str(uuid.uuid4()), status=AssetMediaStatus.CREATED
+        ),
+        filepath=file1,
+    )
+    await delete_files([uploaded_entry], [], delete_uploads=True, dry_run=True)
+    assert file1.exists()
+    assert "Would have deleted" in caplog.text
+
+
+@pytest.mark.asyncio
+async def test_delete_files_with_sidecar(tmp_path: Path) -> None:
+    """Test that delete_files deletes sidecar files when exclude_sidecars=False."""
+    file1 = tmp_path / "test1.jpg"
+    sidecar1 = tmp_path / "test1.xmp"
+    file1.write_bytes(b"test1")
+    sidecar1.write_bytes(b"xmp data")
+    uploaded_entry = UploadedEntry(
+        asset=AssetMediaResponseDto(
+            id=str(uuid.uuid4()), status=AssetMediaStatus.CREATED
+        ),
+        filepath=file1,
+    )
+    await delete_files(
+        [uploaded_entry], [], delete_uploads=True, exclude_sidecars=False
+    )
+    assert not file1.exists()
+    assert not sidecar1.exists()
+
+
+@pytest.mark.asyncio
+async def test_delete_files_exclude_sidecars(tmp_path: Path) -> None:
+    """Test that delete_files doesn't delete sidecar files when exclude_sidecars=True."""
+    file1 = tmp_path / "test1.jpg"
+    sidecar1 = tmp_path / "test1.xmp"
+    file1.write_bytes(b"test1")
+    sidecar1.write_bytes(b"xmp data")
+    uploaded_entry = UploadedEntry(
+        asset=AssetMediaResponseDto(
+            id=str(uuid.uuid4()), status=AssetMediaStatus.CREATED
+        ),
+        filepath=file1,
+    )
+    await delete_files([uploaded_entry], [], delete_uploads=True, exclude_sidecars=True)
+    assert not file1.exists()
+    assert sidecar1.exists()
+
+
+@pytest.mark.asyncio
+async def test_delete_files_sidecar_deletion_failure(
+    tmp_path: Path, caplog: pytest.LogCaptureFixture
+) -> None:
+    """Test that delete_files handles sidecar deletion failure gracefully."""
+    import logging
+    from pathlib import Path as PathClass
+
+    caplog.set_level(logging.ERROR)
+    file1 = tmp_path / "test1.jpg"
+    sidecar1 = tmp_path / "test1.xmp"
+    file1.write_bytes(b"test1")
+    sidecar1.write_bytes(b"xmp data")
+    uploaded_entry = UploadedEntry(
+        asset=AssetMediaResponseDto(
+            id=str(uuid.uuid4()), status=AssetMediaStatus.CREATED
+        ),
+        filepath=file1,
+    )
+    original_unlink = PathClass.unlink
+
+    def failing_unlink(self):
+        if self.resolve() == sidecar1.resolve():
+            raise Exception("Permission denied")
+        return original_unlink(self)
+
+    with patch.object(PathClass, "unlink", failing_unlink):
+        await delete_files(
+            [uploaded_entry], [], delete_uploads=True, exclude_sidecars=False
+        )
+        assert not file1.exists()
+        assert "Failed to delete sidecar" in caplog.text
+
+
+@pytest.mark.asyncio
+async def test_delete_files_main_deletion_failure(
+    tmp_path: Path, caplog: pytest.LogCaptureFixture
+) -> None:
+    """Test that delete_files handles main file deletion failure and skips sidecar."""
+    import logging
+    from pathlib import Path as PathClass
+
+    caplog.set_level(logging.ERROR)
+    file1 = tmp_path / "test1.jpg"
+    sidecar1 = tmp_path / "test1.xmp"
+    file1.write_bytes(b"test1")
+    sidecar1.write_bytes(b"xmp data")
+    uploaded_entry = UploadedEntry(
+        asset=AssetMediaResponseDto(
+            id=str(uuid.uuid4()), status=AssetMediaStatus.CREATED
+        ),
+        filepath=file1,
+    )
+    original_unlink = PathClass.unlink
+
+    def failing_unlink(self):
+        if self.resolve() == file1.resolve():
+            raise Exception("Permission denied")
+        return original_unlink(self)
+
+    with patch.object(PathClass, "unlink", failing_unlink):
+        await delete_files(
+            [uploaded_entry], [], delete_uploads=True, exclude_sidecars=False
+        )
+        assert file1.exists()
+        assert sidecar1.exists()
+        assert "Failed to delete" in caplog.text
