@@ -288,7 +288,7 @@ def get_file_times(
 
     try:
         # not available on all platforms and python versions, thus the AttributeError guard and type ignore
-        ctime = stats.st_birthtime
+        ctime = stats.st_birthtime  # type: ignore[unresolved-attribute]
     except AttributeError:
         if sys.platform == "win32":
             ctime = stats.st_ctime
