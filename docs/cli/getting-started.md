@@ -36,7 +36,7 @@ You will get auto-completion for the commands and options when hitting the <kbd>
 !!! note "Performance"
     Due to the size of the CLI and Python's runtime overhead, the auto-completion is not as fast as I hoped it could be (see [typer#231](https://github.com/fastapi/typer/issues/231)).
 
-## Set up your Immich server
+## Setup
 
 1. Have your Immich server running or use the [demo server](https://demo.immich.app).
 2. Get an API key from your [Immich account settings](https://my.immich.app/user-settings?isOpen=api-keys).
