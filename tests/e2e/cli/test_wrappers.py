@@ -2,6 +2,7 @@ import asyncio
 import json
 from pathlib import Path
 from typing import Awaitable, Callable
+from uuid import UUID
 
 import pytest
 from typer.testing import CliRunner
@@ -155,7 +156,9 @@ async def test_upload(
 
     # cleanup uploaded assets
     await client_with_api_key.assets.delete_assets(
-        AssetBulkDeleteDto(ids=[u.asset.id for u in upload_result.uploaded], force=True)
+        AssetBulkDeleteDto(
+            ids=[UUID(u.asset.id) for u in upload_result.uploaded], force=True
+        )
     )
 
 

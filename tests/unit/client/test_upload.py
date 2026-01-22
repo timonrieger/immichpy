@@ -549,7 +549,7 @@ def mock_albums_api():
 
 @pytest.mark.asyncio
 async def test_update_albums_no_album_name(
-    mock_albums_api, uploaded_entry_factory: Callable[[], UploadedEntry]
+    mock_albums_api, uploaded_entry_factory: Callable[..., UploadedEntry]
 ) -> None:
     """Test that update_albums returns early when album_name is None."""
     uploaded_entry = uploaded_entry_factory()
@@ -571,7 +571,7 @@ async def test_update_albums_empty_uploaded(mock_albums_api) -> None:
 
 @pytest.mark.asyncio
 async def test_update_albums_existing_album(
-    mock_albums_api, uploaded_entry_factory: Callable[[], UploadedEntry]
+    mock_albums_api, uploaded_entry_factory: Callable[..., UploadedEntry]
 ) -> None:
     """Test that update_albums adds assets to existing album."""
     album_id = uuid.uuid4()
@@ -591,7 +591,7 @@ async def test_update_albums_existing_album(
 
 @pytest.mark.asyncio
 async def test_update_albums_create_new_album(
-    mock_albums_api, uploaded_entry_factory: Callable[[], UploadedEntry]
+    mock_albums_api, uploaded_entry_factory: Callable[..., UploadedEntry]
 ) -> None:
     """Test that update_albums creates album if it doesn't exist."""
     album_id = uuid.uuid4()
@@ -611,7 +611,7 @@ async def test_update_albums_create_new_album(
 
 @pytest.mark.asyncio
 async def test_update_albums_batching(
-    mock_albums_api, uploaded_entry_factory: Callable[[], UploadedEntry]
+    mock_albums_api, uploaded_entry_factory: Callable[..., UploadedEntry]
 ) -> None:
     """Test that update_albums batches assets in groups of 1000."""
     album_id = uuid.uuid4()
@@ -632,7 +632,7 @@ async def test_update_albums_batching(
 
 @pytest.mark.asyncio
 async def test_delete_files_no_flags(
-    uploaded_entry_factory: Callable[[], UploadedEntry],
+    uploaded_entry_factory: Callable[..., UploadedEntry],
 ) -> None:
     """Test that delete_files does nothing when both flags are False."""
     uploaded_entry = uploaded_entry_factory()
@@ -644,7 +644,7 @@ async def test_delete_files_no_flags(
 
 @pytest.mark.asyncio
 async def test_delete_files_delete_uploads(
-    uploaded_entry_factory: Callable[[], UploadedEntry],
+    uploaded_entry_factory: Callable[..., UploadedEntry],
 ) -> None:
     """Test that delete_files deletes uploaded files when delete_uploads=True."""
     uploaded_entry = uploaded_entry_factory()
@@ -682,7 +682,7 @@ async def test_delete_files_skip_non_duplicate_rejected(tmp_path: Path) -> None:
 
 @pytest.mark.asyncio
 async def test_delete_files_dry_run(
-    uploaded_entry_factory: Callable[[], UploadedEntry],
+    uploaded_entry_factory: Callable[..., UploadedEntry],
     caplog: pytest.LogCaptureFixture,
 ) -> None:
     """Test that delete_files logs but doesn't delete in dry_run mode."""
@@ -699,7 +699,7 @@ async def test_delete_files_dry_run(
 
 @pytest.mark.asyncio
 async def test_delete_files_with_sidecar(
-    uploaded_entry_factory: Callable[[], UploadedEntry],
+    uploaded_entry_factory: Callable[..., UploadedEntry],
 ) -> None:
     """Test that delete_files deletes sidecar files."""
     uploaded_entry = uploaded_entry_factory(sidecar=True)
@@ -718,7 +718,7 @@ async def test_delete_files_with_sidecar(
     ],
 )
 async def test_delete_files_deletion_failure(
-    uploaded_entry_factory: Callable[[], UploadedEntry],
+    uploaded_entry_factory: Callable[..., UploadedEntry],
     caplog: pytest.LogCaptureFixture,
     fail_file: str,
     expected_file1_exists: bool,
