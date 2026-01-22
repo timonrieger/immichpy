@@ -16,10 +16,10 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictStr
-from typing import Any, ClassVar, Dict, List, Optional
+from pydantic import BaseModel, ConfigDict
+from typing import Any, ClassVar, Dict, List
 from immich.client.generated.models.maintenance_action import MaintenanceAction
-from typing import Set
+from typing import Optional, Set
 from typing_extensions import Self
 
 
@@ -29,10 +29,7 @@ class SetMaintenanceModeDto(BaseModel):
     """  # noqa: E501
 
     action: MaintenanceAction
-    restore_backup_filename: Optional[StrictStr] = Field(
-        default=None, alias="restoreBackupFilename"
-    )
-    __properties: ClassVar[List[str]] = ["action", "restoreBackupFilename"]
+    __properties: ClassVar[List[str]] = ["action"]
 
     model_config = ConfigDict(
         populate_by_name=True,
@@ -82,10 +79,5 @@ class SetMaintenanceModeDto(BaseModel):
         if not isinstance(obj, dict):
             return cls.model_validate(obj)
 
-        _obj = cls.model_validate(
-            {
-                "action": obj.get("action"),
-                "restoreBackupFilename": obj.get("restoreBackupFilename"),
-            }
-        )
+        _obj = cls.model_validate({"action": obj.get("action")})
         return _obj

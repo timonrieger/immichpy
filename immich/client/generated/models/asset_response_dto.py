@@ -17,16 +17,8 @@ import re  # noqa: F401
 import json
 
 from datetime import datetime
-from pydantic import (
-    BaseModel,
-    ConfigDict,
-    Field,
-    StrictBool,
-    StrictFloat,
-    StrictInt,
-    StrictStr,
-)
-from typing import Any, ClassVar, Dict, List, Optional, Union
+from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictStr
+from typing import Any, ClassVar, Dict, List, Optional
 from immich.client.generated.models.asset_face_without_person_response_dto import (
     AssetFaceWithoutPersonResponseDto,
 )
@@ -69,10 +61,8 @@ class AssetResponseDto(BaseModel):
         alias="fileModifiedAt",
     )
     has_metadata: StrictBool = Field(alias="hasMetadata")
-    height: Optional[Union[StrictFloat, StrictInt]]
     id: StrictStr
     is_archived: StrictBool = Field(alias="isArchived")
-    is_edited: StrictBool = Field(alias="isEdited")
     is_favorite: StrictBool = Field(alias="isFavorite")
     is_offline: StrictBool = Field(alias="isOffline")
     is_trashed: StrictBool = Field(alias="isTrashed")
@@ -105,7 +95,6 @@ class AssetResponseDto(BaseModel):
         alias="updatedAt",
     )
     visibility: AssetVisibility
-    width: Optional[Union[StrictFloat, StrictInt]]
     __properties: ClassVar[List[str]] = [
         "checksum",
         "createdAt",
@@ -117,10 +106,8 @@ class AssetResponseDto(BaseModel):
         "fileCreatedAt",
         "fileModifiedAt",
         "hasMetadata",
-        "height",
         "id",
         "isArchived",
-        "isEdited",
         "isFavorite",
         "isOffline",
         "isTrashed",
@@ -141,7 +128,6 @@ class AssetResponseDto(BaseModel):
         "unassignedFaces",
         "updatedAt",
         "visibility",
-        "width",
     ]
 
     model_config = ConfigDict(
@@ -216,11 +202,6 @@ class AssetResponseDto(BaseModel):
         if self.duplicate_id is None and "duplicate_id" in self.model_fields_set:
             _dict["duplicateId"] = None
 
-        # set to None if height (nullable) is None
-        # and model_fields_set contains the field
-        if self.height is None and "height" in self.model_fields_set:
-            _dict["height"] = None
-
         # set to None if library_id (nullable) is None
         # and model_fields_set contains the field
         if self.library_id is None and "library_id" in self.model_fields_set:
@@ -243,11 +224,6 @@ class AssetResponseDto(BaseModel):
         # and model_fields_set contains the field
         if self.thumbhash is None and "thumbhash" in self.model_fields_set:
             _dict["thumbhash"] = None
-
-        # set to None if width (nullable) is None
-        # and model_fields_set contains the field
-        if self.width is None and "width" in self.model_fields_set:
-            _dict["width"] = None
 
         return _dict
 
@@ -274,10 +250,8 @@ class AssetResponseDto(BaseModel):
                 "fileCreatedAt": obj.get("fileCreatedAt"),
                 "fileModifiedAt": obj.get("fileModifiedAt"),
                 "hasMetadata": obj.get("hasMetadata"),
-                "height": obj.get("height"),
                 "id": obj.get("id"),
                 "isArchived": obj.get("isArchived"),
-                "isEdited": obj.get("isEdited"),
                 "isFavorite": obj.get("isFavorite"),
                 "isOffline": obj.get("isOffline"),
                 "isTrashed": obj.get("isTrashed"),
@@ -314,7 +288,6 @@ class AssetResponseDto(BaseModel):
                 else None,
                 "updatedAt": obj.get("updatedAt"),
                 "visibility": obj.get("visibility"),
-                "width": obj.get("width"),
             }
         )
         return _obj

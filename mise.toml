@@ -77,7 +77,7 @@ run = [
 ]
 
 [tasks."ci:gen"]
-description = "Run generate then lint sequentially"
+description = "Run generate then lint sequentially (set IMMICH_OPENAPI_REF to a git ref to generate the client and CLI)"
 run = [
     { task = "generate" },
     { task = "docs:generate" },

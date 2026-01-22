@@ -16,9 +16,8 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictStr
+from pydantic import BaseModel, ConfigDict, StrictBool, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
-from immich.client.generated.models.plugin_trigger_type import PluginTriggerType
 from immich.client.generated.models.workflow_action_item_dto import (
     WorkflowActionItemDto,
 )
@@ -39,14 +38,12 @@ class WorkflowUpdateDto(BaseModel):
     enabled: Optional[StrictBool] = None
     filters: Optional[List[WorkflowFilterItemDto]] = None
     name: Optional[StrictStr] = None
-    trigger_type: Optional[PluginTriggerType] = Field(default=None, alias="triggerType")
     __properties: ClassVar[List[str]] = [
         "actions",
         "description",
         "enabled",
         "filters",
         "name",
-        "triggerType",
     ]
 
     model_config = ConfigDict(
@@ -126,7 +123,6 @@ class WorkflowUpdateDto(BaseModel):
                 if obj.get("filters") is not None
                 else None,
                 "name": obj.get("name"),
-                "triggerType": obj.get("triggerType"),
             }
         )
         return _obj

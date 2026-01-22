@@ -594,7 +594,6 @@ class SharedLinksApi:
     async def get_all_shared_links(
         self,
         album_id: Optional[UUID] = None,
-        id: Optional[UUID] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -613,8 +612,6 @@ class SharedLinksApi:
 
         :param album_id:
         :type album_id: UUID
-        :param id:
-        :type id: UUID
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -639,7 +636,6 @@ class SharedLinksApi:
 
         _param = self._get_all_shared_links_serialize(
             album_id=album_id,
-            id=id,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -662,7 +658,6 @@ class SharedLinksApi:
     async def get_all_shared_links_with_http_info(
         self,
         album_id: Optional[UUID] = None,
-        id: Optional[UUID] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -681,8 +676,6 @@ class SharedLinksApi:
 
         :param album_id:
         :type album_id: UUID
-        :param id:
-        :type id: UUID
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -707,7 +700,6 @@ class SharedLinksApi:
 
         _param = self._get_all_shared_links_serialize(
             album_id=album_id,
-            id=id,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -730,7 +722,6 @@ class SharedLinksApi:
     async def get_all_shared_links_without_preload_content(
         self,
         album_id: Optional[UUID] = None,
-        id: Optional[UUID] = None,
         _request_timeout: Union[
             None,
             Annotated[StrictFloat, Field(gt=0)],
@@ -749,8 +740,6 @@ class SharedLinksApi:
 
         :param album_id:
         :type album_id: UUID
-        :param id:
-        :type id: UUID
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -775,7 +764,6 @@ class SharedLinksApi:
 
         _param = self._get_all_shared_links_serialize(
             album_id=album_id,
-            id=id,
             _request_auth=_request_auth,
             _content_type=_content_type,
             _headers=_headers,
@@ -793,7 +781,6 @@ class SharedLinksApi:
     def _get_all_shared_links_serialize(
         self,
         album_id,
-        id,
         _request_auth,
         _content_type,
         _headers,
@@ -816,9 +803,6 @@ class SharedLinksApi:
         # process the query parameters
         if album_id is not None:
             _query_params.append(("albumId", album_id))
-
-        if id is not None:
-            _query_params.append(("id", id))
 
         # process the header parameters
         # process the form parameters

@@ -16,8 +16,9 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, StrictStr
+from pydantic import BaseModel, ConfigDict
 from typing import Any, ClassVar, Dict, List
+from immich.client.generated.models.asset_metadata_key import AssetMetadataKey
 from typing import Optional, Set
 from typing_extensions import Self
 
@@ -27,7 +28,7 @@ class AssetMetadataUpsertItemDto(BaseModel):
     AssetMetadataUpsertItemDto
     """  # noqa: E501
 
-    key: StrictStr
+    key: AssetMetadataKey
     value: Dict[str, Any]
     __properties: ClassVar[List[str]] = ["key", "value"]
 

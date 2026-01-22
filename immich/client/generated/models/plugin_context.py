@@ -17,18 +17,19 @@ from enum import Enum
 from typing_extensions import Self
 
 
-class MirrorAxis(str, Enum):
+class PluginContext(str, Enum):
     """
-    Axis to mirror along
+    PluginContext
     """
 
     """
     allowed enum values
     """
-    HORIZONTAL = "horizontal"
-    VERTICAL = "vertical"
+    ASSET = "asset"
+    ALBUM = "album"
+    PERSON = "person"
 
     @classmethod
     def from_json(cls, json_str: str) -> Self:
-        """Create an instance of MirrorAxis from a JSON string"""
+        """Create an instance of PluginContext from a JSON string"""
         return cls(json.loads(json_str))

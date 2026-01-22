@@ -23,7 +23,6 @@ __all__ = [
     "AssetsApi",
     "AuthenticationApi",
     "AuthenticationAdminApi",
-    "DatabaseBackupsAdminApi",
     "DeprecatedApi",
     "DownloadApi",
     "DuplicatesApi",
@@ -91,13 +90,6 @@ __all__ = [
     "AssetCopyDto",
     "AssetDeltaSyncDto",
     "AssetDeltaSyncResponseDto",
-    "AssetEditAction",
-    "AssetEditActionCrop",
-    "AssetEditActionListDto",
-    "AssetEditActionListDtoEditsInner",
-    "AssetEditActionMirror",
-    "AssetEditActionRotate",
-    "AssetEditsDto",
     "AssetFaceCreateDto",
     "AssetFaceDeleteDto",
     "AssetFaceResponseDto",
@@ -112,11 +104,7 @@ __all__ = [
     "AssetMediaResponseDto",
     "AssetMediaSize",
     "AssetMediaStatus",
-    "AssetMetadataBulkDeleteDto",
-    "AssetMetadataBulkDeleteItemDto",
-    "AssetMetadataBulkResponseDto",
-    "AssetMetadataBulkUpsertDto",
-    "AssetMetadataBulkUpsertItemDto",
+    "AssetMetadataKey",
     "AssetMetadataResponseDto",
     "AssetMetadataUpsertDto",
     "AssetMetadataUpsertItemDto",
@@ -145,11 +133,7 @@ __all__ = [
     "CreateAlbumDto",
     "CreateLibraryDto",
     "CreateProfileImageResponseDto",
-    "CropParameters",
     "DatabaseBackupConfig",
-    "DatabaseBackupDeleteDto",
-    "DatabaseBackupDto",
-    "DatabaseBackupListResponseDto",
     "DownloadArchiveInfo",
     "DownloadInfoDto",
     "DownloadResponse",
@@ -179,10 +163,7 @@ __all__ = [
     "MachineLearningAvailabilityChecksDto",
     "MaintenanceAction",
     "MaintenanceAuthDto",
-    "MaintenanceDetectInstallResponseDto",
-    "MaintenanceDetectInstallStorageFolderDto",
     "MaintenanceLoginDto",
-    "MaintenanceStatusResponseDto",
     "ManualJobName",
     "MapMarkerResponseDto",
     "MapReverseGeocodeResponseDto",
@@ -196,8 +177,6 @@ __all__ = [
     "MemoryUpdateDto",
     "MergePersonDto",
     "MetadataSearchDto",
-    "MirrorAxis",
-    "MirrorParameters",
     "NotificationCreateDto",
     "NotificationDeleteAllDto",
     "NotificationDto",
@@ -233,10 +212,9 @@ __all__ = [
     "PinCodeSetupDto",
     "PlacesResponseDto",
     "PluginActionResponseDto",
-    "PluginContextType",
+    "PluginContext",
     "PluginFilterResponseDto",
     "PluginResponseDto",
-    "PluginTriggerResponseDto",
     "PluginTriggerType",
     "PurchaseResponse",
     "PurchaseUpdate",
@@ -258,7 +236,6 @@ __all__ = [
     "ReactionLevel",
     "ReactionType",
     "ReverseGeocodingStateResponseDto",
-    "RotateParameters",
     "SearchAlbumResponseDto",
     "SearchAssetResponseDto",
     "SearchExploreItem",
@@ -298,7 +275,6 @@ __all__ = [
     "StackResponseDto",
     "StackUpdateDto",
     "StatisticsSearchDto",
-    "StorageFolder",
     "SyncAckDeleteDto",
     "SyncAckDto",
     "SyncAckSetDto",
@@ -424,9 +400,6 @@ from immich.client.generated.api.authentication_api import (
 )
 from immich.client.generated.api.authentication_admin_api import (
     AuthenticationAdminApi as AuthenticationAdminApi,
-)
-from immich.client.generated.api.database_backups_admin_api import (
-    DatabaseBackupsAdminApi as DatabaseBackupsAdminApi,
 )
 from immich.client.generated.api.deprecated_api import DeprecatedApi as DeprecatedApi
 from immich.client.generated.api.download_api import DownloadApi as DownloadApi
@@ -561,27 +534,6 @@ from immich.client.generated.models.asset_delta_sync_dto import (
 from immich.client.generated.models.asset_delta_sync_response_dto import (
     AssetDeltaSyncResponseDto as AssetDeltaSyncResponseDto,
 )
-from immich.client.generated.models.asset_edit_action import (
-    AssetEditAction as AssetEditAction,
-)
-from immich.client.generated.models.asset_edit_action_crop import (
-    AssetEditActionCrop as AssetEditActionCrop,
-)
-from immich.client.generated.models.asset_edit_action_list_dto import (
-    AssetEditActionListDto as AssetEditActionListDto,
-)
-from immich.client.generated.models.asset_edit_action_list_dto_edits_inner import (
-    AssetEditActionListDtoEditsInner as AssetEditActionListDtoEditsInner,
-)
-from immich.client.generated.models.asset_edit_action_mirror import (
-    AssetEditActionMirror as AssetEditActionMirror,
-)
-from immich.client.generated.models.asset_edit_action_rotate import (
-    AssetEditActionRotate as AssetEditActionRotate,
-)
-from immich.client.generated.models.asset_edits_dto import (
-    AssetEditsDto as AssetEditsDto,
-)
 from immich.client.generated.models.asset_face_create_dto import (
     AssetFaceCreateDto as AssetFaceCreateDto,
 )
@@ -618,20 +570,8 @@ from immich.client.generated.models.asset_media_size import (
 from immich.client.generated.models.asset_media_status import (
     AssetMediaStatus as AssetMediaStatus,
 )
-from immich.client.generated.models.asset_metadata_bulk_delete_dto import (
-    AssetMetadataBulkDeleteDto as AssetMetadataBulkDeleteDto,
-)
-from immich.client.generated.models.asset_metadata_bulk_delete_item_dto import (
-    AssetMetadataBulkDeleteItemDto as AssetMetadataBulkDeleteItemDto,
-)
-from immich.client.generated.models.asset_metadata_bulk_response_dto import (
-    AssetMetadataBulkResponseDto as AssetMetadataBulkResponseDto,
-)
-from immich.client.generated.models.asset_metadata_bulk_upsert_dto import (
-    AssetMetadataBulkUpsertDto as AssetMetadataBulkUpsertDto,
-)
-from immich.client.generated.models.asset_metadata_bulk_upsert_item_dto import (
-    AssetMetadataBulkUpsertItemDto as AssetMetadataBulkUpsertItemDto,
+from immich.client.generated.models.asset_metadata_key import (
+    AssetMetadataKey as AssetMetadataKey,
 )
 from immich.client.generated.models.asset_metadata_response_dto import (
     AssetMetadataResponseDto as AssetMetadataResponseDto,
@@ -699,20 +639,8 @@ from immich.client.generated.models.create_library_dto import (
 from immich.client.generated.models.create_profile_image_response_dto import (
     CreateProfileImageResponseDto as CreateProfileImageResponseDto,
 )
-from immich.client.generated.models.crop_parameters import (
-    CropParameters as CropParameters,
-)
 from immich.client.generated.models.database_backup_config import (
     DatabaseBackupConfig as DatabaseBackupConfig,
-)
-from immich.client.generated.models.database_backup_delete_dto import (
-    DatabaseBackupDeleteDto as DatabaseBackupDeleteDto,
-)
-from immich.client.generated.models.database_backup_dto import (
-    DatabaseBackupDto as DatabaseBackupDto,
-)
-from immich.client.generated.models.database_backup_list_response_dto import (
-    DatabaseBackupListResponseDto as DatabaseBackupListResponseDto,
 )
 from immich.client.generated.models.download_archive_info import (
     DownloadArchiveInfo as DownloadArchiveInfo,
@@ -789,17 +717,8 @@ from immich.client.generated.models.maintenance_action import (
 from immich.client.generated.models.maintenance_auth_dto import (
     MaintenanceAuthDto as MaintenanceAuthDto,
 )
-from immich.client.generated.models.maintenance_detect_install_response_dto import (
-    MaintenanceDetectInstallResponseDto as MaintenanceDetectInstallResponseDto,
-)
-from immich.client.generated.models.maintenance_detect_install_storage_folder_dto import (
-    MaintenanceDetectInstallStorageFolderDto as MaintenanceDetectInstallStorageFolderDto,
-)
 from immich.client.generated.models.maintenance_login_dto import (
     MaintenanceLoginDto as MaintenanceLoginDto,
-)
-from immich.client.generated.models.maintenance_status_response_dto import (
-    MaintenanceStatusResponseDto as MaintenanceStatusResponseDto,
 )
 from immich.client.generated.models.manual_job_name import (
     ManualJobName as ManualJobName,
@@ -837,10 +756,6 @@ from immich.client.generated.models.merge_person_dto import (
 )
 from immich.client.generated.models.metadata_search_dto import (
     MetadataSearchDto as MetadataSearchDto,
-)
-from immich.client.generated.models.mirror_axis import MirrorAxis as MirrorAxis
-from immich.client.generated.models.mirror_parameters import (
-    MirrorParameters as MirrorParameters,
 )
 from immich.client.generated.models.notification_create_dto import (
     NotificationCreateDto as NotificationCreateDto,
@@ -937,17 +852,12 @@ from immich.client.generated.models.places_response_dto import (
 from immich.client.generated.models.plugin_action_response_dto import (
     PluginActionResponseDto as PluginActionResponseDto,
 )
-from immich.client.generated.models.plugin_context_type import (
-    PluginContextType as PluginContextType,
-)
+from immich.client.generated.models.plugin_context import PluginContext as PluginContext
 from immich.client.generated.models.plugin_filter_response_dto import (
     PluginFilterResponseDto as PluginFilterResponseDto,
 )
 from immich.client.generated.models.plugin_response_dto import (
     PluginResponseDto as PluginResponseDto,
-)
-from immich.client.generated.models.plugin_trigger_response_dto import (
-    PluginTriggerResponseDto as PluginTriggerResponseDto,
 )
 from immich.client.generated.models.plugin_trigger_type import (
     PluginTriggerType as PluginTriggerType,
@@ -1001,9 +911,6 @@ from immich.client.generated.models.reaction_level import ReactionLevel as React
 from immich.client.generated.models.reaction_type import ReactionType as ReactionType
 from immich.client.generated.models.reverse_geocoding_state_response_dto import (
     ReverseGeocodingStateResponseDto as ReverseGeocodingStateResponseDto,
-)
-from immich.client.generated.models.rotate_parameters import (
-    RotateParameters as RotateParameters,
 )
 from immich.client.generated.models.search_album_response_dto import (
     SearchAlbumResponseDto as SearchAlbumResponseDto,
@@ -1118,7 +1025,6 @@ from immich.client.generated.models.stack_update_dto import (
 from immich.client.generated.models.statistics_search_dto import (
     StatisticsSearchDto as StatisticsSearchDto,
 )
-from immich.client.generated.models.storage_folder import StorageFolder as StorageFolder
 from immich.client.generated.models.sync_ack_delete_dto import (
     SyncAckDeleteDto as SyncAckDeleteDto,
 )

@@ -31,7 +31,6 @@ class JobName(str, Enum):
     ASSETDETECTFACES = "AssetDetectFaces"
     ASSETDETECTDUPLICATESQUEUEALL = "AssetDetectDuplicatesQueueAll"
     ASSETDETECTDUPLICATES = "AssetDetectDuplicates"
-    ASSETEDITTHUMBNAILGENERATION = "AssetEditThumbnailGeneration"
     ASSETENCODEVIDEOQUEUEALL = "AssetEncodeVideoQueueAll"
     ASSETENCODEVIDEO = "AssetEncodeVideo"
     ASSETEMPTYTRASH = "AssetEmptyTrash"

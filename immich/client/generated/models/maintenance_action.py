@@ -27,8 +27,6 @@ class MaintenanceAction(str, Enum):
     """
     START = "start"
     END = "end"
-    SELECT_DATABASE_RESTORE = "select_database_restore"
-    RESTORE_DATABASE = "restore_database"
 
     @classmethod
     def from_json(cls, json_str: str) -> Self:

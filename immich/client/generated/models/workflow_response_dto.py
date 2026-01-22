@@ -16,9 +16,15 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictBool, StrictStr
+from pydantic import (
+    BaseModel,
+    ConfigDict,
+    Field,
+    StrictBool,
+    StrictStr,
+    field_validator,
+)
 from typing import Any, ClassVar, Dict, List, Optional
-from immich.client.generated.models.plugin_trigger_type import PluginTriggerType
 from immich.client.generated.models.workflow_action_response_dto import (
     WorkflowActionResponseDto,
 )
@@ -42,7 +48,7 @@ class WorkflowResponseDto(BaseModel):
     id: StrictStr
     name: Optional[StrictStr]
     owner_id: StrictStr = Field(alias="ownerId")
-    trigger_type: PluginTriggerType = Field(alias="triggerType")
+    trigger_type: StrictStr = Field(alias="triggerType")
     __properties: ClassVar[List[str]] = [
         "actions",
         "createdAt",
@@ -54,6 +60,15 @@ class WorkflowResponseDto(BaseModel):
         "ownerId",
         "triggerType",
     ]
+
+    @field_validator("trigger_type")
+    def trigger_type_validate_enum(cls, value):
+        """Validates the enum"""
+        if value not in set(["AssetCreate", "PersonRecognized"]):
+            raise ValueError(
+                "must be one of enum values ('AssetCreate', 'PersonRecognized')"
+            )
+        return value
 
     model_config = ConfigDict(
         populate_by_name=True,

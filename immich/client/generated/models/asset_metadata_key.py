@@ -17,19 +17,17 @@ from enum import Enum
 from typing_extensions import Self
 
 
-class AssetEditAction(str, Enum):
+class AssetMetadataKey(str, Enum):
     """
-    AssetEditAction
+    AssetMetadataKey
     """
 
     """
     allowed enum values
     """
-    CROP = "crop"
-    ROTATE = "rotate"
-    MIRROR = "mirror"
+    MOBILE_MINUS_APP = "mobile-app"
 
     @classmethod
     def from_json(cls, json_str: str) -> Self:
-        """Create an instance of AssetEditAction from a JSON string"""
+        """Create an instance of AssetMetadataKey from a JSON string"""
         return cls(json.loads(json_str))

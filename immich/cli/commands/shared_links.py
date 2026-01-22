@@ -104,7 +104,6 @@ def create_shared_link(
 def get_all_shared_links(
     ctx: typer.Context,
     album_id: str | None = typer.Option(None, "--album-id", help=""""""),
-    id: str | None = typer.Option(None, "--id", help=""""""),
 ) -> None:
     """Retrieve all shared links
 
@@ -113,8 +112,6 @@ def get_all_shared_links(
     kwargs = {}
     if album_id is not None:
         kwargs["album_id"] = album_id
-    if id is not None:
-        kwargs["id"] = id
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(
         client, client.shared_links, "get_all_shared_links", ctx, **kwargs
