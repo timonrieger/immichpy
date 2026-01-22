@@ -1,7 +1,6 @@
 import os
 from pathlib import Path
-from typing import AsyncGenerator, Awaitable, Callable, Generator, Optional
-from uuid import uuid4
+from typing import AsyncGenerator, Awaitable, Callable
 
 import pytest
 from typer.testing import CliRunner
@@ -17,7 +16,6 @@ from immich.cli.consts import (
 )
 from immich.client.utils.upload import UploadResult
 from immich.client.generated import (
-    AlbumResponseDto,
     AssetResponseDto,
 )
 from immich.client.generated.exceptions import BadRequestException
@@ -28,8 +26,6 @@ from immich.client.generated.models.api_key_create_dto import APIKeyCreateDto
 from immich.client.generated.models.login_credential_dto import LoginCredentialDto
 from immich.client.generated.models.permission import Permission
 from immich.client.generated.models.sign_up_dto import SignUpDto
-
-from tests.e2e.client.generators import make_random_image, make_random_video
 
 ACTIVATION_KEY = "4kJUNUWMq13J14zqPFm1NodRcI6MV6DeOGvQNIgrM8Sc9nv669wyEVvFw1Nz4Kb1W7zLWblOtXEQzpRRqC4r4fKjewJxfbpeo9sEsqAVIfl4Ero-Vp1Dg21-sVdDGZEAy2oeTCXAyCT5d1JqrqR6N1qTAm4xOx9ujXQRFYhjRG8uwudw7_Q49pF18Tj5OEv9qCqElxztoNck4i6O_azsmsoOQrLIENIWPh3EynBN3ESpYERdCgXO8MlWeuG14_V1HbNjnJPZDuvYg__YfMzoOEtfm1sCqEaJ2Ww-BaX7yGfuCL4XsuZlCQQNHjfscy_WywVfIZPKCiW8QR74i0cSzQ"
 LICENSE_KEY = "IMSV-6ECZ-91TE-WZRM-Q7AQ-MBN4-UW48-2CPT-71X9"
@@ -126,85 +122,6 @@ def runner_simple() -> CliRunner:
     return CliRunner(
         env={IMMICH_FORMAT: DEFAULT_FORMAT, IMMICH_PROFILE: DEFAULT_PROFILE}
     )
-
-
-@pytest.fixture
-def test_image_factory(
-    tmp_path: Path,
-) -> Generator[Callable[[Optional[str]], Path], None, None]:
-    """Factory fixture: yields a callable to create test images.
-
-    Example:
-        img_path = test_image_factory()
-        img_path2 = test_image_factory(filename="custom.jpg")
-    """
-
-    def _create_image(filename: Optional[str] = None) -> Path:
-        if filename is None:
-            filename = f"{uuid4()}.jpg"
-        img_path = tmp_path / filename
-        img_path.write_bytes(make_random_image())
-        return img_path
-
-    yield _create_image
-
-
-@pytest.fixture
-def test_image(
-    test_image_factory: Callable[[], Path],
-) -> Generator[Path, None, None]:
-    """Create a minimal JPEG test image."""
-    yield test_image_factory()
-
-
-@pytest.fixture
-def test_video_factory(
-    tmp_path: Path,
-) -> Generator[Callable[[Optional[str]], Path], None, None]:
-    """Factory fixture: yields a callable to create test videos.
-
-    Example:
-        video_path = test_video_factory()
-        video_path2 = test_video_factory(filename="custom.mp4")
-    """
-
-    def _create_video(filename: Optional[str] = None) -> Path:
-        if filename is None:
-            filename = f"{uuid4()}.mp4"
-        video_path = tmp_path / filename
-        video_path.write_bytes(make_random_video())
-        return video_path
-
-    yield _create_video
-
-
-@pytest.fixture
-def test_video(
-    test_video_factory: Callable[[], Path],
-) -> Generator[Path, None, None]:
-    """Create a minimal MP4 test video."""
-    yield test_video_factory()
-
-
-@pytest.fixture
-async def album_factory(
-    client_with_api_key: AsyncClient,
-) -> AsyncGenerator[Callable[..., Awaitable[AlbumResponseDto]], None]:
-    """Fixture to set up album for testing with factory pattern.
-
-    Creates an album, returns parsed album object.
-    Skips dependent tests if album creation fails.
-    """
-
-    async def _create_album(*args, **kwargs) -> AlbumResponseDto:
-        try:
-            result = await client_with_api_key.albums.create_album(*args, **kwargs)
-        except Exception as e:
-            pytest.skip(f"Asset upload failed:\n{e}")
-
-        return result
-
-    yield _create_album
 
 
 @pytest.fixture
