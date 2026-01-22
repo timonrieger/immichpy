@@ -7,9 +7,15 @@ on:
   push:
     branches:
       - main
+    paths:
+      - 'zensical.toml'
+      - 'docs/**'
   pull_request:
     branches:
       - main
+    paths:
+      - 'zensical.toml'
+      - 'docs/**'
 
 jobs:
   deploy:
