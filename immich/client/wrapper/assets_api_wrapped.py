@@ -46,6 +46,7 @@ class AssetsApiWrapped(AssetsApi):
         :param filename: The filename to use. If not provided, we use the original filename from the headers or default to "orig-" + asset_id.
         :param show_progress: Whether to show a progress bar while downloading.
         :param kwargs: Additional arguments to pass to the `download_asset_without_preload_content` method.
+        :return: The path to the downloaded file.
 
         For exact request/response behavior, inspect `AssetsApi.download_asset_without_preload_content`
         in the generated client.
@@ -91,10 +92,8 @@ class AssetsApiWrapped(AssetsApi):
         :param slug: Public share slug for custom share URLs (the last path segment of `/s/<slug>`). Allows access without authentication. Typically you pass either `slug` or `key`.
         :param filename: The filename to use. If not provided, we use the original filename from the headers or default to "video-" + asset_id.
         :param show_progress: Whether to show a progress bar while downloading.
-        :param kwargs: Additional arguments to pass to the `play_asset_video_without_preload_content` method.
-
-        For exact request/response behavior, inspect `AssetsApi.play_asset_video_without_preload_content`
-        in the generated client.
+        :param kwargs: Additional arguments to pass to the [AssetsApi.play_asset_video_without_preload_content][] method.
+        :return: The path to the downloaded file.
         """
         out_dir.mkdir(parents=True, exist_ok=True)
 
@@ -139,10 +138,8 @@ class AssetsApiWrapped(AssetsApi):
         :param slug: Public share slug for custom share URLs (the last path segment of `/s/<slug>`). Allows access without authentication. Typically you pass either `slug` or `key`.
         :param filename: The filename to use. If not provided, we use the original filename from the headers or default to "thumb-" + asset_id.
         :param show_progress: Whether to show a progress bar while downloading.
-        :param kwargs: Additional arguments to pass to the `view_asset_without_preload_content` method.
-
-        For exact request/response behavior, inspect `AssetsApi.view_asset_without_preload_content`
-        in the generated client.
+        :param kwargs: Additional arguments to pass to the [AssetsApi.view_asset_without_preload_content][] method.
+        :return: The path to the downloaded file.
         """
         out_dir.mkdir(parents=True, exist_ok=True)
 
@@ -194,7 +191,6 @@ class AssetsApiWrapped(AssetsApi):
         :param delete_uploads: Whether to delete successfully uploaded files locally.
         :param delete_duplicates: Whether to delete duplicate files locally.
         :param dry_run: Simulate uploads without actually uploading.
-
         :return: UploadResult with uploaded assets, rejected files, failures, and statistics.
         """
         if concurrency < 1:

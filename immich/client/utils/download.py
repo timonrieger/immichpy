@@ -45,7 +45,7 @@ def filename_from_headers(
     :param headers: The response headers.
     :param fallback_base: The filename without extension if we cannot derive the original filename from the Content-Disposition header.
 
-    :returns: The derived filename or None if we cannot derive the filename from the headers.
+    :return: The derived filename or None if we cannot derive the filename from the headers.
     """
     if not headers:
         return None
@@ -96,7 +96,7 @@ def resolve_output_filename(
     :param default_base: The default base name, used when no user/header filename can be derived.
     :param default_ext: The default extension (must start with `.`), used when you want to force a specific extension (e.g. `.zip`).
 
-    :returns: The resolved filename.
+    :return: The resolved filename.
     """
     if default_ext and not default_ext.startswith("."):
         raise ValueError("default_ext must start with '.' (e.g. '.zip')")
