@@ -16,7 +16,7 @@ import urllib3  # pyright: ignore[reportMissingImports]
 from pathlib import Path
 from typing import Annotated, Any, Literal, Optional, Union
 import inflection  # pyright: ignore[reportMissingImports]
-from pydantic import AfterValidator, BaseModel, Field
+from pydantic import AfterValidator, BaseModel
 
 
 def python_triple_quoted_str(value: str) -> str:
@@ -27,8 +27,10 @@ def python_triple_quoted_str(value: str) -> str:
 
 
 class RequestParam(BaseModel):
-    oaschema: dict[str, Any] = Field(..., description="The schema of the parameter.")
+    oaschema: dict[str, Any]
+    """The schema of the parameter."""
     location: Literal["body", "query", "header", "path"]
+    """The location of the parameter."""
     type: Union[
         Literal[
             "str",
@@ -41,16 +43,18 @@ class RequestParam(BaseModel):
             "datetime",
         ],
         str,
-    ] = Field(..., description="The type of the parameter.")
-    required: bool = Field(..., description="Whether the parameter is required.")
-    name: str = Field(
-        ..., description="The name of the parameter. Used to generate the flag name."
-    )
-    description: Annotated[str, AfterValidator(python_triple_quoted_str)] = Field(
-        ..., description="The description of the parameter."
-    )
-    operation_id: str = Field(..., description="The operation ID.")
-    model_name: Optional[str] = Field(None, description="The name of the model.")
+    ]
+    """The type of the parameter."""
+    required: bool
+    """Whether the parameter is required."""
+    name: str
+    """The name of the parameter. Used to generate the flag name."""
+    description: Annotated[str, AfterValidator(python_triple_quoted_str)]
+    """The description of the parameter."""
+    operation_id: str
+    """The operation ID."""
+    model_name: Optional[str] = None
+    """The name of the model."""
 
     @property
     def flag_name(self) -> str:

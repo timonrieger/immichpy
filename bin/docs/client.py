@@ -2,11 +2,31 @@
 """Generate API documentation markdown files from client classes."""
 
 from pathlib import Path
+import shutil
+
+# Explicit mapping for special cases
+SPECIAL_CASES: dict[str, tuple[str, str]] = {
+    "api_keys_api": ("APIKeysApi", "API Keys Api"),
+    "api_key_create_dto": ("APIKeyCreateDto", "API Key Create Dto"),
+    "api_key_create_response_dto": (
+        "APIKeyCreateResponseDto",
+        "API Key Create Response Dto",
+    ),
+    "api_key_response_dto": ("APIKeyResponseDto", "API Key Response Dto"),
+    "api_key_update_dto": ("APIKeyUpdateDto", "API Key Update Dto"),
+    "clip_config": ("CLIPConfig", "CLIP Config"),
+    "transcode_hw_accel": ("TranscodeHWAccel", "Transcode HW Accel"),
+    "o_auth_callback_dto": ("OAuthCallbackDto", "OAuth Callback Dto"),
+    "cq_mode": ("CQMode", "CQ Mode"),
+}
 
 
 def filename_to_title(filename: str) -> str:
     """Convert filename like 'activities_api.py' to 'Activities Api'."""
     name = filename.replace(".py", "")
+    if name in SPECIAL_CASES:
+        return SPECIAL_CASES[name][1]
+
     parts = name.split("_")
     return " ".join(part.capitalize() for part in parts)
 
@@ -14,35 +34,17 @@ def filename_to_title(filename: str) -> str:
 def filename_to_class_name(filename: str) -> str:
     """Convert filename like 'activities_api.py' to 'ActivitiesApi'.
 
-    Special cases:
-    - 'api_keys_api.py' -> 'APIKeysApi' (API at start is uppercase)
-    - 'clip_config.py' -> 'CLIPConfig' (CLIP at start is uppercase)
-    - 'transcode_hw_accel.py' -> 'TranscodeHWAccel' (HW is uppercase)
-    - 'o_auth_callback_dto.py' -> 'OAuthCallbackDto'
+    Special cases are handled via explicit mapping, otherwise falls back to
+    split by underscore, capitalize each part, and join.
     """
     name = filename.replace(".py", "")
+
+    if name in SPECIAL_CASES:
+        return SPECIAL_CASES[name][0]
+
+    # Default: split by underscore, capitalize each part, join
     parts = name.split("_")
-
-    # Handle special case: "o_auth" -> "OAuth"
-    if len(parts) >= 2 and parts[0] == "o" and parts[1] == "auth":
-        return "OAuth" + "".join(part.capitalize() for part in parts[2:])
-
-    # Acronyms that should always be uppercase (anywhere in the name)
-    always_uppercase = {"hw"}
-
-    # Acronyms that should be uppercase only at the start
-    uppercase_at_start = {"api", "clip"}
-
-    result_parts = []
-    for i, part in enumerate(parts):
-        if part in always_uppercase:
-            result_parts.append(part.upper())
-        elif i == 0 and part in uppercase_at_start:
-            result_parts.append(part.upper())
-        else:
-            result_parts.append(part.capitalize())
-
-    return "".join(result_parts)
+    return "".join(part.capitalize() for part in parts)
 
 
 def get_module_path(file_path: Path, project_root: Path) -> str:
@@ -65,7 +67,6 @@ def process_directory(
     output_dir: Path,
     project_root: Path,
     file_pattern: str,
-    title_prefix: str = "",
 ) -> int:
     """Process a directory and generate markdown files.
 
@@ -78,13 +79,10 @@ def process_directory(
 
     for source_file in files:
         filename = source_file.name
-        class_name = filename_to_class_name(filename)
         module_path = get_module_path(source_file, project_root)
 
         title = filename_to_title(filename)
-        if title_prefix:
-            title = f"{title_prefix}: {title}"
-
+        class_name = filename_to_class_name(filename)
         content = generate_markdown_content(title, module_path, class_name)
 
         output_file = output_dir / filename.replace(".py", ".md")
@@ -104,6 +102,7 @@ def main():
 
     # 1. generated/api/ -> docs/client/reference/api/
     print("\nProcessing generated/api/...")
+    shutil.rmtree(docs_ref_dir / "api", ignore_errors=True)
     count = process_directory(
         source_dir=client_dir / "generated" / "api",
         output_dir=docs_ref_dir / "api",
@@ -113,22 +112,24 @@ def main():
     total_generated += count
     print(f"  {count} API files")
 
-    # # 2. generated/models/ -> docs/client/reference/models/
-    # print("\nProcessing generated/models/...")
-    # count = process_directory(
-    #     source_dir=client_dir / "generated" / "models",
-    #     output_dir=docs_ref_dir / "models",
-    #     project_root=project_root,
-    #     file_pattern="*.py",
-    # )
-    # total_generated += count
-    # print(f"  {count} model files")
+    # 2. generated/models/ -> docs/client/reference/models/
+    print("\nProcessing generated/models/...")
+    shutil.rmtree(docs_ref_dir / "models", ignore_errors=True)
+    count = process_directory(
+        source_dir=client_dir / "generated" / "models",
+        output_dir=docs_ref_dir / "models",
+        project_root=project_root,
+        file_pattern="*.py",
+    )
+    total_generated += count
+    print(f"  {count} model files")
 
-    # 3. wrapper/ -> docs/client/reference/wrapper/
+    # 3. wrapper/ -> docs/client/reference/api
     print("\nProcessing wrapper/...")
+    # don't delete the directory since there might be other custom files
     count = process_directory(
         source_dir=client_dir / "wrapper",
-        output_dir=docs_ref_dir / "wrapper",
+        output_dir=docs_ref_dir / "custom",
         project_root=project_root,
         file_pattern="*.py",
     )
