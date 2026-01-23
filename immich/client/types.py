@@ -10,10 +10,10 @@ RejectionReason = Literal["duplicate", "unsupported_format"]
 
 
 class UploadStats(BaseModel):
-    total: int
-    uploaded: int
-    rejected: int
-    failed: int
+    total: int = Field(..., description="The total number of files to upload.")
+    uploaded: int = Field(..., description="The number of files that were uploaded.")
+    rejected: int = Field(..., description="The number of files that were rejected.")
+    failed: int = Field(..., description="The number of files that failed to upload.")
 
 
 class RejectedEntry(BaseModel):

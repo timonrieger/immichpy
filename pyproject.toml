@@ -58,6 +58,7 @@ dev = [
     "ty>=0.0.13,<0.0.14",
 ]
 docs = [
+    "griffe-pydantic>=1.2.0,<2.0.0",
     "mkdocstrings[python]>=1.0.1,<2.0.0",
     "pymdown-extensions>=10.20,<11.0",
     "termynal>=0.13.1,<0.14.0",
