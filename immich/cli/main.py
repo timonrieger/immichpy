@@ -3,6 +3,8 @@
 from __future__ import annotations
 
 import sys
+import typer
+import click
 from typing import Optional
 from importlib.metadata import version
 
@@ -19,16 +21,6 @@ from immich.cli.consts import (
     IMMICH_PROFILE,
 )
 from immich.cli.utils import resolve_client_config, mask, print_
-
-try:
-    import typer
-    import click
-except ImportError:  # pragma: no cover
-    print(
-        "Error: CLI dependencies not installed. Install with: pip install immich[cli] or uv add immich --extra cli",
-        file=sys.stderr,
-    )
-    sys.exit(1)
 
 from immich import AsyncClient
 from immich.cli.types import FormatMode, ClientConfig

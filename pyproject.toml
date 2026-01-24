@@ -40,7 +40,7 @@ cli = [
 ]
 
 [project.scripts]
-immich = "immich.cli.main:app"
+immich = "immich.cli.__main__:main"
 
 [project.urls]
 Repository = "https://github.com/timonrieger/immich-py"
