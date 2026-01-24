@@ -8,6 +8,12 @@ on:
   push:
     branches:
       - main
+    paths:
+      - 'zensical.toml'
+      - 'docs/**'
+      - 'immich/client/generated/**'
+      - '.github/workflows/docs-production.yml'
+      - 'vercel.json'
 
 permissions:
   contents: read
