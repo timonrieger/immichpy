@@ -141,10 +141,11 @@ jobs:
         env:
           TAG: ${{ steps.tag_to_use.outputs.tag }}
 
-      - name: Create or update PR (automation branch -> main)
+      - name: Create or update PR
         if: steps.check_sync.outputs.sync_needed == 'true'
         uses: peter-evans/create-pull-request@98357b18bf14b5342f975ff684046ec3b2a07725 # v8
         with:
+          token: ${{ secrets.RELEASE_PAT }}
           commit-message: ${{ steps.commit_msg.outputs.commit_message }}
           committer: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>
           branch: ${{ steps.pr_branch.outputs.branch }}
@@ -159,4 +160,3 @@ jobs:
           delete-branch: true
         env:
           TAG: ${{ steps.tag_to_use.outputs.tag }}
-
