@@ -124,14 +124,6 @@ hide = true
 description = "Run documentation development server (using mkdocs)"
 run = "uv run mkdocs serve"
 
-[tasks."docs:build"]
-description = "Build documentation for Vercel, pass --prod to build for production"
-run = "vercel build --yes"
-
-[tasks."docs:deploy"]
-description = "Deploy documentation to Vercel, pass --prod to deploy to production"
-run = "vercel deploy --prebuilt"
-
 [tasks."docs:generate:cli"]
 description = "Generate documentation for the CLI"
 run = [
