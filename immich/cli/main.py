@@ -63,9 +63,9 @@ from immich.cli.wrapper import users as users_wrapper
 from immich.cli.commands import users_admin as users_admin_commands
 from immich.cli.commands import views as views_commands
 from immich.cli.commands import workflows as workflows_commands
-# from immich.cli.commands import (
-#     database_backups_admin as database_backups_admin_commands,
-# )
+from immich.cli.commands import (
+    database_backups_admin as database_backups_admin_commands,
+)
 
 # Global state
 app = typer.Typer(
@@ -138,11 +138,11 @@ app.add_typer(
 )
 app.add_typer(views_commands.app, name="views", rich_help_panel="API commands")
 app.add_typer(workflows_commands.app, name="workflows", rich_help_panel="API commands")
-# app.add_typer(
-#     database_backups_admin_commands.app,
-#     name="backups",
-#     rich_help_panel="API commands",
-# )
+app.add_typer(
+    database_backups_admin_commands.app,
+    name="backups",
+    rich_help_panel="API commands",
+)
 
 
 def version_callback(value: bool) -> None:  # pragma: no cover
