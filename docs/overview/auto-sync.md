@@ -14,4 +14,3 @@ From the Immich OpenAPI spec, the project generates:
 ## Single source of truth
 
 The single source of truth is the upstream Immich OpenAPI spec: [immich-openapi-specs.json](https://github.com/immich-app/immich/blob/main/open-api/immich-openapi-specs.json)
-
