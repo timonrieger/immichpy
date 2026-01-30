@@ -350,12 +350,25 @@ class AsyncClient:
 
     async def close(self) -> None:
         """Close the client and release resources."""
-        if not self._owns_http_client and self._injected_http_client is not None:
-            self.base_client.rest_client.pool_manager = None
+
+        rest_client = self.base_client.rest_client
+        session = rest_client.pool_manager
+
+        # Always detach so base_client doesn't hold stale refs
+        rest_client.pool_manager = None
+
+        # Only close if WE created it
+        if self._owns_http_client and session is not None and not session.closed:
+            await session.close()
+
+        # Now close higher-level stuff that does NOT own the session
         await self.base_client.close()
 
     async def __aenter__(self) -> "AsyncClient":
         """Enter the context manager."""
+        if self._injected_http_client is None:
+            self._injected_http_client = ClientSession()
+        self.base_client.rest_client.pool_manager = self._injected_http_client
         return self
 
     async def __aexit__(self, exc_type, exc_val, exc_tb) -> None:
