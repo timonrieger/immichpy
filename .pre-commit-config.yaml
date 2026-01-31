@@ -26,11 +26,6 @@ repos:
       - id: bandit
         exclude: "^(immichpy/client/|tests)"
 
-  - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v6.0.0
-    hooks:
-      - id: trailing-whitespace
-
   - repo: https://github.com/gitleaks/gitleaks
     rev: v8.30.0
     hooks:
