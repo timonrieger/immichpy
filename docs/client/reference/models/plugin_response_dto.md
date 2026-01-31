@@ -1,3 +1,3 @@
 # Plugin Response Dto
 
-::: immich.client.generated.models.plugin_response_dto.PluginResponseDto
+::: immichpy.client.generated.models.plugin_response_dto.PluginResponseDto

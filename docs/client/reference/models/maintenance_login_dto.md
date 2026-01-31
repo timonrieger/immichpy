@@ -1,3 +1,3 @@
 # Maintenance Login Dto
 
-::: immich.client.generated.models.maintenance_login_dto.MaintenanceLoginDto
+::: immichpy.client.generated.models.maintenance_login_dto.MaintenanceLoginDto

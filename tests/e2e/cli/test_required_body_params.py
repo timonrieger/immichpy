@@ -15,8 +15,8 @@ from uuid import UUID
 import pytest
 from typer.testing import CliRunner
 
-from immich.cli.main import app as cli_app
-from immich.client.generated import (
+from immichpy.cli.main import app as cli_app
+from immichpy.client.generated import (
     AlbumResponseDto,
     AlbumUserCreateDto,
     AlbumUserRole,

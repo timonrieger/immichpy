@@ -95,7 +95,7 @@ def process_directory(
 def main():
     """Generate markdown files for all client classes."""
     project_root = Path(__file__).parent.parent.parent
-    client_dir = project_root / "immich" / "client"
+    client_dir = project_root / "immichpy" / "client"
     docs_ref_dir = project_root / "docs" / "client" / "reference"
 
     total_generated = 0

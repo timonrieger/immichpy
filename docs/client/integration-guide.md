@@ -1,6 +1,6 @@
 # Integration Guide
 
-This guide shows how to replace raw HTTP requests with immich-py with minimal changes. You get typed responses, no manual headers (`x-api-key`, `Accept`), no URL or path construction, and the client raises specific exceptions.
+This guide shows how to replace raw HTTP requests with immichpy with minimal changes. You get typed responses, no manual headers (`x-api-key`, `Accept`), no URL or path construction, and the client raises specific exceptions.
 
 ## Synchronous clients
 
@@ -25,13 +25,13 @@ If you use a synchronous HTTP client (e.g. `requests`) to fetch server version, 
         print(f"Server version: {data['major']}.{data['minor']}.{data['patch']}")
     ```
 
-=== "immich-py"
+=== "immichpy"
 
     ``` python
     import asyncio
     from typing import Awaitable, Callable, TypeVar
     from aiohttp import ClientSession, ClientTimeout
-    from immich import AsyncClient
+    from immichpy import AsyncClient
 
     base_url = "http://localhost:2283/api"
     api_key = "your-immich-api-key"
@@ -116,12 +116,12 @@ If you use an async HTTP client (`aiohttp` or `httpx`) to talk to the Immich API
     asyncio.run(main())
     ```
 
-=== "immich-py"
+=== "immichpy"
 
     ``` python
     import asyncio
     import aiohttp
-    from immich import AsyncClient
+    from immichpy import AsyncClient
 
     BASE_URL = "http://localhost:2283/api"
     API_KEY = "your-immich-api-key"
@@ -146,7 +146,7 @@ If you use an async HTTP client (`aiohttp` or `httpx`) to talk to the Immich API
 
 ## Error handling
 
-Each library raises different exceptions for connection failures, timeouts, and HTTP errors. immich-py makes the error handling easy with custom exceptions. Read on [Exception Handling](exception-handling.md) for more details.
+Each library raises different exceptions for connection failures, timeouts, and HTTP errors. immichpy makes the error handling easy with custom exceptions. Read on [Exception Handling](exception-handling.md) for more details.
 
 === "requests"
 
@@ -203,12 +203,12 @@ Each library raises different exceptions for connection failures, timeouts, and 
         raise
     ```
 
-=== "immich-py"
+=== "immichpy"
 
     ``` python
     import logging
     import aiohttp
-    from immich.client.generated.exceptions import ApiException
+    from immichpy.client.generated.exceptions import ApiException
 
     try:
         # ... your API call here (e.g. await client.server.get_server_version()) ...

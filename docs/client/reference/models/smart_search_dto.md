@@ -1,3 +1,3 @@
 # Smart Search Dto
 
-::: immich.client.generated.models.smart_search_dto.SmartSearchDto
+::: immichpy.client.generated.models.smart_search_dto.SmartSearchDto

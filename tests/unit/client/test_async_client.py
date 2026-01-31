@@ -1,8 +1,8 @@
 import pytest
 
-from immich import AsyncClient
-from immich.client.generated.api.assets_api import AssetsApi
-from immich.client.generated.api.users_api import UsersApi
+from immichpy import AsyncClient
+from immichpy.client.generated.api.assets_api import AssetsApi
+from immichpy.client.generated.api.users_api import UsersApi
 
 
 @pytest.mark.asyncio

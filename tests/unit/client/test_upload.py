@@ -7,23 +7,23 @@ import uuid
 
 import pytest
 
-from immich.client.generated.models.asset_bulk_upload_check_response_dto import (
+from immichpy.client.generated.models.asset_bulk_upload_check_response_dto import (
     AssetBulkUploadCheckResponseDto,
 )
-from immich.client.generated.models.asset_bulk_upload_check_result import (
+from immichpy.client.generated.models.asset_bulk_upload_check_result import (
     AssetBulkUploadCheckResult,
 )
-from immich.client.generated.api_response import ApiResponse
-from immich.client.generated.models.asset_media_response_dto import (
+from immichpy.client.generated.api_response import ApiResponse
+from immichpy.client.generated.models.asset_media_response_dto import (
     AssetMediaResponseDto,
 )
-from immich.client.generated.models.asset_media_status import AssetMediaStatus
-from immich.client.generated.models.server_media_types_response_dto import (
+from immichpy.client.generated.models.asset_media_status import AssetMediaStatus
+from immichpy.client.generated.models.server_media_types_response_dto import (
     ServerMediaTypesResponseDto,
 )
-from immich.client.generated.models.album_response_dto import AlbumResponseDto
-from immich.client.generated.exceptions import ApiException
-from immich.client.utils.upload import (
+from immichpy.client.generated.models.album_response_dto import AlbumResponseDto
+from immichpy.client.generated.exceptions import ApiException
+from immichpy.client.utils.upload import (
     check_duplicates,
     delete_files,
     find_sidecar,
@@ -32,7 +32,7 @@ from immich.client.utils.upload import (
     upload_file,
     upload_files,
 )
-from immich.client.types import RejectedEntry, UploadedEntry
+from immichpy.client.types import RejectedEntry, UploadedEntry
 
 
 @pytest.fixture
@@ -420,7 +420,7 @@ async def test_upload_files_api_exception(mock_assets, tmp_path: Path) -> None:
     """Test that ApiException is caught and added to failed list."""
     file1 = tmp_path / "test1.jpg"
     file1.write_bytes(b"test1")
-    with patch("immich.client.utils.upload.upload_file") as mock_upload:
+    with patch("immichpy.client.utils.upload.upload_file") as mock_upload:
         api_exception = ApiException(status=400, reason="Bad Request")
         api_exception.body = '{"message": "Invalid file format"}'
         mock_upload.side_effect = api_exception
@@ -439,7 +439,7 @@ async def test_upload_files_api_exception_invalid_json(
     """Test that ApiException with invalid JSON body falls back to error message."""
     file1 = tmp_path / "test1.jpg"
     file1.write_bytes(b"test1")
-    with patch("immich.client.utils.upload.upload_file") as mock_upload:
+    with patch("immichpy.client.utils.upload.upload_file") as mock_upload:
         api_exception = ApiException(status=400, reason="Bad Request")
         api_exception.body = "not valid json"
         mock_upload.side_effect = api_exception
@@ -457,7 +457,7 @@ async def test_upload_files_generic_exception(mock_assets, tmp_path: Path) -> No
     """Test that generic exceptions are caught and added to failed list."""
     file1 = tmp_path / "test1.jpg"
     file1.write_bytes(b"test1")
-    with patch("immich.client.utils.upload.upload_file") as mock_upload:
+    with patch("immichpy.client.utils.upload.upload_file") as mock_upload:
         mock_upload.side_effect = RuntimeError("Network error")
         uploaded, rejected, failed = await upload_files([file1], mock_assets)
         assert uploaded == []
@@ -476,7 +476,7 @@ async def test_upload_files_mixed_results(mock_assets, tmp_path: Path) -> None:
     file1.write_bytes(b"test1")
     file2.write_bytes(b"test2")
     file3.write_bytes(b"test3")
-    with patch("immich.client.utils.upload.upload_file") as mock_upload:
+    with patch("immichpy.client.utils.upload.upload_file") as mock_upload:
         mock_upload.side_effect = [
             ApiResponse(
                 status_code=201,
@@ -522,7 +522,7 @@ async def test_upload_files_dry_run_no_progress_update(
     """Test that dry_run doesn't update progress bar."""
     file1 = tmp_path / "test1.jpg"
     file1.write_bytes(b"test1")
-    with patch("immich.client.utils.upload.upload_file") as mock_upload:
+    with patch("immichpy.client.utils.upload.upload_file") as mock_upload:
         mock_upload.return_value = ApiResponse(
             status_code=201,
             headers=None,

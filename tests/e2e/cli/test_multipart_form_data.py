@@ -15,8 +15,8 @@ from pathlib import Path
 import pytest
 from typer.testing import CliRunner
 
-from immich.cli.main import app as cli_app
-from immich.client.generated import CreateProfileImageResponseDto
+from immichpy.cli.main import app as cli_app
+from immichpy.client.generated import CreateProfileImageResponseDto
 
 
 @pytest.mark.e2e

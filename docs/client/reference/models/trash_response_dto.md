@@ -1,3 +1,3 @@
 # Trash Response Dto
 
-::: immich.client.generated.models.trash_response_dto.TrashResponseDto
+::: immichpy.client.generated.models.trash_response_dto.TrashResponseDto

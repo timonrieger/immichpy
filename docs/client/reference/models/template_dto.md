@@ -1,3 +1,3 @@
 # Template Dto
 
-::: immich.client.generated.models.template_dto.TemplateDto
+::: immichpy.client.generated.models.template_dto.TemplateDto

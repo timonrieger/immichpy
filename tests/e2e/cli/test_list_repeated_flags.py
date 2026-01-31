@@ -13,9 +13,9 @@ import json
 import pytest
 from typer.testing import CliRunner
 
-from immich.cli.main import app as cli_app
-from immich.client.generated import AlbumResponseDto, BulkIdResponseDto
-from immich.client.generated.models.asset_response_dto import AssetResponseDto
+from immichpy.cli.main import app as cli_app
+from immichpy.client.generated import AlbumResponseDto, BulkIdResponseDto
+from immichpy.client.generated.models.asset_response_dto import AssetResponseDto
 
 
 @pytest.mark.e2e

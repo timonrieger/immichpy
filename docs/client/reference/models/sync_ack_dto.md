@@ -1,3 +1,3 @@
 # Sync Ack Dto
 
-::: immich.client.generated.models.sync_ack_dto.SyncAckDto
+::: immichpy.client.generated.models.sync_ack_dto.SyncAckDto

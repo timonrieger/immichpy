@@ -1,3 +1,3 @@
 # Folders Response
 
-::: immich.client.generated.models.folders_response.FoldersResponse
+::: immichpy.client.generated.models.folders_response.FoldersResponse

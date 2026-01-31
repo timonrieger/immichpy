@@ -1,4 +1,4 @@
-"""E2E tests for immich.client_wrapper modules against running Immich server."""
+"""E2E tests for immichpy.client_wrapper modules against running Immich server."""
 
 from __future__ import annotations
 
@@ -8,10 +8,10 @@ from uuid import UUID
 
 import pytest
 
-from immich import AsyncClient
-from immich.client.types import UploadResult
-from immich.client.generated.models.asset_media_size import AssetMediaSize
-from immich.client.generated.models.download_info_dto import DownloadInfoDto
+from immichpy import AsyncClient
+from immichpy.client.types import UploadResult
+from immichpy.client.generated.models.asset_media_size import AssetMediaSize
+from immichpy.client.generated.models.download_info_dto import DownloadInfoDto
 
 
 @pytest.mark.asyncio

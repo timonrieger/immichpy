@@ -505,7 +505,7 @@ wheels = [
 ]
 
 [[package]]
-name = "immich"
+name = "immichpy"
 version = "1.7.4"
 source = { editable = "." }
 dependencies = [

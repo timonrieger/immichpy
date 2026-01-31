@@ -1,3 +1,3 @@
 # Asset Ids Dto
 
-::: immich.client.generated.models.asset_ids_dto.AssetIdsDto
+::: immichpy.client.generated.models.asset_ids_dto.AssetIdsDto

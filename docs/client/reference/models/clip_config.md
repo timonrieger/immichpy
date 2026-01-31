@@ -1,3 +1,3 @@
 # CLIP Config
 
-::: immich.client.generated.models.clip_config.CLIPConfig
+::: immichpy.client.generated.models.clip_config.CLIPConfig

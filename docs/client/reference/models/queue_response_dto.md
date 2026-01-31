@@ -1,3 +1,3 @@
 # Queue Response Dto
 
-::: immich.client.generated.models.queue_response_dto.QueueResponseDto
+::: immichpy.client.generated.models.queue_response_dto.QueueResponseDto

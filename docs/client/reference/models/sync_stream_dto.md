@@ -1,3 +1,3 @@
 # Sync Stream Dto
 
-::: immich.client.generated.models.sync_stream_dto.SyncStreamDto
+::: immichpy.client.generated.models.sync_stream_dto.SyncStreamDto

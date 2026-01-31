@@ -1,3 +1,3 @@
 # Users Admin Api
 
-::: immich.client.generated.api.users_admin_api.UsersAdminApi
+::: immichpy.client.generated.api.users_admin_api.UsersAdminApi

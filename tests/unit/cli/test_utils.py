@@ -4,7 +4,7 @@ from unittest.mock import Mock, patch
 import pytest
 import typer
 
-from immich.cli.utils import (
+from immichpy.cli.utils import (
     check_config,
     resolve_client_config,
     get_path,
@@ -16,7 +16,7 @@ from immich.cli.utils import (
     write_config,
     print_,
 )
-from immich.cli.types import ClientConfig
+from immichpy.cli.types import ClientConfig
 
 
 class TestSetPath:
@@ -269,7 +269,7 @@ class TestMask:
 class TestPrint:
     """Tests for print_ function."""
 
-    @patch("immich.cli.utils.print_rich")
+    @patch("immichpy.cli.utils.print_rich")
     def test_print_warning(self, mock_print_rich: Mock) -> None:
         """Test print_ with warning type."""
         print_("Test warning message", type="warning")
@@ -277,7 +277,7 @@ class TestPrint:
             "[yellow][bold][Warning][/bold] Test warning message[/yellow]"
         )
 
-    @patch("immich.cli.utils.print_rich")
+    @patch("immichpy.cli.utils.print_rich")
     def test_print_debug_with_verbose_true(self, mock_print_rich: Mock) -> None:
         """Test print_ with debug type when verbose is True."""
         ctx = Mock(spec=typer.Context)
@@ -287,7 +287,7 @@ class TestPrint:
             "[blue][bold][Debug][/bold] Test debug message[/blue]"
         )
 
-    @patch("immich.cli.utils.print_rich")
+    @patch("immichpy.cli.utils.print_rich")
     def test_print_debug_with_verbose_false(self, mock_print_rich: Mock) -> None:
         """Test print_ with debug type when verbose is False."""
         ctx = Mock(spec=typer.Context)
@@ -295,7 +295,7 @@ class TestPrint:
         print_("Test debug message", type="debug", ctx=ctx)
         mock_print_rich.assert_not_called()
 
-    @patch("immich.cli.utils.print_rich")
+    @patch("immichpy.cli.utils.print_rich")
     def test_print_debug_without_ctx(self, mock_print_rich: Mock) -> None:
         """Test print_ with debug type when ctx is None."""
         print_("Test debug message", type="debug", ctx=None)
@@ -307,13 +307,13 @@ class TestPrint:
         print_("Test text message", type="text")
         mock_print.assert_called_once_with("Test text message")
 
-    @patch("immich.cli.utils.print_rich")
+    @patch("immichpy.cli.utils.print_rich")
     def test_print_info(self, mock_print_rich: Mock) -> None:
         """Test print_ with info type."""
         print_("Test info message", type="info")
         mock_print_rich.assert_called_once_with("Test info message")
 
-    @patch("immich.cli.utils.print_rich")
+    @patch("immichpy.cli.utils.print_rich")
     def test_print_success(self, mock_print_rich: Mock) -> None:
         """Test print_ with success type."""
         print_("Test success message", type="success")
@@ -321,7 +321,7 @@ class TestPrint:
             "[green][bold][Success][/bold][/green] Test success message"
         )
 
-    @patch("immich.cli.utils.print_rich")
+    @patch("immichpy.cli.utils.print_rich")
     def test_print_error(self, mock_print_rich: Mock) -> None:
         """Test print_ with error type."""
         print_("Test error message", type="error")
@@ -329,7 +329,7 @@ class TestPrint:
             "[red][bold][Error][/bold] Test error message[/red]"
         )
 
-    @patch("immich.cli.utils.print_json")
+    @patch("immichpy.cli.utils.print_json")
     def test_print_json_ctx_missing_format(self, mock_print_json: Mock) -> None:
         """Test print_ with json type when ctx.obj is missing format key."""
         ctx = Mock(spec=typer.Context)
@@ -337,7 +337,7 @@ class TestPrint:
         print_('{"key": "value"}', type="json", ctx=ctx)
         mock_print_json.assert_called_once_with('{"key": "value"}')
 
-    @patch("immich.cli.utils.print_json")
+    @patch("immichpy.cli.utils.print_json")
     def test_print_json_ctx_attribute_error(self, mock_print_json: Mock) -> None:
         """Test print_ with json type when ctx.obj raises AttributeError."""
         ctx = Mock(spec=typer.Context)

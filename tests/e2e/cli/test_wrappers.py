@@ -7,14 +7,14 @@ from uuid import UUID
 import pytest
 from typer.testing import CliRunner
 
-from immich import AsyncClient
-from immich.cli.main import app as cli_app
-from immich.client.generated import (
+from immichpy import AsyncClient
+from immichpy.cli.main import app as cli_app
+from immichpy.client.generated import (
     AssetBulkDeleteDto,
     AssetResponseDto,
     CreateProfileImageResponseDto,
 )
-from immich.client.types import UploadResult
+from immichpy.client.types import UploadResult
 
 
 @pytest.mark.asyncio

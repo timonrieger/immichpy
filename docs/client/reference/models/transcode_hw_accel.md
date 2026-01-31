@@ -1,3 +1,3 @@
 # Transcode HW Accel
 
-::: immich.client.generated.models.transcode_hw_accel.TranscodeHWAccel
+::: immichpy.client.generated.models.transcode_hw_accel.TranscodeHWAccel

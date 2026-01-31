@@ -6,7 +6,7 @@ The client manages a shared `aiohttp.ClientSession` by default. If you need more
 
     ```python hl_lines="1 3 7 12"
     >>> from aiohttp import ClientSession
-    >>> from immich import AsyncClient
+    >>> from immichpy import AsyncClient
     >>> custom_session = ClientSession()
 
     >>> client = AsyncClient(
@@ -23,7 +23,7 @@ The client manages a shared `aiohttp.ClientSession` by default. If you need more
 
     ```python hl_lines="1 3 7 11"
     >>> from aiohttp import ClientSession
-    >>> from immich import AsyncClient
+    >>> from immichpy import AsyncClient
     >>> custom_session = ClientSession()
 
     >>> async with AsyncClient(

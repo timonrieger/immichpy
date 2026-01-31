@@ -1,3 +1,3 @@
 # Video Codec
 
-::: immich.client.generated.models.video_codec.VideoCodec
+::: immichpy.client.generated.models.video_codec.VideoCodec

@@ -1,6 +1,6 @@
 # Exception Handling
 
-The client raises exceptions if the API returns an error response. Most of the time, you should catch [ApiException](reference/exceptions.md#immich.client.generated.exceptions.ApiException) (and subclasses) to handle any HTTP error.
+The client raises exceptions if the API returns an error response. Most of the time, you should catch [ApiException](reference/exceptions.md#immichpy.client.generated.exceptions.ApiException) (and subclasses) to handle any HTTP error.
 
 !!! note "Already have an error handling strategy?"
     Read on [how to change your code](integration-guide.md#error-handling) to use the client's exceptions to match your strategy.
@@ -10,30 +10,30 @@ The client raises exceptions if the API returns an error response. Most of the t
 
 ## Exception hierarchy
 
-- [**OpenApiException**](reference/exceptions.md#immich.client.generated.exceptions.OpenApiException) (base for all client exceptions)
-    - [**ApiException**](reference/exceptions.md#immich.client.generated.exceptions.ApiException) (HTTP API errors)
-        - [**BadRequestException**](reference/exceptions.md#immich.client.generated.exceptions.BadRequestException) (400)
-        - [**UnauthorizedException**](reference/exceptions.md#immich.client.generated.exceptions.UnauthorizedException) (401)
-        - [**ForbiddenException**](reference/exceptions.md#immich.client.generated.exceptions.ForbiddenException) (403)
-        - [**NotFoundException**](reference/exceptions.md#immich.client.generated.exceptions.NotFoundException) (404)
-        - [**ConflictException**](reference/exceptions.md#immich.client.generated.exceptions.ConflictException) (409)
-        - [**UnprocessableEntityException**](reference/exceptions.md#immich.client.generated.exceptions.UnprocessableEntityException) (422)
-        - [**ServiceException**](reference/exceptions.md#immich.client.generated.exceptions.ServiceException) (5xx)
-    - [**ApiTypeError**](reference/exceptions.md#immich.client.generated.exceptions.ApiTypeError) (also `TypeError`)
-    - [**ApiValueError**](reference/exceptions.md#immich.client.generated.exceptions.ApiValueError) (also `ValueError`)
-    - [**ApiAttributeError**](reference/exceptions.md#immich.client.generated.exceptions.ApiAttributeError) (also `AttributeError`)
-    - [**ApiKeyError**](reference/exceptions.md#immich.client.generated.exceptions.ApiKeyError) (also `KeyError`)
+- [**OpenApiException**](reference/exceptions.md#immichpy.client.generated.exceptions.OpenApiException) (base for all client exceptions)
+    - [**ApiException**](reference/exceptions.md#immichpy.client.generated.exceptions.ApiException) (HTTP API errors)
+        - [**BadRequestException**](reference/exceptions.md#immichpy.client.generated.exceptions.BadRequestException) (400)
+        - [**UnauthorizedException**](reference/exceptions.md#immichpy.client.generated.exceptions.UnauthorizedException) (401)
+        - [**ForbiddenException**](reference/exceptions.md#immichpy.client.generated.exceptions.ForbiddenException) (403)
+        - [**NotFoundException**](reference/exceptions.md#immichpy.client.generated.exceptions.NotFoundException) (404)
+        - [**ConflictException**](reference/exceptions.md#immichpy.client.generated.exceptions.ConflictException) (409)
+        - [**UnprocessableEntityException**](reference/exceptions.md#immichpy.client.generated.exceptions.UnprocessableEntityException) (422)
+        - [**ServiceException**](reference/exceptions.md#immichpy.client.generated.exceptions.ServiceException) (5xx)
+    - [**ApiTypeError**](reference/exceptions.md#immichpy.client.generated.exceptions.ApiTypeError) (also `TypeError`)
+    - [**ApiValueError**](reference/exceptions.md#immichpy.client.generated.exceptions.ApiValueError) (also `ValueError`)
+    - [**ApiAttributeError**](reference/exceptions.md#immichpy.client.generated.exceptions.ApiAttributeError) (also `AttributeError`)
+    - [**ApiKeyError**](reference/exceptions.md#immichpy.client.generated.exceptions.ApiKeyError) (also `KeyError`)
 
 
 ## Examples
 
 ### Catching any HTTP error
 
-Catch [ApiException](reference/exceptions.md#immich.client.generated.exceptions.ApiException) to handle any HTTP error.
+Catch [ApiException](reference/exceptions.md#immichpy.client.generated.exceptions.ApiException) to handle any HTTP error.
 
 ```python
-from immich import AsyncClient
-from immich.client.generated.exceptions import ApiException
+from immichpy import AsyncClient
+from immichpy.client.generated.exceptions import ApiException
 
 async def get_server_version(base_url: str, api_key: str) -> None:
     async with AsyncClient(api_key=api_key, base_url=base_url) as client:
@@ -52,8 +52,8 @@ When you set a timeout on the request, you can catch it with `asyncio.TimeoutErr
 ```python
 import asyncio
 import aiohttp
-from immich import AsyncClient
-from immich.client.generated.exceptions import ApiException
+from immichpy import AsyncClient
+from immichpy.client.generated.exceptions import ApiException
 
 async def get_server_version_with_timeout(base_url: str, api_key: str) -> None:
     session = aiohttp.ClientSession(
@@ -77,11 +77,11 @@ async def get_server_version_with_timeout(base_url: str, api_key: str) -> None:
 
 ### Authentication errors (401, 403)
 
-Catch [UnauthorizedException](reference/exceptions.md#immich.client.generated.exceptions.UnauthorizedException) (401) and [ForbiddenException](reference/exceptions.md#immich.client.generated.exceptions.ForbiddenException) (403) when validating an API key or user access, and surface a clear message to the user:
+Catch [UnauthorizedException](reference/exceptions.md#immichpy.client.generated.exceptions.UnauthorizedException) (401) and [ForbiddenException](reference/exceptions.md#immichpy.client.generated.exceptions.ForbiddenException) (403) when validating an API key or user access, and surface a clear message to the user:
 
 ```python
-from immich import AsyncClient
-from immich.client.generated.exceptions import (
+from immichpy import AsyncClient
+from immichpy.client.generated.exceptions import (
     ApiException,
     ForbiddenException,
     UnauthorizedException,
@@ -98,12 +98,12 @@ async def validate_api_key(base_url: str, api_key: str) -> str:
 
 ### Conflict or unprocessable (409, 422)
 
-When creating a resource that might already exist (e.g. album by name), catch [ConflictException](reference/exceptions.md#immich.client.generated.exceptions.ConflictException) (409) and [UnprocessableEntityException](reference/exceptions.md#immich.client.generated.exceptions.UnprocessableEntityException) (422) to raise a clear error message.
+When creating a resource that might already exist (e.g. album by name), catch [ConflictException](reference/exceptions.md#immichpy.client.generated.exceptions.ConflictException) (409) and [UnprocessableEntityException](reference/exceptions.md#immichpy.client.generated.exceptions.UnprocessableEntityException) (422) to raise a clear error message.
 
 ```python
-from immich import AsyncClient
-from immich.client.generated import CreateAlbumDto
-from immich.client.generated.exceptions import (
+from immichpy import AsyncClient
+from immichpy.client.generated import CreateAlbumDto
+from immichpy.client.generated.exceptions import (
     ConflictException,
     UnprocessableEntityException,
 )

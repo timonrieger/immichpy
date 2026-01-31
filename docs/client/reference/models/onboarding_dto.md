@@ -1,3 +1,3 @@
 # Onboarding Dto
 
-::: immich.client.generated.models.onboarding_dto.OnboardingDto
+::: immichpy.client.generated.models.onboarding_dto.OnboardingDto

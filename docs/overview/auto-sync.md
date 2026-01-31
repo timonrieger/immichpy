@@ -1,6 +1,6 @@
 # Auto syncing
 
-**immich-py** stays in sync with upstream Immich automatically. When Immich ships changes, a workflow opens a pull request with the updates, which is then merged by a maintainer.
+**immichpy** stays in sync with upstream Immich automatically. When Immich ships changes, a workflow opens a pull request with the updates, which is then merged by a maintainer.
 
 Most releases are one-click merges, and some require only very small adjustments. Typically, this happens within 24 hours of the Immich release.
 

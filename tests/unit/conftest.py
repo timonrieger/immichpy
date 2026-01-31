@@ -6,11 +6,11 @@ import uuid
 
 import pytest
 
-from immich.client.generated.models.asset_media_response_dto import (
+from immichpy.client.generated.models.asset_media_response_dto import (
     AssetMediaResponseDto,
 )
-from immich.client.generated.models.asset_media_status import AssetMediaStatus
-from immich.client.types import UploadedEntry
+from immichpy.client.generated.models.asset_media_status import AssetMediaStatus
+from immichpy.client.types import UploadedEntry
 
 
 @pytest.fixture

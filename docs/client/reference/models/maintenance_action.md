@@ -1,3 +1,3 @@
 # Maintenance Action
 
-::: immich.client.generated.models.maintenance_action.MaintenanceAction
+::: immichpy.client.generated.models.maintenance_action.MaintenanceAction

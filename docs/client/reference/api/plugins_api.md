@@ -1,3 +1,3 @@
 # Plugins Api
 
-::: immich.client.generated.api.plugins_api.PluginsApi
+::: immichpy.client.generated.api.plugins_api.PluginsApi

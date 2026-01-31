@@ -1,3 +1,3 @@
 # Bulk Ids Dto
 
-::: immich.client.generated.models.bulk_ids_dto.BulkIdsDto
+::: immichpy.client.generated.models.bulk_ids_dto.BulkIdsDto

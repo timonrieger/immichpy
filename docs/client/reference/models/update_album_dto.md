@@ -1,3 +1,3 @@
 # Update Album Dto
 
-::: immich.client.generated.models.update_album_dto.UpdateAlbumDto
+::: immichpy.client.generated.models.update_album_dto.UpdateAlbumDto

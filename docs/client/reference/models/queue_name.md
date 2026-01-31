@@ -1,3 +1,3 @@
 # Queue Name
 
-::: immich.client.generated.models.queue_name.QueueName
+::: immichpy.client.generated.models.queue_name.QueueName

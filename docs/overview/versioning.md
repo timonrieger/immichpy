@@ -16,6 +16,6 @@ In short, version numbers indicate **client impact**, not the size of the server
 
 ## Immich Server Compatibility
 
-The [`IMMICH-VERSION`](https://github.com/timonrieger/immich-py/blob/main/IMMICH-VERSION) file records the Immich server version the client was generated from.
+The [`IMMICH-VERSION`](https://github.com/timonrieger/immichpy/blob/main/IMMICH-VERSION) file records the Immich server version the client was generated from.
 
-To determine which package version works with your server, refer to [`COMPATIBILITY.csv`](https://github.com/timonrieger/immich-py/blob/main/COMPATIBILITY.csv).
+To determine which package version works with your server, refer to [`COMPATIBILITY.csv`](https://github.com/timonrieger/immichpy/blob/main/COMPATIBILITY.csv).

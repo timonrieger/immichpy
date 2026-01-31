@@ -28,15 +28,15 @@ def openapi_url(ref: str) -> str:
 def rewrite_imports_in_tree(root: Path) -> int:
     """
     Rewrite OpenAPI generator absolute imports:
-      from generated...  -> from immich.client.generated...
-      import generated... -> import immich.client.generated...
+      from generated...  -> from immichpy.client.generated...
+      import generated... -> import immichpy.client.generated...
     """
     replacements: list[tuple[str, str]] = [
-        ("from generated.", "from immich.client.generated."),
-        ("from generated ", "from immich.client.generated "),
-        ("import generated.", "import immich.client.generated."),
-        ("import generated", "import immich.client.generated"),
-        ("klass = getattr(generated", "klass = getattr(immich.client.generated"),
+        ("from generated.", "from immichpy.client.generated."),
+        ("from generated ", "from immichpy.client.generated "),
+        ("import generated.", "import immichpy.client.generated."),
+        ("import generated", "import immichpy.client.generated"),
+        ("klass = getattr(generated", "klass = getattr(immichpy.client.generated"),
     ]
 
     changed = 0
@@ -53,7 +53,7 @@ def rewrite_imports_in_tree(root: Path) -> int:
 
 def main() -> int:
     root = project_root()
-    out_dir = root / "immich" / "client"
+    out_dir = root / "immichpy" / "client"
     client_dir = out_dir / "generated"
 
     url = openapi_url(os.environ.get("IMMICH_OPENAPI_REF", "main"))
@@ -75,7 +75,7 @@ def main() -> int:
         "--global-property",
         "supportingFiles,models,apis",
         "--additional-properties",
-        "pipPackageName=immich",
+        "pipPackageName=immichpy",
         "-o",
         str(out_dir),
         "--openapi-generator-ignore-list",

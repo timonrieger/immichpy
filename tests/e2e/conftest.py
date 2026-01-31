@@ -6,8 +6,8 @@ from uuid import UUID, uuid4
 import pytest
 from typer.testing import CliRunner
 
-from immich import AsyncClient
-from immich.cli.consts import (
+from immichpy import AsyncClient
+from immichpy.cli.consts import (
     DEFAULT_FORMAT,
     DEFAULT_PROFILE,
     IMMICH_ACCESS_TOKEN,
@@ -16,8 +16,8 @@ from immich.cli.consts import (
     IMMICH_FORMAT,
     IMMICH_PROFILE,
 )
-from immich.client.types import UploadResult
-from immich.client.generated import (
+from immichpy.client.types import UploadResult
+from immichpy.client.generated import (
     AlbumResponseDto,
     AssetBulkDeleteDto,
     AssetResponseDto,
@@ -26,14 +26,14 @@ from immich.client.generated import (
     UserAdminDeleteDto,
     UserResponseDto,
 )
-from immich.client.generated.exceptions import BadRequestException
-from immich.client.generated.models.admin_onboarding_update_dto import (
+from immichpy.client.generated.exceptions import BadRequestException
+from immichpy.client.generated.models.admin_onboarding_update_dto import (
     AdminOnboardingUpdateDto,
 )
-from immich.client.generated.models.api_key_create_dto import APIKeyCreateDto
-from immich.client.generated.models.login_credential_dto import LoginCredentialDto
-from immich.client.generated.models.permission import Permission
-from immich.client.generated.models.sign_up_dto import SignUpDto
+from immichpy.client.generated.models.api_key_create_dto import APIKeyCreateDto
+from immichpy.client.generated.models.login_credential_dto import LoginCredentialDto
+from immichpy.client.generated.models.permission import Permission
+from immichpy.client.generated.models.sign_up_dto import SignUpDto
 
 ACTIVATION_KEY = "4kJUNUWMq13J14zqPFm1NodRcI6MV6DeOGvQNIgrM8Sc9nv669wyEVvFw1Nz4Kb1W7zLWblOtXEQzpRRqC4r4fKjewJxfbpeo9sEsqAVIfl4Ero-Vp1Dg21-sVdDGZEAy2oeTCXAyCT5d1JqrqR6N1qTAm4xOx9ujXQRFYhjRG8uwudw7_Q49pF18Tj5OEv9qCqElxztoNck4i6O_azsmsoOQrLIENIWPh3EynBN3ESpYERdCgXO8MlWeuG14_V1HbNjnJPZDuvYg__YfMzoOEtfm1sCqEaJ2Ww-BaX7yGfuCL4XsuZlCQQNHjfscy_WywVfIZPKCiW8QR74i0cSzQ"
 LICENSE_KEY = "IMSV-6ECZ-91TE-WZRM-Q7AQ-MBN4-UW48-2CPT-71X9"

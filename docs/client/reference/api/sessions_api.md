@@ -1,3 +1,3 @@
 # Sessions Api
 
-::: immich.client.generated.api.sessions_api.SessionsApi
+::: immichpy.client.generated.api.sessions_api.SessionsApi

@@ -1,3 +1,3 @@
 # Memory Search Order
 
-::: immich.client.generated.models.memory_search_order.MemorySearchOrder
+::: immichpy.client.generated.models.memory_search_order.MemorySearchOrder

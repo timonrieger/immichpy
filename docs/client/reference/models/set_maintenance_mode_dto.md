@@ -1,3 +1,3 @@
 # Set Maintenance Mode Dto
 
-::: immich.client.generated.models.set_maintenance_mode_dto.SetMaintenanceModeDto
+::: immichpy.client.generated.models.set_maintenance_mode_dto.SetMaintenanceModeDto

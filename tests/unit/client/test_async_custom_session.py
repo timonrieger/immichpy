@@ -1,6 +1,6 @@
 import pytest
 from aiohttp import ClientSession
-from immich import AsyncClient
+from immichpy import AsyncClient
 
 
 @pytest.mark.asyncio

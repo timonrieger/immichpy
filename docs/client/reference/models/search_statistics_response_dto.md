@@ -1,3 +1,3 @@
 # Search Statistics Response Dto
 
-::: immich.client.generated.models.search_statistics_response_dto.SearchStatisticsResponseDto
+::: immichpy.client.generated.models.search_statistics_response_dto.SearchStatisticsResponseDto

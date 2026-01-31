@@ -1,3 +1,3 @@
 # Tag Update Dto
 
-::: immich.client.generated.models.tag_update_dto.TagUpdateDto
+::: immichpy.client.generated.models.tag_update_dto.TagUpdateDto

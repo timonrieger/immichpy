@@ -153,7 +153,7 @@ jobs:
 
     environment:
       name: pypi
-      url: https://pypi.org/p/immich
+      url: https://pypi.org/p/immichpy
 
     steps:
       - name: Setup | Download Build Artifacts

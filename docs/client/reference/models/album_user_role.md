@@ -1,3 +1,3 @@
 # Album User Role
 
-::: immich.client.generated.models.album_user_role.AlbumUserRole
+::: immichpy.client.generated.models.album_user_role.AlbumUserRole

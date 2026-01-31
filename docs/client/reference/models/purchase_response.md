@@ -1,3 +1,3 @@
 # Purchase Response
 
-::: immich.client.generated.models.purchase_response.PurchaseResponse
+::: immichpy.client.generated.models.purchase_response.PurchaseResponse

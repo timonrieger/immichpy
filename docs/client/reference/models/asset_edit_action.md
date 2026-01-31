@@ -1,3 +1,3 @@
 # Asset Edit Action
 
-::: immich.client.generated.models.asset_edit_action.AssetEditAction
+::: immichpy.client.generated.models.asset_edit_action.AssetEditAction

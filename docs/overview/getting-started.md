@@ -1,6 +1,6 @@
 # Getting Started
 
-**immich-py** provides a Python client and CLI for the [Immich](https://immich.app) API. It provides two main ways to interact with your Immich server:
+**immichpy** provides a Python client and CLI for the [Immich](https://immich.app) API. It provides two main ways to interact with your Immich server:
 
 ## Python Client
 

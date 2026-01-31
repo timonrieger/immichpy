@@ -4,7 +4,7 @@ from unittest.mock import patch
 import rtoml
 from typer.testing import CliRunner
 
-from immich.cli.main import app
+from immichpy.cli.main import app
 
 
 class TestSetup:
@@ -130,7 +130,7 @@ class TestSetup:
         )
         assert config_data["profiles"]["default"]["api_key"] == "new-key"
 
-    @patch("immich.cli.wrapper.setup.run_command")
+    @patch("immichpy.cli.wrapper.setup.run_command")
     def test_setup_ping_server_validation_fails(
         self, mock_run_command, runner_without_auth: CliRunner, mock_config_path: Path
     ):

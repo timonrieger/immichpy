@@ -1,3 +1,3 @@
 # Timeline Api
 
-::: immich.client.generated.api.timeline_api.TimelineApi
+::: immichpy.client.generated.api.timeline_api.TimelineApi

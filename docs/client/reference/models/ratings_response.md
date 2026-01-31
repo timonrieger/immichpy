@@ -1,3 +1,3 @@
 # Ratings Response
 
-::: immich.client.generated.models.ratings_response.RatingsResponse
+::: immichpy.client.generated.models.ratings_response.RatingsResponse

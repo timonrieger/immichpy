@@ -1,3 +1,3 @@
 # Download Api
 
-::: immich.client.generated.api.download_api.DownloadApi
+::: immichpy.client.generated.api.download_api.DownloadApi

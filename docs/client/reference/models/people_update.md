@@ -1,3 +1,3 @@
 # People Update
 
-::: immich.client.generated.models.people_update.PeopleUpdate
+::: immichpy.client.generated.models.people_update.PeopleUpdate

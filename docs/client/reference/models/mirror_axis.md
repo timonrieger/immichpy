@@ -1,3 +1,3 @@
 # Mirror Axis
 
-::: immich.client.generated.models.mirror_axis.MirrorAxis
+::: immichpy.client.generated.models.mirror_axis.MirrorAxis
