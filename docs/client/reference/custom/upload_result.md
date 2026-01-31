@@ -1,8 +1,8 @@
 # Upload Result
 
-::: immich.client.types.UploadResult
-::: immich.client.types.UploadStats
-::: immich.client.types.RejectedEntry
-::: immich.client.types.FailedEntry
-::: immich.client.types.UploadedEntry
-::: immich.client.types.RejectionReason
+::: immichpy.client.types.UploadResult
+::: immichpy.client.types.UploadStats
+::: immichpy.client.types.RejectedEntry
+::: immichpy.client.types.FailedEntry
+::: immichpy.client.types.UploadedEntry
+::: immichpy.client.types.RejectionReason

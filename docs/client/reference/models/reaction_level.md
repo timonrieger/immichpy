@@ -1,3 +1,3 @@
 # Reaction Level
 
-::: immich.client.generated.models.reaction_level.ReactionLevel
+::: immichpy.client.generated.models.reaction_level.ReactionLevel

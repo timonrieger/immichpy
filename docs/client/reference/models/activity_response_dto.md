@@ -1,3 +1,3 @@
 # Activity Response Dto
 
-::: immich.client.generated.models.activity_response_dto.ActivityResponseDto
+::: immichpy.client.generated.models.activity_response_dto.ActivityResponseDto

@@ -1,8 +1,8 @@
-"""Tests for immich.cli.main module import."""
+"""Tests for immichpy.cli.main module import."""
 
 import typer
 
-from immich.cli import main
+from immichpy.cli import main
 
 
 def test_import_main_module() -> None:

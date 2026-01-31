@@ -1,3 +1,3 @@
 # Notification Level
 
-::: immich.client.generated.models.notification_level.NotificationLevel
+::: immichpy.client.generated.models.notification_level.NotificationLevel

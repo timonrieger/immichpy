@@ -1,3 +1,3 @@
 # Tags Update
 
-::: immich.client.generated.models.tags_update.TagsUpdate
+::: immichpy.client.generated.models.tags_update.TagsUpdate

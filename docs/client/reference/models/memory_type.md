@@ -1,3 +1,3 @@
 # Memory Type
 
-::: immich.client.generated.models.memory_type.MemoryType
+::: immichpy.client.generated.models.memory_type.MemoryType

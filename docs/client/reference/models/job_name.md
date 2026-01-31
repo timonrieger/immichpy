@@ -1,3 +1,3 @@
 # Job Name
 
-::: immich.client.generated.models.job_name.JobName
+::: immichpy.client.generated.models.job_name.JobName

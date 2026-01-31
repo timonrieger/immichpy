@@ -1,3 +1,3 @@
 # License Key Dto
 
-::: immich.client.generated.models.license_key_dto.LicenseKeyDto
+::: immichpy.client.generated.models.license_key_dto.LicenseKeyDto

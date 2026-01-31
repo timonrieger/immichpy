@@ -1,3 +1,3 @@
 # Album User Create Dto
 
-::: immich.client.generated.models.album_user_create_dto.AlbumUserCreateDto
+::: immichpy.client.generated.models.album_user_create_dto.AlbumUserCreateDto

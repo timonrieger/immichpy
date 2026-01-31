@@ -1,3 +1,3 @@
 # Log Level
 
-::: immich.client.generated.models.log_level.LogLevel
+::: immichpy.client.generated.models.log_level.LogLevel

@@ -1,3 +1,3 @@
 # Sign Up Dto
 
-::: immich.client.generated.models.sign_up_dto.SignUpDto
+::: immichpy.client.generated.models.sign_up_dto.SignUpDto

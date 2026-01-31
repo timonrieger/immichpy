@@ -1,3 +1,3 @@
 # Activity Create Dto
 
-::: immich.client.generated.models.activity_create_dto.ActivityCreateDto
+::: immichpy.client.generated.models.activity_create_dto.ActivityCreateDto

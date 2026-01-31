@@ -1,3 +1,3 @@
 # Download Api Wrapped
 
-::: immich.client.wrapper.download_api_wrapped.DownloadApiWrapped
+::: immichpy.client.wrapper.download_api_wrapped.DownloadApiWrapped

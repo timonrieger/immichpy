@@ -1,3 +1,3 @@
 # Video Container
 
-::: immich.client.generated.models.video_container.VideoContainer
+::: immichpy.client.generated.models.video_container.VideoContainer

@@ -1,3 +1,3 @@
 # Colorspace
 
-::: immich.client.generated.models.colorspace.Colorspace
+::: immichpy.client.generated.models.colorspace.Colorspace

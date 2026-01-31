@@ -1,3 +1,3 @@
 # Server Apk Links Dto
 
-::: immich.client.generated.models.server_apk_links_dto.ServerApkLinksDto
+::: immichpy.client.generated.models.server_apk_links_dto.ServerApkLinksDto

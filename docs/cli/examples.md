@@ -1,7 +1,7 @@
 # Examples
 
-This page contains practical examples of using the Immich CLI for common tasks.
-> Have an example? You’re welcome to suggest it on [GitHub issues](https://github.com/timonrieger/immich-py/issues).
+This page contains practical examples of using the immichpy CLI for common tasks.
+> Have an example? You’re welcome to suggest it on [GitHub issues](https://github.com/timonrieger/immichpy/issues).
 
 ## List all albums and parse with jq
 
@@ -10,7 +10,7 @@ Get all albums and their name and ID:
 <div class="termy">
 
 ```console
-$ immich albums get-all-albums | jq -r '.[] | "\(.album_name) \(.id)"'
+$ immichpy albums get-all-albums | jq -r '.[] | "\(.album_name) \(.id)"'
 Animal Portraits ff09c49f-525d-4216-bc5a-8ff070bca149
 Vacation 2023 851c8f67-9bf3-48f5-8130-59da9ab17c06
 Selfies c980670b-69d1-42ee-b4a5-86947f169d99
@@ -25,7 +25,7 @@ Download an album archive to a directory with progress bar:
 <div class="termy">
 
 ```console
-> immich download download-archive-to-file out/ \
+> immichpy download download-archive-to-file out/ \
  --album-id 851c8f67-9bf3-48f5-8130-59da9ab17c06 --show-progress
 
 ---> 100%
@@ -44,7 +44,7 @@ Upload assets to your Immich server. Use `--dry-run` to preview what would be up
 <div class="termy">
 
 ```console
-$ immich assets upload ~/timelapse.mp4 --dry-run
+$ immichpy assets upload ~/timelapse.mp4 --dry-run
 {
   "uploaded": [
     {
@@ -75,7 +75,7 @@ Get all people and filter to only show those with names:
 <div class="termy">
 
 ```console
-$ immich people get-all-people | jq '.people[] | select(.name != "")'
+$ immichpy people get-all-people | jq '.people[] | select(.name != "")'
 {
   "birth_date": null,
   "color": null,
@@ -98,7 +98,7 @@ Get all users in a table format:
 <div class="termy">
 
 ```console
-$ immich --format table users search-users
+$ immichpy --format table users search-users
 ┏━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
 ┃ Key                ┃ Value                                ┃
 ┡━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┩

@@ -1,3 +1,3 @@
 # Avatar Update
 
-::: immich.client.generated.models.avatar_update.AvatarUpdate
+::: immichpy.client.generated.models.avatar_update.AvatarUpdate

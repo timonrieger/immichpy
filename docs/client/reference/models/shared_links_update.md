@@ -1,3 +1,3 @@
 # Shared Links Update
 
-::: immich.client.generated.models.shared_links_update.SharedLinksUpdate
+::: immichpy.client.generated.models.shared_links_update.SharedLinksUpdate

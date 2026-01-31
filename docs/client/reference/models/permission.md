@@ -1,3 +1,3 @@
 # Permission
 
-::: immich.client.generated.models.permission.Permission
+::: immichpy.client.generated.models.permission.Permission

@@ -1,3 +1,3 @@
 # Trash Api
 
-::: immich.client.generated.api.trash_api.TrashApi
+::: immichpy.client.generated.api.trash_api.TrashApi

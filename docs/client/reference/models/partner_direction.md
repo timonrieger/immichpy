@@ -1,3 +1,3 @@
 # Partner Direction
 
-::: immich.client.generated.models.partner_direction.PartnerDirection
+::: immichpy.client.generated.models.partner_direction.PartnerDirection

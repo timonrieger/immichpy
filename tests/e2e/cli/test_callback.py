@@ -4,7 +4,7 @@ from unittest.mock import AsyncMock, MagicMock, patch
 import pytest
 from typer.testing import CliRunner
 
-from immich.cli import main
+from immichpy.cli import main
 
 
 @pytest.fixture
@@ -15,8 +15,8 @@ def mock_server_api():
         return {}
 
     with (
-        patch("immich.cli.main.AsyncClient") as mock_client,
-        patch("immich.cli.runtime.run_command", side_effect=mock_run_command),
+        patch("immichpy.cli.main.AsyncClient") as mock_client,
+        patch("immichpy.cli.runtime.run_command", side_effect=mock_run_command),
     ):
         mock_client_instance = MagicMock()
         mock_client_instance.server = MagicMock()
@@ -178,7 +178,7 @@ class TestCallbackConfigResolution:
         assert "No base URL provided" in result.output
         assert "immich setup" in result.output
 
-    @patch("immich.cli.main.print_")
+    @patch("immichpy.cli.main.print_")
     def test_verbose_mode_prints_debug_config(
         self,
         mock_print: MagicMock,

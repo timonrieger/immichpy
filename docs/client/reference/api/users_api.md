@@ -1,3 +1,3 @@
 # Users Api
 
-::: immich.client.generated.api.users_api.UsersApi
+::: immichpy.client.generated.api.users_api.UsersApi

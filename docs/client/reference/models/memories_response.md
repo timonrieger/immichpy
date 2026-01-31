@@ -1,3 +1,3 @@
 # Memories Response
 
-::: immich.client.generated.models.memories_response.MemoriesResponse
+::: immichpy.client.generated.models.memories_response.MemoriesResponse

@@ -1,3 +1,3 @@
 # CQ Mode
 
-::: immich.client.generated.models.cq_mode.CQMode
+::: immichpy.client.generated.models.cq_mode.CQMode

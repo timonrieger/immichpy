@@ -1,3 +1,3 @@
 # Image Format
 
-::: immich.client.generated.models.image_format.ImageFormat
+::: immichpy.client.generated.models.image_format.ImageFormat

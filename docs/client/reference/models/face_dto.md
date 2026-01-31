@@ -1,3 +1,3 @@
 # Face Dto
 
-::: immich.client.generated.models.face_dto.FaceDto
+::: immichpy.client.generated.models.face_dto.FaceDto

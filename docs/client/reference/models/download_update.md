@@ -1,3 +1,3 @@
 # Download Update
 
-::: immich.client.generated.models.download_update.DownloadUpdate
+::: immichpy.client.generated.models.download_update.DownloadUpdate

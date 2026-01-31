@@ -1,3 +1,3 @@
 # Check Existing Assets Dto
 
-::: immich.client.generated.models.check_existing_assets_dto.CheckExistingAssetsDto
+::: immichpy.client.generated.models.check_existing_assets_dto.CheckExistingAssetsDto

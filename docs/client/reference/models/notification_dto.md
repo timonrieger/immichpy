@@ -1,3 +1,3 @@
 # Notification Dto
 
-::: immich.client.generated.models.notification_dto.NotificationDto
+::: immichpy.client.generated.models.notification_dto.NotificationDto

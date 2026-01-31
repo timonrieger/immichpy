@@ -1,3 +1,3 @@
 # Server Storage Response Dto
 
-::: immich.client.generated.models.server_storage_response_dto.ServerStorageResponseDto
+::: immichpy.client.generated.models.server_storage_response_dto.ServerStorageResponseDto

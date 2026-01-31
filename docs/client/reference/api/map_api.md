@@ -1,3 +1,3 @@
 # Map Api
 
-::: immich.client.generated.api.map_api.MapApi
+::: immichpy.client.generated.api.map_api.MapApi

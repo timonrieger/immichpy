@@ -24,7 +24,7 @@ repos:
     rev: 1.9.3
     hooks:
       - id: bandit
-        exclude: "^(immich/client/|tests)"
+        exclude: "^(immichpy/client/|tests)"
 
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v6.0.0

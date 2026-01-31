@@ -1,3 +1,3 @@
 # Shared Links Api
 
-::: immich.client.generated.api.shared_links_api.SharedLinksApi
+::: immichpy.client.generated.api.shared_links_api.SharedLinksApi

@@ -1,13 +1,13 @@
 [project]
-name = "immich"
-description = "Unofficial HTTP client and CLI for Immich written in Python"
+name = "immichpy"
+description = "The stable, typed Python API layer for Immich automation and integrations."
 readme = "README.md"
 license = "MIT"
 license-files = ["LICENSE"]
 requires-python = ">=3.10"
-authors = [{name = "Immich Python Client", email = "contact@timonrieger.de"}]
+authors = [{name = "Timon Rieger", email = "contact@timonrieger.de"}]
 version = "1.6.4"
-keywords = ["immich", "photos", "backup", "client", "api", "cli"]
+keywords = ["immich", "photos", "backup", "client", "api", "cli", "automation", "integrations"]
 
 classifiers = [
     "Topic :: Multimedia",
@@ -40,11 +40,11 @@ cli = [
 ]
 
 [project.scripts]
-immich = "immich.cli.__main__:main"
+immichpy = "immichpy.cli.__main__:main"
 
 [project.urls]
-Repository = "https://github.com/timonrieger/immich-py"
-Changelog = "https://github.com/timonrieger/immich-py/releases"
+Repository = "https://github.com/timonrieger/immichpy"
+Changelog = "https://github.com/timonrieger/immichpy/releases"
 
 [build-system]
 requires = ["uv_build==0.9.26"]
@@ -64,7 +64,7 @@ docs = [
     "pymdown-extensions>=10.20,<11.0",
     "termynal>=0.13.1,<0.14.0",
     "typer>=0.21.1,<0.22.0",
-    "zensical>=0.0.19,<0.0.20",
+    "zensical>=0.0.20,<0.0.21",
 ]
 
 [tool.semantic_release]
@@ -92,7 +92,7 @@ prerelease = false
 add-bounds = "major"
 
 [tool.uv.build-backend]
-module-name = "immich"
+module-name = "immichpy"
 module-root = ""
 
 [tool.ruff]
@@ -106,9 +106,9 @@ markers = [
 ]
 
 [tool.coverage.run]
-omit = ["immich/client/generated/**", "immich/cli/commands/**", "immich/client/wrapper/**"]
+omit = ["immichpy/client/generated/**", "immichpy/cli/commands/**", "immichpy/client/wrapper/**"]
 
 [tool.ty]
-environment.root = ['immich']
-src.exclude = ["immich/client/generated/**"]
+environment.root = ['immichpy']
+src.exclude = ["immichpy/client/generated/**"]
 rules.unresolved-import = "ignore"

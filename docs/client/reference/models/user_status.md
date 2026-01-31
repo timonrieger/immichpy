@@ -1,3 +1,3 @@
 # User Status
 
-::: immich.client.generated.models.user_status.UserStatus
+::: immichpy.client.generated.models.user_status.UserStatus

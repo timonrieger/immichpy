@@ -1,5 +1,8 @@
 # Getting Started
 
+!!! info "Why immichpy?"
+    Looking for a stable, ecosystem-aligned API client? Read the [adoption rationale](../overview/why.md).
+
 ## Installation
 
 You need Python 3.10–3.14 installed to be able to use this library.
@@ -7,13 +10,13 @@ You need Python 3.10–3.14 installed to be able to use this library.
 === "uv"
 
     ``` bash
-    uv add immich
+    uv add immichpy
     ```
 
 === "pip"
 
     ``` bash
-    pip install immich
+    pip install immichpy
     ```
 
 ## Structure
@@ -33,7 +36,7 @@ You can use the client with or without a context manager.
 
     ``` python title="main.py"
     import asyncio
-    from immich import AsyncClient
+    from immichpy import AsyncClient
 
     async def main():
         async with AsyncClient(api_key="your-immich-api-key", base_url="http://localhost:2283/api") as client:
@@ -46,7 +49,7 @@ You can use the client with or without a context manager.
 
     ``` python title="main.py"
     import asyncio
-    from immich import AsyncClient
+    from immichpy import AsyncClient
 
     async def main():
         client = AsyncClient(api_key="your-immich-api-key", base_url="http://localhost:2283/api")

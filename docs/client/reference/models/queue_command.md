@@ -1,3 +1,3 @@
 # Queue Command
 
-::: immich.client.generated.models.queue_command.QueueCommand
+::: immichpy.client.generated.models.queue_command.QueueCommand

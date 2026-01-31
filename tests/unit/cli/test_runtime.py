@@ -1,4 +1,4 @@
-"""Tests for immich.cli.runtime module."""
+"""Tests for immichpy.cli.runtime module."""
 
 from __future__ import annotations
 
@@ -14,15 +14,15 @@ from typer import Context, Exit
 if TYPE_CHECKING:
     from _pytest.capture import CaptureFixture
 
-from immich.cli.runtime import (
+from immichpy.cli.runtime import (
     set_nested,
     print_response,
     format_api_error,
     run_async,
     run_command,
 )
-from immich.client.generated.exceptions import ApiException
-from immich import AsyncClient
+from immichpy.client.generated.exceptions import ApiException
+from immichpy import AsyncClient
 
 
 class TestSetNested:
@@ -155,7 +155,7 @@ class TestRunAsync:
 class TestRunCommand:
     """Tests for run_command function."""
 
-    @patch("immich.cli.runtime.asyncio.run")
+    @patch("immichpy.cli.runtime.asyncio.run")
     def test_run_command_success(self, mock_asyncio_run: Mock) -> None:
         """Test run_command with successful execution."""
         mock_client: Mock = Mock(spec=AsyncClient)
@@ -181,9 +181,9 @@ class TestRunCommand:
         assert result == {"result": "success"}
         mock_asyncio_run.assert_called_once()
 
-    @patch("immich.cli.runtime.print_")
-    @patch("immich.cli.runtime.format_api_error")
-    @patch("immich.cli.runtime.asyncio.run")
+    @patch("immichpy.cli.runtime.print_")
+    @patch("immichpy.cli.runtime.format_api_error")
+    @patch("immichpy.cli.runtime.asyncio.run")
     def test_run_command_api_exception(
         self, mock_asyncio_run: Mock, mock_format_error: Mock, mock_print: Mock
     ) -> None:
@@ -217,8 +217,8 @@ class TestRunCommand:
         mock_format_error.assert_called_once_with(api_error)
         mock_print.assert_any_call("not found", type="error", ctx=ctx)
 
-    @patch("immich.cli.runtime.print_")
-    @patch("immich.cli.runtime.asyncio.run")
+    @patch("immichpy.cli.runtime.print_")
+    @patch("immichpy.cli.runtime.asyncio.run")
     def test_run_command_other_exception(
         self, mock_asyncio_run: Mock, mock_print: Mock
     ) -> None:

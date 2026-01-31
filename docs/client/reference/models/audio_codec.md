@@ -1,3 +1,3 @@
 # Audio Codec
 
-::: immich.client.generated.models.audio_codec.AudioCodec
+::: immichpy.client.generated.models.audio_codec.AudioCodec

@@ -1,3 +1,3 @@
 # Duplicates Api
 
-::: immich.client.generated.api.duplicates_api.DuplicatesApi
+::: immichpy.client.generated.api.duplicates_api.DuplicatesApi

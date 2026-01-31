@@ -7,13 +7,13 @@ You need Python 3.10–3.14 installed to be able to use this CLI.
 === "uv"
 
     ``` bash
-    uv add immich --extra cli
+    uv add immichpy --extra cli
     ```
 
 === "pip"
 
     ``` bash
-    pip install immich[cli]
+    pip install immichpy[cli]
     ```
 
 ### Shell completion
@@ -23,9 +23,9 @@ Install shell completion for easier command-line usage. The command auto-detects
 <div class="termy">
 
 ```console
-$ immich --install-completion
+$ immichpy --install-completion
 
-fish completion installed in ~/.config/fish/completions/immich.fish
+fish completion installed in ~/.config/fish/completions/immichpy.fish
 Completion will take effect once you restart the terminal
 ```
 
@@ -48,7 +48,7 @@ Using profiles allows you to use the CLI with different servers and reuse config
 <div class="termy">
 
 ```console
-$ immich setup
+$ immichpy setup
 
 # Enter your server URL: $ https://demo.immich.app/api
 # Enter your API key: $ ********
@@ -59,9 +59,9 @@ Profile 'default' created successfully!
 </div>
 
 !!! note "Validation"
-    The server is validated when you run `immich setup`. The CLI will fail if the server is not reachable.
+    The server is validated when you run `immichpy setup`. The CLI will fail if the server is not reachable.
 
-See [`immich setup`](reference.md#immich-setup) for the full command reference.
+See [`immichpy setup`](reference.md#immichpy-setup) for the full command reference.
 
 ## First commands
 
@@ -70,7 +70,7 @@ That's it! You can now run interact with the Immich server using the CLI.
 <div class="termy">
 
 ```console
-$ immich server get-about-info
+$ immichpy server get-about-info
 
 {
   "build": "20375083601",
@@ -85,7 +85,7 @@ You can also get the information in a different format, e.g. as a table:
 <div class="termy">
 
 ```console
-$ immich --format table server get-about-info
+$ immichpy --format table server get-about-info
 
 ┏━━━━━━━━━━┳━━━━━━━━━━━━━━━━┓
 ┃ Key      ┃ Value          ┃
@@ -97,4 +97,4 @@ $ immich --format table server get-about-info
 
 </div>
 
-To see all available commands, run `immich --help` or see the [reference](reference.md).
+To see all available commands, run `immichpy --help` or see the [reference](reference.md).

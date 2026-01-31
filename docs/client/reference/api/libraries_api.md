@@ -1,3 +1,3 @@
 # Libraries Api
 
-::: immich.client.generated.api.libraries_api.LibrariesApi
+::: immichpy.client.generated.api.libraries_api.LibrariesApi

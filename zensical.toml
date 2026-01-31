@@ -10,13 +10,13 @@
 # The site_name is shown in the page header and the browser window title
 #
 # Read more: https://zensical.org/docs/setup/basics/#site_name
-site_name = "immich-py"
+site_name = "immichpy"
 
 # The site_description is included in the HTML head and should contain a
 # meaningful description of the site content for use by search engines.
 #
 # Read more: https://zensical.org/docs/setup/basics/#site_description
-site_description = "Unofficial HTTP client and CLI for Immich written in Python"
+site_description = "The stable, typed Python API layer for Immich automation and integrations."
 
 # The site_author attribute. This is used in the HTML head element.
 #
@@ -43,8 +43,8 @@ Copyright &copy; 2026 Timon Rieger
 # can be defined using TOML syntax.
 docs_dir = "docs"
 
-repo_url = "https://github.com/timonrieger/immich-py"
-repo_name = "timonrieger/immich-py"
+repo_url = "https://github.com/timonrieger/immichpy"
+repo_name = "timonrieger/immichpy"
 edit_uri = "edit/main/docs"
 
 #
@@ -710,12 +710,12 @@ repo = "fontawesome/brands/github"
 # ----------------------------------------------------------------------------
 [[project.extra.social]]
 icon = "fontawesome/brands/github"
-link = "https://github.com/timonrieger/immich-py"
+link = "https://github.com/timonrieger/immichpy"
 name = "View on GitHub"
 
 [[project.extra.social]]
 icon = "fontawesome/brands/python"
-link = "https://pypi.org/project/immich"
+link = "https://pypi.org/project/immichpy"
 name = "View on PyPI"
 
 # ----------------------------------------------------------------------------
@@ -728,8 +728,8 @@ name = "View on PyPI"
 # ----------------------------------------------------------------------------
 [project.plugins.mkdocstrings.handlers.python]
 # Paths to search for Python source code
-# Use "." so Python can import immich.client.generated.* modules
-paths = ["immich"]
+# Use "." so Python can import immichpy.client.generated.* modules
+paths = ["immichpy"]
 # External documentation inventories for cross-referencing
 inventories = ["https://docs.python.org/3/objects.inv"]
 

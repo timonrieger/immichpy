@@ -1,3 +1,3 @@
 # Activities Api
 
-::: immich.client.generated.api.activities_api.ActivitiesApi
+::: immichpy.client.generated.api.activities_api.ActivitiesApi

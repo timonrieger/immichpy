@@ -521,10 +521,10 @@ def generate_tag_app(
         "from pathlib import Path",
         "from typing import Literal, TYPE_CHECKING",
         "if TYPE_CHECKING:",
-        "    from immich import AsyncClient",
+        "    from immichpy import AsyncClient",
         "",
-        "from immich.cli.runtime import print_response, run_command, set_nested",
-        "from immich.client.generated.models import *",
+        "from immichpy.cli.runtime import print_response, run_command, set_nested",
+        "from immichpy.client.generated.models import *",
         "",
     ]
 
@@ -549,7 +549,7 @@ def generate_tag_app(
 
 def main() -> None:
     """Main codegen entrypoint."""
-    commands_dir = Path(__file__).resolve().parents[2] / "immich" / "cli" / "commands"
+    commands_dir = Path(__file__).resolve().parents[2] / "immichpy" / "cli" / "commands"
 
     # Fetch OpenAPI spec
     url = openapi_url(os.environ.get("IMMICH_OPENAPI_REF", "main"))

@@ -1,23 +1,19 @@
-<h1 align="center">immich-py</h1>
-<h3 align="center">Python Client & CLI for the <a href="https://immich.app">Immich</a> API.</h3>
+<h1 align="center">immichpy</h1>
+<h3 align="center">The stable, typed Python API layer for <a href="https://immich.app">Immich</a> automation and integrations.</h3>
 <p align="center">
-<a href="https://github.com/immich-app/immich/releases" target="_blank" rel="noopener noreferrer">
-    <img src="https://img.shields.io/badge/dynamic/regex?url=https://raw.githubusercontent.com/timonrieger/immich-py/main/IMMICH-VERSION&search=(.*)&replace=%241%20-%20$1&label=supported%20Immich%20versions&color=blue" alt="Supported Immich version">
-</a>
-    <a href="https://pypi.org/project/immich" target="_blank" rel="noopener noreferrer">
-        <img src="https://img.shields.io/pypi/v/immich?color=blue&label=pypi%20package" alt="Package version">
+    <a href="https://pypi.org/project/immichpy" target="_blank">
+        <img src="https://img.shields.io/pypi/v/immichpy?color=blue&label=pypi%20package" alt="Package version">
     </a>
-    <a href="https://pypi.org/project/immich" target="_blank" rel="noopener noreferrer">
-        <img src="https://img.shields.io/pypi/pyversions/immich.svg?color=blue" alt="Supported Python versions">
+    <a href="https://pypi.org/project/immichpy" target="_blank">
+        <img src="https://img.shields.io/pypi/dm/immichpy?color=blue" alt="Downloads">
     </a>
-    <a href="https://pypi.org/project/immich" target="_blank" rel="noopener noreferrer">
-        <img alt="PyPI - Downloads" src="https://img.shields.io/pypi/dm/immich?color=blue">
+    <a href="https://pypi.org/project/immichpy" target="_blank">
+        <img src="https://img.shields.io/pypi/pyversions/immichpy.svg?color=blue" alt="Supported Python versions">
     </a>
-    <img alt="GitHub Actions Workflow Status" src="https://img.shields.io/github/actions/workflow/status/timonrieger/immich-py/cd.yml?branch=main&event=push&logo=github&label=Continuous%20Delivery&color=blue">
-    <a href="https://github.com/timonrieger/immich-py" target="_blank" rel="noopener noreferrer">
-        <img alt="GitHub Repository" src="https://img.shields.io/badge/Github-repository-blue?logo=github&color=blue">
+    <a href="https://github.com/immich-app/immich/releases" target="_blank">
+        <img src="https://img.shields.io/badge/dynamic/regex?url=https://raw.githubusercontent.com/timonrieger/immichpy/main/IMMICH-VERSION&search=(.*)&replace=v2.4.1%20-%20$1&label=supported%20Immich%20versions&color=blue" alt="Supported Immich version">
     </a>
-
+    <img src="https://img.shields.io/github/actions/workflow/status/timonrieger/immichpy/cd.yml?branch=main&event=push&logo=github&label=Continuous%20Delivery&color=blue" alt="CD Status">
 </p>
 
 A Python client and CLI for interacting with the [Immich](https://immich.app) self-hosted photo and video management solution.
@@ -27,7 +23,7 @@ A Python client and CLI for interacting with the [Immich](https://immich.app) se
 
 ## Documentation
 
-For full documentation, visit [immich-py.timonrieger.de](https://immich-py.timonrieger.de).
+For full documentation, visit [immichpy.timonrieger.de](https://immichpy.timonrieger.de).
 
 ## License
 

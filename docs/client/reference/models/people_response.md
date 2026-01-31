@@ -1,3 +1,3 @@
 # People Response
 
-::: immich.client.generated.models.people_response.PeopleResponse
+::: immichpy.client.generated.models.people_response.PeopleResponse

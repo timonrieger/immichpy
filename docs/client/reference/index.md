@@ -1,3 +1,3 @@
 # AsyncClient
 
-::: immich.client.main.AsyncClient
+::: immichpy.client.main.AsyncClient

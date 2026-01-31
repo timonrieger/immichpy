@@ -1,6 +1,6 @@
 # Environment Variables
 
-The Immich CLI supports environment variables as an alternative to command-line flags or profile settings.
+The immichpy CLI supports environment variables as an alternative to command-line flags or profile settings.
 
 ## Configuration Priority
 
@@ -8,7 +8,7 @@ Priority order (highest to lowest):
 
 1. Command-line flags (`--api-key`, `--base-url`, etc.)
 2. **Environment variables** (this page)
-3. Profile settings (from `immich setup`)
+3. Profile settings (from `immichpy setup`)
 
 ## Available Environment Variables
 

@@ -1,3 +1,3 @@
 # Cast Response
 
-::: immich.client.generated.models.cast_response.CastResponse
+::: immichpy.client.generated.models.cast_response.CastResponse

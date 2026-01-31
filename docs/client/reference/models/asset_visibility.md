@@ -1,3 +1,3 @@
 # Asset Visibility
 
-::: immich.client.generated.models.asset_visibility.AssetVisibility
+::: immichpy.client.generated.models.asset_visibility.AssetVisibility

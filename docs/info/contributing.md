@@ -33,7 +33,7 @@ If you don't have a local Immich server and cannot run End-to-End tests, please 
 ## Issues
 
 - **Immich API/spec problems** (missing/incorrect endpoints, schema issues, breaking API changes): open an issue in the [upstream Immich repository](https://github.com/immich-app/immich/issues).
-- **Generation issues** (bad codegen output, typing problems introduced by generation, workflow automation problems): open an issue [here](https://github.com/timonrieger/immich-py/issues).
+- **Generation issues** (bad codegen output, typing problems introduced by generation, workflow automation problems): [open an issue on GitHub](https://github.com/timonrieger/immichpy/issues).
 
 When reporting, include:
 

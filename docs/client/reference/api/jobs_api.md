@@ -1,3 +1,3 @@
 # Jobs Api
 
-::: immich.client.generated.api.jobs_api.JobsApi
+::: immichpy.client.generated.api.jobs_api.JobsApi

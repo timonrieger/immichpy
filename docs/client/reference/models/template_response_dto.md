@@ -1,3 +1,3 @@
 # Template Response Dto
 
-::: immich.client.generated.models.template_response_dto.TemplateResponseDto
+::: immichpy.client.generated.models.template_response_dto.TemplateResponseDto
