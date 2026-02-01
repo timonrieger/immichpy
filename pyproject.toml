@@ -78,7 +78,8 @@ build_command = """
     uv lock --upgrade-package "$PACKAGE_NAME"
     PACKAGE_VERSION=v$(uv version --short)
     SERVER_VERSION=$(cat IMMICH-VERSION | tr -d '[:space:]')
-    echo "$PACKAGE_VERSION,$SERVER_VERSION" >> COMPATIBILITY.csv
+    MIN_SERVER_VERSION="$(tr -d '[:space:]' < IMMICH-VERSION | cut -d. -f1,2).0"
+    echo "$PACKAGE_VERSION,$SERVER_VERSION,$MIN_SERVER_VERSION,supported" >> COMPATIBILITY.csv
     uv build
     git add uv.lock COMPATIBILITY.csv
 """

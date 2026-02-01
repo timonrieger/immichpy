@@ -1,4 +1,6 @@
-package_version,server_version
-v1.7.5,v2.5.2
-v1.6.5,v2.4.1
-v1.7.6,v2.5.2
+Package version,Generated from Immich server version,Minimum supported Immich server version,Status
+v1.x.y,v2.4.1,v2.4.0,supported in legacy `immich` package; superseded by new package name
+v1.6.5,v2.4.1,v2.4.0,supported
+v1.7.5,v2.5.2,v2.5.0,superseded by v2.0.0
+v1.7.6,v2.5.2,v2.5.0,superseded by v2.0.0
+v2.0.0,v2.5.2,v2.5.0,supported
