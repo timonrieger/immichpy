@@ -6,8 +6,16 @@ You need Python 3.10–3.14 installed to be able to use this CLI.
 
 === "uv"
 
+    Project-based:
+
     ``` bash
     uv add immichpy --extra cli
+    ```
+
+    Global:
+
+    ``` bash
+    uv tool install immichpy[cli]
     ```
 
 === "pip"
