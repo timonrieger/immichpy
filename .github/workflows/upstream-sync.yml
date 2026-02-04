@@ -171,9 +171,9 @@ jobs:
           base: main
           title: Sync Immich ${{ steps.tag_to_use.outputs.tag }}
           body: |
-            Automatically generated sync to [Immich ${{ steps.tag_to_use.outputs.tag }}](https://github.com/immich-app/immich/releases/tag/${{ steps.tag_to_use.outputs.tag }}).
+            Automatically generated client for [Immich ${{ steps.tag_to_use.outputs.tag }}](https://github.com/immich-app/immich/releases/tag/${{ steps.tag_to_use.outputs.tag }}).
 
-            **Breaking Changes:** ${{ steps.oasdiff_breaking.outcome == 'failure' }}
+            **Breaking Changes?:** ${{ steps.oasdiff_breaking.outcome == 'failure' }}
 
             <details>
             <summary>Changelog</summary>
