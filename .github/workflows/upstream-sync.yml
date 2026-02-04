@@ -75,15 +75,16 @@ jobs:
         id: oasdiff_breaking
         if: steps.check_sync.outputs.sync_needed == 'true'
         continue-on-error: true
-        uses: oasdiff/oasdiff-action/breaking@96c69a40f4a6d67f22422f3be41a8ff531cfd732
+        uses: oasdiff/oasdiff-action/breaking@main
         with:
           base: https://raw.githubusercontent.com/immich-app/immich/refs/tags/${{ steps.stored_tag.outputs.stored_tag }}/open-api/immich-openapi-specs.json
           revision: https://raw.githubusercontent.com/immich-app/immich/refs/tags/${{ steps.tag_to_use.outputs.tag }}/open-api/immich-openapi-specs.json
+          fail-on: ERR
 
       - name: Generate API changelog
         id: oasdiff_changelog
         if: steps.check_sync.outputs.sync_needed == 'true'
-        uses: oasdiff/oasdiff-action/changelog@96c69a40f4a6d67f22422f3be41a8ff531cfd732
+        uses: oasdiff/oasdiff-action/changelog@main
         with:
           base: https://raw.githubusercontent.com/immich-app/immich/refs/tags/${{ steps.stored_tag.outputs.stored_tag }}/open-api/immich-openapi-specs.json
           revision: https://raw.githubusercontent.com/immich-app/immich/refs/tags/${{ steps.tag_to_use.outputs.tag }}/open-api/immich-openapi-specs.json
@@ -170,11 +171,7 @@ jobs:
           base: main
           title: Sync Immich ${{ steps.tag_to_use.outputs.tag }}
           body: |
-            Automatically generated sync to Immich ${{ steps.tag_to_use.outputs.tag }}.
-
-            This PR was created by the upstream sync workflow.
-
-            Upstream tag: https://github.com/immich-app/immich/releases/tag/${{ steps.tag_to_use.outputs.tag }}
+            Automatically generated sync to [Immich ${{ steps.tag_to_use.outputs.tag }}](https://github.com/immich-app/immich/releases/tag/${{ steps.tag_to_use.outputs.tag }}).
 
             **Breaking Changes:** ${{ steps.oasdiff_breaking.outcome == 'failure' }}
 
