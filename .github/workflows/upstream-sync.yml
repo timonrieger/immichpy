@@ -71,6 +71,25 @@ jobs:
           TAG: ${{ steps.tag_to_use.outputs.tag }}
           STORED_TAG: ${{ steps.stored_tag.outputs.stored_tag }}
 
+      - name: Check for breaking API changes
+        id: oasdiff_breaking
+        if: steps.check_sync.outputs.sync_needed == 'true'
+        continue-on-error: true
+        uses: oasdiff/oasdiff-action/breaking@main
+        with:
+          base: https://raw.githubusercontent.com/immich-app/immich/refs/tags/${{ steps.stored_tag.outputs.stored_tag }}/open-api/immich-openapi-specs.json
+          revision: https://raw.githubusercontent.com/immich-app/immich/refs/tags/${{ steps.tag_to_use.outputs.tag }}/open-api/immich-openapi-specs.json
+          fail-on: ERR
+
+      - name: Generate API changelog
+        id: oasdiff_changelog
+        if: steps.check_sync.outputs.sync_needed == 'true'
+        uses: oasdiff/oasdiff-action/changelog@main
+        with:
+          base: https://raw.githubusercontent.com/immich-app/immich/refs/tags/${{ steps.stored_tag.outputs.stored_tag }}/open-api/immich-openapi-specs.json
+          revision: https://raw.githubusercontent.com/immich-app/immich/refs/tags/${{ steps.tag_to_use.outputs.tag }}/open-api/immich-openapi-specs.json
+          format: markdown
+
       - name: Determine commit message type
         id: commit_msg
         if: steps.check_sync.outputs.sync_needed == 'true'
@@ -152,11 +171,16 @@ jobs:
           base: main
           title: Sync Immich ${{ steps.tag_to_use.outputs.tag }}
           body: |
-            Automatically generated sync to Immich ${{ steps.tag_to_use.outputs.tag }}.
+            Automatically generated client for [Immich ${{ steps.tag_to_use.outputs.tag }}](https://github.com/immich-app/immich/releases/tag/${{ steps.tag_to_use.outputs.tag }}).
 
-            This PR was created by the upstream sync workflow.
+            **Breaking Changes?:** ${{ steps.oasdiff_breaking.outcome == 'failure' }}
 
-            Upstream tag: https://github.com/immich-app/immich/releases/tag/${{ steps.tag_to_use.outputs.tag }}
+            <details>
+            <summary>Changelog</summary>
+
+            ${{ steps.oasdiff_changelog.outputs.changelog }}
+
+            </details>
 
             @coderabbitai ignore
           delete-branch: true
