@@ -104,13 +104,13 @@ jobs:
           IFS='.' read -r LATEST_MAJOR LATEST_MINOR LATEST_PATCH <<< "$LATEST_VERSION"
           IFS='.' read -r STORED_MAJOR STORED_MINOR STORED_PATCH <<< "$STORED_VERSION"
 
-          # Determine commit type based on semver diff
-          if [ "$LATEST_MAJOR" != "$STORED_MAJOR" ]; then
-            # Major version bump
+          # Determine commit type based on semver diff or breaking changes
+          if [ "$OASDIFF_BREAKING_OUTCOME" = "failure" ]; then
+            # Breaking API changes detected
             COMMIT_TYPE="feat!"
             COMMIT_BODY="BREAKING CHANGE: The Immich API has changed in a way that is not backwards compatible. See the relevant pull request above for details."
-          elif [ "$LATEST_MINOR" != "$STORED_MINOR" ]; then
-            # Minor version bump
+          elif [ "$LATEST_MINOR" != "$STORED_MINOR" ] || [ "$LATEST_MAJOR" != "$STORED_MAJOR" ]; then
+            # Minor version bump or non-breaking major version bump
             COMMIT_TYPE="feat"
             COMMIT_BODY=""
           else
@@ -134,6 +134,7 @@ jobs:
         env:
           TAG: ${{ steps.tag_to_use.outputs.tag }}
           STORED_TAG: ${{ steps.stored_tag.outputs.stored_tag }}
+          OASDIFF_BREAKING_OUTCOME: ${{ steps.oasdiff_breaking.outcome }}
 
       - name: Compute PR branch name
         id: pr_branch
