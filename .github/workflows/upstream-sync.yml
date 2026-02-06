@@ -108,7 +108,7 @@ jobs:
           if [ "$LATEST_MAJOR" != "$STORED_MAJOR" ]; then
             # Major version bump
             COMMIT_TYPE="feat!"
-            COMMIT_BODY="BREAKING CHANGE: Immich server had a major release. Review upstream release notes for potential client-impacting changes."
+            COMMIT_BODY="BREAKING CHANGE: The Immich API has changed in a way that is not backwards compatible. See the relevant pull request above for details."
           elif [ "$LATEST_MINOR" != "$STORED_MINOR" ]; then
             # Minor version bump
             COMMIT_TYPE="feat"
@@ -173,7 +173,7 @@ jobs:
           body: |
             Automatically generated client for [Immich ${{ steps.tag_to_use.outputs.tag }}](https://github.com/immich-app/immich/releases/tag/${{ steps.tag_to_use.outputs.tag }}).
 
-            **Breaking Changes?:** ${{ steps.oasdiff_breaking.outcome == 'failure' }}
+            **Has Breaking Changes?** ${{ steps.oasdiff_breaking.outcome == 'failure' }}
 
             <details>
             <summary>Changelog</summary>

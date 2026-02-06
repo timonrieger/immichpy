@@ -2,7 +2,6 @@
 python = "3.14.2"
 uv = "0.9.28"
 
-# https://mise.jdx.dev/mise-cookbook/python.html#mise-uv
 [env]
 _.python.venv = { path = ".venv" }
 
