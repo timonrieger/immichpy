@@ -511,7 +511,7 @@ $ immichpy albums get-all-albums [OPTIONS]
 **Options**:
 
 * `--asset-id TEXT`: Filter albums containing this asset ID (ignores shared parameter)
-* `--shared [true|false]`: Filter by shared status: true = only shared, false = only own, undefined = all
+* `--shared [true|false]`: Filter by shared status: true = only shared, false = not shared, undefined = all owned albums
 * `--help`: Show this message and exit.
 
 ### `immichpy albums remove-asset-from-album`
@@ -1132,7 +1132,7 @@ $ immichpy assets update-assets [OPTIONS]
 * `--date-time-original TEXT`: Original date and time
 * `--date-time-relative FLOAT`: Relative time offset in seconds
 * `--description TEXT`: Asset description
-* `--duplicate-id TEXT`: Duplicate asset ID
+* `--duplicate-id TEXT`: Duplicate ID
 * `--ids TEXT`: Asset IDs to update  [required]
 * `--is-favorite [true|false]`: Mark as favorite
 * `--latitude FLOAT`: Latitude coordinate
@@ -5806,6 +5806,9 @@ $ immichpy users-admin create-user-admin [OPTIONS]
 * `--name TEXT`: User name  [required]
 * `--notify [true|false]`: Send notification email
 * `--password TEXT`: User password  [required]
+* `--pin-code TEXT`: PIN code
+
+Example: 123456
 * `--quota-size-in-bytes INTEGER RANGE`: Storage quota in bytes  [x&gt;=0]
 * `--should-change-password [true|false]`: Require password change on next login
 * `--storage-label TEXT`: Storage label
