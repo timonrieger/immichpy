@@ -31,6 +31,13 @@ def create_user_admin(
         None, "--notify", help="""Send notification email"""
     ),
     password: str = typer.Option(..., "--password", help="""User password"""),
+    pin_code: str | None = typer.Option(
+        None,
+        "--pin-code",
+        help="""PIN code
+
+Example: 123456""",
+    ),
     quota_size_in_bytes: int | None = typer.Option(
         None, "--quota-size-in-bytes", help="""Storage quota in bytes""", min=0
     ),
@@ -58,6 +65,8 @@ def create_user_admin(
     if notify is not None:
         set_nested(json_data, ["notify"], notify.lower() == "true")
     set_nested(json_data, ["password"], password)
+    if pin_code is not None:
+        set_nested(json_data, ["pin_code"], pin_code)
     if quota_size_in_bytes is not None:
         set_nested(json_data, ["quota_size_in_bytes"], quota_size_in_bytes)
     if should_change_password is not None:

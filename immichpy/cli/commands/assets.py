@@ -612,7 +612,7 @@ def update_assets(
         None, "--description", help="""Asset description"""
     ),
     duplicate_id: str | None = typer.Option(
-        None, "--duplicate-id", help="""Duplicate asset ID"""
+        None, "--duplicate-id", help="""Duplicate ID"""
     ),
     ids: list[str] = typer.Option(..., "--ids", help="""Asset IDs to update"""),
     is_favorite: Literal["true", "false"] | None = typer.Option(

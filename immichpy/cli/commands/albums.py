@@ -206,7 +206,7 @@ def get_all_albums(
     shared: Literal["true", "false"] | None = typer.Option(
         None,
         "--shared",
-        help="""Filter by shared status: true = only shared, false = only own, undefined = all""",
+        help="""Filter by shared status: true = only shared, false = not shared, undefined = all owned albums""",
     ),
 ) -> None:
     """List all albums
