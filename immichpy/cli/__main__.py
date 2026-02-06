@@ -3,7 +3,7 @@ try:  # pragma: no cover
 except ImportError:  # pragma: no cover
     import sys
 
-    message = 'To use the immichpy command, install the "cli" extra:\n\n\t- pip install immichpy[cli]\n\tOR\n\t- uv add immichpy --extra cli\n\tOR\n\t- uv tool install immichpy[cli]\n'
+    message = 'To use the immichpy command, install the "cli" extra. See https://immichpy.timonrieger.de/cli/getting-started/ for more information.'
     print(message, file=sys.stderr)
     sys.exit(1)
 

@@ -2,17 +2,26 @@
 
 ## Installation
 
-You need Python 3.10–3.14 installed to be able to use this CLI.
+You need Python 3.10–3.14 installed to be able to use the CLI.
+
+
+=== "curl"
+
+    ``` bash
+    curl -LsSf uvx.sh/immichpy/install.sh | sh -s -- --with immichpy[cli]
+    ```
+    !!! info
+        This installs uv under the hood. See [uvx.sh](https://uvx.sh) for more information.
 
 === "uv"
 
-    Project-based:
+    Within a project…:
 
     ``` bash
     uv add immichpy --extra cli
     ```
 
-    Global:
+    …or globally:
 
     ``` bash
     uv tool install immichpy[cli]
