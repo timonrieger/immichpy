@@ -168,6 +168,7 @@ jobs:
           token: ${{ secrets.SYNC_PAT }}
           commit-message: ${{ steps.commit_msg.outputs.commit_message }}
           committer: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>
+          assignees: timonrieger
           branch: ${{ steps.pr_branch.outputs.branch }}
           base: main
           title: Sync Immich ${{ steps.tag_to_use.outputs.tag }}
@@ -184,4 +185,3 @@ jobs:
             </details>
 
             @coderabbitai ignore
-          delete-branch: true
