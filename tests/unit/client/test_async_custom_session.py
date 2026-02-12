@@ -55,7 +55,7 @@ async def test_close_is_idempotent():
 
     # session detached from client
     assert client.base_client.rest_client.pool_manager is None
-    assert session.closed
+    assert session.closed  # type: ignore[possibly-missing-attribute]
 
     # Should not raise
     await client.close()
