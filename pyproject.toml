@@ -33,10 +33,10 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
-build = ["uv==0.9.28"]
+build = ["uv==0.10.2"]
 cli = [
     "rtoml>=0.13.0,<0.14.0",
-    "typer>=0.21.1,<0.22.0",
+    "typer>=0.23.0,<0.24.0",
 ]
 
 [project.scripts]
@@ -47,7 +47,7 @@ Repository = "https://github.com/timonrieger/immichpy"
 Changelog = "https://github.com/timonrieger/immichpy/releases"
 
 [build-system]
-requires = ["uv_build==0.9.28"]
+requires = ["uv_build==0.10.2"]
 build-backend = "uv_build"
 
 [dependency-groups]
@@ -56,14 +56,14 @@ dev = [
     "pytest>=9.0.0,<10.0.0",
     "pytest-asyncio>=1.2.0,<2.0.0",
     "pytest-cov>=7.0.0,<8.0.0",
-    "ty>=0.0.14,<0.0.15",
+    "ty>=0.0.17,<0.0.18",
 ]
 docs = [
     "griffe-pydantic>=1.2.0,<2.0.0",
     "mkdocstrings[python]>=1.0.1,<2.0.0",
     "pymdown-extensions>=10.20,<11.0",
     "termynal>=0.13.1,<0.14.0",
-    "typer>=0.21.1,<0.22.0",
+    "typer>=0.23.0,<0.24.0",
     "zensical>=0.0.23,<0.0.24",
 ]
 
