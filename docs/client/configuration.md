@@ -48,38 +48,21 @@ This section covers additional configuration of the client. For most usecases, t
     >>> await custom_session.close()
     ```
 
-## Advanced usage
+## Custom configuration
 
-!!! warning "Only if you know what you're doing"
-    Bypassing the high-level client is for **custom behaviour** (e.g. retries, SSL, proxy, server variables) that the high-level client does not expose. Use the advanced path only when you need full control over the generated client configuration.
-
-!!! info "No support from maintainers"
-    The high-level client is the recommended way to use the API. We will not provide support for custom configurations. For reference, you can inspect the implementation of the high-level client yourself.
-
-
-Build your own [Configuration](../client/reference/configuration.md), create an [ApiClient](../client/reference/api_client.md), then instantiate only the API classes you need. You must call `api_client.close()` when done. To use a custom aiohttp session (connector, proxy, timeouts), set `api_client.rest_client.pool_manager` before making requests.
+For custom behaviour (retries, SSL, proxy, etc.) pass a [Configuration](../client/reference/configuration.md) so it is the single source of truth. You get the same high-level client and lifecycle; `base_url`, `api_key`, and `access_token` are ignored when `configuration` is provided.
 
 ```python
+from immichpy import AsyncClient
 from immichpy.client.generated.configuration import Configuration
-from immichpy.client.generated.api_client import ApiClient
-from immichpy.client.generated.api.server_api import ServerApi
-from immichpy.client.wrapper.users_api_wrapped import UsersApiWrapped
 
 config = Configuration(
     host="https://immich.example.com/api",
     retries=0,
-    ssl_ca_cert=None,
     verify_ssl=True,
 )
 config.api_key["api_key"] = "your-api-key"
 
-api_client = ApiClient(configuration=config)
-api_client.user_agent = "immichpy"
-server_api = ServerApi(api_client)
-users_api = UsersApiWrapped(api_client)
-
-async def main():
-    info = await server_api.ping_server()
-    me = await users_api.get_my_user()
-    await api_client.close()
+client = AsyncClient(configuration=config)
+# same client: client.server, client.users, async with client, client.close(), etc.
 ```
