@@ -295,22 +295,31 @@ class AsyncClient:
         *,
         api_key: Optional[str] = None,
         access_token: Optional[str] = None,
-        base_url: str,
+        base_url: Optional[str] = None,
         http_client: Optional[ClientSession] = None,
+        configuration: Optional[Configuration] = None,
     ) -> None:
         """
-        :param api_key: The API key to use for authentication.
-        :param access_token: The access token to use for authentication.
-        :param base_url: The base URL of the Immich API.
+        :param api_key: The API key to use for authentication. Ignored if ``configuration`` is provided.
+        :param access_token: The access token to use for authentication. Ignored if ``configuration`` is provided.
+        :param base_url: The base URL of the Immich API. Required when ``configuration`` is not provided, ignored if ``configuration`` is provided.
         :param http_client: Inject your own connection session if you want to control networking.
+        :param configuration: When provided, used as the single source of truth for host, auth, retries, SSL, proxy, etc. ``base_url``, ``api_key``, and ``access_token`` are ignored.
         """
         self._owns_http_client = http_client is None
         self._injected_http_client = http_client
-        self._config = _build_configuration(
-            api_key=api_key,
-            access_token=access_token,
-            base_url=base_url,
-        )
+        if configuration is not None:
+            self._config = configuration
+        else:
+            if base_url is None:
+                raise TypeError(
+                    "base_url is required when configuration is not provided"
+                )
+            self._config = _build_configuration(
+                api_key=api_key,
+                access_token=access_token,
+                base_url=base_url,
+            )
         self.base_client = ApiClient(configuration=self._config)
         self.base_client.user_agent = "immichpy"
 
@@ -361,7 +370,7 @@ class AsyncClient:
     @warnings.deprecated(
         "Use `self._config` instead. This property will be removed in the next major release."
     )
-    def config(self) -> Configuration:
+    def config(self) -> Configuration:  # pragma: no cover
         return self._config
 
     async def close(self) -> None:
