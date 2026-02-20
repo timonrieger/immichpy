@@ -58,7 +58,7 @@ async def client_with_api_key(client_with_access_token: AsyncClient):
 
     # Create authenticated client with API key
     client = AsyncClient(
-        base_url=client_with_access_token.config.host, api_key=api_key_response.secret
+        base_url=client_with_access_token._config.host, api_key=api_key_response.secret
     )
 
     try:

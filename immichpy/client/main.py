@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from typing import Optional
+import warnings
 
 from aiohttp import ClientSession
 
@@ -305,12 +306,12 @@ class AsyncClient:
         """
         self._owns_http_client = http_client is None
         self._injected_http_client = http_client
-        self.config = _build_configuration(
+        self._config = _build_configuration(
             api_key=api_key,
             access_token=access_token,
             base_url=base_url,
         )
-        self.base_client = ApiClient(configuration=self.config)
+        self.base_client = ApiClient(configuration=self._config)
         self.base_client.user_agent = "immichpy"
 
         # Allow caller to inject a pre-configured aiohttp session.
@@ -355,6 +356,13 @@ class AsyncClient:
         self.users_admin = UsersAdminApi(self.base_client)
         self.views = ViewsApi(self.base_client)
         self.workflows = WorkflowsApi(self.base_client)
+
+    @property
+    @warnings.deprecated(
+        "Use `self._config` instead. This property will be removed in the next major release."
+    )
+    def config(self) -> Configuration:
+        return self._config
 
     async def close(self) -> None:
         """Close the client and release resources."""
