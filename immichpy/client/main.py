@@ -357,10 +357,12 @@ class AsyncClient:
         self.workflows = WorkflowsApi(self.base_client)
 
     @property
-    @warnings.deprecated(
-        "Use `self._config` instead. This property will be removed in the next major release."
-    )
     def config(self) -> Configuration:
+        warnings.warn(
+            "Use `self._config` instead. This property will be removed in the next major release.",
+            DeprecationWarning,
+            stacklevel=2,
+        )
         return self._config
 
     async def close(self) -> None:
