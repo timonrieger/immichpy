@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-from typing import Optional
 import warnings
 
 from aiohttp import ClientSession
@@ -57,8 +56,8 @@ def _normalize_base_url(base_url: str) -> str:
 
 def _build_configuration(
     *,
-    api_key: Optional[str],
-    access_token: Optional[str],
+    api_key: str | None,
+    access_token: str | None,
     base_url: str,
 ) -> Configuration:
     config = Configuration(host=_normalize_base_url(base_url))
@@ -293,10 +292,10 @@ class AsyncClient:
     def __init__(
         self,
         *,
-        api_key: Optional[str] = None,
-        access_token: Optional[str] = None,
+        api_key: str | None = None,
+        access_token: str | None = None,
         base_url: str,
-        http_client: Optional[ClientSession] = None,
+        http_client: ClientSession | None = None,
     ) -> None:
         """
         :param api_key: The API key to use for authentication.

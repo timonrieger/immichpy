@@ -1,5 +1,5 @@
 from pathlib import Path
-from typing import AsyncGenerator, Awaitable, Callable, Generator, Optional
+from typing import AsyncGenerator, Awaitable, Callable, Generator
 
 import pytest
 from uuid import uuid4
@@ -27,7 +27,7 @@ def mock_config_path(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> Path:
 @pytest.fixture
 def test_image_factory(
     tmp_path: Path,
-) -> Generator[Callable[[Optional[str]], Path], None, None]:
+) -> Generator[Callable[[str | None], Path], None, None]:
     """Factory fixture: yields a callable to create test images.
 
     Example:
@@ -35,7 +35,7 @@ def test_image_factory(
         img_path2 = test_image_factory(filename="custom.jpg")
     """
 
-    def _create_image(filename: Optional[str] = None) -> Path:
+    def _create_image(filename: str | None = None) -> Path:
         if filename is None:
             filename = f"{uuid4()}.jpg"
         img_path = tmp_path / filename
@@ -56,7 +56,7 @@ def test_image(
 @pytest.fixture
 def test_video_factory(
     tmp_path: Path,
-) -> Generator[Callable[[Optional[str]], Path], None, None]:
+) -> Generator[Callable[[str | None], Path], None, None]:
     """Factory fixture: yields a callable to create test videos.
 
     Example:
@@ -64,7 +64,7 @@ def test_video_factory(
         video_path2 = test_video_factory(filename="custom.mp4")
     """
 
-    def _create_video(filename: Optional[str] = None) -> Path:
+    def _create_video(filename: str | None = None) -> Path:
         if filename is None:
             filename = f"{uuid4()}.mp4"
         video_path = tmp_path / filename

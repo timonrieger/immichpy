@@ -5,7 +5,6 @@ from __future__ import annotations
 import sys
 import typer
 import click
-from typing import Optional
 from importlib.metadata import version
 
 from rich.console import Console
@@ -166,19 +165,19 @@ def callback(
         help="Output format of the CLI.",
         envvar=IMMICH_FORMAT,
     ),
-    api_key: Optional[str] = typer.Option(
+    api_key: str | None = typer.Option(
         None,
         "--api-key",
         help=f"Authorize via API key (get one [link={API_KEY_URL}]here[/link]).",
         envvar=IMMICH_API_KEY,
     ),
-    access_token: Optional[str] = typer.Option(
+    access_token: str | None = typer.Option(
         None,
         "--access-token",
         help="Authorize via access token.",
         envvar=IMMICH_ACCESS_TOKEN,
     ),
-    base_url: Optional[str] = typer.Option(
+    base_url: str | None = typer.Option(
         None,
         "--base-url",
         help="The server to connect to.",

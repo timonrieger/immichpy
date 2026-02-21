@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from pathlib import Path
-from typing import Any, Optional
+from typing import Any
 from uuid import UUID
 
 from immichpy.client.generated.api.users_api import UsersApi
@@ -16,7 +16,7 @@ class UsersApiWrapped(UsersApi):
         self,
         id: UUID,
         out_dir: Path,
-        filename: Optional[str] = None,
+        filename: str | None = None,
         show_progress: bool = False,
         **kwargs: Any,
     ) -> Path:
@@ -35,7 +35,7 @@ class UsersApiWrapped(UsersApi):
         """
         out_dir.mkdir(parents=True, exist_ok=True)
 
-        def make_request(extra_headers: Optional[HeadersType]):
+        def make_request(extra_headers: HeadersType | None):
             return self.get_profile_image_without_preload_content(
                 id=id,
                 _headers=kwargs.get("_headers", {}) | (extra_headers or {}),

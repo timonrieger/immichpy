@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from pathlib import Path
-from typing import Any, Optional
+from typing import Any
 from uuid import UUID
 
 from pydantic import StrictStr
@@ -28,9 +28,9 @@ class AssetsApiWrapped(AssetsApi):
         self,
         id: UUID,
         out_dir: Path,
-        key: Optional[StrictStr] = None,
-        slug: Optional[StrictStr] = None,
-        filename: Optional[str] = None,
+        key: StrictStr | None = None,
+        slug: StrictStr | None = None,
+        filename: str | None = None,
         show_progress: bool = False,
         **kwargs: Any,
     ) -> Path:
@@ -51,7 +51,7 @@ class AssetsApiWrapped(AssetsApi):
         """
         out_dir.mkdir(parents=True, exist_ok=True)
 
-        def make_request(extra_headers: Optional[HeadersType]):
+        def make_request(extra_headers: HeadersType | None):
             return self.download_asset_without_preload_content(
                 id=id,
                 key=key,
@@ -75,9 +75,9 @@ class AssetsApiWrapped(AssetsApi):
         self,
         id: UUID,
         out_dir: Path,
-        key: Optional[StrictStr] = None,
-        slug: Optional[StrictStr] = None,
-        filename: Optional[str] = None,
+        key: StrictStr | None = None,
+        slug: StrictStr | None = None,
+        filename: str | None = None,
         show_progress: bool = False,
         **kwargs: Any,
     ) -> Path:
@@ -95,7 +95,7 @@ class AssetsApiWrapped(AssetsApi):
         """
         out_dir.mkdir(parents=True, exist_ok=True)
 
-        def make_request(extra_headers: Optional[HeadersType]):
+        def make_request(extra_headers: HeadersType | None):
             return self.play_asset_video_without_preload_content(
                 id=id,
                 key=key,
@@ -119,10 +119,10 @@ class AssetsApiWrapped(AssetsApi):
         self,
         id: UUID,
         out_dir: Path,
-        key: Optional[StrictStr] = None,
-        size: Optional[AssetMediaSize] = None,
-        slug: Optional[StrictStr] = None,
-        filename: Optional[str] = None,
+        key: StrictStr | None = None,
+        size: AssetMediaSize | None = None,
+        slug: StrictStr | None = None,
+        filename: str | None = None,
         show_progress: bool = False,
         **kwargs: Any,
     ) -> Path:
@@ -141,7 +141,7 @@ class AssetsApiWrapped(AssetsApi):
         """
         out_dir.mkdir(parents=True, exist_ok=True)
 
-        def make_request(extra_headers: Optional[HeadersType]):
+        def make_request(extra_headers: HeadersType | None):
             return self.view_asset_without_preload_content(
                 id=id,
                 key=key,
@@ -166,12 +166,12 @@ class AssetsApiWrapped(AssetsApi):
         self,
         paths: Path | list[Path] | str | list[str],
         *,
-        ignore_pattern: Optional[str] = None,
+        ignore_pattern: str | None = None,
         include_hidden: bool = False,
         skip_duplicates: bool = False,
         concurrency: int = 5,
         show_progress: bool = False,
-        album_name: Optional[str] = None,
+        album_name: str | None = None,
         delete_uploads: bool = False,
         delete_duplicates: bool = False,
         dry_run: bool = False,

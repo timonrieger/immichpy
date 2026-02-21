@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from uuid import UUID, uuid4
 from pathlib import Path
-from typing import Any, Optional
+from typing import Any
 
 from rich.progress import (
     Progress,
@@ -29,8 +29,8 @@ class DownloadApiWrapped(DownloadApi):
         self,
         download_info: DownloadInfoDto,
         out_dir: Path,
-        key: Optional[StrictStr] = None,
-        slug: Optional[StrictStr] = None,
+        key: StrictStr | None = None,
+        slug: StrictStr | None = None,
         show_progress: bool = False,
         **kwargs: Any,
     ) -> list[Path]:
@@ -90,7 +90,7 @@ class DownloadApiWrapped(DownloadApi):
             for asset_ids_dto, expected_size in archive_requests:
                 filename = f"archive-{uuid4()}.zip"
 
-                def make_request(extra_headers: Optional[HeadersType]):
+                def make_request(extra_headers: HeadersType | None):
                     return self.download_archive_without_preload_content(
                         asset_ids_dto=asset_ids_dto,
                         key=key,

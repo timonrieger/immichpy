@@ -1,6 +1,5 @@
 import os
 import typer
-from typing import Optional
 from immichpy.cli.consts import (
     CONFIG_FILE,
     DEFAULT_PROFILE,
@@ -27,7 +26,7 @@ def setup(
         help="The base URL of the Immich server, including the API path.",
         prompt="Enter your server URL",
     ),
-    api_key: Optional[str] = typer.Option(
+    api_key: str | None = typer.Option(
         "",
         "--api-key",
         help="An API key to use with the profile ([green]recommended[/green])",
@@ -35,7 +34,7 @@ def setup(
         hide_input=True,
         show_default=False,
     ),
-    access_token: Optional[str] = typer.Option(
+    access_token: str | None = typer.Option(
         "",
         "--access-token",
         help="An access token to use with the profile ([red]not recommended[/red])",

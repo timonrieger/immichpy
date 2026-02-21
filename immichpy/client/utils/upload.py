@@ -10,7 +10,7 @@ import sys
 from statx import statx
 from datetime import datetime, timezone
 from pathlib import Path
-from typing import Optional, cast
+from typing import cast
 from uuid import UUID
 import uuid
 
@@ -67,7 +67,7 @@ def get_device_asset_id(filepath: Path, stats: os.stat_result) -> str:
 async def scan_files(
     paths: list[Path],
     server_api: ServerApi,
-    ignore_pattern: Optional[str] = None,
+    ignore_pattern: str | None = None,
     include_hidden: bool = False,
 ) -> list[Path]:
     """Scan paths for supported media files.
@@ -184,7 +184,7 @@ async def check_duplicates(
                         RejectedEntry(
                             filepath=filepath,
                             asset_id=result.asset_id,
-                            reason=cast(Optional[RejectionReason], result.reason),
+                            reason=cast(RejectionReason | None, result.reason),
                         )
                     )
                 else:
@@ -197,7 +197,7 @@ async def check_duplicates(
     return new_files, rejected
 
 
-def find_sidecar(filepath: Path) -> Optional[Path]:
+def find_sidecar(filepath: Path) -> Path | None:
     """Find sidecar file for a given media file path.
 
     Checks both naming conventions:
@@ -273,7 +273,7 @@ async def upload_file(
 
     stats = filepath.stat()
 
-    sidecar_data: Optional[str] = None
+    sidecar_data: str | None = None
     sidecar_path = find_sidecar(filepath)
     if sidecar_path:
         sidecar_data = str(sidecar_path)
@@ -379,7 +379,7 @@ async def upload_files(
 
 async def update_albums(
     uploaded: list[UploadedEntry],
-    album_name: Optional[str],
+    album_name: str | None,
     albums_api: AlbumsApi,
 ) -> None:
     """Add uploaded assets to an album, creating the album if needed.

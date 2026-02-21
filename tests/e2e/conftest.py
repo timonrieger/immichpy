@@ -1,6 +1,6 @@
 import os
 from pathlib import Path
-from typing import AsyncGenerator, Awaitable, Callable, Optional
+from typing import AsyncGenerator, Awaitable, Callable
 from uuid import UUID, uuid4
 
 import pytest
@@ -234,7 +234,7 @@ async def album_factory(
     Creates an album, returns parsed album object.
     Skips dependent tests if album creation fails.
     """
-    _album_id: Optional[UUID] = None
+    _album_id: UUID | None = None
 
     async def _create_album(*args, **kwargs) -> AlbumResponseDto:
         nonlocal _album_id

@@ -1,11 +1,11 @@
 from pathlib import Path
-from typing import Literal, Optional, Union
+from typing import Literal
 from multidict import CIMultiDictProxy
 from pydantic import BaseModel, Field
 
 from immichpy.client.generated import AssetMediaResponseDto
 
-HeadersType = Union[dict[str, str], CIMultiDictProxy[str]]
+HeadersType = dict[str, str] | CIMultiDictProxy[str]
 RejectionReason = Literal["duplicate", "unsupported_format"]
 
 
@@ -22,10 +22,10 @@ class RejectedEntry(BaseModel):
     filepath: Path = Field(
         ..., description="The path to the local file that was rejected."
     )
-    asset_id: Optional[str] = Field(
+    asset_id: str | None = Field(
         None, description="The ID of the asset. Set if reason is 'duplicate'."
     )
-    reason: Optional[RejectionReason] = Field(
+    reason: RejectionReason | None = Field(
         None, description="The reason for the rejection."
     )
 

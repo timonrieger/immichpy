@@ -14,7 +14,7 @@ import os
 import shutil
 import urllib3  # pyright: ignore[reportMissingImports]
 from pathlib import Path
-from typing import Annotated, Any, Literal, Optional, Union
+from typing import Annotated, Any, Literal
 import inflection  # pyright: ignore[reportMissingImports]
 from pydantic import AfterValidator, BaseModel
 
@@ -31,7 +31,7 @@ class RequestParam(BaseModel):
     """The schema of the parameter."""
     location: Literal["body", "query", "header", "path"]
     """The location of the parameter."""
-    type: Union[
+    type: (
         Literal[
             "str",
             "int",
@@ -41,9 +41,9 @@ class RequestParam(BaseModel):
             "Path",
             "bool",
             "datetime",
-        ],
-        str,
-    ]
+        ]
+        | str
+    )
     """The type of the parameter."""
     required: bool
     """Whether the parameter is required."""
@@ -53,7 +53,7 @@ class RequestParam(BaseModel):
     """The description of the parameter."""
     operation_id: str
     """The operation ID."""
-    model_name: Optional[str] = None
+    model_name: str | None = None
     """The name of the model."""
 
     @property
@@ -263,7 +263,7 @@ def flatten_schema(
 
 def _get_media_type(
     operation: dict[str, Any],
-) -> Optional[Literal["application/json", "multipart/form-data"]]:
+) -> Literal["application/json", "multipart/form-data"] | None:
     if "requestBody" not in operation:
         return None
     request_body = operation["requestBody"]

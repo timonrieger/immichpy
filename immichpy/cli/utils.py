@@ -1,4 +1,4 @@
-from typing import Any, Optional, cast, overload
+from typing import Any, cast, overload
 import json
 
 from rich import print as print_rich, print_json
@@ -125,10 +125,10 @@ def mask(secret: str, start: int = 3, end: int = 3) -> str: ...
 
 
 @overload
-def mask(obj: Any, start: int = 3, end: int = 3, key: Optional[str] = None) -> Any: ...
+def mask(obj: Any, start: int = 3, end: int = 3, key: str | None = None) -> Any: ...
 
 
-def mask(obj: Any, start: int = 3, end: int = 3, key: Optional[str] = None) -> Any:
+def mask(obj: Any, start: int = 3, end: int = 3, key: str | None = None) -> Any:
     """
     Recursively mask secret values in nested dictionaries and lists.
 
@@ -186,7 +186,7 @@ def print_(
     message: str,
     *,
     type: PrintType,
-    ctx: Optional[typer.Context] = None,
+    ctx: typer.Context | None = None,
 ) -> None:
     """
     Print a message in the given format as a rich print or a plain print.

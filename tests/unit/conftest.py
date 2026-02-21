@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from pathlib import Path
-from typing import Callable, Generator, Optional
+from typing import Callable, Generator
 import uuid
 
 import pytest
@@ -16,7 +16,7 @@ from immichpy.client.types import UploadedEntry
 @pytest.fixture
 def uploaded_entry_factory(
     tmp_path: Path,
-) -> Generator[Callable[[Optional[str], bool], UploadedEntry], None, None]:
+) -> Generator[Callable[[str | None, bool], UploadedEntry], None, None]:
     """Factory fixture: yields a callable to create uploaded entries with optional sidecar.
 
     Example:
@@ -25,7 +25,7 @@ def uploaded_entry_factory(
     """
 
     def _create_uploaded_entry(
-        filename: Optional[str] = None, sidecar: bool = False
+        filename: str | None = None, sidecar: bool = False
     ) -> UploadedEntry:
         if filename is None:
             filename = f"test{uuid.uuid4()}.jpg"

@@ -3,7 +3,7 @@ from __future__ import annotations
 from email.message import Message
 from mimetypes import guess_extension
 from pathlib import Path
-from typing import Awaitable, Callable, Optional
+from typing import Awaitable, Callable
 
 import logging
 from rich.progress import (
@@ -24,7 +24,7 @@ from immichpy.client.types import HeadersType
 logger = logging.getLogger(__name__)
 
 
-def h(name: str, headers: HeadersType) -> Optional[str]:
+def h(name: str, headers: HeadersType) -> str | None:
     """
     Get a header value from a dictionary of headers case-insensitive.
     """
@@ -33,7 +33,7 @@ def h(name: str, headers: HeadersType) -> Optional[str]:
 
 def filename_from_headers(
     headers: HeadersType | None, *, fallback_base: str
-) -> Optional[str]:
+) -> str | None:
     """
     Derive a filename from response headers.
 
@@ -50,7 +50,7 @@ def filename_from_headers(
     if not headers:
         return None
 
-    cd_name: Optional[str] = None
+    cd_name: str | None = None
     if cd := h("content-disposition", headers):
         msg = Message()
         msg["content-disposition"] = cd
@@ -73,9 +73,9 @@ def filename_from_headers(
 def resolve_output_filename(
     headers: HeadersType | None,
     *,
-    name: Optional[str] = None,
+    name: str | None = None,
     default_base: str,
-    default_ext: Optional[str] = None,
+    default_ext: str | None = None,
 ) -> str:
     """
     Resolve an output filename by selecting a base name and an extension.
@@ -123,13 +123,13 @@ def resolve_output_filename(
 
 
 async def download_file(
-    make_request: Callable[[Optional[HeadersType]], Awaitable[RESTResponseType]],
+    make_request: Callable[[HeadersType | None], Awaitable[RESTResponseType]],
     out_dir: Path,
     resolve_filename: Callable[[HeadersType], str],
     *,
     show_progress: bool = False,
-    progress: Optional[Progress] = None,
-    task_id: Optional[TaskID] = None,
+    progress: Progress | None = None,
+    task_id: TaskID | None = None,
     resumeable: bool = True,
 ) -> Path:
     """
