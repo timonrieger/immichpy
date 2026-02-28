@@ -1,7 +1,5 @@
 # Contributing
 
-This repository is **auto-generated** from the Immich OpenAPI specification.
-
 ## Pull requests
 
 Pull requests are welcome! However, **modifications to auto-generated code will be rejected**.

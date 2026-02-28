@@ -8,7 +8,7 @@ The exceptional self-hosted photo and video management solution that this client
 
 ## [Typer](https://typer.tiangolo.com/)
 
-The CLI framework powering the Immich CLI. Typer makes it easy to build command-line applications with automatic help, shell completion, and a great developer experience — all based on Python type hints.
+The CLI framework powering the `immichpy` CLI. Typer makes it easy to build command-line applications with automatic help, shell completion, and a great developer experience — all based on Python type hints.
 
 ## [OpenAPI Generator](https://openapi-generator.tech/)
 

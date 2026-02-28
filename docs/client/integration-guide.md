@@ -30,7 +30,6 @@ If you use a synchronous HTTP client (e.g. `requests`) to fetch server version, 
     ``` python
     import asyncio
     from typing import Awaitable, Callable, TypeVar
-    from aiohttp import ClientSession, ClientTimeout
     from immichpy import AsyncClient
 
     base_url = "http://localhost:2283/api"

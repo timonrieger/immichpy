@@ -25,13 +25,13 @@ Download an album archive to a directory with progress bar:
 <div class="termy">
 
 ```console
-> immichpy download download-archive-to-file out/ \
+$ immichpy download download-archive-to-file out-dir/ \
  --album-id 851c8f67-9bf3-48f5-8130-59da9ab17c06 --show-progress
 
 ---> 100%
 
 [
-  "out/archive-d73aaebe-f8d2-486d-b0f0-a0a64c75320b.zip"
+  "out-dir/archive-d73aaebe-f8d2-486d-b0f0-a0a64c75320b.zip"
 ]
 ```
 

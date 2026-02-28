@@ -12,8 +12,6 @@ await client.server.get_about_info() # (1)!
 
 1. See [ServerApi.get_about_info](reference/api/server_api.md#immichpy.client.generated.api.server_api.ServerApi.get_about_info) for more details.
 
-The output would look like this:
-
 ```python
 ServerAboutResponseDto(
     build='20375083601',

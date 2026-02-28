@@ -76,13 +76,13 @@ Profile 'default' created successfully!
 </div>
 
 !!! note "Validation"
-    The server is validated when you run `immichpy setup`. The CLI will fail if the server is not reachable.
+    The server is validated when you run `immichpy setup`. The CLI will fail if the server is not reachable by default.
 
 See [`immichpy setup`](reference.md#immichpy-setup) for the full command reference.
 
 ## First commands
 
-That's it! You can now run interact with the Immich server using the CLI.
+That's it! You can now interact with the Immich server using the CLI.
 
 <div class="termy">
 
