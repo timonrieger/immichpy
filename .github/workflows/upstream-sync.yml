@@ -75,7 +75,7 @@ jobs:
         id: oasdiff_breaking
         if: steps.check_sync.outputs.sync_needed == 'true'
         continue-on-error: true
-        uses: oasdiff/oasdiff-action/breaking@aa4321c62c8ad5e43bd7b6df1a5f8bc5d270b98b
+        uses: oasdiff/oasdiff-action/breaking@ccb863950ce437a50f8f1a40d2a1112117e06ce4
         with:
           base: https://raw.githubusercontent.com/immich-app/immich/refs/tags/${{ steps.stored_tag.outputs.stored_tag }}/open-api/immich-openapi-specs.json
           revision: https://raw.githubusercontent.com/immich-app/immich/refs/tags/${{ steps.tag_to_use.outputs.tag }}/open-api/immich-openapi-specs.json
@@ -84,7 +84,7 @@ jobs:
       - name: Generate API changelog
         id: oasdiff_changelog
         if: steps.check_sync.outputs.sync_needed == 'true'
-        uses: oasdiff/oasdiff-action/changelog@aa4321c62c8ad5e43bd7b6df1a5f8bc5d270b98b
+        uses: oasdiff/oasdiff-action/changelog@ccb863950ce437a50f8f1a40d2a1112117e06ce4
         with:
           base: https://raw.githubusercontent.com/immich-app/immich/refs/tags/${{ steps.stored_tag.outputs.stored_tag }}/open-api/immich-openapi-specs.json
           revision: https://raw.githubusercontent.com/immich-app/immich/refs/tags/${{ steps.tag_to_use.outputs.tag }}/open-api/immich-openapi-specs.json
