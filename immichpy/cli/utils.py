@@ -15,6 +15,11 @@ def set_path(data: dict[str, Any], path: str, value: Any) -> None:
     Set a nested dictionary value using a path list.
 
     Example: set_path({}, 'user.name', 'John') -> {'user': {'name': 'John'}}
+
+    :param data: The data to set the value in
+    :param path: The path to the value
+    :param value: The value to set
+    :return: None
     """
     parts = path.split(".")
     cur = data
@@ -26,6 +31,12 @@ def set_path(data: dict[str, Any], path: str, value: Any) -> None:
 def get_path(data: dict[str, Any], path: str) -> Any:
     """
     Get a nested dictionary value using a path list.
+
+    Example: get_path({'user': {'name': 'John'}}, 'user.name') -> 'John'
+
+    :param data: The data to get the value from
+    :param path: The path to the value
+    :return: The value
     """
     parts = path.split(".")
     cur = data
@@ -46,6 +57,9 @@ def load_config() -> dict[str, Any]:
 def write_config(data: dict[str, Any]) -> None:
     """
     Write the config data to the config file and set permissions.
+
+    :param data: The data to write to the config file
+    :return: None
     """
     CONFIG_FILE.parent.mkdir(parents=True, exist_ok=True)
     with CONFIG_FILE.open("w") as f:
@@ -97,7 +111,11 @@ def resolve_client_config(
 
 
 def _is_secret_key(key: str) -> bool:
-    """Check if a key indicates a secret value."""
+    """Check if a key indicates a secret value.
+
+    :param key: The key to check
+    :return: True if the key indicates a secret value, False otherwise
+    """
     return any(secret in key.lower() for secret in SECRET_KEYS)
 
 
