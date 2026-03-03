@@ -145,6 +145,11 @@ app.add_typer(
 
 
 def version_callback(value: bool) -> None:  # pragma: no cover
+    """Show the version and exit.
+
+    :param value: Whether to show the version
+    :return: None
+    """
     if value:
         print_(f"immichpy CLI {version('immichpy')}", type="text")
         raise typer.Exit(0)
