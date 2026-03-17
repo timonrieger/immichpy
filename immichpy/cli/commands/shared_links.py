@@ -137,7 +137,11 @@ def get_my_shared_link(
     ctx: typer.Context,
     key: str | None = typer.Option(None, "--key", help=""""""),
     password: str | None = typer.Option(
-        None, "--password", help="""Link passwordpassword"""
+        None,
+        "--password",
+        help="""Link password
+
+Example: password""",
     ),
     slug: str | None = typer.Option(None, "--slug", help=""""""),
     token: str | None = typer.Option(None, "--token", help="""Access token"""),

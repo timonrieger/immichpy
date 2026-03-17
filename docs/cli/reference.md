@@ -4379,7 +4379,9 @@ $ immichpy shared-links get-my-shared-link [OPTIONS]
 **Options**:
 
 * `--key TEXT`
-* `--password TEXT`: Link passwordpassword
+* `--password TEXT`: Link password
+
+Example: password
 * `--slug TEXT`
 * `--token TEXT`: Access token
 * `--help`: Show this message and exit.
@@ -5313,7 +5315,9 @@ $ immichpy timeline get-time-bucket [OPTIONS]
 * `--person-id TEXT`: Filter assets containing a specific person (face recognition)
 * `--slug TEXT`
 * `--tag-id TEXT`: Filter assets with a specific tag
-* `--time-bucket TEXT`: Time bucket identifier in YYYY-MM-DD format (e.g., &quot;2024-01-01&quot; for January 2024)2024-01-01  [required]
+* `--time-bucket TEXT`: Time bucket identifier in YYYY-MM-DD format (e.g., &quot;2024-01-01&quot; for January 2024)
+
+Example: 2024-01-01  [required]
 * `--user-id TEXT`: Filter assets by specific user ID
 * `--visibility [archive|timeline|hidden|locked]`: Filter by asset visibility status (ARCHIVE, TIMELINE, HIDDEN, LOCKED)
 * `--with-coordinates [true|false]`: Include location data in the response

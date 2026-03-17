@@ -50,7 +50,9 @@ def get_time_bucket(
     time_bucket: str = typer.Option(
         ...,
         "--time-bucket",
-        help="""Time bucket identifier in YYYY-MM-DD format (e.g., "2024-01-01" for January 2024)2024-01-01""",
+        help="""Time bucket identifier in YYYY-MM-DD format (e.g., "2024-01-01" for January 2024)
+
+Example: 2024-01-01""",
     ),
     user_id: str | None = typer.Option(
         None, "--user-id", help="""Filter assets by specific user ID"""

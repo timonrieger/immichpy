@@ -338,6 +338,15 @@ def generate_command_function(
         param_in = param["in"]
         if param_in in ("path", "query", "header"):
             schema = param.get("schema", {"type": "string"})
+            description_parts = []
+            description = param.get("description")
+            if description is not None:
+                description_parts.append(description)
+
+            example = schema.get("example")
+            if example is not None:
+                description_parts.append(f"Example: {example}")
+
             param_data.append(
                 RequestParam(
                     location=param_in,
@@ -345,8 +354,7 @@ def generate_command_function(
                     type=python_type_from_schema(schema, spec),
                     required=param.get("required", False),
                     name=to_python_ident(param["name"]),
-                    description=param.get("description", "")
-                    + schema.get("example", ""),
+                    description="\n\n".join(description_parts),
                     operation_id=operation_id,
                 )
             )
