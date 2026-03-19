@@ -1088,7 +1088,7 @@ $ immichpy assets update-asset [OPTIONS] ID
 * `--latitude FLOAT`: Latitude coordinate
 * `--live-photo-video-id TEXT`: Live photo video ID
 * `--longitude FLOAT`: Longitude coordinate
-* `--rating FLOAT RANGE`: Rating  [-1&lt;=x&lt;=5]
+* `--rating FLOAT RANGE`: Rating in range [1-5], or null for unrated  [-1&lt;=x&lt;=5]
 * `--visibility TEXT`: Asset visibility
 * `--help`: Show this message and exit.
 
@@ -1137,7 +1137,7 @@ $ immichpy assets update-assets [OPTIONS]
 * `--is-favorite [true|false]`: Mark as favorite
 * `--latitude FLOAT`: Latitude coordinate
 * `--longitude FLOAT`: Longitude coordinate
-* `--rating FLOAT RANGE`: Rating  [-1&lt;=x&lt;=5]
+* `--rating FLOAT RANGE`: Rating in range [1-5], or null for unrated  [-1&lt;=x&lt;=5]
 * `--time-zone TEXT`: Time zone (IANA timezone)
 * `--visibility TEXT`: Asset visibility
 * `--help`: Show this message and exit.
@@ -1740,6 +1740,7 @@ $ immichpy download download-archive [OPTIONS]
 **Options**:
 
 * `--asset-ids TEXT`: Asset IDs  [required]
+* `--edited [true|false]`: Download edited asset if available
 * `--key TEXT`
 * `--slug TEXT`
 * `--help`: Show this message and exit.
@@ -2543,9 +2544,11 @@ $ immichpy memories create-memory [OPTIONS]
 
 * `--asset-ids TEXT`: Asset IDs to associate with memory
 * `--data-year FLOAT RANGE`: Year for on this day memory  [x&gt;=1; required]
+* `--hide-at [%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S]`: Date when memory should be hidden
 * `--is-saved [true|false]`: Is memory saved
 * `--memory-at [%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S]`: Memory date  [required]
 * `--seen-at [%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S]`: Date when memory was seen
+* `--show-at [%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S]`: Date when memory should be shown
 * `--type TEXT`: Memory type  [required]
 * `--help`: Show this message and exit.
 
@@ -3601,7 +3604,7 @@ $ immichpy search search-asset-statistics [OPTIONS]
 * `--model TEXT`: Filter by camera model
 * `--ocr TEXT`: Filter by OCR text content
 * `--person-ids TEXT`: Filter by person IDs
-* `--rating FLOAT RANGE`: Filter by rating  [-1&lt;=x&lt;=5]
+* `--rating FLOAT RANGE`: Filter by rating [1-5], or null for unrated  [-1&lt;=x&lt;=5]
 * `--state TEXT`: Filter by state/province name
 * `--tag-ids TEXT`: Filter by tag IDs
 * `--taken-after [%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S]`: Filter by taken date (after)
@@ -3655,7 +3658,7 @@ $ immichpy search search-assets [OPTIONS]
 * `--page FLOAT RANGE`: Page number  [x&gt;=1]
 * `--person-ids TEXT`: Filter by person IDs
 * `--preview-path TEXT`: Filter by preview file path
-* `--rating FLOAT RANGE`: Filter by rating  [-1&lt;=x&lt;=5]
+* `--rating FLOAT RANGE`: Filter by rating [1-5], or null for unrated  [-1&lt;=x&lt;=5]
 * `--size FLOAT RANGE`: Number of results to return  [1&lt;=x&lt;=1000]
 * `--state TEXT`: Filter by state/province name
 * `--tag-ids TEXT`: Filter by tag IDs
@@ -3706,7 +3709,7 @@ $ immichpy search search-large-assets [OPTIONS]
 * `--model TEXT`: Filter by camera model
 * `--ocr TEXT`: Filter by OCR text content
 * `--person-ids TEXT`: Filter by person IDs
-* `--rating FLOAT RANGE`: Filter by rating  [-1&lt;=x&lt;=5]
+* `--rating FLOAT RANGE`: Filter by rating [1-5], or null for unrated  [-1&lt;=x&lt;=5]
 * `--size FLOAT RANGE`: Number of results to return  [1&lt;=x&lt;=1000]
 * `--state TEXT`: Filter by state/province name
 * `--tag-ids TEXT`: Filter by tag IDs
@@ -3788,7 +3791,7 @@ $ immichpy search search-random [OPTIONS]
 * `--model TEXT`: Filter by camera model
 * `--ocr TEXT`: Filter by OCR text content
 * `--person-ids TEXT`: Filter by person IDs
-* `--rating FLOAT RANGE`: Filter by rating  [-1&lt;=x&lt;=5]
+* `--rating FLOAT RANGE`: Filter by rating [1-5], or null for unrated  [-1&lt;=x&lt;=5]
 * `--size FLOAT RANGE`: Number of results to return  [1&lt;=x&lt;=1000]
 * `--state TEXT`: Filter by state/province name
 * `--tag-ids TEXT`: Filter by tag IDs
@@ -3841,7 +3844,7 @@ $ immichpy search search-smart [OPTIONS]
 * `--person-ids TEXT`: Filter by person IDs
 * `--query TEXT`: Natural language search query
 * `--query-asset-id TEXT`: Asset ID to use as search reference
-* `--rating FLOAT RANGE`: Filter by rating  [-1&lt;=x&lt;=5]
+* `--rating FLOAT RANGE`: Filter by rating [1-5], or null for unrated  [-1&lt;=x&lt;=5]
 * `--size FLOAT RANGE`: Number of results to return  [1&lt;=x&lt;=1000]
 * `--state TEXT`: Filter by state/province name
 * `--tag-ids TEXT`: Filter by tag IDs
@@ -4295,6 +4298,7 @@ $ immichpy shared-links [OPTIONS] COMMAND [ARGS]...
 * `get-shared-link-by-id`: Retrieve a shared link
 * `remove-shared-link`: Delete a shared link
 * `remove-shared-link-assets`: Remove assets from a shared link
+* `shared-link-login`: Shared link login
 * `update-shared-link`: Update a shared link
 
 ### `immichpy shared-links add-shared-link-assets`
@@ -4445,7 +4449,26 @@ $ immichpy shared-links remove-shared-link-assets [OPTIONS] ID
 **Options**:
 
 * `--asset-ids TEXT`: Asset IDs  [required]
+* `--help`: Show this message and exit.
+
+### `immichpy shared-links shared-link-login`
+
+Shared link login
+
+<a href="https://api.immich.app/endpoints/shared-links/sharedLinkLogin">Immich API documentation</a>
+
+**Usage**:
+
+```console
+$ immichpy shared-links shared-link-login [OPTIONS]
+```
+
+**Options**:
+
 * `--key TEXT`
+* `--password TEXT`: Shared link password
+
+Example: password  [required]
 * `--slug TEXT`
 * `--help`: Show this message and exit.
 
@@ -4675,7 +4698,7 @@ $ immichpy sync delete-sync-ack [OPTIONS]
 
 **Options**:
 
-* `--types [AuthUserV1|UserV1|UserDeleteV1|AssetV1|AssetDeleteV1|AssetExifV1|AssetMetadataV1|AssetMetadataDeleteV1|PartnerV1|PartnerDeleteV1|PartnerAssetV1|PartnerAssetBackfillV1|PartnerAssetDeleteV1|PartnerAssetExifV1|PartnerAssetExifBackfillV1|PartnerStackBackfillV1|PartnerStackDeleteV1|PartnerStackV1|AlbumV1|AlbumDeleteV1|AlbumUserV1|AlbumUserBackfillV1|AlbumUserDeleteV1|AlbumAssetCreateV1|AlbumAssetUpdateV1|AlbumAssetBackfillV1|AlbumAssetExifCreateV1|AlbumAssetExifUpdateV1|AlbumAssetExifBackfillV1|AlbumToAssetV1|AlbumToAssetDeleteV1|AlbumToAssetBackfillV1|MemoryV1|MemoryDeleteV1|MemoryToAssetV1|MemoryToAssetDeleteV1|StackV1|StackDeleteV1|PersonV1|PersonDeleteV1|AssetFaceV1|AssetFaceDeleteV1|UserMetadataV1|UserMetadataDeleteV1|SyncAckV1|SyncResetV1|SyncCompleteV1]`: Sync entity types to delete acks for
+* `--types [AuthUserV1|UserV1|UserDeleteV1|AssetV1|AssetDeleteV1|AssetExifV1|AssetEditV1|AssetEditDeleteV1|AssetMetadataV1|AssetMetadataDeleteV1|PartnerV1|PartnerDeleteV1|PartnerAssetV1|PartnerAssetBackfillV1|PartnerAssetDeleteV1|PartnerAssetExifV1|PartnerAssetExifBackfillV1|PartnerStackBackfillV1|PartnerStackDeleteV1|PartnerStackV1|AlbumV1|AlbumDeleteV1|AlbumUserV1|AlbumUserBackfillV1|AlbumUserDeleteV1|AlbumAssetCreateV1|AlbumAssetUpdateV1|AlbumAssetBackfillV1|AlbumAssetExifCreateV1|AlbumAssetExifUpdateV1|AlbumAssetExifBackfillV1|AlbumToAssetV1|AlbumToAssetDeleteV1|AlbumToAssetBackfillV1|MemoryV1|MemoryDeleteV1|MemoryToAssetV1|MemoryToAssetDeleteV1|StackV1|StackDeleteV1|PersonV1|PersonDeleteV1|AssetFaceV1|AssetFaceV2|AssetFaceDeleteV1|UserMetadataV1|UserMetadataDeleteV1|SyncAckV1|SyncResetV1|SyncCompleteV1]`: Sync entity types to delete acks for
 * `--help`: Show this message and exit.
 
 ### `immichpy sync get-delta-sync`
@@ -4747,7 +4770,7 @@ $ immichpy sync get-sync-stream [OPTIONS]
 **Options**:
 
 * `--reset [true|false]`: Reset sync state
-* `--types [AlbumsV1|AlbumUsersV1|AlbumToAssetsV1|AlbumAssetsV1|AlbumAssetExifsV1|AssetsV1|AssetExifsV1|AssetMetadataV1|AuthUsersV1|MemoriesV1|MemoryToAssetsV1|PartnersV1|PartnerAssetsV1|PartnerAssetExifsV1|PartnerStacksV1|StacksV1|UsersV1|PeopleV1|AssetFacesV1|UserMetadataV1]`: Sync request types  [required]
+* `--types [AlbumsV1|AlbumUsersV1|AlbumToAssetsV1|AlbumAssetsV1|AlbumAssetExifsV1|AssetsV1|AssetExifsV1|AssetEditsV1|AssetMetadataV1|AuthUsersV1|MemoriesV1|MemoryToAssetsV1|PartnersV1|PartnerAssetsV1|PartnerAssetExifsV1|PartnerStacksV1|StacksV1|UsersV1|PeopleV1|AssetFacesV1|AssetFacesV2|UserMetadataV1]`: Sync request types  [required]
 * `--help`: Show this message and exit.
 
 ### `immichpy sync send-sync-ack`
@@ -4857,7 +4880,7 @@ $ immichpy system-config update-config [OPTIONS]
 * `--backup-database-keep-last-amount FLOAT RANGE`: Keep last amount  [x&gt;=1; required]
 * `--ffmpeg-accel TEXT`: Transcode hardware acceleration  [required]
 * `--ffmpeg-accel-decode`: Accelerated decode  [required]
-* `--ffmpeg-accepted-audio-codecs [mp3|aac|libopus|pcm_s16le]`: Accepted audio codecs  [required]
+* `--ffmpeg-accepted-audio-codecs [mp3|aac|libopus|opus|pcm_s16le]`: Accepted audio codecs  [required]
 * `--ffmpeg-accepted-containers [mov|mp4|ogg|webm]`: Accepted containers  [required]
 * `--ffmpeg-accepted-video-codecs [h264|hevc|vp9|av1]`: Accepted video codecs  [required]
 * `--ffmpeg-bframes INTEGER RANGE`: B-frames  [-1&lt;=x&lt;=16; required]
@@ -5308,6 +5331,9 @@ $ immichpy timeline get-time-bucket [OPTIONS]
 **Options**:
 
 * `--album-id TEXT`: Filter assets belonging to a specific album
+* `--bbox TEXT`: Bounding box coordinates as west,south,east,north (WGS84)
+
+Example: 11.075683,49.416711,11.117589,49.454875
 * `--is-favorite [true|false]`: Filter by favorite status (true for favorites only, false for non-favorites only)
 * `--is-trashed [true|false]`: Filter by trash status (true for trashed assets only, false for non-trashed only)
 * `--key TEXT`
@@ -5340,6 +5366,9 @@ $ immichpy timeline get-time-buckets [OPTIONS]
 **Options**:
 
 * `--album-id TEXT`: Filter assets belonging to a specific album
+* `--bbox TEXT`: Bounding box coordinates as west,south,east,north (WGS84)
+
+Example: 11.075683,49.416711,11.117589,49.454875
 * `--is-favorite [true|false]`: Filter by favorite status (true for favorites only, false for non-favorites only)
 * `--is-trashed [true|false]`: Filter by trash status (true for trashed assets only, false for non-trashed only)
 * `--key TEXT`

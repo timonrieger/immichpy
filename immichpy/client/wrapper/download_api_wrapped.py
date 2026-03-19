@@ -16,7 +16,7 @@ from rich.progress import (
 from pydantic import StrictStr
 
 from immichpy.client.generated.api.download_api import DownloadApi
-from immichpy.client.generated.models.asset_ids_dto import AssetIdsDto
+from immichpy.client.generated.models.download_archive_dto import DownloadArchiveDto
 from immichpy.client.generated.models.download_info_dto import DownloadInfoDto
 from immichpy.client.utils.download import download_file
 from immichpy.client.types import HeadersType
@@ -60,9 +60,9 @@ class DownloadApiWrapped(DownloadApi):
         info = await super().get_download_info(
             download_info, key=key, slug=slug, **kwargs
         )
-        archive_requests: list[tuple[AssetIdsDto, int]] = [
+        archive_requests: list[tuple[DownloadArchiveDto, int]] = [
             (
-                AssetIdsDto(
+                DownloadArchiveDto(
                     assetIds=[UUID(str(asset_id)) for asset_id in archive.asset_ids]
                 ),
                 int(archive.size),
@@ -87,12 +87,12 @@ class DownloadApiWrapped(DownloadApi):
                 f"[cyan]Downloading {len(archive_requests)} archives",
                 total=len(archive_requests),
             )
-            for asset_ids_dto, expected_size in archive_requests:
+            for download_archive_dto, expected_size in archive_requests:
                 filename = f"archive-{uuid4()}.zip"
 
                 def make_request(extra_headers: HeadersType | None):
                     return self.download_archive_without_preload_content(
-                        asset_ids_dto=asset_ids_dto,
+                        download_archive_dto=download_archive_dto,
                         key=key,
                         slug=slug,
                         _headers=kwargs.get("_headers", {}) | (extra_headers or {}),

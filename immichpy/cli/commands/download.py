@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 import typer
-from typing import TYPE_CHECKING
+from typing import Literal, TYPE_CHECKING
 
 if TYPE_CHECKING:
     from immichpy import AsyncClient
@@ -20,6 +20,9 @@ app = typer.Typer(
 def download_archive(
     ctx: typer.Context,
     asset_ids: list[str] = typer.Option(..., "--asset-ids", help="""Asset IDs"""),
+    edited: Literal["true", "false"] | None = typer.Option(
+        None, "--edited", help="""Download edited asset if available"""
+    ),
     key: str | None = typer.Option(None, "--key", help=""""""),
     slug: str | None = typer.Option(None, "--slug", help=""""""),
 ) -> None:
@@ -34,8 +37,10 @@ def download_archive(
     if slug is not None:
         kwargs["slug"] = slug
     set_nested(json_data, ["asset_ids"], asset_ids)
-    asset_ids_dto = AssetIdsDto.model_validate(json_data)
-    kwargs["asset_ids_dto"] = asset_ids_dto
+    if edited is not None:
+        set_nested(json_data, ["edited"], edited.lower() == "true")
+    download_archive_dto = DownloadArchiveDto.model_validate(json_data)
+    kwargs["download_archive_dto"] = download_archive_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.download, "download_archive", ctx, **kwargs)
     print_response(result, ctx)

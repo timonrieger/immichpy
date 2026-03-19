@@ -209,8 +209,6 @@ def remove_shared_link_assets(
     ctx: typer.Context,
     id: str = typer.Argument(..., help=""""""),
     asset_ids: list[str] = typer.Option(..., "--asset-ids", help="""Asset IDs"""),
-    key: str | None = typer.Option(None, "--key", help=""""""),
-    slug: str | None = typer.Option(None, "--slug", help=""""""),
 ) -> None:
     """Remove assets from a shared link
 
@@ -219,16 +217,45 @@ def remove_shared_link_assets(
     kwargs = {}
     json_data = {}
     kwargs["id"] = id
-    if key is not None:
-        kwargs["key"] = key
-    if slug is not None:
-        kwargs["slug"] = slug
     set_nested(json_data, ["asset_ids"], asset_ids)
     asset_ids_dto = AssetIdsDto.model_validate(json_data)
     kwargs["asset_ids_dto"] = asset_ids_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(
         client, client.shared_links, "remove_shared_link_assets", ctx, **kwargs
+    )
+    print_response(result, ctx)
+
+
+@app.command("shared-link-login", deprecated=False, rich_help_panel="API commands")
+def shared_link_login(
+    ctx: typer.Context,
+    key: str | None = typer.Option(None, "--key", help=""""""),
+    password: str = typer.Option(
+        ...,
+        "--password",
+        help="""Shared link password
+
+Example: password""",
+    ),
+    slug: str | None = typer.Option(None, "--slug", help=""""""),
+) -> None:
+    """Shared link login
+
+    [link=https://api.immich.app/endpoints/shared-links/sharedLinkLogin]Immich API documentation[/link]
+    """
+    kwargs = {}
+    json_data = {}
+    if key is not None:
+        kwargs["key"] = key
+    if slug is not None:
+        kwargs["slug"] = slug
+    set_nested(json_data, ["password"], password)
+    shared_link_login_dto = SharedLinkLoginDto.model_validate(json_data)
+    kwargs["shared_link_login_dto"] = shared_link_login_dto
+    client: "AsyncClient" = ctx.obj["client"]
+    result = run_command(
+        client, client.shared_links, "shared_link_login", ctx, **kwargs
     )
     print_response(result, ctx)
 
