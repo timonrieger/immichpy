@@ -71,12 +71,11 @@ generated/models/asset_copy_dto.py
 generated/models/asset_delta_sync_dto.py
 generated/models/asset_delta_sync_response_dto.py
 generated/models/asset_edit_action.py
-generated/models/asset_edit_action_crop.py
-generated/models/asset_edit_action_list_dto.py
-generated/models/asset_edit_action_list_dto_edits_inner.py
-generated/models/asset_edit_action_mirror.py
-generated/models/asset_edit_action_rotate.py
-generated/models/asset_edits_dto.py
+generated/models/asset_edit_action_item_dto.py
+generated/models/asset_edit_action_item_dto_parameters.py
+generated/models/asset_edit_action_item_response_dto.py
+generated/models/asset_edits_create_dto.py
+generated/models/asset_edits_response_dto.py
 generated/models/asset_face_create_dto.py
 generated/models/asset_face_delete_dto.py
 generated/models/asset_face_response_dto.py
@@ -129,6 +128,7 @@ generated/models/database_backup_config.py
 generated/models/database_backup_delete_dto.py
 generated/models/database_backup_dto.py
 generated/models/database_backup_list_response_dto.py
+generated/models/download_archive_dto.py
 generated/models/download_archive_info.py
 generated/models/download_info_dto.py
 generated/models/download_response.py
@@ -266,6 +266,7 @@ generated/models/session_update_dto.py
 generated/models/set_maintenance_mode_dto.py
 generated/models/shared_link_create_dto.py
 generated/models/shared_link_edit_dto.py
+generated/models/shared_link_login_dto.py
 generated/models/shared_link_response_dto.py
 generated/models/shared_link_type.py
 generated/models/shared_links_response.py
@@ -288,9 +289,12 @@ generated/models/sync_album_user_delete_v1.py
 generated/models/sync_album_user_v1.py
 generated/models/sync_album_v1.py
 generated/models/sync_asset_delete_v1.py
+generated/models/sync_asset_edit_delete_v1.py
+generated/models/sync_asset_edit_v1.py
 generated/models/sync_asset_exif_v1.py
 generated/models/sync_asset_face_delete_v1.py
 generated/models/sync_asset_face_v1.py
+generated/models/sync_asset_face_v2.py
 generated/models/sync_asset_metadata_delete_v1.py
 generated/models/sync_asset_metadata_v1.py
 generated/models/sync_asset_v1.py

@@ -145,7 +145,11 @@ def search_asset_statistics(
         None, "--person-ids", help="""Filter by person IDs"""
     ),
     rating: float | None = typer.Option(
-        None, "--rating", help="""Filter by rating""", min=-1, max=5
+        None,
+        "--rating",
+        help="""Filter by rating [1-5], or null for unrated""",
+        min=-1,
+        max=5,
     ),
     state: str | None = typer.Option(
         None, "--state", help="""Filter by state/province name"""
@@ -324,7 +328,11 @@ def search_assets(
         None, "--preview-path", help="""Filter by preview file path"""
     ),
     rating: float | None = typer.Option(
-        None, "--rating", help="""Filter by rating""", min=-1, max=5
+        None,
+        "--rating",
+        help="""Filter by rating [1-5], or null for unrated""",
+        min=-1,
+        max=5,
     ),
     size: float | None = typer.Option(
         None, "--size", help="""Number of results to return""", min=1, max=1000
@@ -528,7 +536,11 @@ def search_large_assets(
         None, "--person-ids", help="""Filter by person IDs"""
     ),
     rating: float | None = typer.Option(
-        None, "--rating", help="""Filter by rating""", min=-1, max=5
+        None,
+        "--rating",
+        help="""Filter by rating [1-5], or null for unrated""",
+        min=-1,
+        max=5,
     ),
     size: float | None = typer.Option(
         None, "--size", help="""Number of results to return""", min=1, max=1000
@@ -732,7 +744,11 @@ def search_random(
         None, "--person-ids", help="""Filter by person IDs"""
     ),
     rating: float | None = typer.Option(
-        None, "--rating", help="""Filter by rating""", min=-1, max=5
+        None,
+        "--rating",
+        help="""Filter by rating [1-5], or null for unrated""",
+        min=-1,
+        max=5,
     ),
     size: float | None = typer.Option(
         None, "--size", help="""Number of results to return""", min=1, max=1000
@@ -918,7 +934,11 @@ def search_smart(
         None, "--query-asset-id", help="""Asset ID to use as search reference"""
     ),
     rating: float | None = typer.Option(
-        None, "--rating", help="""Filter by rating""", min=-1, max=5
+        None,
+        "--rating",
+        help="""Filter by rating [1-5], or null for unrated""",
+        min=-1,
+        max=5,
     ),
     size: float | None = typer.Option(
         None, "--size", help="""Number of results to return""", min=1, max=1000

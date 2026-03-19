@@ -236,8 +236,8 @@ As a JSON string""",
     kwargs["id"] = id
     value_edits = [json.loads(i) for i in edits]
     set_nested(json_data, ["edits"], value_edits)
-    asset_edit_action_list_dto = AssetEditActionListDto.model_validate(json_data)
-    kwargs["asset_edit_action_list_dto"] = asset_edit_action_list_dto
+    asset_edits_create_dto = AssetEditsCreateDto.model_validate(json_data)
+    kwargs["asset_edits_create_dto"] = asset_edits_create_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client, client.assets, "edit_asset", ctx, **kwargs)
     print_response(result, ctx)
@@ -535,7 +535,11 @@ def update_asset(
         None, "--longitude", help="""Longitude coordinate"""
     ),
     rating: float | None = typer.Option(
-        None, "--rating", help="""Rating""", min=-1, max=5
+        None,
+        "--rating",
+        help="""Rating in range [1-5], or null for unrated""",
+        min=-1,
+        max=5,
     ),
     visibility: str | None = typer.Option(
         None, "--visibility", help="""Asset visibility"""
@@ -625,7 +629,11 @@ def update_assets(
         None, "--longitude", help="""Longitude coordinate"""
     ),
     rating: float | None = typer.Option(
-        None, "--rating", help="""Rating""", min=-1, max=5
+        None,
+        "--rating",
+        help="""Rating in range [1-5], or null for unrated""",
+        min=-1,
+        max=5,
     ),
     time_zone: str | None = typer.Option(
         None, "--time-zone", help="""Time zone (IANA timezone)"""

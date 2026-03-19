@@ -22,6 +22,13 @@ def get_time_bucket(
     album_id: str | None = typer.Option(
         None, "--album-id", help="""Filter assets belonging to a specific album"""
     ),
+    bbox: str | None = typer.Option(
+        None,
+        "--bbox",
+        help="""Bounding box coordinates as west,south,east,north (WGS84)
+
+Example: 11.075683,49.416711,11.117589,49.454875""",
+    ),
     is_favorite: Literal["true", "false"] | None = typer.Option(
         None,
         "--is-favorite",
@@ -81,6 +88,8 @@ Example: 2024-01-01""",
     kwargs = {}
     if album_id is not None:
         kwargs["album_id"] = album_id
+    if bbox is not None:
+        kwargs["bbox"] = bbox
     if is_favorite is not None:
         kwargs["is_favorite"] = is_favorite.lower() == "true"
     if is_trashed is not None:
@@ -116,6 +125,13 @@ def get_time_buckets(
     ctx: typer.Context,
     album_id: str | None = typer.Option(
         None, "--album-id", help="""Filter assets belonging to a specific album"""
+    ),
+    bbox: str | None = typer.Option(
+        None,
+        "--bbox",
+        help="""Bounding box coordinates as west,south,east,north (WGS84)
+
+Example: 11.075683,49.416711,11.117589,49.454875""",
     ),
     is_favorite: Literal["true", "false"] | None = typer.Option(
         None,
@@ -169,6 +185,8 @@ def get_time_buckets(
     kwargs = {}
     if album_id is not None:
         kwargs["album_id"] = album_id
+    if bbox is not None:
+        kwargs["bbox"] = bbox
     if is_favorite is not None:
         kwargs["is_favorite"] = is_favorite.lower() == "true"
     if is_trashed is not None:

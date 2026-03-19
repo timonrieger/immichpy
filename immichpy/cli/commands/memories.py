@@ -47,12 +47,18 @@ def create_memory(
     data_year: float = typer.Option(
         ..., "--data-year", help="""Year for on this day memory""", min=1
     ),
+    hide_at: datetime | None = typer.Option(
+        None, "--hide-at", help="""Date when memory should be hidden"""
+    ),
     is_saved: Literal["true", "false"] | None = typer.Option(
         None, "--is-saved", help="""Is memory saved"""
     ),
     memory_at: datetime = typer.Option(..., "--memory-at", help="""Memory date"""),
     seen_at: datetime | None = typer.Option(
         None, "--seen-at", help="""Date when memory was seen"""
+    ),
+    show_at: datetime | None = typer.Option(
+        None, "--show-at", help="""Date when memory should be shown"""
     ),
     type: str = typer.Option(..., "--type", help="""Memory type"""),
 ) -> None:
@@ -65,11 +71,15 @@ def create_memory(
     if asset_ids is not None:
         set_nested(json_data, ["asset_ids"], asset_ids)
     set_nested(json_data, ["data_year"], data_year)
+    if hide_at is not None:
+        set_nested(json_data, ["hide_at"], hide_at)
     if is_saved is not None:
         set_nested(json_data, ["is_saved"], is_saved.lower() == "true")
     set_nested(json_data, ["memory_at"], memory_at)
     if seen_at is not None:
         set_nested(json_data, ["seen_at"], seen_at)
+    if show_at is not None:
+        set_nested(json_data, ["show_at"], show_at)
     set_nested(json_data, ["type"], type)
     memory_create_dto = MemoryCreateDto.model_validate(json_data)
     kwargs["memory_create_dto"] = memory_create_dto
