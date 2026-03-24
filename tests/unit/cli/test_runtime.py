@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import asyncio
 import json
-from typing import TYPE_CHECKING, Any
+from typing import TYPE_CHECKING, Any, cast
 from unittest.mock import AsyncMock, MagicMock, Mock, patch
 
 import pytest
@@ -70,7 +70,7 @@ class TestPrintResponse:
         class TestModel(BaseModel):
             name: str
 
-        data = [TestModel(name="John"), TestModel(name="Jane")]
+        data = cast(list[BaseModel], [TestModel(name="John"), TestModel(name="Jane")])
         print_response(data, ctx)
 
         captured = capsys.readouterr()
