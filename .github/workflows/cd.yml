@@ -19,7 +19,7 @@ jobs:
           persist-credentials: false
 
       - name: Install mise
-        uses: jdx/mise-action@6d1e696aa24c1aa1bcc1adea0212707c71ab78a8 # v3
+        uses: jdx/mise-action@1648a7812b9aeae629881980618f079932869151 # v4
 
       - name: Run CI
         run: mise run ci:check
@@ -44,7 +44,7 @@ jobs:
           persist-credentials: false
 
       - name: Install mise
-        uses: jdx/mise-action@6d1e696aa24c1aa1bcc1adea0212707c71ab78a8 # v3
+        uses: jdx/mise-action@1648a7812b9aeae629881980618f079932869151 # v4
         env:
           MISE_PYTHON_COMPILE: false
 
@@ -60,7 +60,7 @@ jobs:
           persist-credentials: false
 
       - name: Install mise
-        uses: jdx/mise-action@6d1e696aa24c1aa1bcc1adea0212707c71ab78a8 # v3
+        uses: jdx/mise-action@1648a7812b9aeae629881980618f079932869151 # v4
 
       - name: Read Immich version
         id: immich-version

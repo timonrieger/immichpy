@@ -146,7 +146,7 @@ jobs:
           TAG: ${{ steps.tag_to_use.outputs.tag }}
 
       - name: Install mise
-        uses: jdx/mise-action@6d1e696aa24c1aa1bcc1adea0212707c71ab78a8 # v3
+        uses: jdx/mise-action@1648a7812b9aeae629881980618f079932869151 # v4
 
       - name: Generate client code
         if: steps.check_sync.outputs.sync_needed == 'true'
