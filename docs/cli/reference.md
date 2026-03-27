@@ -3673,7 +3673,7 @@ $ immichpy search search-assets [OPTIONS]
 * `--visibility TEXT`: Asset visibility
 * `--with-deleted [true|false]`: Include deleted assets
 * `--with-exif [true|false]`: Include EXIF data in response
-* `--with-people [true|false]`: Include assets with people
+* `--with-people [true|false]`: Include people data in response
 * `--with-stacked [true|false]`: Include stacked assets
 * `--help`: Show this message and exit.
 
@@ -3805,7 +3805,7 @@ $ immichpy search search-random [OPTIONS]
 * `--visibility TEXT`: Asset visibility
 * `--with-deleted [true|false]`: Include deleted assets
 * `--with-exif [true|false]`: Include EXIF data in response
-* `--with-people [true|false]`: Include assets with people
+* `--with-people [true|false]`: Include people data in response
 * `--with-stacked [true|false]`: Include stacked assets
 * `--help`: Show this message and exit.
 

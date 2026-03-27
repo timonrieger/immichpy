@@ -375,7 +375,7 @@ def search_assets(
         None, "--with-exif", help="""Include EXIF data in response"""
     ),
     with_people: Literal["true", "false"] | None = typer.Option(
-        None, "--with-people", help="""Include assets with people"""
+        None, "--with-people", help="""Include people data in response"""
     ),
     with_stacked: Literal["true", "false"] | None = typer.Option(
         None, "--with-stacked", help="""Include stacked assets"""
@@ -788,7 +788,7 @@ def search_random(
         None, "--with-exif", help="""Include EXIF data in response"""
     ),
     with_people: Literal["true", "false"] | None = typer.Option(
-        None, "--with-people", help="""Include assets with people"""
+        None, "--with-people", help="""Include people data in response"""
     ),
     with_stacked: Literal["true", "false"] | None = typer.Option(
         None, "--with-stacked", help="""Include stacked assets"""
