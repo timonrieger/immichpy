@@ -84,6 +84,14 @@ build_command = """
     git add uv.lock COMPATIBILITY.csv
 """
 
+[tool.semantic_release.branches.main]
+match = "main"
+prerelease = false
+
+[tool.semantic_release.branches.backport]
+match = "^backport-.+"
+prerelease = false
+
 [tool.uv]
 add-bounds = "major"
 
