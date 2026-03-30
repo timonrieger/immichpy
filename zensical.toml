@@ -53,6 +53,7 @@ nav = [
     {"Home" = "index.md"},
     { Overview = [
         "overview/why.md",
+        "overview/who-uses-immichpy.md",
         "overview/getting-started.md",
         "overview/custom-functions.md",
         "overview/versioning.md",
