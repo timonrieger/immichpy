@@ -23,6 +23,10 @@
 
 For full documentation, visit [immichpy.timonrieger.de](https://immichpy.timonrieger.de).
 
+## Who uses immichpy?
+
+See [who uses immichpy](https://immichpy.timonrieger.de/overview/who-uses-immichpy) for a list of known projects built on it.
+
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.

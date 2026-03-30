@@ -22,3 +22,5 @@ The client reduces risk of staleness through automation. For every Immich releas
 
 ### 6. Ecosystem alignment
 **immichpy** is maintained by me, [@timonrieger](https://github.com/timonrieger). I'm actively involved in the broader Immich ecosystem, contributing to core and related projects to help keep this client aligned with the platform's evolution.
+
+See [who uses immichpy](./who-uses-immichpy.md) for a list of known projects built on it.
