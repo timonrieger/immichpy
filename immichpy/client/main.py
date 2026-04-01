@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from typing import Final
 import warnings
 
 from aiohttp import ClientSession
@@ -305,12 +306,12 @@ class AsyncClient:
         """
         self._owns_http_client = http_client is None
         self._injected_http_client = http_client
-        self._config = _build_configuration(
+        self._config: Final[Configuration] = _build_configuration(
             api_key=api_key,
             access_token=access_token,
             base_url=base_url,
         )
-        self.base_client = ApiClient(configuration=self._config)
+        self.base_client: Final[ApiClient] = ApiClient(configuration=self._config)
         self.base_client.user_agent = "immichpy"
 
         # Allow caller to inject a pre-configured aiohttp session.
