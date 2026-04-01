@@ -1,8 +1,6 @@
 from __future__ import annotations
 
 from typing import Final
-import warnings
-
 from aiohttp import ClientSession
 
 from immichpy.client.generated.api_client import ApiClient
@@ -356,15 +354,6 @@ class AsyncClient:
         self.users_admin = UsersAdminApi(self.base_client)
         self.views = ViewsApi(self.base_client)
         self.workflows = WorkflowsApi(self.base_client)
-
-    @property
-    def config(self) -> Configuration:
-        warnings.warn(
-            "Use `self._config` instead. This property will be removed in the next major release.",
-            DeprecationWarning,
-            stacklevel=2,
-        )
-        return self._config
 
     async def close(self) -> None:
         """Close the client and release resources."""
