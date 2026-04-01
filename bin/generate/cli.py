@@ -482,7 +482,7 @@ def generate_command_function(
                 media_type = _get_media_type(operation)
                 if media_type == "application/json":
                     # Validate and create model
-                    model_instance = to_snake_case(param.model_name)  # type: ignore[invalid-argument-type]
+                    model_instance = to_snake_case(param.model_name)  # ty: ignore[invalid-argument-type]
                     lines.append(
                         f"    {model_instance} = {param.model_name}.model_validate(json_data)"
                     )

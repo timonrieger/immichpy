@@ -215,7 +215,7 @@ def print_(
     match type:
         case "json":
             try:
-                format_mode = cast(FormatMode, ctx.obj.get("format", DEFAULT_FORMAT))  # type: ignore[possibly-missing-attribute]
+                format_mode = cast(FormatMode, ctx.obj.get("format", DEFAULT_FORMAT))  # ty: ignore[unresolved-attribute]
             except (AttributeError, KeyError):
                 format_mode = DEFAULT_FORMAT
             match format_mode:

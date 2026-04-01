@@ -8,7 +8,7 @@ from immichpy.client.generated.api.users_api import UsersApi
 @pytest.mark.asyncio
 async def test_client_requires_base_url():
     with pytest.raises(TypeError):
-        AsyncClient()  # type: ignore[call-arg]
+        AsyncClient()  # ty: ignore[missing-argument]
 
 
 @pytest.mark.asyncio
