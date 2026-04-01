@@ -20,11 +20,11 @@ from immichpy.client.types import UploadResult
 from immichpy.client.generated import (
     AlbumResponseDto,
     AssetBulkDeleteDto,
-    AssetResponseDto,
+    AssetMediaResponseDto,
     CreateAlbumDto,
     UserAdminCreateDto,
     UserAdminDeleteDto,
-    UserResponseDto,
+    UserAdminResponseDto,
 )
 from immichpy.client.generated.exceptions import BadRequestException
 from immichpy.client.generated.models.admin_onboarding_update_dto import (
@@ -175,7 +175,7 @@ async def upload_assets(
 async def asset(
     test_image: Path,
     upload_assets: Callable[..., Awaitable[UploadResult]],
-) -> AsyncGenerator[AssetResponseDto, None]:
+) -> AsyncGenerator[AssetMediaResponseDto, None]:
     """Fixture to set up asset for testing.
 
     Uploads a test image, returns parsed asset object.
@@ -191,7 +191,7 @@ async def asset(
 @pytest.fixture
 async def user(
     client_with_api_key: AsyncClient,
-) -> AsyncGenerator[UserResponseDto, None]:
+) -> AsyncGenerator[UserAdminResponseDto, None]:
     """Fixture to set up user for testing.
 
     Creates a user, returns parsed user object.

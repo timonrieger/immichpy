@@ -47,7 +47,7 @@ Repository = "https://github.com/timonrieger/immichpy"
 Changelog = "https://github.com/timonrieger/immichpy/releases"
 
 [build-system]
-requires = ["uv_build==0.11.0"]
+requires = ["uv_build==0.11.2"]
 build-backend = "uv_build"
 
 [dependency-groups]
@@ -56,7 +56,7 @@ dev = [
     "pytest>=9.0.0,<10.0.0",
     "pytest-asyncio>=1.2.0,<2.0.0",
     "pytest-cov>=7.0.0,<8.0.0",
-    "ty>=0.0.24,<0.0.25",
+    "ty>=0.0.26,<0.0.27",
 ]
 docs = [
     "griffe-pydantic>=1.2.0,<2.0.0",
@@ -64,7 +64,7 @@ docs = [
     "pymdown-extensions>=10.20,<11.0",
     "termynal>=0.14.0,<0.15.0",
     "typer>=0.19.0,<0.25.0",
-    "zensical>=0.0.28,<0.0.29",
+    "zensical>=0.0.30,<0.0.31",
 ]
 
 [tool.semantic_release]
