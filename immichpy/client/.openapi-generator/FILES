@@ -135,6 +135,8 @@ generated/models/download_response.py
 generated/models/download_response_dto.py
 generated/models/download_update.py
 generated/models/duplicate_detection_config.py
+generated/models/duplicate_resolve_dto.py
+generated/models/duplicate_resolve_group_dto.py
 generated/models/duplicate_response_dto.py
 generated/models/email_notifications_response.py
 generated/models/email_notifications_update.py
