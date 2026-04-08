@@ -1904,6 +1904,7 @@ $ immichpy duplicates [OPTIONS] COMMAND [ARGS]...
 * `delete-duplicate`: Delete a duplicate
 * `delete-duplicates`: Delete duplicates
 * `get-asset-duplicates`: Retrieve duplicates
+* `resolve-duplicates`: Resolve duplicate groups
 
 ### `immichpy duplicates delete-duplicate`
 
@@ -1956,6 +1957,25 @@ $ immichpy duplicates get-asset-duplicates [OPTIONS]
 
 **Options**:
 
+* `--help`: Show this message and exit.
+
+### `immichpy duplicates resolve-duplicates`
+
+Resolve duplicate groups
+
+<a href="https://api.immich.app/endpoints/duplicates/resolveDuplicates">Immich API documentation</a>
+
+**Usage**:
+
+```console
+$ immichpy duplicates resolve-duplicates [OPTIONS]
+```
+
+**Options**:
+
+* `--groups TEXT`: List of duplicate groups to resolve
+
+As a JSON string  [required]
 * `--help`: Show this message and exit.
 
 ## `immichpy faces`

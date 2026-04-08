@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import typer
+import json
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -64,4 +65,30 @@ def get_asset_duplicates(
     result = run_command(
         client, client.duplicates, "get_asset_duplicates", ctx, **kwargs
     )
+    print_response(result, ctx)
+
+
+@app.command("resolve-duplicates", deprecated=False, rich_help_panel="API commands")
+def resolve_duplicates(
+    ctx: typer.Context,
+    groups: list[str] = typer.Option(
+        ...,
+        "--groups",
+        help="""List of duplicate groups to resolve
+
+As a JSON string""",
+    ),
+) -> None:
+    """Resolve duplicate groups
+
+    [link=https://api.immich.app/endpoints/duplicates/resolveDuplicates]Immich API documentation[/link]
+    """
+    kwargs = {}
+    json_data = {}
+    value_groups = [json.loads(i) for i in groups]
+    set_nested(json_data, ["groups"], value_groups)
+    duplicate_resolve_dto = DuplicateResolveDto.model_validate(json_data)
+    kwargs["duplicate_resolve_dto"] = duplicate_resolve_dto
+    client: "AsyncClient" = ctx.obj["client"]
+    result = run_command(client, client.duplicates, "resolve_duplicates", ctx, **kwargs)
     print_response(result, ctx)
