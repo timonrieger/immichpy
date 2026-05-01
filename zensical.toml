@@ -787,3 +787,7 @@ extensions = [
 [project.markdown_extensions.pymdownx.superfences]
 [project.markdown_extensions.pymdownx.tabbed]
 alternate_style = true
+
+[project.validation]
+# ignore warnings caused by `[required]` in CLI reference
+unresolved_references = false
