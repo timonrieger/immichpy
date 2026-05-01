@@ -37,7 +37,7 @@ async def test_get_all_albums_with_shared_filter(
     album_users = [
         AlbumUserCreateDto(role=AlbumUserRole.VIEWER, userId=UUID(str(user.id)))
     ]
-    request = CreateAlbumDto(albumName="Test Album", album_users=album_users)
+    request = CreateAlbumDto(albumName="Test Album", albumUsers=album_users)
     album = await album_factory(request.model_dump())
     result = await asyncio.to_thread(
         runner_with_api_key.invoke,

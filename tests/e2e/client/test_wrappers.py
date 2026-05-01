@@ -120,7 +120,7 @@ async def test_download_archive_to_file(
     asset_id = UUID(upload_result.uploaded[0].asset.id)
 
     # Create download info
-    download_info = DownloadInfoDto(asset_ids=[asset_id])
+    download_info = DownloadInfoDto(assetIds=[asset_id])
 
     # Download archive
     out_dir = tmp_path / "archives"

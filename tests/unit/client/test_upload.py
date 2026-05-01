@@ -294,12 +294,12 @@ async def test_check_duplicates_mixed_results(mock_assets, tmp_path: Path) -> No
     mock_assets.check_bulk_upload.return_value = AssetBulkUploadCheckResponseDto(
         results=[
             AssetBulkUploadCheckResult(
-                action="accept", id=str(file1), asset_id=None, reason=None
+                action="accept", id=str(file1), assetId=None, reason=None
             ),
             AssetBulkUploadCheckResult(
                 action="reject",
                 id=str(file2),
-                asset_id="asset-456",
+                assetId="asset-456",
                 reason="duplicate",
             ),
         ]
@@ -321,7 +321,7 @@ async def test_check_duplicates_with_progress(mock_assets, tmp_path: Path) -> No
     mock_assets.check_bulk_upload.return_value = AssetBulkUploadCheckResponseDto(
         results=[
             AssetBulkUploadCheckResult(
-                action="accept", id=str(file1), asset_id=None, reason=None
+                action="accept", id=str(file1), assetId=None, reason=None
             )
         ]
     )
