@@ -233,9 +233,8 @@ def get_file_times(
     mtime = stats.st_mtime
 
     try:
-        # not available on all platforms and python versions, thus the AttributeError guard and type ignore
-        # ty says to remove the type ignore, however in the ci the lint would raise an error
-        ctime = stats.st_birthtime  # ty: ignore[unresolved-attribute]
+        # not available on all platforms and python versions, thus the AttributeError guard
+        ctime = stats.st_birthtime
     except AttributeError:
         if sys.platform == "win32":
             ctime = stats.st_ctime
