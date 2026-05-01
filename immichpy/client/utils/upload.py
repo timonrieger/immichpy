@@ -232,10 +232,9 @@ def get_file_times(
     """
     mtime = stats.st_mtime
 
-    try:
-        # not available on all platforms and python versions, thus the AttributeError guard
-        ctime = stats.st_birthtime
-    except AttributeError:
+    # st_birthtime isn't on every platform
+    ctime = getattr(stats, "st_birthtime", None)
+    if ctime is None:
         if sys.platform == "win32":
             ctime = stats.st_ctime
         else:
