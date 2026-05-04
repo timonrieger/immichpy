@@ -30,3 +30,4 @@ See [who uses immichpy](https://immichpy.timonrieger.de/overview/who-uses-immich
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
