@@ -72,6 +72,16 @@ jobs:
         env:
           IMMICH_VERSION: ${{ steps.immich-version.outputs.version }}
 
+      - name: Patch e2e-auth-server for pnpm build scripts
+        run: |
+          node -e "
+            const fs = require('fs');
+            const path = 'immich-git-repo/e2e-auth-server/package.json';
+            const pkg = JSON.parse(fs.readFileSync(path, 'utf8'));
+            pkg.pnpm = { ...pkg.pnpm, onlyBuiltDependencies: ['esbuild'] };
+            fs.writeFileSync(path, JSON.stringify(pkg, null, 2) + '\n');
+          "
+
       - name: Login to GitHub Container Registry
         run: |
           echo "${{ github.token }}" | docker login ghcr.io -u "${GITHUB_ACTOR}" --password-stdin
