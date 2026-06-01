@@ -42,7 +42,7 @@ def create_session(
     session_create_dto = SessionCreateDto.model_validate(json_data)
     kwargs["session_create_dto"] = session_create_dto
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client.sessions, "create_session", ctx, **kwargs)
+    result = run_command(client.sessions.create_session, ctx, **kwargs)
     print_response(result, ctx)
 
 
@@ -56,7 +56,7 @@ def delete_all_sessions(
     """
     kwargs = {}
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client.sessions, "delete_all_sessions", ctx, **kwargs)
+    result = run_command(client.sessions.delete_all_sessions, ctx, **kwargs)
     print_response(result, ctx)
 
 
@@ -72,7 +72,7 @@ def delete_session(
     kwargs = {}
     kwargs["id"] = id
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client.sessions, "delete_session", ctx, **kwargs)
+    result = run_command(client.sessions.delete_session, ctx, **kwargs)
     print_response(result, ctx)
 
 
@@ -86,7 +86,7 @@ def get_sessions(
     """
     kwargs = {}
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client.sessions, "get_sessions", ctx, **kwargs)
+    result = run_command(client.sessions.get_sessions, ctx, **kwargs)
     print_response(result, ctx)
 
 
@@ -102,7 +102,7 @@ def lock_session(
     kwargs = {}
     kwargs["id"] = id
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client.sessions, "lock_session", ctx, **kwargs)
+    result = run_command(client.sessions.lock_session, ctx, **kwargs)
     print_response(result, ctx)
 
 
@@ -130,5 +130,5 @@ def update_session(
     session_update_dto = SessionUpdateDto.model_validate(json_data)
     kwargs["session_update_dto"] = session_update_dto
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client.sessions, "update_session", ctx, **kwargs)
+    result = run_command(client.sessions.update_session, ctx, **kwargs)
     print_response(result, ctx)

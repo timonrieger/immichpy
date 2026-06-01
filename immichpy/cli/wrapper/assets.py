@@ -57,12 +57,7 @@ def download_asset_to_file(
     if filename is not None:
         kwargs["filename"] = filename
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(
-        api=client.assets,
-        method="download_asset_to_file",
-        ctx=ctx,
-        **kwargs,
-    )
+    result = run_command(client.assets.download_asset_to_file, ctx, **kwargs)
     print_response(result, ctx)
 
 
@@ -104,12 +99,7 @@ def play_asset_video_to_file(
     if filename is not None:
         kwargs["filename"] = filename
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(
-        api=client.assets,
-        method="play_asset_video_to_file",
-        ctx=ctx,
-        **kwargs,
-    )
+    result = run_command(client.assets.play_asset_video_to_file, ctx, **kwargs)
     print_response(result, ctx)
 
 
@@ -156,12 +146,7 @@ def view_asset_to_file(
     if filename is not None:
         kwargs["filename"] = filename
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(
-        api=client.assets,
-        method="view_asset_to_file",
-        ctx=ctx,
-        **kwargs,
-    )
+    result = run_command(client.assets.view_asset_to_file, ctx, **kwargs)
     print_response(result, ctx)
 
 
@@ -234,5 +219,5 @@ def upload(
     kwargs["delete_duplicates"] = delete_duplicates
     kwargs["dry_run"] = dry_run
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(api=client.assets, method="upload", ctx=ctx, **kwargs)
+    result = run_command(client.assets.upload, ctx, **kwargs)
     print_response(result, ctx)

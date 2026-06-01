@@ -5,7 +5,7 @@ from __future__ import annotations
 import asyncio
 import json
 import traceback
-from typing import Any, Awaitable, Callable, Protocol
+from typing import Any, Awaitable, Callable, Protocol, cast
 
 from immichpy.cli.utils import print_
 from pydantic import BaseModel
@@ -96,28 +96,24 @@ async def run_async(coro: Awaitable[Any]) -> Any:
 
 
 def run_command(
-    api: _ApiGroup,
-    method: str,
+    method: Callable[..., Awaitable[Any]],
     ctx: Context | None = None,
     **kwargs: Any,
 ) -> Any:
     """Run a client API method and handle the result.
 
-    :param api_group: The API group object containing the target method
-    :param method_name: The name of the method to invoke on `api_group`
+    :param method: Bound API method to invoke
     :param ctx: Optional Typer context for CLI output formatting
     :param kwargs: Keyword arguments forwarded to the API method
     :return: The API method return value
     :raises Exit: Raised with a CLI exit code when API or unexpected errors occur
-    :raises AttributeError: If `method_name` is not present on `api_group`
     """
-    method: Callable[..., Awaitable[Any]] = getattr(api, method)
 
     async def _call_and_close() -> Any:
         try:
             return await method(**kwargs)
         finally:
-            await api.api_client.close()
+            await cast(_ApiGroup, getattr(method, "__self__")).api_client.close()
 
     try:
         return asyncio.run(_call_and_close())

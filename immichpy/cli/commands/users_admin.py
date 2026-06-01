@@ -80,7 +80,7 @@ Example: 123456""",
     user_admin_create_dto = UserAdminCreateDto.model_validate(json_data)
     kwargs["user_admin_create_dto"] = user_admin_create_dto
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client.users_admin, "create_user_admin", ctx, **kwargs)
+    result = run_command(client.users_admin.create_user_admin, ctx, **kwargs)
     print_response(result, ctx)
 
 
@@ -104,7 +104,7 @@ def delete_user_admin(
     user_admin_delete_dto = UserAdminDeleteDto.model_validate(json_data)
     kwargs["user_admin_delete_dto"] = user_admin_delete_dto
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client.users_admin, "delete_user_admin", ctx, **kwargs)
+    result = run_command(client.users_admin.delete_user_admin, ctx, **kwargs)
     print_response(result, ctx)
 
 
@@ -120,7 +120,7 @@ def get_user_admin(
     kwargs = {}
     kwargs["id"] = id
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client.users_admin, "get_user_admin", ctx, **kwargs)
+    result = run_command(client.users_admin.get_user_admin, ctx, **kwargs)
     print_response(result, ctx)
 
 
@@ -138,9 +138,7 @@ def get_user_preferences_admin(
     kwargs = {}
     kwargs["id"] = id
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(
-        client.users_admin, "get_user_preferences_admin", ctx, **kwargs
-    )
+    result = run_command(client.users_admin.get_user_preferences_admin, ctx, **kwargs)
     print_response(result, ctx)
 
 
@@ -158,7 +156,7 @@ def get_user_sessions_admin(
     kwargs = {}
     kwargs["id"] = id
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client.users_admin, "get_user_sessions_admin", ctx, **kwargs)
+    result = run_command(client.users_admin.get_user_sessions_admin, ctx, **kwargs)
     print_response(result, ctx)
 
 
@@ -191,7 +189,7 @@ def get_user_statistics_admin(
     if visibility is not None:
         kwargs["visibility"] = visibility
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client.users_admin, "get_user_statistics_admin", ctx, **kwargs)
+    result = run_command(client.users_admin.get_user_statistics_admin, ctx, **kwargs)
     print_response(result, ctx)
 
 
@@ -207,7 +205,7 @@ def restore_user_admin(
     kwargs = {}
     kwargs["id"] = id
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client.users_admin, "restore_user_admin", ctx, **kwargs)
+    result = run_command(client.users_admin.restore_user_admin, ctx, **kwargs)
     print_response(result, ctx)
 
 
@@ -229,7 +227,7 @@ def search_users_admin(
     if with_deleted is not None:
         kwargs["with_deleted"] = with_deleted.lower() == "true"
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client.users_admin, "search_users_admin", ctx, **kwargs)
+    result = run_command(client.users_admin.search_users_admin, ctx, **kwargs)
     print_response(result, ctx)
 
 
@@ -297,7 +295,7 @@ Example: 123456""",
     user_admin_update_dto = UserAdminUpdateDto.model_validate(json_data)
     kwargs["user_admin_update_dto"] = user_admin_update_dto
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client.users_admin, "update_user_admin", ctx, **kwargs)
+    result = run_command(client.users_admin.update_user_admin, ctx, **kwargs)
     print_response(result, ctx)
 
 
@@ -474,6 +472,6 @@ def update_user_preferences_admin(
     kwargs["user_preferences_update_dto"] = user_preferences_update_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(
-        client.users_admin, "update_user_preferences_admin", ctx, **kwargs
+        client.users_admin.update_user_preferences_admin, ctx, **kwargs
     )
     print_response(result, ctx)

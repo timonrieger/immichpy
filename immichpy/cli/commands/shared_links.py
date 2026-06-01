@@ -40,7 +40,7 @@ def add_shared_link_assets(
     asset_ids_dto = AssetIdsDto.model_validate(json_data)
     kwargs["asset_ids_dto"] = asset_ids_dto
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client.shared_links, "add_shared_link_assets", ctx, **kwargs)
+    result = run_command(client.shared_links.add_shared_link_assets, ctx, **kwargs)
     print_response(result, ctx)
 
 
@@ -100,7 +100,7 @@ def create_shared_link(
     shared_link_create_dto = SharedLinkCreateDto.model_validate(json_data)
     kwargs["shared_link_create_dto"] = shared_link_create_dto
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client.shared_links, "create_shared_link", ctx, **kwargs)
+    result = run_command(client.shared_links.create_shared_link, ctx, **kwargs)
     print_response(result, ctx)
 
 
@@ -122,7 +122,7 @@ def get_all_shared_links(
     if id is not None:
         kwargs["id"] = id
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client.shared_links, "get_all_shared_links", ctx, **kwargs)
+    result = run_command(client.shared_links.get_all_shared_links, ctx, **kwargs)
     print_response(result, ctx)
 
 
@@ -154,7 +154,7 @@ Example: password""",
     if token is not None:
         kwargs["token"] = token
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client.shared_links, "get_my_shared_link", ctx, **kwargs)
+    result = run_command(client.shared_links.get_my_shared_link, ctx, **kwargs)
     print_response(result, ctx)
 
 
@@ -170,7 +170,7 @@ def get_shared_link_by_id(
     kwargs = {}
     kwargs["id"] = id
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client.shared_links, "get_shared_link_by_id", ctx, **kwargs)
+    result = run_command(client.shared_links.get_shared_link_by_id, ctx, **kwargs)
     print_response(result, ctx)
 
 
@@ -186,7 +186,7 @@ def remove_shared_link(
     kwargs = {}
     kwargs["id"] = id
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client.shared_links, "remove_shared_link", ctx, **kwargs)
+    result = run_command(client.shared_links.remove_shared_link, ctx, **kwargs)
     print_response(result, ctx)
 
 
@@ -209,9 +209,7 @@ def remove_shared_link_assets(
     asset_ids_dto = AssetIdsDto.model_validate(json_data)
     kwargs["asset_ids_dto"] = asset_ids_dto
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(
-        client.shared_links, "remove_shared_link_assets", ctx, **kwargs
-    )
+    result = run_command(client.shared_links.remove_shared_link_assets, ctx, **kwargs)
     print_response(result, ctx)
 
 
@@ -242,7 +240,7 @@ Example: password""",
     shared_link_login_dto = SharedLinkLoginDto.model_validate(json_data)
     kwargs["shared_link_login_dto"] = shared_link_login_dto
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client.shared_links, "shared_link_login", ctx, **kwargs)
+    result = run_command(client.shared_links.shared_link_login, ctx, **kwargs)
     print_response(result, ctx)
 
 
@@ -301,5 +299,5 @@ def update_shared_link(
     shared_link_edit_dto = SharedLinkEditDto.model_validate(json_data)
     kwargs["shared_link_edit_dto"] = shared_link_edit_dto
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client.shared_links, "update_shared_link", ctx, **kwargs)
+    result = run_command(client.shared_links.update_shared_link, ctx, **kwargs)
     print_response(result, ctx)

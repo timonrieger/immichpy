@@ -492,13 +492,11 @@ def generate_command_function(
                     # openapi-generator doesn't generate a model for multipart/form-data, but use kwargs
                     # instead we simply merge the json_data into the kwargs
                     lines.append("    kwargs.update(json_data)")
-    # Get client and API group
-    lines.append("    client: 'AsyncClient' = ctx.obj['client']")
-
     # Call method
     method_name = to_snake_case(operation_id)
+    lines.append("    client: 'AsyncClient' = ctx.obj['client']")
     lines.append(
-        f"    result = run_command(client.{tag_attr}, '{method_name}', ctx, **kwargs)"
+        f"    result = run_command(client.{tag_attr}.{method_name}, ctx, **kwargs)"
     )
 
     # Print result

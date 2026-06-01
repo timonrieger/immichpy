@@ -26,7 +26,7 @@ def get_admin_onboarding(
     """
     kwargs = {}
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client.system_metadata, "get_admin_onboarding", ctx, **kwargs)
+    result = run_command(client.system_metadata.get_admin_onboarding, ctx, **kwargs)
     print_response(result, ctx)
 
 
@@ -43,7 +43,7 @@ def get_reverse_geocoding_state(
     kwargs = {}
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(
-        client.system_metadata, "get_reverse_geocoding_state", ctx, **kwargs
+        client.system_metadata.get_reverse_geocoding_state, ctx, **kwargs
     )
     print_response(result, ctx)
 
@@ -60,9 +60,7 @@ def get_version_check_state(
     """
     kwargs = {}
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(
-        client.system_metadata, "get_version_check_state", ctx, **kwargs
-    )
+    result = run_command(client.system_metadata.get_version_check_state, ctx, **kwargs)
     print_response(result, ctx)
 
 
@@ -85,7 +83,5 @@ def update_admin_onboarding(
     admin_onboarding_update_dto = AdminOnboardingUpdateDto.model_validate(json_data)
     kwargs["admin_onboarding_update_dto"] = admin_onboarding_update_dto
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(
-        client.system_metadata, "update_admin_onboarding", ctx, **kwargs
-    )
+    result = run_command(client.system_metadata.update_admin_onboarding, ctx, **kwargs)
     print_response(result, ctx)

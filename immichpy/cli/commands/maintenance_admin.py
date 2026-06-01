@@ -26,9 +26,7 @@ def detect_prior_install(
     """
     kwargs = {}
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(
-        client.maintenance_admin, "detect_prior_install", ctx, **kwargs
-    )
+    result = run_command(client.maintenance_admin.detect_prior_install, ctx, **kwargs)
     print_response(result, ctx)
 
 
@@ -42,9 +40,7 @@ def get_maintenance_status(
     """
     kwargs = {}
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(
-        client.maintenance_admin, "get_maintenance_status", ctx, **kwargs
-    )
+    result = run_command(client.maintenance_admin.get_maintenance_status, ctx, **kwargs)
     print_response(result, ctx)
 
 
@@ -64,7 +60,7 @@ def maintenance_login(
     maintenance_login_dto = MaintenanceLoginDto.model_validate(json_data)
     kwargs["maintenance_login_dto"] = maintenance_login_dto
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client.maintenance_admin, "maintenance_login", ctx, **kwargs)
+    result = run_command(client.maintenance_admin.maintenance_login, ctx, **kwargs)
     print_response(result, ctx)
 
 
@@ -88,7 +84,5 @@ def set_maintenance_mode(
     set_maintenance_mode_dto = SetMaintenanceModeDto.model_validate(json_data)
     kwargs["set_maintenance_mode_dto"] = set_maintenance_mode_dto
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(
-        client.maintenance_admin, "set_maintenance_mode", ctx, **kwargs
-    )
+    result = run_command(client.maintenance_admin.set_maintenance_mode, ctx, **kwargs)
     print_response(result, ctx)

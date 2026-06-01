@@ -48,10 +48,5 @@ def get_profile_image_to_file(
         kwargs["filename"] = filename
     kwargs["show_progress"] = show_progress
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(
-        api=client.users,
-        method="get_profile_image_to_file",
-        ctx=ctx,
-        **kwargs,
-    )
+    result = run_command(client.users.get_profile_image_to_file, ctx, **kwargs)
     print_response(result, ctx)
