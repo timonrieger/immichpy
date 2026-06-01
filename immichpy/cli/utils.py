@@ -139,7 +139,19 @@ def _redact_secret(secret: str, start: int = 3, end: int = 3) -> str:
 
 
 @overload
-def mask(secret: str, start: int = 3, end: int = 3) -> str: ...
+def mask(obj: str, start: int = 3, end: int = 3, key: str | None = None) -> str: ...
+
+
+@overload
+def mask(
+    obj: list[Any], start: int = 3, end: int = 3, key: str | None = None
+) -> list[Any]: ...
+
+
+@overload
+def mask(
+    obj: dict[str, Any], start: int = 3, end: int = 3, key: str | None = None
+) -> dict[str, Any]: ...
 
 
 @overload
