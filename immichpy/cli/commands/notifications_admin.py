@@ -64,7 +64,7 @@ As a JSON string""",
     kwargs["notification_create_dto"] = notification_create_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(
-        client, client.notifications_admin, "create_notification", ctx, **kwargs
+        client.notifications_admin.create_notification, ctx=ctx, **kwargs
     )
     print_response(result, ctx)
 
@@ -89,11 +89,7 @@ def get_notification_template_admin(
     kwargs["template_dto"] = template_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(
-        client,
-        client.notifications_admin,
-        "get_notification_template_admin",
-        ctx,
-        **kwargs,
+        client.notifications_admin.get_notification_template_admin, ctx=ctx, **kwargs
     )
     print_response(result, ctx)
 
@@ -148,6 +144,6 @@ def send_test_email_admin(
     kwargs["system_config_smtp_dto"] = system_config_smtp_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(
-        client, client.notifications_admin, "send_test_email_admin", ctx, **kwargs
+        client.notifications_admin.send_test_email_admin, ctx=ctx, **kwargs
     )
     print_response(result, ctx)

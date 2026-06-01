@@ -22,7 +22,6 @@ from immichpy.cli.runtime import (
     run_command,
 )
 from immichpy.client.generated.exceptions import ApiException
-from immichpy import AsyncClient
 
 
 class TestSetNested:
@@ -152,18 +151,24 @@ class TestRunAsync:
             await run_async(failing_coro())
 
 
+def _make_bound_method(return_value: Any = None, side_effect: Any = None) -> AsyncMock:
+    """Create an AsyncMock that looks like a bound method with an api_client."""
+    mock_api_client: MagicMock = MagicMock()
+    mock_api_client.close = AsyncMock()
+    mock_api_group: MagicMock = MagicMock()
+    mock_api_group.api_client = mock_api_client
+    method: AsyncMock = AsyncMock(return_value=return_value, side_effect=side_effect)
+    method.__self__ = mock_api_group
+    return method
+
+
 class TestRunCommand:
     """Tests for run_command function."""
 
     @patch("immichpy.cli.runtime.asyncio.run")
     def test_run_command_success(self, mock_asyncio_run: Mock) -> None:
         """Test run_command with successful execution."""
-        mock_client: Mock = Mock(spec=AsyncClient)
-        mock_client.close = AsyncMock()
-
-        mock_api_group: MagicMock = MagicMock()
-        mock_method: AsyncMock = AsyncMock(return_value={"result": "success"})
-        mock_api_group.test_method = mock_method
+        method = _make_bound_method(return_value={"result": "success"})
 
         def mock_run(coro: Any) -> Any:
             loop = asyncio.new_event_loop()
@@ -174,12 +179,11 @@ class TestRunCommand:
 
         mock_asyncio_run.side_effect = mock_run
 
-        result: dict[str, str] = run_command(
-            mock_client, mock_api_group, "test_method", None, arg1="value1"
-        )
+        result: dict[str, str] = run_command(method, ctx=None, arg1="value1")
 
         assert result == {"result": "success"}
         mock_asyncio_run.assert_called_once()
+        method.__self__.api_client.close.assert_awaited_once()
 
     @patch("immichpy.cli.runtime.print_")
     @patch("immichpy.cli.runtime.format_api_error")
@@ -188,14 +192,9 @@ class TestRunCommand:
         self, mock_asyncio_run: Mock, mock_format_error: Mock, mock_print: Mock
     ) -> None:
         """Test run_command with ApiException."""
-        mock_client: Mock = Mock(spec=AsyncClient)
-        mock_client.close = AsyncMock()
-
-        mock_api_group: MagicMock = MagicMock()
         api_error: ApiException = ApiException(status=404)
         api_error.body = {"error": "not found"}
-        mock_method: AsyncMock = AsyncMock(side_effect=api_error)
-        mock_api_group.test_method = mock_method
+        method = _make_bound_method(side_effect=api_error)
 
         def mock_run(coro: Any) -> Any:
             loop = asyncio.new_event_loop()
@@ -211,7 +210,7 @@ class TestRunCommand:
         ctx.obj = {"format": "json"}
 
         with pytest.raises(Exit) as exc_info:
-            run_command(mock_client, mock_api_group, "test_method", ctx)
+            run_command(method, ctx=ctx)
 
         assert exc_info.value.exit_code == 4
         mock_format_error.assert_called_once_with(api_error)
@@ -223,12 +222,7 @@ class TestRunCommand:
         self, mock_asyncio_run: Mock, mock_print: Mock
     ) -> None:
         """Test run_command with non-ApiException."""
-        mock_client: Mock = Mock(spec=AsyncClient)
-        mock_client.close = AsyncMock()
-
-        mock_api_group: MagicMock = MagicMock()
-        mock_method: AsyncMock = AsyncMock(side_effect=ValueError("test error"))
-        mock_api_group.test_method = mock_method
+        method = _make_bound_method(side_effect=ValueError("test error"))
 
         def mock_run(coro: Any) -> Any:
             loop = asyncio.new_event_loop()
@@ -240,11 +234,11 @@ class TestRunCommand:
         mock_asyncio_run.side_effect = mock_run
 
         with pytest.raises(Exit) as exc_info:
-            run_command(mock_client, mock_api_group, "test_method", None)
+            run_command(method, ctx=None)
 
         assert exc_info.value.exit_code == 1
         mock_print.assert_any_call(
             "Unexpected error: test error", type="error", ctx=None
         )
-
         mock_asyncio_run.assert_called_once()
+        method.__self__.api_client.close.assert_awaited_once()
