@@ -51,7 +51,7 @@ def create_person(
     person_create_dto = PersonCreateDto.model_validate(json_data)
     kwargs["person_create_dto"] = person_create_dto
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client, client.people, "create_person", ctx, **kwargs)
+    result = run_command(client.people, "create_person", ctx, **kwargs)
     print_response(result, ctx)
 
 
@@ -70,7 +70,7 @@ def delete_people(
     bulk_ids_dto = BulkIdsDto.model_validate(json_data)
     kwargs["bulk_ids_dto"] = bulk_ids_dto
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client, client.people, "delete_people", ctx, **kwargs)
+    result = run_command(client.people, "delete_people", ctx, **kwargs)
     print_response(result, ctx)
 
 
@@ -86,7 +86,7 @@ def delete_person(
     kwargs = {}
     kwargs["id"] = id
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client, client.people, "delete_person", ctx, **kwargs)
+    result = run_command(client.people, "delete_person", ctx, **kwargs)
     print_response(result, ctx)
 
 
@@ -125,7 +125,7 @@ def get_all_people(
     if with_hidden is not None:
         kwargs["with_hidden"] = with_hidden.lower() == "true"
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client, client.people, "get_all_people", ctx, **kwargs)
+    result = run_command(client.people, "get_all_people", ctx, **kwargs)
     print_response(result, ctx)
 
 
@@ -141,7 +141,7 @@ def get_person(
     kwargs = {}
     kwargs["id"] = id
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client, client.people, "get_person", ctx, **kwargs)
+    result = run_command(client.people, "get_person", ctx, **kwargs)
     print_response(result, ctx)
 
 
@@ -157,7 +157,7 @@ def get_person_statistics(
     kwargs = {}
     kwargs["id"] = id
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client, client.people, "get_person_statistics", ctx, **kwargs)
+    result = run_command(client.people, "get_person_statistics", ctx, **kwargs)
     print_response(result, ctx)
 
 
@@ -173,7 +173,7 @@ def get_person_thumbnail(
     kwargs = {}
     kwargs["id"] = id
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client, client.people, "get_person_thumbnail", ctx, **kwargs)
+    result = run_command(client.people, "get_person_thumbnail", ctx, **kwargs)
     print_response(result, ctx)
 
 
@@ -194,7 +194,7 @@ def merge_person(
     merge_person_dto = MergePersonDto.model_validate(json_data)
     kwargs["merge_person_dto"] = merge_person_dto
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client, client.people, "merge_person", ctx, **kwargs)
+    result = run_command(client.people, "merge_person", ctx, **kwargs)
     print_response(result, ctx)
 
 
@@ -222,7 +222,7 @@ As a JSON string""",
     asset_face_update_dto = AssetFaceUpdateDto.model_validate(json_data)
     kwargs["asset_face_update_dto"] = asset_face_update_dto
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client, client.people, "reassign_faces", ctx, **kwargs)
+    result = run_command(client.people, "reassign_faces", ctx, **kwargs)
     print_response(result, ctx)
 
 
@@ -248,7 +248,7 @@ As a JSON string""",
     people_update_dto = PeopleUpdateDto.model_validate(json_data)
     kwargs["people_update_dto"] = people_update_dto
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client, client.people, "update_people", ctx, **kwargs)
+    result = run_command(client.people, "update_people", ctx, **kwargs)
     print_response(result, ctx)
 
 
@@ -295,5 +295,5 @@ def update_person(
     person_update_dto = PersonUpdateDto.model_validate(json_data)
     kwargs["person_update_dto"] = person_update_dto
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client, client.people, "update_person", ctx, **kwargs)
+    result = run_command(client.people, "update_person", ctx, **kwargs)
     print_response(result, ctx)

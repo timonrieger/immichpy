@@ -43,7 +43,7 @@ def create_activity(
     activity_create_dto = ActivityCreateDto.model_validate(json_data)
     kwargs["activity_create_dto"] = activity_create_dto
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client, client.activities, "create_activity", ctx, **kwargs)
+    result = run_command(client.activities, "create_activity", ctx, **kwargs)
     print_response(result, ctx)
 
 
@@ -59,7 +59,7 @@ def delete_activity(
     kwargs = {}
     kwargs["id"] = id
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client, client.activities, "delete_activity", ctx, **kwargs)
+    result = run_command(client.activities, "delete_activity", ctx, **kwargs)
     print_response(result, ctx)
 
 
@@ -93,7 +93,7 @@ def get_activities(
     if user_id is not None:
         kwargs["user_id"] = user_id
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client, client.activities, "get_activities", ctx, **kwargs)
+    result = run_command(client.activities, "get_activities", ctx, **kwargs)
     print_response(result, ctx)
 
 
@@ -116,7 +116,5 @@ def get_activity_statistics(
     if asset_id is not None:
         kwargs["asset_id"] = asset_id
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(
-        client, client.activities, "get_activity_statistics", ctx, **kwargs
-    )
+    result = run_command(client.activities, "get_activity_statistics", ctx, **kwargs)
     print_response(result, ctx)

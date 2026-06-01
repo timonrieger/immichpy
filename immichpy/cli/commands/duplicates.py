@@ -29,7 +29,7 @@ def delete_duplicate(
     kwargs = {}
     kwargs["id"] = id
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client, client.duplicates, "delete_duplicate", ctx, **kwargs)
+    result = run_command(client.duplicates, "delete_duplicate", ctx, **kwargs)
     print_response(result, ctx)
 
 
@@ -48,7 +48,7 @@ def delete_duplicates(
     bulk_ids_dto = BulkIdsDto.model_validate(json_data)
     kwargs["bulk_ids_dto"] = bulk_ids_dto
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client, client.duplicates, "delete_duplicates", ctx, **kwargs)
+    result = run_command(client.duplicates, "delete_duplicates", ctx, **kwargs)
     print_response(result, ctx)
 
 
@@ -62,9 +62,7 @@ def get_asset_duplicates(
     """
     kwargs = {}
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(
-        client, client.duplicates, "get_asset_duplicates", ctx, **kwargs
-    )
+    result = run_command(client.duplicates, "get_asset_duplicates", ctx, **kwargs)
     print_response(result, ctx)
 
 
@@ -90,5 +88,5 @@ As a JSON string""",
     duplicate_resolve_dto = DuplicateResolveDto.model_validate(json_data)
     kwargs["duplicate_resolve_dto"] = duplicate_resolve_dto
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client, client.duplicates, "resolve_duplicates", ctx, **kwargs)
+    result = run_command(client.duplicates, "resolve_duplicates", ctx, **kwargs)
     print_response(result, ctx)

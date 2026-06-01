@@ -33,7 +33,7 @@ def create_profile_image(
     kwargs["file"] = (file.name, file.read_bytes())
     kwargs.update(json_data)
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client, client.users, "create_profile_image", ctx, **kwargs)
+    result = run_command(client.users, "create_profile_image", ctx, **kwargs)
     print_response(result, ctx)
 
 
@@ -47,7 +47,7 @@ def delete_profile_image(
     """
     kwargs = {}
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client, client.users, "delete_profile_image", ctx, **kwargs)
+    result = run_command(client.users, "delete_profile_image", ctx, **kwargs)
     print_response(result, ctx)
 
 
@@ -61,7 +61,7 @@ def delete_user_license(
     """
     kwargs = {}
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client, client.users, "delete_user_license", ctx, **kwargs)
+    result = run_command(client.users, "delete_user_license", ctx, **kwargs)
     print_response(result, ctx)
 
 
@@ -75,7 +75,7 @@ def delete_user_onboarding(
     """
     kwargs = {}
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client, client.users, "delete_user_onboarding", ctx, **kwargs)
+    result = run_command(client.users, "delete_user_onboarding", ctx, **kwargs)
     print_response(result, ctx)
 
 
@@ -89,7 +89,7 @@ def get_my_preferences(
     """
     kwargs = {}
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client, client.users, "get_my_preferences", ctx, **kwargs)
+    result = run_command(client.users, "get_my_preferences", ctx, **kwargs)
     print_response(result, ctx)
 
 
@@ -103,7 +103,7 @@ def get_my_user(
     """
     kwargs = {}
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client, client.users, "get_my_user", ctx, **kwargs)
+    result = run_command(client.users, "get_my_user", ctx, **kwargs)
     print_response(result, ctx)
 
 
@@ -119,7 +119,7 @@ def get_profile_image(
     kwargs = {}
     kwargs["id"] = id
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client, client.users, "get_profile_image", ctx, **kwargs)
+    result = run_command(client.users, "get_profile_image", ctx, **kwargs)
     print_response(result, ctx)
 
 
@@ -135,7 +135,7 @@ def get_user(
     kwargs = {}
     kwargs["id"] = id
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client, client.users, "get_user", ctx, **kwargs)
+    result = run_command(client.users, "get_user", ctx, **kwargs)
     print_response(result, ctx)
 
 
@@ -149,7 +149,7 @@ def get_user_license(
     """
     kwargs = {}
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client, client.users, "get_user_license", ctx, **kwargs)
+    result = run_command(client.users, "get_user_license", ctx, **kwargs)
     print_response(result, ctx)
 
 
@@ -163,7 +163,7 @@ def get_user_onboarding(
     """
     kwargs = {}
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client, client.users, "get_user_onboarding", ctx, **kwargs)
+    result = run_command(client.users, "get_user_onboarding", ctx, **kwargs)
     print_response(result, ctx)
 
 
@@ -177,7 +177,7 @@ def search_users(
     """
     kwargs = {}
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client, client.users, "search_users", ctx, **kwargs)
+    result = run_command(client.users, "search_users", ctx, **kwargs)
     print_response(result, ctx)
 
 
@@ -202,7 +202,7 @@ def set_user_license(
     license_key_dto = LicenseKeyDto.model_validate(json_data)
     kwargs["license_key_dto"] = license_key_dto
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client, client.users, "set_user_license", ctx, **kwargs)
+    result = run_command(client.users, "set_user_license", ctx, **kwargs)
     print_response(result, ctx)
 
 
@@ -223,7 +223,7 @@ def set_user_onboarding(
     onboarding_dto = OnboardingDto.model_validate(json_data)
     kwargs["onboarding_dto"] = onboarding_dto
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client, client.users, "set_user_onboarding", ctx, **kwargs)
+    result = run_command(client.users, "set_user_onboarding", ctx, **kwargs)
     print_response(result, ctx)
 
 
@@ -395,7 +395,7 @@ def update_my_preferences(
     user_preferences_update_dto = UserPreferencesUpdateDto.model_validate(json_data)
     kwargs["user_preferences_update_dto"] = user_preferences_update_dto
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client, client.users, "update_my_preferences", ctx, **kwargs)
+    result = run_command(client.users, "update_my_preferences", ctx, **kwargs)
     print_response(result, ctx)
 
 
@@ -430,5 +430,5 @@ def update_my_user(
     user_update_me_dto = UserUpdateMeDto.model_validate(json_data)
     kwargs["user_update_me_dto"] = user_update_me_dto
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client, client.users, "update_my_user", ctx, **kwargs)
+    result = run_command(client.users, "update_my_user", ctx, **kwargs)
     print_response(result, ctx)

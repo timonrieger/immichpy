@@ -5,7 +5,7 @@ from __future__ import annotations
 import asyncio
 import json
 import traceback
-from typing import Any, Awaitable, Callable
+from typing import Any, Awaitable, Callable, Protocol
 
 from immichpy.cli.utils import print_
 from pydantic import BaseModel
@@ -13,8 +13,12 @@ from typer import Context, Exit
 
 from immichpy.cli.types import MaybeBaseModel
 
-from immichpy import AsyncClient
+from immichpy.client.generated.api_client import ApiClient
 from immichpy.client.generated.exceptions import ApiException
+
+
+class _ApiGroup(Protocol):
+    api_client: ApiClient
 
 
 def set_nested(d: dict[str, Any], path: list[str], value: Any) -> None:
@@ -92,15 +96,13 @@ async def run_async(coro: Awaitable[Any]) -> Any:
 
 
 def run_command(
-    client: AsyncClient,
-    api_group: Any,
+    api_group: _ApiGroup,
     method_name: str,
     ctx: Context | None = None,
     **kwargs: Any,
 ) -> Any:
     """Run a client API method and handle the result.
 
-    :param client: The async client instance to close after execution
     :param api_group: The API group object containing the target method
     :param method_name: The name of the method to invoke on `api_group`
     :param ctx: Optional Typer context for CLI output formatting
@@ -115,7 +117,7 @@ def run_command(
         try:
             return await method(**kwargs)
         finally:
-            await client.close()
+            await api_group.api_client.close()
 
     try:
         return asyncio.run(_call_and_close())

@@ -6,13 +6,9 @@ from pathlib import Path
 
 import typer
 
-from typing import TYPE_CHECKING
-
 from immichpy.cli.commands import assets as assets_commands
 from immichpy.cli.runtime import print_response, run_command
 
-if TYPE_CHECKING:
-    from immichpy.client.main import AsyncClient
 # Reuse the existing app from the generated commands
 app = assets_commands.app
 
@@ -56,9 +52,11 @@ def download_asset_to_file(
         kwargs["slug"] = slug
     if filename is not None:
         kwargs["filename"] = filename
-    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(
-        client, client.assets, "download_asset_to_file", ctx=ctx, **kwargs
+        api_group=ctx.obj["client"].assets,
+        method_name="download_asset_to_file",
+        ctx=ctx,
+        **kwargs,
     )
     print_response(result, ctx)
 
@@ -100,9 +98,11 @@ def play_asset_video_to_file(
         kwargs["slug"] = slug
     if filename is not None:
         kwargs["filename"] = filename
-    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(
-        client, client.assets, "play_asset_video_to_file", ctx=ctx, **kwargs
+        api_group=ctx.obj["client"].assets,
+        method_name="play_asset_video_to_file",
+        ctx=ctx,
+        **kwargs,
     )
     print_response(result, ctx)
 
@@ -149,8 +149,12 @@ def view_asset_to_file(
         kwargs["size"] = size
     if filename is not None:
         kwargs["filename"] = filename
-    client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client, client.assets, "view_asset_to_file", ctx=ctx, **kwargs)
+    result = run_command(
+        api_group=ctx.obj["client"].assets,
+        method_name="view_asset_to_file",
+        ctx=ctx,
+        **kwargs,
+    )
     print_response(result, ctx)
 
 
@@ -222,6 +226,7 @@ def upload(
     kwargs["delete_uploads"] = delete_uploads
     kwargs["delete_duplicates"] = delete_duplicates
     kwargs["dry_run"] = dry_run
-    client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client, client.assets, "upload", ctx=ctx, **kwargs)
+    result = run_command(
+        api_group=ctx.obj["client"].assets, method_name="upload", ctx=ctx, **kwargs
+    )
     print_response(result, ctx)

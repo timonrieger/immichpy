@@ -32,9 +32,7 @@ def delete_database_backup(
     database_backup_delete_dto = DatabaseBackupDeleteDto.model_validate(json_data)
     kwargs["database_backup_delete_dto"] = database_backup_delete_dto
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(
-        client, client.backups, "delete_database_backup", ctx, **kwargs
-    )
+    result = run_command(client.backups, "delete_database_backup", ctx, **kwargs)
     print_response(result, ctx)
 
 
@@ -52,9 +50,7 @@ def download_database_backup(
     kwargs = {}
     kwargs["filename"] = filename
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(
-        client, client.backups, "download_database_backup", ctx, **kwargs
-    )
+    result = run_command(client.backups, "download_database_backup", ctx, **kwargs)
     print_response(result, ctx)
 
 
@@ -68,7 +64,7 @@ def list_database_backups(
     """
     kwargs = {}
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client, client.backups, "list_database_backups", ctx, **kwargs)
+    result = run_command(client.backups, "list_database_backups", ctx, **kwargs)
     print_response(result, ctx)
 
 
@@ -84,9 +80,7 @@ def start_database_restore_flow(
     """
     kwargs = {}
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(
-        client, client.backups, "start_database_restore_flow", ctx, **kwargs
-    )
+    result = run_command(client.backups, "start_database_restore_flow", ctx, **kwargs)
     print_response(result, ctx)
 
 
@@ -105,7 +99,5 @@ def upload_database_backup(
         set_nested(json_data, ["file"], (file.name, file.read_bytes()))
     kwargs.update(json_data)
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(
-        client, client.backups, "upload_database_backup", ctx, **kwargs
-    )
+    result = run_command(client.backups, "upload_database_backup", ctx, **kwargs)
     print_response(result, ctx)
