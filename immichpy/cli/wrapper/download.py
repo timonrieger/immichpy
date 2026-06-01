@@ -77,5 +77,5 @@ def download_archive_to_file(
     kwargs["show_progress"] = show_progress
 
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client.download.download_archive_to_file, ctx, **kwargs)
+    result = run_command(client.download.download_archive_to_file, ctx=ctx, **kwargs)
     print_response(result, ctx)

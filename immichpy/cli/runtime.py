@@ -97,6 +97,7 @@ async def run_async(coro: Awaitable[Any]) -> Any:
 
 def run_command(
     method: Callable[..., Awaitable[Any]],
+    *,
     ctx: Context | None = None,
     **kwargs: Any,
 ) -> Any:

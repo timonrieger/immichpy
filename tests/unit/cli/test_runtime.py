@@ -179,7 +179,7 @@ class TestRunCommand:
 
         mock_asyncio_run.side_effect = mock_run
 
-        result: dict[str, str] = run_command(method, None, arg1="value1")
+        result: dict[str, str] = run_command(method, ctx=None, arg1="value1")
 
         assert result == {"result": "success"}
         mock_asyncio_run.assert_called_once()
@@ -209,7 +209,7 @@ class TestRunCommand:
         ctx.obj = {"format": "json"}
 
         with pytest.raises(Exit) as exc_info:
-            run_command(method, ctx)
+            run_command(method, ctx=ctx)
 
         assert exc_info.value.exit_code == 4
         mock_format_error.assert_called_once_with(api_error)
@@ -233,7 +233,7 @@ class TestRunCommand:
         mock_asyncio_run.side_effect = mock_run
 
         with pytest.raises(Exit) as exc_info:
-            run_command(method, None)
+            run_command(method, ctx=None)
 
         assert exc_info.value.exit_code == 1
         mock_print.assert_any_call(

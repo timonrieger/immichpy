@@ -38,7 +38,7 @@ def empty_queue(
     queue_delete_dto = QueueDeleteDto.model_validate(json_data)
     kwargs["queue_delete_dto"] = queue_delete_dto
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client.queues.empty_queue, ctx, **kwargs)
+    result = run_command(client.queues.empty_queue, ctx=ctx, **kwargs)
     print_response(result, ctx)
 
 
@@ -54,7 +54,7 @@ def get_queue(
     kwargs = {}
     kwargs["name"] = name
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client.queues.get_queue, ctx, **kwargs)
+    result = run_command(client.queues.get_queue, ctx=ctx, **kwargs)
     print_response(result, ctx)
 
 
@@ -75,7 +75,7 @@ def get_queue_jobs(
     if status is not None:
         kwargs["status"] = status
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client.queues.get_queue_jobs, ctx, **kwargs)
+    result = run_command(client.queues.get_queue_jobs, ctx=ctx, **kwargs)
     print_response(result, ctx)
 
 
@@ -89,7 +89,7 @@ def get_queues(
     """
     kwargs = {}
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client.queues.get_queues, ctx, **kwargs)
+    result = run_command(client.queues.get_queues, ctx=ctx, **kwargs)
     print_response(result, ctx)
 
 
@@ -113,5 +113,5 @@ def update_queue(
     queue_update_dto = QueueUpdateDto.model_validate(json_data)
     kwargs["queue_update_dto"] = queue_update_dto
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client.queues.update_queue, ctx, **kwargs)
+    result = run_command(client.queues.update_queue, ctx=ctx, **kwargs)
     print_response(result, ctx)

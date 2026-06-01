@@ -52,7 +52,7 @@ Example: password""",
     change_password_dto = ChangePasswordDto.model_validate(json_data)
     kwargs["change_password_dto"] = change_password_dto
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client.auth.change_password, ctx, **kwargs)
+    result = run_command(client.auth.change_password, ctx=ctx, **kwargs)
     print_response(result, ctx)
 
 
@@ -93,7 +93,7 @@ Example: 123456""",
     pin_code_change_dto = PinCodeChangeDto.model_validate(json_data)
     kwargs["pin_code_change_dto"] = pin_code_change_dto
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client.auth.change_pin_code, ctx, **kwargs)
+    result = run_command(client.auth.change_pin_code, ctx=ctx, **kwargs)
     print_response(result, ctx)
 
 
@@ -120,7 +120,7 @@ def finish_o_auth(
     o_auth_callback_dto = OAuthCallbackDto.model_validate(json_data)
     kwargs["o_auth_callback_dto"] = o_auth_callback_dto
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client.auth.finish_o_auth, ctx, **kwargs)
+    result = run_command(client.auth.finish_o_auth, ctx=ctx, **kwargs)
     print_response(result, ctx)
 
 
@@ -134,7 +134,7 @@ def get_auth_status(
     """
     kwargs = {}
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client.auth.get_auth_status, ctx, **kwargs)
+    result = run_command(client.auth.get_auth_status, ctx=ctx, **kwargs)
     print_response(result, ctx)
 
 
@@ -161,7 +161,7 @@ def link_o_auth_account(
     o_auth_callback_dto = OAuthCallbackDto.model_validate(json_data)
     kwargs["o_auth_callback_dto"] = o_auth_callback_dto
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client.auth.link_o_auth_account, ctx, **kwargs)
+    result = run_command(client.auth.link_o_auth_account, ctx=ctx, **kwargs)
     print_response(result, ctx)
 
 
@@ -175,7 +175,7 @@ def lock_auth_session(
     """
     kwargs = {}
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client.auth.lock_auth_session, ctx, **kwargs)
+    result = run_command(client.auth.lock_auth_session, ctx=ctx, **kwargs)
     print_response(result, ctx)
 
 
@@ -208,7 +208,7 @@ Example: password""",
     login_credential_dto = LoginCredentialDto.model_validate(json_data)
     kwargs["login_credential_dto"] = login_credential_dto
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client.auth.login, ctx, **kwargs)
+    result = run_command(client.auth.login, ctx=ctx, **kwargs)
     print_response(result, ctx)
 
 
@@ -222,7 +222,7 @@ def logout(
     """
     kwargs = {}
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client.auth.logout, ctx, **kwargs)
+    result = run_command(client.auth.logout, ctx=ctx, **kwargs)
     print_response(result, ctx)
 
 
@@ -238,7 +238,7 @@ def redirect_o_auth_to_mobile(
     """
     kwargs = {}
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client.auth.redirect_o_auth_to_mobile, ctx, **kwargs)
+    result = run_command(client.auth.redirect_o_auth_to_mobile, ctx=ctx, **kwargs)
     print_response(result, ctx)
 
 
@@ -271,7 +271,7 @@ Example: 123456""",
     pin_code_reset_dto = PinCodeResetDto.model_validate(json_data)
     kwargs["pin_code_reset_dto"] = pin_code_reset_dto
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client.auth.reset_pin_code, ctx, **kwargs)
+    result = run_command(client.auth.reset_pin_code, ctx=ctx, **kwargs)
     print_response(result, ctx)
 
 
@@ -296,7 +296,7 @@ Example: 123456""",
     pin_code_setup_dto = PinCodeSetupDto.model_validate(json_data)
     kwargs["pin_code_setup_dto"] = pin_code_setup_dto
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client.auth.setup_pin_code, ctx, **kwargs)
+    result = run_command(client.auth.setup_pin_code, ctx=ctx, **kwargs)
     print_response(result, ctx)
 
 
@@ -337,7 +337,7 @@ Example: password""",
     sign_up_dto = SignUpDto.model_validate(json_data)
     kwargs["sign_up_dto"] = sign_up_dto
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client.auth.sign_up_admin, ctx, **kwargs)
+    result = run_command(client.auth.sign_up_admin, ctx=ctx, **kwargs)
     print_response(result, ctx)
 
 
@@ -366,7 +366,7 @@ def start_o_auth(
     o_auth_config_dto = OAuthConfigDto.model_validate(json_data)
     kwargs["o_auth_config_dto"] = o_auth_config_dto
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client.auth.start_o_auth, ctx, **kwargs)
+    result = run_command(client.auth.start_o_auth, ctx=ctx, **kwargs)
     print_response(result, ctx)
 
 
@@ -380,7 +380,7 @@ def unlink_o_auth_account(
     """
     kwargs = {}
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client.auth.unlink_o_auth_account, ctx, **kwargs)
+    result = run_command(client.auth.unlink_o_auth_account, ctx=ctx, **kwargs)
     print_response(result, ctx)
 
 
@@ -413,7 +413,7 @@ Example: 123456""",
     session_unlock_dto = SessionUnlockDto.model_validate(json_data)
     kwargs["session_unlock_dto"] = session_unlock_dto
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client.auth.unlock_auth_session, ctx, **kwargs)
+    result = run_command(client.auth.unlock_auth_session, ctx=ctx, **kwargs)
     print_response(result, ctx)
 
 
@@ -427,5 +427,5 @@ def validate_access_token(
     """
     kwargs = {}
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client.auth.validate_access_token, ctx, **kwargs)
+    result = run_command(client.auth.validate_access_token, ctx=ctx, **kwargs)
     print_response(result, ctx)

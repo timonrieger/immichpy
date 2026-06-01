@@ -116,7 +116,7 @@ Example: 2024-01-01""",
     if with_stacked is not None:
         kwargs["with_stacked"] = with_stacked.lower() == "true"
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client.timeline.get_time_bucket, ctx, **kwargs)
+    result = run_command(client.timeline.get_time_bucket, ctx=ctx, **kwargs)
     print_response(result, ctx)
 
 
@@ -212,5 +212,5 @@ Example: 11.075683,49.416711,11.117589,49.454875""",
     if with_stacked is not None:
         kwargs["with_stacked"] = with_stacked.lower() == "true"
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client.timeline.get_time_buckets, ctx, **kwargs)
+    result = run_command(client.timeline.get_time_buckets, ctx=ctx, **kwargs)
     print_response(result, ctx)

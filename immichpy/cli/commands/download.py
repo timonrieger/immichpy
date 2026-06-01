@@ -42,7 +42,7 @@ def download_archive(
     download_archive_dto = DownloadArchiveDto.model_validate(json_data)
     kwargs["download_archive_dto"] = download_archive_dto
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client.download.download_archive, ctx, **kwargs)
+    result = run_command(client.download.download_archive, ctx=ctx, **kwargs)
     print_response(result, ctx)
 
 
@@ -85,5 +85,5 @@ def get_download_info(
     download_info_dto = DownloadInfoDto.model_validate(json_data)
     kwargs["download_info_dto"] = download_info_dto
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client.download.get_download_info, ctx, **kwargs)
+    result = run_command(client.download.get_download_info, ctx=ctx, **kwargs)
     print_response(result, ctx)

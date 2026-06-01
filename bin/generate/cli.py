@@ -496,7 +496,7 @@ def generate_command_function(
     method_name = to_snake_case(operation_id)
     lines.append("    client: 'AsyncClient' = ctx.obj['client']")
     lines.append(
-        f"    result = run_command(client.{tag_attr}.{method_name}, ctx, **kwargs)"
+        f"    result = run_command(client.{tag_attr}.{method_name}, ctx=ctx, **kwargs)"
     )
 
     # Print result
