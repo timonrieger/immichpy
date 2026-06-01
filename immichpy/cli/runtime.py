@@ -96,8 +96,8 @@ async def run_async(coro: Awaitable[Any]) -> Any:
 
 
 def run_command(
-    api_group: _ApiGroup,
-    method_name: str,
+    api: _ApiGroup,
+    method: str,
     ctx: Context | None = None,
     **kwargs: Any,
 ) -> Any:
@@ -111,13 +111,13 @@ def run_command(
     :raises Exit: Raised with a CLI exit code when API or unexpected errors occur
     :raises AttributeError: If `method_name` is not present on `api_group`
     """
-    method: Callable[..., Awaitable[Any]] = getattr(api_group, method_name)
+    method: Callable[..., Awaitable[Any]] = getattr(api, method)
 
     async def _call_and_close() -> Any:
         try:
             return await method(**kwargs)
         finally:
-            await api_group.api_client.close()
+            await api.api_client.close()
 
     try:
         return asyncio.run(_call_and_close())

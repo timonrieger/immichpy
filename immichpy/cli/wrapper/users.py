@@ -43,8 +43,8 @@ def get_profile_image_to_file(
         kwargs["filename"] = filename
     kwargs["show_progress"] = show_progress
     result = run_command(
-        api_group=ctx.obj["client"].users,
-        method_name="get_profile_image_to_file",
+        api=ctx.obj["client"].users,
+        method="get_profile_image_to_file",
         ctx=ctx,
         **kwargs,
     )

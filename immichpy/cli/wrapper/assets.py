@@ -53,8 +53,8 @@ def download_asset_to_file(
     if filename is not None:
         kwargs["filename"] = filename
     result = run_command(
-        api_group=ctx.obj["client"].assets,
-        method_name="download_asset_to_file",
+        api=ctx.obj["client"].assets,
+        method="download_asset_to_file",
         ctx=ctx,
         **kwargs,
     )
@@ -99,8 +99,8 @@ def play_asset_video_to_file(
     if filename is not None:
         kwargs["filename"] = filename
     result = run_command(
-        api_group=ctx.obj["client"].assets,
-        method_name="play_asset_video_to_file",
+        api=ctx.obj["client"].assets,
+        method="play_asset_video_to_file",
         ctx=ctx,
         **kwargs,
     )
@@ -150,8 +150,8 @@ def view_asset_to_file(
     if filename is not None:
         kwargs["filename"] = filename
     result = run_command(
-        api_group=ctx.obj["client"].assets,
-        method_name="view_asset_to_file",
+        api=ctx.obj["client"].assets,
+        method="view_asset_to_file",
         ctx=ctx,
         **kwargs,
     )
@@ -227,6 +227,6 @@ def upload(
     kwargs["delete_duplicates"] = delete_duplicates
     kwargs["dry_run"] = dry_run
     result = run_command(
-        api_group=ctx.obj["client"].assets, method_name="upload", ctx=ctx, **kwargs
+        api=ctx.obj["client"].assets, method="upload", ctx=ctx, **kwargs
     )
     print_response(result, ctx)

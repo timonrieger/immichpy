@@ -57,7 +57,7 @@ def setup(
             base_url=base_url, api_key=api_key, access_token=access_token
         )
         try:
-            run_command(api_group=client.server, method_name="ping_server", ctx=ctx)
+            run_command(api=client.server, method="ping_server", ctx=ctx)
         except Exception:
             print_(
                 "Error validating server. Make sure the base URL is correct (including /api) and the server is reachable.",

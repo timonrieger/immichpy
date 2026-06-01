@@ -73,8 +73,8 @@ def download_archive_to_file(
     kwargs["show_progress"] = show_progress
 
     result = run_command(
-        api_group=ctx.obj["client"].download,
-        method_name="download_archive_to_file",
+        api=ctx.obj["client"].download,
+        method="download_archive_to_file",
         ctx=ctx,
         **kwargs,
     )
