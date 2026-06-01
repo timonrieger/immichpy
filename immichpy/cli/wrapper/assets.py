@@ -8,6 +8,10 @@ import typer
 
 from immichpy.cli.commands import assets as assets_commands
 from immichpy.cli.runtime import print_response, run_command
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from immichpy import AsyncClient
 
 # Reuse the existing app from the generated commands
 app = assets_commands.app
@@ -52,8 +56,9 @@ def download_asset_to_file(
         kwargs["slug"] = slug
     if filename is not None:
         kwargs["filename"] = filename
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(
-        api=ctx.obj["client"].assets,
+        api=client.assets,
         method="download_asset_to_file",
         ctx=ctx,
         **kwargs,
@@ -98,8 +103,9 @@ def play_asset_video_to_file(
         kwargs["slug"] = slug
     if filename is not None:
         kwargs["filename"] = filename
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(
-        api=ctx.obj["client"].assets,
+        api=client.assets,
         method="play_asset_video_to_file",
         ctx=ctx,
         **kwargs,
@@ -149,8 +155,9 @@ def view_asset_to_file(
         kwargs["size"] = size
     if filename is not None:
         kwargs["filename"] = filename
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(
-        api=ctx.obj["client"].assets,
+        api=client.assets,
         method="view_asset_to_file",
         ctx=ctx,
         **kwargs,
@@ -226,7 +233,6 @@ def upload(
     kwargs["delete_uploads"] = delete_uploads
     kwargs["delete_duplicates"] = delete_duplicates
     kwargs["dry_run"] = dry_run
-    result = run_command(
-        api=ctx.obj["client"].assets, method="upload", ctx=ctx, **kwargs
-    )
+    client: "AsyncClient" = ctx.obj["client"]
+    result = run_command(api=client.assets, method="upload", ctx=ctx, **kwargs)
     print_response(result, ctx)

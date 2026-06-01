@@ -9,6 +9,11 @@ import typer
 from immichpy.cli.commands import users as users_commands
 from immichpy.cli.runtime import print_response, run_command
 
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from immichpy import AsyncClient
+
 # Reuse the existing app from the generated commands
 app = users_commands.app
 
@@ -42,8 +47,9 @@ def get_profile_image_to_file(
     if filename is not None:
         kwargs["filename"] = filename
     kwargs["show_progress"] = show_progress
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(
-        api=ctx.obj["client"].users,
+        api=client.users,
         method="get_profile_image_to_file",
         ctx=ctx,
         **kwargs,

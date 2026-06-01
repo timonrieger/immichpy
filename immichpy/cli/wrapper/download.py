@@ -12,6 +12,10 @@ from immichpy.cli.runtime import (
     run_command,
     set_nested,
 )
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from immichpy import AsyncClient
 
 # Reuse the existing app from the generated commands
 app = download_commands.app
@@ -72,8 +76,9 @@ def download_archive_to_file(
     kwargs["slug"] = slug
     kwargs["show_progress"] = show_progress
 
+    client: "AsyncClient" = ctx.obj["client"]
     result = run_command(
-        api=ctx.obj["client"].download,
+        api=client.download,
         method="download_archive_to_file",
         ctx=ctx,
         **kwargs,
