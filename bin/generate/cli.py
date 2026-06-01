@@ -146,7 +146,7 @@ def python_type_from_schema(
         item_type = python_type_from_schema(items, spec)
         return f"list[{item_type}]"
     elif schema_type == "object":
-        # Click can't map arbitrary objects; accept JSON as a string.
+        # Typer can't map arbitrary objects; accept JSON as a string.
         return "str"
     return "str"
 

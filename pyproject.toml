@@ -36,7 +36,7 @@ dependencies = [
 build = ["uv==0.11.17"]
 cli = [
     "rtoml>=0.13.0,<0.14.0",
-    "typer>=0.19.0,<0.26.0",
+    "typer>=0.26.3,<0.27.0",
 ]
 
 [project.scripts]
@@ -63,7 +63,7 @@ docs = [
     "mkdocstrings[python]>=1.0.1,<2.0.0",
     "pymdown-extensions>=10.20,<11.0",
     "termynal>=0.14.0,<0.15.0",
-    "typer>=0.19.0,<0.26.0",
+    "typer>=0.26.3,<0.27.0",
     "zensical>=0.0.43,<0.0.44",
 ]
 

@@ -573,7 +573,7 @@ requires-dist = [
     { name = "python-dateutil", specifier = ">=2.8.2,<3.0.0" },
     { name = "rich", specifier = ">=13.0.0,<16.0.0" },
     { name = "rtoml", marker = "extra == 'cli'", specifier = ">=0.13.0,<0.14.0" },
-    { name = "typer", marker = "extra == 'cli'", specifier = ">=0.19.0,<0.26.0" },
+    { name = "typer", marker = "extra == 'cli'", specifier = ">=0.26.3,<0.27.0" },
     { name = "typing-extensions", specifier = ">=4.0.0,<5.0.0" },
     { name = "uv", marker = "extra == 'build'", specifier = "==0.11.17" },
 ]
@@ -592,7 +592,7 @@ docs = [
     { name = "mkdocstrings", extras = ["python"], specifier = ">=1.0.1,<2.0.0" },
     { name = "pymdown-extensions", specifier = ">=10.20,<11.0" },
     { name = "termynal", specifier = ">=0.14.0,<0.15.0" },
-    { name = "typer", specifier = ">=0.19.0,<0.26.0" },
+    { name = "typer", specifier = ">=0.26.3,<0.27.0" },
     { name = "zensical", specifier = ">=0.0.43,<0.0.44" },
 ]
 
@@ -1722,17 +1722,17 @@ wheels = [
 
 [[package]]
 name = "typer"
-version = "0.25.1"
+version = "0.26.4"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "annotated-doc" },
-    { name = "click" },
+    { name = "colorama", marker = "sys_platform == 'win32'" },
     { name = "rich" },
     { name = "shellingham" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/e4/51/9aed62104cea109b820bbd6c14245af756112017d309da813ef107d42e7e/typer-0.25.1.tar.gz", hash = "sha256:9616eb8853a09ffeabab1698952f33c6f29ffdbceb4eaeecf571880e8d7664cc", size = 122276, upload-time = "2026-04-30T19:32:16.964Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/8e/d3/90c1ee19209cb59f6ad185883fd4ccfcf72f8f0bfd549d5a8b70474611d0/typer-0.26.4.tar.gz", hash = "sha256:25b128964de66c5ea36d5ac82adc579e5e113509b17469edf9f5a4a1864ff2a9", size = 201191, upload-time = "2026-05-30T17:05:04.213Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/3f/f9/2b3ff4e56e5fa7debfaf9eb135d0da96f3e9a1d5b27222223c7296336e5f/typer-0.25.1-py3-none-any.whl", hash = "sha256:75caa44ed46a03fb2dab8808753ffacdbfea88495e74c85a28c5eefcf5f39c89", size = 58409, upload-time = "2026-04-30T19:32:18.271Z" },
+    { url = "https://files.pythonhosted.org/packages/f0/6d/5a525c69df4a90892135e5d490b00e9e46402491f3416d4395fcb0d0201e/typer-0.26.4-py3-none-any.whl", hash = "sha256:11bfd7b43557137e373c2b10f6967a555f9678a61ed72c808968b011d95534d6", size = 122436, upload-time = "2026-05-30T17:05:05.812Z" },
 ]
 
 [[package]]
