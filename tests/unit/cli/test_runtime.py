@@ -183,6 +183,7 @@ class TestRunCommand:
 
         assert result == {"result": "success"}
         mock_asyncio_run.assert_called_once()
+        method.__self__.api_client.close.assert_awaited_once()
 
     @patch("immichpy.cli.runtime.print_")
     @patch("immichpy.cli.runtime.format_api_error")
@@ -240,3 +241,4 @@ class TestRunCommand:
             "Unexpected error: test error", type="error", ctx=None
         )
         mock_asyncio_run.assert_called_once()
+        method.__self__.api_client.close.assert_awaited_once()
