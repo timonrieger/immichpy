@@ -63,7 +63,7 @@ nav = [
         "cli/getting-started.md",
         "cli/examples.md",
         "cli/usage-tips.md",
-        "cli/env-vars.md",
+        "cli/authentication.md",
         "cli/reference.md",
     ] },
     { Client = [

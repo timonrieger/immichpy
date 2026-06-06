@@ -7,3 +7,4 @@ Practical notes on CLI behaviour that isn't obvious from `--help` alone.
 - **JSON flags** (e.g. `--album-users`) expect a valid JSON object string — the value is validated but there is no autocompletion. Run `--help` on the command to see the expected keys.
 - Flags that map to an array field can be repeated to pass multiple values (e.g. `--album-users '...' --album-users '...'`). See the [share album example](examples.md#share-an-album-with-multiple-users).
 - Every command's `--help` includes a link to the corresponding Immich API documentation page.
+- For authentication options and priority, see [Authentication](authentication.md).
