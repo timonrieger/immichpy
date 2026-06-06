@@ -123,3 +123,47 @@ $ immichpy --format table users search-users
 ```
 
 </div>
+
+## Share an album with multiple users
+
+Add multiple users to an album by repeating `--album-users`:
+
+<div class="termy">
+
+```console
+$ immichpy albums add-users-to-album cccdd9f7-6a0f-4ed1-9dc0-ad8774ff9798 \
+  --album-users '{"userId":"0025cccf-27ca-…","role":"viewer"}' \
+  --album-users '{"userId":"033dda4c-5009-…","role":"viewer"}'
+{
+  "album_name": "2025'04 - April's Pictures",
+  "album_users": [
+    {
+      "role": "editor",
+      "user": {
+        "email": "mich@immich.app",
+        "id": "743f389e-ee80-4682-8d56-2cd45f692c40",
+        "name": "Mich"
+      }
+    },
+    {
+      "role": "viewer",
+      "user": {
+        "email": "alex@immich.app",
+        "id": "0025cccf-27ca-4973-9be1-ffb549b10441",
+        "name": "Alex"
+      }
+    },
+    {
+      "role": "viewer",
+      "user": {
+        "email": "zack@immich.app",
+        "id": "033dda4c-5009-4475-afa5-dcc8ed2e5885",
+        "name": "Zack"
+      }
+    }
+  ],
+  ...
+}
+```
+
+</div>
