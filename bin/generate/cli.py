@@ -185,6 +185,25 @@ def normalize_schema(
     return schema
 
 
+def _schema_type_hint(schema: dict[str, Any], spec: dict[str, Any]) -> str:
+    schema = normalize_schema(schema, spec)
+    t = schema.get("type", "string")
+    if t == "array":
+        item_hint = _schema_type_hint(schema.get("items", {}), spec)
+        return f"{item_hint}[]"
+    return t
+
+
+def schema_keys(schema: dict[str, Any], spec: dict[str, Any]) -> str:
+    """Return a hint of the expected JSON object keys with types for a complex schema."""
+    schema = normalize_schema(schema, spec)
+    if schema.get("type") == "array":
+        schema = normalize_schema(schema.get("items", {}), spec)
+    props: dict[str, Any] = schema.get("properties", {})
+    parts = [f"{k} ({_schema_type_hint(v, spec)})" for k, v in props.items()]
+    return ", ".join(parts)
+
+
 def is_complex_type(schema: dict[str, Any], spec: dict[str, Any] | None = None) -> bool:
     """Check if schema represents a complex type (object, array-of-object, oneOf/anyOf, etc.)."""
     schema = normalize_schema(schema, spec)
@@ -299,7 +318,10 @@ def get_request_body_info(
 
         is_complex = is_complex_type(leaf_schema, spec)
         if is_complex:
-            description_parts.append("As a JSON string")
+            keys = schema_keys(leaf_schema, spec)
+            description_parts.append(
+                f"As a JSON string{f' with keys: {keys}' if keys else ''}"
+            )
 
         description = "\n\n".join(description_parts)
 

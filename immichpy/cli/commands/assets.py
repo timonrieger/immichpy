@@ -27,7 +27,7 @@ def check_bulk_upload(
         "--assets",
         help="""Assets to check
 
-As a JSON string""",
+As a JSON string with keys: checksum (string), id (string)""",
     ),
 ) -> None:
     """Check bulk upload
@@ -166,7 +166,7 @@ def delete_bulk_asset_metadata(
         "--items",
         help="""Metadata items to delete
 
-As a JSON string""",
+As a JSON string with keys: assetId (string), key (string)""",
     ),
 ) -> None:
     """Delete asset metadata
@@ -222,7 +222,7 @@ def edit_asset(
         "--edits",
         help="""List of edit actions to apply (crop, rotate, or mirror)
 
-As a JSON string""",
+As a JSON string with keys: action (string), parameters (string)""",
     ),
 ) -> None:
     """Apply edits to an existing asset
@@ -580,7 +580,7 @@ def update_asset_metadata(
         "--items",
         help="""Metadata items to upsert
 
-As a JSON string""",
+As a JSON string with keys: key (string), value (object)""",
     ),
 ) -> None:
     """Update asset metadata
@@ -682,7 +682,7 @@ def update_bulk_asset_metadata(
         "--items",
         help="""Metadata items to upsert
 
-As a JSON string""",
+As a JSON string with keys: assetId (string), key (string), value (object)""",
     ),
 ) -> None:
     """Upsert asset metadata
@@ -734,7 +734,7 @@ def upload_asset(
         "--metadata",
         help="""Asset metadata items
 
-As a JSON string""",
+As a JSON string with keys: key (string), value (object)""",
     ),
     sidecar_data: Path | None = typer.Option(
         None, "--sidecar-data", help="""Sidecar file data""", exists=True

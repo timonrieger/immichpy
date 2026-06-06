@@ -25,7 +25,7 @@ def create_workflow(
         "--actions",
         help="""Workflow actions
 
-As a JSON string""",
+As a JSON string with keys: actionConfig (object), pluginActionId (string)""",
     ),
     description: str | None = typer.Option(
         None, "--description", help="""Workflow description"""
@@ -38,7 +38,7 @@ As a JSON string""",
         "--filters",
         help="""Workflow filters
 
-As a JSON string""",
+As a JSON string with keys: filterConfig (object), pluginFilterId (string)""",
     ),
     name: str = typer.Option(..., "--name", help="""Workflow name"""),
     trigger_type: str = typer.Option(..., "--trigger-type", help="""Trigger type"""),
@@ -121,7 +121,7 @@ def update_workflow(
         "--actions",
         help="""Workflow actions
 
-As a JSON string""",
+As a JSON string with keys: actionConfig (object), pluginActionId (string)""",
     ),
     description: str | None = typer.Option(
         None, "--description", help="""Workflow description"""
@@ -134,7 +134,7 @@ As a JSON string""",
         "--filters",
         help="""Workflow filters
 
-As a JSON string""",
+As a JSON string with keys: filterConfig (object), pluginFilterId (string)""",
     ),
     name: str | None = typer.Option(None, "--name", help="""Workflow name"""),
     trigger_type: str | None = typer.Option(
