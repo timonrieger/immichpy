@@ -74,7 +74,7 @@ def resolve_duplicates(
         "--groups",
         help="""List of duplicate groups to resolve
 
-As a JSON string""",
+As a JSON string with keys: duplicateId (string), keepAssetIds (string[]), trashAssetIds (string[])""",
     ),
 ) -> None:
     """Resolve duplicate groups

@@ -207,7 +207,7 @@ def reassign_faces(
         "--data",
         help="""Face update items
 
-As a JSON string""",
+As a JSON string with keys: assetId (string), personId (string)""",
     ),
 ) -> None:
     """Reassign faces
@@ -234,7 +234,7 @@ def update_people(
         "--people",
         help="""People to update
 
-As a JSON string""",
+As a JSON string with keys: birthDate (string), color (string), featureFaceAssetId (string), id (string), isFavorite (boolean), isHidden (boolean), name (string)""",
     ),
 ) -> None:
     """Update people

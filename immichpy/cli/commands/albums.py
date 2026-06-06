@@ -80,7 +80,7 @@ def add_users_to_album(
         "--album-users",
         help="""Album users to add
 
-As a JSON string""",
+As a JSON string with keys: role (string), userId (string)""",
     ),
 ) -> None:
     """Share album with users
@@ -108,7 +108,7 @@ def create_album(
         "--album-users",
         help="""Album users
 
-As a JSON string""",
+As a JSON string with keys: role (string), userId (string)""",
     ),
     asset_ids: list[str] | None = typer.Option(
         None, "--asset-ids", help="""Initial asset IDs"""
