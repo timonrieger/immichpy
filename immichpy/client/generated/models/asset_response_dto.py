@@ -44,6 +44,7 @@ from immichpy.client.generated.models.tag_response_dto import TagResponseDto
 from immichpy.client.generated.models.user_response_dto import UserResponseDto
 from typing import Set
 from typing_extensions import Self
+from pydantic_core import to_jsonable_python
 
 
 class AssetResponseDto(BaseModel):
@@ -55,6 +56,7 @@ class AssetResponseDto(BaseModel):
     created_at: datetime = Field(
         description="The UTC timestamp when the asset was originally uploaded to Immich.",
         alias="createdAt",
+        json_schema_extra={"examples": ["2024-01-15T20:30:00Z"]},
     )
     device_asset_id: StrictStr = Field(
         description="Device asset ID", alias="deviceAssetId"
@@ -68,10 +70,12 @@ class AssetResponseDto(BaseModel):
     file_created_at: datetime = Field(
         description="The actual UTC timestamp when the file was created/captured, preserving timezone information. This is the authoritative timestamp for chronological sorting within timeline groups. Combined with timezone data, this can be used to determine the exact moment the photo was taken.",
         alias="fileCreatedAt",
+        json_schema_extra={"examples": ["2024-01-15T19:30:00Z"]},
     )
     file_modified_at: datetime = Field(
         description="The UTC timestamp when the file was last modified on the filesystem. This reflects the last time the physical file was changed, which may be different from when the photo was originally taken.",
         alias="fileModifiedAt",
+        json_schema_extra={"examples": ["2024-01-16T10:15:00Z"]},
     )
     has_metadata: StrictBool = Field(
         description="Whether asset has metadata", alias="hasMetadata"
@@ -92,6 +96,7 @@ class AssetResponseDto(BaseModel):
     local_date_time: datetime = Field(
         description='The local date and time when the photo/video was taken, derived from EXIF metadata. This represents the photographer\'s local time regardless of timezone, stored as a timezone-agnostic timestamp. Used for timeline grouping by "local" days and months.',
         alias="localDateTime",
+        json_schema_extra={"examples": ["2024-01-15T14:30:00Z"]},
     )
     original_file_name: StrictStr = Field(
         description="Original file name", alias="originalFileName"
@@ -118,6 +123,7 @@ class AssetResponseDto(BaseModel):
     updated_at: datetime = Field(
         description="The UTC timestamp when the asset record was last updated in the database. This is automatically maintained by the database and reflects when any field in the asset was last modified.",
         alias="updatedAt",
+        json_schema_extra={"examples": ["2024-01-16T12:45:30Z"]},
     )
     visibility: AssetVisibility = Field(description="Asset visibility")
     width: Optional[Union[StrictFloat, StrictInt]] = Field(description="Asset width")
@@ -160,7 +166,8 @@ class AssetResponseDto(BaseModel):
     ]
 
     model_config = ConfigDict(
-        populate_by_name=True,
+        validate_by_name=True,
+        validate_by_alias=True,
         validate_assignment=True,
         protected_namespaces=(),
     )
@@ -171,8 +178,7 @@ class AssetResponseDto(BaseModel):
 
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
-        # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
-        return json.dumps(self.to_dict())
+        return json.dumps(to_jsonable_python(self.to_dict()))
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:

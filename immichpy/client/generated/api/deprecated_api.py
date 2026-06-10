@@ -1598,7 +1598,7 @@ class DeprecatedApi:
         :param id: (required)
         :type id: UUID
         :param asset_data: Asset file data (required)
-        :type asset_data: bytearray
+        :type asset_data: bytes
         :param device_asset_id: Device asset ID (required)
         :type device_asset_id: str
         :param device_id: Device ID (required)
@@ -1706,7 +1706,7 @@ class DeprecatedApi:
         :param id: (required)
         :type id: UUID
         :param asset_data: Asset file data (required)
-        :type asset_data: bytearray
+        :type asset_data: bytes
         :param device_asset_id: Device asset ID (required)
         :type device_asset_id: str
         :param device_id: Device ID (required)
@@ -1814,7 +1814,7 @@ class DeprecatedApi:
         :param id: (required)
         :type id: UUID
         :param asset_data: Asset file data (required)
-        :type asset_data: bytearray
+        :type asset_data: bytes
         :param device_asset_id: Device asset ID (required)
         :type device_asset_id: str
         :param device_id: Device ID (required)
