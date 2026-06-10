@@ -90,7 +90,6 @@ jobs:
 
       - name: Run e2e tests
         env:
-          IMMICH_URL: http://127.0.0.1:2285
           IMMICH_API_URL: http://127.0.0.1:2285/api
         run: mise run ci:test:e2e
 
