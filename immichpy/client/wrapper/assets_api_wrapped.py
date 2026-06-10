@@ -18,7 +18,7 @@ from immichpy.client.utils.upload import (
     upload_files,
 )
 from immichpy.client.utils.download import download_file, resolve_output_filename
-from immichpy.client.types import HeadersType, RejectionReason, UploadResult, UploadStats
+from immichpy.client.types import HeadersType, UploadResult, UploadStats
 
 
 class AssetsApiWrapped(AssetsApi):
@@ -225,17 +225,14 @@ class AssetsApiWrapped(AssetsApi):
         )
 
         if album_name and not dry_run:
+            uploaded_ids = [ent.asset.id for ent in uploaded]
+            duplicate_ids = [
+                ent.asset_id
+                for ent in [*checked_rejected, *actual_rejected]
+                if ent.asset_id is not None and ent.reason == "duplicate"
+            ]
             await update_albums(
-                asset_ids=[ent.asset.id for ent in uploaded], album_name=album_name, albums_api=albums_api
-            )
-            dup_reason: RejectionReason = "duplicate"
-            await update_albums(
-                asset_ids=[
-                    ent.asset_id
-                    for ent in [*checked_rejected, *actual_rejected]
-                    if ent.asset_id is not None
-                    and ent.reason == dup_reason
-                ],
+                asset_ids=uploaded_ids + duplicate_ids,
                 album_name=album_name,
                 albums_api=albums_api,
             )

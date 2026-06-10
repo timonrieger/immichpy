@@ -7,7 +7,6 @@ import json
 import logging
 import os
 import sys
-from pydantic import StrictStr
 from statx import statx
 from datetime import datetime, timezone
 from pathlib import Path
@@ -377,7 +376,7 @@ async def upload_files(
 
 
 async def update_albums(
-    asset_ids: list[StrictStr],
+    asset_ids: list[str],
     album_name: str | None,
     albums_api: AlbumsApi,
 ) -> None:
@@ -402,7 +401,7 @@ async def update_albums(
         album_map[album_name] = album.id
 
     album_id = album_map[album_name]
-    asset_uuids = [UUID(str(entry)) for entry in asset_ids]
+    asset_uuids = [UUID(entry) for entry in asset_ids]
 
     for i in range(0, len(asset_uuids), 1000):
         batch = asset_uuids[i : i + 1000]
