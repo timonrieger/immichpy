@@ -114,7 +114,9 @@ def run_command(
         try:
             return await method(**kwargs)
         finally:
-            await cast(_ApiGroup, getattr(method, "__self__")).api_client.close()
+            self_ = getattr(method, "__self__", None)
+            if self_ is not None:
+                await cast(_ApiGroup, self_).api_client.close()
 
     try:
         return asyncio.run(_call_and_close())
