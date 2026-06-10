@@ -225,8 +225,16 @@ class AssetsApiWrapped(AssetsApi):
         )
 
         if album_name and not dry_run:
+            uploaded_ids = [ent.asset.id for ent in uploaded]
+            duplicate_ids = [
+                ent.asset_id
+                for ent in [*checked_rejected, *actual_rejected]
+                if ent.asset_id is not None and ent.reason == "duplicate"
+            ]
             await update_albums(
-                uploaded=uploaded, album_name=album_name, albums_api=albums_api
+                asset_ids=uploaded_ids + duplicate_ids,
+                album_name=album_name,
+                albums_api=albums_api,
             )
 
         # we can either check pre-upload rejected files or on-upload rejected files, so we return the appropriate list

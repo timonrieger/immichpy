@@ -376,7 +376,7 @@ async def upload_files(
 
 
 async def update_albums(
-    uploaded: list[UploadedEntry],
+    asset_ids: list[str],
     album_name: str | None,
     albums_api: AlbumsApi,
 ) -> None:
@@ -388,7 +388,7 @@ async def update_albums(
 
     :return: None
     """
-    if not album_name or not uploaded:
+    if not album_name or not asset_ids:
         return
 
     all_albums = await albums_api.get_all_albums()
@@ -401,10 +401,10 @@ async def update_albums(
         album_map[album_name] = album.id
 
     album_id = album_map[album_name]
-    asset_ids = [UUID(str(entry.asset.id)) for entry in uploaded]
+    asset_uuids = [UUID(entry) for entry in asset_ids]
 
-    for i in range(0, len(asset_ids), 1000):
-        batch = asset_ids[i : i + 1000]
+    for i in range(0, len(asset_uuids), 1000):
+        batch = asset_uuids[i : i + 1000]
         await albums_api.add_assets_to_album(
             id=UUID(str(album_id)), bulk_ids_dto=BulkIdsDto(ids=batch)
         )
