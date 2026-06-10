@@ -77,7 +77,7 @@ class UsersApi:
         Upload and set a new profile image for the current user.
 
         :param file: Profile image file (required)
-        :type file: bytearray
+        :type file: bytes
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -144,7 +144,7 @@ class UsersApi:
         Upload and set a new profile image for the current user.
 
         :param file: Profile image file (required)
-        :type file: bytearray
+        :type file: bytes
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -211,7 +211,7 @@ class UsersApi:
         Upload and set a new profile image for the current user.
 
         :param file: Profile image file (required)
-        :type file: bytearray
+        :type file: bytes
         :param _request_timeout: timeout setting for this request. If one
                                  number provided, it will be total request
                                  timeout. It can also be a pair (tuple) of
@@ -1446,7 +1446,7 @@ class UsersApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> bytearray:
+    ) -> bytes:
         """Retrieve user profile image
 
         Retrieve the profile image file for a user.
@@ -1484,7 +1484,7 @@ class UsersApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            "200": "bytearray",
+            "200": "bytes",
         }
         response_data = await self.api_client.call_api(
             *_param, _request_timeout=_request_timeout
@@ -1510,7 +1510,7 @@ class UsersApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[bytearray]:
+    ) -> ApiResponse[bytes]:
         """Retrieve user profile image
 
         Retrieve the profile image file for a user.
@@ -1548,7 +1548,7 @@ class UsersApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            "200": "bytearray",
+            "200": "bytes",
         }
         response_data = await self.api_client.call_api(
             *_param, _request_timeout=_request_timeout
@@ -1612,7 +1612,7 @@ class UsersApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            "200": "bytearray",
+            "200": "bytes",
         }
         response_data = await self.api_client.call_api(
             *_param, _request_timeout=_request_timeout
