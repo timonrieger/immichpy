@@ -1597,7 +1597,7 @@ class AssetsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> bytearray:
+    ) -> bytes:
         """Download original asset
 
         Downloads the original file of the specified asset.
@@ -1644,7 +1644,7 @@ class AssetsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            "200": "bytearray",
+            "200": "bytes",
         }
         response_data = await self.api_client.call_api(
             *_param, _request_timeout=_request_timeout
@@ -1675,7 +1675,7 @@ class AssetsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[bytearray]:
+    ) -> ApiResponse[bytes]:
         """Download original asset
 
         Downloads the original file of the specified asset.
@@ -1722,7 +1722,7 @@ class AssetsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            "200": "bytearray",
+            "200": "bytes",
         }
         response_data = await self.api_client.call_api(
             *_param, _request_timeout=_request_timeout
@@ -1800,7 +1800,7 @@ class AssetsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            "200": "bytearray",
+            "200": "bytes",
         }
         response_data = await self.api_client.call_api(
             *_param, _request_timeout=_request_timeout
@@ -4228,7 +4228,7 @@ class AssetsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> bytearray:
+    ) -> bytes:
         """Play asset video
 
         Streams the video file for the specified asset. This endpoint also supports byte range requests.
@@ -4272,7 +4272,7 @@ class AssetsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            "200": "bytearray",
+            "200": "bytes",
         }
         response_data = await self.api_client.call_api(
             *_param, _request_timeout=_request_timeout
@@ -4300,7 +4300,7 @@ class AssetsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[bytearray]:
+    ) -> ApiResponse[bytes]:
         """Play asset video
 
         Streams the video file for the specified asset. This endpoint also supports byte range requests.
@@ -4344,7 +4344,7 @@ class AssetsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            "200": "bytearray",
+            "200": "bytes",
         }
         response_data = await self.api_client.call_api(
             *_param, _request_timeout=_request_timeout
@@ -4416,7 +4416,7 @@ class AssetsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            "200": "bytearray",
+            "200": "bytes",
         }
         response_data = await self.api_client.call_api(
             *_param, _request_timeout=_request_timeout
@@ -4760,7 +4760,7 @@ class AssetsApi:
         :param id: (required)
         :type id: UUID
         :param asset_data: Asset file data (required)
-        :type asset_data: bytearray
+        :type asset_data: bytes
         :param device_asset_id: Device asset ID (required)
         :type device_asset_id: str
         :param device_id: Device ID (required)
@@ -4868,7 +4868,7 @@ class AssetsApi:
         :param id: (required)
         :type id: UUID
         :param asset_data: Asset file data (required)
-        :type asset_data: bytearray
+        :type asset_data: bytes
         :param device_asset_id: Device asset ID (required)
         :type device_asset_id: str
         :param device_id: Device ID (required)
@@ -4976,7 +4976,7 @@ class AssetsApi:
         :param id: (required)
         :type id: UUID
         :param asset_data: Asset file data (required)
-        :type asset_data: bytearray
+        :type asset_data: bytes
         :param device_asset_id: Device asset ID (required)
         :type device_asset_id: str
         :param device_id: Device ID (required)
@@ -6471,7 +6471,7 @@ class AssetsApi:
         Uploads a new asset to the server.
 
         :param asset_data: Asset file data (required)
-        :type asset_data: bytearray
+        :type asset_data: bytes
         :param device_asset_id: Device asset ID (required)
         :type device_asset_id: str
         :param device_id: Device ID (required)
@@ -6497,7 +6497,7 @@ class AssetsApi:
         :param metadata: Asset metadata items
         :type metadata: List[AssetMetadataUpsertItemDto]
         :param sidecar_data: Sidecar file data
-        :type sidecar_data: bytearray
+        :type sidecar_data: bytes
         :param visibility: Asset visibility
         :type visibility: AssetVisibility
         :param _request_timeout: timeout setting for this request. If one
@@ -6616,7 +6616,7 @@ class AssetsApi:
         Uploads a new asset to the server.
 
         :param asset_data: Asset file data (required)
-        :type asset_data: bytearray
+        :type asset_data: bytes
         :param device_asset_id: Device asset ID (required)
         :type device_asset_id: str
         :param device_id: Device ID (required)
@@ -6642,7 +6642,7 @@ class AssetsApi:
         :param metadata: Asset metadata items
         :type metadata: List[AssetMetadataUpsertItemDto]
         :param sidecar_data: Sidecar file data
-        :type sidecar_data: bytearray
+        :type sidecar_data: bytes
         :param visibility: Asset visibility
         :type visibility: AssetVisibility
         :param _request_timeout: timeout setting for this request. If one
@@ -6761,7 +6761,7 @@ class AssetsApi:
         Uploads a new asset to the server.
 
         :param asset_data: Asset file data (required)
-        :type asset_data: bytearray
+        :type asset_data: bytes
         :param device_asset_id: Device asset ID (required)
         :type device_asset_id: str
         :param device_id: Device ID (required)
@@ -6787,7 +6787,7 @@ class AssetsApi:
         :param metadata: Asset metadata items
         :type metadata: List[AssetMetadataUpsertItemDto]
         :param sidecar_data: Sidecar file data
-        :type sidecar_data: bytearray
+        :type sidecar_data: bytes
         :param visibility: Asset visibility
         :type visibility: AssetVisibility
         :param _request_timeout: timeout setting for this request. If one
@@ -6976,7 +6976,7 @@ class AssetsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> bytearray:
+    ) -> bytes:
         """View asset thumbnail
 
         Retrieve the thumbnail image for the specified asset. Viewing the fullsize thumbnail might redirect to downloadAsset, which requires a different permission.
@@ -7026,7 +7026,7 @@ class AssetsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            "200": "bytearray",
+            "200": "bytes",
         }
         response_data = await self.api_client.call_api(
             *_param, _request_timeout=_request_timeout
@@ -7060,7 +7060,7 @@ class AssetsApi:
         _content_type: Optional[StrictStr] = None,
         _headers: Optional[Dict[StrictStr, Any]] = None,
         _host_index: Annotated[StrictInt, Field(ge=0, le=0)] = 0,
-    ) -> ApiResponse[bytearray]:
+    ) -> ApiResponse[bytes]:
         """View asset thumbnail
 
         Retrieve the thumbnail image for the specified asset. Viewing the fullsize thumbnail might redirect to downloadAsset, which requires a different permission.
@@ -7110,7 +7110,7 @@ class AssetsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            "200": "bytearray",
+            "200": "bytes",
         }
         response_data = await self.api_client.call_api(
             *_param, _request_timeout=_request_timeout
@@ -7194,7 +7194,7 @@ class AssetsApi:
         )
 
         _response_types_map: Dict[str, Optional[str]] = {
-            "200": "bytearray",
+            "200": "bytes",
         }
         response_data = await self.api_client.call_api(
             *_param, _request_timeout=_request_timeout

@@ -22,6 +22,7 @@ from typing_extensions import Annotated
 from immichpy.client.generated.models.user_avatar_color import UserAvatarColor
 from typing import Set
 from typing_extensions import Self
+from pydantic_core import to_jsonable_python
 
 
 class UserAdminUpdateDto(BaseModel):
@@ -39,7 +40,10 @@ class UserAdminUpdateDto(BaseModel):
     name: Optional[StrictStr] = Field(default=None, description="User name")
     password: Optional[StrictStr] = Field(default=None, description="User password")
     pin_code: Optional[StrictStr] = Field(
-        default=None, description="PIN code", alias="pinCode"
+        default=None,
+        description="PIN code",
+        alias="pinCode",
+        json_schema_extra={"examples": ["123456"]},
     )
     quota_size_in_bytes: Optional[Annotated[int, Field(strict=True, ge=0)]] = Field(
         default=None, description="Storage quota in bytes", alias="quotaSizeInBytes"
@@ -65,7 +69,8 @@ class UserAdminUpdateDto(BaseModel):
     ]
 
     model_config = ConfigDict(
-        populate_by_name=True,
+        validate_by_name=True,
+        validate_by_alias=True,
         validate_assignment=True,
         protected_namespaces=(),
     )
@@ -76,8 +81,7 @@ class UserAdminUpdateDto(BaseModel):
 
     def to_json(self) -> str:
         """Returns the JSON representation of the model using alias"""
-        # TODO: pydantic v2: use .model_dump_json(by_alias=True, exclude_unset=True) instead
-        return json.dumps(self.to_dict())
+        return json.dumps(to_jsonable_python(self.to_dict()))
 
     @classmethod
     def from_json(cls, json_str: str) -> Optional[Self]:
