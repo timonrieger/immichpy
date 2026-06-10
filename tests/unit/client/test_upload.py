@@ -553,7 +553,7 @@ async def test_update_albums_no_album_name(
     """Test that update_albums returns early when album_name is None."""
     uploaded_entry = uploaded_entry_factory()
     uploaded_entry.asset.id = "asset-1"
-    await update_albums([uploaded_entry], None, mock_albums_api)
+    await update_albums([uploaded_entry.asset.id], None, mock_albums_api)
     mock_albums_api.get_all_albums.assert_not_called()
     mock_albums_api.create_album.assert_not_called()
     mock_albums_api.add_assets_to_album.assert_not_called()
@@ -579,7 +579,7 @@ async def test_update_albums_existing_album(
         album_name="My Album", id=str(album_id)
     )
     mock_albums_api.get_all_albums.return_value = [existing_album]
-    await update_albums([uploaded_entry], "My Album", mock_albums_api)
+    await update_albums([uploaded_entry.asset.id], "My Album", mock_albums_api)
     mock_albums_api.get_all_albums.assert_called_once()
     mock_albums_api.create_album.assert_not_called()
     mock_albums_api.add_assets_to_album.assert_called_once()
@@ -600,7 +600,7 @@ async def test_update_albums_create_new_album(
     )
     mock_albums_api.get_all_albums.return_value = []
     mock_albums_api.create_album.return_value = new_album
-    await update_albums([uploaded_entry], "New Album", mock_albums_api)
+    await update_albums([uploaded_entry.asset.id], "New Album", mock_albums_api)
     mock_albums_api.get_all_albums.assert_called_once()
     mock_albums_api.create_album.assert_called_once()
     mock_albums_api.add_assets_to_album.assert_called_once()
@@ -621,7 +621,7 @@ async def test_update_albums_batching(
         album_name="Large Album", id=str(album_id)
     )
     mock_albums_api.get_all_albums.return_value = [existing_album]
-    await update_albums(uploaded_entries, "Large Album", mock_albums_api)
+    await update_albums([ent.asset.id for ent in uploaded_entries], "Large Album", mock_albums_api)
     assert mock_albums_api.add_assets_to_album.call_count == 2
     first_call = mock_albums_api.add_assets_to_album.call_args_list[0]
     second_call = mock_albums_api.add_assets_to_album.call_args_list[1]
