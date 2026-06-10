@@ -621,7 +621,9 @@ async def test_update_albums_batching(
         album_name="Large Album", id=str(album_id)
     )
     mock_albums_api.get_all_albums.return_value = [existing_album]
-    await update_albums([ent.asset.id for ent in uploaded_entries], "Large Album", mock_albums_api)
+    await update_albums(
+        [ent.asset.id for ent in uploaded_entries], "Large Album", mock_albums_api
+    )
     assert mock_albums_api.add_assets_to_album.call_count == 2
     first_call = mock_albums_api.add_assets_to_album.call_args_list[0]
     second_call = mock_albums_api.add_assets_to_album.call_args_list[1]

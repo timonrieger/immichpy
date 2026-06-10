@@ -10,7 +10,9 @@ import pytest
 
 from immichpy import AsyncClient
 from immichpy.client.types import UploadResult
+from immichpy.client.generated.models.album_response_dto import AlbumResponseDto
 from immichpy.client.generated.models.asset_media_size import AssetMediaSize
+from immichpy.client.generated.models.create_album_dto import CreateAlbumDto
 from immichpy.client.generated.models.download_info_dto import DownloadInfoDto
 
 
@@ -34,6 +36,35 @@ async def test_assets_upload(
     assert len(result.uploaded) == 2
     assert len(result.rejected) == 0
     assert len(result.failed) == 0
+
+
+@pytest.mark.asyncio
+@pytest.mark.e2e
+async def test_assets_upload_duplicate_added_to_album(
+    test_image: Path,
+    upload_assets: Callable[..., Awaitable[UploadResult]],
+    album_factory: Callable[..., Awaitable[AlbumResponseDto]],
+    client_with_api_key: AsyncClient,
+):
+    """Test that duplicate assets are still added to the specified album."""
+    first_result = await upload_assets([test_image], show_progress=False)
+    assert len(first_result.uploaded) == 1
+    asset_id = UUID(first_result.uploaded[0].asset.id)
+
+    album = await album_factory(
+        CreateAlbumDto(albumName="Dupe Test Album").model_dump()
+    )
+    album_id = UUID(str(album.id))
+
+    second_result = await upload_assets(
+        [test_image], album_name="Dupe Test Album", show_progress=False
+    )
+    assert len(second_result.rejected) == 1
+    assert second_result.rejected[0].reason == "duplicate"
+
+    album_info = await client_with_api_key.albums.get_album_info(id=album_id)
+    album_asset_ids = {UUID(a.id) for a in album_info.assets}
+    assert asset_id in album_asset_ids
 
 
 @pytest.mark.asyncio
