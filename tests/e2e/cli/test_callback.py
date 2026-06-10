@@ -2,7 +2,6 @@ from pathlib import Path
 from unittest.mock import AsyncMock, MagicMock, patch
 
 import pytest
-import typer
 from typer.testing import CliRunner
 
 from immichpy.cli import main
@@ -219,21 +218,3 @@ class TestCallbackConfigResolution:
         assert any("Configuration used:" in str(call.args[0]) for call in debug_calls)
         # Verify that configuration fields are printed
         assert any("base_url" in str(call.args[0]) for call in debug_calls)
-
-
-class TestCommandlineParameterSourceValue:
-    def test_commandline_source_value_is_1(self):
-        """Regression: main.py hardcodes 1 for COMMANDLINE ParameterSource; this must stay in sync."""
-        _app = typer.Typer()
-        captured: dict = {}
-
-        @_app.callback(invoke_without_command=True)
-        def _cb(
-            ctx: typer.Context, profile: str = typer.Option("default", "--profile")
-        ):
-            captured["source"] = ctx.get_parameter_source("profile")
-
-        CliRunner().invoke(_app, ["--profile", "foo"])
-        assert captured["source"].value == 1, (
-            "typer COMMANDLINE ParameterSource value changed; update the hardcoded value in main.py"
-        )

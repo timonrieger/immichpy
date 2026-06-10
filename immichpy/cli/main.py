@@ -7,6 +7,7 @@ import typer
 from importlib.metadata import version
 
 from rich.console import Console
+from typer._click.core import ParameterSource
 
 from immichpy.cli.consts import (
     API_KEY_URL,
@@ -218,7 +219,8 @@ def callback(
             profile=profile,
             # we only consider the profile explicit if it was set via the command line
             # environment variables are not considered explicit
-            profile_explicit=ctx.get_parameter_source("profile").value == 1,
+            profile_explicit=ctx.get_parameter_source("profile")
+            == ParameterSource.COMMANDLINE,
         )
         if not config.base_url:
             print_(
