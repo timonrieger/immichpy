@@ -23,7 +23,7 @@ def setup(
     base_url: str = typer.Option(
         os.getenv(IMMICH_API_URL) or DEMO_API_URL,
         "--base-url",
-        help="The base URL of the Immich server, including the API path.",
+        help="The base URL of the Immich server.",
         prompt="Enter your server URL",
     ),
     api_key: str | None = typer.Option(
@@ -60,7 +60,7 @@ def setup(
             run_command(client.server.ping_server, ctx=ctx)
         except Exception:
             print_(
-                "Error validating server. Make sure the base URL is correct (including /api) and the server is reachable.",
+                "Error validating server. Make sure the base URL is correct and the server is reachable.",
                 type="error",
                 ctx=ctx,
             )

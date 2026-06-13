@@ -52,7 +52,10 @@ from immichpy.client.generated.api.workflows_api import WorkflowsApi
 
 
 def _normalize_base_url(base_url: str) -> str:
-    return base_url.strip().rstrip("/")
+    normalized = base_url.strip().rstrip("/")
+    if not normalized.endswith("/api"):
+        normalized = f"{normalized}/api"
+    return normalized
 
 
 def _build_configuration(
@@ -301,7 +304,7 @@ class AsyncClient:
         """
         :param api_key: The API key to use for authentication.
         :param access_token: The access token to use for authentication.
-        :param base_url: The base URL of the Immich API.
+        :param base_url: The base URL of the Immich server. The `/api` path suffix is appended automatically if absent.
         :param http_client: Inject your own connection session if you want to control networking.
         """
         self._owns_http_client = http_client is None

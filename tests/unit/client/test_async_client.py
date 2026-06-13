@@ -32,3 +32,15 @@ async def test_client_passes_parameters():
 async def test_client_normalizes_base_url():
     async with AsyncClient(base_url="http://localhost:2283/api/") as client:
         assert client.base_client.configuration.host == "http://localhost:2283/api"
+
+
+@pytest.mark.asyncio
+async def test_client_appends_api_suffix_when_missing():
+    async with AsyncClient(base_url="http://localhost:2283") as client:
+        assert client.base_client.configuration.host == "http://localhost:2283/api"
+
+
+@pytest.mark.asyncio
+async def test_client_appends_api_suffix_with_trailing_slash():
+    async with AsyncClient(base_url="http://localhost:2283/") as client:
+        assert client.base_client.configuration.host == "http://localhost:2283/api"
