@@ -12,7 +12,6 @@ Example command tested: create-album
 import json
 from uuid import UUID
 
-import pytest
 from typer.testing import CliRunner
 
 from immichpy.cli.main import app as cli_app
@@ -24,7 +23,6 @@ from immichpy.client.generated import (
 )
 
 
-@pytest.mark.e2e
 def test_create_album(runner_with_api_key: CliRunner, user: UserResponseDto) -> None:
     """Test create-album command with description and validate response structure."""
     album_name = "Test Album with Description"

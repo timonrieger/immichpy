@@ -10,14 +10,12 @@ Example command tested: update-album-info
 
 import json
 
-import pytest
 from typer.testing import CliRunner
 
 from immichpy.cli.main import app as cli_app
 from immichpy.client.generated import AlbumResponseDto
 
 
-@pytest.mark.e2e
 def test_update_album_info(
     runner_with_api_key: CliRunner, album: AlbumResponseDto
 ) -> None:
