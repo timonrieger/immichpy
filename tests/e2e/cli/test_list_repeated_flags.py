@@ -10,7 +10,6 @@ Example command tested: add-assets-to-album with --ids
 
 import json
 
-import pytest
 from typer.testing import CliRunner
 
 from immichpy.cli.main import app as cli_app
@@ -18,7 +17,6 @@ from immichpy.client.generated import AlbumResponseDto, BulkIdResponseDto
 from immichpy.client.generated.models.asset_response_dto import AssetResponseDto
 
 
-@pytest.mark.e2e
 def test_add_assets_to_album(
     runner_with_api_key: CliRunner, album: AlbumResponseDto, asset: AssetResponseDto
 ) -> None:

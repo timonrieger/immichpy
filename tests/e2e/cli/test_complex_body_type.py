@@ -23,7 +23,6 @@ from immichpy.client.generated import (
 
 
 @pytest.mark.asyncio
-@pytest.mark.e2e
 async def test_check_bulk_upload(
     runner_with_api_key: CliRunner,
 ) -> None:

@@ -27,7 +27,6 @@ from immichpy.client.generated import (
 
 
 @pytest.mark.asyncio
-@pytest.mark.e2e
 async def test_get_all_albums_with_shared_filter(
     runner_with_api_key: CliRunner,
     user: UserResponseDto,

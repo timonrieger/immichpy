@@ -9,14 +9,12 @@ Example command tested: get-all-albums
 
 import json
 
-import pytest
 from typer.testing import CliRunner
 
 from immichpy.cli.main import app as cli_app
 from immichpy.client.generated import AlbumResponseDto
 
 
-@pytest.mark.e2e
 def test_get_all_albums(
     runner_with_api_key: CliRunner, album: AlbumResponseDto
 ) -> None:
