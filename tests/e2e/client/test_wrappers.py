@@ -17,7 +17,6 @@ from immichpy.client.generated.models.download_info_dto import DownloadInfoDto
 
 
 @pytest.mark.asyncio
-@pytest.mark.e2e
 async def test_assets_upload(
     test_image: Path,
     test_video: Path,
@@ -39,7 +38,6 @@ async def test_assets_upload(
 
 
 @pytest.mark.asyncio
-@pytest.mark.e2e
 async def test_assets_upload_duplicate_added_to_album(
     test_image: Path,
     upload_assets: Callable[..., Awaitable[UploadResult]],
@@ -68,7 +66,6 @@ async def test_assets_upload_duplicate_added_to_album(
 
 
 @pytest.mark.asyncio
-@pytest.mark.e2e
 async def test_assets_download_asset_to_file(
     client_with_api_key: AsyncClient,
     test_image: Path,
@@ -92,7 +89,6 @@ async def test_assets_download_asset_to_file(
 
 
 @pytest.mark.asyncio
-@pytest.mark.e2e
 async def test_assets_view_asset_to_file(
     client_with_api_key: AsyncClient,
     test_image: Path,
@@ -115,7 +111,6 @@ async def test_assets_view_asset_to_file(
 
 
 @pytest.mark.asyncio
-@pytest.mark.e2e
 async def test_assets_play_asset_video_to_file(
     client_with_api_key: AsyncClient,
     test_video: Path,
@@ -138,7 +133,6 @@ async def test_assets_play_asset_video_to_file(
 
 
 @pytest.mark.asyncio
-@pytest.mark.e2e
 async def test_download_archive_to_file(
     client_with_api_key: AsyncClient,
     test_image: Path,
@@ -165,7 +159,6 @@ async def test_download_archive_to_file(
 
 
 @pytest.mark.asyncio
-@pytest.mark.e2e
 async def test_users_get_profile_image_to_file(
     client_with_api_key: AsyncClient,
     test_image: Path,
