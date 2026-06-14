@@ -12,10 +12,10 @@ from __future__ import annotations
 import keyword
 import os
 import shutil
-import urllib3  # pyright: ignore[reportMissingImports]
+import urllib3  # ty: ignore[unresolved-import]
 from pathlib import Path
 from typing import Annotated, Any, Literal
-import inflection  # pyright: ignore[reportMissingImports]
+import inflection  # ty: ignore[unresolved-import]
 from pydantic import AfterValidator, BaseModel
 
 

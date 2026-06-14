@@ -115,4 +115,3 @@ omit = ["immichpy/client/generated/**", "immichpy/cli/commands/**", "immichpy/cl
 [tool.ty]
 environment.root = ['immichpy']
 src.exclude = ["immichpy/client/generated/**"]
-rules.unresolved-import = "ignore"
