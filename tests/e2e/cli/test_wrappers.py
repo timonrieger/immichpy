@@ -18,7 +18,6 @@ from immichpy.client.types import UploadResult
 
 
 @pytest.mark.asyncio
-@pytest.mark.e2e
 async def test_download_asset_to_file(
     runner_with_api_key: CliRunner,
     asset: AssetResponseDto,
@@ -46,7 +45,6 @@ async def test_download_asset_to_file(
 
 
 @pytest.mark.asyncio
-@pytest.mark.e2e
 async def test_play_asset_video_to_file(
     runner_with_api_key: CliRunner,
     test_video_factory: Callable[..., Path],
@@ -86,7 +84,6 @@ async def test_play_asset_video_to_file(
 
 
 @pytest.mark.asyncio
-@pytest.mark.e2e
 async def test_view_asset_to_file(
     runner_with_api_key: CliRunner,
     asset: AssetResponseDto,
@@ -121,7 +118,6 @@ async def test_view_asset_to_file(
 
 
 @pytest.mark.asyncio
-@pytest.mark.e2e
 async def test_upload(
     runner_with_api_key: CliRunner,
     client_with_api_key: AsyncClient,
@@ -163,7 +159,6 @@ async def test_upload(
 
 
 @pytest.mark.asyncio
-@pytest.mark.e2e
 async def test_download_archive_to_file(
     runner_with_api_key: CliRunner,
     asset: AssetResponseDto,
@@ -198,7 +193,6 @@ async def test_download_archive_to_file(
 
 
 @pytest.mark.asyncio
-@pytest.mark.e2e
 async def test_users_get_profile_image_to_file(
     runner_with_api_key: CliRunner,
     client_with_api_key: AsyncClient,
