@@ -1,6 +1,6 @@
 import os
 from pathlib import Path
-from typing import AsyncGenerator, Awaitable, Callable
+from typing import AsyncGenerator, Awaitable, Callable, Generator
 from uuid import UUID, uuid4
 
 import pytest
@@ -34,9 +34,65 @@ from immichpy.client.generated.models.api_key_create_dto import APIKeyCreateDto
 from immichpy.client.generated.models.login_credential_dto import LoginCredentialDto
 from immichpy.client.generated.models.permission import Permission
 from immichpy.client.generated.models.sign_up_dto import SignUpDto
+from tests.generators import make_random_image, make_random_video
 
-ACTIVATION_KEY = "4kJUNUWMq13J14zqPFm1NodRcI6MV6DeOGvQNIgrM8Sc9nv669wyEVvFw1Nz4Kb1W7zLWblOtXEQzpRRqC4r4fKjewJxfbpeo9sEsqAVIfl4Ero-Vp1Dg21-sVdDGZEAy2oeTCXAyCT5d1JqrqR6N1qTAm4xOx9ujXQRFYhjRG8uwudw7_Q49pF18Tj5OEv9qCqElxztoNck4i6O_azsmsoOQrLIENIWPh3EynBN3ESpYERdCgXO8MlWeuG14_V1HbNjnJPZDuvYg__YfMzoOEtfm1sCqEaJ2Ww-BaX7yGfuCL4XsuZlCQQNHjfscy_WywVfIZPKCiW8QR74i0cSzQ"
-LICENSE_KEY = "IMSV-6ECZ-91TE-WZRM-Q7AQ-MBN4-UW48-2CPT-71X9"
+
+@pytest.fixture
+def test_image_factory(
+    tmp_path: Path,
+) -> Generator[Callable[[str | None], Path], None, None]:
+    """Factory fixture: yields a callable to create test images.
+
+    Example:
+        img_path = test_image_factory()
+        img_path2 = test_image_factory(filename="custom.jpg")
+    """
+
+    def _create_image(filename: str | None = None) -> Path:
+        if filename is None:
+            filename = f"{uuid4()}.jpg"
+        img_path = tmp_path / filename
+        img_path.write_bytes(make_random_image())
+        return img_path
+
+    yield _create_image
+
+
+@pytest.fixture
+def test_image(
+    test_image_factory: Callable[[], Path],
+) -> Generator[Path, None, None]:
+    """Create a minimal JPEG test image."""
+    yield test_image_factory()
+
+
+@pytest.fixture
+def test_video_factory(
+    tmp_path: Path,
+) -> Generator[Callable[[str | None], Path], None, None]:
+    """Factory fixture: yields a callable to create test videos.
+
+    Example:
+        video_path = test_video_factory()
+        video_path2 = test_video_factory(filename="custom.mp4")
+    """
+
+    def _create_video(filename: str | None = None) -> Path:
+        if filename is None:
+            filename = f"{uuid4()}.mp4"
+        video_path = tmp_path / filename
+        video_path.write_bytes(make_random_video())
+        return video_path
+
+    yield _create_video
+
+
+@pytest.fixture
+def test_video(
+    test_video_factory: Callable[[], Path],
+) -> Generator[Path, None, None]:
+    """Create a minimal MP4 test video."""
+    yield test_video_factory()
 
 
 @pytest.fixture
@@ -98,7 +154,6 @@ async def client_with_access_token(env: dict[str, str]):
 
         # Mark admin as onboarded
         await client.system_metadata.update_admin_onboarding(
-            # NOTE: type ignore likely a ty issue
             AdminOnboardingUpdateDto(isOnboarded=True),
         )
 
@@ -182,7 +237,6 @@ async def asset(
     Uploads a test image, returns parsed asset object.
     Skips dependent tests if asset upload fails.
     """
-    # Set up: Upload asset
     upload_result = await upload_assets([test_image], skip_duplicates=True)
     assert len(upload_result.uploaded) == 1
     asset = upload_result.uploaded[0].asset
