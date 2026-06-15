@@ -1,6 +1,6 @@
 import os
 from pathlib import Path
-from typing import AsyncGenerator, Awaitable, Callable, Generator
+from typing import AsyncGenerator, Awaitable, Callable, Generator, ParamSpec, TypeVar
 from uuid import UUID, uuid4
 
 import pytest
@@ -35,6 +35,26 @@ from immichpy.client.generated.models.login_credential_dto import LoginCredentia
 from immichpy.client.generated.models.permission import Permission
 from immichpy.client.generated.models.sign_up_dto import SignUpDto
 from tests.generators import make_random_image, make_random_video
+
+P = ParamSpec("P")
+R = TypeVar("R")
+
+
+def _wrap_factory(
+    method: Callable[P, Awaitable[R]],
+    on_result: Callable[[R], None],
+) -> Callable[P, Awaitable[R]]:
+    """Wrap a bound async method preserving its signature, with post-result hook."""
+
+    async def _call(*args: P.args, **kwargs: P.kwargs) -> R:
+        try:
+            result = await method(*args, **kwargs)
+        except Exception as e:
+            pytest.skip(f"Factory call failed:\n{e}")
+        on_result(result)
+        return result
+
+    return _call
 
 
 @pytest.fixture
@@ -106,21 +126,41 @@ def env() -> dict[str, str]:
 
 @pytest.fixture
 async def client_with_api_key(client_with_access_token: AsyncClient):
-    """Set up admin user, create API key, and return authenticated client."""
-    # Create API key with all permissions
+    """Returns an adming-authenticated client with patched methods for test asset cleanup."""
     api_key_response = await client_with_access_token.api_keys.create_api_key(
         APIKeyCreateDto(name="e2e", permissions=[Permission.ALL]),
     )
 
-    # Create authenticated client with API key
     client = AsyncClient(
         base_url=client_with_access_token.base_client.configuration.host,
         api_key=api_key_response.secret,
     )
 
+    _uploaded_ids: list[UUID] = []
+    _album_ids: list[UUID] = []
+
+    def _track_upload(result: UploadResult) -> None:
+        _uploaded_ids.extend(UUID(u.asset.id) for u in result.uploaded)
+
+    def _track_album(result: AlbumResponseDto) -> None:
+        _album_ids.append(UUID(str(result.id)))
+
+    client.assets.upload = _wrap_factory(  # ty: ignore[invalid-assignment]
+        client.assets.upload, on_result=_track_upload
+    )
+    client.albums.create_album = _wrap_factory(  # ty: ignore[invalid-assignment]
+        client.albums.create_album, on_result=_track_album
+    )
+
     try:
         yield client
     finally:
+        if _uploaded_ids:
+            await client.assets.delete_assets(
+                AssetBulkDeleteDto(ids=_uploaded_ids, force=True)
+            )
+        for album_id in _album_ids:
+            await client.albums.delete_album(album_id)
         await client.close()
 
 
@@ -196,51 +236,19 @@ def runner_without_auth() -> CliRunner:
 
 
 @pytest.fixture
-async def upload_assets(
-    client_with_api_key: AsyncClient,
-) -> AsyncGenerator[Callable[..., Awaitable[UploadResult]], None]:
-    """Factory fixture: yields an async callable to upload assets and auto-clean them up.
-
-    Example:
-        upload_result = await upload_assets([test_image], skip_duplicates=True)
-    """
-
-    _uploaded_ids: list[UUID] = []
-
-    async def _upload(*args, **kwargs) -> UploadResult:
-        nonlocal _uploaded_ids
-        try:
-            result = await client_with_api_key.assets.upload(*args, **kwargs)
-        except Exception as e:
-            pytest.skip(f"Asset upload failed:\n{e}")
-
-        _uploaded_ids.extend(UUID(u.asset.id) for u in result.uploaded)
-        return result
-
-    yield _upload
-
-    if _uploaded_ids:
-        await client_with_api_key.assets.delete_assets(
-            AssetBulkDeleteDto(
-                ids=_uploaded_ids, force=True
-            )  # deletes without moving to trash
-        )
-
-
-@pytest.fixture
 async def asset(
     test_image: Path,
-    upload_assets: Callable[..., Awaitable[UploadResult]],
+    client_with_api_key: AsyncClient,
 ) -> AsyncGenerator[AssetMediaResponseDto, None]:
     """Fixture to set up asset for testing.
 
     Uploads a test image, returns parsed asset object.
-    Skips dependent tests if asset upload fails.
     """
-    upload_result = await upload_assets([test_image], skip_duplicates=True)
+    upload_result = await client_with_api_key.assets.upload(
+        [test_image], skip_duplicates=True
+    )
     assert len(upload_result.uploaded) == 1
-    asset = upload_result.uploaded[0].asset
-    yield asset
+    yield upload_result.uploaded[0].asset
 
 
 @pytest.fixture
@@ -269,40 +277,9 @@ async def user(
 
 @pytest.fixture
 async def album(
-    album_factory: Callable[..., Awaitable[AlbumResponseDto]],
-) -> AsyncGenerator[AlbumResponseDto, None]:
-    """Fixture to set up album for testing.
-
-    Creates an album, returns parsed album object.
-    Skips dependent tests if album creation fails.
-    """
-    yield await album_factory(CreateAlbumDto(albumName="Test Album"))
-
-
-@pytest.fixture
-async def album_factory(
     client_with_api_key: AsyncClient,
-) -> AsyncGenerator[Callable[[CreateAlbumDto], Awaitable[AlbumResponseDto]], None]:
-    """Fixture to set up album for testing with factory pattern.
-
-    Creates an album, returns parsed album object.
-    Skips dependent tests if album creation fails.
-    """
-    _album_id: UUID | None = None
-
-    async def _create_album(create_album_dto: CreateAlbumDto) -> AlbumResponseDto:
-        nonlocal _album_id
-        try:
-            result = await client_with_api_key.albums.create_album(
-                create_album_dto=create_album_dto
-            )
-        except Exception as e:
-            pytest.skip(f"Asset upload failed:\n{e}")
-
-        _album_id = UUID(str(result.id))
-        return result
-
-    yield _create_album
-
-    if _album_id:
-        await client_with_api_key.albums.delete_album(_album_id)
+) -> AsyncGenerator[AlbumResponseDto, None]:
+    """Fixture to set up album for testing."""
+    yield await client_with_api_key.albums.create_album(
+        CreateAlbumDto(albumName="Test Album")
+    )
