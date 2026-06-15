@@ -41,7 +41,7 @@ async def test_assets_upload(
 async def test_assets_upload_duplicate_added_to_album(
     test_image: Path,
     upload_assets: Callable[..., Awaitable[UploadResult]],
-    album_factory: Callable[..., Awaitable[AlbumResponseDto]],
+    album_factory: Callable[[CreateAlbumDto], Awaitable[AlbumResponseDto]],
     client_with_api_key: AsyncClient,
 ):
     """Test that duplicate assets are still added to the specified album."""
@@ -49,9 +49,7 @@ async def test_assets_upload_duplicate_added_to_album(
     assert len(first_result.uploaded) == 1
     asset_id = UUID(first_result.uploaded[0].asset.id)
 
-    album = await album_factory(
-        CreateAlbumDto(albumName="Dupe Test Album").model_dump()
-    )
+    album = await album_factory(CreateAlbumDto(albumName="Dupe Test Album"))
     album_id = UUID(str(album.id))
 
     second_result = await upload_assets(
