@@ -276,14 +276,13 @@ async def album(
     Creates an album, returns parsed album object.
     Skips dependent tests if album creation fails.
     """
-    request = CreateAlbumDto(albumName="Test Album")
-    yield await album_factory(request.model_dump())
+    yield await album_factory(CreateAlbumDto(albumName="Test Album"))
 
 
 @pytest.fixture
 async def album_factory(
     client_with_api_key: AsyncClient,
-) -> AsyncGenerator[Callable[..., Awaitable[AlbumResponseDto]], None]:
+) -> AsyncGenerator[Callable[[CreateAlbumDto], Awaitable[AlbumResponseDto]], None]:
     """Fixture to set up album for testing with factory pattern.
 
     Creates an album, returns parsed album object.
@@ -291,10 +290,12 @@ async def album_factory(
     """
     _album_id: UUID | None = None
 
-    async def _create_album(*args, **kwargs) -> AlbumResponseDto:
+    async def _create_album(create_album_dto: CreateAlbumDto) -> AlbumResponseDto:
         nonlocal _album_id
         try:
-            result = await client_with_api_key.albums.create_album(*args, **kwargs)
+            result = await client_with_api_key.albums.create_album(
+                create_album_dto=create_album_dto
+            )
         except Exception as e:
             pytest.skip(f"Asset upload failed:\n{e}")
 
