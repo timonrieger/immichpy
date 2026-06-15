@@ -1,7 +1,7 @@
 import asyncio
 import json
 from pathlib import Path
-from typing import Awaitable, Callable
+from typing import Callable
 from uuid import UUID
 
 import pytest
@@ -48,13 +48,15 @@ async def test_download_asset_to_file(
 async def test_play_asset_video_to_file(
     runner_with_api_key: CliRunner,
     test_video_factory: Callable[..., Path],
-    upload_assets: Callable[..., Awaitable[UploadResult]],
+    client_with_api_key: AsyncClient,
     tmp_path: Path,
 ) -> None:
     """Test play-asset-video-to-file command and verify video file is downloaded."""
     # Upload a video asset
     video = test_video_factory()
-    upload_result = await upload_assets([video], skip_duplicates=True)
+    upload_result = await client_with_api_key.assets.upload(
+        [video], skip_duplicates=True
+    )
     if upload_result.stats.uploaded == 0:
         pytest.skip(f"No video assets uploaded, {upload_result.model_dump_json()}")
     video_asset = upload_result.uploaded[0].asset
