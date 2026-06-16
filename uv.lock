@@ -559,7 +559,6 @@ docs = [
     { name = "griffe-pydantic" },
     { name = "mkdocstrings", extra = ["python"] },
     { name = "pymdown-extensions" },
-    { name = "termynal" },
     { name = "typer" },
     { name = "zensical" },
 ]
@@ -591,7 +590,6 @@ docs = [
     { name = "griffe-pydantic", specifier = ">=1.2.0,<2.0.0" },
     { name = "mkdocstrings", extras = ["python"], specifier = ">=1.0.1,<2.0.0" },
     { name = "pymdown-extensions", specifier = ">=10.20,<11.0" },
-    { name = "termynal", specifier = ">=0.14.0,<0.15.0" },
     { name = "typer", specifier = ">=0.26.3,<0.27.0" },
     { name = "zensical", specifier = ">=0.0.43,<0.0.44" },
 ]
@@ -1627,18 +1625,6 @@ source = { registry = "https://pypi.org/simple" }
 sdist = { url = "https://files.pythonhosted.org/packages/94/e7/b2c673351809dca68a0e064b6af791aa332cf192da575fd474ed7d6f16a2/six-1.17.0.tar.gz", hash = "sha256:ff70335d468e7eb6ec65b95b99d3a2836546063f63acc5171de367e834932a81", size = 34031, upload-time = "2024-12-04T17:35:28.174Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/b7/ce/149a00dd41f10bc29e5921b496af8b574d8413afcd5e30dfa0ed46c2cc5e/six-1.17.0-py2.py3-none-any.whl", hash = "sha256:4721f391ed90541fddacab5acf947aa0d3dc7d27b2e1e8eda2be8970586c3274", size = 11050, upload-time = "2024-12-04T17:35:26.475Z" },
-]
-
-[[package]]
-name = "termynal"
-version = "0.14.0"
-source = { registry = "https://pypi.org/simple" }
-dependencies = [
-    { name = "markdown" },
-]
-sdist = { url = "https://files.pythonhosted.org/packages/26/8c/ea13868e6008ed964837db011648e3e7766e0ecfa1b42d7b9a4cf0c228e2/termynal-0.14.0.tar.gz", hash = "sha256:2918a1a6cf468497fbb3a72dc3726743988829eef1136d0c78a81df70ec869f6", size = 178022, upload-time = "2026-03-16T16:56:21.539Z" }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/c3/8f/c089f7c9f9fc1da25e6271386e5df84e1f6e0b04d2f0b408939b51b2876f/termynal-0.14.0-py3-none-any.whl", hash = "sha256:b5147545e29256d35148251f5c2d3d23dec1d2fb0b4ba464ff330a7de8b56fc6", size = 11754, upload-time = "2026-03-16T16:56:22.76Z" },
 ]
 
 [[package]]
