@@ -63,6 +63,7 @@ docs = [
     "griffe-pydantic>=1.2.0,<2.0.0",
     "mkdocstrings[python]>=1.0.1,<2.0.0",
     "pymdown-extensions>=11,<11.1",
+    "termynal>=0.14.0,<0.15.0",
     "typer>=0.26.3,<0.27.0",
     "zensical>=0.0.46,<0.0.47",
 ]

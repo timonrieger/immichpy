@@ -7,7 +7,7 @@ This page contains practical examples of using the immichpy CLI for common tasks
 
 Get all albums and their name and ID:
 
-<div class="termy">
+<!-- termynal -->
 
 ```console
 $ immichpy albums get-all-albums | jq -r '.[] | "\(.album_name) \(.id)"'
@@ -16,13 +16,11 @@ Vacation 2023 851c8f67-9bf3-48f5-8130-59da9ab17c06
 Selfies c980670b-69d1-42ee-b4a5-86947f169d99
 ```
 
-</div>
-
 ## Download an album archive
 
 Download an album archive to a directory with progress bar:
 
-<div class="termy">
+<!-- termynal -->
 
 ```console
 $ immichpy download download-archive-to-file out-dir/ \
@@ -35,13 +33,11 @@ $ immichpy download download-archive-to-file out-dir/ \
 ]
 ```
 
-</div>
-
 ## Upload assets
 
 Upload assets to your Immich server. Use `--dry-run` to preview what would be uploaded:
 
-<div class="termy">
+<!-- termynal -->
 
 ```console
 $ immichpy assets upload ~/timelapse.mp4 --dry-run
@@ -66,13 +62,11 @@ $ immichpy assets upload ~/timelapse.mp4 --dry-run
 }
 ```
 
-</div>
-
 ## List all people with names
 
 Get all people and filter to only show those with names:
 
-<div class="termy">
+<!-- termynal -->
 
 ```console
 $ immichpy people get-all-people | jq '.people[] | select(.name != "")'
@@ -89,13 +83,11 @@ $ immichpy people get-all-people | jq '.people[] | select(.name != "")'
 }
 ```
 
-</div>
-
 ## List all users
 
 Get all users in a table format:
 
-<div class="termy">
+<!-- termynal -->
 
 ```console
 $ immichpy --format table users search-users
@@ -122,13 +114,11 @@ $ immichpy --format table users search-users
 └────────────────────┴──────────────────────────────────────┘
 ```
 
-</div>
-
 ## Share an album with multiple users
 
 Add multiple users to an album by repeating `--album-users`:
 
-<div class="termy">
+<!-- termynal -->
 
 ```console
 $ immichpy albums add-users-to-album cccdd9f7-6a0f-4ed1-9dc0-ad8774ff9798 \
@@ -166,13 +156,11 @@ $ immichpy albums add-users-to-album cccdd9f7-6a0f-4ed1-9dc0-ad8774ff9798 \
 }
 ```
 
-</div>
-
 ## Trigger library scan
 
 Trigger an external library scan by using it's ID:
 
-<div class="termy">
+<!-- termynal -->
 
 ```console
 $ immichpy libraries get-all-libraries
@@ -187,5 +175,3 @@ $ immichpy libraries scan-library 098adb6d-0a9b-494a-bd66-2ae6c0bf28ff
 
 Success!
 ```
-
-</div>
