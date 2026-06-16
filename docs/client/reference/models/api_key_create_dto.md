@@ -1,3 +1,3 @@
-# API Key Create Dto
+# Api Key Create Dto
 
-::: immichpy.client.generated.models.api_key_create_dto.APIKeyCreateDto
+::: immichpy.client.generated.models.api_key_create_dto.ApiKeyCreateDto

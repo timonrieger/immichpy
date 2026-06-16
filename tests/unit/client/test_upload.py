@@ -7,6 +7,7 @@ import uuid
 
 import pytest
 
+from immichpy.client.generated import AssetRejectReason, AssetUploadAction
 from immichpy.client.generated.models.asset_bulk_upload_check_response_dto import (
     AssetBulkUploadCheckResponseDto,
 )
@@ -294,13 +295,16 @@ async def test_check_duplicates_mixed_results(mock_assets, tmp_path: Path) -> No
     mock_assets.check_bulk_upload.return_value = AssetBulkUploadCheckResponseDto(
         results=[
             AssetBulkUploadCheckResult(
-                action="accept", id=str(file1), assetId=None, reason=None
+                action=AssetUploadAction.ACCEPT,
+                id=str(file1),
+                assetId=None,
+                reason=None,
             ),
             AssetBulkUploadCheckResult(
-                action="reject",
+                action=AssetUploadAction.REJECT,
                 id=str(file2),
                 assetId="asset-456",
-                reason="duplicate",
+                reason=AssetRejectReason.DUPLICATE,
             ),
         ]
     )
@@ -321,7 +325,10 @@ async def test_check_duplicates_with_progress(mock_assets, tmp_path: Path) -> No
     mock_assets.check_bulk_upload.return_value = AssetBulkUploadCheckResponseDto(
         results=[
             AssetBulkUploadCheckResult(
-                action="accept", id=str(file1), assetId=None, reason=None
+                action=AssetUploadAction.ACCEPT,
+                id=str(file1),
+                assetId=None,
+                reason=None,
             )
         ]
     )

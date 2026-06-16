@@ -30,7 +30,7 @@ from immichpy.client.generated.exceptions import BadRequestException
 from immichpy.client.generated.models.admin_onboarding_update_dto import (
     AdminOnboardingUpdateDto,
 )
-from immichpy.client.generated.models.api_key_create_dto import APIKeyCreateDto
+from immichpy.client.generated.models.api_key_create_dto import ApiKeyCreateDto
 from immichpy.client.generated.models.login_credential_dto import LoginCredentialDto
 from immichpy.client.generated.models.permission import Permission
 from immichpy.client.generated.models.sign_up_dto import SignUpDto
@@ -128,7 +128,7 @@ def env() -> dict[str, str]:
 async def client_with_api_key(client_with_access_token: AsyncClient):
     """Returns an adming-authenticated client with patched methods for test asset cleanup."""
     api_key_response = await client_with_access_token.api_keys.create_api_key(
-        APIKeyCreateDto(name="e2e", permissions=[Permission.ALL]),
+        ApiKeyCreateDto(name="e2e", permissions=[Permission.ALL]),
     )
 
     client = AsyncClient(

@@ -25,7 +25,6 @@ from rich.progress import (
     TransferSpeedColumn,
     TimeRemainingColumn,
 )
-from immichpy.client.consts import DEVICE_ID
 from immichpy.client.types import (
     RejectedEntry,
     FailedEntry,
@@ -70,17 +69,6 @@ def _is_retryable_upload_error(exc: BaseException) -> bool:
     if isinstance(exc, ApiException):
         return exc.status in RETRY_STATUSES
     return isinstance(exc, (ClientConnectionError, asyncio.TimeoutError))
-
-
-def get_device_asset_id(filepath: Path, stats: os.stat_result) -> str:
-    """Get the device asset ID for a given file path and stats.
-
-    :param filepath: The path to the file.
-    :param stats: The stats of the file.
-
-    :return: The device asset ID.
-    """
-    return f"{filepath.name}-{stats.st_size}".replace(" ", "")
 
 
 async def scan_files(
@@ -310,8 +298,6 @@ async def upload_file(
     return await retryer(
         assets_api.upload_asset_with_http_info,
         asset_data=asset_data,
-        device_asset_id=get_device_asset_id(filepath, stats),
-        device_id=DEVICE_ID,
         file_created_at=file_created_at,
         file_modified_at=file_modified_at,
         sidecar_data=sidecar_data,

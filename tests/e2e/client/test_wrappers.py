@@ -11,6 +11,7 @@ from immichpy import AsyncClient
 from immichpy.client.generated.models.asset_media_size import AssetMediaSize
 from immichpy.client.generated.models.create_album_dto import CreateAlbumDto
 from immichpy.client.generated.models.download_info_dto import DownloadInfoDto
+from immichpy.client.generated.models.metadata_search_dto import MetadataSearchDto
 
 
 @pytest.mark.asyncio
@@ -57,8 +58,10 @@ async def test_assets_upload_duplicate_added_to_album(
     assert len(second_result.rejected) == 1
     assert second_result.rejected[0].reason == "duplicate"
 
-    album_info = await client_with_api_key.albums.get_album_info(id=album_id)
-    album_asset_ids = {UUID(a.id) for a in album_info.assets}
+    search_response = await client_with_api_key.search.search_assets(
+        metadata_search_dto=MetadataSearchDto(albumIds=[album_id])
+    )
+    album_asset_ids = {UUID(a.id) for a in search_response.assets.items}
     assert asset_id in album_asset_ids
 
 
@@ -168,7 +171,6 @@ async def test_users_get_profile_image_to_file(
     """Test UsersApiWrapped.get_profile_image_to_file method."""
     # Get current user info
     my_user = await client_with_api_key.users.get_my_user()
-    user_id = UUID(my_user.id)
 
     # Upload profile image
     img_bytes = test_image.read_bytes()
@@ -180,7 +182,7 @@ async def test_users_get_profile_image_to_file(
     # Download profile image
     out_dir = tmp_path / "profiles"
     profile_path = await client_with_api_key.users.get_profile_image_to_file(
-        id=user_id, out_dir=out_dir
+        id=my_user.id, out_dir=out_dir
     )
 
     assert profile_path.exists()
