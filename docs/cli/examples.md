@@ -7,7 +7,7 @@ This page contains practical examples of using the immichpy CLI for common tasks
 
 Get all albums and their name and ID:
 
-<div class="termy">
+<!-- termynal -->
 
 ```console
 $ immichpy albums get-all-albums | jq -r '.[] | "\(.album_name) \(.id)"'

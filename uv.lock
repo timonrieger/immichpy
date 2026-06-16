@@ -535,6 +535,7 @@ dependencies = [
     { name = "pystatx" },
     { name = "python-dateutil" },
     { name = "rich" },
+    { name = "termynal" },
     { name = "typing-extensions" },
 ]
 
