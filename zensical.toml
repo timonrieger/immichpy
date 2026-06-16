@@ -487,7 +487,7 @@ nav = [
 #
 # Read more: https://zensical.org/docs/customization/#additional-css
 #
-extra_css = ["css/custom.css", "css/termynal.css"]
+extra_css = ["css/custom.css"]
 
 # With the `extra_javascript` option you can add your own JavaScript to your
 # project to customize the behavior according to your needs.
@@ -495,7 +495,7 @@ extra_css = ["css/custom.css", "css/termynal.css"]
 # The path provided should be relative to the "docs_dir".
 #
 # Read more: https://zensical.org/docs/customization/#additional-javascript
-extra_javascript = ["js/termynal.js", "js/custom.js"]
+extra_javascript = ["js/custom.js"]
 
 # ----------------------------------------------------------------------------
 # Section for configuring theme options
@@ -777,7 +777,12 @@ extensions = [
     { griffe_pydantic = { schema = true } },
 ]
 
-[project.plugins.termynal]
+# [project.plugins.termynal]
+[project.markdown_extensions.termynal]
+include_assets = true
+title = "bash"
+buttons = "macos"
+prompt_literal_start = ["$"]
 
 [project.markdown_extensions.attr_list]
 [project.markdown_extensions.pymdownx.emoji]
