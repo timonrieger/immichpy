@@ -3,7 +3,6 @@
 from __future__ import annotations
 
 from pathlib import Path
-from uuid import UUID
 
 import pytest
 
@@ -45,12 +44,10 @@ async def test_assets_upload_duplicate_added_to_album(
         [test_image], show_progress=False
     )
     assert len(first_result.uploaded) == 1
-    asset_id = UUID(first_result.uploaded[0].asset.id)
 
     album = await client_with_api_key.albums.create_album(
         CreateAlbumDto(albumName="Dupe Test Album")
     )
-    album_id = UUID(str(album.id))
 
     second_result = await client_with_api_key.assets.upload(
         [test_image], album_name="Dupe Test Album", show_progress=False
@@ -59,10 +56,10 @@ async def test_assets_upload_duplicate_added_to_album(
     assert second_result.rejected[0].reason == "duplicate"
 
     search_response = await client_with_api_key.search.search_assets(
-        metadata_search_dto=MetadataSearchDto(albumIds=[album_id])
+        metadata_search_dto=MetadataSearchDto(albumIds=[album.id])
     )
-    album_asset_ids = {UUID(a.id) for a in search_response.assets.items}
-    assert asset_id in album_asset_ids
+    album_asset_ids = {a.id for a in search_response.assets.items}
+    assert first_result.uploaded[0].asset.id in album_asset_ids
 
 
 @pytest.mark.asyncio
@@ -76,12 +73,11 @@ async def test_assets_download_asset_to_file(
         [test_image], skip_duplicates=True
     )
     assert len(upload_result.uploaded) == 1
-    asset_id = UUID(upload_result.uploaded[0].asset.id)
 
     # Download the asset
     out_dir = tmp_path / "downloads"
     downloaded_path = await client_with_api_key.assets.download_asset_to_file(
-        id=asset_id, out_dir=out_dir
+        id=upload_result.uploaded[0].asset.id, out_dir=out_dir
     )
 
     assert downloaded_path.exists()
@@ -100,12 +96,13 @@ async def test_assets_view_asset_to_file(
         [test_image], skip_duplicates=True
     )
     assert len(upload_result.uploaded) == 1
-    asset_id = UUID(upload_result.uploaded[0].asset.id)
 
     # Download thumbnail
     out_dir = tmp_path / "thumbnails"
     thumbnail_path = await client_with_api_key.assets.view_asset_to_file(
-        id=asset_id, out_dir=out_dir, size=AssetMediaSize.THUMBNAIL
+        id=upload_result.uploaded[0].asset.id,
+        out_dir=out_dir,
+        size=AssetMediaSize.THUMBNAIL,
     )
 
     assert thumbnail_path.exists()
@@ -123,12 +120,11 @@ async def test_assets_play_asset_video_to_file(
         [test_video], skip_duplicates=True
     )
     assert len(upload_result.uploaded) == 1
-    asset_id = UUID(upload_result.uploaded[0].asset.id)
 
     # Download video stream
     out_dir = tmp_path / "videos"
     video_path = await client_with_api_key.assets.play_asset_video_to_file(
-        id=asset_id, out_dir=out_dir
+        id=upload_result.uploaded[0].asset.id, out_dir=out_dir
     )
 
     assert video_path.exists()
@@ -146,10 +142,9 @@ async def test_download_archive_to_file(
         [test_image], skip_duplicates=True
     )
     assert len(upload_result.uploaded) == 1
-    asset_id = UUID(upload_result.uploaded[0].asset.id)
 
     # Create download info
-    download_info = DownloadInfoDto(assetIds=[asset_id])
+    download_info = DownloadInfoDto(assetIds=[upload_result.uploaded[0].asset.id])
 
     # Download archive
     out_dir = tmp_path / "archives"

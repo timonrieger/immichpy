@@ -34,7 +34,6 @@ from immichpy.client.types import (
 from immichpy.client.generated.api.albums_api import AlbumsApi
 from immichpy.client.generated.api.assets_api import AssetsApi
 from immichpy.client.generated.api.server_api import ServerApi
-from immichpy.client.generated.api_response import ApiResponse
 from immichpy.client.generated.models.asset_bulk_upload_check_dto import (
     AssetBulkUploadCheckDto,
 )
@@ -257,7 +256,7 @@ async def upload_file(
     assets_api: AssetsApi,
     dry_run: bool = False,
     retries: int = 3,
-) -> ApiResponse[AssetMediaResponseDto]:
+) -> AssetMediaResponseDto:
     """Upload a single asset file to the server.
 
     :param filepath: Path to the file to upload.
@@ -268,15 +267,7 @@ async def upload_file(
     :return: API response containing the uploaded asset metadata.
     """
     if dry_run:
-        mock_data = AssetMediaResponseDto(
-            id=str(uuid.uuid4()), status=AssetMediaStatus.CREATED
-        )
-        return ApiResponse(
-            status_code=201,
-            headers=None,
-            data=mock_data,
-            raw_data=b"",
-        )
+        return AssetMediaResponseDto(id=uuid.uuid4(), status=AssetMediaStatus.CREATED)
 
     stats = filepath.stat()
 
@@ -284,8 +275,6 @@ async def upload_file(
     sidecar_path = find_sidecar(filepath)
     if sidecar_path:
         sidecar_data = str(sidecar_path)
-
-    asset_data = str(filepath)
 
     file_created_at, file_modified_at = get_file_times(filepath, stats)
 
@@ -296,8 +285,8 @@ async def upload_file(
         reraise=True,
     )
     return await retryer(
-        assets_api.upload_asset_with_http_info,
-        asset_data=asset_data,
+        assets_api.upload_asset,
+        asset_data=str(filepath),
         file_created_at=file_created_at,
         file_modified_at=file_modified_at,
         sidecar_data=sidecar_data,
@@ -348,24 +337,15 @@ async def upload_files(
         async def upload_with_semaphore(filepath: Path) -> None:
             async with semaphore:
                 try:
-                    response = await upload_file(filepath, assets_api, dry_run, retries)
-                    if response.status_code == 201:
-                        uploaded.append(
-                            UploadedEntry(asset=response.data, filepath=filepath)
-                        )
-                    elif response.status_code == 200:
+                    asset = await upload_file(filepath, assets_api, dry_run, retries)
+                    if asset.status == AssetMediaStatus.CREATED:
+                        uploaded.append(UploadedEntry(asset=asset, filepath=filepath))
+                    elif asset.status == AssetMediaStatus.DUPLICATE:
                         rejected.append(
                             RejectedEntry(
                                 filepath=filepath,
-                                asset_id=response.data.id,
+                                asset_id=asset.id,
                                 reason="duplicate",
-                            )
-                        )
-                    else:
-                        failed.append(
-                            FailedEntry(
-                                filepath=filepath,
-                                error=f"Unexpected status_code={response.status_code}",
                             )
                         )
                     if not dry_run:
@@ -391,7 +371,7 @@ async def upload_files(
 
 
 async def update_albums(
-    asset_ids: list[str],
+    asset_ids: list[UUID],
     album_name: str | None,
     albums_api: AlbumsApi,
 ) -> None:
@@ -416,12 +396,11 @@ async def update_albums(
         album_map[album_name] = album.id
 
     album_id = album_map[album_name]
-    asset_uuids = [UUID(entry) for entry in asset_ids]
 
-    for i in range(0, len(asset_uuids), 1000):
-        batch = asset_uuids[i : i + 1000]
+    for i in range(0, len(asset_ids), 1000):
+        batch = asset_ids[i : i + 1000]
         await albums_api.add_assets_to_album(
-            id=UUID(str(album_id)), bulk_ids_dto=BulkIdsDto(ids=batch)
+            id=album_id, bulk_ids_dto=BulkIdsDto(ids=batch)
         )
 
 

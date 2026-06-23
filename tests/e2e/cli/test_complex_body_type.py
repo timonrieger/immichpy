@@ -19,6 +19,7 @@ from immichpy.cli.main import app as cli_app
 from immichpy.client.generated import (
     AssetBulkUploadCheckItem,
     AssetBulkUploadCheckResponseDto,
+    AssetUploadAction,
 )
 
 
@@ -46,7 +47,7 @@ async def test_check_bulk_upload(
     response_data = json.loads(result.stdout)
     results = AssetBulkUploadCheckResponseDto.model_validate(response_data).results
     assert len(results) == 2
-    assert results[0].action == "accept"
+    assert results[0].action == AssetUploadAction.ACCEPT
     assert results[0].id == asset1.id
-    assert results[1].action == "accept"
+    assert results[1].action == AssetUploadAction.ACCEPT
     assert results[1].id == asset2.id

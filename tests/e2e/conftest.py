@@ -140,7 +140,7 @@ async def client_with_api_key(client_with_access_token: AsyncClient):
     _album_ids: list[UUID] = []
 
     def _track_upload(result: UploadResult) -> None:
-        _uploaded_ids.extend(UUID(u.asset.id) for u in result.uploaded)
+        _uploaded_ids.extend(u.asset.id for u in result.uploaded)
 
     def _track_album(result: AlbumResponseDto) -> None:
         _album_ids.append(UUID(str(result.id)))
@@ -270,7 +270,7 @@ async def user(
     )
     yield user
     await client_with_api_key.users_admin.delete_user_admin(
-        UUID(str(user.id)),
+        user.id,
         UserAdminDeleteDto(force=True),
     )
 

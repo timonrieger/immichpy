@@ -10,7 +10,6 @@ Example command tested: get-all-albums with --shared "true"
 
 import asyncio
 import json
-from uuid import UUID
 
 import pytest
 from typer.testing import CliRunner
@@ -33,9 +32,7 @@ async def test_get_all_albums_with_shared_filter(
     client_with_api_key: AsyncClient,
 ) -> None:
     """Test get-all-albums command with shared filter and validate response structure."""
-    album_users = [
-        AlbumUserCreateDto(role=AlbumUserRole.VIEWER, userId=UUID(str(user.id)))
-    ]
+    album_users = [AlbumUserCreateDto(role=AlbumUserRole.VIEWER, userId=user.id)]
     album = await client_with_api_key.albums.create_album(
         CreateAlbumDto(albumName="Test Album", albumUsers=album_users)
     )
@@ -45,7 +42,7 @@ async def test_get_all_albums_with_shared_filter(
         [
             "albums",
             "get-all-albums",
-            "--shared",
+            "--is-shared",
             "true",
         ],
     )
