@@ -59,7 +59,7 @@ def print_response(data: MaybeBaseModel, ctx: Context) -> None:
         if isinstance(obj, list):
             return [convert_to_dict(item) for item in obj]
         elif isinstance(obj, BaseModel):
-            return obj.model_dump()
+            return obj.model_dump(mode="json")
         else:
             return obj
 
