@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import typer
+from uuid import UUID
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -19,7 +20,7 @@ app = typer.Typer(
 @app.command("create-partner", deprecated=False, rich_help_panel="API commands")
 def create_partner(
     ctx: typer.Context,
-    shared_with_id: str = typer.Option(
+    shared_with_id: UUID = typer.Option(
         ..., "--shared-with-id", help="""User ID to share with"""
     ),
 ) -> None:
@@ -42,7 +43,7 @@ def create_partner(
 )
 def create_partner_deprecated(
     ctx: typer.Context,
-    id: str = typer.Argument(..., help=""""""),
+    id: UUID = typer.Argument(..., help=""""""),
 ) -> None:
     """Create a partner
 
@@ -76,7 +77,7 @@ def get_partners(
 @app.command("remove-partner", deprecated=False, rich_help_panel="API commands")
 def remove_partner(
     ctx: typer.Context,
-    id: str = typer.Argument(..., help=""""""),
+    id: UUID = typer.Argument(..., help=""""""),
 ) -> None:
     """Remove a partner
 
@@ -92,7 +93,7 @@ def remove_partner(
 @app.command("update-partner", deprecated=False, rich_help_panel="API commands")
 def update_partner(
     ctx: typer.Context,
-    id: str = typer.Argument(..., help=""""""),
+    id: UUID = typer.Argument(..., help=""""""),
     in_timeline: bool = typer.Option(
         ..., "--in-timeline", help="""Show partner assets in timeline"""
     ),

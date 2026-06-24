@@ -28,16 +28,7 @@ def python_triple_quoted_str(value: str) -> str:
 
 
 PythonType = (
-    Literal[
-        "str",
-        "int",
-        "float",
-        "list",
-        "dict",
-        "Path",
-        "bool",
-        "datetime",
-    ]
+    Literal["str", "int", "float", "list", "dict", "Path", "bool", "datetime", "UUID"]
     | str
 )
 
@@ -133,7 +124,7 @@ def python_type_from_schema(
         if "format" in nschema:
             fmt = nschema["format"]
             if fmt == "uuid":
-                return "str"  # UUID as string for CLI
+                return "UUID"
             elif fmt == "date-time":
                 return "datetime"  # Typer handles datetime parsing
             elif fmt == "binary":
@@ -551,6 +542,7 @@ def generate_tag_app(
         "import json",
         "from datetime import datetime",
         "from pathlib import Path",
+        "from uuid import UUID",
         "from typing import Literal, TYPE_CHECKING",
         "if TYPE_CHECKING:",
         "    from immichpy import AsyncClient",

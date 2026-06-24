@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import typer
 from datetime import datetime
+from uuid import UUID
 from typing import Literal, TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -20,8 +21,8 @@ app = typer.Typer(
 @app.command("add-memory-assets", deprecated=False, rich_help_panel="API commands")
 def add_memory_assets(
     ctx: typer.Context,
-    id: str = typer.Argument(..., help=""""""),
-    ids: list[str] = typer.Option(..., "--ids", help="""IDs to process"""),
+    id: UUID = typer.Argument(..., help=""""""),
+    ids: list[UUID] = typer.Option(..., "--ids", help="""IDs to process"""),
 ) -> None:
     """Add assets to a memory
 
@@ -41,7 +42,7 @@ def add_memory_assets(
 @app.command("create-memory", deprecated=False, rich_help_panel="API commands")
 def create_memory(
     ctx: typer.Context,
-    asset_ids: list[str] | None = typer.Option(
+    asset_ids: list[UUID] | None = typer.Option(
         None, "--asset-ids", help="""Asset IDs to associate with memory"""
     ),
     data_year: float = typer.Option(
@@ -91,7 +92,7 @@ def create_memory(
 @app.command("delete-memory", deprecated=False, rich_help_panel="API commands")
 def delete_memory(
     ctx: typer.Context,
-    id: str = typer.Argument(..., help=""""""),
+    id: UUID = typer.Argument(..., help=""""""),
 ) -> None:
     """Delete a memory
 
@@ -107,7 +108,7 @@ def delete_memory(
 @app.command("get-memory", deprecated=False, rich_help_panel="API commands")
 def get_memory(
     ctx: typer.Context,
-    id: str = typer.Argument(..., help=""""""),
+    id: UUID = typer.Argument(..., help=""""""),
 ) -> None:
     """Retrieve a memory
 
@@ -163,8 +164,8 @@ def memories_statistics(
 @app.command("remove-memory-assets", deprecated=False, rich_help_panel="API commands")
 def remove_memory_assets(
     ctx: typer.Context,
-    id: str = typer.Argument(..., help=""""""),
-    ids: list[str] = typer.Option(..., "--ids", help="""IDs to process"""),
+    id: UUID = typer.Argument(..., help=""""""),
+    ids: list[UUID] = typer.Option(..., "--ids", help="""IDs to process"""),
 ) -> None:
     """Remove assets from a memory
 
@@ -224,7 +225,7 @@ def search_memories(
 @app.command("update-memory", deprecated=False, rich_help_panel="API commands")
 def update_memory(
     ctx: typer.Context,
-    id: str = typer.Argument(..., help=""""""),
+    id: UUID = typer.Argument(..., help=""""""),
     is_saved: Literal["true", "false"] | None = typer.Option(
         None, "--is-saved", help="""Is memory saved"""
     ),

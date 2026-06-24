@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import typer
+from uuid import UUID
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -43,7 +44,7 @@ def create_api_key(
 @app.command("delete-api-key", deprecated=False, rich_help_panel="API commands")
 def delete_api_key(
     ctx: typer.Context,
-    id: str = typer.Argument(..., help=""""""),
+    id: UUID = typer.Argument(..., help=""""""),
 ) -> None:
     """Delete an API key
 
@@ -59,7 +60,7 @@ def delete_api_key(
 @app.command("get-api-key", deprecated=False, rich_help_panel="API commands")
 def get_api_key(
     ctx: typer.Context,
-    id: str = typer.Argument(..., help=""""""),
+    id: UUID = typer.Argument(..., help=""""""),
 ) -> None:
     """Retrieve an API key
 
@@ -103,7 +104,7 @@ def get_my_api_key(
 @app.command("update-api-key", deprecated=False, rich_help_panel="API commands")
 def update_api_key(
     ctx: typer.Context,
-    id: str = typer.Argument(..., help=""""""),
+    id: UUID = typer.Argument(..., help=""""""),
     name: str | None = typer.Option(None, "--name", help="""API key name"""),
     permissions: list[Permission] | None = typer.Option(
         None, "--permissions", help="""List of permissions"""

@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import typer
 import json
+from uuid import UUID
 from typing import Literal, TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -69,7 +70,7 @@ As a JSON string with keys: filterConfig (object), pluginFilterId (string)""",
 @app.command("delete-workflow", deprecated=False, rich_help_panel="API commands")
 def delete_workflow(
     ctx: typer.Context,
-    id: str = typer.Argument(..., help=""""""),
+    id: UUID = typer.Argument(..., help=""""""),
 ) -> None:
     """Delete a workflow
 
@@ -85,7 +86,7 @@ def delete_workflow(
 @app.command("get-workflow", deprecated=False, rich_help_panel="API commands")
 def get_workflow(
     ctx: typer.Context,
-    id: str = typer.Argument(..., help=""""""),
+    id: UUID = typer.Argument(..., help=""""""),
 ) -> None:
     """Retrieve a workflow
 
@@ -115,7 +116,7 @@ def get_workflows(
 @app.command("update-workflow", deprecated=False, rich_help_panel="API commands")
 def update_workflow(
     ctx: typer.Context,
-    id: str = typer.Argument(..., help=""""""),
+    id: UUID = typer.Argument(..., help=""""""),
     actions: list[str] | None = typer.Option(
         None,
         "--actions",

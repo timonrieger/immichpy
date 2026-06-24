@@ -73,7 +73,7 @@ $ immichpy setup [OPTIONS]
 **Options**:
 
 * `-p, --profile TEXT`: Profile name. This can be used to set different server configurations.  [default: default]
-* `--base-url TEXT`: The base URL of the Immich server, including the API path.  [default: https://demo.immich.app/api]
+* `--base-url TEXT`: The base URL of the Immich server.  [default: https://demo.immich.app/api]
 * `--api-key TEXT`: An API key to use with the profile (<span style="color: #008000; text-decoration-color: #008000">recommended</span>)
 * `--access-token TEXT`: An access token to use with the profile (<span style="color: #800000; text-decoration-color: #800000">not recommended</span>)
 * `--skip-validation`: Skip validation of the server.
@@ -253,8 +253,8 @@ $ immichpy activities create-activity [OPTIONS]
 
 **Options**:
 
-* `--album-id TEXT`: Album ID  [required]
-* `--asset-id TEXT`: Asset ID (if activity is for an asset)
+* `--album-id UUID`: Album ID  [required]
+* `--asset-id UUID`: Asset ID (if activity is for an asset)
 * `--comment TEXT`: Comment text (required if type is comment)
 * `--type TEXT`: Activity type (like or comment)  [required]
 * `--help`: Show this message and exit.
@@ -293,11 +293,11 @@ $ immichpy activities get-activities [OPTIONS]
 
 **Options**:
 
-* `--album-id TEXT`: Album ID  [required]
-* `--asset-id TEXT`: Asset ID (if activity is for an asset)
+* `--album-id UUID`: Album ID  [required]
+* `--asset-id UUID`: Asset ID (if activity is for an asset)
 * `--level [album|asset]`: Filter by activity level
 * `--type [comment|like]`: Filter by activity type
-* `--user-id TEXT`: Filter by user ID
+* `--user-id UUID`: Filter by user ID
 * `--help`: Show this message and exit.
 
 ### `immichpy activities get-activity-statistics`
@@ -314,8 +314,8 @@ $ immichpy activities get-activity-statistics [OPTIONS]
 
 **Options**:
 
-* `--album-id TEXT`: Album ID  [required]
-* `--asset-id TEXT`: Asset ID (if activity is for an asset)
+* `--album-id UUID`: Album ID  [required]
+* `--asset-id UUID`: Asset ID (if activity is for an asset)
 * `--help`: Show this message and exit.
 
 ## `immichpy albums`
@@ -367,7 +367,7 @@ $ immichpy albums add-assets-to-album [OPTIONS] ID
 
 **Options**:
 
-* `--ids TEXT`: IDs to process  [required]
+* `--ids UUID`: IDs to process  [required]
 * `--key TEXT`
 * `--slug TEXT`
 * `--help`: Show this message and exit.
@@ -386,8 +386,8 @@ $ immichpy albums add-assets-to-albums [OPTIONS]
 
 **Options**:
 
-* `--album-ids TEXT`: Album IDs  [required]
-* `--asset-ids TEXT`: Asset IDs  [required]
+* `--album-ids UUID`: Album IDs  [required]
+* `--asset-ids UUID`: Asset IDs  [required]
 * `--key TEXT`
 * `--slug TEXT`
 * `--help`: Show this message and exit.
@@ -412,7 +412,7 @@ $ immichpy albums add-users-to-album [OPTIONS] ID
 
 * `--album-users TEXT`: Album users to add
 
-As a JSON string  [required]
+As a JSON string with keys: role (string), userId (string)  [required]
 * `--help`: Show this message and exit.
 
 ### `immichpy albums create-album`
@@ -432,8 +432,8 @@ $ immichpy albums create-album [OPTIONS]
 * `--album-name TEXT`: Album name  [required]
 * `--album-users TEXT`: Album users
 
-As a JSON string
-* `--asset-ids TEXT`: Initial asset IDs
+As a JSON string with keys: role (string), userId (string)
+* `--asset-ids UUID`: Initial asset IDs
 * `--description TEXT`: Album description
 * `--help`: Show this message and exit.
 
@@ -510,7 +510,7 @@ $ immichpy albums get-all-albums [OPTIONS]
 
 **Options**:
 
-* `--asset-id TEXT`: Filter albums containing this asset ID (ignores shared parameter)
+* `--asset-id UUID`: Filter albums containing this asset ID (ignores shared parameter)
 * `--shared [true|false]`: Filter by shared status: true = only shared, false = not shared, undefined = all owned albums
 * `--help`: Show this message and exit.
 
@@ -532,7 +532,7 @@ $ immichpy albums remove-asset-from-album [OPTIONS] ID
 
 **Options**:
 
-* `--ids TEXT`: IDs to process  [required]
+* `--ids UUID`: IDs to process  [required]
 * `--help`: Show this message and exit.
 
 ### `immichpy albums remove-user-from-album`
@@ -575,7 +575,7 @@ $ immichpy albums update-album-info [OPTIONS] ID
 **Options**:
 
 * `--album-name TEXT`: Album name
-* `--album-thumbnail-asset-id TEXT`: Album thumbnail asset ID
+* `--album-thumbnail-asset-id UUID`: Album thumbnail asset ID
 * `--description TEXT`: Album description
 * `--is-activity-enabled [true|false]`: Enable activity feed
 * `--order TEXT`: Asset sort order
@@ -668,7 +668,7 @@ $ immichpy assets check-bulk-upload [OPTIONS]
 
 * `--assets TEXT`: Assets to check
 
-As a JSON string  [required]
+As a JSON string with keys: checksum (string), id (string)  [required]
 * `--help`: Show this message and exit.
 
 ### `immichpy assets check-existing-assets`
@@ -707,9 +707,9 @@ $ immichpy assets copy-asset [OPTIONS]
 * `--favorite [true|false]`: Copy favorite status
 * `--shared-links [true|false]`: Copy shared links
 * `--sidecar [true|false]`: Copy sidecar file
-* `--source-id TEXT`: Source asset ID  [required]
+* `--source-id UUID`: Source asset ID  [required]
 * `--stack [true|false]`: Copy stack association
-* `--target-id TEXT`: Target asset ID  [required]
+* `--target-id UUID`: Target asset ID  [required]
 * `--help`: Show this message and exit.
 
 ### `immichpy assets delete-asset-metadata`
@@ -748,7 +748,7 @@ $ immichpy assets delete-assets [OPTIONS]
 **Options**:
 
 * `--force [true|false]`: Force delete even if in use
-* `--ids TEXT`: IDs to process  [required]
+* `--ids UUID`: IDs to process  [required]
 * `--help`: Show this message and exit.
 
 ### `immichpy assets delete-bulk-asset-metadata`
@@ -767,7 +767,7 @@ $ immichpy assets delete-bulk-asset-metadata [OPTIONS]
 
 * `--items TEXT`: Metadata items to delete
 
-As a JSON string  [required]
+As a JSON string with keys: assetId (string), key (string)  [required]
 * `--help`: Show this message and exit.
 
 ### `immichpy assets download-asset`
@@ -813,7 +813,7 @@ $ immichpy assets edit-asset [OPTIONS] ID
 
 * `--edits TEXT`: List of edit actions to apply (crop, rotate, or mirror)
 
-As a JSON string  [required]
+As a JSON string with keys: action (string), parameters (string)  [required]
 * `--help`: Show this message and exit.
 
 ### `immichpy assets get-all-user-assets-by-device-id`
@@ -1060,7 +1060,7 @@ $ immichpy assets run-asset-jobs [OPTIONS]
 
 **Options**:
 
-* `--asset-ids TEXT`: Asset IDs  [required]
+* `--asset-ids UUID`: Asset IDs  [required]
 * `--name TEXT`: Job name  [required]
 * `--help`: Show this message and exit.
 
@@ -1086,7 +1086,7 @@ $ immichpy assets update-asset [OPTIONS] ID
 * `--description TEXT`: Asset description
 * `--is-favorite [true|false]`: Mark as favorite
 * `--latitude FLOAT`: Latitude coordinate
-* `--live-photo-video-id TEXT`: Live photo video ID
+* `--live-photo-video-id UUID`: Live photo video ID
 * `--longitude FLOAT`: Longitude coordinate
 * `--rating FLOAT RANGE`: Rating in range [1-5], or null for unrated  [-1&lt;=x&lt;=5]
 * `--visibility TEXT`: Asset visibility
@@ -1112,7 +1112,7 @@ $ immichpy assets update-asset-metadata [OPTIONS] ID
 
 * `--items TEXT`: Metadata items to upsert
 
-As a JSON string  [required]
+As a JSON string with keys: key (string), value (object)  [required]
 * `--help`: Show this message and exit.
 
 ### `immichpy assets update-assets`
@@ -1133,7 +1133,7 @@ $ immichpy assets update-assets [OPTIONS]
 * `--date-time-relative FLOAT`: Relative time offset in seconds
 * `--description TEXT`: Asset description
 * `--duplicate-id TEXT`: Duplicate ID
-* `--ids TEXT`: Asset IDs to update  [required]
+* `--ids UUID`: Asset IDs to update  [required]
 * `--is-favorite [true|false]`: Mark as favorite
 * `--latitude FLOAT`: Latitude coordinate
 * `--longitude FLOAT`: Longitude coordinate
@@ -1158,7 +1158,7 @@ $ immichpy assets update-bulk-asset-metadata [OPTIONS]
 
 * `--items TEXT`: Metadata items to upsert
 
-As a JSON string  [required]
+As a JSON string with keys: assetId (string), key (string), value (object)  [required]
 * `--help`: Show this message and exit.
 
 ### `immichpy assets upload-asset`
@@ -1184,10 +1184,10 @@ $ immichpy assets upload-asset [OPTIONS]
 * `--filename TEXT`: Filename
 * `--is-favorite [true|false]`: Mark as favorite
 * `--key TEXT`
-* `--live-photo-video-id TEXT`: Live photo video ID
+* `--live-photo-video-id UUID`: Live photo video ID
 * `--metadata TEXT`: Asset metadata items
 
-As a JSON string
+As a JSON string with keys: key (string), value (object)
 * `--sidecar-data PATH`: Sidecar file data
 * `--slug TEXT`
 * `--visibility TEXT`: Asset visibility
@@ -1739,7 +1739,7 @@ $ immichpy download download-archive [OPTIONS]
 
 **Options**:
 
-* `--asset-ids TEXT`: Asset IDs  [required]
+* `--asset-ids UUID`: Asset IDs  [required]
 * `--edited [true|false]`: Download edited asset if available
 * `--key TEXT`
 * `--slug TEXT`
@@ -1759,12 +1759,12 @@ $ immichpy download get-download-info [OPTIONS]
 
 **Options**:
 
-* `--album-id TEXT`: Album ID to download
+* `--album-id UUID`: Album ID to download
 * `--archive-size INTEGER RANGE`: Archive size limit in bytes  [x&gt;=1]
-* `--asset-ids TEXT`: Asset IDs to download
+* `--asset-ids UUID`: Asset IDs to download
 * `--key TEXT`
 * `--slug TEXT`
-* `--user-id TEXT`: User ID to download assets from
+* `--user-id UUID`: User ID to download assets from
 * `--help`: Show this message and exit.
 
 ### `immichpy download download-archive-to-file`
@@ -1940,7 +1940,7 @@ $ immichpy duplicates delete-duplicates [OPTIONS]
 
 **Options**:
 
-* `--ids TEXT`: IDs to process  [required]
+* `--ids UUID`: IDs to process  [required]
 * `--help`: Show this message and exit.
 
 ### `immichpy duplicates get-asset-duplicates`
@@ -1975,7 +1975,7 @@ $ immichpy duplicates resolve-duplicates [OPTIONS]
 
 * `--groups TEXT`: List of duplicate groups to resolve
 
-As a JSON string  [required]
+As a JSON string with keys: duplicateId (string), keepAssetIds (string[]), trashAssetIds (string[])  [required]
 * `--help`: Show this message and exit.
 
 ## `immichpy faces`
@@ -2015,11 +2015,11 @@ $ immichpy faces create-face [OPTIONS]
 
 **Options**:
 
-* `--asset-id TEXT`: Asset ID  [required]
+* `--asset-id UUID`: Asset ID  [required]
 * `--height INTEGER`: Face bounding box height  [required]
 * `--image-height INTEGER`: Image height in pixels  [required]
 * `--image-width INTEGER`: Image width in pixels  [required]
-* `--person-id TEXT`: Person ID  [required]
+* `--person-id UUID`: Person ID  [required]
 * `--width INTEGER`: Face bounding box width  [required]
 * `--x INTEGER`: Face bounding box X coordinate  [required]
 * `--y INTEGER`: Face bounding box Y coordinate  [required]
@@ -2060,7 +2060,7 @@ $ immichpy faces get-faces [OPTIONS]
 
 **Options**:
 
-* `--id TEXT`: Face ID  [required]
+* `--id UUID`: Face ID  [required]
 * `--help`: Show this message and exit.
 
 ### `immichpy faces reassign-faces-by-id`
@@ -2081,7 +2081,7 @@ $ immichpy faces reassign-faces-by-id [OPTIONS] ID
 
 **Options**:
 
-* `--body-id TEXT`: Face ID  [required]
+* `--body-id UUID`: Face ID  [required]
 * `--help`: Show this message and exit.
 
 ## `immichpy jobs`
@@ -2205,7 +2205,7 @@ $ immichpy libraries create-library [OPTIONS]
 * `--exclusion-patterns TEXT`: Exclusion patterns (max 128)
 * `--import-paths TEXT`: Import paths (max 128)
 * `--name TEXT`: Library name
-* `--owner-id TEXT`: Owner user ID  [required]
+* `--owner-id UUID`: Owner user ID  [required]
 * `--help`: Show this message and exit.
 
 ### `immichpy libraries delete-library`
@@ -2545,7 +2545,7 @@ $ immichpy memories add-memory-assets [OPTIONS] ID
 
 **Options**:
 
-* `--ids TEXT`: IDs to process  [required]
+* `--ids UUID`: IDs to process  [required]
 * `--help`: Show this message and exit.
 
 ### `immichpy memories create-memory`
@@ -2562,7 +2562,7 @@ $ immichpy memories create-memory [OPTIONS]
 
 **Options**:
 
-* `--asset-ids TEXT`: Asset IDs to associate with memory
+* `--asset-ids UUID`: Asset IDs to associate with memory
 * `--data-year FLOAT RANGE`: Year for on this day memory  [x&gt;=1; required]
 * `--hide-at [%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S]`: Date when memory should be hidden
 * `--is-saved [true|false]`: Is memory saved
@@ -2652,7 +2652,7 @@ $ immichpy memories remove-memory-assets [OPTIONS] ID
 
 **Options**:
 
-* `--ids TEXT`: IDs to process  [required]
+* `--ids UUID`: IDs to process  [required]
 * `--help`: Show this message and exit.
 
 ### `immichpy memories search-memories`
@@ -2759,7 +2759,7 @@ $ immichpy notifications delete-notifications [OPTIONS]
 
 **Options**:
 
-* `--ids TEXT`: Notification IDs to delete  [required]
+* `--ids UUID`: Notification IDs to delete  [required]
 * `--help`: Show this message and exit.
 
 ### `immichpy notifications get-notification`
@@ -2796,7 +2796,7 @@ $ immichpy notifications get-notifications [OPTIONS]
 
 **Options**:
 
-* `--id TEXT`: Filter by notification ID
+* `--id UUID`: Filter by notification ID
 * `--level [success|error|warning|info]`: Filter by notification level
 * `--type [JobFailed|BackupFailed|SystemMessage|AlbumInvite|AlbumUpdate|Custom]`: Filter by notification type
 * `--unread [true|false]`: Filter by unread status
@@ -2837,7 +2837,7 @@ $ immichpy notifications update-notifications [OPTIONS]
 
 **Options**:
 
-* `--ids TEXT`: Notification IDs to update  [required]
+* `--ids UUID`: Notification IDs to update  [required]
 * `--read-at [%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S]`: Date when notifications were read
 * `--help`: Show this message and exit.
 
@@ -2885,7 +2885,7 @@ As a JSON string
 * `--read-at [%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S]`: Date when notification was read
 * `--title TEXT`: Notification title  [required]
 * `--type TEXT`: Notification type
-* `--user-id TEXT`: User ID to send notification to  [required]
+* `--user-id UUID`: User ID to send notification to  [required]
 * `--help`: Show this message and exit.
 
 ### `immichpy notifications-admin get-notification-template-admin`
@@ -2972,7 +2972,7 @@ $ immichpy partners create-partner [OPTIONS]
 
 **Options**:
 
-* `--shared-with-id TEXT`: User ID to share with  [required]
+* `--shared-with-id UUID`: User ID to share with  [required]
 * `--help`: Show this message and exit.
 
 ### `immichpy partners create-partner-deprecated`
@@ -3118,7 +3118,7 @@ $ immichpy people delete-people [OPTIONS]
 
 **Options**:
 
-* `--ids TEXT`: IDs to process  [required]
+* `--ids UUID`: IDs to process  [required]
 * `--help`: Show this message and exit.
 
 ### `immichpy people delete-person`
@@ -3155,8 +3155,8 @@ $ immichpy people get-all-people [OPTIONS]
 
 **Options**:
 
-* `--closest-asset-id TEXT`: Closest asset ID for similarity search
-* `--closest-person-id TEXT`: Closest person ID for similarity search
+* `--closest-asset-id UUID`: Closest asset ID for similarity search
+* `--closest-person-id UUID`: Closest person ID for similarity search
 * `--page FLOAT RANGE`: Page number for pagination  [x&gt;=1]
 * `--size FLOAT RANGE`: Number of items per page  [1&lt;=x&lt;=1000]
 * `--with-hidden [true|false]`: Include hidden people
@@ -3240,7 +3240,7 @@ $ immichpy people merge-person [OPTIONS] ID
 
 **Options**:
 
-* `--ids TEXT`: Person IDs to merge  [required]
+* `--ids UUID`: Person IDs to merge  [required]
 * `--help`: Show this message and exit.
 
 ### `immichpy people reassign-faces`
@@ -3263,7 +3263,7 @@ $ immichpy people reassign-faces [OPTIONS] ID
 
 * `--data TEXT`: Face update items
 
-As a JSON string  [required]
+As a JSON string with keys: assetId (string), personId (string)  [required]
 * `--help`: Show this message and exit.
 
 ### `immichpy people update-people`
@@ -3282,7 +3282,7 @@ $ immichpy people update-people [OPTIONS]
 
 * `--people TEXT`: People to update
 
-As a JSON string  [required]
+As a JSON string with keys: birthDate (string), color (string), featureFaceAssetId (string), id (string), isFavorite (boolean), isHidden (boolean), name (string)  [required]
 * `--help`: Show this message and exit.
 
 ### `immichpy people update-person`
@@ -3305,7 +3305,7 @@ $ immichpy people update-person [OPTIONS] ID
 
 * `--birth-date TEXT`: Person date of birth
 * `--color TEXT`: Person color (hex)
-* `--feature-face-asset-id TEXT`: Asset ID used for feature face thumbnail
+* `--feature-face-asset-id UUID`: Asset ID used for feature face thumbnail
 * `--is-favorite [true|false]`: Mark as favorite
 * `--is-hidden [true|false]`: Person visibility (hidden)
 * `--name TEXT`: Person name
@@ -3606,7 +3606,7 @@ $ immichpy search search-asset-statistics [OPTIONS]
 
 **Options**:
 
-* `--album-ids TEXT`: Filter by album IDs
+* `--album-ids UUID`: Filter by album IDs
 * `--city TEXT`: Filter by city name
 * `--country TEXT`: Filter by country name
 * `--created-after [%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S]`: Filter by creation date (after)
@@ -3619,14 +3619,14 @@ $ immichpy search search-asset-statistics [OPTIONS]
 * `--is-not-in-album [true|false]`: Filter assets not in any album
 * `--is-offline [true|false]`: Filter by offline status
 * `--lens-model TEXT`: Filter by lens model
-* `--library-id TEXT`: Library ID to filter by
+* `--library-id UUID`: Library ID to filter by
 * `--make TEXT`: Filter by camera make
 * `--model TEXT`: Filter by camera model
 * `--ocr TEXT`: Filter by OCR text content
-* `--person-ids TEXT`: Filter by person IDs
+* `--person-ids UUID`: Filter by person IDs
 * `--rating FLOAT RANGE`: Filter by rating [1-5], or null for unrated  [-1&lt;=x&lt;=5]
 * `--state TEXT`: Filter by state/province name
-* `--tag-ids TEXT`: Filter by tag IDs
+* `--tag-ids UUID`: Filter by tag IDs
 * `--taken-after [%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S]`: Filter by taken date (after)
 * `--taken-before [%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S]`: Filter by taken date (before)
 * `--trashed-after [%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S]`: Filter by trash date (after)
@@ -3651,7 +3651,7 @@ $ immichpy search search-assets [OPTIONS]
 
 **Options**:
 
-* `--album-ids TEXT`: Filter by album IDs
+* `--album-ids UUID`: Filter by album IDs
 * `--checksum TEXT`: Filter by file checksum
 * `--city TEXT`: Filter by city name
 * `--country TEXT`: Filter by country name
@@ -3661,14 +3661,14 @@ $ immichpy search search-assets [OPTIONS]
 * `--device-asset-id TEXT`: Filter by device asset ID
 * `--device-id TEXT`: Device ID to filter by
 * `--encoded-video-path TEXT`: Filter by encoded video file path
-* `--id TEXT`: Filter by asset ID
+* `--id UUID`: Filter by asset ID
 * `--is-encoded [true|false]`: Filter by encoded status
 * `--is-favorite [true|false]`: Filter by favorite status
 * `--is-motion [true|false]`: Filter by motion photo status
 * `--is-not-in-album [true|false]`: Filter assets not in any album
 * `--is-offline [true|false]`: Filter by offline status
 * `--lens-model TEXT`: Filter by lens model
-* `--library-id TEXT`: Library ID to filter by
+* `--library-id UUID`: Library ID to filter by
 * `--make TEXT`: Filter by camera make
 * `--model TEXT`: Filter by camera model
 * `--ocr TEXT`: Filter by OCR text content
@@ -3676,12 +3676,12 @@ $ immichpy search search-assets [OPTIONS]
 * `--original-file-name TEXT`: Filter by original file name
 * `--original-path TEXT`: Filter by original file path
 * `--page FLOAT RANGE`: Page number  [x&gt;=1]
-* `--person-ids TEXT`: Filter by person IDs
+* `--person-ids UUID`: Filter by person IDs
 * `--preview-path TEXT`: Filter by preview file path
 * `--rating FLOAT RANGE`: Filter by rating [1-5], or null for unrated  [-1&lt;=x&lt;=5]
 * `--size FLOAT RANGE`: Number of results to return  [1&lt;=x&lt;=1000]
 * `--state TEXT`: Filter by state/province name
-* `--tag-ids TEXT`: Filter by tag IDs
+* `--tag-ids UUID`: Filter by tag IDs
 * `--taken-after [%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S]`: Filter by taken date (after)
 * `--taken-before [%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S]`: Filter by taken date (before)
 * `--thumbnail-path TEXT`: Filter by thumbnail file path
@@ -3711,7 +3711,7 @@ $ immichpy search search-large-assets [OPTIONS]
 
 **Options**:
 
-* `--album-ids TEXT`: Filter by album IDs
+* `--album-ids UUID`: Filter by album IDs
 * `--city TEXT`: Filter by city name
 * `--country TEXT`: Filter by country name
 * `--created-after [%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S]`: Filter by creation date (after)
@@ -3723,16 +3723,16 @@ $ immichpy search search-large-assets [OPTIONS]
 * `--is-not-in-album [true|false]`: Filter assets not in any album
 * `--is-offline [true|false]`: Filter by offline status
 * `--lens-model TEXT`: Filter by lens model
-* `--library-id TEXT`: Library ID to filter by
+* `--library-id UUID`: Library ID to filter by
 * `--make TEXT`: Filter by camera make
 * `--min-file-size INTEGER RANGE`: Minimum file size in bytes  [x&gt;=0]
 * `--model TEXT`: Filter by camera model
 * `--ocr TEXT`: Filter by OCR text content
-* `--person-ids TEXT`: Filter by person IDs
+* `--person-ids UUID`: Filter by person IDs
 * `--rating FLOAT RANGE`: Filter by rating [1-5], or null for unrated  [-1&lt;=x&lt;=5]
 * `--size FLOAT RANGE`: Number of results to return  [1&lt;=x&lt;=1000]
 * `--state TEXT`: Filter by state/province name
-* `--tag-ids TEXT`: Filter by tag IDs
+* `--tag-ids UUID`: Filter by tag IDs
 * `--taken-after [%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S]`: Filter by taken date (after)
 * `--taken-before [%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S]`: Filter by taken date (before)
 * `--trashed-after [%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S]`: Filter by trash date (after)
@@ -3794,7 +3794,7 @@ $ immichpy search search-random [OPTIONS]
 
 **Options**:
 
-* `--album-ids TEXT`: Filter by album IDs
+* `--album-ids UUID`: Filter by album IDs
 * `--city TEXT`: Filter by city name
 * `--country TEXT`: Filter by country name
 * `--created-after [%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S]`: Filter by creation date (after)
@@ -3806,15 +3806,15 @@ $ immichpy search search-random [OPTIONS]
 * `--is-not-in-album [true|false]`: Filter assets not in any album
 * `--is-offline [true|false]`: Filter by offline status
 * `--lens-model TEXT`: Filter by lens model
-* `--library-id TEXT`: Library ID to filter by
+* `--library-id UUID`: Library ID to filter by
 * `--make TEXT`: Filter by camera make
 * `--model TEXT`: Filter by camera model
 * `--ocr TEXT`: Filter by OCR text content
-* `--person-ids TEXT`: Filter by person IDs
+* `--person-ids UUID`: Filter by person IDs
 * `--rating FLOAT RANGE`: Filter by rating [1-5], or null for unrated  [-1&lt;=x&lt;=5]
 * `--size FLOAT RANGE`: Number of results to return  [1&lt;=x&lt;=1000]
 * `--state TEXT`: Filter by state/province name
-* `--tag-ids TEXT`: Filter by tag IDs
+* `--tag-ids UUID`: Filter by tag IDs
 * `--taken-after [%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S]`: Filter by taken date (after)
 * `--taken-before [%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S]`: Filter by taken date (before)
 * `--trashed-after [%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S]`: Filter by trash date (after)
@@ -3843,7 +3843,7 @@ $ immichpy search search-smart [OPTIONS]
 
 **Options**:
 
-* `--album-ids TEXT`: Filter by album IDs
+* `--album-ids UUID`: Filter by album IDs
 * `--city TEXT`: Filter by city name
 * `--country TEXT`: Filter by country name
 * `--created-after [%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S]`: Filter by creation date (after)
@@ -3856,18 +3856,18 @@ $ immichpy search search-smart [OPTIONS]
 * `--is-offline [true|false]`: Filter by offline status
 * `--language TEXT`: Search language code
 * `--lens-model TEXT`: Filter by lens model
-* `--library-id TEXT`: Library ID to filter by
+* `--library-id UUID`: Library ID to filter by
 * `--make TEXT`: Filter by camera make
 * `--model TEXT`: Filter by camera model
 * `--ocr TEXT`: Filter by OCR text content
 * `--page FLOAT RANGE`: Page number  [x&gt;=1]
-* `--person-ids TEXT`: Filter by person IDs
+* `--person-ids UUID`: Filter by person IDs
 * `--query TEXT`: Natural language search query
-* `--query-asset-id TEXT`: Asset ID to use as search reference
+* `--query-asset-id UUID`: Asset ID to use as search reference
 * `--rating FLOAT RANGE`: Filter by rating [1-5], or null for unrated  [-1&lt;=x&lt;=5]
 * `--size FLOAT RANGE`: Number of results to return  [1&lt;=x&lt;=1000]
 * `--state TEXT`: Filter by state/province name
-* `--tag-ids TEXT`: Filter by tag IDs
+* `--tag-ids UUID`: Filter by tag IDs
 * `--taken-after [%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S]`: Filter by taken date (after)
 * `--taken-before [%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S]`: Filter by taken date (before)
 * `--trashed-after [%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S]`: Filter by trash date (after)
@@ -4339,7 +4339,7 @@ $ immichpy shared-links add-shared-link-assets [OPTIONS] ID
 
 **Options**:
 
-* `--asset-ids TEXT`: Asset IDs  [required]
+* `--asset-ids UUID`: Asset IDs  [required]
 * `--key TEXT`
 * `--slug TEXT`
 * `--help`: Show this message and exit.
@@ -4358,10 +4358,10 @@ $ immichpy shared-links create-shared-link [OPTIONS]
 
 **Options**:
 
-* `--album-id TEXT`: Album ID (for album sharing)
+* `--album-id UUID`: Album ID (for album sharing)
 * `--allow-download [true|false]`: Allow downloads
 * `--allow-upload [true|false]`: Allow uploads
-* `--asset-ids TEXT`: Asset IDs (for individual assets)
+* `--asset-ids UUID`: Asset IDs (for individual assets)
 * `--description TEXT`: Link description
 * `--expires-at [%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S]`: Expiration date
 * `--password TEXT`: Link password
@@ -4384,8 +4384,8 @@ $ immichpy shared-links get-all-shared-links [OPTIONS]
 
 **Options**:
 
-* `--album-id TEXT`: Filter by album ID
-* `--id TEXT`: Filter by shared link ID
+* `--album-id UUID`: Filter by album ID
+* `--id UUID`: Filter by shared link ID
 * `--help`: Show this message and exit.
 
 ### `immichpy shared-links get-my-shared-link`
@@ -4468,7 +4468,7 @@ $ immichpy shared-links remove-shared-link-assets [OPTIONS] ID
 
 **Options**:
 
-* `--asset-ids TEXT`: Asset IDs  [required]
+* `--asset-ids UUID`: Asset IDs  [required]
 * `--help`: Show this message and exit.
 
 ### `immichpy shared-links shared-link-login`
@@ -4560,7 +4560,7 @@ $ immichpy stacks create-stack [OPTIONS]
 
 **Options**:
 
-* `--asset-ids TEXT`: Asset IDs (first becomes primary, min 2)  [required]
+* `--asset-ids UUID`: Asset IDs (first becomes primary, min 2)  [required]
 * `--help`: Show this message and exit.
 
 ### `immichpy stacks delete-stack`
@@ -4597,7 +4597,7 @@ $ immichpy stacks delete-stacks [OPTIONS]
 
 **Options**:
 
-* `--ids TEXT`: IDs to process  [required]
+* `--ids UUID`: IDs to process  [required]
 * `--help`: Show this message and exit.
 
 ### `immichpy stacks get-stack`
@@ -4655,7 +4655,7 @@ $ immichpy stacks search-stacks [OPTIONS]
 
 **Options**:
 
-* `--primary-asset-id TEXT`: Filter by primary asset ID
+* `--primary-asset-id UUID`: Filter by primary asset ID
 * `--help`: Show this message and exit.
 
 ### `immichpy stacks update-stack`
@@ -4676,7 +4676,7 @@ $ immichpy stacks update-stack [OPTIONS] ID
 
 **Options**:
 
-* `--primary-asset-id TEXT`: Primary asset ID
+* `--primary-asset-id UUID`: Primary asset ID
 * `--help`: Show this message and exit.
 
 ## `immichpy sync`
@@ -4736,7 +4736,7 @@ $ immichpy sync get-delta-sync [OPTIONS]
 **Options**:
 
 * `--updated-after [%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S]`: Sync assets updated after this date  [required]
-* `--user-ids TEXT`: User IDs to sync  [required]
+* `--user-ids UUID`: User IDs to sync  [required]
 * `--help`: Show this message and exit.
 
 ### `immichpy sync get-full-sync-for-user`
@@ -4753,10 +4753,10 @@ $ immichpy sync get-full-sync-for-user [OPTIONS]
 
 **Options**:
 
-* `--last-id TEXT`: Last asset ID (pagination)
+* `--last-id UUID`: Last asset ID (pagination)
 * `--limit INTEGER RANGE`: Maximum number of assets to return  [x&gt;=1; required]
 * `--updated-until [%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S]`: Sync assets updated until this date  [required]
-* `--user-id TEXT`: Filter by user ID
+* `--user-id UUID`: Filter by user ID
 * `--help`: Show this message and exit.
 
 ### `immichpy sync get-sync-ack`
@@ -5156,8 +5156,8 @@ $ immichpy tags bulk-tag-assets [OPTIONS]
 
 **Options**:
 
-* `--asset-ids TEXT`: Asset IDs  [required]
-* `--tag-ids TEXT`: Tag IDs  [required]
+* `--asset-ids UUID`: Asset IDs  [required]
+* `--tag-ids UUID`: Tag IDs  [required]
 * `--help`: Show this message and exit.
 
 ### `immichpy tags create-tag`
@@ -5176,7 +5176,7 @@ $ immichpy tags create-tag [OPTIONS]
 
 * `--color TEXT`: Tag color (hex)
 * `--name TEXT`: Tag name  [required]
-* `--parent-id TEXT`: Parent tag ID
+* `--parent-id UUID`: Parent tag ID
 * `--help`: Show this message and exit.
 
 ### `immichpy tags delete-tag`
@@ -5253,7 +5253,7 @@ $ immichpy tags tag-assets [OPTIONS] ID
 
 **Options**:
 
-* `--ids TEXT`: IDs to process  [required]
+* `--ids UUID`: IDs to process  [required]
 * `--help`: Show this message and exit.
 
 ### `immichpy tags untag-assets`
@@ -5274,7 +5274,7 @@ $ immichpy tags untag-assets [OPTIONS] ID
 
 **Options**:
 
-* `--ids TEXT`: IDs to process  [required]
+* `--ids UUID`: IDs to process  [required]
 * `--help`: Show this message and exit.
 
 ### `immichpy tags update-tag`
@@ -5350,7 +5350,7 @@ $ immichpy timeline get-time-bucket [OPTIONS]
 
 **Options**:
 
-* `--album-id TEXT`: Filter assets belonging to a specific album
+* `--album-id UUID`: Filter assets belonging to a specific album
 * `--bbox TEXT`: Bounding box coordinates as west,south,east,north (WGS84)
 
 Example: 11.075683,49.416711,11.117589,49.454875
@@ -5358,13 +5358,13 @@ Example: 11.075683,49.416711,11.117589,49.454875
 * `--is-trashed [true|false]`: Filter by trash status (true for trashed assets only, false for non-trashed only)
 * `--key TEXT`
 * `--order [asc|desc]`: Sort order for assets within time buckets (ASC for oldest first, DESC for newest first)
-* `--person-id TEXT`: Filter assets containing a specific person (face recognition)
+* `--person-id UUID`: Filter assets containing a specific person (face recognition)
 * `--slug TEXT`
-* `--tag-id TEXT`: Filter assets with a specific tag
+* `--tag-id UUID`: Filter assets with a specific tag
 * `--time-bucket TEXT`: Time bucket identifier in YYYY-MM-DD format (e.g., &quot;2024-01-01&quot; for January 2024)
 
 Example: 2024-01-01  [required]
-* `--user-id TEXT`: Filter assets by specific user ID
+* `--user-id UUID`: Filter assets by specific user ID
 * `--visibility [archive|timeline|hidden|locked]`: Filter by asset visibility status (ARCHIVE, TIMELINE, HIDDEN, LOCKED)
 * `--with-coordinates [true|false]`: Include location data in the response
 * `--with-partners [true|false]`: Include assets shared by partners
@@ -5385,7 +5385,7 @@ $ immichpy timeline get-time-buckets [OPTIONS]
 
 **Options**:
 
-* `--album-id TEXT`: Filter assets belonging to a specific album
+* `--album-id UUID`: Filter assets belonging to a specific album
 * `--bbox TEXT`: Bounding box coordinates as west,south,east,north (WGS84)
 
 Example: 11.075683,49.416711,11.117589,49.454875
@@ -5393,10 +5393,10 @@ Example: 11.075683,49.416711,11.117589,49.454875
 * `--is-trashed [true|false]`: Filter by trash status (true for trashed assets only, false for non-trashed only)
 * `--key TEXT`
 * `--order [asc|desc]`: Sort order for assets within time buckets (ASC for oldest first, DESC for newest first)
-* `--person-id TEXT`: Filter assets containing a specific person (face recognition)
+* `--person-id UUID`: Filter assets containing a specific person (face recognition)
 * `--slug TEXT`
-* `--tag-id TEXT`: Filter assets with a specific tag
-* `--user-id TEXT`: Filter assets by specific user ID
+* `--tag-id UUID`: Filter assets with a specific tag
+* `--user-id UUID`: Filter assets by specific user ID
 * `--visibility [archive|timeline|hidden|locked]`: Filter by asset visibility status (ARCHIVE, TIMELINE, HIDDEN, LOCKED)
 * `--with-coordinates [true|false]`: Include location data in the response
 * `--with-partners [true|false]`: Include assets shared by partners
@@ -5455,7 +5455,7 @@ $ immichpy trash restore-assets [OPTIONS]
 
 **Options**:
 
-* `--ids TEXT`: IDs to process  [required]
+* `--ids UUID`: IDs to process  [required]
 * `--help`: Show this message and exit.
 
 ### `immichpy trash restore-trash`
@@ -6005,7 +6005,7 @@ $ immichpy users-admin search-users-admin [OPTIONS]
 
 **Options**:
 
-* `--id TEXT`: User ID filter
+* `--id UUID`: User ID filter
 * `--with-deleted [true|false]`: Include deleted users
 * `--help`: Show this message and exit.
 
@@ -6175,12 +6175,12 @@ $ immichpy workflows create-workflow [OPTIONS]
 
 * `--actions TEXT`: Workflow actions
 
-As a JSON string  [required]
+As a JSON string with keys: actionConfig (object), pluginActionId (string)  [required]
 * `--description TEXT`: Workflow description
 * `--enabled [true|false]`: Workflow enabled
 * `--filters TEXT`: Workflow filters
 
-As a JSON string  [required]
+As a JSON string with keys: filterConfig (object), pluginFilterId (string)  [required]
 * `--name TEXT`: Workflow name  [required]
 * `--trigger-type TEXT`: Trigger type  [required]
 * `--help`: Show this message and exit.
@@ -6261,12 +6261,12 @@ $ immichpy workflows update-workflow [OPTIONS] ID
 
 * `--actions TEXT`: Workflow actions
 
-As a JSON string
+As a JSON string with keys: actionConfig (object), pluginActionId (string)
 * `--description TEXT`: Workflow description
 * `--enabled [true|false]`: Workflow enabled
 * `--filters TEXT`: Workflow filters
 
-As a JSON string
+As a JSON string with keys: filterConfig (object), pluginFilterId (string)
 * `--name TEXT`: Workflow name
 * `--trigger-type TEXT`: Trigger type
 * `--help`: Show this message and exit.
