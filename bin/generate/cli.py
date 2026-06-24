@@ -9,6 +9,7 @@
 
 from __future__ import annotations
 
+from collections import defaultdict
 import keyword
 import os
 import shutil
@@ -26,24 +27,27 @@ def python_triple_quoted_str(value: str) -> str:
     return f'"""{safe}"""'
 
 
+PythonType = (
+    Literal[
+        "str",
+        "int",
+        "float",
+        "list",
+        "dict",
+        "Path",
+        "bool",
+        "datetime",
+    ]
+    | str
+)
+
+
 class RequestParam(BaseModel):
     oaschema: dict[str, Any]
     """The schema of the parameter."""
     location: Literal["body", "query", "header", "path"]
     """The location of the parameter."""
-    type: (
-        Literal[
-            "str",
-            "int",
-            "float",
-            "list",
-            "dict",
-            "Path",
-            "bool",
-            "datetime",
-        ]
-        | str
-    )
+    type: PythonType
     """The type of the parameter."""
     required: bool
     """Whether the parameter is required."""
@@ -109,7 +113,7 @@ def to_python_ident(name: str) -> str:
 def python_type_from_schema(
     schema: dict[str, Any],
     spec: dict[str, Any] | None = None,
-) -> str:
+) -> PythonType:
     """Convert OpenAPI schema to Python type hint."""
     # Extract enum name from $ref BEFORE normalization
     enum_name: str | None = None
@@ -586,19 +590,18 @@ def main() -> None:
     spec = urllib3.request("GET", url).json()
 
     # Validate and group operations
-    operations_by_tag: dict[str, list[tuple[str, str, dict[str, Any]]]] = {}
+    operations_by_tag: dict[str, list[tuple[str, str, dict[str, Any]]]] = defaultdict(
+        list
+    )
 
-    for path, path_item in spec.get("paths", {}).items():
+    for path, path_item in spec.get("paths").items():
         for method, operation in path_item.items():
-            if method not in ["get", "post", "put", "patch", "delete"]:
+            if method.lower() not in ["get", "post", "put", "patch", "delete"]:
                 continue
 
             # Group by first tag
-            tags = operation.get("tags", [])
-            tag = tags[0] if tags else "default"
-            if tag not in operations_by_tag:
-                operations_by_tag[tag] = []
-            operations_by_tag[tag].append((path, method, operation))
+            tags = operation.get("tags")
+            operations_by_tag[tags[0]].append((path, method, operation))
 
     # Clean and recreate commands directory
     if commands_dir.exists():
