@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import typer
+from uuid import UUID
 from typing import Literal, TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -19,7 +20,7 @@ app = typer.Typer(
 @app.command("get-time-bucket", deprecated=False, rich_help_panel="API commands")
 def get_time_bucket(
     ctx: typer.Context,
-    album_id: str | None = typer.Option(
+    album_id: UUID | None = typer.Option(
         None, "--album-id", help="""Filter assets belonging to a specific album"""
     ),
     bbox: str | None = typer.Option(
@@ -45,13 +46,13 @@ Example: 11.075683,49.416711,11.117589,49.454875""",
         "--order",
         help="""Sort order for assets within time buckets (ASC for oldest first, DESC for newest first)""",
     ),
-    person_id: str | None = typer.Option(
+    person_id: UUID | None = typer.Option(
         None,
         "--person-id",
         help="""Filter assets containing a specific person (face recognition)""",
     ),
     slug: str | None = typer.Option(None, "--slug", help=""""""),
-    tag_id: str | None = typer.Option(
+    tag_id: UUID | None = typer.Option(
         None, "--tag-id", help="""Filter assets with a specific tag"""
     ),
     time_bucket: str = typer.Option(
@@ -61,7 +62,7 @@ Example: 11.075683,49.416711,11.117589,49.454875""",
 
 Example: 2024-01-01""",
     ),
-    user_id: str | None = typer.Option(
+    user_id: UUID | None = typer.Option(
         None, "--user-id", help="""Filter assets by specific user ID"""
     ),
     visibility: AssetVisibility | None = typer.Option(
@@ -123,7 +124,7 @@ Example: 2024-01-01""",
 @app.command("get-time-buckets", deprecated=False, rich_help_panel="API commands")
 def get_time_buckets(
     ctx: typer.Context,
-    album_id: str | None = typer.Option(
+    album_id: UUID | None = typer.Option(
         None, "--album-id", help="""Filter assets belonging to a specific album"""
     ),
     bbox: str | None = typer.Option(
@@ -149,16 +150,16 @@ Example: 11.075683,49.416711,11.117589,49.454875""",
         "--order",
         help="""Sort order for assets within time buckets (ASC for oldest first, DESC for newest first)""",
     ),
-    person_id: str | None = typer.Option(
+    person_id: UUID | None = typer.Option(
         None,
         "--person-id",
         help="""Filter assets containing a specific person (face recognition)""",
     ),
     slug: str | None = typer.Option(None, "--slug", help=""""""),
-    tag_id: str | None = typer.Option(
+    tag_id: UUID | None = typer.Option(
         None, "--tag-id", help="""Filter assets with a specific tag"""
     ),
-    user_id: str | None = typer.Option(
+    user_id: UUID | None = typer.Option(
         None, "--user-id", help="""Filter assets by specific user ID"""
     ),
     visibility: AssetVisibility | None = typer.Option(

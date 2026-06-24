@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import typer
+from uuid import UUID
 from typing import Literal, TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -63,7 +64,7 @@ def delete_all_sessions(
 @app.command("delete-session", deprecated=False, rich_help_panel="API commands")
 def delete_session(
     ctx: typer.Context,
-    id: str = typer.Argument(..., help=""""""),
+    id: UUID = typer.Argument(..., help=""""""),
 ) -> None:
     """Delete a session
 
@@ -93,7 +94,7 @@ def get_sessions(
 @app.command("lock-session", deprecated=False, rich_help_panel="API commands")
 def lock_session(
     ctx: typer.Context,
-    id: str = typer.Argument(..., help=""""""),
+    id: UUID = typer.Argument(..., help=""""""),
 ) -> None:
     """Lock a session
 
@@ -109,7 +110,7 @@ def lock_session(
 @app.command("update-session", deprecated=False, rich_help_panel="API commands")
 def update_session(
     ctx: typer.Context,
-    id: str = typer.Argument(..., help=""""""),
+    id: UUID = typer.Argument(..., help=""""""),
     is_pending_sync_reset: Literal["true", "false"] | None = typer.Option(
         None, "--is-pending-sync-reset", help="""Reset pending sync state"""
     ),

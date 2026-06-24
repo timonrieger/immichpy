@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import typer
+from uuid import UUID
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -33,7 +34,7 @@ def empty_trash(
 @app.command("restore-assets", deprecated=False, rich_help_panel="API commands")
 def restore_assets(
     ctx: typer.Context,
-    ids: list[str] = typer.Option(..., "--ids", help="""IDs to process"""),
+    ids: list[UUID] = typer.Option(..., "--ids", help="""IDs to process"""),
 ) -> None:
     """Restore assets
 

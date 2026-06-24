@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import typer
 from datetime import datetime
+from uuid import UUID
 from typing import Literal, TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -20,8 +21,8 @@ app = typer.Typer(
 @app.command("add-shared-link-assets", deprecated=False, rich_help_panel="API commands")
 def add_shared_link_assets(
     ctx: typer.Context,
-    id: str = typer.Argument(..., help=""""""),
-    asset_ids: list[str] = typer.Option(..., "--asset-ids", help="""Asset IDs"""),
+    id: UUID = typer.Argument(..., help=""""""),
+    asset_ids: list[UUID] = typer.Option(..., "--asset-ids", help="""Asset IDs"""),
     key: str | None = typer.Option(None, "--key", help=""""""),
     slug: str | None = typer.Option(None, "--slug", help=""""""),
 ) -> None:
@@ -47,7 +48,7 @@ def add_shared_link_assets(
 @app.command("create-shared-link", deprecated=False, rich_help_panel="API commands")
 def create_shared_link(
     ctx: typer.Context,
-    album_id: str | None = typer.Option(
+    album_id: UUID | None = typer.Option(
         None, "--album-id", help="""Album ID (for album sharing)"""
     ),
     allow_download: Literal["true", "false"] | None = typer.Option(
@@ -56,7 +57,7 @@ def create_shared_link(
     allow_upload: Literal["true", "false"] | None = typer.Option(
         None, "--allow-upload", help="""Allow uploads"""
     ),
-    asset_ids: list[str] | None = typer.Option(
+    asset_ids: list[UUID] | None = typer.Option(
         None, "--asset-ids", help="""Asset IDs (for individual assets)"""
     ),
     description: str | None = typer.Option(
@@ -107,10 +108,10 @@ def create_shared_link(
 @app.command("get-all-shared-links", deprecated=False, rich_help_panel="API commands")
 def get_all_shared_links(
     ctx: typer.Context,
-    album_id: str | None = typer.Option(
+    album_id: UUID | None = typer.Option(
         None, "--album-id", help="""Filter by album ID"""
     ),
-    id: str | None = typer.Option(None, "--id", help="""Filter by shared link ID"""),
+    id: UUID | None = typer.Option(None, "--id", help="""Filter by shared link ID"""),
 ) -> None:
     """Retrieve all shared links
 
@@ -161,7 +162,7 @@ Example: password""",
 @app.command("get-shared-link-by-id", deprecated=False, rich_help_panel="API commands")
 def get_shared_link_by_id(
     ctx: typer.Context,
-    id: str = typer.Argument(..., help=""""""),
+    id: UUID = typer.Argument(..., help=""""""),
 ) -> None:
     """Retrieve a shared link
 
@@ -177,7 +178,7 @@ def get_shared_link_by_id(
 @app.command("remove-shared-link", deprecated=False, rich_help_panel="API commands")
 def remove_shared_link(
     ctx: typer.Context,
-    id: str = typer.Argument(..., help=""""""),
+    id: UUID = typer.Argument(..., help=""""""),
 ) -> None:
     """Delete a shared link
 
@@ -195,8 +196,8 @@ def remove_shared_link(
 )
 def remove_shared_link_assets(
     ctx: typer.Context,
-    id: str = typer.Argument(..., help=""""""),
-    asset_ids: list[str] = typer.Option(..., "--asset-ids", help="""Asset IDs"""),
+    id: UUID = typer.Argument(..., help=""""""),
+    asset_ids: list[UUID] = typer.Option(..., "--asset-ids", help="""Asset IDs"""),
 ) -> None:
     """Remove assets from a shared link
 
@@ -249,7 +250,7 @@ Example: password""",
 @app.command("update-shared-link", deprecated=False, rich_help_panel="API commands")
 def update_shared_link(
     ctx: typer.Context,
-    id: str = typer.Argument(..., help=""""""),
+    id: UUID = typer.Argument(..., help=""""""),
     allow_download: Literal["true", "false"] | None = typer.Option(
         None, "--allow-download", help="""Allow downloads"""
     ),

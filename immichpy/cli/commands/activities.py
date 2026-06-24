@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import typer
+from uuid import UUID
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -19,8 +20,8 @@ app = typer.Typer(
 @app.command("create-activity", deprecated=False, rich_help_panel="API commands")
 def create_activity(
     ctx: typer.Context,
-    album_id: str = typer.Option(..., "--album-id", help="""Album ID"""),
-    asset_id: str | None = typer.Option(
+    album_id: UUID = typer.Option(..., "--album-id", help="""Album ID"""),
+    asset_id: UUID | None = typer.Option(
         None, "--asset-id", help="""Asset ID (if activity is for an asset)"""
     ),
     comment: str | None = typer.Option(
@@ -50,7 +51,7 @@ def create_activity(
 @app.command("delete-activity", deprecated=False, rich_help_panel="API commands")
 def delete_activity(
     ctx: typer.Context,
-    id: str = typer.Argument(..., help=""""""),
+    id: UUID = typer.Argument(..., help=""""""),
 ) -> None:
     """Delete an activity
 
@@ -66,8 +67,8 @@ def delete_activity(
 @app.command("get-activities", deprecated=False, rich_help_panel="API commands")
 def get_activities(
     ctx: typer.Context,
-    album_id: str = typer.Option(..., "--album-id", help="""Album ID"""),
-    asset_id: str | None = typer.Option(
+    album_id: UUID = typer.Option(..., "--album-id", help="""Album ID"""),
+    asset_id: UUID | None = typer.Option(
         None, "--asset-id", help="""Asset ID (if activity is for an asset)"""
     ),
     level: ReactionLevel | None = typer.Option(
@@ -76,7 +77,9 @@ def get_activities(
     type: ReactionType | None = typer.Option(
         None, "--type", help="""Filter by activity type"""
     ),
-    user_id: str | None = typer.Option(None, "--user-id", help="""Filter by user ID"""),
+    user_id: UUID | None = typer.Option(
+        None, "--user-id", help="""Filter by user ID"""
+    ),
 ) -> None:
     """List all activities
 
@@ -102,8 +105,8 @@ def get_activities(
 )
 def get_activity_statistics(
     ctx: typer.Context,
-    album_id: str = typer.Option(..., "--album-id", help="""Album ID"""),
-    asset_id: str | None = typer.Option(
+    album_id: UUID = typer.Option(..., "--album-id", help="""Album ID"""),
+    asset_id: UUID | None = typer.Option(
         None, "--asset-id", help="""Asset ID (if activity is for an asset)"""
     ),
 ) -> None:

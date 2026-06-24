@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import typer
 import json
+from uuid import UUID
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -20,7 +21,7 @@ app = typer.Typer(
 @app.command("delete-duplicate", deprecated=False, rich_help_panel="API commands")
 def delete_duplicate(
     ctx: typer.Context,
-    id: str = typer.Argument(..., help=""""""),
+    id: UUID = typer.Argument(..., help=""""""),
 ) -> None:
     """Delete a duplicate
 
@@ -36,7 +37,7 @@ def delete_duplicate(
 @app.command("delete-duplicates", deprecated=False, rich_help_panel="API commands")
 def delete_duplicates(
     ctx: typer.Context,
-    ids: list[str] = typer.Option(..., "--ids", help="""IDs to process"""),
+    ids: list[UUID] = typer.Option(..., "--ids", help="""IDs to process"""),
 ) -> None:
     """Delete duplicates
 

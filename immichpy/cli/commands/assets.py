@@ -6,6 +6,7 @@ import typer
 import json
 from datetime import datetime
 from pathlib import Path
+from uuid import UUID
 from typing import Literal, TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -83,11 +84,11 @@ def copy_asset(
     sidecar: Literal["true", "false"] | None = typer.Option(
         None, "--sidecar", help="""Copy sidecar file"""
     ),
-    source_id: str = typer.Option(..., "--source-id", help="""Source asset ID"""),
+    source_id: UUID = typer.Option(..., "--source-id", help="""Source asset ID"""),
     stack: Literal["true", "false"] | None = typer.Option(
         None, "--stack", help="""Copy stack association"""
     ),
-    target_id: str = typer.Option(..., "--target-id", help="""Target asset ID"""),
+    target_id: UUID = typer.Option(..., "--target-id", help="""Target asset ID"""),
 ) -> None:
     """Copy asset
 
@@ -117,7 +118,7 @@ def copy_asset(
 @app.command("delete-asset-metadata", deprecated=False, rich_help_panel="API commands")
 def delete_asset_metadata(
     ctx: typer.Context,
-    id: str = typer.Argument(..., help="""Asset ID"""),
+    id: UUID = typer.Argument(..., help="""Asset ID"""),
     key: str = typer.Argument(..., help="""Metadata key"""),
 ) -> None:
     """Delete asset metadata by key
@@ -138,7 +139,7 @@ def delete_assets(
     force: Literal["true", "false"] | None = typer.Option(
         None, "--force", help="""Force delete even if in use"""
     ),
-    ids: list[str] = typer.Option(..., "--ids", help="""IDs to process"""),
+    ids: list[UUID] = typer.Option(..., "--ids", help="""IDs to process"""),
 ) -> None:
     """Delete assets
 
@@ -189,7 +190,7 @@ As a JSON string with keys: assetId (string), key (string)""",
 @app.command("download-asset", deprecated=False, rich_help_panel="API commands")
 def download_asset(
     ctx: typer.Context,
-    id: str = typer.Argument(..., help=""""""),
+    id: UUID = typer.Argument(..., help=""""""),
     edited: Literal["true", "false"] | None = typer.Option(
         None, "--edited", help="""Return edited asset if available"""
     ),
@@ -216,7 +217,7 @@ def download_asset(
 @app.command("edit-asset", deprecated=False, rich_help_panel="API commands")
 def edit_asset(
     ctx: typer.Context,
-    id: str = typer.Argument(..., help=""""""),
+    id: UUID = typer.Argument(..., help=""""""),
     edits: list[str] = typer.Option(
         ...,
         "--edits",
@@ -264,7 +265,7 @@ def get_all_user_assets_by_device_id(
 @app.command("get-asset-edits", deprecated=False, rich_help_panel="API commands")
 def get_asset_edits(
     ctx: typer.Context,
-    id: str = typer.Argument(..., help=""""""),
+    id: UUID = typer.Argument(..., help=""""""),
 ) -> None:
     """Retrieve edits for an existing asset
 
@@ -280,7 +281,7 @@ def get_asset_edits(
 @app.command("get-asset-info", deprecated=False, rich_help_panel="API commands")
 def get_asset_info(
     ctx: typer.Context,
-    id: str = typer.Argument(..., help=""""""),
+    id: UUID = typer.Argument(..., help=""""""),
     key: str | None = typer.Option(None, "--key", help=""""""),
     slug: str | None = typer.Option(None, "--slug", help=""""""),
 ) -> None:
@@ -302,7 +303,7 @@ def get_asset_info(
 @app.command("get-asset-metadata", deprecated=False, rich_help_panel="API commands")
 def get_asset_metadata(
     ctx: typer.Context,
-    id: str = typer.Argument(..., help=""""""),
+    id: UUID = typer.Argument(..., help=""""""),
 ) -> None:
     """Get asset metadata
 
@@ -320,7 +321,7 @@ def get_asset_metadata(
 )
 def get_asset_metadata_by_key(
     ctx: typer.Context,
-    id: str = typer.Argument(..., help="""Asset ID"""),
+    id: UUID = typer.Argument(..., help="""Asset ID"""),
     key: str = typer.Argument(..., help="""Metadata key"""),
 ) -> None:
     """Retrieve asset metadata by key
@@ -338,7 +339,7 @@ def get_asset_metadata_by_key(
 @app.command("get-asset-ocr", deprecated=False, rich_help_panel="API commands")
 def get_asset_ocr(
     ctx: typer.Context,
-    id: str = typer.Argument(..., help=""""""),
+    id: UUID = typer.Argument(..., help=""""""),
 ) -> None:
     """Retrieve asset OCR data
 
@@ -402,7 +403,7 @@ def get_random(
 @app.command("play-asset-video", deprecated=False, rich_help_panel="API commands")
 def play_asset_video(
     ctx: typer.Context,
-    id: str = typer.Argument(..., help=""""""),
+    id: UUID = typer.Argument(..., help=""""""),
     key: str | None = typer.Option(None, "--key", help=""""""),
     slug: str | None = typer.Option(None, "--slug", help=""""""),
 ) -> None:
@@ -424,7 +425,7 @@ def play_asset_video(
 @app.command("remove-asset-edits", deprecated=False, rich_help_panel="API commands")
 def remove_asset_edits(
     ctx: typer.Context,
-    id: str = typer.Argument(..., help=""""""),
+    id: UUID = typer.Argument(..., help=""""""),
 ) -> None:
     """Remove edits from an existing asset
 
@@ -440,7 +441,7 @@ def remove_asset_edits(
 @app.command("replace-asset", deprecated=True, rich_help_panel="API commands")
 def replace_asset(
     ctx: typer.Context,
-    id: str = typer.Argument(..., help=""""""),
+    id: UUID = typer.Argument(..., help=""""""),
     asset_data: Path = typer.Option(
         ..., "--asset-data", help="""Asset file data""", exists=True
     ),
@@ -490,7 +491,7 @@ def replace_asset(
 @app.command("run-asset-jobs", deprecated=False, rich_help_panel="API commands")
 def run_asset_jobs(
     ctx: typer.Context,
-    asset_ids: list[str] = typer.Option(..., "--asset-ids", help="""Asset IDs"""),
+    asset_ids: list[UUID] = typer.Option(..., "--asset-ids", help="""Asset IDs"""),
     name: str = typer.Option(..., "--name", help="""Job name"""),
 ) -> None:
     """Run an asset job
@@ -511,7 +512,7 @@ def run_asset_jobs(
 @app.command("update-asset", deprecated=False, rich_help_panel="API commands")
 def update_asset(
     ctx: typer.Context,
-    id: str = typer.Argument(..., help=""""""),
+    id: UUID = typer.Argument(..., help=""""""),
     date_time_original: str | None = typer.Option(
         None, "--date-time-original", help="""Original date and time"""
     ),
@@ -524,7 +525,7 @@ def update_asset(
     latitude: float | None = typer.Option(
         None, "--latitude", help="""Latitude coordinate"""
     ),
-    live_photo_video_id: str | None = typer.Option(
+    live_photo_video_id: UUID | None = typer.Option(
         None, "--live-photo-video-id", help="""Live photo video ID"""
     ),
     longitude: float | None = typer.Option(
@@ -574,7 +575,7 @@ def update_asset(
 @app.command("update-asset-metadata", deprecated=False, rich_help_panel="API commands")
 def update_asset_metadata(
     ctx: typer.Context,
-    id: str = typer.Argument(..., help=""""""),
+    id: UUID = typer.Argument(..., help=""""""),
     items: list[str] = typer.Option(
         ...,
         "--items",
@@ -614,7 +615,7 @@ def update_assets(
     duplicate_id: str | None = typer.Option(
         None, "--duplicate-id", help="""Duplicate ID"""
     ),
-    ids: list[str] = typer.Option(..., "--ids", help="""Asset IDs to update"""),
+    ids: list[UUID] = typer.Option(..., "--ids", help="""Asset IDs to update"""),
     is_favorite: Literal["true", "false"] | None = typer.Option(
         None, "--is-favorite", help="""Mark as favorite"""
     ),
@@ -726,7 +727,7 @@ def upload_asset(
         None, "--is-favorite", help="""Mark as favorite"""
     ),
     key: str | None = typer.Option(None, "--key", help=""""""),
-    live_photo_video_id: str | None = typer.Option(
+    live_photo_video_id: UUID | None = typer.Option(
         None, "--live-photo-video-id", help="""Live photo video ID"""
     ),
     metadata: list[str] | None = typer.Option(
@@ -792,7 +793,7 @@ As a JSON string with keys: key (string), value (object)""",
 @app.command("view-asset", deprecated=False, rich_help_panel="API commands")
 def view_asset(
     ctx: typer.Context,
-    id: str = typer.Argument(..., help=""""""),
+    id: UUID = typer.Argument(..., help=""""""),
     edited: Literal["true", "false"] | None = typer.Option(
         None, "--edited", help="""Return edited asset if available"""
     ),

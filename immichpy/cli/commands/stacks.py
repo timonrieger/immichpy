@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import typer
+from uuid import UUID
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -19,7 +20,7 @@ app = typer.Typer(
 @app.command("create-stack", deprecated=False, rich_help_panel="API commands")
 def create_stack(
     ctx: typer.Context,
-    asset_ids: list[str] = typer.Option(
+    asset_ids: list[UUID] = typer.Option(
         ..., "--asset-ids", help="""Asset IDs (first becomes primary, min 2)"""
     ),
 ) -> None:
@@ -40,7 +41,7 @@ def create_stack(
 @app.command("delete-stack", deprecated=False, rich_help_panel="API commands")
 def delete_stack(
     ctx: typer.Context,
-    id: str = typer.Argument(..., help=""""""),
+    id: UUID = typer.Argument(..., help=""""""),
 ) -> None:
     """Delete a stack
 
@@ -56,7 +57,7 @@ def delete_stack(
 @app.command("delete-stacks", deprecated=False, rich_help_panel="API commands")
 def delete_stacks(
     ctx: typer.Context,
-    ids: list[str] = typer.Option(..., "--ids", help="""IDs to process"""),
+    ids: list[UUID] = typer.Option(..., "--ids", help="""IDs to process"""),
 ) -> None:
     """Delete stacks
 
@@ -75,7 +76,7 @@ def delete_stacks(
 @app.command("get-stack", deprecated=False, rich_help_panel="API commands")
 def get_stack(
     ctx: typer.Context,
-    id: str = typer.Argument(..., help=""""""),
+    id: UUID = typer.Argument(..., help=""""""),
 ) -> None:
     """Retrieve a stack
 
@@ -93,8 +94,8 @@ def get_stack(
 )
 def remove_asset_from_stack(
     ctx: typer.Context,
-    asset_id: str = typer.Argument(..., help=""""""),
-    id: str = typer.Argument(..., help=""""""),
+    asset_id: UUID = typer.Argument(..., help=""""""),
+    id: UUID = typer.Argument(..., help=""""""),
 ) -> None:
     """Remove an asset from a stack
 
@@ -111,7 +112,7 @@ def remove_asset_from_stack(
 @app.command("search-stacks", deprecated=False, rich_help_panel="API commands")
 def search_stacks(
     ctx: typer.Context,
-    primary_asset_id: str | None = typer.Option(
+    primary_asset_id: UUID | None = typer.Option(
         None, "--primary-asset-id", help="""Filter by primary asset ID"""
     ),
 ) -> None:
@@ -130,8 +131,8 @@ def search_stacks(
 @app.command("update-stack", deprecated=False, rich_help_panel="API commands")
 def update_stack(
     ctx: typer.Context,
-    id: str = typer.Argument(..., help=""""""),
-    primary_asset_id: str | None = typer.Option(
+    id: UUID = typer.Argument(..., help=""""""),
+    primary_asset_id: UUID | None = typer.Option(
         None, "--primary-asset-id", help="""Primary asset ID"""
     ),
 ) -> None:
