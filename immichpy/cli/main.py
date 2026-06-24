@@ -264,11 +264,7 @@ def callback(
             }
             print_("Configuration used:", type="debug", ctx=ctx)
             for field in ClientConfig.model_fields.keys():
-                value = getattr(config, field)
-                if field in ("api_key", "access_token") and value:
-                    value = mask(value)
-                elif value is None:
-                    value = "None"
+                value = mask(getattr(config, field), key=field)
                 source = "cli/env" if field in cli_vars else f"profile '{profile}'"
                 print_(f"- {field}: {value} (from {source})", type="debug", ctx=ctx)
         if omit_access_token := (config.api_key is not None):
