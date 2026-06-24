@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import typer
 from pathlib import Path
+from uuid import UUID
 from typing import Literal, TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -110,7 +111,7 @@ def get_my_user(
 @app.command("get-profile-image", deprecated=False, rich_help_panel="API commands")
 def get_profile_image(
     ctx: typer.Context,
-    id: str = typer.Argument(..., help=""""""),
+    id: UUID = typer.Argument(..., help=""""""),
 ) -> None:
     """Retrieve user profile image
 
@@ -126,7 +127,7 @@ def get_profile_image(
 @app.command("get-user", deprecated=False, rich_help_panel="API commands")
 def get_user(
     ctx: typer.Context,
-    id: str = typer.Argument(..., help=""""""),
+    id: UUID = typer.Argument(..., help=""""""),
 ) -> None:
     """Retrieve a user
 

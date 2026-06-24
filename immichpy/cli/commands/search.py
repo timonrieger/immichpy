@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import typer
 from datetime import datetime
+from uuid import UUID
 from typing import Literal, TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -94,7 +95,7 @@ def get_search_suggestions(
 )
 def search_asset_statistics(
     ctx: typer.Context,
-    album_ids: list[str] | None = typer.Option(
+    album_ids: list[UUID] | None = typer.Option(
         None, "--album-ids", help="""Filter by album IDs"""
     ),
     city: str | None = typer.Option(None, "--city", help="""Filter by city name"""),
@@ -131,7 +132,7 @@ def search_asset_statistics(
     lens_model: str | None = typer.Option(
         None, "--lens-model", help="""Filter by lens model"""
     ),
-    library_id: str | None = typer.Option(
+    library_id: UUID | None = typer.Option(
         None, "--library-id", help="""Library ID to filter by"""
     ),
     make: str | None = typer.Option(None, "--make", help="""Filter by camera make"""),
@@ -141,7 +142,7 @@ def search_asset_statistics(
     ocr: str | None = typer.Option(
         None, "--ocr", help="""Filter by OCR text content"""
     ),
-    person_ids: list[str] | None = typer.Option(
+    person_ids: list[UUID] | None = typer.Option(
         None, "--person-ids", help="""Filter by person IDs"""
     ),
     rating: float | None = typer.Option(
@@ -154,7 +155,7 @@ def search_asset_statistics(
     state: str | None = typer.Option(
         None, "--state", help="""Filter by state/province name"""
     ),
-    tag_ids: list[str] | None = typer.Option(
+    tag_ids: list[UUID] | None = typer.Option(
         None, "--tag-ids", help="""Filter by tag IDs"""
     ),
     taken_after: datetime | None = typer.Option(
@@ -254,7 +255,7 @@ def search_asset_statistics(
 @app.command("search-assets", deprecated=False, rich_help_panel="API commands")
 def search_assets(
     ctx: typer.Context,
-    album_ids: list[str] | None = typer.Option(
+    album_ids: list[UUID] | None = typer.Option(
         None, "--album-ids", help="""Filter by album IDs"""
     ),
     checksum: str | None = typer.Option(
@@ -282,7 +283,7 @@ def search_assets(
     encoded_video_path: str | None = typer.Option(
         None, "--encoded-video-path", help="""Filter by encoded video file path"""
     ),
-    id: str | None = typer.Option(None, "--id", help="""Filter by asset ID"""),
+    id: UUID | None = typer.Option(None, "--id", help="""Filter by asset ID"""),
     is_encoded: Literal["true", "false"] | None = typer.Option(
         None, "--is-encoded", help="""Filter by encoded status"""
     ),
@@ -301,7 +302,7 @@ def search_assets(
     lens_model: str | None = typer.Option(
         None, "--lens-model", help="""Filter by lens model"""
     ),
-    library_id: str | None = typer.Option(
+    library_id: UUID | None = typer.Option(
         None, "--library-id", help="""Library ID to filter by"""
     ),
     make: str | None = typer.Option(None, "--make", help="""Filter by camera make"""),
@@ -319,7 +320,7 @@ def search_assets(
         None, "--original-path", help="""Filter by original file path"""
     ),
     page: float | None = typer.Option(None, "--page", help="""Page number""", min=1),
-    person_ids: list[str] | None = typer.Option(
+    person_ids: list[UUID] | None = typer.Option(
         None, "--person-ids", help="""Filter by person IDs"""
     ),
     preview_path: str | None = typer.Option(
@@ -338,7 +339,7 @@ def search_assets(
     state: str | None = typer.Option(
         None, "--state", help="""Filter by state/province name"""
     ),
-    tag_ids: list[str] | None = typer.Option(
+    tag_ids: list[UUID] | None = typer.Option(
         None, "--tag-ids", help="""Filter by tag IDs"""
     ),
     taken_after: datetime | None = typer.Option(
@@ -483,7 +484,7 @@ def search_assets(
 @app.command("search-large-assets", deprecated=False, rich_help_panel="API commands")
 def search_large_assets(
     ctx: typer.Context,
-    album_ids: list[str] | None = typer.Option(
+    album_ids: list[UUID] | None = typer.Option(
         None, "--album-ids", help="""Filter by album IDs"""
     ),
     city: str | None = typer.Option(None, "--city", help="""Filter by city name"""),
@@ -517,7 +518,7 @@ def search_large_assets(
     lens_model: str | None = typer.Option(
         None, "--lens-model", help="""Filter by lens model"""
     ),
-    library_id: str | None = typer.Option(
+    library_id: UUID | None = typer.Option(
         None, "--library-id", help="""Library ID to filter by"""
     ),
     make: str | None = typer.Option(None, "--make", help="""Filter by camera make"""),
@@ -530,7 +531,7 @@ def search_large_assets(
     ocr: str | None = typer.Option(
         None, "--ocr", help="""Filter by OCR text content"""
     ),
-    person_ids: list[str] | None = typer.Option(
+    person_ids: list[UUID] | None = typer.Option(
         None, "--person-ids", help="""Filter by person IDs"""
     ),
     rating: float | None = typer.Option(
@@ -546,7 +547,7 @@ def search_large_assets(
     state: str | None = typer.Option(
         None, "--state", help="""Filter by state/province name"""
     ),
-    tag_ids: list[str] | None = typer.Option(
+    tag_ids: list[UUID] | None = typer.Option(
         None, "--tag-ids", help="""Filter by tag IDs"""
     ),
     taken_after: datetime | None = typer.Option(
@@ -694,7 +695,7 @@ def search_places(
 @app.command("search-random", deprecated=False, rich_help_panel="API commands")
 def search_random(
     ctx: typer.Context,
-    album_ids: list[str] | None = typer.Option(
+    album_ids: list[UUID] | None = typer.Option(
         None, "--album-ids", help="""Filter by album IDs"""
     ),
     city: str | None = typer.Option(None, "--city", help="""Filter by city name"""),
@@ -728,7 +729,7 @@ def search_random(
     lens_model: str | None = typer.Option(
         None, "--lens-model", help="""Filter by lens model"""
     ),
-    library_id: str | None = typer.Option(
+    library_id: UUID | None = typer.Option(
         None, "--library-id", help="""Library ID to filter by"""
     ),
     make: str | None = typer.Option(None, "--make", help="""Filter by camera make"""),
@@ -738,7 +739,7 @@ def search_random(
     ocr: str | None = typer.Option(
         None, "--ocr", help="""Filter by OCR text content"""
     ),
-    person_ids: list[str] | None = typer.Option(
+    person_ids: list[UUID] | None = typer.Option(
         None, "--person-ids", help="""Filter by person IDs"""
     ),
     rating: float | None = typer.Option(
@@ -754,7 +755,7 @@ def search_random(
     state: str | None = typer.Option(
         None, "--state", help="""Filter by state/province name"""
     ),
-    tag_ids: list[str] | None = typer.Option(
+    tag_ids: list[UUID] | None = typer.Option(
         None, "--tag-ids", help="""Filter by tag IDs"""
     ),
     taken_after: datetime | None = typer.Option(
@@ -874,7 +875,7 @@ def search_random(
 @app.command("search-smart", deprecated=False, rich_help_panel="API commands")
 def search_smart(
     ctx: typer.Context,
-    album_ids: list[str] | None = typer.Option(
+    album_ids: list[UUID] | None = typer.Option(
         None, "--album-ids", help="""Filter by album IDs"""
     ),
     city: str | None = typer.Option(None, "--city", help="""Filter by city name"""),
@@ -911,7 +912,7 @@ def search_smart(
     lens_model: str | None = typer.Option(
         None, "--lens-model", help="""Filter by lens model"""
     ),
-    library_id: str | None = typer.Option(
+    library_id: UUID | None = typer.Option(
         None, "--library-id", help="""Library ID to filter by"""
     ),
     make: str | None = typer.Option(None, "--make", help="""Filter by camera make"""),
@@ -922,13 +923,13 @@ def search_smart(
         None, "--ocr", help="""Filter by OCR text content"""
     ),
     page: float | None = typer.Option(None, "--page", help="""Page number""", min=1),
-    person_ids: list[str] | None = typer.Option(
+    person_ids: list[UUID] | None = typer.Option(
         None, "--person-ids", help="""Filter by person IDs"""
     ),
     query: str | None = typer.Option(
         None, "--query", help="""Natural language search query"""
     ),
-    query_asset_id: str | None = typer.Option(
+    query_asset_id: UUID | None = typer.Option(
         None, "--query-asset-id", help="""Asset ID to use as search reference"""
     ),
     rating: float | None = typer.Option(
@@ -944,7 +945,7 @@ def search_smart(
     state: str | None = typer.Option(
         None, "--state", help="""Filter by state/province name"""
     ),
-    tag_ids: list[str] | None = typer.Option(
+    tag_ids: list[UUID] | None = typer.Option(
         None, "--tag-ids", help="""Filter by tag IDs"""
     ),
     taken_after: datetime | None = typer.Option(

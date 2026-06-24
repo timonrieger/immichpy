@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import typer
 import json
+from uuid import UUID
 from typing import Literal, TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -58,7 +59,7 @@ def create_person(
 @app.command("delete-people", deprecated=False, rich_help_panel="API commands")
 def delete_people(
     ctx: typer.Context,
-    ids: list[str] = typer.Option(..., "--ids", help="""IDs to process"""),
+    ids: list[UUID] = typer.Option(..., "--ids", help="""IDs to process"""),
 ) -> None:
     """Delete people
 
@@ -77,7 +78,7 @@ def delete_people(
 @app.command("delete-person", deprecated=False, rich_help_panel="API commands")
 def delete_person(
     ctx: typer.Context,
-    id: str = typer.Argument(..., help=""""""),
+    id: UUID = typer.Argument(..., help=""""""),
 ) -> None:
     """Delete person
 
@@ -93,10 +94,10 @@ def delete_person(
 @app.command("get-all-people", deprecated=False, rich_help_panel="API commands")
 def get_all_people(
     ctx: typer.Context,
-    closest_asset_id: str | None = typer.Option(
+    closest_asset_id: UUID | None = typer.Option(
         None, "--closest-asset-id", help="""Closest asset ID for similarity search"""
     ),
-    closest_person_id: str | None = typer.Option(
+    closest_person_id: UUID | None = typer.Option(
         None, "--closest-person-id", help="""Closest person ID for similarity search"""
     ),
     page: float | None = typer.Option(
@@ -132,7 +133,7 @@ def get_all_people(
 @app.command("get-person", deprecated=False, rich_help_panel="API commands")
 def get_person(
     ctx: typer.Context,
-    id: str = typer.Argument(..., help=""""""),
+    id: UUID = typer.Argument(..., help=""""""),
 ) -> None:
     """Get a person
 
@@ -148,7 +149,7 @@ def get_person(
 @app.command("get-person-statistics", deprecated=False, rich_help_panel="API commands")
 def get_person_statistics(
     ctx: typer.Context,
-    id: str = typer.Argument(..., help=""""""),
+    id: UUID = typer.Argument(..., help=""""""),
 ) -> None:
     """Get person statistics
 
@@ -164,7 +165,7 @@ def get_person_statistics(
 @app.command("get-person-thumbnail", deprecated=False, rich_help_panel="API commands")
 def get_person_thumbnail(
     ctx: typer.Context,
-    id: str = typer.Argument(..., help=""""""),
+    id: UUID = typer.Argument(..., help=""""""),
 ) -> None:
     """Get person thumbnail
 
@@ -180,8 +181,8 @@ def get_person_thumbnail(
 @app.command("merge-person", deprecated=False, rich_help_panel="API commands")
 def merge_person(
     ctx: typer.Context,
-    id: str = typer.Argument(..., help=""""""),
-    ids: list[str] = typer.Option(..., "--ids", help="""Person IDs to merge"""),
+    id: UUID = typer.Argument(..., help=""""""),
+    ids: list[UUID] = typer.Option(..., "--ids", help="""Person IDs to merge"""),
 ) -> None:
     """Merge people
 
@@ -201,7 +202,7 @@ def merge_person(
 @app.command("reassign-faces", deprecated=False, rich_help_panel="API commands")
 def reassign_faces(
     ctx: typer.Context,
-    id: str = typer.Argument(..., help=""""""),
+    id: UUID = typer.Argument(..., help=""""""),
     data: list[str] = typer.Option(
         ...,
         "--data",
@@ -255,12 +256,12 @@ As a JSON string with keys: birthDate (string), color (string), featureFaceAsset
 @app.command("update-person", deprecated=False, rich_help_panel="API commands")
 def update_person(
     ctx: typer.Context,
-    id: str = typer.Argument(..., help=""""""),
+    id: UUID = typer.Argument(..., help=""""""),
     birth_date: str | None = typer.Option(
         None, "--birth-date", help="""Person date of birth"""
     ),
     color: str | None = typer.Option(None, "--color", help="""Person color (hex)"""),
-    feature_face_asset_id: str | None = typer.Option(
+    feature_face_asset_id: UUID | None = typer.Option(
         None,
         "--feature-face-asset-id",
         help="""Asset ID used for feature face thumbnail""",

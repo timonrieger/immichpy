@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import typer
+from uuid import UUID
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -19,7 +20,7 @@ app = typer.Typer(
 @app.command("get-plugin", deprecated=False, rich_help_panel="API commands")
 def get_plugin(
     ctx: typer.Context,
-    id: str = typer.Argument(..., help=""""""),
+    id: UUID = typer.Argument(..., help=""""""),
 ) -> None:
     """Retrieve a plugin
 

@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import typer
+from uuid import UUID
 from typing import Literal, TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -87,7 +88,7 @@ Example: 123456""",
 @app.command("delete-user-admin", deprecated=False, rich_help_panel="API commands")
 def delete_user_admin(
     ctx: typer.Context,
-    id: str = typer.Argument(..., help=""""""),
+    id: UUID = typer.Argument(..., help=""""""),
     force: Literal["true", "false"] | None = typer.Option(
         None, "--force", help="""Force delete even if user has assets"""
     ),
@@ -111,7 +112,7 @@ def delete_user_admin(
 @app.command("get-user-admin", deprecated=False, rich_help_panel="API commands")
 def get_user_admin(
     ctx: typer.Context,
-    id: str = typer.Argument(..., help=""""""),
+    id: UUID = typer.Argument(..., help=""""""),
 ) -> None:
     """Retrieve a user
 
@@ -129,7 +130,7 @@ def get_user_admin(
 )
 def get_user_preferences_admin(
     ctx: typer.Context,
-    id: str = typer.Argument(..., help=""""""),
+    id: UUID = typer.Argument(..., help=""""""),
 ) -> None:
     """Retrieve user preferences
 
@@ -149,7 +150,7 @@ def get_user_preferences_admin(
 )
 def get_user_sessions_admin(
     ctx: typer.Context,
-    id: str = typer.Argument(..., help=""""""),
+    id: UUID = typer.Argument(..., help=""""""),
 ) -> None:
     """Retrieve user sessions
 
@@ -167,7 +168,7 @@ def get_user_sessions_admin(
 )
 def get_user_statistics_admin(
     ctx: typer.Context,
-    id: str = typer.Argument(..., help=""""""),
+    id: UUID = typer.Argument(..., help=""""""),
     is_favorite: Literal["true", "false"] | None = typer.Option(
         None, "--is-favorite", help="""Filter by favorite status"""
     ),
@@ -200,7 +201,7 @@ def get_user_statistics_admin(
 @app.command("restore-user-admin", deprecated=False, rich_help_panel="API commands")
 def restore_user_admin(
     ctx: typer.Context,
-    id: str = typer.Argument(..., help=""""""),
+    id: UUID = typer.Argument(..., help=""""""),
 ) -> None:
     """Restore a deleted user
 
@@ -216,7 +217,7 @@ def restore_user_admin(
 @app.command("search-users-admin", deprecated=False, rich_help_panel="API commands")
 def search_users_admin(
     ctx: typer.Context,
-    id: str | None = typer.Option(None, "--id", help="""User ID filter"""),
+    id: UUID | None = typer.Option(None, "--id", help="""User ID filter"""),
     with_deleted: Literal["true", "false"] | None = typer.Option(
         None, "--with-deleted", help="""Include deleted users"""
     ),
@@ -238,7 +239,7 @@ def search_users_admin(
 @app.command("update-user-admin", deprecated=False, rich_help_panel="API commands")
 def update_user_admin(
     ctx: typer.Context,
-    id: str = typer.Argument(..., help=""""""),
+    id: UUID = typer.Argument(..., help=""""""),
     avatar_color: str | None = typer.Option(
         None, "--avatar-color", help="""Avatar color"""
     ),
@@ -308,7 +309,7 @@ Example: 123456""",
 )
 def update_user_preferences_admin(
     ctx: typer.Context,
-    id: str = typer.Argument(..., help=""""""),
+    id: UUID = typer.Argument(..., help=""""""),
     albums_default_asset_order: str | None = typer.Option(
         None, "--albums-default-asset-order", help="""Asset sort order"""
     ),

@@ -5,6 +5,7 @@ from __future__ import annotations
 import typer
 import json
 from datetime import datetime
+from uuid import UUID
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -37,7 +38,7 @@ As a JSON string""",
     ),
     title: str = typer.Option(..., "--title", help="""Notification title"""),
     type: str | None = typer.Option(None, "--type", help="""Notification type"""),
-    user_id: str = typer.Option(
+    user_id: UUID = typer.Option(
         ..., "--user-id", help="""User ID to send notification to"""
     ),
 ) -> None:

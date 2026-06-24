@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import typer
 from datetime import datetime
+from uuid import UUID
 from typing import Literal, TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -45,7 +46,7 @@ def get_delta_sync(
     updated_after: datetime = typer.Option(
         ..., "--updated-after", help="""Sync assets updated after this date"""
     ),
-    user_ids: list[str] = typer.Option(..., "--user-ids", help="""User IDs to sync"""),
+    user_ids: list[UUID] = typer.Option(..., "--user-ids", help="""User IDs to sync"""),
 ) -> None:
     """Get delta sync for user
 
@@ -65,7 +66,7 @@ def get_delta_sync(
 @app.command("get-full-sync-for-user", deprecated=True, rich_help_panel="API commands")
 def get_full_sync_for_user(
     ctx: typer.Context,
-    last_id: str | None = typer.Option(
+    last_id: UUID | None = typer.Option(
         None, "--last-id", help="""Last asset ID (pagination)"""
     ),
     limit: int = typer.Option(
@@ -74,7 +75,9 @@ def get_full_sync_for_user(
     updated_until: datetime = typer.Option(
         ..., "--updated-until", help="""Sync assets updated until this date"""
     ),
-    user_id: str | None = typer.Option(None, "--user-id", help="""Filter by user ID"""),
+    user_id: UUID | None = typer.Option(
+        None, "--user-id", help="""Filter by user ID"""
+    ),
 ) -> None:
     """Get full sync for user
 
