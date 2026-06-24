@@ -7,7 +7,8 @@ import typer
 from importlib.metadata import version
 
 from rich.console import Console
-from typer._click.core import ParameterSource
+from typer._click.core import Context, ParameterSource
+from typer.core import TyperGroup
 
 from immichpy.cli.consts import (
     API_KEY_URL,
@@ -18,6 +19,8 @@ from immichpy.cli.consts import (
     IMMICH_API_URL,
     IMMICH_FORMAT,
     IMMICH_PROFILE,
+    NON_API_COMMANDS,
+    SKIP_CLIENT_SETUP_KEY,
 )
 from immichpy.cli.utils import resolve_client_config, mask, print_
 
@@ -66,9 +69,37 @@ from immichpy.cli.commands import (
     database_backups_admin as database_backups_admin_commands,
 )
 
+
+class ClientSetupGroup(TyperGroup):
+    """Group that decides during parsing whether the invocation needs a client."""
+
+    def parse_args(self, ctx: Context, args: list[str]) -> list[str]:
+        rest = super().parse_args(ctx, args)
+        ctx.meta[SKIP_CLIENT_SETUP_KEY] = self._skip_client_setup(ctx, args)
+        return rest
+
+    def _skip_client_setup(self, ctx: Context, args: list[str]) -> bool:
+        if any(opt in args for opt in ctx.help_option_names):
+            return True  # help requested
+        chain = [*ctx._protected_args, *ctx.args]
+        if chain and chain[0] in NON_API_COMMANDS:
+            return True  # never need a client
+        node: object = self
+        for token in chain:
+            if not isinstance(node, TyperGroup):
+                break  # real command runs
+            sub = node.get_command(ctx, token)
+            if sub is None:
+                break  # unknown subcommand
+            node = sub
+        return isinstance(node, TyperGroup)  # only leafs need a client
+
+
 # Global state
 app = typer.Typer(
-    context_settings={"help_option_names": ["-h", "--help"]}, no_args_is_help=True
+    cls=ClientSetupGroup,
+    context_settings={"help_option_names": ["-h", "--help"]},
+    no_args_is_help=True,
 )
 console = Console()
 stderr_console = Console(file=sys.stderr)
@@ -206,10 +237,7 @@ def callback(
     ctx.ensure_object(dict)
     ctx.obj["format"] = format_mode
     ctx.obj["verbose"] = verbose
-    if ctx.invoked_subcommand is not None and ctx.invoked_subcommand not in [
-        "setup",
-        "config",
-    ]:
+    if not ctx.meta.get(SKIP_CLIENT_SETUP_KEY):
         config = resolve_client_config(
             ClientConfig(
                 api_key=api_key,
