@@ -7,6 +7,7 @@ import json
 import logging
 import os
 import sys
+from collections.abc import AsyncIterator
 from statx import statx
 from datetime import datetime, timezone
 from pathlib import Path
@@ -28,6 +29,7 @@ from immichpy.client.types import (
     RejectedEntry,
     FailedEntry,
     UploadedEntry,
+    UploadEvent,
     RejectionReason,
 )
 from immichpy.client.generated.api.albums_api import AlbumsApi
@@ -291,25 +293,74 @@ async def upload_file(
     return response
 
 
-async def upload_files(
+async def _upload_one(
+    filepath: Path, assets_api: AssetsApi, dry_run: bool
+) -> UploadEvent:
+    """Upload a single file and map its result to an :class:`UploadEvent`.
+
+    :param filepath: Path to the file to upload.
+    :param assets_api: Assets API instance for upload.
+    :param dry_run: Simulate the upload without an API call.
+
+    :return: The terminal outcome event for the file.
+    """
+    try:
+        response = await upload_file(filepath, assets_api, dry_run)
+        if response.status_code == 201:
+            return UploadEvent(
+                filepath=filepath, outcome="uploaded", asset=response.data
+            )
+        if response.status_code == 200:
+            return UploadEvent(
+                filepath=filepath,
+                outcome="rejected",
+                asset_id=response.data.id,
+                reason="duplicate",
+            )
+        return UploadEvent(
+            filepath=filepath,
+            outcome="failed",
+            error=f"Unexpected status_code={response.status_code}",
+        )
+    except ApiException as e:
+        msg = str(e)
+        if e.body:
+            try:
+                body = json.loads(cast(str, e.body))
+                msg = str(body.get("message", msg))
+            except Exception:  # nosec: B110
+                pass
+        logger.exception("Failed to upload %s: %s", filepath, msg)
+        return UploadEvent(filepath=filepath, outcome="failed", error=msg)
+    except Exception as e:
+        msg = str(e)
+        logger.exception("Failed to upload %s: %s", filepath, msg)
+        return UploadEvent(filepath=filepath, outcome="failed", error=msg)
+
+
+async def stream_uploads(
     files: list[Path],
     assets_api: AssetsApi,
     concurrency: int = 5,
     show_progress: bool = False,
     dry_run: bool = False,
-) -> tuple[list[UploadedEntry], list[RejectedEntry], list[FailedEntry]]:
-    """Upload multiple asset files concurrently.
+) -> AsyncIterator[UploadEvent]:
+    """Upload files concurrently, yielding each outcome as it completes.
+
+    Outcomes are yielded in completion order, not input order. Concurrency is
+    bounded by a semaphore, and outstanding uploads are cancelled if the
+    consumer stops iterating early.
 
     :param files: List of file paths to upload.
     :param assets_api: Assets API instance for upload.
     :param concurrency: Maximum number of concurrent uploads.
-    :param show_progress: Whether to show upload progress bar.
+    :param show_progress: Whether to show an upload progress bar.
     :param dry_run: Simulate uploads without actual API calls.
 
-    :return: Tuple of (uploaded_entries, rejected_entries, failed_entries).
+    :return: Async iterator of per-file :class:`UploadEvent` outcomes.
     """
     if not files:
-        return [], [], []
+        return
 
     total_size = sum(f.stat().st_size for f in files)
     progress_columns = [
@@ -323,54 +374,76 @@ async def upload_files(
     ]
 
     semaphore = asyncio.Semaphore(concurrency)
+
+    async def worker(filepath: Path) -> UploadEvent:
+        async with semaphore:
+            return await _upload_one(filepath, assets_api, dry_run)
+
+    tasks = [asyncio.create_task(worker(f)) for f in files]
+    try:
+        with Progress(*progress_columns, disable=not show_progress) as progress:
+            upload_task = progress.add_task("[green]Uploading assets", total=total_size)
+            for coro in asyncio.as_completed(tasks):
+                event = await coro
+                if not dry_run:
+                    progress.update(upload_task, advance=event.filepath.stat().st_size)
+                yield event
+    finally:
+        for task in tasks:
+            if not task.done():
+                task.cancel()
+
+
+async def upload_files(
+    files: list[Path],
+    assets_api: AssetsApi,
+    concurrency: int = 5,
+    show_progress: bool = False,
+    dry_run: bool = False,
+) -> tuple[list[UploadedEntry], list[RejectedEntry], list[FailedEntry]]:
+    """Upload multiple asset files concurrently and collect the results.
+
+    Thin collector over :func:`stream_uploads` for callers that want all
+    outcomes at once instead of streaming.
+
+    :param files: List of file paths to upload.
+    :param assets_api: Assets API instance for upload.
+    :param concurrency: Maximum number of concurrent uploads.
+    :param show_progress: Whether to show upload progress bar.
+    :param dry_run: Simulate uploads without actual API calls.
+
+    :return: Tuple of (uploaded_entries, rejected_entries, failed_entries).
+    """
     uploaded: list[UploadedEntry] = []
     rejected: list[RejectedEntry] = []
     failed: list[FailedEntry] = []
 
-    with Progress(*progress_columns, disable=not show_progress) as progress:
-        upload_task = progress.add_task("[green]Uploading assets", total=total_size)
-
-        async def upload_with_semaphore(filepath: Path) -> None:
-            async with semaphore:
-                try:
-                    response = await upload_file(filepath, assets_api, dry_run)
-                    if response.status_code == 201:
-                        uploaded.append(
-                            UploadedEntry(asset=response.data, filepath=filepath)
-                        )
-                    elif response.status_code == 200:
-                        rejected.append(
-                            RejectedEntry(
-                                filepath=filepath,
-                                asset_id=response.data.id,
-                                reason="duplicate",
-                            )
-                        )
-                    else:
-                        failed.append(
-                            FailedEntry(
-                                filepath=filepath,
-                                error=f"Unexpected status_code={response.status_code}",
-                            )
-                        )
-                    if not dry_run:
-                        progress.update(upload_task, advance=filepath.stat().st_size)
-                except ApiException as e:
-                    msg = str(e)
-                    if e.body:
-                        try:
-                            body = json.loads(cast(str, e.body))
-                            msg = str(body.get("message", msg))
-                        except Exception:  # nosec: B110
-                            pass
-                    failed.append(FailedEntry(filepath=filepath, error=msg))
-                    logger.exception("Failed to upload %s: %s", filepath, msg)
-                except Exception as e:
-                    msg = str(e)
-                    failed.append(FailedEntry(filepath=filepath, error=msg))
-                    logger.exception("Failed to upload %s: %s", filepath, msg)
-
-        await asyncio.gather(*[upload_with_semaphore(f) for f in files])
+    async for event in stream_uploads(
+        files,
+        assets_api,
+        concurrency=concurrency,
+        show_progress=show_progress,
+        dry_run=dry_run,
+    ):
+        if event.outcome == "uploaded":
+            uploaded.append(
+                UploadedEntry(
+                    asset=cast(AssetMediaResponseDto, event.asset),
+                    filepath=event.filepath,
+                )
+            )
+        elif event.outcome == "rejected":
+            rejected.append(
+                RejectedEntry(
+                    filepath=event.filepath,
+                    asset_id=event.asset_id,
+                    reason=event.reason,
+                )
+            )
+        else:
+            failed.append(
+                FailedEntry(filepath=event.filepath, error=cast(str, event.error))
+            )
 
     return uploaded, rejected, failed
 
