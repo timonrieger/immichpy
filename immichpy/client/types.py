@@ -50,6 +50,28 @@ class UploadedEntry(BaseModel):
     )
 
 
+class UploadEvent(BaseModel):
+    """A single file's terminal outcome, yielded as an upload streams."""
+
+    filepath: Path = Field(..., description="The path to the local file.")
+    outcome: Literal["uploaded", "rejected", "failed"] = Field(
+        ..., description="The terminal outcome for this file."
+    )
+    asset: AssetMediaResponseDto | None = Field(
+        None, description="The uploaded asset. Set when outcome is 'uploaded'."
+    )
+    asset_id: str | None = Field(
+        None,
+        description="The server asset ID. Set when outcome is 'rejected' as a duplicate.",
+    )
+    reason: RejectionReason | None = Field(
+        None, description="The rejection reason. Set when outcome is 'rejected'."
+    )
+    error: str | None = Field(
+        None, description="The error message. Set when outcome is 'failed'."
+    )
+
+
 class UploadResult(BaseModel):
     """The result of an upload operation containing all uploaded, rejected, and failed entries."""
 

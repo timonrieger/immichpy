@@ -28,6 +28,7 @@ from immichpy.client.utils.upload import (
     delete_files,
     find_sidecar,
     scan_files,
+    stream_uploads,
     update_albums,
     upload_file,
     upload_files,
@@ -413,6 +414,52 @@ async def test_upload_files_empty_list(mock_assets) -> None:
     assert uploaded == []
     assert rejected == []
     assert failed == []
+
+
+@pytest.mark.asyncio
+async def test_stream_uploads_empty(mock_assets) -> None:
+    """Test that an empty files list yields no events."""
+    events = [event async for event in stream_uploads([], mock_assets)]
+    assert events == []
+
+
+@pytest.mark.asyncio
+async def test_stream_uploads_yields_per_file_events(
+    mock_assets, tmp_path: Path
+) -> None:
+    """Test that each file yields exactly one terminal event."""
+    files = []
+    for i in range(3):
+        f = tmp_path / f"t{i}.jpg"
+        f.write_bytes(b"data")
+        files.append(f)
+    mock_assets.upload_asset_with_http_info.return_value = ApiResponse(
+        status_code=201,
+        headers=None,
+        data=AssetMediaResponseDto(id="asset-1", status=AssetMediaStatus.CREATED),
+        raw_data=b"",
+    )
+    events = [event async for event in stream_uploads(files, mock_assets)]
+    assert len(events) == 3
+    assert all(event.outcome == "uploaded" for event in events)
+    assert all(event.asset is not None for event in events)
+    assert {event.filepath for event in events} == set(files)
+
+
+@pytest.mark.asyncio
+async def test_stream_uploads_failure_event(mock_assets, tmp_path: Path) -> None:
+    """Test that an upload error is surfaced as a failed event, not an exception."""
+    file1 = tmp_path / "test1.jpg"
+    file1.write_bytes(b"data")
+    api_exception = ApiException(status=400, reason="Bad Request")
+    api_exception.body = '{"message": "Invalid file format"}'
+    mock_assets.upload_asset_with_http_info.side_effect = api_exception
+    events = [event async for event in stream_uploads([file1], mock_assets)]
+    assert len(events) == 1
+    assert events[0].outcome == "failed"
+    assert events[0].filepath == file1
+    assert events[0].error is not None
+    assert "Invalid file format" in events[0].error
 
 
 @pytest.mark.asyncio

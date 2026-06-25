@@ -1,7 +1,8 @@
 from __future__ import annotations
 
+from collections.abc import AsyncIterator
 from pathlib import Path
-from typing import Any
+from typing import Any, cast
 from uuid import UUID
 
 from pydantic import StrictStr
@@ -9,16 +10,27 @@ from pydantic import StrictStr
 from immichpy.client.generated.api.albums_api import AlbumsApi
 from immichpy.client.generated.api.assets_api import AssetsApi
 from immichpy.client.generated.api.server_api import ServerApi
+from immichpy.client.generated.models.asset_media_response_dto import (
+    AssetMediaResponseDto,
+)
 from immichpy.client.generated.models.asset_media_size import AssetMediaSize
 from immichpy.client.utils.upload import (
     check_duplicates as check_dupes,
     delete_files,
     scan_files,
+    stream_uploads,
     update_albums,
-    upload_files,
 )
 from immichpy.client.utils.download import download_file, resolve_output_filename
-from immichpy.client.types import HeadersType, UploadResult, UploadStats
+from immichpy.client.types import (
+    FailedEntry,
+    HeadersType,
+    RejectedEntry,
+    UploadedEntry,
+    UploadEvent,
+    UploadResult,
+    UploadStats,
+)
 
 
 class AssetsApiWrapped(AssetsApi):
@@ -162,6 +174,75 @@ class AssetsApiWrapped(AssetsApi):
             show_progress=show_progress,
         )
 
+    async def iter_upload(
+        self,
+        paths: Path | list[Path] | str | list[str],
+        *,
+        ignore_pattern: str | None = None,
+        include_hidden: bool = False,
+        skip_duplicates: bool = False,
+        concurrency: int = 5,
+        show_progress: bool = False,
+        dry_run: bool = False,
+    ) -> AsyncIterator[UploadEvent]:
+        """
+        Upload assets, yielding each file's outcome as soon as it is known.
+
+        Streaming counterpart to :meth:`upload`. It performs the same scan,
+        duplicate check, and concurrent upload, but yields a per-file
+        :class:`UploadEvent` instead of collecting everything into an
+        :class:`UploadResult`. Useful for large batches where you want to act on
+        outcomes incrementally (logging, manifests, custom album/tag logic).
+
+        Album management and local file deletion are not performed; compose them
+        from the yielded events if needed. Outcomes are yielded in completion
+        order, not input order.
+
+        :param paths: File or directory paths to upload. Can be a single path or list of paths. Directories are automatically walked recursively. To ignore subdirectories, use the `ignore_pattern` parameter.
+        :param ignore_pattern: Wildcard pattern to ignore files (uses `fnmatch` stdlib module, not regex). Examples: "*.tmp" (ignore all .tmp files), "*/subdir/*" (ignore files in subdir at any level).
+        :param include_hidden: Whether to include hidden files (starting with ".").
+        :param skip_duplicates: Whether to skip duplicate checking (might still get rejected on the server).
+        :param concurrency: Number of concurrent uploads. Defaults to 5. A higher number may increase upload speed, but also increases the risk of rate limiting or other issues.
+        :param show_progress: Whether to show progress bars.
+        :param dry_run: Simulate uploads without actually uploading.
+        :return: Async iterator of per-file :class:`UploadEvent` outcomes.
+        """
+        if concurrency < 1:
+            raise ValueError("concurrency must be >= 1")
+        server_api = ServerApi(self.api_client)
+
+        _paths = [paths] if isinstance(paths, (str, Path)) else paths
+        _paths = [Path(p) for p in _paths]
+
+        files = await scan_files(_paths, server_api, ignore_pattern, include_hidden)
+        if not files:
+            return
+
+        new_files, checked_rejected = await check_dupes(
+            files=files,
+            assets_api=self,
+            skip_duplicates=skip_duplicates,
+            show_progress=show_progress,
+            dry_run=dry_run,
+        )
+
+        for entry in checked_rejected:
+            yield UploadEvent(
+                filepath=entry.filepath,
+                outcome="rejected",
+                asset_id=entry.asset_id,
+                reason=entry.reason,
+            )
+
+        async for event in stream_uploads(
+            new_files,
+            self,
+            concurrency=concurrency,
+            show_progress=show_progress,
+            dry_run=dry_run,
+        ):
+            yield event
+
     async def upload(
         self,
         paths: Path | list[Path] | str | list[str],
@@ -179,6 +260,10 @@ class AssetsApiWrapped(AssetsApi):
         """
         Upload assets with smart features (duplicate detection, album management, sidecar support, dry run).
 
+        Collects the per-file outcomes from :meth:`iter_upload` and additionally
+        handles album assignment and local deletion. Use :meth:`iter_upload`
+        directly to stream outcomes for large batches.
+
         :param paths: File or directory paths to upload. Can be a single path or list of paths. Directories are automatically walked recursively. To ignore subdirectories, use the `ignore_pattern` parameter.
         :param ignore_pattern: Wildcard pattern to ignore files (uses `fnmatch` stdlib module, not regex). Examples: "*.tmp" (ignore all .tmp files), "*/subdir/*" (ignore files in subdir at any level).
         :param include_hidden: Whether to include hidden files (starting with ".").
@@ -191,44 +276,46 @@ class AssetsApiWrapped(AssetsApi):
         :param dry_run: Simulate uploads without actually uploading.
         :return: UploadResult with uploaded assets, rejected files, failures, and statistics.
         """
-        if concurrency < 1:
-            raise ValueError("concurrency must be >= 1")
-        server_api = ServerApi(self.api_client)
         albums_api = AlbumsApi(self.api_client)
 
-        _paths = [paths] if isinstance(paths, (str, Path)) else paths
-        _paths = [Path(p) for p in _paths]
+        uploaded: list[UploadedEntry] = []
+        rejected: list[RejectedEntry] = []
+        failed: list[FailedEntry] = []
 
-        files = await scan_files(_paths, server_api, ignore_pattern, include_hidden)
-        if not files:
-            return UploadResult(
-                uploaded=[],
-                rejected=[],
-                failed=[],
-                stats=UploadStats(total=0, uploaded=0, rejected=0, failed=0),
-            )
-
-        new_files, checked_rejected = await check_dupes(
-            files=files,
-            assets_api=self,
+        async for event in self.iter_upload(
+            paths,
+            ignore_pattern=ignore_pattern,
+            include_hidden=include_hidden,
             skip_duplicates=skip_duplicates,
-            show_progress=show_progress,
-            dry_run=dry_run,
-        )
-
-        uploaded, actual_rejected, failed = await upload_files(
-            files=new_files,
-            assets_api=self,
             concurrency=concurrency,
             show_progress=show_progress,
             dry_run=dry_run,
-        )
+        ):
+            if event.outcome == "uploaded":
+                uploaded.append(
+                    UploadedEntry(
+                        asset=cast(AssetMediaResponseDto, event.asset),
+                        filepath=event.filepath,
+                    )
+                )
+            elif event.outcome == "rejected":
+                rejected.append(
+                    RejectedEntry(
+                        filepath=event.filepath,
+                        asset_id=event.asset_id,
+                        reason=event.reason,
+                    )
+                )
+            else:
+                failed.append(
+                    FailedEntry(filepath=event.filepath, error=cast(str, event.error))
+                )
 
         if album_name and not dry_run:
             uploaded_ids = [ent.asset.id for ent in uploaded]
             duplicate_ids = [
                 ent.asset_id
-                for ent in [*checked_rejected, *actual_rejected]
+                for ent in rejected
                 if ent.asset_id is not None and ent.reason == "duplicate"
             ]
             await update_albums(
@@ -236,10 +323,6 @@ class AssetsApiWrapped(AssetsApi):
                 album_name=album_name,
                 albums_api=albums_api,
             )
-
-        # we can either check pre-upload rejected files or on-upload rejected files, so we return the appropriate list
-        # alternative would be to use both lists and deduplicate by asset_id, however adds overhead and assumes the API returned different results
-        rejected = actual_rejected if skip_duplicates else checked_rejected
 
         await delete_files(
             uploaded=uploaded,
@@ -254,7 +337,7 @@ class AssetsApiWrapped(AssetsApi):
             rejected=rejected,
             failed=failed,
             stats=UploadStats(
-                total=len(files),
+                total=len(uploaded) + len(rejected) + len(failed),
                 uploaded=len(uploaded),
                 rejected=len(rejected),
                 failed=len(failed),
