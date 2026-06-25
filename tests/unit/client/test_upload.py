@@ -407,6 +407,43 @@ async def test_upload_file_with_sidecar(mock_assets, tmp_path: Path) -> None:
 
 
 @pytest.mark.asyncio
+async def test_upload_file_retries_on_transient_error(
+    mock_assets, tmp_path: Path
+) -> None:
+    """Test that a transient 5xx error is retried until it succeeds."""
+    file1 = tmp_path / "test1.jpg"
+    file1.write_bytes(b"test1")
+    mock_response = ApiResponse(
+        status_code=201,
+        headers=None,
+        data=AssetMediaResponseDto(id="asset-123", status=AssetMediaStatus.CREATED),
+        raw_data=b"",
+    )
+    mock_assets.upload_asset_with_http_info.side_effect = [
+        ApiException(status=503, reason="Service Unavailable"),
+        mock_response,
+    ]
+    result = await upload_file(file1, mock_assets, retries=3)
+    assert result == mock_response
+    assert mock_assets.upload_asset_with_http_info.call_count == 2
+
+
+@pytest.mark.asyncio
+async def test_upload_file_no_retry_on_client_error(
+    mock_assets, tmp_path: Path
+) -> None:
+    """Test that a 4xx error fails fast without retrying."""
+    file1 = tmp_path / "test1.jpg"
+    file1.write_bytes(b"test1")
+    mock_assets.upload_asset_with_http_info.side_effect = ApiException(
+        status=400, reason="Bad Request"
+    )
+    with pytest.raises(ApiException):
+        await upload_file(file1, mock_assets, retries=3)
+    assert mock_assets.upload_asset_with_http_info.call_count == 1
+
+
+@pytest.mark.asyncio
 async def test_upload_files_empty_list(mock_assets) -> None:
     """Test that empty files list returns empty results."""
     uploaded, rejected, failed = await upload_files([], mock_assets)

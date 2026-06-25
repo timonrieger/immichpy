@@ -170,6 +170,7 @@ class AssetsApiWrapped(AssetsApi):
         include_hidden: bool = False,
         skip_duplicates: bool = False,
         concurrency: int = 5,
+        retries: int = 3,
         show_progress: bool = False,
         album_name: str | None = None,
         delete_uploads: bool = False,
@@ -184,6 +185,7 @@ class AssetsApiWrapped(AssetsApi):
         :param include_hidden: Whether to include hidden files (starting with ".").
         :param skip_duplicates: Whether to skip duplicate checking (might still get rejected on the server).
         :param concurrency: Number of concurrent uploads. Defaults to 5. A higher number may increase upload speed, but also increases the risk of rate limiting or other issues.
+        :param retries: Maximum number of upload attempts per file on transient errors (5xx and connection errors). Defaults to 3. Set to 1 to disable retrying. Safe to retry because the server deduplicates by checksum.
         :param show_progress: Whether to show progress bars.
         :param album_name: Album name to create or use. If None, no album operations are performed.
         :param delete_uploads: Whether to delete successfully uploaded files locally.
@@ -222,6 +224,7 @@ class AssetsApiWrapped(AssetsApi):
             concurrency=concurrency,
             show_progress=show_progress,
             dry_run=dry_run,
+            retries=retries,
         )
 
         if album_name and not dry_run:

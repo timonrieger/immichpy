@@ -14,6 +14,8 @@ from typing import cast
 from uuid import UUID
 import uuid
 
+import tenacity
+from aiohttp import ClientConnectionError
 from rich.progress import (
     Progress,
     SpinnerColumn,
@@ -51,6 +53,23 @@ from immichpy.client.generated.exceptions import ApiException
 logger = logging.getLogger(__name__)
 
 BATCH_SIZE = 5000
+
+# Immich emits no 429, so only transient server errors and dropped connections
+# are worth retrying. 4xx are not transient and fail fast. The upload POST is
+# safe to retry because the server deduplicates by checksum.
+RETRY_STATUSES = frozenset({500, 502, 503, 504})
+
+
+def _is_retryable_upload_error(exc: BaseException) -> bool:
+    """Return whether an upload error is transient and worth retrying.
+
+    :param exc: The exception raised by the upload call.
+
+    :return: True for retryable 5xx responses and connection errors.
+    """
+    if isinstance(exc, ApiException):
+        return exc.status in RETRY_STATUSES
+    return isinstance(exc, (ClientConnectionError, asyncio.TimeoutError))
 
 
 def get_device_asset_id(filepath: Path, stats: os.stat_result) -> str:
@@ -249,12 +268,14 @@ async def upload_file(
     filepath: Path,
     assets_api: AssetsApi,
     dry_run: bool = False,
+    retries: int = 3,
 ) -> ApiResponse[AssetMediaResponseDto]:
     """Upload a single asset file to the server.
 
     :param filepath: Path to the file to upload.
     :param assets_api: Assets API instance for upload.
     :param dry_run: Return mock response without actual upload.
+    :param retries: Maximum number of upload attempts on transient errors (>= 1).
 
     :return: API response containing the uploaded asset metadata.
     """
@@ -280,7 +301,14 @@ async def upload_file(
 
     file_created_at, file_modified_at = get_file_times(filepath, stats)
 
-    response = await assets_api.upload_asset_with_http_info(
+    retryer = tenacity.AsyncRetrying(
+        retry=tenacity.retry_if_exception(_is_retryable_upload_error),
+        stop=tenacity.stop_after_attempt(retries),
+        wait=tenacity.wait_exponential_jitter(initial=0.1, max=5.0),
+        reraise=True,
+    )
+    return await retryer(
+        assets_api.upload_asset_with_http_info,
         asset_data=asset_data,
         device_asset_id=get_device_asset_id(filepath, stats),
         device_id=DEVICE_ID,
@@ -288,7 +316,6 @@ async def upload_file(
         file_modified_at=file_modified_at,
         sidecar_data=sidecar_data,
     )
-    return response
 
 
 async def upload_files(
@@ -297,6 +324,7 @@ async def upload_files(
     concurrency: int = 5,
     show_progress: bool = False,
     dry_run: bool = False,
+    retries: int = 3,
 ) -> tuple[list[UploadedEntry], list[RejectedEntry], list[FailedEntry]]:
     """Upload multiple asset files concurrently.
 
@@ -305,6 +333,7 @@ async def upload_files(
     :param concurrency: Maximum number of concurrent uploads.
     :param show_progress: Whether to show upload progress bar.
     :param dry_run: Simulate uploads without actual API calls.
+    :param retries: Maximum number of upload attempts per file on transient errors (>= 1).
 
     :return: Tuple of (uploaded_entries, rejected_entries, failed_entries).
     """
@@ -333,7 +362,7 @@ async def upload_files(
         async def upload_with_semaphore(filepath: Path) -> None:
             async with semaphore:
                 try:
-                    response = await upload_file(filepath, assets_api, dry_run)
+                    response = await upload_file(filepath, assets_api, dry_run, retries)
                     if response.status_code == 201:
                         uploaded.append(
                             UploadedEntry(asset=response.data, filepath=filepath)
