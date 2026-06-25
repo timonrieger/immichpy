@@ -167,3 +167,25 @@ $ immichpy albums add-users-to-album cccdd9f7-6a0f-4ed1-9dc0-ad8774ff9798 \
 ```
 
 </div>
+
+## Trigger library scan
+
+Trigger an external library scan by using it's ID:
+
+<div class="termy">
+
+```console
+$ immichpy libraries get-all-libraries
+[
+  {
+    "id": "098adb6d-0a9b-494a-bd66-2ae6c0bf28ff",
+    …
+  }
+]
+
+$ immichpy libraries scan-library 098adb6d-0a9b-494a-bd66-2ae6c0bf28ff
+
+Success!
+```
+
+</div>
