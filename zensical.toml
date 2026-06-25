@@ -55,7 +55,7 @@ nav = [
         "overview/why.md",
         "overview/who-uses-immichpy.md",
         "overview/getting-started.md",
-        "overview/custom-functions.md",
+        "overview/features.md",
         "overview/versioning.md",
         "overview/auto-sync.md",
     ] },
