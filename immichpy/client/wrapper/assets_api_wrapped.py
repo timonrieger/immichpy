@@ -195,6 +195,8 @@ class AssetsApiWrapped(AssetsApi):
         """
         if concurrency < 1:
             raise ValueError("concurrency must be >= 1")
+        if retries < 1:
+            raise ValueError("retries must be >= 1")
         server_api = ServerApi(self.api_client)
         albums_api = AlbumsApi(self.api_client)
 
