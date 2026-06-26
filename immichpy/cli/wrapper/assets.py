@@ -176,6 +176,11 @@ def upload(
     concurrency: int = typer.Option(
         5, "--concurrency", help="Number of concurrent uploads"
     ),
+    retries: int = typer.Option(
+        3,
+        "--retries",
+        help="Max upload attempts per file on transient (5xx/connection) errors. Set to 1 to disable.",
+    ),
     show_progress: bool = typer.Option(
         False, "--show-progress", help="Show progress bars"
     ),
@@ -214,6 +219,7 @@ def upload(
     kwargs["include_hidden"] = include_hidden
     kwargs["skip_duplicates"] = skip_duplicates
     kwargs["concurrency"] = concurrency
+    kwargs["retries"] = retries
     kwargs["show_progress"] = show_progress
     kwargs["delete_uploads"] = delete_uploads
     kwargs["delete_duplicates"] = delete_duplicates
