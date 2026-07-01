@@ -16,8 +16,5 @@
         "astral-sh/uv"
       ]
     }
-  ],
-  "lockFileMaintenance": {
-    "enabled": false
-  }
+  ]
 }
