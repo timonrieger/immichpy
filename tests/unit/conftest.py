@@ -38,7 +38,7 @@ def uploaded_entry_factory(
 
         return UploadedEntry(
             asset=AssetMediaResponseDto(
-                id=str(uuid.uuid4()), status=AssetMediaStatus.CREATED
+                id=uuid.uuid4(), status=AssetMediaStatus.CREATED
             ),
             filepath=file_path,
         )

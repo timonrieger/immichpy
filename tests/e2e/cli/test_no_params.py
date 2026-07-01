@@ -29,6 +29,5 @@ def test_get_all_albums(
     assert isinstance(response_data, list)
     albums: list[AlbumResponseDto] = []
     for item in response_data:
-        album = AlbumResponseDto.model_validate(item)
-        albums.append(album)
+        albums.append(AlbumResponseDto.model_validate(item))
     assert any(album.id == album_id for album in albums)
