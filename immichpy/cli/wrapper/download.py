@@ -78,4 +78,4 @@ def download_archive_to_file(
 
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.download.download_archive_to_file, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)

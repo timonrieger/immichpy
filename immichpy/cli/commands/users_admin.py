@@ -86,7 +86,7 @@ Example: 123456""",
     kwargs["user_admin_create_dto"] = user_admin_create_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.users_admin.create_user_admin, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("delete-user-admin", deprecated=False, rich_help_panel="API commands")
@@ -110,7 +110,7 @@ def delete_user_admin(
     kwargs["user_admin_delete_dto"] = user_admin_delete_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.users_admin.delete_user_admin, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("get-user-admin", deprecated=False, rich_help_panel="API commands")
@@ -126,7 +126,7 @@ def get_user_admin(
     kwargs["id"] = id
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.users_admin.get_user_admin, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command(
@@ -167,7 +167,7 @@ Example: 2024-01-01""",
     result = run_command(
         client.users_admin.get_user_calendar_heatmap_admin, ctx=ctx, **kwargs
     )
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command(
@@ -187,7 +187,7 @@ def get_user_preferences_admin(
     result = run_command(
         client.users_admin.get_user_preferences_admin, ctx=ctx, **kwargs
     )
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command(
@@ -205,7 +205,7 @@ def get_user_sessions_admin(
     kwargs["id"] = id
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.users_admin.get_user_sessions_admin, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command(
@@ -240,7 +240,7 @@ def get_user_statistics_admin(
     result = run_command(
         client.users_admin.get_user_statistics_admin, ctx=ctx, **kwargs
     )
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("restore-user-admin", deprecated=False, rich_help_panel="API commands")
@@ -256,7 +256,7 @@ def restore_user_admin(
     kwargs["id"] = id
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.users_admin.restore_user_admin, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("search-users-admin", deprecated=False, rich_help_panel="API commands")
@@ -278,7 +278,7 @@ def search_users_admin(
         kwargs["with_deleted"] = with_deleted.lower() == "true"
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.users_admin.search_users_admin, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("update-user-admin", deprecated=True, rich_help_panel="API commands")
@@ -350,7 +350,7 @@ Example: 123456""",
     kwargs["user_admin_update_dto"] = user_admin_update_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.users_admin.update_user_admin, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command(
@@ -545,4 +545,4 @@ def update_user_preferences_admin(
     result = run_command(
         client.users_admin.update_user_preferences_admin, ctx=ctx, **kwargs
     )
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)

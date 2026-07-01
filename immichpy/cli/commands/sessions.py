@@ -48,7 +48,7 @@ def create_session(
     kwargs["session_create_dto"] = session_create_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.sessions.create_session, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("delete-all-sessions", deprecated=False, rich_help_panel="API commands")
@@ -62,7 +62,7 @@ def delete_all_sessions(
     kwargs = {}
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.sessions.delete_all_sessions, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("delete-session", deprecated=False, rich_help_panel="API commands")
@@ -78,7 +78,7 @@ def delete_session(
     kwargs["id"] = id
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.sessions.delete_session, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("get-sessions", deprecated=False, rich_help_panel="API commands")
@@ -92,7 +92,7 @@ def get_sessions(
     kwargs = {}
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.sessions.get_sessions, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("lock-session", deprecated=False, rich_help_panel="API commands")
@@ -108,7 +108,7 @@ def lock_session(
     kwargs["id"] = id
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.sessions.lock_session, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("update-session", deprecated=True, rich_help_panel="API commands")
@@ -136,4 +136,4 @@ def update_session(
     kwargs["session_update_dto"] = session_update_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.sessions.update_session, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)

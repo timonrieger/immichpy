@@ -83,7 +83,7 @@ def create_face(
     kwargs["asset_face_create_dto"] = asset_face_create_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.faces.create_face, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("delete-face", deprecated=False, rich_help_panel="API commands")
@@ -106,7 +106,7 @@ def delete_face(
     kwargs["asset_face_delete_dto"] = asset_face_delete_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.faces.delete_face, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("get-faces", deprecated=False, rich_help_panel="API commands")
@@ -122,7 +122,7 @@ def get_faces(
     kwargs["id"] = id
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.faces.get_faces, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("reassign-faces-by-id", deprecated=False, rich_help_panel="API commands")
@@ -143,4 +143,4 @@ def reassign_faces_by_id(
     kwargs["face_dto"] = face_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.faces.reassign_faces_by_id, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)

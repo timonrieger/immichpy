@@ -35,7 +35,7 @@ def bulk_tag_assets(
     kwargs["tag_bulk_assets_dto"] = tag_bulk_assets_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.tags.bulk_tag_assets, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("create-tag", deprecated=False, rich_help_panel="API commands")
@@ -62,7 +62,7 @@ def create_tag(
     kwargs["tag_create_dto"] = tag_create_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.tags.create_tag, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("delete-tag", deprecated=False, rich_help_panel="API commands")
@@ -78,7 +78,7 @@ def delete_tag(
     kwargs["id"] = id
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.tags.delete_tag, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("get-all-tags", deprecated=False, rich_help_panel="API commands")
@@ -92,7 +92,7 @@ def get_all_tags(
     kwargs = {}
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.tags.get_all_tags, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("get-tag-by-id", deprecated=False, rich_help_panel="API commands")
@@ -108,7 +108,7 @@ def get_tag_by_id(
     kwargs["id"] = id
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.tags.get_tag_by_id, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("tag-assets", deprecated=False, rich_help_panel="API commands")
@@ -129,7 +129,7 @@ def tag_assets(
     kwargs["bulk_ids_dto"] = bulk_ids_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.tags.tag_assets, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("untag-assets", deprecated=False, rich_help_panel="API commands")
@@ -150,7 +150,7 @@ def untag_assets(
     kwargs["bulk_ids_dto"] = bulk_ids_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.tags.untag_assets, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("update-tag", deprecated=True, rich_help_panel="API commands")
@@ -172,7 +172,7 @@ def update_tag(
     kwargs["tag_update_dto"] = tag_update_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.tags.update_tag, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("upsert-tags", deprecated=False, rich_help_panel="API commands")
@@ -191,4 +191,4 @@ def upsert_tags(
     kwargs["tag_upsert_dto"] = tag_upsert_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.tags.upsert_tags, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)

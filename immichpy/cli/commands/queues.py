@@ -39,7 +39,7 @@ def empty_queue(
     kwargs["queue_delete_dto"] = queue_delete_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.queues.empty_queue, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("get-queue", deprecated=False, rich_help_panel="API commands")
@@ -55,7 +55,7 @@ def get_queue(
     kwargs["name"] = name
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.queues.get_queue, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("get-queue-jobs", deprecated=False, rich_help_panel="API commands")
@@ -76,7 +76,7 @@ def get_queue_jobs(
         kwargs["status"] = status
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.queues.get_queue_jobs, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("get-queues", deprecated=False, rich_help_panel="API commands")
@@ -90,7 +90,7 @@ def get_queues(
     kwargs = {}
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.queues.get_queues, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("update-queue", deprecated=False, rich_help_panel="API commands")
@@ -114,4 +114,4 @@ def update_queue(
     kwargs["queue_update_dto"] = queue_update_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.queues.update_queue, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)

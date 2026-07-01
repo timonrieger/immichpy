@@ -31,7 +31,7 @@ def get_assets_by_original_path(
     kwargs["path"] = path
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.views.get_assets_by_original_path, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command(
@@ -47,4 +47,4 @@ def get_unique_original_paths(
     kwargs = {}
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.views.get_unique_original_paths, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)

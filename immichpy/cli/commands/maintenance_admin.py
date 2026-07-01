@@ -34,7 +34,7 @@ def delete_integrity_report(
     result = run_command(
         client.maintenance_admin.delete_integrity_report, ctx=ctx, **kwargs
     )
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("detect-prior-install", deprecated=False, rich_help_panel="API commands")
@@ -50,7 +50,7 @@ def detect_prior_install(
     result = run_command(
         client.maintenance_admin.detect_prior_install, ctx=ctx, **kwargs
     )
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("get-integrity-report", deprecated=False, rich_help_panel="API commands")
@@ -82,7 +82,7 @@ def get_integrity_report(
     result = run_command(
         client.maintenance_admin.get_integrity_report, ctx=ctx, **kwargs
     )
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command(
@@ -102,7 +102,7 @@ def get_integrity_report_csv(
     result = run_command(
         client.maintenance_admin.get_integrity_report_csv, ctx=ctx, **kwargs
     )
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command(
@@ -122,7 +122,7 @@ def get_integrity_report_file(
     result = run_command(
         client.maintenance_admin.get_integrity_report_file, ctx=ctx, **kwargs
     )
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command(
@@ -140,7 +140,7 @@ def get_integrity_report_summary(
     result = run_command(
         client.maintenance_admin.get_integrity_report_summary, ctx=ctx, **kwargs
     )
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("get-maintenance-status", deprecated=False, rich_help_panel="API commands")
@@ -156,7 +156,7 @@ def get_maintenance_status(
     result = run_command(
         client.maintenance_admin.get_maintenance_status, ctx=ctx, **kwargs
     )
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("maintenance-login", deprecated=False, rich_help_panel="API commands")
@@ -176,7 +176,7 @@ def maintenance_login(
     kwargs["maintenance_login_dto"] = maintenance_login_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.maintenance_admin.maintenance_login, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("set-maintenance-mode", deprecated=False, rich_help_panel="API commands")
@@ -202,4 +202,4 @@ def set_maintenance_mode(
     result = run_command(
         client.maintenance_admin.set_maintenance_mode, ctx=ctx, **kwargs
     )
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)

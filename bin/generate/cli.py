@@ -455,7 +455,7 @@ def generate_command_function(
             if param.required:
                 if is_complex_type(param.oaschema, spec):
                     lines.append(
-                        f'    value_{param.name} = parse_json_options({param.name}, "--{param.flag_name}", ctx)'
+                        f'    value_{param.name} = parse_json_options({param.name}, "--{param.flag_name}", ctx=ctx)'
                     )
                     lines.append(
                         f"    set_nested(json_data, [{param.name!r}], value_{param.name})"
@@ -477,7 +477,7 @@ def generate_command_function(
                 lines.append(f"    if {param.name} is not None:")
                 if is_complex_type(param.oaschema, spec):
                     lines.append(
-                        f'        value_{param.name} = parse_json_options({param.name}, "--{param.flag_name}", ctx)'
+                        f'        value_{param.name} = parse_json_options({param.name}, "--{param.flag_name}", ctx=ctx)'
                     )
                     lines.append(
                         f"        set_nested(json_data, [{param.name!r}], value_{param.name})"
@@ -525,7 +525,7 @@ def generate_command_function(
     )
 
     # Print result
-    lines.append("    print_response(result, ctx)")
+    lines.append("    print_response(result, ctx=ctx)")
 
     return "\n".join(lines)
 

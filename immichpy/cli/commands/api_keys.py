@@ -38,7 +38,7 @@ def create_api_key(
     kwargs["api_key_create_dto"] = api_key_create_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.api_keys.create_api_key, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("delete-api-key", deprecated=False, rich_help_panel="API commands")
@@ -54,7 +54,7 @@ def delete_api_key(
     kwargs["id"] = id
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.api_keys.delete_api_key, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("get-api-key", deprecated=False, rich_help_panel="API commands")
@@ -70,7 +70,7 @@ def get_api_key(
     kwargs["id"] = id
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.api_keys.get_api_key, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("get-api-keys", deprecated=False, rich_help_panel="API commands")
@@ -84,7 +84,7 @@ def get_api_keys(
     kwargs = {}
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.api_keys.get_api_keys, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("get-my-api-key", deprecated=False, rich_help_panel="API commands")
@@ -98,7 +98,7 @@ def get_my_api_key(
     kwargs = {}
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.api_keys.get_my_api_key, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("update-api-key", deprecated=True, rich_help_panel="API commands")
@@ -125,4 +125,4 @@ def update_api_key(
     kwargs["api_key_update_dto"] = api_key_update_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.api_keys.update_api_key, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)

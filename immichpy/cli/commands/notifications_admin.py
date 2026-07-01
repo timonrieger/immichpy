@@ -57,7 +57,7 @@ Example: 2024-01-01T00:00:00.000Z""",
     kwargs = {}
     json_data = {}
     if data is not None:
-        value_data = parse_json_options(data, "--data", ctx)
+        value_data = parse_json_options(data, "--data", ctx=ctx)
         set_nested(json_data, ["data"], value_data)
     if description is not None:
         set_nested(json_data, ["description"], description)
@@ -75,7 +75,7 @@ Example: 2024-01-01T00:00:00.000Z""",
     result = run_command(
         client.notifications_admin.create_notification, ctx=ctx, **kwargs
     )
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command(
@@ -100,7 +100,7 @@ def get_notification_template_admin(
     result = run_command(
         client.notifications_admin.get_notification_template_admin, ctx=ctx, **kwargs
     )
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("send-test-email-admin", deprecated=False, rich_help_panel="API commands")
@@ -157,4 +157,4 @@ def send_test_email_admin(
     result = run_command(
         client.notifications_admin.send_test_email_admin, ctx=ctx, **kwargs
     )
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)

@@ -57,7 +57,7 @@ def create_person(
     kwargs["person_create_dto"] = person_create_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.people.create_person, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("delete-people", deprecated=False, rich_help_panel="API commands")
@@ -76,7 +76,7 @@ def delete_people(
     kwargs["bulk_ids_dto"] = bulk_ids_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.people.delete_people, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("delete-person", deprecated=False, rich_help_panel="API commands")
@@ -92,7 +92,7 @@ def delete_person(
     kwargs["id"] = id
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.people.delete_person, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("get-all-people", deprecated=False, rich_help_panel="API commands")
@@ -135,7 +135,7 @@ def get_all_people(
         kwargs["with_hidden"] = with_hidden.lower() == "true"
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.people.get_all_people, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("get-person", deprecated=False, rich_help_panel="API commands")
@@ -151,7 +151,7 @@ def get_person(
     kwargs["id"] = id
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.people.get_person, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("get-person-statistics", deprecated=False, rich_help_panel="API commands")
@@ -167,7 +167,7 @@ def get_person_statistics(
     kwargs["id"] = id
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.people.get_person_statistics, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("get-person-thumbnail", deprecated=False, rich_help_panel="API commands")
@@ -183,7 +183,7 @@ def get_person_thumbnail(
     kwargs["id"] = id
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.people.get_person_thumbnail, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("merge-person", deprecated=False, rich_help_panel="API commands")
@@ -204,7 +204,7 @@ def merge_person(
     kwargs["merge_person_dto"] = merge_person_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.people.merge_person, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("reassign-faces", deprecated=False, rich_help_panel="API commands")
@@ -226,13 +226,13 @@ As a JSON string with keys: assetId (string), personId (string)""",
     kwargs = {}
     json_data = {}
     kwargs["id"] = id
-    value_data = parse_json_options(data, "--data", ctx)
+    value_data = parse_json_options(data, "--data", ctx=ctx)
     set_nested(json_data, ["data"], value_data)
     asset_face_update_dto = AssetFaceUpdateDto.model_validate(json_data)
     kwargs["asset_face_update_dto"] = asset_face_update_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.people.reassign_faces, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("update-people", deprecated=False, rich_help_panel="API commands")
@@ -252,13 +252,13 @@ As a JSON string with keys: birthDate (string), color (string), featureFaceAsset
     """
     kwargs = {}
     json_data = {}
-    value_people = parse_json_options(people, "--people", ctx)
+    value_people = parse_json_options(people, "--people", ctx=ctx)
     set_nested(json_data, ["people"], value_people)
     people_update_dto = PeopleUpdateDto.model_validate(json_data)
     kwargs["people_update_dto"] = people_update_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.people.update_people, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("update-person", deprecated=True, rich_help_panel="API commands")
@@ -305,4 +305,4 @@ def update_person(
     kwargs["person_update_dto"] = person_update_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.people.update_person, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)

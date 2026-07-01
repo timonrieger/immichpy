@@ -41,13 +41,13 @@ As a JSON string with keys: checksum (string), id (string)""",
     """
     kwargs = {}
     json_data = {}
-    value_assets = parse_json_options(assets, "--assets", ctx)
+    value_assets = parse_json_options(assets, "--assets", ctx=ctx)
     set_nested(json_data, ["assets"], value_assets)
     asset_bulk_upload_check_dto = AssetBulkUploadCheckDto.model_validate(json_data)
     kwargs["asset_bulk_upload_check_dto"] = asset_bulk_upload_check_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.assets.check_bulk_upload, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("copy-asset", deprecated=False, rich_help_panel="API commands")
@@ -93,7 +93,7 @@ def copy_asset(
     kwargs["asset_copy_dto"] = asset_copy_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.assets.copy_asset, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("delete-asset-metadata", deprecated=False, rich_help_panel="API commands")
@@ -111,7 +111,7 @@ def delete_asset_metadata(
     kwargs["key"] = key
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.assets.delete_asset_metadata, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("delete-assets", deprecated=False, rich_help_panel="API commands")
@@ -135,7 +135,7 @@ def delete_assets(
     kwargs["asset_bulk_delete_dto"] = asset_bulk_delete_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.assets.delete_assets, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command(
@@ -157,7 +157,7 @@ As a JSON string with keys: assetId (string), key (string)""",
     """
     kwargs = {}
     json_data = {}
-    value_items = parse_json_options(items, "--items", ctx)
+    value_items = parse_json_options(items, "--items", ctx=ctx)
     set_nested(json_data, ["items"], value_items)
     asset_metadata_bulk_delete_dto = AssetMetadataBulkDeleteDto.model_validate(
         json_data
@@ -165,7 +165,7 @@ As a JSON string with keys: assetId (string), key (string)""",
     kwargs["asset_metadata_bulk_delete_dto"] = asset_metadata_bulk_delete_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.assets.delete_bulk_asset_metadata, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("download-asset", deprecated=False, rich_help_panel="API commands")
@@ -192,7 +192,7 @@ def download_asset(
         kwargs["slug"] = slug
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.assets.download_asset, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("edit-asset", deprecated=False, rich_help_panel="API commands")
@@ -214,13 +214,13 @@ As a JSON string with keys: action (string), parameters (string)""",
     kwargs = {}
     json_data = {}
     kwargs["id"] = id
-    value_edits = parse_json_options(edits, "--edits", ctx)
+    value_edits = parse_json_options(edits, "--edits", ctx=ctx)
     set_nested(json_data, ["edits"], value_edits)
     asset_edits_create_dto = AssetEditsCreateDto.model_validate(json_data)
     kwargs["asset_edits_create_dto"] = asset_edits_create_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.assets.edit_asset, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("end-session", deprecated=False, rich_help_panel="API commands")
@@ -244,7 +244,7 @@ def end_session(
         kwargs["slug"] = slug
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.assets.end_session, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("get-asset-edits", deprecated=False, rich_help_panel="API commands")
@@ -260,7 +260,7 @@ def get_asset_edits(
     kwargs["id"] = id
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.assets.get_asset_edits, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("get-asset-info", deprecated=False, rich_help_panel="API commands")
@@ -282,7 +282,7 @@ def get_asset_info(
         kwargs["slug"] = slug
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.assets.get_asset_info, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("get-asset-metadata", deprecated=False, rich_help_panel="API commands")
@@ -298,7 +298,7 @@ def get_asset_metadata(
     kwargs["id"] = id
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.assets.get_asset_metadata, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command(
@@ -318,7 +318,7 @@ def get_asset_metadata_by_key(
     kwargs["key"] = key
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.assets.get_asset_metadata_by_key, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("get-asset-ocr", deprecated=False, rich_help_panel="API commands")
@@ -334,7 +334,7 @@ def get_asset_ocr(
     kwargs["id"] = id
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.assets.get_asset_ocr, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("get-asset-statistics", deprecated=False, rich_help_panel="API commands")
@@ -363,7 +363,7 @@ def get_asset_statistics(
         kwargs["visibility"] = visibility
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.assets.get_asset_statistics, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("get-main-playlist", deprecated=False, rich_help_panel="API commands")
@@ -385,7 +385,7 @@ def get_main_playlist(
         kwargs["slug"] = slug
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.assets.get_main_playlist, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("get-media-playlist", deprecated=False, rich_help_panel="API commands")
@@ -416,7 +416,7 @@ def get_media_playlist(
         kwargs["x_immich_hls_pos"] = x_immich_hls_pos
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.assets.get_media_playlist, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("get-segment", deprecated=False, rich_help_panel="API commands")
@@ -449,7 +449,7 @@ def get_segment(
         kwargs["x_immich_hls_msn"] = x_immich_hls_msn
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.assets.get_segment, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("play-asset-video", deprecated=False, rich_help_panel="API commands")
@@ -471,7 +471,7 @@ def play_asset_video(
         kwargs["slug"] = slug
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.assets.play_asset_video, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("remove-asset-edits", deprecated=False, rich_help_panel="API commands")
@@ -487,7 +487,7 @@ def remove_asset_edits(
     kwargs["id"] = id
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.assets.remove_asset_edits, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("run-asset-jobs", deprecated=False, rich_help_panel="API commands")
@@ -508,7 +508,7 @@ def run_asset_jobs(
     kwargs["asset_jobs_dto"] = asset_jobs_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.assets.run_asset_jobs, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("update-asset", deprecated=True, rich_help_panel="API commands")
@@ -571,7 +571,7 @@ def update_asset(
     kwargs["update_asset_dto"] = update_asset_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.assets.update_asset, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("update-asset-metadata", deprecated=False, rich_help_panel="API commands")
@@ -593,13 +593,13 @@ As a JSON string with keys: key (string), value (object)""",
     kwargs = {}
     json_data = {}
     kwargs["id"] = id
-    value_items = parse_json_options(items, "--items", ctx)
+    value_items = parse_json_options(items, "--items", ctx=ctx)
     set_nested(json_data, ["items"], value_items)
     asset_metadata_upsert_dto = AssetMetadataUpsertDto.model_validate(json_data)
     kwargs["asset_metadata_upsert_dto"] = asset_metadata_upsert_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.assets.update_asset_metadata, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("update-assets", deprecated=True, rich_help_panel="API commands")
@@ -676,7 +676,7 @@ def update_assets(
     kwargs["asset_bulk_update_dto"] = asset_bulk_update_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.assets.update_assets, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command(
@@ -698,7 +698,7 @@ As a JSON string with keys: assetId (string), key (string), value (object)""",
     """
     kwargs = {}
     json_data = {}
-    value_items = parse_json_options(items, "--items", ctx)
+    value_items = parse_json_options(items, "--items", ctx=ctx)
     set_nested(json_data, ["items"], value_items)
     asset_metadata_bulk_upsert_dto = AssetMetadataBulkUpsertDto.model_validate(
         json_data
@@ -706,7 +706,7 @@ As a JSON string with keys: assetId (string), key (string), value (object)""",
     kwargs["asset_metadata_bulk_upsert_dto"] = asset_metadata_bulk_upsert_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.assets.update_bulk_asset_metadata, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("upload-asset", deprecated=False, rich_help_panel="API commands")
@@ -788,7 +788,7 @@ As a JSON string with keys: key (string), value (object)""",
     if live_photo_video_id is not None:
         set_nested(json_data, ["live_photo_video_id"], live_photo_video_id)
     if metadata is not None:
-        value_metadata = parse_json_options(metadata, "--metadata", ctx)
+        value_metadata = parse_json_options(metadata, "--metadata", ctx=ctx)
         set_nested(json_data, ["metadata"], value_metadata)
     if sidecar_data is not None:
         set_nested(
@@ -799,7 +799,7 @@ As a JSON string with keys: key (string), value (object)""",
     kwargs.update(json_data)
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.assets.upload_asset, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("view-asset", deprecated=False, rich_help_panel="API commands")
@@ -829,4 +829,4 @@ def view_asset(
         kwargs["slug"] = slug
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.assets.view_asset, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)

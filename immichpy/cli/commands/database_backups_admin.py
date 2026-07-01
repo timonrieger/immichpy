@@ -35,7 +35,7 @@ def delete_database_backup(
     kwargs["database_backup_delete_dto"] = database_backup_delete_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.backups.delete_database_backup, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command(
@@ -53,7 +53,7 @@ def download_database_backup(
     kwargs["filename"] = filename
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.backups.download_database_backup, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("list-database-backups", deprecated=False, rich_help_panel="API commands")
@@ -67,7 +67,7 @@ def list_database_backups(
     kwargs = {}
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.backups.list_database_backups, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command(
@@ -83,7 +83,7 @@ def start_database_restore_flow(
     kwargs = {}
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.backups.start_database_restore_flow, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("upload-database-backup", deprecated=False, rich_help_panel="API commands")
@@ -104,4 +104,4 @@ def upload_database_backup(
     kwargs.update(json_data)
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.backups.upload_database_backup, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)

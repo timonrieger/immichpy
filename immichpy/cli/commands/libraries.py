@@ -46,7 +46,7 @@ def create_library(
     kwargs["create_library_dto"] = create_library_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.libraries.create_library, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("delete-library", deprecated=False, rich_help_panel="API commands")
@@ -62,7 +62,7 @@ def delete_library(
     kwargs["id"] = id
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.libraries.delete_library, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("get-all-libraries", deprecated=False, rich_help_panel="API commands")
@@ -76,7 +76,7 @@ def get_all_libraries(
     kwargs = {}
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.libraries.get_all_libraries, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("get-library", deprecated=False, rich_help_panel="API commands")
@@ -92,7 +92,7 @@ def get_library(
     kwargs["id"] = id
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.libraries.get_library, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("get-library-statistics", deprecated=False, rich_help_panel="API commands")
@@ -108,7 +108,7 @@ def get_library_statistics(
     kwargs["id"] = id
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.libraries.get_library_statistics, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("scan-library", deprecated=False, rich_help_panel="API commands")
@@ -124,7 +124,7 @@ def scan_library(
     kwargs["id"] = id
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.libraries.scan_library, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("update-library", deprecated=True, rich_help_panel="API commands")
@@ -156,7 +156,7 @@ def update_library(
     kwargs["update_library_dto"] = update_library_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.libraries.update_library, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("validate", deprecated=False, rich_help_panel="API commands")
@@ -185,4 +185,4 @@ def validate(
     kwargs["validate_library_dto"] = validate_library_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.libraries.validate, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)

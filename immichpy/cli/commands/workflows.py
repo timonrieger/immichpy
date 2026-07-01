@@ -52,14 +52,14 @@ def create_workflow(
     if name is not None:
         set_nested(json_data, ["name"], name)
     if steps is not None:
-        value_steps = parse_json_options(steps, "--steps", ctx)
+        value_steps = parse_json_options(steps, "--steps", ctx=ctx)
         set_nested(json_data, ["steps"], value_steps)
     set_nested(json_data, ["trigger"], trigger)
     workflow_create_dto = WorkflowCreateDto.model_validate(json_data)
     kwargs["workflow_create_dto"] = workflow_create_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.workflows.create_workflow, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("delete-workflow", deprecated=False, rich_help_panel="API commands")
@@ -75,7 +75,7 @@ def delete_workflow(
     kwargs["id"] = id
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.workflows.delete_workflow, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("get-workflow", deprecated=False, rich_help_panel="API commands")
@@ -91,7 +91,7 @@ def get_workflow(
     kwargs["id"] = id
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.workflows.get_workflow, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("get-workflow-for-share", deprecated=False, rich_help_panel="API commands")
@@ -107,7 +107,7 @@ def get_workflow_for_share(
     kwargs["id"] = id
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.workflows.get_workflow_for_share, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("get-workflow-triggers", deprecated=False, rich_help_panel="API commands")
@@ -121,7 +121,7 @@ def get_workflow_triggers(
     kwargs = {}
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.workflows.get_workflow_triggers, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("search-workflows", deprecated=False, rich_help_panel="API commands")
@@ -156,7 +156,7 @@ def search_workflows(
         kwargs["trigger"] = trigger
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.workflows.search_workflows, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("update-workflow", deprecated=True, rich_help_panel="API commands")
@@ -193,7 +193,7 @@ def update_workflow(
     if name is not None:
         set_nested(json_data, ["name"], name)
     if steps is not None:
-        value_steps = parse_json_options(steps, "--steps", ctx)
+        value_steps = parse_json_options(steps, "--steps", ctx=ctx)
         set_nested(json_data, ["steps"], value_steps)
     if trigger is not None:
         set_nested(json_data, ["trigger"], trigger)
@@ -201,4 +201,4 @@ def update_workflow(
     kwargs["workflow_update_dto"] = workflow_update_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.workflows.update_workflow, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)

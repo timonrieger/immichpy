@@ -35,7 +35,7 @@ def create_profile_image(
     kwargs.update(json_data)
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.users.create_profile_image, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("delete-profile-image", deprecated=False, rich_help_panel="API commands")
@@ -49,7 +49,7 @@ def delete_profile_image(
     kwargs = {}
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.users.delete_profile_image, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("delete-user-license", deprecated=False, rich_help_panel="API commands")
@@ -63,7 +63,7 @@ def delete_user_license(
     kwargs = {}
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.users.delete_user_license, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("delete-user-onboarding", deprecated=False, rich_help_panel="API commands")
@@ -77,7 +77,7 @@ def delete_user_onboarding(
     kwargs = {}
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.users.delete_user_onboarding, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command(
@@ -114,7 +114,7 @@ Example: 2024-01-01""",
         kwargs["type"] = type
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.users.get_my_calendar_heatmap, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("get-my-preferences", deprecated=False, rich_help_panel="API commands")
@@ -128,7 +128,7 @@ def get_my_preferences(
     kwargs = {}
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.users.get_my_preferences, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("get-my-user", deprecated=False, rich_help_panel="API commands")
@@ -142,7 +142,7 @@ def get_my_user(
     kwargs = {}
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.users.get_my_user, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("get-profile-image", deprecated=False, rich_help_panel="API commands")
@@ -158,7 +158,7 @@ def get_profile_image(
     kwargs["id"] = id
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.users.get_profile_image, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("get-user", deprecated=False, rich_help_panel="API commands")
@@ -174,7 +174,7 @@ def get_user(
     kwargs["id"] = id
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.users.get_user, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("get-user-license", deprecated=False, rich_help_panel="API commands")
@@ -188,7 +188,7 @@ def get_user_license(
     kwargs = {}
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.users.get_user_license, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("get-user-onboarding", deprecated=False, rich_help_panel="API commands")
@@ -202,7 +202,7 @@ def get_user_onboarding(
     kwargs = {}
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.users.get_user_onboarding, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("search-users", deprecated=False, rich_help_panel="API commands")
@@ -216,7 +216,7 @@ def search_users(
     kwargs = {}
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.users.search_users, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("set-user-license", deprecated=False, rich_help_panel="API commands")
@@ -243,7 +243,7 @@ def set_user_license(
     kwargs["license_key_dto"] = license_key_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.users.set_user_license, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("set-user-onboarding", deprecated=False, rich_help_panel="API commands")
@@ -264,7 +264,7 @@ def set_user_onboarding(
     kwargs["onboarding_dto"] = onboarding_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.users.set_user_onboarding, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("update-my-preferences", deprecated=True, rich_help_panel="API commands")
@@ -453,7 +453,7 @@ def update_my_preferences(
     kwargs["user_preferences_update_dto"] = user_preferences_update_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.users.update_my_preferences, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("update-my-user", deprecated=True, rich_help_panel="API commands")
@@ -488,4 +488,4 @@ def update_my_user(
     kwargs["user_update_me_dto"] = user_update_me_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.users.update_my_user, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)

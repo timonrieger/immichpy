@@ -31,7 +31,7 @@ def delete_notification(
     kwargs["id"] = id
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.notifications.delete_notification, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("delete-notifications", deprecated=False, rich_help_panel="API commands")
@@ -52,7 +52,7 @@ def delete_notifications(
     kwargs["notification_delete_all_dto"] = notification_delete_all_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.notifications.delete_notifications, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("get-notification", deprecated=False, rich_help_panel="API commands")
@@ -68,7 +68,7 @@ def get_notification(
     kwargs["id"] = id
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.notifications.get_notification, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("get-notifications", deprecated=False, rich_help_panel="API commands")
@@ -96,7 +96,7 @@ def get_notifications(
         kwargs["unread"] = unread.lower() == "true"
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.notifications.get_notifications, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("update-notification", deprecated=False, rich_help_panel="API commands")
@@ -124,7 +124,7 @@ Example: 2024-01-01T00:00:00.000Z""",
     kwargs["notification_update_dto"] = notification_update_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.notifications.update_notification, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("update-notifications", deprecated=False, rich_help_panel="API commands")
@@ -154,4 +154,4 @@ Example: 2024-01-01T00:00:00.000Z""",
     kwargs["notification_update_all_dto"] = notification_update_all_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.notifications.update_notifications, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
