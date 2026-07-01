@@ -504,11 +504,19 @@ def generate_command_function(
                         f"    {model_instance} = {param.model_name}.model_validate(json_data)"
                     )
                     lines.append(f"    kwargs['{model_instance}'] = {model_instance}")
-                elif media_type == "multipart/form-data":
-                    # despite having a model name, we don't use it for multipart/form-data as
-                    # openapi-generator doesn't generate a model for multipart/form-data, but use kwargs
+                elif media_type in (
+                    "multipart/form-data",
+                    "application/x-www-form-urlencoded",
+                ):
+                    # despite having a model name, we don't use it for form media types as
+                    # openapi-generator doesn't generate a model for them, but uses kwargs
                     # instead we simply merge the json_data into the kwargs
                     lines.append("    kwargs.update(json_data)")
+                else:
+                    print(
+                        f"WARNING: {operation_id!r} has unsupported media type {media_type!r}; "
+                        "body params will be dropped from the generated command"
+                    )
     # Call method
     method_name = to_snake_case(operation_id)
     lines.append("    client: 'AsyncClient' = ctx.obj['client']")
