@@ -59,9 +59,7 @@ def create_partner_deprecated(
 @app.command("get-partners", deprecated=False, rich_help_panel="API commands")
 def get_partners(
     ctx: typer.Context,
-    direction: PartnerDirection = typer.Option(
-        ..., "--direction", help="""Partner direction"""
-    ),
+    direction: PartnerDirection = typer.Option(..., "--direction", help=""""""),
 ) -> None:
     """Retrieve partners
 

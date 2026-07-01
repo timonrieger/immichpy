@@ -60,16 +60,14 @@ Example: password""",
 def change_pin_code(
     ctx: typer.Context,
     new_pin_code: str = typer.Option(
-        ...,
-        "--new-pin-code",
-        help="""New PIN code (4-6 digits)
-
-Example: 123456""",
+        ..., "--new-pin-code", help="""New PIN code (4-6 digits)"""
     ),
     password: str | None = typer.Option(
         None,
         "--password",
-        help="""User password (required if PIN code is not provided)""",
+        help="""User password (required if PIN code is not provided)
+
+Example: password""",
     ),
     pin_code: str | None = typer.Option(
         None,
@@ -226,6 +224,25 @@ def logout(
     print_response(result, ctx)
 
 
+@app.command("logout-o-auth", deprecated=False, rich_help_panel="API commands")
+def logout_o_auth(
+    ctx: typer.Context,
+    logout_token: str = typer.Option(
+        ..., "--logout-token", help="""OAuth logout token"""
+    ),
+) -> None:
+    """Backchannel OAuth logout
+
+    [link=https://api.immich.app/endpoints/authentication/logoutOAuth]Immich API documentation[/link]
+    """
+    kwargs = {}
+    json_data = {}
+    set_nested(json_data, ["logout_token"], logout_token)
+    client: "AsyncClient" = ctx.obj["client"]
+    result = run_command(client.auth.logout_o_auth, ctx=ctx, **kwargs)
+    print_response(result, ctx)
+
+
 @app.command(
     "redirect-o-auth-to-mobile", deprecated=False, rich_help_panel="API commands"
 )
@@ -248,7 +265,9 @@ def reset_pin_code(
     password: str | None = typer.Option(
         None,
         "--password",
-        help="""User password (required if PIN code is not provided)""",
+        help="""User password (required if PIN code is not provided)
+
+Example: password""",
     ),
     pin_code: str | None = typer.Option(
         None,
@@ -390,7 +409,9 @@ def unlock_auth_session(
     password: str | None = typer.Option(
         None,
         "--password",
-        help="""User password (required if PIN code is not provided)""",
+        help="""User password (required if PIN code is not provided)
+
+Example: password""",
     ),
     pin_code: str | None = typer.Option(
         None,

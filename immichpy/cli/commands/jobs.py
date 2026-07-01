@@ -19,7 +19,7 @@ app = typer.Typer(
 @app.command("create-job", deprecated=False, rich_help_panel="API commands")
 def create_job(
     ctx: typer.Context,
-    name: str = typer.Option(..., "--name", help="""Job name"""),
+    name: str = typer.Option(..., "--name", help="""Manual job name"""),
 ) -> None:
     """Create a manual job
 
@@ -54,7 +54,7 @@ def get_queues_legacy(
 )
 def run_queue_command_legacy(
     ctx: typer.Context,
-    name: QueueName = typer.Argument(..., help="""Queue name"""),
+    name: QueueName = typer.Argument(..., help=""""""),
     command: str = typer.Option(..., "--command", help="""Queue command to execute"""),
     force: Literal["true", "false"] | None = typer.Option(
         None, "--force", help="""Force the command execution (if applicable)"""

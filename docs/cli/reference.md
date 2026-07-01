@@ -102,7 +102,7 @@ $ immichpy api-keys [OPTIONS] COMMAND [ARGS]...
 * `get-api-key`: Retrieve an API key
 * `get-api-keys`: List all API keys
 * `get-my-api-key`: Retrieve the current API key
-* `update-api-key`: Update an API key
+* `update-api-key`: Update an API key (DEPRECATED)
 
 ### `immichpy api-keys create-api-key`
 
@@ -119,7 +119,7 @@ $ immichpy api-keys create-api-key [OPTIONS]
 **Options**:
 
 * `--name TEXT`: API key name
-* `--permissions [all|activity.create|activity.read|activity.update|activity.delete|activity.statistics|apiKey.create|apiKey.read|apiKey.update|apiKey.delete|asset.read|asset.update|asset.delete|asset.statistics|asset.share|asset.view|asset.download|asset.upload|asset.replace|asset.copy|asset.derive|asset.edit.get|asset.edit.create|asset.edit.delete|album.create|album.read|album.update|album.delete|album.statistics|album.share|album.download|albumAsset.create|albumAsset.delete|albumUser.create|albumUser.update|albumUser.delete|auth.changePassword|authDevice.delete|archive.read|backup.list|backup.download|backup.upload|backup.delete|duplicate.read|duplicate.delete|face.create|face.read|face.update|face.delete|folder.read|job.create|job.read|library.create|library.read|library.update|library.delete|library.statistics|timeline.read|timeline.download|maintenance|map.read|map.search|memory.create|memory.read|memory.update|memory.delete|memory.statistics|memoryAsset.create|memoryAsset.delete|notification.create|notification.read|notification.update|notification.delete|partner.create|partner.read|partner.update|partner.delete|person.create|person.read|person.update|person.delete|person.statistics|person.merge|person.reassign|pinCode.create|pinCode.update|pinCode.delete|plugin.create|plugin.read|plugin.update|plugin.delete|server.about|server.apkLinks|server.storage|server.statistics|server.versionCheck|serverLicense.read|serverLicense.update|serverLicense.delete|session.create|session.read|session.update|session.delete|session.lock|sharedLink.create|sharedLink.read|sharedLink.update|sharedLink.delete|stack.create|stack.read|stack.update|stack.delete|sync.stream|syncCheckpoint.read|syncCheckpoint.update|syncCheckpoint.delete|systemConfig.read|systemConfig.update|systemMetadata.read|systemMetadata.update|tag.create|tag.read|tag.update|tag.delete|tag.asset|user.read|user.update|userLicense.create|userLicense.read|userLicense.update|userLicense.delete|userOnboarding.read|userOnboarding.update|userOnboarding.delete|userPreference.read|userPreference.update|userProfileImage.create|userProfileImage.read|userProfileImage.update|userProfileImage.delete|queue.read|queue.update|queueJob.create|queueJob.read|queueJob.update|queueJob.delete|workflow.create|workflow.read|workflow.update|workflow.delete|adminUser.create|adminUser.read|adminUser.update|adminUser.delete|adminSession.read|adminAuth.unlinkAll]`: List of permissions  [required]
+* `--permissions [all|activity.create|activity.read|activity.update|activity.delete|activity.statistics|apiKey.create|apiKey.read|apiKey.update|apiKey.delete|asset.read|asset.update|asset.delete|asset.statistics|asset.share|asset.view|asset.download|asset.upload|asset.copy|asset.derive|asset.edit.get|asset.edit.create|asset.edit.delete|album.create|album.read|album.update|album.delete|album.statistics|album.share|album.download|albumAsset.create|albumAsset.delete|albumUser.create|albumUser.update|albumUser.delete|auth.changePassword|authDevice.delete|archive.read|backup.list|backup.download|backup.upload|backup.delete|duplicate.read|duplicate.delete|face.create|face.read|face.update|face.delete|folder.read|job.create|job.read|library.create|library.read|library.update|library.delete|library.statistics|timeline.read|timeline.download|maintenance|map.read|map.search|memory.create|memory.read|memory.update|memory.delete|memory.statistics|memoryAsset.create|memoryAsset.delete|notification.create|notification.read|notification.update|notification.delete|partner.create|partner.read|partner.update|partner.delete|person.create|person.read|person.update|person.delete|person.statistics|person.merge|person.reassign|pinCode.create|pinCode.update|pinCode.delete|plugin.create|plugin.read|plugin.update|plugin.delete|server.about|server.apkLinks|server.storage|server.statistics|server.versionCheck|serverLicense.read|serverLicense.update|serverLicense.delete|session.create|session.read|session.update|session.delete|session.lock|sharedLink.create|sharedLink.read|sharedLink.update|sharedLink.delete|stack.create|stack.read|stack.update|stack.delete|sync.stream|syncCheckpoint.read|syncCheckpoint.update|syncCheckpoint.delete|systemConfig.read|systemConfig.update|systemMetadata.read|systemMetadata.update|tag.create|tag.read|tag.update|tag.delete|tag.asset|user.read|user.update|userLicense.create|userLicense.read|userLicense.update|userLicense.delete|userOnboarding.read|userOnboarding.update|userOnboarding.delete|userPreference.read|userPreference.update|userProfileImage.create|userProfileImage.read|userProfileImage.update|userProfileImage.delete|queue.read|queue.update|queueJob.create|queueJob.read|queueJob.update|queueJob.delete|workflow.create|workflow.read|workflow.update|workflow.delete|adminUser.create|adminUser.read|adminUser.update|adminUser.delete|adminSession.read|adminAuth.unlinkAll]`: List of permissions  [required]
 * `--help`: Show this message and exit.
 
 ### `immichpy api-keys delete-api-key`
@@ -213,7 +213,7 @@ $ immichpy api-keys update-api-key [OPTIONS] ID
 **Options**:
 
 * `--name TEXT`: API key name
-* `--permissions [all|activity.create|activity.read|activity.update|activity.delete|activity.statistics|apiKey.create|apiKey.read|apiKey.update|apiKey.delete|asset.read|asset.update|asset.delete|asset.statistics|asset.share|asset.view|asset.download|asset.upload|asset.replace|asset.copy|asset.derive|asset.edit.get|asset.edit.create|asset.edit.delete|album.create|album.read|album.update|album.delete|album.statistics|album.share|album.download|albumAsset.create|albumAsset.delete|albumUser.create|albumUser.update|albumUser.delete|auth.changePassword|authDevice.delete|archive.read|backup.list|backup.download|backup.upload|backup.delete|duplicate.read|duplicate.delete|face.create|face.read|face.update|face.delete|folder.read|job.create|job.read|library.create|library.read|library.update|library.delete|library.statistics|timeline.read|timeline.download|maintenance|map.read|map.search|memory.create|memory.read|memory.update|memory.delete|memory.statistics|memoryAsset.create|memoryAsset.delete|notification.create|notification.read|notification.update|notification.delete|partner.create|partner.read|partner.update|partner.delete|person.create|person.read|person.update|person.delete|person.statistics|person.merge|person.reassign|pinCode.create|pinCode.update|pinCode.delete|plugin.create|plugin.read|plugin.update|plugin.delete|server.about|server.apkLinks|server.storage|server.statistics|server.versionCheck|serverLicense.read|serverLicense.update|serverLicense.delete|session.create|session.read|session.update|session.delete|session.lock|sharedLink.create|sharedLink.read|sharedLink.update|sharedLink.delete|stack.create|stack.read|stack.update|stack.delete|sync.stream|syncCheckpoint.read|syncCheckpoint.update|syncCheckpoint.delete|systemConfig.read|systemConfig.update|systemMetadata.read|systemMetadata.update|tag.create|tag.read|tag.update|tag.delete|tag.asset|user.read|user.update|userLicense.create|userLicense.read|userLicense.update|userLicense.delete|userOnboarding.read|userOnboarding.update|userOnboarding.delete|userPreference.read|userPreference.update|userProfileImage.create|userProfileImage.read|userProfileImage.update|userProfileImage.delete|queue.read|queue.update|queueJob.create|queueJob.read|queueJob.update|queueJob.delete|workflow.create|workflow.read|workflow.update|workflow.delete|adminUser.create|adminUser.read|adminUser.update|adminUser.delete|adminSession.read|adminAuth.unlinkAll]`: List of permissions
+* `--permissions [all|activity.create|activity.read|activity.update|activity.delete|activity.statistics|apiKey.create|apiKey.read|apiKey.update|apiKey.delete|asset.read|asset.update|asset.delete|asset.statistics|asset.share|asset.view|asset.download|asset.upload|asset.copy|asset.derive|asset.edit.get|asset.edit.create|asset.edit.delete|album.create|album.read|album.update|album.delete|album.statistics|album.share|album.download|albumAsset.create|albumAsset.delete|albumUser.create|albumUser.update|albumUser.delete|auth.changePassword|authDevice.delete|archive.read|backup.list|backup.download|backup.upload|backup.delete|duplicate.read|duplicate.delete|face.create|face.read|face.update|face.delete|folder.read|job.create|job.read|library.create|library.read|library.update|library.delete|library.statistics|timeline.read|timeline.download|maintenance|map.read|map.search|memory.create|memory.read|memory.update|memory.delete|memory.statistics|memoryAsset.create|memoryAsset.delete|notification.create|notification.read|notification.update|notification.delete|partner.create|partner.read|partner.update|partner.delete|person.create|person.read|person.update|person.delete|person.statistics|person.merge|person.reassign|pinCode.create|pinCode.update|pinCode.delete|plugin.create|plugin.read|plugin.update|plugin.delete|server.about|server.apkLinks|server.storage|server.statistics|server.versionCheck|serverLicense.read|serverLicense.update|serverLicense.delete|session.create|session.read|session.update|session.delete|session.lock|sharedLink.create|sharedLink.read|sharedLink.update|sharedLink.delete|stack.create|stack.read|stack.update|stack.delete|sync.stream|syncCheckpoint.read|syncCheckpoint.update|syncCheckpoint.delete|systemConfig.read|systemConfig.update|systemMetadata.read|systemMetadata.update|tag.create|tag.read|tag.update|tag.delete|tag.asset|user.read|user.update|userLicense.create|userLicense.read|userLicense.update|userLicense.delete|userOnboarding.read|userOnboarding.update|userOnboarding.delete|userPreference.read|userPreference.update|userProfileImage.create|userProfileImage.read|userProfileImage.update|userProfileImage.delete|queue.read|queue.update|queueJob.create|queueJob.read|queueJob.update|queueJob.delete|workflow.create|workflow.read|workflow.update|workflow.delete|adminUser.create|adminUser.read|adminUser.update|adminUser.delete|adminSession.read|adminAuth.unlinkAll]`: List of permissions
 * `--help`: Show this message and exit.
 
 ## `immichpy activities`
@@ -256,7 +256,7 @@ $ immichpy activities create-activity [OPTIONS]
 * `--album-id UUID`: Album ID  [required]
 * `--asset-id UUID`: Asset ID (if activity is for an asset)
 * `--comment TEXT`: Comment text (required if type is comment)
-* `--type TEXT`: Activity type (like or comment)  [required]
+* `--type TEXT`: Reaction type  [required]
 * `--help`: Show this message and exit.
 
 ### `immichpy activities delete-activity`
@@ -295,8 +295,8 @@ $ immichpy activities get-activities [OPTIONS]
 
 * `--album-id UUID`: Album ID  [required]
 * `--asset-id UUID`: Asset ID (if activity is for an asset)
-* `--level [album|asset]`: Filter by activity level
-* `--type [comment|like]`: Filter by activity type
+* `--level [album|asset]`
+* `--type [comment|like]`
 * `--user-id UUID`: Filter by user ID
 * `--help`: Show this message and exit.
 
@@ -342,6 +342,7 @@ $ immichpy albums [OPTIONS] COMMAND [ARGS]...
 * `create-album`: Create an album
 * `delete-album`: Delete an album
 * `get-album-info`: Retrieve an album
+* `get-album-map-markers`: Retrieve album map markers
 * `get-album-statistics`: Retrieve album statistics
 * `get-all-albums`: List all albums
 * `remove-asset-from-album`: Remove assets from an album
@@ -368,8 +369,6 @@ $ immichpy albums add-assets-to-album [OPTIONS] ID
 **Options**:
 
 * `--ids UUID`: IDs to process  [required]
-* `--key TEXT`
-* `--slug TEXT`
 * `--help`: Show this message and exit.
 
 ### `immichpy albums add-assets-to-albums`
@@ -388,8 +387,6 @@ $ immichpy albums add-assets-to-albums [OPTIONS]
 
 * `--album-ids UUID`: Album IDs  [required]
 * `--asset-ids UUID`: Asset IDs  [required]
-* `--key TEXT`
-* `--slug TEXT`
 * `--help`: Show this message and exit.
 
 ### `immichpy albums add-users-to-album`
@@ -477,7 +474,28 @@ $ immichpy albums get-album-info [OPTIONS] ID
 
 * `--key TEXT`
 * `--slug TEXT`
-* `--without-assets [true|false]`: Exclude assets from response
+* `--help`: Show this message and exit.
+
+### `immichpy albums get-album-map-markers`
+
+Retrieve album map markers
+
+<a href="https://api.immich.app/endpoints/albums/getAlbumMapMarkers">Immich API documentation</a>
+
+**Usage**:
+
+```console
+$ immichpy albums get-album-map-markers [OPTIONS] ID
+```
+
+**Arguments**:
+
+* `ID`: [required]
+
+**Options**:
+
+* `--key TEXT`
+* `--slug TEXT`
 * `--help`: Show this message and exit.
 
 ### `immichpy albums get-album-statistics`
@@ -510,8 +528,11 @@ $ immichpy albums get-all-albums [OPTIONS]
 
 **Options**:
 
-* `--asset-id UUID`: Filter albums containing this asset ID (ignores shared parameter)
-* `--shared [true|false]`: Filter by shared status: true = only shared, false = not shared, undefined = all owned albums
+* `--asset-id UUID`: Filter albums containing this asset ID (ignores other parameters)
+* `--id UUID`: Album ID
+* `--is-owned [true|false]`: Filter by ownership: true = only owned, false = only shared-with-me, undefined = no filter
+* `--is-shared [true|false]`: Filter by shared status: true = only shared, false = not shared, undefined = no filter
+* `--name TEXT`: Album name (exact match)
 * `--help`: Show this message and exit.
 
 ### `immichpy albums remove-asset-from-album`
@@ -622,28 +643,28 @@ $ immichpy assets [OPTIONS] COMMAND [ARGS]...
 **Commands**:
 
 * `check-bulk-upload`: Check bulk upload
-* `check-existing-assets`: Check existing assets
 * `copy-asset`: Copy asset
 * `delete-asset-metadata`: Delete asset metadata by key
 * `delete-assets`: Delete assets
 * `delete-bulk-asset-metadata`: Delete asset metadata
 * `download-asset`: Download original asset
 * `edit-asset`: Apply edits to an existing asset
-* `get-all-user-assets-by-device-id`: Retrieve assets by device ID (DEPRECATED)
+* `end-session`: End HLS streaming session
 * `get-asset-edits`: Retrieve edits for an existing asset
 * `get-asset-info`: Retrieve an asset
 * `get-asset-metadata`: Get asset metadata
 * `get-asset-metadata-by-key`: Retrieve asset metadata by key
 * `get-asset-ocr`: Retrieve asset OCR data
 * `get-asset-statistics`: Get asset statistics
-* `get-random`: Get random assets (DEPRECATED)
+* `get-main-playlist`: Get HLS main playlist
+* `get-media-playlist`: Get HLS media playlist
+* `get-segment`: Get HLS segment or init file
 * `play-asset-video`: Play asset video
 * `remove-asset-edits`: Remove edits from an existing asset
-* `replace-asset`: Replace asset (DEPRECATED)
 * `run-asset-jobs`: Run an asset job
-* `update-asset`: Update an asset
+* `update-asset`: Update an asset (DEPRECATED)
 * `update-asset-metadata`: Update asset metadata
-* `update-assets`: Update assets
+* `update-assets`: Update assets (DEPRECATED)
 * `update-bulk-asset-metadata`: Upsert asset metadata
 * `upload-asset`: Upload asset
 * `view-asset`: View asset thumbnail
@@ -669,24 +690,6 @@ $ immichpy assets check-bulk-upload [OPTIONS]
 * `--assets TEXT`: Assets to check
 
 As a JSON string with keys: checksum (string), id (string)  [required]
-* `--help`: Show this message and exit.
-
-### `immichpy assets check-existing-assets`
-
-Check existing assets
-
-<a href="https://api.immich.app/endpoints/assets/checkExistingAssets">Immich API documentation</a>
-
-**Usage**:
-
-```console
-$ immichpy assets check-existing-assets [OPTIONS]
-```
-
-**Options**:
-
-* `--device-asset-ids TEXT`: Device asset IDs to check  [required]
-* `--device-id TEXT`: Device ID  [required]
 * `--help`: Show this message and exit.
 
 ### `immichpy assets copy-asset`
@@ -816,24 +819,27 @@ $ immichpy assets edit-asset [OPTIONS] ID
 As a JSON string with keys: action (string), parameters (string)  [required]
 * `--help`: Show this message and exit.
 
-### `immichpy assets get-all-user-assets-by-device-id`
+### `immichpy assets end-session`
 
-Retrieve assets by device ID
+End HLS streaming session
 
-<a href="https://api.immich.app/endpoints/assets/getAllUserAssetsByDeviceId">Immich API documentation</a>
+<a href="https://api.immich.app/endpoints/assets/endSession">Immich API documentation</a>
 
 **Usage**:
 
 ```console
-$ immichpy assets get-all-user-assets-by-device-id [OPTIONS] DEVICE_ID
+$ immichpy assets end-session [OPTIONS] ID SESSION_ID
 ```
 
 **Arguments**:
 
-* `DEVICE_ID`: Device ID  [required]
+* `ID`: [required]
+* `SESSION_ID`: [required]
 
 **Options**:
 
+* `--key TEXT`
+* `--slug TEXT`
 * `--help`: Show this message and exit.
 
 ### `immichpy assets get-asset-edits`
@@ -955,24 +961,80 @@ $ immichpy assets get-asset-statistics [OPTIONS]
 
 * `--is-favorite [true|false]`: Filter by favorite status
 * `--is-trashed [true|false]`: Filter by trash status
-* `--visibility [archive|timeline|hidden|locked]`: Filter by visibility
+* `--visibility [archive|timeline|hidden|locked]`
 * `--help`: Show this message and exit.
 
-### `immichpy assets get-random`
+### `immichpy assets get-main-playlist`
 
-Get random assets
+Get HLS main playlist
 
-<a href="https://api.immich.app/endpoints/assets/getRandom">Immich API documentation</a>
+<a href="https://api.immich.app/endpoints/assets/getMainPlaylist">Immich API documentation</a>
 
 **Usage**:
 
 ```console
-$ immichpy assets get-random [OPTIONS]
+$ immichpy assets get-main-playlist [OPTIONS] ID
 ```
+
+**Arguments**:
+
+* `ID`: [required]
 
 **Options**:
 
-* `--count FLOAT RANGE`: Number of random assets to return  [x&gt;=1]
+* `--key TEXT`
+* `--slug TEXT`
+* `--help`: Show this message and exit.
+
+### `immichpy assets get-media-playlist`
+
+Get HLS media playlist
+
+<a href="https://api.immich.app/endpoints/assets/getMediaPlaylist">Immich API documentation</a>
+
+**Usage**:
+
+```console
+$ immichpy assets get-media-playlist [OPTIONS] ID SESSION_ID VARIANT_INDEX
+```
+
+**Arguments**:
+
+* `ID`: [required]
+* `SESSION_ID`: [required]
+* `VARIANT_INDEX`: [required]
+
+**Options**:
+
+* `--key TEXT`
+* `--slug TEXT`
+* `--x-immich-hls-pos FLOAT RANGE`: [x&gt;=0]
+* `--help`: Show this message and exit.
+
+### `immichpy assets get-segment`
+
+Get HLS segment or init file
+
+<a href="https://api.immich.app/endpoints/assets/getSegment">Immich API documentation</a>
+
+**Usage**:
+
+```console
+$ immichpy assets get-segment [OPTIONS] FILENAME ID SESSION_ID VARIANT_INDEX
+```
+
+**Arguments**:
+
+* `FILENAME`: [required]
+* `ID`: [required]
+* `SESSION_ID`: [required]
+* `VARIANT_INDEX`: [required]
+
+**Options**:
+
+* `--key TEXT`
+* `--slug TEXT`
+* `--x-immich-hls-msn INTEGER RANGE`: [0&lt;=x&lt;=9007199254740991]
 * `--help`: Show this message and exit.
 
 ### `immichpy assets play-asset-video`
@@ -1017,35 +1079,6 @@ $ immichpy assets remove-asset-edits [OPTIONS] ID
 
 * `--help`: Show this message and exit.
 
-### `immichpy assets replace-asset`
-
-Replace asset
-
-<a href="https://api.immich.app/endpoints/assets/replaceAsset">Immich API documentation</a>
-
-**Usage**:
-
-```console
-$ immichpy assets replace-asset [OPTIONS] ID
-```
-
-**Arguments**:
-
-* `ID`: [required]
-
-**Options**:
-
-* `--asset-data PATH`: Asset file data  [required]
-* `--device-asset-id TEXT`: Device asset ID  [required]
-* `--device-id TEXT`: Device ID  [required]
-* `--duration TEXT`: Duration (for videos)
-* `--file-created-at [%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S]`: File creation date  [required]
-* `--file-modified-at [%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S]`: File modification date  [required]
-* `--filename TEXT`: Filename
-* `--key TEXT`
-* `--slug TEXT`
-* `--help`: Show this message and exit.
-
 ### `immichpy assets run-asset-jobs`
 
 Run an asset job
@@ -1085,10 +1118,10 @@ $ immichpy assets update-asset [OPTIONS] ID
 * `--date-time-original TEXT`: Original date and time
 * `--description TEXT`: Asset description
 * `--is-favorite [true|false]`: Mark as favorite
-* `--latitude FLOAT`: Latitude coordinate
+* `--latitude FLOAT RANGE`: Latitude coordinate  [-90&lt;=x&lt;=90]
 * `--live-photo-video-id UUID`: Live photo video ID
-* `--longitude FLOAT`: Longitude coordinate
-* `--rating FLOAT RANGE`: Rating in range [1-5], or null for unrated  [-1&lt;=x&lt;=5]
+* `--longitude FLOAT RANGE`: Longitude coordinate  [-180&lt;=x&lt;=180]
+* `--rating INTEGER RANGE`: Rating in range [1-5] (starred), -1 (rejected), or null (unrated)  [-1&lt;=x&lt;=5]
 * `--visibility TEXT`: Asset visibility
 * `--help`: Show this message and exit.
 
@@ -1130,14 +1163,14 @@ $ immichpy assets update-assets [OPTIONS]
 **Options**:
 
 * `--date-time-original TEXT`: Original date and time
-* `--date-time-relative FLOAT`: Relative time offset in seconds
+* `--date-time-relative INTEGER RANGE`: Relative time offset in minutes  [-9007199254740991&lt;=x&lt;=9007199254740991]
 * `--description TEXT`: Asset description
 * `--duplicate-id TEXT`: Duplicate ID
 * `--ids UUID`: Asset IDs to update  [required]
 * `--is-favorite [true|false]`: Mark as favorite
-* `--latitude FLOAT`: Latitude coordinate
-* `--longitude FLOAT`: Longitude coordinate
-* `--rating FLOAT RANGE`: Rating in range [1-5], or null for unrated  [-1&lt;=x&lt;=5]
+* `--latitude FLOAT RANGE`: Latitude coordinate  [-90&lt;=x&lt;=90]
+* `--longitude FLOAT RANGE`: Longitude coordinate  [-180&lt;=x&lt;=180]
+* `--rating INTEGER RANGE`: Rating in range [1-5] (starred), -1 (rejected), or null (unrated)  [-1&lt;=x&lt;=5]
 * `--time-zone TEXT`: Time zone (IANA timezone)
 * `--visibility TEXT`: Asset visibility
 * `--help`: Show this message and exit.
@@ -1176,11 +1209,13 @@ $ immichpy assets upload-asset [OPTIONS]
 **Options**:
 
 * `--asset-data PATH`: Asset file data  [required]
-* `--device-asset-id TEXT`: Device asset ID  [required]
-* `--device-id TEXT`: Device ID  [required]
-* `--duration TEXT`: Duration (for videos)
-* `--file-created-at [%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S]`: File creation date  [required]
-* `--file-modified-at [%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S]`: File modification date  [required]
+* `--duration INTEGER RANGE`: Duration in milliseconds (for videos)  [0&lt;=x&lt;=9007199254740991]
+* `--file-created-at [%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S]`: File creation date
+
+Example: 2024-01-01T00:00:00.000Z  [required]
+* `--file-modified-at [%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S]`: File modification date
+
+Example: 2024-01-01T00:00:00.000Z  [required]
 * `--filename TEXT`: Filename
 * `--is-favorite [true|false]`: Mark as favorite
 * `--key TEXT`
@@ -1214,7 +1249,7 @@ $ immichpy assets view-asset [OPTIONS] ID
 
 * `--edited [true|false]`: Return edited asset if available
 * `--key TEXT`
-* `--size [original|fullsize|preview|thumbnail]`: Asset media size
+* `--size [original|fullsize|preview|thumbnail]`
 * `--slug TEXT`
 * `--help`: Show this message and exit.
 
@@ -1320,6 +1355,7 @@ $ immichpy assets upload [OPTIONS] PATHS...
 * `--include-hidden`: Include hidden files (starting with &#x27;.&#x27;)
 * `--skip-duplicates`: Check for duplicates using SHA1 hashes before uploading
 * `--concurrency INTEGER`: Number of concurrent uploads  [default: 5]
+* `--retries INTEGER`: Max upload attempts per file on transient (5xx/connection) errors. Set to 1 to disable.  [default: 3]
 * `--show-progress`: Show progress bars
 * `--album-name TEXT`: Album name to create or use (if not provided, no album operations are performed)
 * `--delete-uploads`: Delete successfully uploaded files locally
@@ -1353,6 +1389,7 @@ $ immichpy auth [OPTIONS] COMMAND [ARGS]...
 * `lock-auth-session`: Lock auth session
 * `login`: Login
 * `logout`: Logout
+* `logout-o-auth`: Backchannel OAuth logout
 * `redirect-o-auth-to-mobile`: Redirect OAuth to mobile
 * `reset-pin-code`: Reset pin code
 * `setup-pin-code`: Setup pin code
@@ -1399,10 +1436,10 @@ $ immichpy auth change-pin-code [OPTIONS]
 
 **Options**:
 
-* `--new-pin-code TEXT`: New PIN code (4-6 digits)
-
-Example: 123456  [required]
+* `--new-pin-code TEXT`: New PIN code (4-6 digits)  [required]
 * `--password TEXT`: User password (required if PIN code is not provided)
+
+Example: password
 * `--pin-code TEXT`: New PIN code (4-6 digits)
 
 Example: 123456
@@ -1516,6 +1553,23 @@ $ immichpy auth logout [OPTIONS]
 
 * `--help`: Show this message and exit.
 
+### `immichpy auth logout-o-auth`
+
+Backchannel OAuth logout
+
+<a href="https://api.immich.app/endpoints/authentication/logoutOAuth">Immich API documentation</a>
+
+**Usage**:
+
+```console
+$ immichpy auth logout-o-auth [OPTIONS]
+```
+
+**Options**:
+
+* `--logout-token TEXT`: OAuth logout token  [required]
+* `--help`: Show this message and exit.
+
 ### `immichpy auth redirect-o-auth-to-mobile`
 
 Redirect OAuth to mobile
@@ -1547,6 +1601,8 @@ $ immichpy auth reset-pin-code [OPTIONS]
 **Options**:
 
 * `--password TEXT`: User password (required if PIN code is not provided)
+
+Example: password
 * `--pin-code TEXT`: New PIN code (4-6 digits)
 
 Example: 123456
@@ -1646,6 +1702,8 @@ $ immichpy auth unlock-auth-session [OPTIONS]
 **Options**:
 
 * `--password TEXT`: User password (required if PIN code is not provided)
+
+Example: password
 * `--pin-code TEXT`: New PIN code (4-6 digits)
 
 Example: 123456
@@ -1760,7 +1818,7 @@ $ immichpy download get-download-info [OPTIONS]
 **Options**:
 
 * `--album-id UUID`: Album ID to download
-* `--archive-size INTEGER RANGE`: Archive size limit in bytes  [x&gt;=1]
+* `--archive-size INTEGER RANGE`: Archive size limit in bytes  [1&lt;=x&lt;=9007199254740991]
 * `--asset-ids UUID`: Asset IDs to download
 * `--key TEXT`
 * `--slug TEXT`
@@ -1901,14 +1959,14 @@ $ immichpy duplicates [OPTIONS] COMMAND [ARGS]...
 
 **Commands**:
 
-* `delete-duplicate`: Delete a duplicate
+* `delete-duplicate`: Dismiss a duplicate group
 * `delete-duplicates`: Delete duplicates
 * `get-asset-duplicates`: Retrieve duplicates
 * `resolve-duplicates`: Resolve duplicate groups
 
 ### `immichpy duplicates delete-duplicate`
 
-Delete a duplicate
+Dismiss a duplicate group
 
 <a href="https://api.immich.app/endpoints/duplicates/deleteDuplicate">Immich API documentation</a>
 
@@ -1980,7 +2038,7 @@ As a JSON string with keys: duplicateId (string), keepAssetIds (string[]), trash
 
 ## `immichpy faces`
 
-A face is a detected human face within an asset, which can be associated with a person. Faces are normally detected via machine learning, but can also be created via manually.
+A face is a detected human face within an asset, which can be associated with a person. Faces are normally detected via machine learning, but can also be created manually.
 
 <a href="https://api.immich.app/endpoints/faces">Immich API documentation</a>
 
@@ -2016,13 +2074,13 @@ $ immichpy faces create-face [OPTIONS]
 **Options**:
 
 * `--asset-id UUID`: Asset ID  [required]
-* `--height INTEGER`: Face bounding box height  [required]
-* `--image-height INTEGER`: Image height in pixels  [required]
-* `--image-width INTEGER`: Image width in pixels  [required]
+* `--height INTEGER RANGE`: Face bounding box height  [-9007199254740991&lt;=x&lt;=9007199254740991; required]
+* `--image-height INTEGER RANGE`: Image height in pixels  [-9007199254740991&lt;=x&lt;=9007199254740991; required]
+* `--image-width INTEGER RANGE`: Image width in pixels  [-9007199254740991&lt;=x&lt;=9007199254740991; required]
 * `--person-id UUID`: Person ID  [required]
-* `--width INTEGER`: Face bounding box width  [required]
-* `--x INTEGER`: Face bounding box X coordinate  [required]
-* `--y INTEGER`: Face bounding box Y coordinate  [required]
+* `--width INTEGER RANGE`: Face bounding box width  [-9007199254740991&lt;=x&lt;=9007199254740991; required]
+* `--x INTEGER RANGE`: Face bounding box X coordinate  [-9007199254740991&lt;=x&lt;=9007199254740991; required]
+* `--y INTEGER RANGE`: Face bounding box Y coordinate  [-9007199254740991&lt;=x&lt;=9007199254740991; required]
 * `--help`: Show this message and exit.
 
 ### `immichpy faces delete-face`
@@ -2120,7 +2178,7 @@ $ immichpy jobs create-job [OPTIONS]
 
 **Options**:
 
-* `--name TEXT`: Job name  [required]
+* `--name TEXT`: Manual job name  [required]
 * `--help`: Show this message and exit.
 
 ### `immichpy jobs get-queues-legacy`
@@ -2148,12 +2206,12 @@ Run jobs
 **Usage**:
 
 ```console
-$ immichpy jobs run-queue-command-legacy [OPTIONS] NAME:{thumbnailGeneration|metadataExtraction|videoConversion|faceDetection|facialRecognition|smartSearch|duplicateDetection|backgroundTask|storageTemplateMigration|migration|search|sidecar|library|notifications|backupDatabase|ocr|workflow|editor}
+$ immichpy jobs run-queue-command-legacy [OPTIONS] NAME:{thumbnailGeneration|metadataExtraction|videoConversion|faceDetection|facialRecognition|smartSearch|duplicateDetection|backgroundTask|storageTemplateMigration|migration|search|sidecar|library|notifications|backupDatabase|ocr|workflow|integrityCheck|editor}
 ```
 
 **Arguments**:
 
-* `NAME:{thumbnailGeneration|metadataExtraction|videoConversion|faceDetection|facialRecognition|smartSearch|duplicateDetection|backgroundTask|storageTemplateMigration|migration|search|sidecar|library|notifications|backupDatabase|ocr|workflow|editor}`: Queue name  [required]
+* `NAME:{thumbnailGeneration|metadataExtraction|videoConversion|faceDetection|facialRecognition|smartSearch|duplicateDetection|backgroundTask|storageTemplateMigration|migration|search|sidecar|library|notifications|backupDatabase|ocr|workflow|integrityCheck|editor}`: [required]
 
 **Options**:
 
@@ -2185,7 +2243,7 @@ $ immichpy libraries [OPTIONS] COMMAND [ARGS]...
 * `get-library`: Retrieve a library
 * `get-library-statistics`: Retrieve library statistics
 * `scan-library`: Scan a library
-* `update-library`: Update a library
+* `update-library`: Update a library (DEPRECATED)
 * `validate`: Validate library settings
 
 ### `immichpy libraries create-library`
@@ -2367,10 +2425,35 @@ $ immichpy maintenance-admin [OPTIONS] COMMAND [ARGS]...
 
 **Commands**:
 
+* `delete-integrity-report`: Delete integrity report item
 * `detect-prior-install`: Detect existing install
+* `get-integrity-report`: Get integrity report by type
+* `get-integrity-report-csv`: Export integrity report by type as CSV
+* `get-integrity-report-file`: Download flagged file
+* `get-integrity-report-summary`: Get integrity report summary
 * `get-maintenance-status`: Get maintenance mode status
 * `maintenance-login`: Log into maintenance mode
 * `set-maintenance-mode`: Set maintenance mode
+
+### `immichpy maintenance-admin delete-integrity-report`
+
+Delete integrity report item
+
+<a href="https://api.immich.app/endpoints/maintenance-admin/deleteIntegrityReport">Immich API documentation</a>
+
+**Usage**:
+
+```console
+$ immichpy maintenance-admin delete-integrity-report [OPTIONS] ID
+```
+
+**Arguments**:
+
+* `ID`: [required]
+
+**Options**:
+
+* `--help`: Show this message and exit.
 
 ### `immichpy maintenance-admin detect-prior-install`
 
@@ -2382,6 +2465,81 @@ Detect existing install
 
 ```console
 $ immichpy maintenance-admin detect-prior-install [OPTIONS]
+```
+
+**Options**:
+
+* `--help`: Show this message and exit.
+
+### `immichpy maintenance-admin get-integrity-report`
+
+Get integrity report by type
+
+<a href="https://api.immich.app/endpoints/maintenance-admin/getIntegrityReport">Immich API documentation</a>
+
+**Usage**:
+
+```console
+$ immichpy maintenance-admin get-integrity-report [OPTIONS]
+```
+
+**Options**:
+
+* `--cursor TEXT`: Cursor for pagination
+* `--limit INTEGER RANGE`: Number of items per page  [0&lt;=x&lt;=9007199254740991]
+* `--type [untracked_file|missing_file|checksum_mismatch]`: [required]
+* `--help`: Show this message and exit.
+
+### `immichpy maintenance-admin get-integrity-report-csv`
+
+Export integrity report by type as CSV
+
+<a href="https://api.immich.app/endpoints/maintenance-admin/getIntegrityReportCsv">Immich API documentation</a>
+
+**Usage**:
+
+```console
+$ immichpy maintenance-admin get-integrity-report-csv [OPTIONS] TYPE:{untracked_file|missing_file|checksum_mismatch}
+```
+
+**Arguments**:
+
+* `TYPE:{untracked_file|missing_file|checksum_mismatch}`: [required]
+
+**Options**:
+
+* `--help`: Show this message and exit.
+
+### `immichpy maintenance-admin get-integrity-report-file`
+
+Download flagged file
+
+<a href="https://api.immich.app/endpoints/maintenance-admin/getIntegrityReportFile">Immich API documentation</a>
+
+**Usage**:
+
+```console
+$ immichpy maintenance-admin get-integrity-report-file [OPTIONS] ID
+```
+
+**Arguments**:
+
+* `ID`: [required]
+
+**Options**:
+
+* `--help`: Show this message and exit.
+
+### `immichpy maintenance-admin get-integrity-report-summary`
+
+Get integrity report summary
+
+<a href="https://api.immich.app/endpoints/maintenance-admin/getIntegrityReportSummary">Immich API documentation</a>
+
+**Usage**:
+
+```console
+$ immichpy maintenance-admin get-integrity-report-summary [OPTIONS]
 ```
 
 **Options**:
@@ -2475,7 +2633,11 @@ $ immichpy map get-map-markers [OPTIONS]
 **Options**:
 
 * `--file-created-after [%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S]`: Filter assets created after this date
+
+Example: 2024-01-01T00:00:00.000Z
 * `--file-created-before [%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S]`: Filter assets created before this date
+
+Example: 2024-01-01T00:00:00.000Z
 * `--is-archived [true|false]`: Filter by archived status
 * `--is-favorite [true|false]`: Filter by favorite status
 * `--with-partners [true|false]`: Include partner assets
@@ -2525,7 +2687,7 @@ $ immichpy memories [OPTIONS] COMMAND [ARGS]...
 * `memories-statistics`: Retrieve memories statistics
 * `remove-memory-assets`: Remove assets from a memory
 * `search-memories`: Retrieve memories
-* `update-memory`: Update a memory
+* `update-memory`: Update a memory (DEPRECATED)
 
 ### `immichpy memories add-memory-assets`
 
@@ -2563,12 +2725,20 @@ $ immichpy memories create-memory [OPTIONS]
 **Options**:
 
 * `--asset-ids UUID`: Asset IDs to associate with memory
-* `--data-year FLOAT RANGE`: Year for on this day memory  [x&gt;=1; required]
+* `--data-year INTEGER RANGE`: Year for on this day memory  [1000&lt;=x&lt;=9999; required]
 * `--hide-at [%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S]`: Date when memory should be hidden
+
+Example: 2024-01-01T00:00:00.000Z
 * `--is-saved [true|false]`: Is memory saved
-* `--memory-at [%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S]`: Memory date  [required]
+* `--memory-at [%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S]`: Memory date
+
+Example: 2024-01-01T00:00:00.000Z  [required]
 * `--seen-at [%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S]`: Date when memory was seen
+
+Example: 2024-01-01T00:00:00.000Z
 * `--show-at [%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S]`: Date when memory should be shown
+
+Example: 2024-01-01T00:00:00.000Z
 * `--type TEXT`: Memory type  [required]
 * `--help`: Show this message and exit.
 
@@ -2627,11 +2797,13 @@ $ immichpy memories memories-statistics [OPTIONS]
 **Options**:
 
 * `--for [%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S]`: Filter by date
+
+Example: 2024-01-01T00:00:00.000Z
 * `--is-saved [true|false]`: Filter by saved status
 * `--is-trashed [true|false]`: Include trashed memories
-* `--order [asc|desc|random]`: Sort order
-* `--size INTEGER RANGE`: Number of memories to return  [x&gt;=1]
-* `--type [on_this_day]`: Memory type
+* `--order [asc|desc|random]`
+* `--size INTEGER RANGE`: Number of memories to return  [1&lt;=x&lt;=9007199254740991]
+* `--type [on_this_day]`
 * `--help`: Show this message and exit.
 
 ### `immichpy memories remove-memory-assets`
@@ -2670,11 +2842,13 @@ $ immichpy memories search-memories [OPTIONS]
 **Options**:
 
 * `--for [%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S]`: Filter by date
+
+Example: 2024-01-01T00:00:00.000Z
 * `--is-saved [true|false]`: Filter by saved status
 * `--is-trashed [true|false]`: Include trashed memories
-* `--order [asc|desc|random]`: Sort order
-* `--size INTEGER RANGE`: Number of memories to return  [x&gt;=1]
-* `--type [on_this_day]`: Memory type
+* `--order [asc|desc|random]`
+* `--size INTEGER RANGE`: Number of memories to return  [1&lt;=x&lt;=9007199254740991]
+* `--type [on_this_day]`
 * `--help`: Show this message and exit.
 
 ### `immichpy memories update-memory`
@@ -2697,7 +2871,11 @@ $ immichpy memories update-memory [OPTIONS] ID
 
 * `--is-saved [true|false]`: Is memory saved
 * `--memory-at [%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S]`: Memory date
+
+Example: 2024-01-01T00:00:00.000Z
 * `--seen-at [%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S]`: Date when memory was seen
+
+Example: 2024-01-01T00:00:00.000Z
 * `--help`: Show this message and exit.
 
 ## `immichpy notifications`
@@ -2797,8 +2975,8 @@ $ immichpy notifications get-notifications [OPTIONS]
 **Options**:
 
 * `--id UUID`: Filter by notification ID
-* `--level [success|error|warning|info]`: Filter by notification level
-* `--type [JobFailed|BackupFailed|SystemMessage|AlbumInvite|AlbumUpdate|Custom]`: Filter by notification type
+* `--level [success|error|warning|info]`
+* `--type [JobFailed|BackupFailed|SystemMessage|AlbumInvite|AlbumUpdate|Custom]`
 * `--unread [true|false]`: Filter by unread status
 * `--help`: Show this message and exit.
 
@@ -2821,6 +2999,8 @@ $ immichpy notifications update-notification [OPTIONS] ID
 **Options**:
 
 * `--read-at [%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S]`: Date when notification was read
+
+Example: 2024-01-01T00:00:00.000Z
 * `--help`: Show this message and exit.
 
 ### `immichpy notifications update-notifications`
@@ -2839,6 +3019,8 @@ $ immichpy notifications update-notifications [OPTIONS]
 
 * `--ids UUID`: Notification IDs to update  [required]
 * `--read-at [%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S]`: Date when notifications were read
+
+Example: 2024-01-01T00:00:00.000Z
 * `--help`: Show this message and exit.
 
 ## `immichpy notifications-admin`
@@ -2883,6 +3065,8 @@ As a JSON string
 * `--description TEXT`: Notification description
 * `--level TEXT`: Notification level
 * `--read-at [%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S]`: Date when notification was read
+
+Example: 2024-01-01T00:00:00.000Z
 * `--title TEXT`: Notification title  [required]
 * `--type TEXT`: Notification type
 * `--user-id UUID`: User ID to send notification to  [required]
@@ -2929,7 +3113,7 @@ $ immichpy notifications-admin send-test-email-admin [OPTIONS]
 * `--transport-host TEXT`: SMTP server hostname  [required]
 * `--transport-ignore-cert`: Whether to ignore SSL certificate errors  [required]
 * `--transport-password TEXT`: SMTP password  [required]
-* `--transport-port FLOAT RANGE`: SMTP server port  [0&lt;=x&lt;=65535; required]
+* `--transport-port INTEGER RANGE`: SMTP server port  [0&lt;=x&lt;=65535; required]
 * `--transport-secure`: Whether to use secure connection (TLS/SSL)  [required]
 * `--transport-username TEXT`: SMTP username  [required]
 * `--help`: Show this message and exit.
@@ -3009,7 +3193,7 @@ $ immichpy partners get-partners [OPTIONS]
 
 **Options**:
 
-* `--direction [shared-by|shared-with]`: Partner direction  [required]
+* `--direction [shared-by|shared-with]`: [required]
 * `--help`: Show this message and exit.
 
 ### `immichpy partners remove-partner`
@@ -3081,7 +3265,7 @@ $ immichpy people [OPTIONS] COMMAND [ARGS]...
 * `merge-person`: Merge people
 * `reassign-faces`: Reassign faces
 * `update-people`: Update people
-* `update-person`: Update person
+* `update-person`: Update person (DEPRECATED)
 
 ### `immichpy people create-person`
 
@@ -3157,8 +3341,8 @@ $ immichpy people get-all-people [OPTIONS]
 
 * `--closest-asset-id UUID`: Closest asset ID for similarity search
 * `--closest-person-id UUID`: Closest person ID for similarity search
-* `--page FLOAT RANGE`: Page number for pagination  [x&gt;=1]
-* `--size FLOAT RANGE`: Number of items per page  [1&lt;=x&lt;=1000]
+* `--page INTEGER RANGE`: Page number for pagination  [1&lt;=x&lt;=9007199254740991]
+* `--size INTEGER RANGE`: Number of items per page  [1&lt;=x&lt;=1000]
 * `--with-hidden [true|false]`: Include hidden people
 * `--help`: Show this message and exit.
 
@@ -3330,8 +3514,9 @@ $ immichpy plugins [OPTIONS] COMMAND [ARGS]...
 **Commands**:
 
 * `get-plugin`: Retrieve a plugin
-* `get-plugin-triggers`: List all plugin triggers
-* `get-plugins`: List all plugins
+* `search-plugin-methods`: Retrieve plugin methods
+* `search-plugin-templates`: Retrieve workflow templates
+* `search-plugins`: List all plugins
 
 ### `immichpy plugins get-plugin`
 
@@ -3353,36 +3538,67 @@ $ immichpy plugins get-plugin [OPTIONS] ID
 
 * `--help`: Show this message and exit.
 
-### `immichpy plugins get-plugin-triggers`
+### `immichpy plugins search-plugin-methods`
 
-List all plugin triggers
+Retrieve plugin methods
 
-<a href="https://api.immich.app/endpoints/plugins/getPluginTriggers">Immich API documentation</a>
+<a href="https://api.immich.app/endpoints/plugins/searchPluginMethods">Immich API documentation</a>
 
 **Usage**:
 
 ```console
-$ immichpy plugins get-plugin-triggers [OPTIONS]
+$ immichpy plugins search-plugin-methods [OPTIONS]
+```
+
+**Options**:
+
+* `--description TEXT`
+* `--enabled [true|false]`: Whether the plugin method is enabled
+* `--id UUID`: Plugin method ID
+* `--name TEXT`
+* `--plugin-name TEXT`: Plugin name
+* `--plugin-version TEXT`: Plugin version
+* `--title TEXT`
+* `--trigger [AssetCreate|AssetMetadataExtraction]`: Workflow trigger
+* `--type [AssetV1]`: Workflow types
+* `--help`: Show this message and exit.
+
+### `immichpy plugins search-plugin-templates`
+
+Retrieve workflow templates
+
+<a href="https://api.immich.app/endpoints/plugins/searchPluginTemplates">Immich API documentation</a>
+
+**Usage**:
+
+```console
+$ immichpy plugins search-plugin-templates [OPTIONS]
 ```
 
 **Options**:
 
 * `--help`: Show this message and exit.
 
-### `immichpy plugins get-plugins`
+### `immichpy plugins search-plugins`
 
 List all plugins
 
-<a href="https://api.immich.app/endpoints/plugins/getPlugins">Immich API documentation</a>
+<a href="https://api.immich.app/endpoints/plugins/searchPlugins">Immich API documentation</a>
 
 **Usage**:
 
 ```console
-$ immichpy plugins get-plugins [OPTIONS]
+$ immichpy plugins search-plugins [OPTIONS]
 ```
 
 **Options**:
 
+* `--description TEXT`
+* `--enabled [true|false]`: Whether the plugin is enabled
+* `--id UUID`: Plugin ID
+* `--name TEXT`
+* `--title TEXT`
+* `--version TEXT`
 * `--help`: Show this message and exit.
 
 ## `immichpy queues`
@@ -3418,12 +3634,12 @@ Empty a queue
 **Usage**:
 
 ```console
-$ immichpy queues empty-queue [OPTIONS] NAME:{thumbnailGeneration|metadataExtraction|videoConversion|faceDetection|facialRecognition|smartSearch|duplicateDetection|backgroundTask|storageTemplateMigration|migration|search|sidecar|library|notifications|backupDatabase|ocr|workflow|editor}
+$ immichpy queues empty-queue [OPTIONS] NAME:{thumbnailGeneration|metadataExtraction|videoConversion|faceDetection|facialRecognition|smartSearch|duplicateDetection|backgroundTask|storageTemplateMigration|migration|search|sidecar|library|notifications|backupDatabase|ocr|workflow|integrityCheck|editor}
 ```
 
 **Arguments**:
 
-* `NAME:{thumbnailGeneration|metadataExtraction|videoConversion|faceDetection|facialRecognition|smartSearch|duplicateDetection|backgroundTask|storageTemplateMigration|migration|search|sidecar|library|notifications|backupDatabase|ocr|workflow|editor}`: Queue name  [required]
+* `NAME:{thumbnailGeneration|metadataExtraction|videoConversion|faceDetection|facialRecognition|smartSearch|duplicateDetection|backgroundTask|storageTemplateMigration|migration|search|sidecar|library|notifications|backupDatabase|ocr|workflow|integrityCheck|editor}`: [required]
 
 **Options**:
 
@@ -3439,12 +3655,12 @@ Retrieve a queue
 **Usage**:
 
 ```console
-$ immichpy queues get-queue [OPTIONS] NAME:{thumbnailGeneration|metadataExtraction|videoConversion|faceDetection|facialRecognition|smartSearch|duplicateDetection|backgroundTask|storageTemplateMigration|migration|search|sidecar|library|notifications|backupDatabase|ocr|workflow|editor}
+$ immichpy queues get-queue [OPTIONS] NAME:{thumbnailGeneration|metadataExtraction|videoConversion|faceDetection|facialRecognition|smartSearch|duplicateDetection|backgroundTask|storageTemplateMigration|migration|search|sidecar|library|notifications|backupDatabase|ocr|workflow|integrityCheck|editor}
 ```
 
 **Arguments**:
 
-* `NAME:{thumbnailGeneration|metadataExtraction|videoConversion|faceDetection|facialRecognition|smartSearch|duplicateDetection|backgroundTask|storageTemplateMigration|migration|search|sidecar|library|notifications|backupDatabase|ocr|workflow|editor}`: Queue name  [required]
+* `NAME:{thumbnailGeneration|metadataExtraction|videoConversion|faceDetection|facialRecognition|smartSearch|duplicateDetection|backgroundTask|storageTemplateMigration|migration|search|sidecar|library|notifications|backupDatabase|ocr|workflow|integrityCheck|editor}`: [required]
 
 **Options**:
 
@@ -3459,12 +3675,12 @@ Retrieve queue jobs
 **Usage**:
 
 ```console
-$ immichpy queues get-queue-jobs [OPTIONS] NAME:{thumbnailGeneration|metadataExtraction|videoConversion|faceDetection|facialRecognition|smartSearch|duplicateDetection|backgroundTask|storageTemplateMigration|migration|search|sidecar|library|notifications|backupDatabase|ocr|workflow|editor}
+$ immichpy queues get-queue-jobs [OPTIONS] NAME:{thumbnailGeneration|metadataExtraction|videoConversion|faceDetection|facialRecognition|smartSearch|duplicateDetection|backgroundTask|storageTemplateMigration|migration|search|sidecar|library|notifications|backupDatabase|ocr|workflow|integrityCheck|editor}
 ```
 
 **Arguments**:
 
-* `NAME:{thumbnailGeneration|metadataExtraction|videoConversion|faceDetection|facialRecognition|smartSearch|duplicateDetection|backgroundTask|storageTemplateMigration|migration|search|sidecar|library|notifications|backupDatabase|ocr|workflow|editor}`: Queue name  [required]
+* `NAME:{thumbnailGeneration|metadataExtraction|videoConversion|faceDetection|facialRecognition|smartSearch|duplicateDetection|backgroundTask|storageTemplateMigration|migration|search|sidecar|library|notifications|backupDatabase|ocr|workflow|integrityCheck|editor}`: [required]
 
 **Options**:
 
@@ -3496,12 +3712,12 @@ Update a queue
 **Usage**:
 
 ```console
-$ immichpy queues update-queue [OPTIONS] NAME:{thumbnailGeneration|metadataExtraction|videoConversion|faceDetection|facialRecognition|smartSearch|duplicateDetection|backgroundTask|storageTemplateMigration|migration|search|sidecar|library|notifications|backupDatabase|ocr|workflow|editor}
+$ immichpy queues update-queue [OPTIONS] NAME:{thumbnailGeneration|metadataExtraction|videoConversion|faceDetection|facialRecognition|smartSearch|duplicateDetection|backgroundTask|storageTemplateMigration|migration|search|sidecar|library|notifications|backupDatabase|ocr|workflow|integrityCheck|editor}
 ```
 
 **Arguments**:
 
-* `NAME:{thumbnailGeneration|metadataExtraction|videoConversion|faceDetection|facialRecognition|smartSearch|duplicateDetection|backgroundTask|storageTemplateMigration|migration|search|sidecar|library|notifications|backupDatabase|ocr|workflow|editor}`: Queue name  [required]
+* `NAME:{thumbnailGeneration|metadataExtraction|videoConversion|faceDetection|facialRecognition|smartSearch|duplicateDetection|backgroundTask|storageTemplateMigration|migration|search|sidecar|library|notifications|backupDatabase|ocr|workflow|integrityCheck|editor}`: [required]
 
 **Options**:
 
@@ -3589,7 +3805,7 @@ $ immichpy search get-search-suggestions [OPTIONS]
 * `--make TEXT`: Filter by camera make
 * `--model TEXT`: Filter by camera model
 * `--state TEXT`: Filter by state/province
-* `--type [country|state|city|camera-make|camera-model|camera-lens-model]`: Suggestion type  [required]
+* `--type [country|state|city|camera-make|camera-model|camera-lens-model]`: [required]
 * `--help`: Show this message and exit.
 
 ### `immichpy search search-asset-statistics`
@@ -3610,9 +3826,12 @@ $ immichpy search search-asset-statistics [OPTIONS]
 * `--city TEXT`: Filter by city name
 * `--country TEXT`: Filter by country name
 * `--created-after [%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S]`: Filter by creation date (after)
+
+Example: 2024-01-01T00:00:00.000Z
 * `--created-before [%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S]`: Filter by creation date (before)
+
+Example: 2024-01-01T00:00:00.000Z
 * `--description TEXT`: Filter by description text
-* `--device-id TEXT`: Device ID to filter by
 * `--is-encoded [true|false]`: Filter by encoded status
 * `--is-favorite [true|false]`: Filter by favorite status
 * `--is-motion [true|false]`: Filter by motion photo status
@@ -3624,16 +3843,28 @@ $ immichpy search search-asset-statistics [OPTIONS]
 * `--model TEXT`: Filter by camera model
 * `--ocr TEXT`: Filter by OCR text content
 * `--person-ids UUID`: Filter by person IDs
-* `--rating FLOAT RANGE`: Filter by rating [1-5], or null for unrated  [-1&lt;=x&lt;=5]
+* `--rating INTEGER RANGE`: Filter by rating [1-5], or null for unrated  [1&lt;=x&lt;=5]
 * `--state TEXT`: Filter by state/province name
 * `--tag-ids UUID`: Filter by tag IDs
 * `--taken-after [%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S]`: Filter by taken date (after)
+
+Example: 2024-01-01T00:00:00.000Z
 * `--taken-before [%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S]`: Filter by taken date (before)
+
+Example: 2024-01-01T00:00:00.000Z
 * `--trashed-after [%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S]`: Filter by trash date (after)
+
+Example: 2024-01-01T00:00:00.000Z
 * `--trashed-before [%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S]`: Filter by trash date (before)
+
+Example: 2024-01-01T00:00:00.000Z
 * `--type TEXT`: Asset type
 * `--updated-after [%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S]`: Filter by update date (after)
+
+Example: 2024-01-01T00:00:00.000Z
 * `--updated-before [%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S]`: Filter by update date (before)
+
+Example: 2024-01-01T00:00:00.000Z
 * `--visibility TEXT`: Asset visibility
 * `--help`: Show this message and exit.
 
@@ -3656,10 +3887,12 @@ $ immichpy search search-assets [OPTIONS]
 * `--city TEXT`: Filter by city name
 * `--country TEXT`: Filter by country name
 * `--created-after [%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S]`: Filter by creation date (after)
+
+Example: 2024-01-01T00:00:00.000Z
 * `--created-before [%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S]`: Filter by creation date (before)
+
+Example: 2024-01-01T00:00:00.000Z
 * `--description TEXT`: Filter by description text
-* `--device-asset-id TEXT`: Filter by device asset ID
-* `--device-id TEXT`: Device ID to filter by
 * `--encoded-video-path TEXT`: Filter by encoded video file path
 * `--id UUID`: Filter by asset ID
 * `--is-encoded [true|false]`: Filter by encoded status
@@ -3675,21 +3908,33 @@ $ immichpy search search-assets [OPTIONS]
 * `--order TEXT`: Asset sort order
 * `--original-file-name TEXT`: Filter by original file name
 * `--original-path TEXT`: Filter by original file path
-* `--page FLOAT RANGE`: Page number  [x&gt;=1]
+* `--page INTEGER RANGE`: Page number  [1&lt;=x&lt;=9007199254740991]
 * `--person-ids UUID`: Filter by person IDs
 * `--preview-path TEXT`: Filter by preview file path
-* `--rating FLOAT RANGE`: Filter by rating [1-5], or null for unrated  [-1&lt;=x&lt;=5]
-* `--size FLOAT RANGE`: Number of results to return  [1&lt;=x&lt;=1000]
+* `--rating INTEGER RANGE`: Filter by rating [1-5], or null for unrated  [1&lt;=x&lt;=5]
+* `--size INTEGER RANGE`: Number of results to return  [1&lt;=x&lt;=1000]
 * `--state TEXT`: Filter by state/province name
 * `--tag-ids UUID`: Filter by tag IDs
 * `--taken-after [%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S]`: Filter by taken date (after)
+
+Example: 2024-01-01T00:00:00.000Z
 * `--taken-before [%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S]`: Filter by taken date (before)
+
+Example: 2024-01-01T00:00:00.000Z
 * `--thumbnail-path TEXT`: Filter by thumbnail file path
 * `--trashed-after [%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S]`: Filter by trash date (after)
+
+Example: 2024-01-01T00:00:00.000Z
 * `--trashed-before [%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S]`: Filter by trash date (before)
+
+Example: 2024-01-01T00:00:00.000Z
 * `--type TEXT`: Asset type
 * `--updated-after [%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S]`: Filter by update date (after)
+
+Example: 2024-01-01T00:00:00.000Z
 * `--updated-before [%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S]`: Filter by update date (before)
+
+Example: 2024-01-01T00:00:00.000Z
 * `--visibility TEXT`: Asset visibility
 * `--with-deleted [true|false]`: Include deleted assets
 * `--with-exif [true|false]`: Include EXIF data in response
@@ -3715,8 +3960,11 @@ $ immichpy search search-large-assets [OPTIONS]
 * `--city TEXT`: Filter by city name
 * `--country TEXT`: Filter by country name
 * `--created-after [%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S]`: Filter by creation date (after)
+
+Example: 2024-01-01T00:00:00.000Z
 * `--created-before [%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S]`: Filter by creation date (before)
-* `--device-id TEXT`: Device ID to filter by
+
+Example: 2024-01-01T00:00:00.000Z
 * `--is-encoded [true|false]`: Filter by encoded status
 * `--is-favorite [true|false]`: Filter by favorite status
 * `--is-motion [true|false]`: Filter by motion photo status
@@ -3725,22 +3973,34 @@ $ immichpy search search-large-assets [OPTIONS]
 * `--lens-model TEXT`: Filter by lens model
 * `--library-id UUID`: Library ID to filter by
 * `--make TEXT`: Filter by camera make
-* `--min-file-size INTEGER RANGE`: Minimum file size in bytes  [x&gt;=0]
+* `--min-file-size INTEGER RANGE`: Minimum file size in bytes  [0&lt;=x&lt;=9007199254740991]
 * `--model TEXT`: Filter by camera model
 * `--ocr TEXT`: Filter by OCR text content
 * `--person-ids UUID`: Filter by person IDs
-* `--rating FLOAT RANGE`: Filter by rating [1-5], or null for unrated  [-1&lt;=x&lt;=5]
-* `--size FLOAT RANGE`: Number of results to return  [1&lt;=x&lt;=1000]
+* `--rating INTEGER RANGE`: Filter by rating [1-5], or null for unrated  [1&lt;=x&lt;=5]
+* `--size INTEGER RANGE`: Number of results to return  [1&lt;=x&lt;=1000]
 * `--state TEXT`: Filter by state/province name
 * `--tag-ids UUID`: Filter by tag IDs
 * `--taken-after [%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S]`: Filter by taken date (after)
+
+Example: 2024-01-01T00:00:00.000Z
 * `--taken-before [%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S]`: Filter by taken date (before)
+
+Example: 2024-01-01T00:00:00.000Z
 * `--trashed-after [%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S]`: Filter by trash date (after)
+
+Example: 2024-01-01T00:00:00.000Z
 * `--trashed-before [%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S]`: Filter by trash date (before)
-* `--type [IMAGE|VIDEO|AUDIO|OTHER]`: Asset type filter
+
+Example: 2024-01-01T00:00:00.000Z
+* `--type [IMAGE|VIDEO|AUDIO|OTHER]`
 * `--updated-after [%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S]`: Filter by update date (after)
+
+Example: 2024-01-01T00:00:00.000Z
 * `--updated-before [%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S]`: Filter by update date (before)
-* `--visibility [archive|timeline|hidden|locked]`: Filter by visibility
+
+Example: 2024-01-01T00:00:00.000Z
+* `--visibility [archive|timeline|hidden|locked]`
 * `--with-deleted [true|false]`: Include deleted assets
 * `--with-exif [true|false]`: Include EXIF data in response
 * `--help`: Show this message and exit.
@@ -3798,8 +4058,11 @@ $ immichpy search search-random [OPTIONS]
 * `--city TEXT`: Filter by city name
 * `--country TEXT`: Filter by country name
 * `--created-after [%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S]`: Filter by creation date (after)
+
+Example: 2024-01-01T00:00:00.000Z
 * `--created-before [%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S]`: Filter by creation date (before)
-* `--device-id TEXT`: Device ID to filter by
+
+Example: 2024-01-01T00:00:00.000Z
 * `--is-encoded [true|false]`: Filter by encoded status
 * `--is-favorite [true|false]`: Filter by favorite status
 * `--is-motion [true|false]`: Filter by motion photo status
@@ -3811,17 +4074,29 @@ $ immichpy search search-random [OPTIONS]
 * `--model TEXT`: Filter by camera model
 * `--ocr TEXT`: Filter by OCR text content
 * `--person-ids UUID`: Filter by person IDs
-* `--rating FLOAT RANGE`: Filter by rating [1-5], or null for unrated  [-1&lt;=x&lt;=5]
-* `--size FLOAT RANGE`: Number of results to return  [1&lt;=x&lt;=1000]
+* `--rating INTEGER RANGE`: Filter by rating [1-5], or null for unrated  [1&lt;=x&lt;=5]
+* `--size INTEGER RANGE`: Number of results to return  [1&lt;=x&lt;=1000]
 * `--state TEXT`: Filter by state/province name
 * `--tag-ids UUID`: Filter by tag IDs
 * `--taken-after [%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S]`: Filter by taken date (after)
+
+Example: 2024-01-01T00:00:00.000Z
 * `--taken-before [%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S]`: Filter by taken date (before)
+
+Example: 2024-01-01T00:00:00.000Z
 * `--trashed-after [%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S]`: Filter by trash date (after)
+
+Example: 2024-01-01T00:00:00.000Z
 * `--trashed-before [%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S]`: Filter by trash date (before)
+
+Example: 2024-01-01T00:00:00.000Z
 * `--type TEXT`: Asset type
 * `--updated-after [%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S]`: Filter by update date (after)
+
+Example: 2024-01-01T00:00:00.000Z
 * `--updated-before [%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S]`: Filter by update date (before)
+
+Example: 2024-01-01T00:00:00.000Z
 * `--visibility TEXT`: Asset visibility
 * `--with-deleted [true|false]`: Include deleted assets
 * `--with-exif [true|false]`: Include EXIF data in response
@@ -3847,8 +4122,11 @@ $ immichpy search search-smart [OPTIONS]
 * `--city TEXT`: Filter by city name
 * `--country TEXT`: Filter by country name
 * `--created-after [%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S]`: Filter by creation date (after)
+
+Example: 2024-01-01T00:00:00.000Z
 * `--created-before [%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S]`: Filter by creation date (before)
-* `--device-id TEXT`: Device ID to filter by
+
+Example: 2024-01-01T00:00:00.000Z
 * `--is-encoded [true|false]`: Filter by encoded status
 * `--is-favorite [true|false]`: Filter by favorite status
 * `--is-motion [true|false]`: Filter by motion photo status
@@ -3860,21 +4138,33 @@ $ immichpy search search-smart [OPTIONS]
 * `--make TEXT`: Filter by camera make
 * `--model TEXT`: Filter by camera model
 * `--ocr TEXT`: Filter by OCR text content
-* `--page FLOAT RANGE`: Page number  [x&gt;=1]
+* `--page INTEGER RANGE`: Page number  [1&lt;=x&lt;=9007199254740991]
 * `--person-ids UUID`: Filter by person IDs
 * `--query TEXT`: Natural language search query
 * `--query-asset-id UUID`: Asset ID to use as search reference
-* `--rating FLOAT RANGE`: Filter by rating [1-5], or null for unrated  [-1&lt;=x&lt;=5]
-* `--size FLOAT RANGE`: Number of results to return  [1&lt;=x&lt;=1000]
+* `--rating INTEGER RANGE`: Filter by rating [1-5], or null for unrated  [1&lt;=x&lt;=5]
+* `--size INTEGER RANGE`: Number of results to return  [1&lt;=x&lt;=1000]
 * `--state TEXT`: Filter by state/province name
 * `--tag-ids UUID`: Filter by tag IDs
 * `--taken-after [%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S]`: Filter by taken date (after)
+
+Example: 2024-01-01T00:00:00.000Z
 * `--taken-before [%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S]`: Filter by taken date (before)
+
+Example: 2024-01-01T00:00:00.000Z
 * `--trashed-after [%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S]`: Filter by trash date (after)
+
+Example: 2024-01-01T00:00:00.000Z
 * `--trashed-before [%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S]`: Filter by trash date (before)
+
+Example: 2024-01-01T00:00:00.000Z
 * `--type TEXT`: Asset type
 * `--updated-after [%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S]`: Filter by update date (after)
+
+Example: 2024-01-01T00:00:00.000Z
 * `--updated-before [%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S]`: Filter by update date (before)
+
+Example: 2024-01-01T00:00:00.000Z
 * `--visibility TEXT`: Asset visibility
 * `--with-deleted [true|false]`: Include deleted assets
 * `--with-exif [true|false]`: Include EXIF data in response
@@ -3908,7 +4198,6 @@ $ immichpy server [OPTIONS] COMMAND [ARGS]...
 * `get-server-version`: Get server version
 * `get-storage`: Get storage
 * `get-supported-media-types`: Get supported media types
-* `get-theme`: Get theme
 * `get-version-check`: Get version check status
 * `get-version-history`: Get version history
 * `ping-server`: Ping
@@ -4074,22 +4363,6 @@ $ immichpy server get-supported-media-types [OPTIONS]
 
 * `--help`: Show this message and exit.
 
-### `immichpy server get-theme`
-
-Get theme
-
-<a href="https://api.immich.app/endpoints/server/getTheme">Immich API documentation</a>
-
-**Usage**:
-
-```console
-$ immichpy server get-theme [OPTIONS]
-```
-
-**Options**:
-
-* `--help`: Show this message and exit.
-
 ### `immichpy server get-version-check`
 
 Get version check status
@@ -4153,7 +4426,7 @@ $ immichpy server set-server-license [OPTIONS]
 **Options**:
 
 * `--activation-key TEXT`: Activation key  [required]
-* `--license-key TEXT`: License key (format: IM(SV|CL)(-XXXX){8})  [required]
+* `--license-key TEXT`: License key (format: /^IM(SV|CL)(-[\dA-Za-z]{4}){8}$/)  [required]
 * `--help`: Show this message and exit.
 
 ## `immichpy sessions`
@@ -4179,7 +4452,7 @@ $ immichpy sessions [OPTIONS] COMMAND [ARGS]...
 * `delete-session`: Delete a session
 * `get-sessions`: Retrieve sessions
 * `lock-session`: Lock a session
-* `update-session`: Update a session
+* `update-session`: Update a session (DEPRECATED)
 
 ### `immichpy sessions create-session`
 
@@ -4197,7 +4470,7 @@ $ immichpy sessions create-session [OPTIONS]
 
 * `--device-os TEXT`: Device OS
 * `--device-type TEXT`: Device type
-* `--duration FLOAT RANGE`: Session duration in seconds  [x&gt;=1]
+* `--duration INTEGER RANGE`: Session duration in seconds  [1&lt;=x&lt;=9007199254740991]
 * `--help`: Show this message and exit.
 
 ### `immichpy sessions delete-all-sessions`
@@ -4340,8 +4613,6 @@ $ immichpy shared-links add-shared-link-assets [OPTIONS] ID
 **Options**:
 
 * `--asset-ids UUID`: Asset IDs  [required]
-* `--key TEXT`
-* `--slug TEXT`
 * `--help`: Show this message and exit.
 
 ### `immichpy shared-links create-shared-link`
@@ -4364,6 +4635,8 @@ $ immichpy shared-links create-shared-link [OPTIONS]
 * `--asset-ids UUID`: Asset IDs (for individual assets)
 * `--description TEXT`: Link description
 * `--expires-at [%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S]`: Expiration date
+
+Example: 2024-01-01T00:00:00.000Z
 * `--password TEXT`: Link password
 * `--show-metadata [true|false]`: Show metadata
 * `--slug TEXT`: Custom URL slug
@@ -4403,11 +4676,7 @@ $ immichpy shared-links get-my-shared-link [OPTIONS]
 **Options**:
 
 * `--key TEXT`
-* `--password TEXT`: Link password
-
-Example: password
 * `--slug TEXT`
-* `--token TEXT`: Access token
 * `--help`: Show this message and exit.
 
 ### `immichpy shared-links get-shared-link-by-id`
@@ -4512,9 +4781,10 @@ $ immichpy shared-links update-shared-link [OPTIONS] ID
 
 * `--allow-download [true|false]`: Allow downloads
 * `--allow-upload [true|false]`: Allow uploads
-* `--change-expiry-time [true|false]`: Whether to change the expiry time. Few clients cannot send null to set the expiryTime to never. Setting this flag and not sending expiryAt is considered as null instead. Clients that can send null values can ignore this.
 * `--description TEXT`: Link description
 * `--expires-at [%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S]`: Expiration date
+
+Example: 2024-01-01T00:00:00.000Z
 * `--password TEXT`: Link password
 * `--show-metadata [true|false]`: Show metadata
 * `--slug TEXT`: Custom URL slug
@@ -4544,7 +4814,7 @@ $ immichpy stacks [OPTIONS] COMMAND [ARGS]...
 * `get-stack`: Retrieve a stack
 * `remove-asset-from-stack`: Remove an asset from a stack
 * `search-stacks`: Retrieve stacks
-* `update-stack`: Update a stack
+* `update-stack`: Update a stack (DEPRECATED)
 
 ### `immichpy stacks create-stack`
 
@@ -4698,8 +4968,6 @@ $ immichpy sync [OPTIONS] COMMAND [ARGS]...
 **Commands**:
 
 * `delete-sync-ack`: Delete acknowledgements
-* `get-delta-sync`: Get delta sync for user (DEPRECATED)
-* `get-full-sync-for-user`: Get full sync for user (DEPRECATED)
 * `get-sync-ack`: Retrieve acknowledgements
 * `get-sync-stream`: Stream sync changes
 * `send-sync-ack`: Acknowledge changes
@@ -4718,45 +4986,7 @@ $ immichpy sync delete-sync-ack [OPTIONS]
 
 **Options**:
 
-* `--types [AuthUserV1|UserV1|UserDeleteV1|AssetV1|AssetDeleteV1|AssetExifV1|AssetEditV1|AssetEditDeleteV1|AssetMetadataV1|AssetMetadataDeleteV1|PartnerV1|PartnerDeleteV1|PartnerAssetV1|PartnerAssetBackfillV1|PartnerAssetDeleteV1|PartnerAssetExifV1|PartnerAssetExifBackfillV1|PartnerStackBackfillV1|PartnerStackDeleteV1|PartnerStackV1|AlbumV1|AlbumDeleteV1|AlbumUserV1|AlbumUserBackfillV1|AlbumUserDeleteV1|AlbumAssetCreateV1|AlbumAssetUpdateV1|AlbumAssetBackfillV1|AlbumAssetExifCreateV1|AlbumAssetExifUpdateV1|AlbumAssetExifBackfillV1|AlbumToAssetV1|AlbumToAssetDeleteV1|AlbumToAssetBackfillV1|MemoryV1|MemoryDeleteV1|MemoryToAssetV1|MemoryToAssetDeleteV1|StackV1|StackDeleteV1|PersonV1|PersonDeleteV1|AssetFaceV1|AssetFaceV2|AssetFaceDeleteV1|UserMetadataV1|UserMetadataDeleteV1|SyncAckV1|SyncResetV1|SyncCompleteV1]`: Sync entity types to delete acks for
-* `--help`: Show this message and exit.
-
-### `immichpy sync get-delta-sync`
-
-Get delta sync for user
-
-<a href="https://api.immich.app/endpoints/sync/getDeltaSync">Immich API documentation</a>
-
-**Usage**:
-
-```console
-$ immichpy sync get-delta-sync [OPTIONS]
-```
-
-**Options**:
-
-* `--updated-after [%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S]`: Sync assets updated after this date  [required]
-* `--user-ids UUID`: User IDs to sync  [required]
-* `--help`: Show this message and exit.
-
-### `immichpy sync get-full-sync-for-user`
-
-Get full sync for user
-
-<a href="https://api.immich.app/endpoints/sync/getFullSyncForUser">Immich API documentation</a>
-
-**Usage**:
-
-```console
-$ immichpy sync get-full-sync-for-user [OPTIONS]
-```
-
-**Options**:
-
-* `--last-id UUID`: Last asset ID (pagination)
-* `--limit INTEGER RANGE`: Maximum number of assets to return  [x&gt;=1; required]
-* `--updated-until [%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S]`: Sync assets updated until this date  [required]
-* `--user-id UUID`: Filter by user ID
+* `--types [AuthUserV1|UserV1|UserDeleteV1|AssetV1|AssetV2|AssetDeleteV1|AssetExifV1|AssetEditV1|AssetEditDeleteV1|AssetMetadataV1|AssetMetadataDeleteV1|AssetOcrV1|AssetOcrDeleteV1|PartnerV1|PartnerDeleteV1|PartnerAssetV1|PartnerAssetV2|PartnerAssetBackfillV1|PartnerAssetBackfillV2|PartnerAssetDeleteV1|PartnerAssetExifV1|PartnerAssetExifBackfillV1|PartnerStackBackfillV1|PartnerStackDeleteV1|PartnerStackV1|AlbumV1|AlbumV2|AlbumDeleteV1|AlbumUserV1|AlbumUserBackfillV1|AlbumUserDeleteV1|AlbumAssetCreateV1|AlbumAssetCreateV2|AlbumAssetUpdateV1|AlbumAssetUpdateV2|AlbumAssetBackfillV1|AlbumAssetBackfillV2|AlbumAssetExifCreateV1|AlbumAssetExifUpdateV1|AlbumAssetExifBackfillV1|AlbumToAssetV1|AlbumToAssetDeleteV1|AlbumToAssetBackfillV1|MemoryV1|MemoryDeleteV1|MemoryToAssetV1|MemoryToAssetDeleteV1|StackV1|StackDeleteV1|PersonV1|PersonDeleteV1|AssetFaceV1|AssetFaceV2|AssetFaceDeleteV1|UserMetadataV1|UserMetadataDeleteV1|SyncAckV1|SyncResetV1|SyncCompleteV1]`: Sync entity types to delete acks for
 * `--help`: Show this message and exit.
 
 ### `immichpy sync get-sync-ack`
@@ -4790,7 +5020,7 @@ $ immichpy sync get-sync-stream [OPTIONS]
 **Options**:
 
 * `--reset [true|false]`: Reset sync state
-* `--types [AlbumsV1|AlbumUsersV1|AlbumToAssetsV1|AlbumAssetsV1|AlbumAssetExifsV1|AssetsV1|AssetExifsV1|AssetEditsV1|AssetMetadataV1|AuthUsersV1|MemoriesV1|MemoryToAssetsV1|PartnersV1|PartnerAssetsV1|PartnerAssetExifsV1|PartnerStacksV1|StacksV1|UsersV1|PeopleV1|AssetFacesV1|AssetFacesV2|UserMetadataV1]`: Sync request types  [required]
+* `--types [AlbumsV1|AlbumsV2|AlbumUsersV1|AlbumToAssetsV1|AlbumAssetsV1|AlbumAssetsV2|AlbumAssetExifsV1|AssetsV1|AssetsV2|AssetExifsV1|AssetEditsV1|AssetMetadataV1|AssetOcrV1|AuthUsersV1|MemoriesV1|MemoryToAssetsV1|PartnersV1|PartnerAssetsV1|PartnerAssetsV2|PartnerAssetExifsV1|PartnerStacksV1|StacksV1|UsersV1|PeopleV1|AssetFacesV1|AssetFacesV2|UserMetadataV1]`: Sync request types  [required]
 * `--help`: Show this message and exit.
 
 ### `immichpy sync send-sync-ack`
@@ -4897,25 +5127,26 @@ $ immichpy system-config update-config [OPTIONS]
 
 * `--backup-database-cron-expression TEXT`: Cron expression  [required]
 * `--backup-database-enabled`: Enabled  [required]
-* `--backup-database-keep-last-amount FLOAT RANGE`: Keep last amount  [x&gt;=1; required]
+* `--backup-database-keep-last-amount INTEGER RANGE`: Keep last amount  [1&lt;=x&lt;=9007199254740991; required]
 * `--ffmpeg-accel TEXT`: Transcode hardware acceleration  [required]
 * `--ffmpeg-accel-decode`: Accelerated decode  [required]
-* `--ffmpeg-accepted-audio-codecs [mp3|aac|libopus|opus|pcm_s16le]`: Accepted audio codecs  [required]
+* `--ffmpeg-accepted-audio-codecs [mp3|aac|opus|pcm_s16le]`: Accepted audio codecs  [required]
 * `--ffmpeg-accepted-containers [mov|mp4|ogg|webm]`: Accepted containers  [required]
 * `--ffmpeg-accepted-video-codecs [h264|hevc|vp9|av1]`: Accepted video codecs  [required]
 * `--ffmpeg-bframes INTEGER RANGE`: B-frames  [-1&lt;=x&lt;=16; required]
 * `--ffmpeg-cq-mode TEXT`: CQ mode  [required]
 * `--ffmpeg-crf INTEGER RANGE`: CRF  [0&lt;=x&lt;=51; required]
-* `--ffmpeg-gop-size INTEGER RANGE`: GOP size  [x&gt;=0; required]
+* `--ffmpeg-gop-size INTEGER RANGE`: GOP size  [0&lt;=x&lt;=9007199254740991; required]
 * `--ffmpeg-max-bitrate TEXT`: Max bitrate  [required]
 * `--ffmpeg-preferred-hw-device TEXT`: Preferred hardware device  [required]
 * `--ffmpeg-preset TEXT`: Preset  [required]
+* `--ffmpeg-realtime-enabled`: Enable real-time HLS transcoding (alpha)  [required]
 * `--ffmpeg-refs INTEGER RANGE`: References  [0&lt;=x&lt;=6; required]
 * `--ffmpeg-target-audio-codec TEXT`: Target audio codec  [required]
 * `--ffmpeg-target-resolution TEXT`: Target resolution  [required]
 * `--ffmpeg-target-video-codec TEXT`: Target video codec  [required]
 * `--ffmpeg-temporal-aq`: Temporal AQ  [required]
-* `--ffmpeg-threads INTEGER RANGE`: Threads  [x&gt;=0; required]
+* `--ffmpeg-threads INTEGER RANGE`: Threads  [0&lt;=x&lt;=9007199254740991; required]
 * `--ffmpeg-tonemap TEXT`: Tone mapping  [required]
 * `--ffmpeg-transcode TEXT`: Transcode policy  [required]
 * `--ffmpeg-two-pass`: Two pass  [required]
@@ -4926,35 +5157,44 @@ $ immichpy system-config update-config [OPTIONS]
 * `--image-fullsize-progressive [true|false]`: Progressive
 * `--image-fullsize-quality INTEGER RANGE`: Quality  [1&lt;=x&lt;=100; required]
 * `--image-preview-format TEXT`: Image format  [required]
-* `--image-preview-progressive [true|false]`
+* `--image-preview-progressive [true|false]`: Progressive
 * `--image-preview-quality INTEGER RANGE`: Quality  [1&lt;=x&lt;=100; required]
-* `--image-preview-size INTEGER RANGE`: Size  [x&gt;=1; required]
+* `--image-preview-size INTEGER RANGE`: Size  [1&lt;=x&lt;=9007199254740991; required]
 * `--image-thumbnail-format TEXT`: Image format  [required]
-* `--image-thumbnail-progressive [true|false]`
+* `--image-thumbnail-progressive [true|false]`: Progressive
 * `--image-thumbnail-quality INTEGER RANGE`: Quality  [1&lt;=x&lt;=100; required]
-* `--image-thumbnail-size INTEGER RANGE`: Size  [x&gt;=1; required]
-* `--job-background-task-concurrency INTEGER RANGE`: Concurrency  [x&gt;=1; required]
-* `--job-editor-concurrency INTEGER RANGE`: Concurrency  [x&gt;=1; required]
-* `--job-face-detection-concurrency INTEGER RANGE`: Concurrency  [x&gt;=1; required]
-* `--job-library-concurrency INTEGER RANGE`: Concurrency  [x&gt;=1; required]
-* `--job-metadata-extraction-concurrency INTEGER RANGE`: Concurrency  [x&gt;=1; required]
-* `--job-migration-concurrency INTEGER RANGE`: Concurrency  [x&gt;=1; required]
-* `--job-notifications-concurrency INTEGER RANGE`: Concurrency  [x&gt;=1; required]
-* `--job-ocr-concurrency INTEGER RANGE`: Concurrency  [x&gt;=1; required]
-* `--job-search-concurrency INTEGER RANGE`: Concurrency  [x&gt;=1; required]
-* `--job-sidecar-concurrency INTEGER RANGE`: Concurrency  [x&gt;=1; required]
-* `--job-smart-search-concurrency INTEGER RANGE`: Concurrency  [x&gt;=1; required]
-* `--job-thumbnail-generation-concurrency INTEGER RANGE`: Concurrency  [x&gt;=1; required]
-* `--job-video-conversion-concurrency INTEGER RANGE`: Concurrency  [x&gt;=1; required]
-* `--job-workflow-concurrency INTEGER RANGE`: Concurrency  [x&gt;=1; required]
-* `--library-scan-cron-expression TEXT`: [required]
+* `--image-thumbnail-size INTEGER RANGE`: Size  [1&lt;=x&lt;=9007199254740991; required]
+* `--integrity-checks-checksum-files-cron-expression TEXT`: Cron expression for when the integrity check should run  [required]
+* `--integrity-checks-checksum-files-enabled`: Enabled  [required]
+* `--integrity-checks-checksum-files-percentage-limit INTEGER RANGE`: Percentage limit of the integrity checksum job  [0&lt;=x&lt;=9007199254740991; required]
+* `--integrity-checks-checksum-files-time-limit INTEGER RANGE`: How long the integrity checksum job may run for  [0&lt;=x&lt;=9007199254740991; required]
+* `--integrity-checks-missing-files-cron-expression TEXT`: Cron expression for when the integrity check should run  [required]
+* `--integrity-checks-missing-files-enabled`: Enabled  [required]
+* `--integrity-checks-untracked-files-cron-expression TEXT`: Cron expression for when the integrity check should run  [required]
+* `--integrity-checks-untracked-files-enabled`: Enabled  [required]
+* `--job-background-task-concurrency INTEGER RANGE`: Concurrency  [1&lt;=x&lt;=9007199254740991; required]
+* `--job-editor-concurrency INTEGER RANGE`: Concurrency  [1&lt;=x&lt;=9007199254740991; required]
+* `--job-face-detection-concurrency INTEGER RANGE`: Concurrency  [1&lt;=x&lt;=9007199254740991; required]
+* `--job-integrity-check-concurrency INTEGER RANGE`: Concurrency  [1&lt;=x&lt;=9007199254740991; required]
+* `--job-library-concurrency INTEGER RANGE`: Concurrency  [1&lt;=x&lt;=9007199254740991; required]
+* `--job-metadata-extraction-concurrency INTEGER RANGE`: Concurrency  [1&lt;=x&lt;=9007199254740991; required]
+* `--job-migration-concurrency INTEGER RANGE`: Concurrency  [1&lt;=x&lt;=9007199254740991; required]
+* `--job-notifications-concurrency INTEGER RANGE`: Concurrency  [1&lt;=x&lt;=9007199254740991; required]
+* `--job-ocr-concurrency INTEGER RANGE`: Concurrency  [1&lt;=x&lt;=9007199254740991; required]
+* `--job-search-concurrency INTEGER RANGE`: Concurrency  [1&lt;=x&lt;=9007199254740991; required]
+* `--job-sidecar-concurrency INTEGER RANGE`: Concurrency  [1&lt;=x&lt;=9007199254740991; required]
+* `--job-smart-search-concurrency INTEGER RANGE`: Concurrency  [1&lt;=x&lt;=9007199254740991; required]
+* `--job-thumbnail-generation-concurrency INTEGER RANGE`: Concurrency  [1&lt;=x&lt;=9007199254740991; required]
+* `--job-video-conversion-concurrency INTEGER RANGE`: Concurrency  [1&lt;=x&lt;=9007199254740991; required]
+* `--job-workflow-concurrency INTEGER RANGE`: Concurrency  [1&lt;=x&lt;=9007199254740991; required]
+* `--library-scan-cron-expression TEXT`: Cron expression  [required]
 * `--library-scan-enabled`: Enabled  [required]
 * `--library-watch-enabled`: Enabled  [required]
 * `--logging-enabled`: Enabled  [required]
-* `--logging-level TEXT`: [required]
+* `--logging-level TEXT`: Log level  [required]
 * `--machine-learning-availability-checks-enabled`: Enabled  [required]
-* `--machine-learning-availability-checks-interval FLOAT`: [required]
-* `--machine-learning-availability-checks-timeout FLOAT`: [required]
+* `--machine-learning-availability-checks-interval INTEGER RANGE`: [-9007199254740991&lt;=x&lt;=9007199254740991; required]
+* `--machine-learning-availability-checks-timeout INTEGER RANGE`: [-9007199254740991&lt;=x&lt;=9007199254740991; required]
 * `--machine-learning-clip-enabled`: Whether the task is enabled  [required]
 * `--machine-learning-clip-model-name TEXT`: Name of the model to use  [required]
 * `--machine-learning-duplicate-detection-enabled`: Whether the task is enabled  [required]
@@ -4962,25 +5202,26 @@ $ immichpy system-config update-config [OPTIONS]
 * `--machine-learning-enabled`: Enabled  [required]
 * `--machine-learning-facial-recognition-enabled`: Whether the task is enabled  [required]
 * `--machine-learning-facial-recognition-max-distance FLOAT RANGE`: Maximum distance threshold for face recognition  [0.1&lt;=x&lt;=2; required]
-* `--machine-learning-facial-recognition-min-faces INTEGER RANGE`: Minimum number of faces required for recognition  [x&gt;=1; required]
+* `--machine-learning-facial-recognition-min-faces INTEGER RANGE`: Minimum number of faces required for recognition  [1&lt;=x&lt;=9007199254740991; required]
 * `--machine-learning-facial-recognition-min-score FLOAT RANGE`: Minimum confidence score for face detection  [0.1&lt;=x&lt;=1; required]
 * `--machine-learning-facial-recognition-model-name TEXT`: Name of the model to use  [required]
 * `--machine-learning-ocr-enabled`: Whether the task is enabled  [required]
-* `--machine-learning-ocr-max-resolution INTEGER RANGE`: Maximum resolution for OCR processing  [x&gt;=1; required]
+* `--machine-learning-ocr-max-resolution INTEGER RANGE`: Maximum resolution for OCR processing  [1&lt;=x&lt;=9007199254740991; required]
 * `--machine-learning-ocr-min-detection-score FLOAT RANGE`: Minimum confidence score for text detection  [0.1&lt;=x&lt;=1; required]
 * `--machine-learning-ocr-min-recognition-score FLOAT RANGE`: Minimum confidence score for text recognition  [0.1&lt;=x&lt;=1; required]
 * `--machine-learning-ocr-model-name TEXT`: Name of the model to use  [required]
-* `--machine-learning-urls TEXT`: [required]
-* `--map-dark-style TEXT`: [required]
+* `--machine-learning-urls TEXT`: ML service URLs  [required]
+* `--map-dark-style TEXT`: Dark map style URL  [required]
 * `--map-enabled`: Enabled  [required]
-* `--map-light-style TEXT`: [required]
+* `--map-light-style TEXT`: Light map style URL  [required]
 * `--metadata-faces-import`: Import  [required]
+* `--new-version-check-channel TEXT`: Release channel  [required]
 * `--new-version-check-enabled`: Enabled  [required]
 * `--nightly-tasks-cluster-new-faces`: Cluster new faces  [required]
 * `--nightly-tasks-database-cleanup`: Database cleanup  [required]
 * `--nightly-tasks-generate-memories`: Generate memories  [required]
 * `--nightly-tasks-missing-thumbnails`: Missing thumbnails  [required]
-* `--nightly-tasks-start-time TEXT`: [required]
+* `--nightly-tasks-start-time TEXT`: Start time (HH:MM)  [required]
 * `--nightly-tasks-sync-quota-usage`: Sync quota usage  [required]
 * `--notifications-smtp-enabled`: Whether SMTP email notifications are enabled  [required]
 * `--notifications-smtp-from TEXT`: Email address to send from  [required]
@@ -4988,27 +5229,30 @@ $ immichpy system-config update-config [OPTIONS]
 * `--notifications-smtp-transport-host TEXT`: SMTP server hostname  [required]
 * `--notifications-smtp-transport-ignore-cert`: Whether to ignore SSL certificate errors  [required]
 * `--notifications-smtp-transport-password TEXT`: SMTP password  [required]
-* `--notifications-smtp-transport-port FLOAT RANGE`: SMTP server port  [0&lt;=x&lt;=65535; required]
+* `--notifications-smtp-transport-port INTEGER RANGE`: SMTP server port  [0&lt;=x&lt;=65535; required]
 * `--notifications-smtp-transport-secure`: Whether to use secure connection (TLS/SSL)  [required]
 * `--notifications-smtp-transport-username TEXT`: SMTP username  [required]
+* `--oauth-allow-insecure-requests`: Allow insecure requests  [required]
 * `--oauth-auto-launch`: Auto launch  [required]
 * `--oauth-auto-register`: Auto register  [required]
 * `--oauth-button-text TEXT`: Button text  [required]
 * `--oauth-client-id TEXT`: Client ID  [required]
 * `--oauth-client-secret TEXT`: Client secret  [required]
-* `--oauth-default-storage-quota INTEGER RANGE`: Default storage quota  [x&gt;=0; required]
+* `--oauth-default-storage-quota INTEGER RANGE`: Default storage quota  [0&lt;=x&lt;=9007199254740991; required]
 * `--oauth-enabled`: Enabled  [required]
+* `--oauth-end-session-endpoint TEXT`: End session endpoint  [required]
 * `--oauth-issuer-url TEXT`: Issuer URL  [required]
 * `--oauth-mobile-override-enabled`: Mobile override enabled  [required]
-* `--oauth-mobile-redirect-uri TEXT`: Mobile redirect URI  [required]
+* `--oauth-mobile-redirect-uri TEXT`: Mobile redirect URI (set to empty string to disable)  [required]
 * `--oauth-profile-signing-algorithm TEXT`: Profile signing algorithm  [required]
+* `--oauth-prompt TEXT`: OAuth prompt parameter (e.g. select_account, login, consent)  [required]
 * `--oauth-role-claim TEXT`: Role claim  [required]
 * `--oauth-scope TEXT`: Scope  [required]
-* `--oauth-signing-algorithm TEXT`: [required]
+* `--oauth-signing-algorithm TEXT`: Signing algorithm  [required]
 * `--oauth-storage-label-claim TEXT`: Storage label claim  [required]
 * `--oauth-storage-quota-claim TEXT`: Storage quota claim  [required]
-* `--oauth-timeout INTEGER RANGE`: Timeout  [x&gt;=1; required]
-* `--oauth-token-endpoint-auth-method TEXT`: Token endpoint auth method  [required]
+* `--oauth-timeout INTEGER RANGE`: Timeout  [1&lt;=x&lt;=9007199254740991; required]
+* `--oauth-token-endpoint-auth-method TEXT`: OAuth token endpoint auth method  [required]
 * `--password-login-enabled`: Enabled  [required]
 * `--reverse-geocoding-enabled`: Enabled  [required]
 * `--server-external-domain TEXT`: External domain  [required]
@@ -5017,13 +5261,13 @@ $ immichpy system-config update-config [OPTIONS]
 * `--storage-template-enabled`: Enabled  [required]
 * `--storage-template-hash-verification-enabled`: Hash verification enabled  [required]
 * `--storage-template-template TEXT`: Template  [required]
-* `--templates-email-album-invite-template TEXT`: [required]
-* `--templates-email-album-update-template TEXT`: [required]
-* `--templates-email-welcome-template TEXT`: [required]
+* `--templates-email-album-invite-template TEXT`: Album invite template  [required]
+* `--templates-email-album-update-template TEXT`: Album update template  [required]
+* `--templates-email-welcome-template TEXT`: Welcome template  [required]
 * `--theme-custom-css TEXT`: Custom CSS for theming  [required]
-* `--trash-days INTEGER RANGE`: Days  [x&gt;=0; required]
+* `--trash-days INTEGER RANGE`: Days  [0&lt;=x&lt;=9007199254740991; required]
 * `--trash-enabled`: Enabled  [required]
-* `--user-delete-delay INTEGER RANGE`: Delete delay  [x&gt;=1; required]
+* `--user-delete-delay INTEGER RANGE`: Delete delay  [1&lt;=x&lt;=9007199254740991; required]
 * `--help`: Show this message and exit.
 
 ## `immichpy system-metadata`
@@ -5139,7 +5383,7 @@ $ immichpy tags [OPTIONS] COMMAND [ARGS]...
 * `get-tag-by-id`: Retrieve a tag
 * `tag-assets`: Tag assets
 * `untag-assets`: Untag assets
-* `update-tag`: Update a tag
+* `update-tag`: Update a tag (DEPRECATED)
 * `upsert-tags`: Upsert tags
 
 ### `immichpy tags bulk-tag-assets`
@@ -5358,10 +5602,11 @@ Example: 11.075683,49.416711,11.117589,49.454875
 * `--is-trashed [true|false]`: Filter by trash status (true for trashed assets only, false for non-trashed only)
 * `--key TEXT`
 * `--order [asc|desc]`: Sort order for assets within time buckets (ASC for oldest first, DESC for newest first)
+* `--order-by [takenAt|createdAt]`: Date to group and order assets by (takenAt for date taken, createdAt for date added to Immich)
 * `--person-id UUID`: Filter assets containing a specific person (face recognition)
 * `--slug TEXT`
 * `--tag-id UUID`: Filter assets with a specific tag
-* `--time-bucket TEXT`: Time bucket identifier in YYYY-MM-DD format (e.g., &quot;2024-01-01&quot; for January 2024)
+* `--time-bucket TEXT`: Time bucket identifier in YYYY-MM-DD format
 
 Example: 2024-01-01  [required]
 * `--user-id UUID`: Filter assets by specific user ID
@@ -5393,6 +5638,7 @@ Example: 11.075683,49.416711,11.117589,49.454875
 * `--is-trashed [true|false]`: Filter by trash status (true for trashed assets only, false for non-trashed only)
 * `--key TEXT`
 * `--order [asc|desc]`: Sort order for assets within time buckets (ASC for oldest first, DESC for newest first)
+* `--order-by [takenAt|createdAt]`: Date to group and order assets by (takenAt for date taken, createdAt for date added to Immich)
 * `--person-id UUID`: Filter assets containing a specific person (face recognition)
 * `--slug TEXT`
 * `--tag-id UUID`: Filter assets with a specific tag
@@ -5496,6 +5742,7 @@ $ immichpy users [OPTIONS] COMMAND [ARGS]...
 * `delete-profile-image`: Delete user profile image
 * `delete-user-license`: Delete user product key
 * `delete-user-onboarding`: Delete user onboarding
+* `get-my-calendar-heatmap`: Retrieve calendar heatmap activity
 * `get-my-preferences`: Get my preferences
 * `get-my-user`: Get current user
 * `get-profile-image`: Retrieve user profile image
@@ -5505,8 +5752,8 @@ $ immichpy users [OPTIONS] COMMAND [ARGS]...
 * `search-users`: Get all users
 * `set-user-license`: Set user product key
 * `set-user-onboarding`: Update user onboarding
-* `update-my-preferences`: Update my preferences
-* `update-my-user`: Update current user
+* `update-my-preferences`: Update my preferences (DEPRECATED)
+* `update-my-user`: Update current user (DEPRECATED)
 * `get-profile-image-to-file`: Download a user&#x27;s profile image and save...
 
 ### `immichpy users create-profile-image`
@@ -5572,6 +5819,29 @@ $ immichpy users delete-user-onboarding [OPTIONS]
 
 **Options**:
 
+* `--help`: Show this message and exit.
+
+### `immichpy users get-my-calendar-heatmap`
+
+Retrieve calendar heatmap activity
+
+<a href="https://api.immich.app/endpoints/users/getMyCalendarHeatmap">Immich API documentation</a>
+
+**Usage**:
+
+```console
+$ immichpy users get-my-calendar-heatmap [OPTIONS]
+```
+
+**Options**:
+
+* `--from TEXT`: Start date in UTC
+
+Example: 2024-01-01
+* `--to TEXT`: End date in UTC
+
+Example: 2024-01-01
+* `--type [Upload|Taken]`
 * `--help`: Show this message and exit.
 
 ### `immichpy users get-my-preferences`
@@ -5709,7 +5979,7 @@ $ immichpy users set-user-license [OPTIONS]
 **Options**:
 
 * `--activation-key TEXT`: Activation key  [required]
-* `--license-key TEXT`: License key (format: IM(SV|CL)(-XXXX){8})  [required]
+* `--license-key TEXT`: License key (format: /^IM(SV|CL)(-[\dA-Za-z]{4}){8}$/)  [required]
 * `--help`: Show this message and exit.
 
 ### `immichpy users set-user-onboarding`
@@ -5744,18 +6014,19 @@ $ immichpy users update-my-preferences [OPTIONS]
 **Options**:
 
 * `--albums-default-asset-order TEXT`: Asset sort order
-* `--avatar-color TEXT`: Avatar color
+* `--avatar-color TEXT`: User avatar color
 * `--cast-g-cast-enabled [true|false]`: Whether Google Cast is enabled
-* `--download-archive-size INTEGER RANGE`: Maximum archive size in bytes  [x&gt;=1]
+* `--download-archive-size INTEGER RANGE`: Maximum archive size in bytes  [1&lt;=x&lt;=9007199254740991]
 * `--download-include-embedded-videos [true|false]`: Whether to include embedded videos in downloads
 * `--email-notifications-album-invite [true|false]`: Whether to receive email notifications for album invites
 * `--email-notifications-album-update [true|false]`: Whether to receive email notifications for album updates
 * `--email-notifications-enabled [true|false]`: Whether email notifications are enabled
 * `--folders-enabled [true|false]`: Whether folders are enabled
 * `--folders-sidebar-web [true|false]`: Whether folders appear in web sidebar
-* `--memories-duration INTEGER RANGE`: Memory duration in seconds  [x&gt;=1]
+* `--memories-duration INTEGER RANGE`: Memory duration in seconds  [1&lt;=x&lt;=9007199254740991]
 * `--memories-enabled [true|false]`: Whether memories are enabled
 * `--people-enabled [true|false]`: Whether people are enabled
+* `--people-minimum-faces INTEGER RANGE`: People face threshold  [1&lt;=x&lt;=9007199254740991]
 * `--people-sidebar-web [true|false]`: Whether people appear in web sidebar
 * `--purchase-hide-buy-button-until TEXT`: Date until which to hide buy button
 * `--purchase-show-support-badge [true|false]`: Whether to show support badge
@@ -5780,7 +6051,7 @@ $ immichpy users update-my-user [OPTIONS]
 
 **Options**:
 
-* `--avatar-color TEXT`: Avatar color
+* `--avatar-color TEXT`: User avatar color
 * `--email TEXT`: User email
 * `--name TEXT`: User name
 * `--password TEXT`: User password (deprecated, use change password endpoint)
@@ -5831,13 +6102,14 @@ $ immichpy users-admin [OPTIONS] COMMAND [ARGS]...
 * `create-user-admin`: Create a user
 * `delete-user-admin`: Delete a user
 * `get-user-admin`: Retrieve a user
+* `get-user-calendar-heatmap-admin`: Retrieve calendar heatmap activity
 * `get-user-preferences-admin`: Retrieve user preferences
 * `get-user-sessions-admin`: Retrieve user sessions
 * `get-user-statistics-admin`: Retrieve user statistics
 * `restore-user-admin`: Restore a deleted user
 * `search-users-admin`: Search users
-* `update-user-admin`: Update a user
-* `update-user-preferences-admin`: Update user preferences
+* `update-user-admin`: Update a user (DEPRECATED)
+* `update-user-preferences-admin`: Update user preferences (DEPRECATED)
 
 ### `immichpy users-admin create-user-admin`
 
@@ -5853,7 +6125,7 @@ $ immichpy users-admin create-user-admin [OPTIONS]
 
 **Options**:
 
-* `--avatar-color TEXT`: Avatar color
+* `--avatar-color TEXT`: User avatar color
 * `--email TEXT`: User email  [required]
 * `--is-admin [true|false]`: Grant admin privileges
 * `--name TEXT`: User name  [required]
@@ -5862,7 +6134,7 @@ $ immichpy users-admin create-user-admin [OPTIONS]
 * `--pin-code TEXT`: PIN code
 
 Example: 123456
-* `--quota-size-in-bytes INTEGER RANGE`: Storage quota in bytes  [x&gt;=0]
+* `--quota-size-in-bytes INTEGER RANGE`: Storage quota in bytes  [0&lt;=x&lt;=9007199254740991]
 * `--should-change-password [true|false]`: Require password change on next login
 * `--storage-label TEXT`: Storage label
 * `--help`: Show this message and exit.
@@ -5906,6 +6178,33 @@ $ immichpy users-admin get-user-admin [OPTIONS] ID
 
 **Options**:
 
+* `--help`: Show this message and exit.
+
+### `immichpy users-admin get-user-calendar-heatmap-admin`
+
+Retrieve calendar heatmap activity
+
+<a href="https://api.immich.app/endpoints/users-admin/getUserCalendarHeatmapAdmin">Immich API documentation</a>
+
+**Usage**:
+
+```console
+$ immichpy users-admin get-user-calendar-heatmap-admin [OPTIONS] ID
+```
+
+**Arguments**:
+
+* `ID`: [required]
+
+**Options**:
+
+* `--from TEXT`: Start date in UTC
+
+Example: 2024-01-01
+* `--to TEXT`: End date in UTC
+
+Example: 2024-01-01
+* `--type [Upload|Taken]`
 * `--help`: Show this message and exit.
 
 ### `immichpy users-admin get-user-preferences-admin`
@@ -5968,7 +6267,7 @@ $ immichpy users-admin get-user-statistics-admin [OPTIONS] ID
 
 * `--is-favorite [true|false]`: Filter by favorite status
 * `--is-trashed [true|false]`: Filter by trash status
-* `--visibility [archive|timeline|hidden|locked]`: Filter by visibility
+* `--visibility [archive|timeline|hidden|locked]`
 * `--help`: Show this message and exit.
 
 ### `immichpy users-admin restore-user-admin`
@@ -6027,7 +6326,7 @@ $ immichpy users-admin update-user-admin [OPTIONS] ID
 
 **Options**:
 
-* `--avatar-color TEXT`: Avatar color
+* `--avatar-color TEXT`: User avatar color
 * `--email TEXT`: User email
 * `--is-admin [true|false]`: Grant admin privileges
 * `--name TEXT`: User name
@@ -6035,7 +6334,7 @@ $ immichpy users-admin update-user-admin [OPTIONS] ID
 * `--pin-code TEXT`: PIN code
 
 Example: 123456
-* `--quota-size-in-bytes INTEGER RANGE`: Storage quota in bytes  [x&gt;=0]
+* `--quota-size-in-bytes INTEGER RANGE`: Storage quota in bytes  [0&lt;=x&lt;=9007199254740991]
 * `--should-change-password [true|false]`: Require password change on next login
 * `--storage-label TEXT`: Storage label
 * `--help`: Show this message and exit.
@@ -6059,18 +6358,19 @@ $ immichpy users-admin update-user-preferences-admin [OPTIONS] ID
 **Options**:
 
 * `--albums-default-asset-order TEXT`: Asset sort order
-* `--avatar-color TEXT`: Avatar color
+* `--avatar-color TEXT`: User avatar color
 * `--cast-g-cast-enabled [true|false]`: Whether Google Cast is enabled
-* `--download-archive-size INTEGER RANGE`: Maximum archive size in bytes  [x&gt;=1]
+* `--download-archive-size INTEGER RANGE`: Maximum archive size in bytes  [1&lt;=x&lt;=9007199254740991]
 * `--download-include-embedded-videos [true|false]`: Whether to include embedded videos in downloads
 * `--email-notifications-album-invite [true|false]`: Whether to receive email notifications for album invites
 * `--email-notifications-album-update [true|false]`: Whether to receive email notifications for album updates
 * `--email-notifications-enabled [true|false]`: Whether email notifications are enabled
 * `--folders-enabled [true|false]`: Whether folders are enabled
 * `--folders-sidebar-web [true|false]`: Whether folders appear in web sidebar
-* `--memories-duration INTEGER RANGE`: Memory duration in seconds  [x&gt;=1]
+* `--memories-duration INTEGER RANGE`: Memory duration in seconds  [1&lt;=x&lt;=9007199254740991]
 * `--memories-enabled [true|false]`: Whether memories are enabled
 * `--people-enabled [true|false]`: Whether people are enabled
+* `--people-minimum-faces INTEGER RANGE`: People face threshold  [1&lt;=x&lt;=9007199254740991]
 * `--people-sidebar-web [true|false]`: Whether people appear in web sidebar
 * `--purchase-hide-buy-button-until TEXT`: Date until which to hide buy button
 * `--purchase-show-support-badge [true|false]`: Whether to show support badge
@@ -6156,8 +6456,10 @@ $ immichpy workflows [OPTIONS] COMMAND [ARGS]...
 * `create-workflow`: Create a workflow
 * `delete-workflow`: Delete a workflow
 * `get-workflow`: Retrieve a workflow
-* `get-workflows`: List all workflows
-* `update-workflow`: Update a workflow
+* `get-workflow-for-share`: Retrieve a workflow
+* `get-workflow-triggers`: List all workflow triggers
+* `search-workflows`: List all workflows
+* `update-workflow`: Update a workflow (DEPRECATED)
 
 ### `immichpy workflows create-workflow`
 
@@ -6173,16 +6475,11 @@ $ immichpy workflows create-workflow [OPTIONS]
 
 **Options**:
 
-* `--actions TEXT`: Workflow actions
-
-As a JSON string with keys: actionConfig (object), pluginActionId (string)  [required]
 * `--description TEXT`: Workflow description
 * `--enabled [true|false]`: Workflow enabled
-* `--filters TEXT`: Workflow filters
-
-As a JSON string with keys: filterConfig (object), pluginFilterId (string)  [required]
-* `--name TEXT`: Workflow name  [required]
-* `--trigger-type TEXT`: Trigger type  [required]
+* `--name TEXT`: Workflow name
+* `--steps TEXT`: As a JSON string with keys: config (object), enabled (boolean), method (string)
+* `--trigger TEXT`: Plugin trigger type  [required]
 * `--help`: Show this message and exit.
 
 ### `immichpy workflows delete-workflow`
@@ -6225,20 +6522,61 @@ $ immichpy workflows get-workflow [OPTIONS] ID
 
 * `--help`: Show this message and exit.
 
-### `immichpy workflows get-workflows`
+### `immichpy workflows get-workflow-for-share`
 
-List all workflows
+Retrieve a workflow
 
-<a href="https://api.immich.app/endpoints/workflows/getWorkflows">Immich API documentation</a>
+<a href="https://api.immich.app/endpoints/workflows/getWorkflowForShare">Immich API documentation</a>
 
 **Usage**:
 
 ```console
-$ immichpy workflows get-workflows [OPTIONS]
+$ immichpy workflows get-workflow-for-share [OPTIONS] ID
+```
+
+**Arguments**:
+
+* `ID`: [required]
+
+**Options**:
+
+* `--help`: Show this message and exit.
+
+### `immichpy workflows get-workflow-triggers`
+
+List all workflow triggers
+
+<a href="https://api.immich.app/endpoints/workflows/getWorkflowTriggers">Immich API documentation</a>
+
+**Usage**:
+
+```console
+$ immichpy workflows get-workflow-triggers [OPTIONS]
 ```
 
 **Options**:
 
+* `--help`: Show this message and exit.
+
+### `immichpy workflows search-workflows`
+
+List all workflows
+
+<a href="https://api.immich.app/endpoints/workflows/searchWorkflows">Immich API documentation</a>
+
+**Usage**:
+
+```console
+$ immichpy workflows search-workflows [OPTIONS]
+```
+
+**Options**:
+
+* `--description TEXT`: Workflow description
+* `--enabled [true|false]`: Workflow enabled
+* `--id UUID`: Workflow ID
+* `--name TEXT`: Workflow name
+* `--trigger [AssetCreate|AssetMetadataExtraction]`: Workflow trigger type
 * `--help`: Show this message and exit.
 
 ### `immichpy workflows update-workflow`
@@ -6259,16 +6597,11 @@ $ immichpy workflows update-workflow [OPTIONS] ID
 
 **Options**:
 
-* `--actions TEXT`: Workflow actions
-
-As a JSON string with keys: actionConfig (object), pluginActionId (string)
 * `--description TEXT`: Workflow description
 * `--enabled [true|false]`: Workflow enabled
-* `--filters TEXT`: Workflow filters
-
-As a JSON string with keys: filterConfig (object), pluginFilterId (string)
 * `--name TEXT`: Workflow name
-* `--trigger-type TEXT`: Trigger type
+* `--steps TEXT`: As a JSON string with keys: config (object), enabled (boolean), method (string)
+* `--trigger TEXT`: Plugin trigger type
 * `--help`: Show this message and exit.
 
 ## `immichpy backups`
@@ -6309,7 +6642,7 @@ $ immichpy backups delete-database-backup [OPTIONS]
 
 **Options**:
 
-* `--backups TEXT`: [required]
+* `--backups TEXT`: Backup filenames to delete  [required]
 * `--help`: Show this message and exit.
 
 ### `immichpy backups download-database-backup`
@@ -6378,5 +6711,5 @@ $ immichpy backups upload-database-backup [OPTIONS]
 
 **Options**:
 
-* `--file PATH`
+* `--file PATH`: Database backup file
 * `--help`: Show this message and exit.

@@ -34,7 +34,7 @@ def create_api_key(
     if name is not None:
         set_nested(json_data, ["name"], name)
     set_nested(json_data, ["permissions"], permissions)
-    api_key_create_dto = APIKeyCreateDto.model_validate(json_data)
+    api_key_create_dto = ApiKeyCreateDto.model_validate(json_data)
     kwargs["api_key_create_dto"] = api_key_create_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.api_keys.create_api_key, ctx=ctx, **kwargs)
@@ -101,7 +101,7 @@ def get_my_api_key(
     print_response(result, ctx)
 
 
-@app.command("update-api-key", deprecated=False, rich_help_panel="API commands")
+@app.command("update-api-key", deprecated=True, rich_help_panel="API commands")
 def update_api_key(
     ctx: typer.Context,
     id: UUID = typer.Argument(..., help=""""""),
@@ -121,7 +121,7 @@ def update_api_key(
         set_nested(json_data, ["name"], name)
     if permissions is not None:
         set_nested(json_data, ["permissions"], permissions)
-    api_key_update_dto = APIKeyUpdateDto.model_validate(json_data)
+    api_key_update_dto = ApiKeyUpdateDto.model_validate(json_data)
     kwargs["api_key_update_dto"] = api_key_update_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.api_keys.update_api_key, ctx=ctx, **kwargs)

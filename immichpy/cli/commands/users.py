@@ -80,6 +80,43 @@ def delete_user_onboarding(
     print_response(result, ctx)
 
 
+@app.command(
+    "get-my-calendar-heatmap", deprecated=False, rich_help_panel="API commands"
+)
+def get_my_calendar_heatmap(
+    ctx: typer.Context,
+    from_: str | None = typer.Option(
+        None,
+        "--from",
+        help="""Start date in UTC
+
+Example: 2024-01-01""",
+    ),
+    to: str | None = typer.Option(
+        None,
+        "--to",
+        help="""End date in UTC
+
+Example: 2024-01-01""",
+    ),
+    type: CalendarHeatmapType | None = typer.Option(None, "--type", help=""""""),
+) -> None:
+    """Retrieve calendar heatmap activity
+
+    [link=https://api.immich.app/endpoints/users/getMyCalendarHeatmap]Immich API documentation[/link]
+    """
+    kwargs = {}
+    if from_ is not None:
+        kwargs["from_"] = from_
+    if to is not None:
+        kwargs["to"] = to
+    if type is not None:
+        kwargs["type"] = type
+    client: "AsyncClient" = ctx.obj["client"]
+    result = run_command(client.users.get_my_calendar_heatmap, ctx=ctx, **kwargs)
+    print_response(result, ctx)
+
+
 @app.command("get-my-preferences", deprecated=False, rich_help_panel="API commands")
 def get_my_preferences(
     ctx: typer.Context,
@@ -189,7 +226,9 @@ def set_user_license(
         ..., "--activation-key", help="""Activation key"""
     ),
     license_key: str = typer.Option(
-        ..., "--license-key", help="""License key (format: IM(SV|CL)(-XXXX){8})"""
+        ...,
+        "--license-key",
+        help="""License key (format: /^IM(SV|CL)(-[\dA-Za-z]{4}){8}$/)""",
     ),
 ) -> None:
     """Set user product key
@@ -228,20 +267,24 @@ def set_user_onboarding(
     print_response(result, ctx)
 
 
-@app.command("update-my-preferences", deprecated=False, rich_help_panel="API commands")
+@app.command("update-my-preferences", deprecated=True, rich_help_panel="API commands")
 def update_my_preferences(
     ctx: typer.Context,
     albums_default_asset_order: str | None = typer.Option(
         None, "--albums-default-asset-order", help="""Asset sort order"""
     ),
     avatar_color: str | None = typer.Option(
-        None, "--avatar-color", help="""Avatar color"""
+        None, "--avatar-color", help="""User avatar color"""
     ),
     cast_g_cast_enabled: Literal["true", "false"] | None = typer.Option(
         None, "--cast-g-cast-enabled", help="""Whether Google Cast is enabled"""
     ),
     download_archive_size: int | None = typer.Option(
-        None, "--download-archive-size", help="""Maximum archive size in bytes""", min=1
+        None,
+        "--download-archive-size",
+        help="""Maximum archive size in bytes""",
+        min=1,
+        max=9007199254740991,
     ),
     download_include_embedded_videos: Literal["true", "false"] | None = typer.Option(
         None,
@@ -270,13 +313,24 @@ def update_my_preferences(
         None, "--folders-sidebar-web", help="""Whether folders appear in web sidebar"""
     ),
     memories_duration: int | None = typer.Option(
-        None, "--memories-duration", help="""Memory duration in seconds""", min=1
+        None,
+        "--memories-duration",
+        help="""Memory duration in seconds""",
+        min=1,
+        max=9007199254740991,
     ),
     memories_enabled: Literal["true", "false"] | None = typer.Option(
         None, "--memories-enabled", help="""Whether memories are enabled"""
     ),
     people_enabled: Literal["true", "false"] | None = typer.Option(
         None, "--people-enabled", help="""Whether people are enabled"""
+    ),
+    people_minimum_faces: int | None = typer.Option(
+        None,
+        "--people-minimum-faces",
+        help="""People face threshold""",
+        min=1,
+        max=9007199254740991,
     ),
     people_sidebar_web: Literal["true", "false"] | None = typer.Option(
         None, "--people-sidebar-web", help="""Whether people appear in web sidebar"""
@@ -361,6 +415,8 @@ def update_my_preferences(
         set_nested(json_data, ["memories_enabled"], memories_enabled.lower() == "true")
     if people_enabled is not None:
         set_nested(json_data, ["people_enabled"], people_enabled.lower() == "true")
+    if people_minimum_faces is not None:
+        set_nested(json_data, ["people_minimum_faces"], people_minimum_faces)
     if people_sidebar_web is not None:
         set_nested(
             json_data, ["people_sidebar_web"], people_sidebar_web.lower() == "true"
@@ -400,11 +456,11 @@ def update_my_preferences(
     print_response(result, ctx)
 
 
-@app.command("update-my-user", deprecated=False, rich_help_panel="API commands")
+@app.command("update-my-user", deprecated=True, rich_help_panel="API commands")
 def update_my_user(
     ctx: typer.Context,
     avatar_color: str | None = typer.Option(
-        None, "--avatar-color", help="""Avatar color"""
+        None, "--avatar-color", help="""User avatar color"""
     ),
     email: str | None = typer.Option(None, "--email", help="""User email"""),
     name: str | None = typer.Option(None, "--name", help="""User name"""),

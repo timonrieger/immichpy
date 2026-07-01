@@ -23,8 +23,6 @@ def add_assets_to_album(
     ctx: typer.Context,
     id: UUID = typer.Argument(..., help=""""""),
     ids: list[UUID] = typer.Option(..., "--ids", help="""IDs to process"""),
-    key: str | None = typer.Option(None, "--key", help=""""""),
-    slug: str | None = typer.Option(None, "--slug", help=""""""),
 ) -> None:
     """Add assets to an album
 
@@ -33,10 +31,6 @@ def add_assets_to_album(
     kwargs = {}
     json_data = {}
     kwargs["id"] = id
-    if key is not None:
-        kwargs["key"] = key
-    if slug is not None:
-        kwargs["slug"] = slug
     set_nested(json_data, ["ids"], ids)
     bulk_ids_dto = BulkIdsDto.model_validate(json_data)
     kwargs["bulk_ids_dto"] = bulk_ids_dto
@@ -50,8 +44,6 @@ def add_assets_to_albums(
     ctx: typer.Context,
     album_ids: list[UUID] = typer.Option(..., "--album-ids", help="""Album IDs"""),
     asset_ids: list[UUID] = typer.Option(..., "--asset-ids", help="""Asset IDs"""),
-    key: str | None = typer.Option(None, "--key", help=""""""),
-    slug: str | None = typer.Option(None, "--slug", help=""""""),
 ) -> None:
     """Add assets to albums
 
@@ -59,10 +51,6 @@ def add_assets_to_albums(
     """
     kwargs = {}
     json_data = {}
-    if key is not None:
-        kwargs["key"] = key
-    if slug is not None:
-        kwargs["slug"] = slug
     set_nested(json_data, ["album_ids"], album_ids)
     set_nested(json_data, ["asset_ids"], asset_ids)
     albums_add_assets_dto = AlbumsAddAssetsDto.model_validate(json_data)
@@ -161,9 +149,6 @@ def get_album_info(
     id: UUID = typer.Argument(..., help=""""""),
     key: str | None = typer.Option(None, "--key", help=""""""),
     slug: str | None = typer.Option(None, "--slug", help=""""""),
-    without_assets: Literal["true", "false"] | None = typer.Option(
-        None, "--without-assets", help="""Exclude assets from response"""
-    ),
 ) -> None:
     """Retrieve an album
 
@@ -175,10 +160,30 @@ def get_album_info(
         kwargs["key"] = key
     if slug is not None:
         kwargs["slug"] = slug
-    if without_assets is not None:
-        kwargs["without_assets"] = without_assets.lower() == "true"
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.albums.get_album_info, ctx=ctx, **kwargs)
+    print_response(result, ctx)
+
+
+@app.command("get-album-map-markers", deprecated=False, rich_help_panel="API commands")
+def get_album_map_markers(
+    ctx: typer.Context,
+    id: UUID = typer.Argument(..., help=""""""),
+    key: str | None = typer.Option(None, "--key", help=""""""),
+    slug: str | None = typer.Option(None, "--slug", help=""""""),
+) -> None:
+    """Retrieve album map markers
+
+    [link=https://api.immich.app/endpoints/albums/getAlbumMapMarkers]Immich API documentation[/link]
+    """
+    kwargs = {}
+    kwargs["id"] = id
+    if key is not None:
+        kwargs["key"] = key
+    if slug is not None:
+        kwargs["slug"] = slug
+    client: "AsyncClient" = ctx.obj["client"]
+    result = run_command(client.albums.get_album_map_markers, ctx=ctx, **kwargs)
     print_response(result, ctx)
 
 
@@ -202,12 +207,21 @@ def get_all_albums(
     asset_id: UUID | None = typer.Option(
         None,
         "--asset-id",
-        help="""Filter albums containing this asset ID (ignores shared parameter)""",
+        help="""Filter albums containing this asset ID (ignores other parameters)""",
     ),
-    shared: Literal["true", "false"] | None = typer.Option(
+    id: UUID | None = typer.Option(None, "--id", help="""Album ID"""),
+    is_owned: Literal["true", "false"] | None = typer.Option(
         None,
-        "--shared",
-        help="""Filter by shared status: true = only shared, false = not shared, undefined = all owned albums""",
+        "--is-owned",
+        help="""Filter by ownership: true = only owned, false = only shared-with-me, undefined = no filter""",
+    ),
+    is_shared: Literal["true", "false"] | None = typer.Option(
+        None,
+        "--is-shared",
+        help="""Filter by shared status: true = only shared, false = not shared, undefined = no filter""",
+    ),
+    name: str | None = typer.Option(
+        None, "--name", help="""Album name (exact match)"""
     ),
 ) -> None:
     """List all albums
@@ -217,8 +231,14 @@ def get_all_albums(
     kwargs = {}
     if asset_id is not None:
         kwargs["asset_id"] = asset_id
-    if shared is not None:
-        kwargs["shared"] = shared.lower() == "true"
+    if id is not None:
+        kwargs["id"] = id
+    if is_owned is not None:
+        kwargs["is_owned"] = is_owned.lower() == "true"
+    if is_shared is not None:
+        kwargs["is_shared"] = is_shared.lower() == "true"
+    if name is not None:
+        kwargs["name"] = name
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.albums.get_all_albums, ctx=ctx, **kwargs)
     print_response(result, ctx)

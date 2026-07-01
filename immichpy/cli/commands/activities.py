@@ -27,7 +27,7 @@ def create_activity(
     comment: str | None = typer.Option(
         None, "--comment", help="""Comment text (required if type is comment)"""
     ),
-    type: str = typer.Option(..., "--type", help="""Activity type (like or comment)"""),
+    type: str = typer.Option(..., "--type", help="""Reaction type"""),
 ) -> None:
     """Create an activity
 
@@ -71,12 +71,8 @@ def get_activities(
     asset_id: UUID | None = typer.Option(
         None, "--asset-id", help="""Asset ID (if activity is for an asset)"""
     ),
-    level: ReactionLevel | None = typer.Option(
-        None, "--level", help="""Filter by activity level"""
-    ),
-    type: ReactionType | None = typer.Option(
-        None, "--type", help="""Filter by activity type"""
-    ),
+    level: ReactionLevel | None = typer.Option(None, "--level", help=""""""),
+    type: ReactionType | None = typer.Option(None, "--type", help=""""""),
     user_id: UUID | None = typer.Option(
         None, "--user-id", help="""Filter by user ID"""
     ),

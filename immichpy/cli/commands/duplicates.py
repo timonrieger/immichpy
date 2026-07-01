@@ -23,7 +23,7 @@ def delete_duplicate(
     ctx: typer.Context,
     id: UUID = typer.Argument(..., help=""""""),
 ) -> None:
-    """Delete a duplicate
+    """Dismiss a duplicate group
 
     [link=https://api.immich.app/endpoints/duplicates/deleteDuplicate]Immich API documentation[/link]
     """

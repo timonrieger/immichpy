@@ -3,8 +3,6 @@
 from __future__ import annotations
 
 import typer
-from datetime import datetime
-from uuid import UUID
 from typing import Literal, TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -37,64 +35,6 @@ def delete_sync_ack(
     kwargs["sync_ack_delete_dto"] = sync_ack_delete_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.sync.delete_sync_ack, ctx=ctx, **kwargs)
-    print_response(result, ctx)
-
-
-@app.command("get-delta-sync", deprecated=True, rich_help_panel="API commands")
-def get_delta_sync(
-    ctx: typer.Context,
-    updated_after: datetime = typer.Option(
-        ..., "--updated-after", help="""Sync assets updated after this date"""
-    ),
-    user_ids: list[UUID] = typer.Option(..., "--user-ids", help="""User IDs to sync"""),
-) -> None:
-    """Get delta sync for user
-
-    [link=https://api.immich.app/endpoints/sync/getDeltaSync]Immich API documentation[/link]
-    """
-    kwargs = {}
-    json_data = {}
-    set_nested(json_data, ["updated_after"], updated_after)
-    set_nested(json_data, ["user_ids"], user_ids)
-    asset_delta_sync_dto = AssetDeltaSyncDto.model_validate(json_data)
-    kwargs["asset_delta_sync_dto"] = asset_delta_sync_dto
-    client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client.sync.get_delta_sync, ctx=ctx, **kwargs)
-    print_response(result, ctx)
-
-
-@app.command("get-full-sync-for-user", deprecated=True, rich_help_panel="API commands")
-def get_full_sync_for_user(
-    ctx: typer.Context,
-    last_id: UUID | None = typer.Option(
-        None, "--last-id", help="""Last asset ID (pagination)"""
-    ),
-    limit: int = typer.Option(
-        ..., "--limit", help="""Maximum number of assets to return""", min=1
-    ),
-    updated_until: datetime = typer.Option(
-        ..., "--updated-until", help="""Sync assets updated until this date"""
-    ),
-    user_id: UUID | None = typer.Option(
-        None, "--user-id", help="""Filter by user ID"""
-    ),
-) -> None:
-    """Get full sync for user
-
-    [link=https://api.immich.app/endpoints/sync/getFullSyncForUser]Immich API documentation[/link]
-    """
-    kwargs = {}
-    json_data = {}
-    if last_id is not None:
-        set_nested(json_data, ["last_id"], last_id)
-    set_nested(json_data, ["limit"], limit)
-    set_nested(json_data, ["updated_until"], updated_until)
-    if user_id is not None:
-        set_nested(json_data, ["user_id"], user_id)
-    asset_full_sync_dto = AssetFullSyncDto.model_validate(json_data)
-    kwargs["asset_full_sync_dto"] = asset_full_sync_dto
-    client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client.sync.get_full_sync_for_user, ctx=ctx, **kwargs)
     print_response(result, ctx)
 
 

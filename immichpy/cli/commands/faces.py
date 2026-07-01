@@ -13,7 +13,7 @@ from immichpy.cli.runtime import print_response, run_command, set_nested
 from immichpy.client.generated.models import *
 
 app = typer.Typer(
-    help="""A face is a detected human face within an asset, which can be associated with a person. Faces are normally detected via machine learning, but can also be created via manually.\n\n[link=https://api.immich.app/endpoints/faces]Immich API documentation[/link]"""
+    help="""A face is a detected human face within an asset, which can be associated with a person. Faces are normally detected via machine learning, but can also be created manually.\n\n[link=https://api.immich.app/endpoints/faces]Immich API documentation[/link]"""
 )
 
 
@@ -21,17 +21,49 @@ app = typer.Typer(
 def create_face(
     ctx: typer.Context,
     asset_id: UUID = typer.Option(..., "--asset-id", help="""Asset ID"""),
-    height: int = typer.Option(..., "--height", help="""Face bounding box height"""),
+    height: int = typer.Option(
+        ...,
+        "--height",
+        help="""Face bounding box height""",
+        min=-9007199254740991,
+        max=9007199254740991,
+    ),
     image_height: int = typer.Option(
-        ..., "--image-height", help="""Image height in pixels"""
+        ...,
+        "--image-height",
+        help="""Image height in pixels""",
+        min=-9007199254740991,
+        max=9007199254740991,
     ),
     image_width: int = typer.Option(
-        ..., "--image-width", help="""Image width in pixels"""
+        ...,
+        "--image-width",
+        help="""Image width in pixels""",
+        min=-9007199254740991,
+        max=9007199254740991,
     ),
     person_id: UUID = typer.Option(..., "--person-id", help="""Person ID"""),
-    width: int = typer.Option(..., "--width", help="""Face bounding box width"""),
-    x: int = typer.Option(..., "--x", help="""Face bounding box X coordinate"""),
-    y: int = typer.Option(..., "--y", help="""Face bounding box Y coordinate"""),
+    width: int = typer.Option(
+        ...,
+        "--width",
+        help="""Face bounding box width""",
+        min=-9007199254740991,
+        max=9007199254740991,
+    ),
+    x: int = typer.Option(
+        ...,
+        "--x",
+        help="""Face bounding box X coordinate""",
+        min=-9007199254740991,
+        max=9007199254740991,
+    ),
+    y: int = typer.Option(
+        ...,
+        "--y",
+        help="""Face bounding box Y coordinate""",
+        min=-9007199254740991,
+        max=9007199254740991,
+    ),
 ) -> None:
     """Create a face
 
