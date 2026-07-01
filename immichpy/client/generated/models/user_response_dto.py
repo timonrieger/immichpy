@@ -51,13 +51,10 @@ class UserResponseDto(BaseModel):
         "profileImagePath",
     ]
 
-    @field_validator("email")
+    @field_validator("email", mode="before")
     def email_validate_regular_expression(cls, value):
         """Validates the regular expression"""
-        if not isinstance(value, str):
-            value = str(value)
-
-        if not re.match(
+        if isinstance(value, str) and not re.match(
             r"^[a-zA-Z0-9.!#$%&\'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$",
             value,
         ):
@@ -66,13 +63,10 @@ class UserResponseDto(BaseModel):
             )
         return value
 
-    @field_validator("id")
+    @field_validator("id", mode="before")
     def id_validate_regular_expression(cls, value):
         """Validates the regular expression"""
-        if not isinstance(value, str):
-            value = str(value)
-
-        if not re.match(
+        if isinstance(value, str) and not re.match(
             r"^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12})$",
             value,
         ):

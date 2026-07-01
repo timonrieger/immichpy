@@ -33,13 +33,10 @@ class SyncPartnerDeleteV1(BaseModel):
     shared_with_id: UUID = Field(description="Shared with ID", alias="sharedWithId")
     __properties: ClassVar[List[str]] = ["sharedById", "sharedWithId"]
 
-    @field_validator("shared_by_id")
+    @field_validator("shared_by_id", mode="before")
     def shared_by_id_validate_regular_expression(cls, value):
         """Validates the regular expression"""
-        if not isinstance(value, str):
-            value = str(value)
-
-        if not re.match(
+        if isinstance(value, str) and not re.match(
             r"^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12})$",
             value,
         ):
@@ -48,13 +45,10 @@ class SyncPartnerDeleteV1(BaseModel):
             )
         return value
 
-    @field_validator("shared_with_id")
+    @field_validator("shared_with_id", mode="before")
     def shared_with_id_validate_regular_expression(cls, value):
         """Validates the regular expression"""
-        if not isinstance(value, str):
-            value = str(value)
-
-        if not re.match(
+        if isinstance(value, str) and not re.match(
             r"^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12})$",
             value,
         ):

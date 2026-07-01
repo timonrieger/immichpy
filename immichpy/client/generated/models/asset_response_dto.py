@@ -151,16 +151,13 @@ class AssetResponseDto(BaseModel):
         "width",
     ]
 
-    @field_validator("duplicate_id")
+    @field_validator("duplicate_id", mode="before")
     def duplicate_id_validate_regular_expression(cls, value):
         """Validates the regular expression"""
         if value is None:
             return value
 
-        if not isinstance(value, str):
-            value = str(value)
-
-        if not re.match(
+        if isinstance(value, str) and not re.match(
             r"^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12})$",
             value,
         ):
@@ -169,13 +166,10 @@ class AssetResponseDto(BaseModel):
             )
         return value
 
-    @field_validator("id")
+    @field_validator("id", mode="before")
     def id_validate_regular_expression(cls, value):
         """Validates the regular expression"""
-        if not isinstance(value, str):
-            value = str(value)
-
-        if not re.match(
+        if isinstance(value, str) and not re.match(
             r"^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12})$",
             value,
         ):
@@ -184,16 +178,13 @@ class AssetResponseDto(BaseModel):
             )
         return value
 
-    @field_validator("library_id")
+    @field_validator("library_id", mode="before")
     def library_id_validate_regular_expression(cls, value):
         """Validates the regular expression"""
         if value is None:
             return value
 
-        if not isinstance(value, str):
-            value = str(value)
-
-        if not re.match(
+        if isinstance(value, str) and not re.match(
             r"^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12})$",
             value,
         ):
@@ -202,13 +193,10 @@ class AssetResponseDto(BaseModel):
             )
         return value
 
-    @field_validator("owner_id")
+    @field_validator("owner_id", mode="before")
     def owner_id_validate_regular_expression(cls, value):
         """Validates the regular expression"""
-        if not isinstance(value, str):
-            value = str(value)
-
-        if not re.match(
+        if isinstance(value, str) and not re.match(
             r"^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12})$",
             value,
         ):

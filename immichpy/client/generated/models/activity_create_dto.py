@@ -42,13 +42,10 @@ class ActivityCreateDto(BaseModel):
     type: ReactionType
     __properties: ClassVar[List[str]] = ["albumId", "assetId", "comment", "type"]
 
-    @field_validator("album_id")
+    @field_validator("album_id", mode="before")
     def album_id_validate_regular_expression(cls, value):
         """Validates the regular expression"""
-        if not isinstance(value, str):
-            value = str(value)
-
-        if not re.match(
+        if isinstance(value, str) and not re.match(
             r"^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12})$",
             value,
         ):
@@ -57,16 +54,13 @@ class ActivityCreateDto(BaseModel):
             )
         return value
 
-    @field_validator("asset_id")
+    @field_validator("asset_id", mode="before")
     def asset_id_validate_regular_expression(cls, value):
         """Validates the regular expression"""
         if value is None:
             return value
 
-        if not isinstance(value, str):
-            value = str(value)
-
-        if not re.match(
+        if isinstance(value, str) and not re.match(
             r"^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12})$",
             value,
         ):

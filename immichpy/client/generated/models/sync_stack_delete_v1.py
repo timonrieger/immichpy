@@ -32,13 +32,10 @@ class SyncStackDeleteV1(BaseModel):
     stack_id: UUID = Field(description="Stack ID", alias="stackId")
     __properties: ClassVar[List[str]] = ["stackId"]
 
-    @field_validator("stack_id")
+    @field_validator("stack_id", mode="before")
     def stack_id_validate_regular_expression(cls, value):
         """Validates the regular expression"""
-        if not isinstance(value, str):
-            value = str(value)
-
-        if not re.match(
+        if isinstance(value, str) and not re.match(
             r"^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12})$",
             value,
         ):
