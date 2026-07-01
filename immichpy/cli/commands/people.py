@@ -100,10 +100,14 @@ def get_all_people(
     closest_person_id: UUID | None = typer.Option(
         None, "--closest-person-id", help="""Closest person ID for similarity search"""
     ),
-    page: float | None = typer.Option(
-        None, "--page", help="""Page number for pagination""", min=1
+    page: int | None = typer.Option(
+        None,
+        "--page",
+        help="""Page number for pagination""",
+        min=1,
+        max=9007199254740991,
     ),
-    size: float | None = typer.Option(
+    size: int | None = typer.Option(
         None, "--size", help="""Number of items per page""", min=1, max=1000
     ),
     with_hidden: Literal["true", "false"] | None = typer.Option(
@@ -253,7 +257,7 @@ As a JSON string with keys: birthDate (string), color (string), featureFaceAsset
     print_response(result, ctx)
 
 
-@app.command("update-person", deprecated=False, rich_help_panel="API commands")
+@app.command("update-person", deprecated=True, rich_help_panel="API commands")
 def update_person(
     ctx: typer.Context,
     id: UUID = typer.Argument(..., help=""""""),

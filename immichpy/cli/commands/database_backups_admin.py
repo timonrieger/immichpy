@@ -20,7 +20,9 @@ app = typer.Typer(
 @app.command("delete-database-backup", deprecated=False, rich_help_panel="API commands")
 def delete_database_backup(
     ctx: typer.Context,
-    backups: list[str] = typer.Option(..., "--backups", help=""""""),
+    backups: list[str] = typer.Option(
+        ..., "--backups", help="""Backup filenames to delete"""
+    ),
 ) -> None:
     """Delete database backup
 
@@ -87,7 +89,9 @@ def start_database_restore_flow(
 @app.command("upload-database-backup", deprecated=False, rich_help_panel="API commands")
 def upload_database_backup(
     ctx: typer.Context,
-    file: Path | None = typer.Option(None, "--file", help="""""", exists=True),
+    file: Path | None = typer.Option(
+        None, "--file", help="""Database backup file""", exists=True
+    ),
 ) -> None:
     """Upload database backup
 

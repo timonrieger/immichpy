@@ -71,8 +71,12 @@ def update_config(
     backup_database_enabled: bool = typer.Option(
         ..., "--backup-database-enabled", help="""Enabled"""
     ),
-    backup_database_keep_last_amount: float = typer.Option(
-        ..., "--backup-database-keep-last-amount", help="""Keep last amount""", min=1
+    backup_database_keep_last_amount: int = typer.Option(
+        ...,
+        "--backup-database-keep-last-amount",
+        help="""Keep last amount""",
+        min=1,
+        max=9007199254740991,
     ),
     ffmpeg_accel: str = typer.Option(
         ..., "--ffmpeg-accel", help="""Transcode hardware acceleration"""
@@ -95,7 +99,7 @@ def update_config(
     ffmpeg_cq_mode: str = typer.Option(..., "--ffmpeg-cq-mode", help="""CQ mode"""),
     ffmpeg_crf: int = typer.Option(..., "--ffmpeg-crf", help="""CRF""", min=0, max=51),
     ffmpeg_gop_size: int = typer.Option(
-        ..., "--ffmpeg-gop-size", help="""GOP size""", min=0
+        ..., "--ffmpeg-gop-size", help="""GOP size""", min=0, max=9007199254740991
     ),
     ffmpeg_max_bitrate: str = typer.Option(
         ..., "--ffmpeg-max-bitrate", help="""Max bitrate"""
@@ -104,6 +108,11 @@ def update_config(
         ..., "--ffmpeg-preferred-hw-device", help="""Preferred hardware device"""
     ),
     ffmpeg_preset: str = typer.Option(..., "--ffmpeg-preset", help="""Preset"""),
+    ffmpeg_realtime_enabled: bool = typer.Option(
+        ...,
+        "--ffmpeg-realtime-enabled",
+        help="""Enable real-time HLS transcoding (alpha)""",
+    ),
     ffmpeg_refs: int = typer.Option(
         ..., "--ffmpeg-refs", help="""References""", min=0, max=6
     ),
@@ -120,7 +129,7 @@ def update_config(
         ..., "--ffmpeg-temporal-aq", help="""Temporal AQ"""
     ),
     ffmpeg_threads: int = typer.Option(
-        ..., "--ffmpeg-threads", help="""Threads""", min=0
+        ..., "--ffmpeg-threads", help="""Threads""", min=0, max=9007199254740991
     ),
     ffmpeg_tonemap: str = typer.Option(
         ..., "--ffmpeg-tonemap", help="""Tone mapping"""
@@ -151,70 +160,171 @@ def update_config(
         ..., "--image-preview-format", help="""Image format"""
     ),
     image_preview_progressive: Literal["true", "false"] | None = typer.Option(
-        None, "--image-preview-progressive", help=""""""
+        None, "--image-preview-progressive", help="""Progressive"""
     ),
     image_preview_quality: int = typer.Option(
         ..., "--image-preview-quality", help="""Quality""", min=1, max=100
     ),
     image_preview_size: int = typer.Option(
-        ..., "--image-preview-size", help="""Size""", min=1
+        ..., "--image-preview-size", help="""Size""", min=1, max=9007199254740991
     ),
     image_thumbnail_format: str = typer.Option(
         ..., "--image-thumbnail-format", help="""Image format"""
     ),
     image_thumbnail_progressive: Literal["true", "false"] | None = typer.Option(
-        None, "--image-thumbnail-progressive", help=""""""
+        None, "--image-thumbnail-progressive", help="""Progressive"""
     ),
     image_thumbnail_quality: int = typer.Option(
         ..., "--image-thumbnail-quality", help="""Quality""", min=1, max=100
     ),
     image_thumbnail_size: int = typer.Option(
-        ..., "--image-thumbnail-size", help="""Size""", min=1
+        ..., "--image-thumbnail-size", help="""Size""", min=1, max=9007199254740991
+    ),
+    integrity_checks_checksum_files_cron_expression: str = typer.Option(
+        ...,
+        "--integrity-checks-checksum-files-cron-expression",
+        help="""Cron expression for when the integrity check should run""",
+    ),
+    integrity_checks_checksum_files_enabled: bool = typer.Option(
+        ..., "--integrity-checks-checksum-files-enabled", help="""Enabled"""
+    ),
+    integrity_checks_checksum_files_percentage_limit: int = typer.Option(
+        ...,
+        "--integrity-checks-checksum-files-percentage-limit",
+        help="""Percentage limit of the integrity checksum job""",
+        min=0,
+        max=9007199254740991,
+    ),
+    integrity_checks_checksum_files_time_limit: int = typer.Option(
+        ...,
+        "--integrity-checks-checksum-files-time-limit",
+        help="""How long the integrity checksum job may run for""",
+        min=0,
+        max=9007199254740991,
+    ),
+    integrity_checks_missing_files_cron_expression: str = typer.Option(
+        ...,
+        "--integrity-checks-missing-files-cron-expression",
+        help="""Cron expression for when the integrity check should run""",
+    ),
+    integrity_checks_missing_files_enabled: bool = typer.Option(
+        ..., "--integrity-checks-missing-files-enabled", help="""Enabled"""
+    ),
+    integrity_checks_untracked_files_cron_expression: str = typer.Option(
+        ...,
+        "--integrity-checks-untracked-files-cron-expression",
+        help="""Cron expression for when the integrity check should run""",
+    ),
+    integrity_checks_untracked_files_enabled: bool = typer.Option(
+        ..., "--integrity-checks-untracked-files-enabled", help="""Enabled"""
     ),
     job_background_task_concurrency: int = typer.Option(
-        ..., "--job-background-task-concurrency", help="""Concurrency""", min=1
+        ...,
+        "--job-background-task-concurrency",
+        help="""Concurrency""",
+        min=1,
+        max=9007199254740991,
     ),
     job_editor_concurrency: int = typer.Option(
-        ..., "--job-editor-concurrency", help="""Concurrency""", min=1
+        ...,
+        "--job-editor-concurrency",
+        help="""Concurrency""",
+        min=1,
+        max=9007199254740991,
     ),
     job_face_detection_concurrency: int = typer.Option(
-        ..., "--job-face-detection-concurrency", help="""Concurrency""", min=1
+        ...,
+        "--job-face-detection-concurrency",
+        help="""Concurrency""",
+        min=1,
+        max=9007199254740991,
+    ),
+    job_integrity_check_concurrency: int = typer.Option(
+        ...,
+        "--job-integrity-check-concurrency",
+        help="""Concurrency""",
+        min=1,
+        max=9007199254740991,
     ),
     job_library_concurrency: int = typer.Option(
-        ..., "--job-library-concurrency", help="""Concurrency""", min=1
+        ...,
+        "--job-library-concurrency",
+        help="""Concurrency""",
+        min=1,
+        max=9007199254740991,
     ),
     job_metadata_extraction_concurrency: int = typer.Option(
-        ..., "--job-metadata-extraction-concurrency", help="""Concurrency""", min=1
+        ...,
+        "--job-metadata-extraction-concurrency",
+        help="""Concurrency""",
+        min=1,
+        max=9007199254740991,
     ),
     job_migration_concurrency: int = typer.Option(
-        ..., "--job-migration-concurrency", help="""Concurrency""", min=1
+        ...,
+        "--job-migration-concurrency",
+        help="""Concurrency""",
+        min=1,
+        max=9007199254740991,
     ),
     job_notifications_concurrency: int = typer.Option(
-        ..., "--job-notifications-concurrency", help="""Concurrency""", min=1
+        ...,
+        "--job-notifications-concurrency",
+        help="""Concurrency""",
+        min=1,
+        max=9007199254740991,
     ),
     job_ocr_concurrency: int = typer.Option(
-        ..., "--job-ocr-concurrency", help="""Concurrency""", min=1
+        ...,
+        "--job-ocr-concurrency",
+        help="""Concurrency""",
+        min=1,
+        max=9007199254740991,
     ),
     job_search_concurrency: int = typer.Option(
-        ..., "--job-search-concurrency", help="""Concurrency""", min=1
+        ...,
+        "--job-search-concurrency",
+        help="""Concurrency""",
+        min=1,
+        max=9007199254740991,
     ),
     job_sidecar_concurrency: int = typer.Option(
-        ..., "--job-sidecar-concurrency", help="""Concurrency""", min=1
+        ...,
+        "--job-sidecar-concurrency",
+        help="""Concurrency""",
+        min=1,
+        max=9007199254740991,
     ),
     job_smart_search_concurrency: int = typer.Option(
-        ..., "--job-smart-search-concurrency", help="""Concurrency""", min=1
+        ...,
+        "--job-smart-search-concurrency",
+        help="""Concurrency""",
+        min=1,
+        max=9007199254740991,
     ),
     job_thumbnail_generation_concurrency: int = typer.Option(
-        ..., "--job-thumbnail-generation-concurrency", help="""Concurrency""", min=1
+        ...,
+        "--job-thumbnail-generation-concurrency",
+        help="""Concurrency""",
+        min=1,
+        max=9007199254740991,
     ),
     job_video_conversion_concurrency: int = typer.Option(
-        ..., "--job-video-conversion-concurrency", help="""Concurrency""", min=1
+        ...,
+        "--job-video-conversion-concurrency",
+        help="""Concurrency""",
+        min=1,
+        max=9007199254740991,
     ),
     job_workflow_concurrency: int = typer.Option(
-        ..., "--job-workflow-concurrency", help="""Concurrency""", min=1
+        ...,
+        "--job-workflow-concurrency",
+        help="""Concurrency""",
+        min=1,
+        max=9007199254740991,
     ),
     library_scan_cron_expression: str = typer.Option(
-        ..., "--library-scan-cron-expression", help=""""""
+        ..., "--library-scan-cron-expression", help="""Cron expression"""
     ),
     library_scan_enabled: bool = typer.Option(
         ..., "--library-scan-enabled", help="""Enabled"""
@@ -223,15 +333,23 @@ def update_config(
         ..., "--library-watch-enabled", help="""Enabled"""
     ),
     logging_enabled: bool = typer.Option(..., "--logging-enabled", help="""Enabled"""),
-    logging_level: str = typer.Option(..., "--logging-level", help=""""""),
+    logging_level: str = typer.Option(..., "--logging-level", help="""Log level"""),
     machine_learning_availability_checks_enabled: bool = typer.Option(
         ..., "--machine-learning-availability-checks-enabled", help="""Enabled"""
     ),
-    machine_learning_availability_checks_interval: float = typer.Option(
-        ..., "--machine-learning-availability-checks-interval", help=""""""
+    machine_learning_availability_checks_interval: int = typer.Option(
+        ...,
+        "--machine-learning-availability-checks-interval",
+        help="""""",
+        min=-9007199254740991,
+        max=9007199254740991,
     ),
-    machine_learning_availability_checks_timeout: float = typer.Option(
-        ..., "--machine-learning-availability-checks-timeout", help=""""""
+    machine_learning_availability_checks_timeout: int = typer.Option(
+        ...,
+        "--machine-learning-availability-checks-timeout",
+        help="""""",
+        min=-9007199254740991,
+        max=9007199254740991,
     ),
     machine_learning_clip_enabled: bool = typer.Option(
         ..., "--machine-learning-clip-enabled", help="""Whether the task is enabled"""
@@ -271,6 +389,7 @@ def update_config(
         "--machine-learning-facial-recognition-min-faces",
         help="""Minimum number of faces required for recognition""",
         min=1,
+        max=9007199254740991,
     ),
     machine_learning_facial_recognition_min_score: float = typer.Option(
         ...,
@@ -292,6 +411,7 @@ def update_config(
         "--machine-learning-ocr-max-resolution",
         help="""Maximum resolution for OCR processing""",
         min=1,
+        max=9007199254740991,
     ),
     machine_learning_ocr_min_detection_score: float = typer.Option(
         ...,
@@ -311,13 +431,20 @@ def update_config(
         ..., "--machine-learning-ocr-model-name", help="""Name of the model to use"""
     ),
     machine_learning_urls: list[str] = typer.Option(
-        ..., "--machine-learning-urls", help=""""""
+        ..., "--machine-learning-urls", help="""ML service URLs"""
     ),
-    map_dark_style: str = typer.Option(..., "--map-dark-style", help=""""""),
+    map_dark_style: str = typer.Option(
+        ..., "--map-dark-style", help="""Dark map style URL"""
+    ),
     map_enabled: bool = typer.Option(..., "--map-enabled", help="""Enabled"""),
-    map_light_style: str = typer.Option(..., "--map-light-style", help=""""""),
+    map_light_style: str = typer.Option(
+        ..., "--map-light-style", help="""Light map style URL"""
+    ),
     metadata_faces_import_: bool = typer.Option(
         ..., "--metadata-faces-import", help="""Import"""
+    ),
+    new_version_check_channel: str = typer.Option(
+        ..., "--new-version-check-channel", help="""Release channel"""
     ),
     new_version_check_enabled: bool = typer.Option(
         ..., "--new-version-check-enabled", help="""Enabled"""
@@ -335,7 +462,7 @@ def update_config(
         ..., "--nightly-tasks-missing-thumbnails", help="""Missing thumbnails"""
     ),
     nightly_tasks_start_time: str = typer.Option(
-        ..., "--nightly-tasks-start-time", help=""""""
+        ..., "--nightly-tasks-start-time", help="""Start time (HH:MM)"""
     ),
     nightly_tasks_sync_quota_usage: bool = typer.Option(
         ..., "--nightly-tasks-sync-quota-usage", help="""Sync quota usage"""
@@ -362,7 +489,7 @@ def update_config(
     notifications_smtp_transport_password: str = typer.Option(
         ..., "--notifications-smtp-transport-password", help="""SMTP password"""
     ),
-    notifications_smtp_transport_port: float = typer.Option(
+    notifications_smtp_transport_port: int = typer.Option(
         ...,
         "--notifications-smtp-transport-port",
         help="""SMTP server port""",
@@ -376,6 +503,9 @@ def update_config(
     ),
     notifications_smtp_transport_username: str = typer.Option(
         ..., "--notifications-smtp-transport-username", help="""SMTP username"""
+    ),
+    oauth_allow_insecure_requests: bool = typer.Option(
+        ..., "--oauth-allow-insecure-requests", help="""Allow insecure requests"""
     ),
     oauth_auto_launch: bool = typer.Option(
         ..., "--oauth-auto-launch", help="""Auto launch"""
@@ -391,9 +521,16 @@ def update_config(
         ..., "--oauth-client-secret", help="""Client secret"""
     ),
     oauth_default_storage_quota: int = typer.Option(
-        ..., "--oauth-default-storage-quota", help="""Default storage quota""", min=0
+        ...,
+        "--oauth-default-storage-quota",
+        help="""Default storage quota""",
+        min=0,
+        max=9007199254740991,
     ),
     oauth_enabled: bool = typer.Option(..., "--oauth-enabled", help="""Enabled"""),
+    oauth_end_session_endpoint: str = typer.Option(
+        ..., "--oauth-end-session-endpoint", help="""End session endpoint"""
+    ),
     oauth_issuer_url: str = typer.Option(
         ..., "--oauth-issuer-url", help="""Issuer URL"""
     ),
@@ -401,17 +538,24 @@ def update_config(
         ..., "--oauth-mobile-override-enabled", help="""Mobile override enabled"""
     ),
     oauth_mobile_redirect_uri: str = typer.Option(
-        ..., "--oauth-mobile-redirect-uri", help="""Mobile redirect URI"""
+        ...,
+        "--oauth-mobile-redirect-uri",
+        help="""Mobile redirect URI (set to empty string to disable)""",
     ),
     oauth_profile_signing_algorithm: str = typer.Option(
         ..., "--oauth-profile-signing-algorithm", help="""Profile signing algorithm"""
+    ),
+    oauth_prompt: str = typer.Option(
+        ...,
+        "--oauth-prompt",
+        help="""OAuth prompt parameter (e.g. select_account, login, consent)""",
     ),
     oauth_role_claim: str = typer.Option(
         ..., "--oauth-role-claim", help="""Role claim"""
     ),
     oauth_scope: str = typer.Option(..., "--oauth-scope", help="""Scope"""),
     oauth_signing_algorithm: str = typer.Option(
-        ..., "--oauth-signing-algorithm", help=""""""
+        ..., "--oauth-signing-algorithm", help="""Signing algorithm"""
     ),
     oauth_storage_label_claim: str = typer.Option(
         ..., "--oauth-storage-label-claim", help="""Storage label claim"""
@@ -420,10 +564,12 @@ def update_config(
         ..., "--oauth-storage-quota-claim", help="""Storage quota claim"""
     ),
     oauth_timeout: int = typer.Option(
-        ..., "--oauth-timeout", help="""Timeout""", min=1
+        ..., "--oauth-timeout", help="""Timeout""", min=1, max=9007199254740991
     ),
     oauth_token_endpoint_auth_method: str = typer.Option(
-        ..., "--oauth-token-endpoint-auth-method", help="""Token endpoint auth method"""
+        ...,
+        "--oauth-token-endpoint-auth-method",
+        help="""OAuth token endpoint auth method""",
     ),
     password_login_enabled: bool = typer.Option(
         ..., "--password-login-enabled", help="""Enabled"""
@@ -452,21 +598,23 @@ def update_config(
         ..., "--storage-template-template", help="""Template"""
     ),
     templates_email_album_invite_template: str = typer.Option(
-        ..., "--templates-email-album-invite-template", help=""""""
+        ..., "--templates-email-album-invite-template", help="""Album invite template"""
     ),
     templates_email_album_update_template: str = typer.Option(
-        ..., "--templates-email-album-update-template", help=""""""
+        ..., "--templates-email-album-update-template", help="""Album update template"""
     ),
     templates_email_welcome_template: str = typer.Option(
-        ..., "--templates-email-welcome-template", help=""""""
+        ..., "--templates-email-welcome-template", help="""Welcome template"""
     ),
     theme_custom_css: str = typer.Option(
         ..., "--theme-custom-css", help="""Custom CSS for theming"""
     ),
-    trash_days: int = typer.Option(..., "--trash-days", help="""Days""", min=0),
+    trash_days: int = typer.Option(
+        ..., "--trash-days", help="""Days""", min=0, max=9007199254740991
+    ),
     trash_enabled: bool = typer.Option(..., "--trash-enabled", help="""Enabled"""),
     user_delete_delay: int = typer.Option(
-        ..., "--user-delete-delay", help="""Delete delay""", min=1
+        ..., "--user-delete-delay", help="""Delete delay""", min=1, max=9007199254740991
     ),
 ) -> None:
     """Update system configuration
@@ -500,6 +648,7 @@ def update_config(
     set_nested(json_data, ["ffmpeg_max_bitrate"], ffmpeg_max_bitrate)
     set_nested(json_data, ["ffmpeg_preferred_hw_device"], ffmpeg_preferred_hw_device)
     set_nested(json_data, ["ffmpeg_preset"], ffmpeg_preset)
+    set_nested(json_data, ["ffmpeg_realtime_enabled"], ffmpeg_realtime_enabled)
     set_nested(json_data, ["ffmpeg_refs"], ffmpeg_refs)
     set_nested(json_data, ["ffmpeg_target_audio_codec"], ffmpeg_target_audio_codec)
     set_nested(json_data, ["ffmpeg_target_resolution"], ffmpeg_target_resolution)
@@ -539,11 +688,54 @@ def update_config(
     set_nested(json_data, ["image_thumbnail_quality"], image_thumbnail_quality)
     set_nested(json_data, ["image_thumbnail_size"], image_thumbnail_size)
     set_nested(
+        json_data,
+        ["integrity_checks_checksum_files_cron_expression"],
+        integrity_checks_checksum_files_cron_expression,
+    )
+    set_nested(
+        json_data,
+        ["integrity_checks_checksum_files_enabled"],
+        integrity_checks_checksum_files_enabled,
+    )
+    set_nested(
+        json_data,
+        ["integrity_checks_checksum_files_percentage_limit"],
+        integrity_checks_checksum_files_percentage_limit,
+    )
+    set_nested(
+        json_data,
+        ["integrity_checks_checksum_files_time_limit"],
+        integrity_checks_checksum_files_time_limit,
+    )
+    set_nested(
+        json_data,
+        ["integrity_checks_missing_files_cron_expression"],
+        integrity_checks_missing_files_cron_expression,
+    )
+    set_nested(
+        json_data,
+        ["integrity_checks_missing_files_enabled"],
+        integrity_checks_missing_files_enabled,
+    )
+    set_nested(
+        json_data,
+        ["integrity_checks_untracked_files_cron_expression"],
+        integrity_checks_untracked_files_cron_expression,
+    )
+    set_nested(
+        json_data,
+        ["integrity_checks_untracked_files_enabled"],
+        integrity_checks_untracked_files_enabled,
+    )
+    set_nested(
         json_data, ["job_background_task_concurrency"], job_background_task_concurrency
     )
     set_nested(json_data, ["job_editor_concurrency"], job_editor_concurrency)
     set_nested(
         json_data, ["job_face_detection_concurrency"], job_face_detection_concurrency
+    )
+    set_nested(
+        json_data, ["job_integrity_check_concurrency"], job_integrity_check_concurrency
     )
     set_nested(json_data, ["job_library_concurrency"], job_library_concurrency)
     set_nested(
@@ -664,6 +856,7 @@ def update_config(
     set_nested(json_data, ["map_enabled"], map_enabled)
     set_nested(json_data, ["map_light_style"], map_light_style)
     set_nested(json_data, ["metadata_faces_import_"], metadata_faces_import_)
+    set_nested(json_data, ["new_version_check_channel"], new_version_check_channel)
     set_nested(json_data, ["new_version_check_enabled"], new_version_check_enabled)
     set_nested(
         json_data, ["nightly_tasks_cluster_new_faces"], nightly_tasks_cluster_new_faces
@@ -716,6 +909,9 @@ def update_config(
         ["notifications_smtp_transport_username"],
         notifications_smtp_transport_username,
     )
+    set_nested(
+        json_data, ["oauth_allow_insecure_requests"], oauth_allow_insecure_requests
+    )
     set_nested(json_data, ["oauth_auto_launch"], oauth_auto_launch)
     set_nested(json_data, ["oauth_auto_register"], oauth_auto_register)
     set_nested(json_data, ["oauth_button_text"], oauth_button_text)
@@ -723,6 +919,7 @@ def update_config(
     set_nested(json_data, ["oauth_client_secret"], oauth_client_secret)
     set_nested(json_data, ["oauth_default_storage_quota"], oauth_default_storage_quota)
     set_nested(json_data, ["oauth_enabled"], oauth_enabled)
+    set_nested(json_data, ["oauth_end_session_endpoint"], oauth_end_session_endpoint)
     set_nested(json_data, ["oauth_issuer_url"], oauth_issuer_url)
     set_nested(
         json_data, ["oauth_mobile_override_enabled"], oauth_mobile_override_enabled
@@ -731,6 +928,7 @@ def update_config(
     set_nested(
         json_data, ["oauth_profile_signing_algorithm"], oauth_profile_signing_algorithm
     )
+    set_nested(json_data, ["oauth_prompt"], oauth_prompt)
     set_nested(json_data, ["oauth_role_claim"], oauth_role_claim)
     set_nested(json_data, ["oauth_scope"], oauth_scope)
     set_nested(json_data, ["oauth_signing_algorithm"], oauth_signing_algorithm)

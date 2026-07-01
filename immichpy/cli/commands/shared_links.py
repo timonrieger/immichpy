@@ -23,8 +23,6 @@ def add_shared_link_assets(
     ctx: typer.Context,
     id: UUID = typer.Argument(..., help=""""""),
     asset_ids: list[UUID] = typer.Option(..., "--asset-ids", help="""Asset IDs"""),
-    key: str | None = typer.Option(None, "--key", help=""""""),
-    slug: str | None = typer.Option(None, "--slug", help=""""""),
 ) -> None:
     """Add assets to a shared link
 
@@ -33,10 +31,6 @@ def add_shared_link_assets(
     kwargs = {}
     json_data = {}
     kwargs["id"] = id
-    if key is not None:
-        kwargs["key"] = key
-    if slug is not None:
-        kwargs["slug"] = slug
     set_nested(json_data, ["asset_ids"], asset_ids)
     asset_ids_dto = AssetIdsDto.model_validate(json_data)
     kwargs["asset_ids_dto"] = asset_ids_dto
@@ -64,7 +58,11 @@ def create_shared_link(
         None, "--description", help="""Link description"""
     ),
     expires_at: datetime | None = typer.Option(
-        None, "--expires-at", help="""Expiration date"""
+        None,
+        "--expires-at",
+        help="""Expiration date
+
+Example: 2024-01-01T00:00:00.000Z""",
     ),
     password: str | None = typer.Option(None, "--password", help="""Link password"""),
     show_metadata: Literal["true", "false"] | None = typer.Option(
@@ -131,15 +129,7 @@ def get_all_shared_links(
 def get_my_shared_link(
     ctx: typer.Context,
     key: str | None = typer.Option(None, "--key", help=""""""),
-    password: str | None = typer.Option(
-        None,
-        "--password",
-        help="""Link password
-
-Example: password""",
-    ),
     slug: str | None = typer.Option(None, "--slug", help=""""""),
-    token: str | None = typer.Option(None, "--token", help="""Access token"""),
 ) -> None:
     """Retrieve current shared link
 
@@ -148,12 +138,8 @@ Example: password""",
     kwargs = {}
     if key is not None:
         kwargs["key"] = key
-    if password is not None:
-        kwargs["password"] = password
     if slug is not None:
         kwargs["slug"] = slug
-    if token is not None:
-        kwargs["token"] = token
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.shared_links.get_my_shared_link, ctx=ctx, **kwargs)
     print_response(result, ctx)
@@ -257,16 +243,15 @@ def update_shared_link(
     allow_upload: Literal["true", "false"] | None = typer.Option(
         None, "--allow-upload", help="""Allow uploads"""
     ),
-    change_expiry_time: Literal["true", "false"] | None = typer.Option(
-        None,
-        "--change-expiry-time",
-        help="""Whether to change the expiry time. Few clients cannot send null to set the expiryTime to never. Setting this flag and not sending expiryAt is considered as null instead. Clients that can send null values can ignore this.""",
-    ),
     description: str | None = typer.Option(
         None, "--description", help="""Link description"""
     ),
     expires_at: datetime | None = typer.Option(
-        None, "--expires-at", help="""Expiration date"""
+        None,
+        "--expires-at",
+        help="""Expiration date
+
+Example: 2024-01-01T00:00:00.000Z""",
     ),
     password: str | None = typer.Option(None, "--password", help="""Link password"""),
     show_metadata: Literal["true", "false"] | None = typer.Option(
@@ -285,10 +270,6 @@ def update_shared_link(
         set_nested(json_data, ["allow_download"], allow_download.lower() == "true")
     if allow_upload is not None:
         set_nested(json_data, ["allow_upload"], allow_upload.lower() == "true")
-    if change_expiry_time is not None:
-        set_nested(
-            json_data, ["change_expiry_time"], change_expiry_time.lower() == "true"
-        )
     if description is not None:
         set_nested(json_data, ["description"], description)
     if expires_at is not None:

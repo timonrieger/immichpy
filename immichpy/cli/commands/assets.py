@@ -46,29 +46,6 @@ As a JSON string with keys: checksum (string), id (string)""",
     print_response(result, ctx)
 
 
-@app.command("check-existing-assets", deprecated=False, rich_help_panel="API commands")
-def check_existing_assets(
-    ctx: typer.Context,
-    device_asset_ids: list[str] = typer.Option(
-        ..., "--device-asset-ids", help="""Device asset IDs to check"""
-    ),
-    device_id: str = typer.Option(..., "--device-id", help="""Device ID"""),
-) -> None:
-    """Check existing assets
-
-    [link=https://api.immich.app/endpoints/assets/checkExistingAssets]Immich API documentation[/link]
-    """
-    kwargs = {}
-    json_data = {}
-    set_nested(json_data, ["device_asset_ids"], device_asset_ids)
-    set_nested(json_data, ["device_id"], device_id)
-    check_existing_assets_dto = CheckExistingAssetsDto.model_validate(json_data)
-    kwargs["check_existing_assets_dto"] = check_existing_assets_dto
-    client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client.assets.check_existing_assets, ctx=ctx, **kwargs)
-    print_response(result, ctx)
-
-
 @app.command("copy-asset", deprecated=False, rich_help_panel="API commands")
 def copy_asset(
     ctx: typer.Context,
@@ -242,23 +219,27 @@ As a JSON string with keys: action (string), parameters (string)""",
     print_response(result, ctx)
 
 
-@app.command(
-    "get-all-user-assets-by-device-id", deprecated=True, rich_help_panel="API commands"
-)
-def get_all_user_assets_by_device_id(
+@app.command("end-session", deprecated=False, rich_help_panel="API commands")
+def end_session(
     ctx: typer.Context,
-    device_id: str = typer.Argument(..., help="""Device ID"""),
+    id: UUID = typer.Argument(..., help=""""""),
+    session_id: UUID = typer.Argument(..., help=""""""),
+    key: str | None = typer.Option(None, "--key", help=""""""),
+    slug: str | None = typer.Option(None, "--slug", help=""""""),
 ) -> None:
-    """Retrieve assets by device ID
+    """End HLS streaming session
 
-    [link=https://api.immich.app/endpoints/assets/getAllUserAssetsByDeviceId]Immich API documentation[/link]
+    [link=https://api.immich.app/endpoints/assets/endSession]Immich API documentation[/link]
     """
     kwargs = {}
-    kwargs["device_id"] = device_id
+    kwargs["id"] = id
+    if key is not None:
+        kwargs["key"] = key
+    kwargs["session_id"] = session_id
+    if slug is not None:
+        kwargs["slug"] = slug
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(
-        client.assets.get_all_user_assets_by_device_id, ctx=ctx, **kwargs
-    )
+    result = run_command(client.assets.end_session, ctx=ctx, **kwargs)
     print_response(result, ctx)
 
 
@@ -362,7 +343,7 @@ def get_asset_statistics(
         None, "--is-trashed", help="""Filter by trash status"""
     ),
     visibility: AssetVisibility | None = typer.Option(
-        None, "--visibility", help="""Filter by visibility"""
+        None, "--visibility", help=""""""
     ),
 ) -> None:
     """Get asset statistics
@@ -381,22 +362,89 @@ def get_asset_statistics(
     print_response(result, ctx)
 
 
-@app.command("get-random", deprecated=True, rich_help_panel="API commands")
-def get_random(
+@app.command("get-main-playlist", deprecated=False, rich_help_panel="API commands")
+def get_main_playlist(
     ctx: typer.Context,
-    count: float | None = typer.Option(
-        None, "--count", help="""Number of random assets to return""", min=1
-    ),
+    id: UUID = typer.Argument(..., help=""""""),
+    key: str | None = typer.Option(None, "--key", help=""""""),
+    slug: str | None = typer.Option(None, "--slug", help=""""""),
 ) -> None:
-    """Get random assets
+    """Get HLS main playlist
 
-    [link=https://api.immich.app/endpoints/assets/getRandom]Immich API documentation[/link]
+    [link=https://api.immich.app/endpoints/assets/getMainPlaylist]Immich API documentation[/link]
     """
     kwargs = {}
-    if count is not None:
-        kwargs["count"] = count
+    kwargs["id"] = id
+    if key is not None:
+        kwargs["key"] = key
+    if slug is not None:
+        kwargs["slug"] = slug
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client.assets.get_random, ctx=ctx, **kwargs)
+    result = run_command(client.assets.get_main_playlist, ctx=ctx, **kwargs)
+    print_response(result, ctx)
+
+
+@app.command("get-media-playlist", deprecated=False, rich_help_panel="API commands")
+def get_media_playlist(
+    ctx: typer.Context,
+    id: UUID = typer.Argument(..., help=""""""),
+    session_id: UUID = typer.Argument(..., help=""""""),
+    variant_index: int = typer.Argument(..., help=""""""),
+    key: str | None = typer.Option(None, "--key", help=""""""),
+    slug: str | None = typer.Option(None, "--slug", help=""""""),
+    x_immich_hls_pos: float | None = typer.Option(
+        None, "--x-immich-hls-pos", help="""""", min=0
+    ),
+) -> None:
+    """Get HLS media playlist
+
+    [link=https://api.immich.app/endpoints/assets/getMediaPlaylist]Immich API documentation[/link]
+    """
+    kwargs = {}
+    kwargs["id"] = id
+    if key is not None:
+        kwargs["key"] = key
+    kwargs["session_id"] = session_id
+    if slug is not None:
+        kwargs["slug"] = slug
+    kwargs["variant_index"] = variant_index
+    if x_immich_hls_pos is not None:
+        kwargs["x_immich_hls_pos"] = x_immich_hls_pos
+    client: "AsyncClient" = ctx.obj["client"]
+    result = run_command(client.assets.get_media_playlist, ctx=ctx, **kwargs)
+    print_response(result, ctx)
+
+
+@app.command("get-segment", deprecated=False, rich_help_panel="API commands")
+def get_segment(
+    ctx: typer.Context,
+    filename: str = typer.Argument(..., help=""""""),
+    id: UUID = typer.Argument(..., help=""""""),
+    session_id: UUID = typer.Argument(..., help=""""""),
+    variant_index: int = typer.Argument(..., help=""""""),
+    key: str | None = typer.Option(None, "--key", help=""""""),
+    slug: str | None = typer.Option(None, "--slug", help=""""""),
+    x_immich_hls_msn: int | None = typer.Option(
+        None, "--x-immich-hls-msn", help="""""", min=0, max=9007199254740991
+    ),
+) -> None:
+    """Get HLS segment or init file
+
+    [link=https://api.immich.app/endpoints/assets/getSegment]Immich API documentation[/link]
+    """
+    kwargs = {}
+    kwargs["filename"] = filename
+    kwargs["id"] = id
+    if key is not None:
+        kwargs["key"] = key
+    kwargs["session_id"] = session_id
+    if slug is not None:
+        kwargs["slug"] = slug
+    kwargs["variant_index"] = variant_index
+    if x_immich_hls_msn is not None:
+        kwargs["x_immich_hls_msn"] = x_immich_hls_msn
+    client: "AsyncClient" = ctx.obj["client"]
+    result = run_command(client.assets.get_segment, ctx=ctx, **kwargs)
     print_response(result, ctx)
 
 
@@ -438,56 +486,6 @@ def remove_asset_edits(
     print_response(result, ctx)
 
 
-@app.command("replace-asset", deprecated=True, rich_help_panel="API commands")
-def replace_asset(
-    ctx: typer.Context,
-    id: UUID = typer.Argument(..., help=""""""),
-    asset_data: Path = typer.Option(
-        ..., "--asset-data", help="""Asset file data""", exists=True
-    ),
-    device_asset_id: str = typer.Option(
-        ..., "--device-asset-id", help="""Device asset ID"""
-    ),
-    device_id: str = typer.Option(..., "--device-id", help="""Device ID"""),
-    duration: str | None = typer.Option(
-        None, "--duration", help="""Duration (for videos)"""
-    ),
-    file_created_at: datetime = typer.Option(
-        ..., "--file-created-at", help="""File creation date"""
-    ),
-    file_modified_at: datetime = typer.Option(
-        ..., "--file-modified-at", help="""File modification date"""
-    ),
-    filename: str | None = typer.Option(None, "--filename", help="""Filename"""),
-    key: str | None = typer.Option(None, "--key", help=""""""),
-    slug: str | None = typer.Option(None, "--slug", help=""""""),
-) -> None:
-    """Replace asset
-
-    [link=https://api.immich.app/endpoints/assets/replaceAsset]Immich API documentation[/link]
-    """
-    kwargs = {}
-    json_data = {}
-    kwargs["id"] = id
-    if key is not None:
-        kwargs["key"] = key
-    if slug is not None:
-        kwargs["slug"] = slug
-    kwargs["asset_data"] = (asset_data.name, asset_data.read_bytes())
-    set_nested(json_data, ["device_asset_id"], device_asset_id)
-    set_nested(json_data, ["device_id"], device_id)
-    if duration is not None:
-        set_nested(json_data, ["duration"], duration)
-    set_nested(json_data, ["file_created_at"], file_created_at)
-    set_nested(json_data, ["file_modified_at"], file_modified_at)
-    if filename is not None:
-        set_nested(json_data, ["filename"], filename)
-    kwargs.update(json_data)
-    client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client.assets.replace_asset, ctx=ctx, **kwargs)
-    print_response(result, ctx)
-
-
 @app.command("run-asset-jobs", deprecated=False, rich_help_panel="API commands")
 def run_asset_jobs(
     ctx: typer.Context,
@@ -509,7 +507,7 @@ def run_asset_jobs(
     print_response(result, ctx)
 
 
-@app.command("update-asset", deprecated=False, rich_help_panel="API commands")
+@app.command("update-asset", deprecated=True, rich_help_panel="API commands")
 def update_asset(
     ctx: typer.Context,
     id: UUID = typer.Argument(..., help=""""""),
@@ -523,18 +521,18 @@ def update_asset(
         None, "--is-favorite", help="""Mark as favorite"""
     ),
     latitude: float | None = typer.Option(
-        None, "--latitude", help="""Latitude coordinate"""
+        None, "--latitude", help="""Latitude coordinate""", min=-90, max=90
     ),
     live_photo_video_id: UUID | None = typer.Option(
         None, "--live-photo-video-id", help="""Live photo video ID"""
     ),
     longitude: float | None = typer.Option(
-        None, "--longitude", help="""Longitude coordinate"""
+        None, "--longitude", help="""Longitude coordinate""", min=-180, max=180
     ),
-    rating: float | None = typer.Option(
+    rating: int | None = typer.Option(
         None,
         "--rating",
-        help="""Rating in range [1-5], or null for unrated""",
+        help="""Rating in range [1-5] (starred), -1 (rejected), or null (unrated)""",
         min=-1,
         max=5,
     ),
@@ -600,14 +598,18 @@ As a JSON string with keys: key (string), value (object)""",
     print_response(result, ctx)
 
 
-@app.command("update-assets", deprecated=False, rich_help_panel="API commands")
+@app.command("update-assets", deprecated=True, rich_help_panel="API commands")
 def update_assets(
     ctx: typer.Context,
     date_time_original: str | None = typer.Option(
         None, "--date-time-original", help="""Original date and time"""
     ),
-    date_time_relative: float | None = typer.Option(
-        None, "--date-time-relative", help="""Relative time offset in seconds"""
+    date_time_relative: int | None = typer.Option(
+        None,
+        "--date-time-relative",
+        help="""Relative time offset in minutes""",
+        min=-9007199254740991,
+        max=9007199254740991,
     ),
     description: str | None = typer.Option(
         None, "--description", help="""Asset description"""
@@ -620,15 +622,15 @@ def update_assets(
         None, "--is-favorite", help="""Mark as favorite"""
     ),
     latitude: float | None = typer.Option(
-        None, "--latitude", help="""Latitude coordinate"""
+        None, "--latitude", help="""Latitude coordinate""", min=-90, max=90
     ),
     longitude: float | None = typer.Option(
-        None, "--longitude", help="""Longitude coordinate"""
+        None, "--longitude", help="""Longitude coordinate""", min=-180, max=180
     ),
-    rating: float | None = typer.Option(
+    rating: int | None = typer.Option(
         None,
         "--rating",
-        help="""Rating in range [1-5], or null for unrated""",
+        help="""Rating in range [1-5] (starred), -1 (rejected), or null (unrated)""",
         min=-1,
         max=5,
     ),
@@ -709,18 +711,26 @@ def upload_asset(
     asset_data: Path = typer.Option(
         ..., "--asset-data", help="""Asset file data""", exists=True
     ),
-    device_asset_id: str = typer.Option(
-        ..., "--device-asset-id", help="""Device asset ID"""
-    ),
-    device_id: str = typer.Option(..., "--device-id", help="""Device ID"""),
-    duration: str | None = typer.Option(
-        None, "--duration", help="""Duration (for videos)"""
+    duration: int | None = typer.Option(
+        None,
+        "--duration",
+        help="""Duration in milliseconds (for videos)""",
+        min=0,
+        max=9007199254740991,
     ),
     file_created_at: datetime = typer.Option(
-        ..., "--file-created-at", help="""File creation date"""
+        ...,
+        "--file-created-at",
+        help="""File creation date
+
+Example: 2024-01-01T00:00:00.000Z""",
     ),
     file_modified_at: datetime = typer.Option(
-        ..., "--file-modified-at", help="""File modification date"""
+        ...,
+        "--file-modified-at",
+        help="""File modification date
+
+Example: 2024-01-01T00:00:00.000Z""",
     ),
     filename: str | None = typer.Option(None, "--filename", help="""Filename"""),
     is_favorite: Literal["true", "false"] | None = typer.Option(
@@ -763,8 +773,6 @@ As a JSON string with keys: key (string), value (object)""",
     if x_immich_checksum is not None:
         kwargs["x_immich_checksum"] = x_immich_checksum
     kwargs["asset_data"] = (asset_data.name, asset_data.read_bytes())
-    set_nested(json_data, ["device_asset_id"], device_asset_id)
-    set_nested(json_data, ["device_id"], device_id)
     if duration is not None:
         set_nested(json_data, ["duration"], duration)
     set_nested(json_data, ["file_created_at"], file_created_at)
@@ -798,9 +806,7 @@ def view_asset(
         None, "--edited", help="""Return edited asset if available"""
     ),
     key: str | None = typer.Option(None, "--key", help=""""""),
-    size: AssetMediaSize | None = typer.Option(
-        None, "--size", help="""Asset media size"""
-    ),
+    size: AssetMediaSize | None = typer.Option(None, "--size", help=""""""),
     slug: str | None = typer.Option(None, "--slug", help=""""""),
 ) -> None:
     """View asset thumbnail
