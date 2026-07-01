@@ -2,7 +2,6 @@ import asyncio
 import json
 from pathlib import Path
 from typing import Callable
-from uuid import UUID
 
 import pytest
 from typer.testing import CliRunner
@@ -24,14 +23,13 @@ async def test_download_asset_to_file(
     tmp_path: Path,
 ) -> None:
     """Test download-asset-to-file command and verify file is downloaded."""
-    asset_id = asset.id
     out_dir = tmp_path / "downloads"
     out_dir.mkdir()
 
     result = await asyncio.to_thread(
         runner_with_api_key.invoke,
         cli_app,
-        ["assets", "download-asset-to-file", asset_id, str(out_dir)],
+        ["assets", "download-asset-to-file", str(asset.id), str(out_dir)],
     )
     assert result.exit_code == 0, result.stdout + result.stderr
     response_data = json.loads(result.stdout)
@@ -59,7 +57,6 @@ async def test_play_asset_video_to_file(
     )
     if upload_result.stats.uploaded == 0:
         pytest.skip(f"No video assets uploaded, {upload_result.model_dump_json()}")
-    video_asset = upload_result.uploaded[0].asset
 
     out_dir = tmp_path / "video_downloads"
     out_dir.mkdir()
@@ -70,7 +67,7 @@ async def test_play_asset_video_to_file(
         [
             "assets",
             "play-asset-video-to-file",
-            video_asset.id,
+            str(upload_result.uploaded[0].asset.id),
             str(out_dir),
         ],
     )
@@ -92,7 +89,6 @@ async def test_view_asset_to_file(
     tmp_path: Path,
 ) -> None:
     """Test view-asset-to-file command and verify thumbnail file is downloaded."""
-    asset_id = asset.id
     out_dir = tmp_path / "thumbnails"
     out_dir.mkdir()
 
@@ -102,7 +98,7 @@ async def test_view_asset_to_file(
         [
             "assets",
             "view-asset-to-file",
-            asset_id,
+            str(asset.id),
             str(out_dir),
             "--size",
             "thumbnail",
@@ -154,9 +150,7 @@ async def test_upload(
 
     # cleanup uploaded assets
     await client_with_api_key.assets.delete_assets(
-        AssetBulkDeleteDto(
-            ids=[UUID(u.asset.id) for u in upload_result.uploaded], force=True
-        )
+        AssetBulkDeleteDto(ids=[u.asset.id for u in upload_result.uploaded], force=True)
     )
 
 
@@ -167,7 +161,6 @@ async def test_download_archive_to_file(
     tmp_path: Path,
 ) -> None:
     """Test download-archive-to-file command and verify archive is downloaded."""
-    asset_id = asset.id
     out_dir = tmp_path / "archives"
     out_dir.mkdir()
 
@@ -179,7 +172,7 @@ async def test_download_archive_to_file(
             "download-archive-to-file",
             str(out_dir),
             "--asset-ids",
-            asset_id,
+            str(asset.id),
         ],
     )
     assert result.exit_code == 0, result.stdout + result.stderr
@@ -228,7 +221,7 @@ async def test_users_get_profile_image_to_file(
         [
             "users",
             "get-profile-image-to-file",
-            user_id,
+            str(user_id),
             str(out_dir),
         ],
     )

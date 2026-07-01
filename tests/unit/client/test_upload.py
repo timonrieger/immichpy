@@ -1,19 +1,20 @@
 from __future__ import annotations
 
 from pathlib import Path
-from typing import Callable
+from typing import Callable, Literal
 from unittest.mock import AsyncMock, MagicMock, patch
 import uuid
 
 import pytest
 
+from immichpy.client.generated import AssetRejectReason, AssetUploadAction
 from immichpy.client.generated.models.asset_bulk_upload_check_response_dto import (
     AssetBulkUploadCheckResponseDto,
 )
 from immichpy.client.generated.models.asset_bulk_upload_check_result import (
     AssetBulkUploadCheckResult,
 )
-from immichpy.client.generated.api_response import ApiResponse
+from immichpy.client.generated.models.bulk_ids_dto import BulkIdsDto
 from immichpy.client.generated.models.asset_media_response_dto import (
     AssetMediaResponseDto,
 )
@@ -52,7 +53,7 @@ def mock_server_api():
 def mock_assets():
     api = MagicMock()
     api.check_bulk_upload = AsyncMock()
-    api.upload_asset_with_http_info = AsyncMock()
+    api.upload_asset = AsyncMock()
     return api
 
 
@@ -291,16 +292,20 @@ async def test_check_duplicates_mixed_results(mock_assets, tmp_path: Path) -> No
     file2 = tmp_path / "test2.jpg"
     file1.write_bytes(b"test1")
     file2.write_bytes(b"test2")
+    duplicate_asset_id = uuid.uuid4()
     mock_assets.check_bulk_upload.return_value = AssetBulkUploadCheckResponseDto(
         results=[
             AssetBulkUploadCheckResult(
-                action="accept", id=str(file1), assetId=None, reason=None
+                action=AssetUploadAction.ACCEPT,
+                id=str(file1),
+                assetId=None,
+                reason=None,
             ),
             AssetBulkUploadCheckResult(
-                action="reject",
+                action=AssetUploadAction.REJECT,
                 id=str(file2),
-                assetId="asset-456",
-                reason="duplicate",
+                assetId=duplicate_asset_id,
+                reason=AssetRejectReason.DUPLICATE,
             ),
         ]
     )
@@ -308,7 +313,7 @@ async def test_check_duplicates_mixed_results(mock_assets, tmp_path: Path) -> No
     assert new_files == [file1]
     assert len(rejected) == 1
     assert rejected[0].filepath == file2
-    assert rejected[0].asset_id == "asset-456"
+    assert rejected[0].asset_id == duplicate_asset_id
     assert rejected[0].reason == "duplicate"
     mock_assets.check_bulk_upload.assert_called_once()
 
@@ -320,8 +325,11 @@ async def test_check_duplicates_with_progress(mock_assets, tmp_path: Path) -> No
     file1.write_bytes(b"test1")
     mock_assets.check_bulk_upload.return_value = AssetBulkUploadCheckResponseDto(
         results=[
-            AssetBulkUploadCheckResult(
-                action="accept", id=str(file1), assetId=None, reason=None
+            AssetBulkUploadCheckResult.model_construct(
+                action=AssetUploadAction.ACCEPT,
+                id=str(file1),
+                asset_id=None,
+                reason=None,
             )
         ]
     )
@@ -379,11 +387,9 @@ async def test_upload_file_dry_run(mock_assets, tmp_path: Path) -> None:
     file1 = tmp_path / "test1.jpg"
     file1.write_bytes(b"test1")
     result = await upload_file(file1, mock_assets, dry_run=True)
-    assert isinstance(result, ApiResponse)
-    assert result.status_code == 201
-    assert isinstance(result.data, AssetMediaResponseDto)
-    assert result.data.status == AssetMediaStatus.CREATED
-    mock_assets.upload_asset_with_http_info.assert_not_called()
+    assert isinstance(result, AssetMediaResponseDto)
+    assert result.status == AssetMediaStatus.CREATED
+    mock_assets.upload_asset.assert_not_called()
 
 
 @pytest.mark.asyncio
@@ -393,17 +399,15 @@ async def test_upload_file_with_sidecar(mock_assets, tmp_path: Path) -> None:
     sidecar1 = tmp_path / "test1.xmp"
     file1.write_bytes(b"test1")
     sidecar1.write_bytes(b"xmp data")
-    mock_response = ApiResponse(
-        status_code=201,
-        headers=None,
-        data=AssetMediaResponseDto(id="asset-123", status=AssetMediaStatus.CREATED),
-        raw_data=b"",
+    mock_response = AssetMediaResponseDto(
+        id=uuid.uuid4(), status=AssetMediaStatus.CREATED
     )
-    mock_assets.upload_asset_with_http_info.return_value = mock_response
+    mock_assets.upload_asset.return_value = mock_response
     result = await upload_file(file1, mock_assets)
     assert result == mock_response
-    call_kwargs = mock_assets.upload_asset_with_http_info.call_args[1]
-    assert call_kwargs["sidecar_data"] == str(sidecar1)
+    sidecar_data = mock_assets.upload_asset.call_args.kwargs["sidecar_data"]
+    assert isinstance(sidecar_data, str)
+    assert sidecar_data == str(sidecar1)
 
 
 @pytest.mark.asyncio
@@ -413,19 +417,16 @@ async def test_upload_file_retries_on_transient_error(
     """Test that a transient 5xx error is retried until it succeeds."""
     file1 = tmp_path / "test1.jpg"
     file1.write_bytes(b"test1")
-    mock_response = ApiResponse(
-        status_code=201,
-        headers=None,
-        data=AssetMediaResponseDto(id="asset-123", status=AssetMediaStatus.CREATED),
-        raw_data=b"",
+    mock_response = AssetMediaResponseDto(
+        id=uuid.uuid4(), status=AssetMediaStatus.CREATED
     )
-    mock_assets.upload_asset_with_http_info.side_effect = [
+    mock_assets.upload_asset.side_effect = [
         ApiException(status=503, reason="Service Unavailable"),
         mock_response,
     ]
     result = await upload_file(file1, mock_assets, retries=3)
     assert result == mock_response
-    assert mock_assets.upload_asset_with_http_info.call_count == 2
+    assert mock_assets.upload_asset.call_count == 2
 
 
 @pytest.mark.asyncio
@@ -435,12 +436,12 @@ async def test_upload_file_no_retry_on_client_error(
     """Test that a 4xx error fails fast without retrying."""
     file1 = tmp_path / "test1.jpg"
     file1.write_bytes(b"test1")
-    mock_assets.upload_asset_with_http_info.side_effect = ApiException(
+    mock_assets.upload_asset.side_effect = ApiException(
         status=400, reason="Bad Request"
     )
     with pytest.raises(ApiException):
         await upload_file(file1, mock_assets, retries=3)
-    assert mock_assets.upload_asset_with_http_info.call_count == 1
+    assert mock_assets.upload_asset.call_count == 1
 
 
 @pytest.mark.asyncio
@@ -515,30 +516,9 @@ async def test_upload_files_mixed_results(mock_assets, tmp_path: Path) -> None:
     file3.write_bytes(b"test3")
     with patch("immichpy.client.utils.upload.upload_file") as mock_upload:
         mock_upload.side_effect = [
-            ApiResponse(
-                status_code=201,
-                headers=None,
-                data=AssetMediaResponseDto(
-                    id="asset-1", status=AssetMediaStatus.CREATED
-                ),
-                raw_data=b"",
-            ),
-            ApiResponse(
-                status_code=200,
-                headers=None,
-                data=AssetMediaResponseDto(
-                    id="asset-2", status=AssetMediaStatus.CREATED
-                ),
-                raw_data=b"",
-            ),
-            ApiResponse(
-                status_code=500,
-                headers=None,
-                data=AssetMediaResponseDto(
-                    id="asset-1", status=AssetMediaStatus.CREATED
-                ),
-                raw_data=b"",
-            ),
+            AssetMediaResponseDto(id=uuid.uuid4(), status=AssetMediaStatus.CREATED),
+            AssetMediaResponseDto(id=uuid.uuid4(), status=AssetMediaStatus.DUPLICATE),
+            RuntimeError("Network error"),
         ]
         uploaded, rejected, failed = await upload_files(
             [file1, file2, file3], mock_assets
@@ -549,7 +529,7 @@ async def test_upload_files_mixed_results(mock_assets, tmp_path: Path) -> None:
         assert rejected[0].filepath == file2
         assert len(failed) == 1
         assert failed[0].filepath == file3
-        assert "status_code=500" in failed[0].error
+        assert "Network error" in failed[0].error
 
 
 @pytest.mark.asyncio
@@ -560,11 +540,8 @@ async def test_upload_files_dry_run_no_progress_update(
     file1 = tmp_path / "test1.jpg"
     file1.write_bytes(b"test1")
     with patch("immichpy.client.utils.upload.upload_file") as mock_upload:
-        mock_upload.return_value = ApiResponse(
-            status_code=201,
-            headers=None,
-            data=AssetMediaResponseDto(id="asset-1", status=AssetMediaStatus.CREATED),
-            raw_data=b"",
+        mock_upload.return_value = AssetMediaResponseDto(
+            id=uuid.uuid4(), status=AssetMediaStatus.CREATED
         )
         uploaded, rejected, failed = await upload_files(
             [file1], mock_assets, dry_run=True
@@ -589,7 +566,7 @@ async def test_update_albums_no_album_name(
 ) -> None:
     """Test that update_albums returns early when album_name is None."""
     uploaded_entry = uploaded_entry_factory()
-    uploaded_entry.asset.id = "asset-1"
+    uploaded_entry.asset.id = uuid.uuid4()
     await update_albums([uploaded_entry.asset.id], None, mock_albums_api)
     mock_albums_api.get_all_albums.assert_not_called()
     mock_albums_api.create_album.assert_not_called()
@@ -613,16 +590,18 @@ async def test_update_albums_existing_album(
     album_id = uuid.uuid4()
     uploaded_entry = uploaded_entry_factory()
     existing_album = AlbumResponseDto.model_construct(
-        album_name="My Album", id=str(album_id)
+        album_name="My Album", id=album_id
     )
     mock_albums_api.get_all_albums.return_value = [existing_album]
     await update_albums([uploaded_entry.asset.id], "My Album", mock_albums_api)
     mock_albums_api.get_all_albums.assert_called_once()
     mock_albums_api.create_album.assert_not_called()
     mock_albums_api.add_assets_to_album.assert_called_once()
-    call_args = mock_albums_api.add_assets_to_album.call_args
-    assert call_args[1]["id"] == album_id
-    assert len(call_args[1]["bulk_ids_dto"].ids) == 1
+    call_kwargs = mock_albums_api.add_assets_to_album.call_args.kwargs
+    bulk_ids_dto = call_kwargs["bulk_ids_dto"]
+    assert call_kwargs["id"] == album_id
+    assert isinstance(bulk_ids_dto, BulkIdsDto)
+    assert len(bulk_ids_dto.ids) == 1
 
 
 @pytest.mark.asyncio
@@ -632,40 +611,44 @@ async def test_update_albums_create_new_album(
     """Test that update_albums creates album if it doesn't exist."""
     album_id = uuid.uuid4()
     uploaded_entry = uploaded_entry_factory()
-    new_album = AlbumResponseDto.model_construct(
-        album_name="New Album", id=str(album_id)
-    )
+    new_album = AlbumResponseDto.model_construct(album_name="New Album", id=album_id)
     mock_albums_api.get_all_albums.return_value = []
     mock_albums_api.create_album.return_value = new_album
     await update_albums([uploaded_entry.asset.id], "New Album", mock_albums_api)
     mock_albums_api.get_all_albums.assert_called_once()
     mock_albums_api.create_album.assert_called_once()
     mock_albums_api.add_assets_to_album.assert_called_once()
-    call_args = mock_albums_api.add_assets_to_album.call_args
-    assert call_args[1]["id"] == album_id
+    call_kwargs = mock_albums_api.add_assets_to_album.call_args.kwargs
+    assert call_kwargs["id"] == album_id
 
 
 @pytest.mark.asyncio
 async def test_update_albums_batching(
-    mock_albums_api, uploaded_entry_factory: Callable[..., UploadedEntry]
+    mock_albums_api: MagicMock,
+    uploaded_entry_factory: Callable[..., UploadedEntry],
 ) -> None:
     """Test that update_albums batches assets in groups of 1000."""
-    album_id = uuid.uuid4()
     uploaded_entries = [
         uploaded_entry_factory(filename=f"test{i}.jpg") for i in range(1500)
     ]
     existing_album = AlbumResponseDto.model_construct(
-        album_name="Large Album", id=str(album_id)
+        album_name="Large Album", id=uuid.uuid4()
     )
     mock_albums_api.get_all_albums.return_value = [existing_album]
     await update_albums(
         [ent.asset.id for ent in uploaded_entries], "Large Album", mock_albums_api
     )
     assert mock_albums_api.add_assets_to_album.call_count == 2
-    first_call = mock_albums_api.add_assets_to_album.call_args_list[0]
-    second_call = mock_albums_api.add_assets_to_album.call_args_list[1]
-    assert len(first_call[1]["bulk_ids_dto"].ids) == 1000
-    assert len(second_call[1]["bulk_ids_dto"].ids) == 500
+    first_dto = mock_albums_api.add_assets_to_album.call_args_list[0].kwargs[
+        "bulk_ids_dto"
+    ]
+    second_dto = mock_albums_api.add_assets_to_album.call_args_list[1].kwargs[
+        "bulk_ids_dto"
+    ]
+    assert isinstance(first_dto, BulkIdsDto)
+    assert isinstance(second_dto, BulkIdsDto)
+    assert len(first_dto.ids) == 1000
+    assert len(second_dto.ids) == 500
 
 
 @pytest.mark.asyncio
@@ -697,7 +680,7 @@ async def test_delete_files_delete_duplicates(tmp_path: Path) -> None:
     file1.write_bytes(b"test1")
     rejected_entry = RejectedEntry(
         filepath=file1,
-        asset_id="asset-123",
+        asset_id=uuid.uuid4(),
         reason="duplicate",
     )
     await delete_files([], [rejected_entry], delete_duplicates=True)
@@ -758,7 +741,7 @@ async def test_delete_files_with_sidecar(
 async def test_delete_files_deletion_failure(
     uploaded_entry_factory: Callable[..., UploadedEntry],
     caplog: pytest.LogCaptureFixture,
-    fail_file: str,
+    fail_file: Literal["sidecar", "main"],
     expected_file1_exists: bool,
     expected_sidecar_exists: bool,
     expected_log_message: str,
@@ -773,7 +756,7 @@ async def test_delete_files_deletion_failure(
     sidecar1 = file1.parent / f"{file1.stem}.xmp"
     original_unlink = PathClass.unlink
 
-    def failing_unlink(self):
+    def failing_unlink(self: PathClass):
         target = sidecar1 if fail_file == "sidecar" else file1
         if self.resolve() == target.resolve():
             raise Exception("Permission denied")

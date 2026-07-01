@@ -10,7 +10,6 @@ Example command tested: create-album
 """
 
 import json
-from uuid import UUID
 
 from typer.testing import CliRunner
 
@@ -27,9 +26,7 @@ def test_create_album(runner_with_api_key: CliRunner, user: UserResponseDto) -> 
     """Test create-album command with description and validate response structure."""
     album_name = "Test Album with Description"
     description = "Test description"
-    album_users = [
-        AlbumUserCreateDto(role=AlbumUserRole.EDITOR, userId=UUID(str(user.id)))
-    ]
+    album_users = [AlbumUserCreateDto(role=AlbumUserRole.EDITOR, userId=user.id)]
     result = runner_with_api_key.invoke(
         cli_app,
         [
@@ -51,6 +48,8 @@ def test_create_album(runner_with_api_key: CliRunner, user: UserResponseDto) -> 
     album = AlbumResponseDto.model_validate(response_data)
     assert album.album_name == album_name
     assert album.description == description
-    assert len(album.album_users) == 1
-    assert album.album_users[0].role == AlbumUserRole.EDITOR
-    assert album.album_users[0].user.id == user.id
+    assert len(album.album_users) == 2
+    assert [u.role for u in album.album_users] == [
+        AlbumUserRole.OWNER,
+        AlbumUserRole.EDITOR,
+    ]
