@@ -242,6 +242,7 @@ def logout_o_auth(
     kwargs = {}
     json_data = {}
     set_nested(json_data, ["logout_token"], logout_token)
+    kwargs.update(json_data)
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.auth.logout_o_auth, ctx=ctx, **kwargs)
     print_response(result, ctx)
