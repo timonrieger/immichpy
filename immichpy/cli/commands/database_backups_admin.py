@@ -21,7 +21,7 @@ app = typer.Typer(
 def delete_database_backup(
     ctx: typer.Context,
     backups: list[str] = typer.Option(
-        ..., "--backups", help="""Backup filenames to delete"""
+        ..., "--backups", help=r"""Backup filenames to delete"""
     ),
 ) -> None:
     """Delete database backup
@@ -43,7 +43,7 @@ def delete_database_backup(
 )
 def download_database_backup(
     ctx: typer.Context,
-    filename: str = typer.Argument(..., help=""""""),
+    filename: str = typer.Argument(..., help=r""""""),
 ) -> None:
     """Download database backup
 
@@ -90,7 +90,7 @@ def start_database_restore_flow(
 def upload_database_backup(
     ctx: typer.Context,
     file: Path | None = typer.Option(
-        None, "--file", help="""Database backup file""", exists=True
+        None, "--file", help=r"""Database backup file""", exists=True
     ),
 ) -> None:
     """Upload database backup

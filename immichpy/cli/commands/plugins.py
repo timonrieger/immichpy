@@ -20,7 +20,7 @@ app = typer.Typer(
 @app.command("get-plugin", deprecated=False, rich_help_panel="API commands")
 def get_plugin(
     ctx: typer.Context,
-    id: UUID = typer.Argument(..., help=""""""),
+    id: UUID = typer.Argument(..., help=r""""""),
 ) -> None:
     """Retrieve a plugin
 
@@ -36,23 +36,25 @@ def get_plugin(
 @app.command("search-plugin-methods", deprecated=False, rich_help_panel="API commands")
 def search_plugin_methods(
     ctx: typer.Context,
-    description: str | None = typer.Option(None, "--description", help=""""""),
+    description: str | None = typer.Option(None, "--description", help=r""""""),
     enabled: Literal["true", "false"] | None = typer.Option(
-        None, "--enabled", help="""Whether the plugin method is enabled"""
+        None, "--enabled", help=r"""Whether the plugin method is enabled"""
     ),
-    id: UUID | None = typer.Option(None, "--id", help="""Plugin method ID"""),
-    name: str | None = typer.Option(None, "--name", help=""""""),
+    id: UUID | None = typer.Option(None, "--id", help=r"""Plugin method ID"""),
+    name: str | None = typer.Option(None, "--name", help=r""""""),
     plugin_name: str | None = typer.Option(
-        None, "--plugin-name", help="""Plugin name"""
+        None, "--plugin-name", help=r"""Plugin name"""
     ),
     plugin_version: str | None = typer.Option(
-        None, "--plugin-version", help="""Plugin version"""
+        None, "--plugin-version", help=r"""Plugin version"""
     ),
-    title: str | None = typer.Option(None, "--title", help=""""""),
+    title: str | None = typer.Option(None, "--title", help=r""""""),
     trigger: WorkflowTrigger | None = typer.Option(
-        None, "--trigger", help="""Workflow trigger"""
+        None, "--trigger", help=r"""Workflow trigger"""
     ),
-    type: WorkflowType | None = typer.Option(None, "--type", help="""Workflow types"""),
+    type: WorkflowType | None = typer.Option(
+        None, "--type", help=r"""Workflow types"""
+    ),
 ) -> None:
     """Retrieve plugin methods
 
@@ -101,14 +103,14 @@ def search_plugin_templates(
 @app.command("search-plugins", deprecated=False, rich_help_panel="API commands")
 def search_plugins(
     ctx: typer.Context,
-    description: str | None = typer.Option(None, "--description", help=""""""),
+    description: str | None = typer.Option(None, "--description", help=r""""""),
     enabled: Literal["true", "false"] | None = typer.Option(
-        None, "--enabled", help="""Whether the plugin is enabled"""
+        None, "--enabled", help=r"""Whether the plugin is enabled"""
     ),
-    id: UUID | None = typer.Option(None, "--id", help="""Plugin ID"""),
-    name: str | None = typer.Option(None, "--name", help=""""""),
-    title: str | None = typer.Option(None, "--title", help=""""""),
-    version: str | None = typer.Option(None, "--version", help=""""""),
+    id: UUID | None = typer.Option(None, "--id", help=r"""Plugin ID"""),
+    name: str | None = typer.Option(None, "--name", help=r""""""),
+    title: str | None = typer.Option(None, "--title", help=r""""""),
+    version: str | None = typer.Option(None, "--version", help=r""""""),
 ) -> None:
     """List all plugins
 

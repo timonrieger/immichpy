@@ -22,7 +22,7 @@ app = typer.Typer(
 )
 def delete_integrity_report(
     ctx: typer.Context,
-    id: UUID = typer.Argument(..., help=""""""),
+    id: UUID = typer.Argument(..., help=r""""""),
 ) -> None:
     """Delete integrity report item
 
@@ -57,16 +57,16 @@ def detect_prior_install(
 def get_integrity_report(
     ctx: typer.Context,
     cursor: str | None = typer.Option(
-        None, "--cursor", help="""Cursor for pagination"""
+        None, "--cursor", help=r"""Cursor for pagination"""
     ),
     limit: int | None = typer.Option(
         None,
         "--limit",
-        help="""Number of items per page""",
+        help=r"""Number of items per page""",
         min=0,
         max=9007199254740991,
     ),
-    type: IntegrityReport = typer.Option(..., "--type", help=""""""),
+    type: IntegrityReport = typer.Option(..., "--type", help=r""""""),
 ) -> None:
     """Get integrity report by type
 
@@ -90,7 +90,7 @@ def get_integrity_report(
 )
 def get_integrity_report_csv(
     ctx: typer.Context,
-    type: IntegrityReport = typer.Argument(..., help=""""""),
+    type: IntegrityReport = typer.Argument(..., help=r""""""),
 ) -> None:
     """Export integrity report by type as CSV
 
@@ -110,7 +110,7 @@ def get_integrity_report_csv(
 )
 def get_integrity_report_file(
     ctx: typer.Context,
-    id: UUID = typer.Argument(..., help=""""""),
+    id: UUID = typer.Argument(..., help=r""""""),
 ) -> None:
     """Download flagged file
 
@@ -162,7 +162,7 @@ def get_maintenance_status(
 @app.command("maintenance-login", deprecated=False, rich_help_panel="API commands")
 def maintenance_login(
     ctx: typer.Context,
-    token: str | None = typer.Option(None, "--token", help="""Maintenance token"""),
+    token: str | None = typer.Option(None, "--token", help=r"""Maintenance token"""),
 ) -> None:
     """Log into maintenance mode
 
@@ -182,9 +182,9 @@ def maintenance_login(
 @app.command("set-maintenance-mode", deprecated=False, rich_help_panel="API commands")
 def set_maintenance_mode(
     ctx: typer.Context,
-    action: str = typer.Option(..., "--action", help="""Maintenance action"""),
+    action: str = typer.Option(..., "--action", help=r"""Maintenance action"""),
     restore_backup_filename: str | None = typer.Option(
-        None, "--restore-backup-filename", help="""Restore backup filename"""
+        None, "--restore-backup-filename", help=r"""Restore backup filename"""
     ),
 ) -> None:
     """Set maintenance mode

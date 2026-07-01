@@ -21,7 +21,7 @@ app = typer.Typer(
 def create_stack(
     ctx: typer.Context,
     asset_ids: list[UUID] = typer.Option(
-        ..., "--asset-ids", help="""Asset IDs (first becomes primary, min 2)"""
+        ..., "--asset-ids", help=r"""Asset IDs (first becomes primary, min 2)"""
     ),
 ) -> None:
     """Create a stack
@@ -41,7 +41,7 @@ def create_stack(
 @app.command("delete-stack", deprecated=False, rich_help_panel="API commands")
 def delete_stack(
     ctx: typer.Context,
-    id: UUID = typer.Argument(..., help=""""""),
+    id: UUID = typer.Argument(..., help=r""""""),
 ) -> None:
     """Delete a stack
 
@@ -57,7 +57,7 @@ def delete_stack(
 @app.command("delete-stacks", deprecated=False, rich_help_panel="API commands")
 def delete_stacks(
     ctx: typer.Context,
-    ids: list[UUID] = typer.Option(..., "--ids", help="""IDs to process"""),
+    ids: list[UUID] = typer.Option(..., "--ids", help=r"""IDs to process"""),
 ) -> None:
     """Delete stacks
 
@@ -76,7 +76,7 @@ def delete_stacks(
 @app.command("get-stack", deprecated=False, rich_help_panel="API commands")
 def get_stack(
     ctx: typer.Context,
-    id: UUID = typer.Argument(..., help=""""""),
+    id: UUID = typer.Argument(..., help=r""""""),
 ) -> None:
     """Retrieve a stack
 
@@ -94,8 +94,8 @@ def get_stack(
 )
 def remove_asset_from_stack(
     ctx: typer.Context,
-    asset_id: UUID = typer.Argument(..., help=""""""),
-    id: UUID = typer.Argument(..., help=""""""),
+    asset_id: UUID = typer.Argument(..., help=r""""""),
+    id: UUID = typer.Argument(..., help=r""""""),
 ) -> None:
     """Remove an asset from a stack
 
@@ -113,7 +113,7 @@ def remove_asset_from_stack(
 def search_stacks(
     ctx: typer.Context,
     primary_asset_id: UUID | None = typer.Option(
-        None, "--primary-asset-id", help="""Filter by primary asset ID"""
+        None, "--primary-asset-id", help=r"""Filter by primary asset ID"""
     ),
 ) -> None:
     """Retrieve stacks
@@ -131,9 +131,9 @@ def search_stacks(
 @app.command("update-stack", deprecated=True, rich_help_panel="API commands")
 def update_stack(
     ctx: typer.Context,
-    id: UUID = typer.Argument(..., help=""""""),
+    id: UUID = typer.Argument(..., help=r""""""),
     primary_asset_id: UUID | None = typer.Option(
-        None, "--primary-asset-id", help="""Primary asset ID"""
+        None, "--primary-asset-id", help=r"""Primary asset ID"""
     ),
 ) -> None:
     """Update a stack

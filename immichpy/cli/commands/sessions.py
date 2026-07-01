@@ -20,14 +20,14 @@ app = typer.Typer(
 @app.command("create-session", deprecated=False, rich_help_panel="API commands")
 def create_session(
     ctx: typer.Context,
-    device_os: str | None = typer.Option(None, "--device-os", help="""Device OS"""),
+    device_os: str | None = typer.Option(None, "--device-os", help=r"""Device OS"""),
     device_type: str | None = typer.Option(
-        None, "--device-type", help="""Device type"""
+        None, "--device-type", help=r"""Device type"""
     ),
     duration: int | None = typer.Option(
         None,
         "--duration",
-        help="""Session duration in seconds""",
+        help=r"""Session duration in seconds""",
         min=1,
         max=9007199254740991,
     ),
@@ -68,7 +68,7 @@ def delete_all_sessions(
 @app.command("delete-session", deprecated=False, rich_help_panel="API commands")
 def delete_session(
     ctx: typer.Context,
-    id: UUID = typer.Argument(..., help=""""""),
+    id: UUID = typer.Argument(..., help=r""""""),
 ) -> None:
     """Delete a session
 
@@ -98,7 +98,7 @@ def get_sessions(
 @app.command("lock-session", deprecated=False, rich_help_panel="API commands")
 def lock_session(
     ctx: typer.Context,
-    id: UUID = typer.Argument(..., help=""""""),
+    id: UUID = typer.Argument(..., help=r""""""),
 ) -> None:
     """Lock a session
 
@@ -114,9 +114,9 @@ def lock_session(
 @app.command("update-session", deprecated=True, rich_help_panel="API commands")
 def update_session(
     ctx: typer.Context,
-    id: UUID = typer.Argument(..., help=""""""),
+    id: UUID = typer.Argument(..., help=r""""""),
     is_pending_sync_reset: Literal["true", "false"] | None = typer.Option(
-        None, "--is-pending-sync-reset", help="""Reset pending sync state"""
+        None, "--is-pending-sync-reset", help=r"""Reset pending sync state"""
     ),
 ) -> None:
     """Update a session

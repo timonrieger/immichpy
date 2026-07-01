@@ -21,7 +21,7 @@ app = typer.Typer(
 @app.command("delete-duplicate", deprecated=False, rich_help_panel="API commands")
 def delete_duplicate(
     ctx: typer.Context,
-    id: UUID = typer.Argument(..., help=""""""),
+    id: UUID = typer.Argument(..., help=r""""""),
 ) -> None:
     """Dismiss a duplicate group
 
@@ -37,7 +37,7 @@ def delete_duplicate(
 @app.command("delete-duplicates", deprecated=False, rich_help_panel="API commands")
 def delete_duplicates(
     ctx: typer.Context,
-    ids: list[UUID] = typer.Option(..., "--ids", help="""IDs to process"""),
+    ids: list[UUID] = typer.Option(..., "--ids", help=r"""IDs to process"""),
 ) -> None:
     """Delete duplicates
 
@@ -73,7 +73,7 @@ def resolve_duplicates(
     groups: list[str] = typer.Option(
         ...,
         "--groups",
-        help="""List of duplicate groups to resolve
+        help=r"""List of duplicate groups to resolve
 
 As a JSON string with keys: duplicateId (string), keepAssetIds (string[]), trashAssetIds (string[])""",
     ),

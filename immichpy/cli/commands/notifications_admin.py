@@ -25,25 +25,25 @@ def create_notification(
     data: str | None = typer.Option(
         None,
         "--data",
-        help="""Additional notification data
+        help=r"""Additional notification data
 
 As a JSON string""",
     ),
     description: str | None = typer.Option(
-        None, "--description", help="""Notification description"""
+        None, "--description", help=r"""Notification description"""
     ),
-    level: str | None = typer.Option(None, "--level", help="""Notification level"""),
+    level: str | None = typer.Option(None, "--level", help=r"""Notification level"""),
     read_at: datetime | None = typer.Option(
         None,
         "--read-at",
-        help="""Date when notification was read
+        help=r"""Date when notification was read
 
 Example: 2024-01-01T00:00:00.000Z""",
     ),
-    title: str = typer.Option(..., "--title", help="""Notification title"""),
-    type: str | None = typer.Option(None, "--type", help="""Notification type"""),
+    title: str = typer.Option(..., "--title", help=r"""Notification title"""),
+    type: str | None = typer.Option(None, "--type", help=r"""Notification type"""),
     user_id: UUID = typer.Option(
-        ..., "--user-id", help="""User ID to send notification to"""
+        ..., "--user-id", help=r"""User ID to send notification to"""
     ),
 ) -> None:
     """Create a notification
@@ -79,8 +79,8 @@ Example: 2024-01-01T00:00:00.000Z""",
 )
 def get_notification_template_admin(
     ctx: typer.Context,
-    name: str = typer.Argument(..., help=""""""),
-    template: str = typer.Option(..., "--template", help="""Template name"""),
+    name: str = typer.Argument(..., help=r""""""),
+    template: str = typer.Option(..., "--template", help=r"""Template name"""),
 ) -> None:
     """Render email template
 
@@ -103,31 +103,33 @@ def get_notification_template_admin(
 def send_test_email_admin(
     ctx: typer.Context,
     enabled: bool = typer.Option(
-        ..., "--enabled", help="""Whether SMTP email notifications are enabled"""
+        ..., "--enabled", help=r"""Whether SMTP email notifications are enabled"""
     ),
-    from_: str = typer.Option(..., "--from", help="""Email address to send from"""),
+    from_: str = typer.Option(..., "--from", help=r"""Email address to send from"""),
     reply_to: str = typer.Option(
-        ..., "--reply-to", help="""Email address for replies"""
+        ..., "--reply-to", help=r"""Email address for replies"""
     ),
     transport_host: str = typer.Option(
-        ..., "--transport-host", help="""SMTP server hostname"""
+        ..., "--transport-host", help=r"""SMTP server hostname"""
     ),
     transport_ignore_cert: bool = typer.Option(
         ...,
         "--transport-ignore-cert",
-        help="""Whether to ignore SSL certificate errors""",
+        help=r"""Whether to ignore SSL certificate errors""",
     ),
     transport_password: str = typer.Option(
-        ..., "--transport-password", help="""SMTP password"""
+        ..., "--transport-password", help=r"""SMTP password"""
     ),
     transport_port: int = typer.Option(
-        ..., "--transport-port", help="""SMTP server port""", min=0, max=65535
+        ..., "--transport-port", help=r"""SMTP server port""", min=0, max=65535
     ),
     transport_secure: bool = typer.Option(
-        ..., "--transport-secure", help="""Whether to use secure connection (TLS/SSL)"""
+        ...,
+        "--transport-secure",
+        help=r"""Whether to use secure connection (TLS/SSL)""",
     ),
     transport_username: str = typer.Option(
-        ..., "--transport-username", help="""SMTP username"""
+        ..., "--transport-username", help=r"""SMTP username"""
     ),
 ) -> None:
     """Send test email

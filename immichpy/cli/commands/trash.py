@@ -34,7 +34,7 @@ def empty_trash(
 @app.command("restore-assets", deprecated=False, rich_help_panel="API commands")
 def restore_assets(
     ctx: typer.Context,
-    ids: list[UUID] = typer.Option(..., "--ids", help="""IDs to process"""),
+    ids: list[UUID] = typer.Option(..., "--ids", help=r"""IDs to process"""),
 ) -> None:
     """Restore assets
 

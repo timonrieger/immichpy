@@ -20,19 +20,19 @@ app = typer.Typer(
 def change_password(
     ctx: typer.Context,
     invalidate_sessions: Literal["true", "false"] | None = typer.Option(
-        None, "--invalidate-sessions", help="""Invalidate all other sessions"""
+        None, "--invalidate-sessions", help=r"""Invalidate all other sessions"""
     ),
     new_password: str = typer.Option(
         ...,
         "--new-password",
-        help="""New password (min 8 characters)
+        help=r"""New password (min 8 characters)
 
 Example: password""",
     ),
     password: str = typer.Option(
         ...,
         "--password",
-        help="""Current password
+        help=r"""Current password
 
 Example: password""",
     ),
@@ -60,19 +60,19 @@ Example: password""",
 def change_pin_code(
     ctx: typer.Context,
     new_pin_code: str = typer.Option(
-        ..., "--new-pin-code", help="""New PIN code (4-6 digits)"""
+        ..., "--new-pin-code", help=r"""New PIN code (4-6 digits)"""
     ),
     password: str | None = typer.Option(
         None,
         "--password",
-        help="""User password (required if PIN code is not provided)
+        help=r"""User password (required if PIN code is not provided)
 
 Example: password""",
     ),
     pin_code: str | None = typer.Option(
         None,
         "--pin-code",
-        help="""New PIN code (4-6 digits)
+        help=r"""New PIN code (4-6 digits)
 
 Example: 123456""",
     ),
@@ -99,10 +99,12 @@ Example: 123456""",
 def finish_o_auth(
     ctx: typer.Context,
     code_verifier: str | None = typer.Option(
-        None, "--code-verifier", help="""OAuth code verifier (PKCE)"""
+        None, "--code-verifier", help=r"""OAuth code verifier (PKCE)"""
     ),
-    state: str | None = typer.Option(None, "--state", help="""OAuth state parameter"""),
-    url: str = typer.Option(..., "--url", help="""OAuth callback URL"""),
+    state: str | None = typer.Option(
+        None, "--state", help=r"""OAuth state parameter"""
+    ),
+    url: str = typer.Option(..., "--url", help=r"""OAuth callback URL"""),
 ) -> None:
     """Finish OAuth
 
@@ -140,10 +142,12 @@ def get_auth_status(
 def link_o_auth_account(
     ctx: typer.Context,
     code_verifier: str | None = typer.Option(
-        None, "--code-verifier", help="""OAuth code verifier (PKCE)"""
+        None, "--code-verifier", help=r"""OAuth code verifier (PKCE)"""
     ),
-    state: str | None = typer.Option(None, "--state", help="""OAuth state parameter"""),
-    url: str = typer.Option(..., "--url", help="""OAuth callback URL"""),
+    state: str | None = typer.Option(
+        None, "--state", help=r"""OAuth state parameter"""
+    ),
+    url: str = typer.Option(..., "--url", help=r"""OAuth callback URL"""),
 ) -> None:
     """Link OAuth account
 
@@ -183,14 +187,14 @@ def login(
     email: str = typer.Option(
         ...,
         "--email",
-        help="""User email
+        help=r"""User email
 
 Example: testuser@email.com""",
     ),
     password: str = typer.Option(
         ...,
         "--password",
-        help="""User password
+        help=r"""User password
 
 Example: password""",
     ),
@@ -228,7 +232,7 @@ def logout(
 def logout_o_auth(
     ctx: typer.Context,
     logout_token: str = typer.Option(
-        ..., "--logout-token", help="""OAuth logout token"""
+        ..., "--logout-token", help=r"""OAuth logout token"""
     ),
 ) -> None:
     """Backchannel OAuth logout
@@ -265,14 +269,14 @@ def reset_pin_code(
     password: str | None = typer.Option(
         None,
         "--password",
-        help="""User password (required if PIN code is not provided)
+        help=r"""User password (required if PIN code is not provided)
 
 Example: password""",
     ),
     pin_code: str | None = typer.Option(
         None,
         "--pin-code",
-        help="""New PIN code (4-6 digits)
+        help=r"""New PIN code (4-6 digits)
 
 Example: 123456""",
     ),
@@ -300,7 +304,7 @@ def setup_pin_code(
     pin_code: str = typer.Option(
         ...,
         "--pin-code",
-        help="""PIN code (4-6 digits)
+        help=r"""PIN code (4-6 digits)
 
 Example: 123456""",
     ),
@@ -325,21 +329,21 @@ def sign_up_admin(
     email: str = typer.Option(
         ...,
         "--email",
-        help="""User email
+        help=r"""User email
 
 Example: testuser@email.com""",
     ),
     name: str = typer.Option(
         ...,
         "--name",
-        help="""User name
+        help=r"""User name
 
 Example: Admin""",
     ),
     password: str = typer.Option(
         ...,
         "--password",
-        help="""User password
+        help=r"""User password
 
 Example: password""",
     ),
@@ -364,12 +368,14 @@ Example: password""",
 def start_o_auth(
     ctx: typer.Context,
     code_challenge: str | None = typer.Option(
-        None, "--code-challenge", help="""OAuth code challenge (PKCE)"""
+        None, "--code-challenge", help=r"""OAuth code challenge (PKCE)"""
     ),
     redirect_uri: str = typer.Option(
-        ..., "--redirect-uri", help="""OAuth redirect URI"""
+        ..., "--redirect-uri", help=r"""OAuth redirect URI"""
     ),
-    state: str | None = typer.Option(None, "--state", help="""OAuth state parameter"""),
+    state: str | None = typer.Option(
+        None, "--state", help=r"""OAuth state parameter"""
+    ),
 ) -> None:
     """Start OAuth
 
@@ -409,14 +415,14 @@ def unlock_auth_session(
     password: str | None = typer.Option(
         None,
         "--password",
-        help="""User password (required if PIN code is not provided)
+        help=r"""User password (required if PIN code is not provided)
 
 Example: password""",
     ),
     pin_code: str | None = typer.Option(
         None,
         "--pin-code",
-        help="""New PIN code (4-6 digits)
+        help=r"""New PIN code (4-6 digits)
 
 Example: 123456""",
     ),

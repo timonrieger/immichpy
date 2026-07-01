@@ -20,47 +20,47 @@ app = typer.Typer(
 @app.command("create-face", deprecated=False, rich_help_panel="API commands")
 def create_face(
     ctx: typer.Context,
-    asset_id: UUID = typer.Option(..., "--asset-id", help="""Asset ID"""),
+    asset_id: UUID = typer.Option(..., "--asset-id", help=r"""Asset ID"""),
     height: int = typer.Option(
         ...,
         "--height",
-        help="""Face bounding box height""",
+        help=r"""Face bounding box height""",
         min=-9007199254740991,
         max=9007199254740991,
     ),
     image_height: int = typer.Option(
         ...,
         "--image-height",
-        help="""Image height in pixels""",
+        help=r"""Image height in pixels""",
         min=-9007199254740991,
         max=9007199254740991,
     ),
     image_width: int = typer.Option(
         ...,
         "--image-width",
-        help="""Image width in pixels""",
+        help=r"""Image width in pixels""",
         min=-9007199254740991,
         max=9007199254740991,
     ),
-    person_id: UUID = typer.Option(..., "--person-id", help="""Person ID"""),
+    person_id: UUID = typer.Option(..., "--person-id", help=r"""Person ID"""),
     width: int = typer.Option(
         ...,
         "--width",
-        help="""Face bounding box width""",
+        help=r"""Face bounding box width""",
         min=-9007199254740991,
         max=9007199254740991,
     ),
     x: int = typer.Option(
         ...,
         "--x",
-        help="""Face bounding box X coordinate""",
+        help=r"""Face bounding box X coordinate""",
         min=-9007199254740991,
         max=9007199254740991,
     ),
     y: int = typer.Option(
         ...,
         "--y",
-        help="""Face bounding box Y coordinate""",
+        help=r"""Face bounding box Y coordinate""",
         min=-9007199254740991,
         max=9007199254740991,
     ),
@@ -89,9 +89,9 @@ def create_face(
 @app.command("delete-face", deprecated=False, rich_help_panel="API commands")
 def delete_face(
     ctx: typer.Context,
-    id: UUID = typer.Argument(..., help=""""""),
+    id: UUID = typer.Argument(..., help=r""""""),
     force: bool = typer.Option(
-        ..., "--force", help="""Force delete even if person has other faces"""
+        ..., "--force", help=r"""Force delete even if person has other faces"""
     ),
 ) -> None:
     """Delete a face
@@ -112,7 +112,7 @@ def delete_face(
 @app.command("get-faces", deprecated=False, rich_help_panel="API commands")
 def get_faces(
     ctx: typer.Context,
-    id: UUID = typer.Option(..., "--id", help="""Face ID"""),
+    id: UUID = typer.Option(..., "--id", help=r"""Face ID"""),
 ) -> None:
     """Retrieve faces for asset
 
@@ -128,8 +128,8 @@ def get_faces(
 @app.command("reassign-faces-by-id", deprecated=False, rich_help_panel="API commands")
 def reassign_faces_by_id(
     ctx: typer.Context,
-    id: UUID = typer.Argument(..., help=""""""),
-    body_id: UUID = typer.Option(..., "--body-id", help="""Face ID"""),
+    id: UUID = typer.Argument(..., help=r""""""),
+    body_id: UUID = typer.Option(..., "--body-id", help=r"""Face ID"""),
 ) -> None:
     """Re-assign a face to another person
 

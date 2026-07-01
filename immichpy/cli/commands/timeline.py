@@ -21,70 +21,70 @@ app = typer.Typer(
 def get_time_bucket(
     ctx: typer.Context,
     album_id: UUID | None = typer.Option(
-        None, "--album-id", help="""Filter assets belonging to a specific album"""
+        None, "--album-id", help=r"""Filter assets belonging to a specific album"""
     ),
     bbox: str | None = typer.Option(
         None,
         "--bbox",
-        help="""Bounding box coordinates as west,south,east,north (WGS84)
+        help=r"""Bounding box coordinates as west,south,east,north (WGS84)
 
 Example: 11.075683,49.416711,11.117589,49.454875""",
     ),
     is_favorite: Literal["true", "false"] | None = typer.Option(
         None,
         "--is-favorite",
-        help="""Filter by favorite status (true for favorites only, false for non-favorites only)""",
+        help=r"""Filter by favorite status (true for favorites only, false for non-favorites only)""",
     ),
     is_trashed: Literal["true", "false"] | None = typer.Option(
         None,
         "--is-trashed",
-        help="""Filter by trash status (true for trashed assets only, false for non-trashed only)""",
+        help=r"""Filter by trash status (true for trashed assets only, false for non-trashed only)""",
     ),
-    key: str | None = typer.Option(None, "--key", help=""""""),
+    key: str | None = typer.Option(None, "--key", help=r""""""),
     order: AssetOrder | None = typer.Option(
         None,
         "--order",
-        help="""Sort order for assets within time buckets (ASC for oldest first, DESC for newest first)""",
+        help=r"""Sort order for assets within time buckets (ASC for oldest first, DESC for newest first)""",
     ),
     order_by: AssetOrderBy | None = typer.Option(
         None,
         "--order-by",
-        help="""Date to group and order assets by (takenAt for date taken, createdAt for date added to Immich)""",
+        help=r"""Date to group and order assets by (takenAt for date taken, createdAt for date added to Immich)""",
     ),
     person_id: UUID | None = typer.Option(
         None,
         "--person-id",
-        help="""Filter assets containing a specific person (face recognition)""",
+        help=r"""Filter assets containing a specific person (face recognition)""",
     ),
-    slug: str | None = typer.Option(None, "--slug", help=""""""),
+    slug: str | None = typer.Option(None, "--slug", help=r""""""),
     tag_id: UUID | None = typer.Option(
-        None, "--tag-id", help="""Filter assets with a specific tag"""
+        None, "--tag-id", help=r"""Filter assets with a specific tag"""
     ),
     time_bucket: str = typer.Option(
         ...,
         "--time-bucket",
-        help="""Time bucket identifier in YYYY-MM-DD format
+        help=r"""Time bucket identifier in YYYY-MM-DD format
 
 Example: 2024-01-01""",
     ),
     user_id: UUID | None = typer.Option(
-        None, "--user-id", help="""Filter assets by specific user ID"""
+        None, "--user-id", help=r"""Filter assets by specific user ID"""
     ),
     visibility: AssetVisibility | None = typer.Option(
         None,
         "--visibility",
-        help="""Filter by asset visibility status (ARCHIVE, TIMELINE, HIDDEN, LOCKED)""",
+        help=r"""Filter by asset visibility status (ARCHIVE, TIMELINE, HIDDEN, LOCKED)""",
     ),
     with_coordinates: Literal["true", "false"] | None = typer.Option(
-        None, "--with-coordinates", help="""Include location data in the response"""
+        None, "--with-coordinates", help=r"""Include location data in the response"""
     ),
     with_partners: Literal["true", "false"] | None = typer.Option(
-        None, "--with-partners", help="""Include assets shared by partners"""
+        None, "--with-partners", help=r"""Include assets shared by partners"""
     ),
     with_stacked: Literal["true", "false"] | None = typer.Option(
         None,
         "--with-stacked",
-        help="""Include stacked assets in the response. When true, only primary assets from stacks are returned.""",
+        help=r"""Include stacked assets in the response. When true, only primary assets from stacks are returned.""",
     ),
 ) -> None:
     """Get time bucket
@@ -132,63 +132,63 @@ Example: 2024-01-01""",
 def get_time_buckets(
     ctx: typer.Context,
     album_id: UUID | None = typer.Option(
-        None, "--album-id", help="""Filter assets belonging to a specific album"""
+        None, "--album-id", help=r"""Filter assets belonging to a specific album"""
     ),
     bbox: str | None = typer.Option(
         None,
         "--bbox",
-        help="""Bounding box coordinates as west,south,east,north (WGS84)
+        help=r"""Bounding box coordinates as west,south,east,north (WGS84)
 
 Example: 11.075683,49.416711,11.117589,49.454875""",
     ),
     is_favorite: Literal["true", "false"] | None = typer.Option(
         None,
         "--is-favorite",
-        help="""Filter by favorite status (true for favorites only, false for non-favorites only)""",
+        help=r"""Filter by favorite status (true for favorites only, false for non-favorites only)""",
     ),
     is_trashed: Literal["true", "false"] | None = typer.Option(
         None,
         "--is-trashed",
-        help="""Filter by trash status (true for trashed assets only, false for non-trashed only)""",
+        help=r"""Filter by trash status (true for trashed assets only, false for non-trashed only)""",
     ),
-    key: str | None = typer.Option(None, "--key", help=""""""),
+    key: str | None = typer.Option(None, "--key", help=r""""""),
     order: AssetOrder | None = typer.Option(
         None,
         "--order",
-        help="""Sort order for assets within time buckets (ASC for oldest first, DESC for newest first)""",
+        help=r"""Sort order for assets within time buckets (ASC for oldest first, DESC for newest first)""",
     ),
     order_by: AssetOrderBy | None = typer.Option(
         None,
         "--order-by",
-        help="""Date to group and order assets by (takenAt for date taken, createdAt for date added to Immich)""",
+        help=r"""Date to group and order assets by (takenAt for date taken, createdAt for date added to Immich)""",
     ),
     person_id: UUID | None = typer.Option(
         None,
         "--person-id",
-        help="""Filter assets containing a specific person (face recognition)""",
+        help=r"""Filter assets containing a specific person (face recognition)""",
     ),
-    slug: str | None = typer.Option(None, "--slug", help=""""""),
+    slug: str | None = typer.Option(None, "--slug", help=r""""""),
     tag_id: UUID | None = typer.Option(
-        None, "--tag-id", help="""Filter assets with a specific tag"""
+        None, "--tag-id", help=r"""Filter assets with a specific tag"""
     ),
     user_id: UUID | None = typer.Option(
-        None, "--user-id", help="""Filter assets by specific user ID"""
+        None, "--user-id", help=r"""Filter assets by specific user ID"""
     ),
     visibility: AssetVisibility | None = typer.Option(
         None,
         "--visibility",
-        help="""Filter by asset visibility status (ARCHIVE, TIMELINE, HIDDEN, LOCKED)""",
+        help=r"""Filter by asset visibility status (ARCHIVE, TIMELINE, HIDDEN, LOCKED)""",
     ),
     with_coordinates: Literal["true", "false"] | None = typer.Option(
-        None, "--with-coordinates", help="""Include location data in the response"""
+        None, "--with-coordinates", help=r"""Include location data in the response"""
     ),
     with_partners: Literal["true", "false"] | None = typer.Option(
-        None, "--with-partners", help="""Include assets shared by partners"""
+        None, "--with-partners", help=r"""Include assets shared by partners"""
     ),
     with_stacked: Literal["true", "false"] | None = typer.Option(
         None,
         "--with-stacked",
-        help="""Include stacked assets in the response. When true, only primary assets from stacks are returned.""",
+        help=r"""Include stacked assets in the response. When true, only primary assets from stacks are returned.""",
     ),
 ) -> None:
     """Get time buckets

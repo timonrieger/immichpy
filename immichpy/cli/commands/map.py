@@ -23,28 +23,28 @@ def get_map_markers(
     file_created_after: datetime | None = typer.Option(
         None,
         "--file-created-after",
-        help="""Filter assets created after this date
+        help=r"""Filter assets created after this date
 
 Example: 2024-01-01T00:00:00.000Z""",
     ),
     file_created_before: datetime | None = typer.Option(
         None,
         "--file-created-before",
-        help="""Filter assets created before this date
+        help=r"""Filter assets created before this date
 
 Example: 2024-01-01T00:00:00.000Z""",
     ),
     is_archived: Literal["true", "false"] | None = typer.Option(
-        None, "--is-archived", help="""Filter by archived status"""
+        None, "--is-archived", help=r"""Filter by archived status"""
     ),
     is_favorite: Literal["true", "false"] | None = typer.Option(
-        None, "--is-favorite", help="""Filter by favorite status"""
+        None, "--is-favorite", help=r"""Filter by favorite status"""
     ),
     with_partners: Literal["true", "false"] | None = typer.Option(
-        None, "--with-partners", help="""Include partner assets"""
+        None, "--with-partners", help=r"""Include partner assets"""
     ),
     with_shared_albums: Literal["true", "false"] | None = typer.Option(
-        None, "--with-shared-albums", help="""Include shared album assets"""
+        None, "--with-shared-albums", help=r"""Include shared album assets"""
     ),
 ) -> None:
     """Retrieve map markers
@@ -72,8 +72,8 @@ Example: 2024-01-01T00:00:00.000Z""",
 @app.command("reverse-geocode", deprecated=False, rich_help_panel="API commands")
 def reverse_geocode(
     ctx: typer.Context,
-    lat: float = typer.Option(..., "--lat", help="""Latitude (-90 to 90)"""),
-    lon: float = typer.Option(..., "--lon", help="""Longitude (-180 to 180)"""),
+    lat: float = typer.Option(..., "--lat", help=r"""Latitude (-90 to 90)"""),
+    lon: float = typer.Option(..., "--lon", help=r"""Longitude (-180 to 180)"""),
 ) -> None:
     """Reverse geocode coordinates
 

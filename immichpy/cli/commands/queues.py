@@ -19,11 +19,11 @@ app = typer.Typer(
 @app.command("empty-queue", deprecated=False, rich_help_panel="API commands")
 def empty_queue(
     ctx: typer.Context,
-    name: QueueName = typer.Argument(..., help=""""""),
+    name: QueueName = typer.Argument(..., help=r""""""),
     failed: Literal["true", "false"] | None = typer.Option(
         None,
         "--failed",
-        help="""If true, will also remove failed jobs from the queue.""",
+        help=r"""If true, will also remove failed jobs from the queue.""",
     ),
 ) -> None:
     """Empty a queue
@@ -45,7 +45,7 @@ def empty_queue(
 @app.command("get-queue", deprecated=False, rich_help_panel="API commands")
 def get_queue(
     ctx: typer.Context,
-    name: QueueName = typer.Argument(..., help=""""""),
+    name: QueueName = typer.Argument(..., help=r""""""),
 ) -> None:
     """Retrieve a queue
 
@@ -61,9 +61,9 @@ def get_queue(
 @app.command("get-queue-jobs", deprecated=False, rich_help_panel="API commands")
 def get_queue_jobs(
     ctx: typer.Context,
-    name: QueueName = typer.Argument(..., help=""""""),
+    name: QueueName = typer.Argument(..., help=r""""""),
     status: list[QueueJobStatus] | None = typer.Option(
-        None, "--status", help="""Filter jobs by status"""
+        None, "--status", help=r"""Filter jobs by status"""
     ),
 ) -> None:
     """Retrieve queue jobs
@@ -96,9 +96,9 @@ def get_queues(
 @app.command("update-queue", deprecated=False, rich_help_panel="API commands")
 def update_queue(
     ctx: typer.Context,
-    name: QueueName = typer.Argument(..., help=""""""),
+    name: QueueName = typer.Argument(..., help=r""""""),
     is_paused: Literal["true", "false"] | None = typer.Option(
-        None, "--is-paused", help="""Whether to pause the queue"""
+        None, "--is-paused", help=r"""Whether to pause the queue"""
     ),
 ) -> None:
     """Update a queue

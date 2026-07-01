@@ -20,9 +20,9 @@ app = typer.Typer(
 @app.command("create-api-key", deprecated=False, rich_help_panel="API commands")
 def create_api_key(
     ctx: typer.Context,
-    name: str | None = typer.Option(None, "--name", help="""API key name"""),
+    name: str | None = typer.Option(None, "--name", help=r"""API key name"""),
     permissions: list[Permission] = typer.Option(
-        ..., "--permissions", help="""List of permissions"""
+        ..., "--permissions", help=r"""List of permissions"""
     ),
 ) -> None:
     """Create an API key
@@ -44,7 +44,7 @@ def create_api_key(
 @app.command("delete-api-key", deprecated=False, rich_help_panel="API commands")
 def delete_api_key(
     ctx: typer.Context,
-    id: UUID = typer.Argument(..., help=""""""),
+    id: UUID = typer.Argument(..., help=r""""""),
 ) -> None:
     """Delete an API key
 
@@ -60,7 +60,7 @@ def delete_api_key(
 @app.command("get-api-key", deprecated=False, rich_help_panel="API commands")
 def get_api_key(
     ctx: typer.Context,
-    id: UUID = typer.Argument(..., help=""""""),
+    id: UUID = typer.Argument(..., help=r""""""),
 ) -> None:
     """Retrieve an API key
 
@@ -104,10 +104,10 @@ def get_my_api_key(
 @app.command("update-api-key", deprecated=True, rich_help_panel="API commands")
 def update_api_key(
     ctx: typer.Context,
-    id: UUID = typer.Argument(..., help=""""""),
-    name: str | None = typer.Option(None, "--name", help="""API key name"""),
+    id: UUID = typer.Argument(..., help=r""""""),
+    name: str | None = typer.Option(None, "--name", help=r"""API key name"""),
     permissions: list[Permission] | None = typer.Option(
-        None, "--permissions", help="""List of permissions"""
+        None, "--permissions", help=r"""List of permissions"""
     ),
 ) -> None:
     """Update an API key

@@ -22,18 +22,18 @@ app = typer.Typer(
 def create_workflow(
     ctx: typer.Context,
     description: str | None = typer.Option(
-        None, "--description", help="""Workflow description"""
+        None, "--description", help=r"""Workflow description"""
     ),
     enabled: Literal["true", "false"] | None = typer.Option(
-        None, "--enabled", help="""Workflow enabled"""
+        None, "--enabled", help=r"""Workflow enabled"""
     ),
-    name: str | None = typer.Option(None, "--name", help="""Workflow name"""),
+    name: str | None = typer.Option(None, "--name", help=r"""Workflow name"""),
     steps: list[str] | None = typer.Option(
         None,
         "--steps",
-        help="""As a JSON string with keys: config (object), enabled (boolean), method (string)""",
+        help=r"""As a JSON string with keys: config (object), enabled (boolean), method (string)""",
     ),
-    trigger: str = typer.Option(..., "--trigger", help="""Plugin trigger type"""),
+    trigger: str = typer.Option(..., "--trigger", help=r"""Plugin trigger type"""),
 ) -> None:
     """Create a workflow
 
@@ -61,7 +61,7 @@ def create_workflow(
 @app.command("delete-workflow", deprecated=False, rich_help_panel="API commands")
 def delete_workflow(
     ctx: typer.Context,
-    id: UUID = typer.Argument(..., help=""""""),
+    id: UUID = typer.Argument(..., help=r""""""),
 ) -> None:
     """Delete a workflow
 
@@ -77,7 +77,7 @@ def delete_workflow(
 @app.command("get-workflow", deprecated=False, rich_help_panel="API commands")
 def get_workflow(
     ctx: typer.Context,
-    id: UUID = typer.Argument(..., help=""""""),
+    id: UUID = typer.Argument(..., help=r""""""),
 ) -> None:
     """Retrieve a workflow
 
@@ -93,7 +93,7 @@ def get_workflow(
 @app.command("get-workflow-for-share", deprecated=False, rich_help_panel="API commands")
 def get_workflow_for_share(
     ctx: typer.Context,
-    id: UUID = typer.Argument(..., help=""""""),
+    id: UUID = typer.Argument(..., help=r""""""),
 ) -> None:
     """Retrieve a workflow
 
@@ -124,15 +124,15 @@ def get_workflow_triggers(
 def search_workflows(
     ctx: typer.Context,
     description: str | None = typer.Option(
-        None, "--description", help="""Workflow description"""
+        None, "--description", help=r"""Workflow description"""
     ),
     enabled: Literal["true", "false"] | None = typer.Option(
-        None, "--enabled", help="""Workflow enabled"""
+        None, "--enabled", help=r"""Workflow enabled"""
     ),
-    id: UUID | None = typer.Option(None, "--id", help="""Workflow ID"""),
-    name: str | None = typer.Option(None, "--name", help="""Workflow name"""),
+    id: UUID | None = typer.Option(None, "--id", help=r"""Workflow ID"""),
+    name: str | None = typer.Option(None, "--name", help=r"""Workflow name"""),
     trigger: WorkflowTrigger | None = typer.Option(
-        None, "--trigger", help="""Workflow trigger type"""
+        None, "--trigger", help=r"""Workflow trigger type"""
     ),
 ) -> None:
     """List all workflows
@@ -158,21 +158,21 @@ def search_workflows(
 @app.command("update-workflow", deprecated=True, rich_help_panel="API commands")
 def update_workflow(
     ctx: typer.Context,
-    id: UUID = typer.Argument(..., help=""""""),
+    id: UUID = typer.Argument(..., help=r""""""),
     description: str | None = typer.Option(
-        None, "--description", help="""Workflow description"""
+        None, "--description", help=r"""Workflow description"""
     ),
     enabled: Literal["true", "false"] | None = typer.Option(
-        None, "--enabled", help="""Workflow enabled"""
+        None, "--enabled", help=r"""Workflow enabled"""
     ),
-    name: str | None = typer.Option(None, "--name", help="""Workflow name"""),
+    name: str | None = typer.Option(None, "--name", help=r"""Workflow name"""),
     steps: list[str] | None = typer.Option(
         None,
         "--steps",
-        help="""As a JSON string with keys: config (object), enabled (boolean), method (string)""",
+        help=r"""As a JSON string with keys: config (object), enabled (boolean), method (string)""",
     ),
     trigger: str | None = typer.Option(
-        None, "--trigger", help="""Plugin trigger type"""
+        None, "--trigger", help=r"""Plugin trigger type"""
     ),
 ) -> None:
     """Update a workflow

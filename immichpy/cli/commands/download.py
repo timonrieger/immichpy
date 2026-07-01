@@ -20,12 +20,12 @@ app = typer.Typer(
 @app.command("download-archive", deprecated=False, rich_help_panel="API commands")
 def download_archive(
     ctx: typer.Context,
-    asset_ids: list[UUID] = typer.Option(..., "--asset-ids", help="""Asset IDs"""),
+    asset_ids: list[UUID] = typer.Option(..., "--asset-ids", help=r"""Asset IDs"""),
     edited: Literal["true", "false"] | None = typer.Option(
-        None, "--edited", help="""Download edited asset if available"""
+        None, "--edited", help=r"""Download edited asset if available"""
     ),
-    key: str | None = typer.Option(None, "--key", help=""""""),
-    slug: str | None = typer.Option(None, "--slug", help=""""""),
+    key: str | None = typer.Option(None, "--key", help=r""""""),
+    slug: str | None = typer.Option(None, "--slug", help=r""""""),
 ) -> None:
     """Download asset archive
 
@@ -51,22 +51,22 @@ def download_archive(
 def get_download_info(
     ctx: typer.Context,
     album_id: UUID | None = typer.Option(
-        None, "--album-id", help="""Album ID to download"""
+        None, "--album-id", help=r"""Album ID to download"""
     ),
     archive_size: int | None = typer.Option(
         None,
         "--archive-size",
-        help="""Archive size limit in bytes""",
+        help=r"""Archive size limit in bytes""",
         min=1,
         max=9007199254740991,
     ),
     asset_ids: list[UUID] | None = typer.Option(
-        None, "--asset-ids", help="""Asset IDs to download"""
+        None, "--asset-ids", help=r"""Asset IDs to download"""
     ),
-    key: str | None = typer.Option(None, "--key", help=""""""),
-    slug: str | None = typer.Option(None, "--slug", help=""""""),
+    key: str | None = typer.Option(None, "--key", help=r""""""),
+    slug: str | None = typer.Option(None, "--slug", help=r""""""),
     user_id: UUID | None = typer.Option(
-        None, "--user-id", help="""User ID to download assets from"""
+        None, "--user-id", help=r"""User ID to download assets from"""
     ),
 ) -> None:
     """Retrieve download information

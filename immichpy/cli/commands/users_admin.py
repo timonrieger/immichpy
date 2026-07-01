@@ -21,38 +21,38 @@ app = typer.Typer(
 def create_user_admin(
     ctx: typer.Context,
     avatar_color: str | None = typer.Option(
-        None, "--avatar-color", help="""User avatar color"""
+        None, "--avatar-color", help=r"""User avatar color"""
     ),
-    email: str = typer.Option(..., "--email", help="""User email"""),
+    email: str = typer.Option(..., "--email", help=r"""User email"""),
     is_admin: Literal["true", "false"] | None = typer.Option(
-        None, "--is-admin", help="""Grant admin privileges"""
+        None, "--is-admin", help=r"""Grant admin privileges"""
     ),
-    name: str = typer.Option(..., "--name", help="""User name"""),
+    name: str = typer.Option(..., "--name", help=r"""User name"""),
     notify: Literal["true", "false"] | None = typer.Option(
-        None, "--notify", help="""Send notification email"""
+        None, "--notify", help=r"""Send notification email"""
     ),
-    password: str = typer.Option(..., "--password", help="""User password"""),
+    password: str = typer.Option(..., "--password", help=r"""User password"""),
     pin_code: str | None = typer.Option(
         None,
         "--pin-code",
-        help="""PIN code
+        help=r"""PIN code
 
 Example: 123456""",
     ),
     quota_size_in_bytes: int | None = typer.Option(
         None,
         "--quota-size-in-bytes",
-        help="""Storage quota in bytes""",
+        help=r"""Storage quota in bytes""",
         min=0,
         max=9007199254740991,
     ),
     should_change_password: Literal["true", "false"] | None = typer.Option(
         None,
         "--should-change-password",
-        help="""Require password change on next login""",
+        help=r"""Require password change on next login""",
     ),
     storage_label: str | None = typer.Option(
-        None, "--storage-label", help="""Storage label"""
+        None, "--storage-label", help=r"""Storage label"""
     ),
 ) -> None:
     """Create a user
@@ -92,9 +92,9 @@ Example: 123456""",
 @app.command("delete-user-admin", deprecated=False, rich_help_panel="API commands")
 def delete_user_admin(
     ctx: typer.Context,
-    id: UUID = typer.Argument(..., help=""""""),
+    id: UUID = typer.Argument(..., help=r""""""),
     force: Literal["true", "false"] | None = typer.Option(
-        None, "--force", help="""Force delete even if user has assets"""
+        None, "--force", help=r"""Force delete even if user has assets"""
     ),
 ) -> None:
     """Delete a user
@@ -116,7 +116,7 @@ def delete_user_admin(
 @app.command("get-user-admin", deprecated=False, rich_help_panel="API commands")
 def get_user_admin(
     ctx: typer.Context,
-    id: UUID = typer.Argument(..., help=""""""),
+    id: UUID = typer.Argument(..., help=r""""""),
 ) -> None:
     """Retrieve a user
 
@@ -134,22 +134,22 @@ def get_user_admin(
 )
 def get_user_calendar_heatmap_admin(
     ctx: typer.Context,
-    id: UUID = typer.Argument(..., help=""""""),
+    id: UUID = typer.Argument(..., help=r""""""),
     from_: str | None = typer.Option(
         None,
         "--from",
-        help="""Start date in UTC
+        help=r"""Start date in UTC
 
 Example: 2024-01-01""",
     ),
     to: str | None = typer.Option(
         None,
         "--to",
-        help="""End date in UTC
+        help=r"""End date in UTC
 
 Example: 2024-01-01""",
     ),
-    type: CalendarHeatmapType | None = typer.Option(None, "--type", help=""""""),
+    type: CalendarHeatmapType | None = typer.Option(None, "--type", help=r""""""),
 ) -> None:
     """Retrieve calendar heatmap activity
 
@@ -175,7 +175,7 @@ Example: 2024-01-01""",
 )
 def get_user_preferences_admin(
     ctx: typer.Context,
-    id: UUID = typer.Argument(..., help=""""""),
+    id: UUID = typer.Argument(..., help=r""""""),
 ) -> None:
     """Retrieve user preferences
 
@@ -195,7 +195,7 @@ def get_user_preferences_admin(
 )
 def get_user_sessions_admin(
     ctx: typer.Context,
-    id: UUID = typer.Argument(..., help=""""""),
+    id: UUID = typer.Argument(..., help=r""""""),
 ) -> None:
     """Retrieve user sessions
 
@@ -213,15 +213,15 @@ def get_user_sessions_admin(
 )
 def get_user_statistics_admin(
     ctx: typer.Context,
-    id: UUID = typer.Argument(..., help=""""""),
+    id: UUID = typer.Argument(..., help=r""""""),
     is_favorite: Literal["true", "false"] | None = typer.Option(
-        None, "--is-favorite", help="""Filter by favorite status"""
+        None, "--is-favorite", help=r"""Filter by favorite status"""
     ),
     is_trashed: Literal["true", "false"] | None = typer.Option(
-        None, "--is-trashed", help="""Filter by trash status"""
+        None, "--is-trashed", help=r"""Filter by trash status"""
     ),
     visibility: AssetVisibility | None = typer.Option(
-        None, "--visibility", help=""""""
+        None, "--visibility", help=r""""""
     ),
 ) -> None:
     """Retrieve user statistics
@@ -246,7 +246,7 @@ def get_user_statistics_admin(
 @app.command("restore-user-admin", deprecated=False, rich_help_panel="API commands")
 def restore_user_admin(
     ctx: typer.Context,
-    id: UUID = typer.Argument(..., help=""""""),
+    id: UUID = typer.Argument(..., help=r""""""),
 ) -> None:
     """Restore a deleted user
 
@@ -262,9 +262,9 @@ def restore_user_admin(
 @app.command("search-users-admin", deprecated=False, rich_help_panel="API commands")
 def search_users_admin(
     ctx: typer.Context,
-    id: UUID | None = typer.Option(None, "--id", help="""User ID filter"""),
+    id: UUID | None = typer.Option(None, "--id", help=r"""User ID filter"""),
     with_deleted: Literal["true", "false"] | None = typer.Option(
-        None, "--with-deleted", help="""Include deleted users"""
+        None, "--with-deleted", help=r"""Include deleted users"""
     ),
 ) -> None:
     """Search users
@@ -284,37 +284,37 @@ def search_users_admin(
 @app.command("update-user-admin", deprecated=True, rich_help_panel="API commands")
 def update_user_admin(
     ctx: typer.Context,
-    id: UUID = typer.Argument(..., help=""""""),
+    id: UUID = typer.Argument(..., help=r""""""),
     avatar_color: str | None = typer.Option(
-        None, "--avatar-color", help="""User avatar color"""
+        None, "--avatar-color", help=r"""User avatar color"""
     ),
-    email: str | None = typer.Option(None, "--email", help="""User email"""),
+    email: str | None = typer.Option(None, "--email", help=r"""User email"""),
     is_admin: Literal["true", "false"] | None = typer.Option(
-        None, "--is-admin", help="""Grant admin privileges"""
+        None, "--is-admin", help=r"""Grant admin privileges"""
     ),
-    name: str | None = typer.Option(None, "--name", help="""User name"""),
-    password: str | None = typer.Option(None, "--password", help="""User password"""),
+    name: str | None = typer.Option(None, "--name", help=r"""User name"""),
+    password: str | None = typer.Option(None, "--password", help=r"""User password"""),
     pin_code: str | None = typer.Option(
         None,
         "--pin-code",
-        help="""PIN code
+        help=r"""PIN code
 
 Example: 123456""",
     ),
     quota_size_in_bytes: int | None = typer.Option(
         None,
         "--quota-size-in-bytes",
-        help="""Storage quota in bytes""",
+        help=r"""Storage quota in bytes""",
         min=0,
         max=9007199254740991,
     ),
     should_change_password: Literal["true", "false"] | None = typer.Option(
         None,
         "--should-change-password",
-        help="""Require password change on next login""",
+        help=r"""Require password change on next login""",
     ),
     storage_label: str | None = typer.Option(
-        None, "--storage-label", help="""Storage label"""
+        None, "--storage-label", help=r"""Storage label"""
     ),
 ) -> None:
     """Update a user
@@ -358,96 +358,96 @@ Example: 123456""",
 )
 def update_user_preferences_admin(
     ctx: typer.Context,
-    id: UUID = typer.Argument(..., help=""""""),
+    id: UUID = typer.Argument(..., help=r""""""),
     albums_default_asset_order: str | None = typer.Option(
-        None, "--albums-default-asset-order", help="""Asset sort order"""
+        None, "--albums-default-asset-order", help=r"""Asset sort order"""
     ),
     avatar_color: str | None = typer.Option(
-        None, "--avatar-color", help="""User avatar color"""
+        None, "--avatar-color", help=r"""User avatar color"""
     ),
     cast_g_cast_enabled: Literal["true", "false"] | None = typer.Option(
-        None, "--cast-g-cast-enabled", help="""Whether Google Cast is enabled"""
+        None, "--cast-g-cast-enabled", help=r"""Whether Google Cast is enabled"""
     ),
     download_archive_size: int | None = typer.Option(
         None,
         "--download-archive-size",
-        help="""Maximum archive size in bytes""",
+        help=r"""Maximum archive size in bytes""",
         min=1,
         max=9007199254740991,
     ),
     download_include_embedded_videos: Literal["true", "false"] | None = typer.Option(
         None,
         "--download-include-embedded-videos",
-        help="""Whether to include embedded videos in downloads""",
+        help=r"""Whether to include embedded videos in downloads""",
     ),
     email_notifications_album_invite: Literal["true", "false"] | None = typer.Option(
         None,
         "--email-notifications-album-invite",
-        help="""Whether to receive email notifications for album invites""",
+        help=r"""Whether to receive email notifications for album invites""",
     ),
     email_notifications_album_update: Literal["true", "false"] | None = typer.Option(
         None,
         "--email-notifications-album-update",
-        help="""Whether to receive email notifications for album updates""",
+        help=r"""Whether to receive email notifications for album updates""",
     ),
     email_notifications_enabled: Literal["true", "false"] | None = typer.Option(
         None,
         "--email-notifications-enabled",
-        help="""Whether email notifications are enabled""",
+        help=r"""Whether email notifications are enabled""",
     ),
     folders_enabled: Literal["true", "false"] | None = typer.Option(
-        None, "--folders-enabled", help="""Whether folders are enabled"""
+        None, "--folders-enabled", help=r"""Whether folders are enabled"""
     ),
     folders_sidebar_web: Literal["true", "false"] | None = typer.Option(
-        None, "--folders-sidebar-web", help="""Whether folders appear in web sidebar"""
+        None, "--folders-sidebar-web", help=r"""Whether folders appear in web sidebar"""
     ),
     memories_duration: int | None = typer.Option(
         None,
         "--memories-duration",
-        help="""Memory duration in seconds""",
+        help=r"""Memory duration in seconds""",
         min=1,
         max=9007199254740991,
     ),
     memories_enabled: Literal["true", "false"] | None = typer.Option(
-        None, "--memories-enabled", help="""Whether memories are enabled"""
+        None, "--memories-enabled", help=r"""Whether memories are enabled"""
     ),
     people_enabled: Literal["true", "false"] | None = typer.Option(
-        None, "--people-enabled", help="""Whether people are enabled"""
+        None, "--people-enabled", help=r"""Whether people are enabled"""
     ),
     people_minimum_faces: int | None = typer.Option(
         None,
         "--people-minimum-faces",
-        help="""People face threshold""",
+        help=r"""People face threshold""",
         min=1,
         max=9007199254740991,
     ),
     people_sidebar_web: Literal["true", "false"] | None = typer.Option(
-        None, "--people-sidebar-web", help="""Whether people appear in web sidebar"""
+        None, "--people-sidebar-web", help=r"""Whether people appear in web sidebar"""
     ),
     purchase_hide_buy_button_until: str | None = typer.Option(
         None,
         "--purchase-hide-buy-button-until",
-        help="""Date until which to hide buy button""",
+        help=r"""Date until which to hide buy button""",
     ),
     purchase_show_support_badge: Literal["true", "false"] | None = typer.Option(
-        None, "--purchase-show-support-badge", help="""Whether to show support badge"""
+        None, "--purchase-show-support-badge", help=r"""Whether to show support badge"""
     ),
     ratings_enabled: Literal["true", "false"] | None = typer.Option(
-        None, "--ratings-enabled", help="""Whether ratings are enabled"""
+        None, "--ratings-enabled", help=r"""Whether ratings are enabled"""
     ),
     shared_links_enabled: Literal["true", "false"] | None = typer.Option(
-        None, "--shared-links-enabled", help="""Whether shared links are enabled"""
+        None, "--shared-links-enabled", help=r"""Whether shared links are enabled"""
     ),
     shared_links_sidebar_web: Literal["true", "false"] | None = typer.Option(
         None,
         "--shared-links-sidebar-web",
-        help="""Whether shared links appear in web sidebar""",
+        help=r"""Whether shared links appear in web sidebar""",
     ),
     tags_enabled: Literal["true", "false"] | None = typer.Option(
-        None, "--tags-enabled", help="""Whether tags are enabled"""
+        None, "--tags-enabled", help=r"""Whether tags are enabled"""
     ),
     tags_sidebar_web: Literal["true", "false"] | None = typer.Option(
-        None, "--tags-sidebar-web", help="""Whether tags appear in web sidebar"""
+        None, "--tags-sidebar-web", help=r"""Whether tags appear in web sidebar"""
     ),
 ) -> None:
     """Update user preferences
