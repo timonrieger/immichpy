@@ -21,8 +21,8 @@ app = typer.Typer(
 @app.command("add-shared-link-assets", deprecated=False, rich_help_panel="API commands")
 def add_shared_link_assets(
     ctx: typer.Context,
-    id: UUID = typer.Argument(..., help=""""""),
-    asset_ids: list[UUID] = typer.Option(..., "--asset-ids", help="""Asset IDs"""),
+    id: UUID = typer.Argument(..., help=r""""""),
+    asset_ids: list[UUID] = typer.Option(..., "--asset-ids", help=r"""Asset IDs"""),
 ) -> None:
     """Add assets to a shared link
 
@@ -43,33 +43,33 @@ def add_shared_link_assets(
 def create_shared_link(
     ctx: typer.Context,
     album_id: UUID | None = typer.Option(
-        None, "--album-id", help="""Album ID (for album sharing)"""
+        None, "--album-id", help=r"""Album ID (for album sharing)"""
     ),
     allow_download: Literal["true", "false"] | None = typer.Option(
-        None, "--allow-download", help="""Allow downloads"""
+        None, "--allow-download", help=r"""Allow downloads"""
     ),
     allow_upload: Literal["true", "false"] | None = typer.Option(
-        None, "--allow-upload", help="""Allow uploads"""
+        None, "--allow-upload", help=r"""Allow uploads"""
     ),
     asset_ids: list[UUID] | None = typer.Option(
-        None, "--asset-ids", help="""Asset IDs (for individual assets)"""
+        None, "--asset-ids", help=r"""Asset IDs (for individual assets)"""
     ),
     description: str | None = typer.Option(
-        None, "--description", help="""Link description"""
+        None, "--description", help=r"""Link description"""
     ),
     expires_at: datetime | None = typer.Option(
         None,
         "--expires-at",
-        help="""Expiration date
+        help=r"""Expiration date
 
 Example: 2024-01-01T00:00:00.000Z""",
     ),
-    password: str | None = typer.Option(None, "--password", help="""Link password"""),
+    password: str | None = typer.Option(None, "--password", help=r"""Link password"""),
     show_metadata: Literal["true", "false"] | None = typer.Option(
-        None, "--show-metadata", help="""Show metadata"""
+        None, "--show-metadata", help=r"""Show metadata"""
     ),
-    slug: str | None = typer.Option(None, "--slug", help="""Custom URL slug"""),
-    type: str = typer.Option(..., "--type", help="""Shared link type"""),
+    slug: str | None = typer.Option(None, "--slug", help=r"""Custom URL slug"""),
+    type: str = typer.Option(..., "--type", help=r"""Shared link type"""),
 ) -> None:
     """Create a shared link
 
@@ -107,9 +107,9 @@ Example: 2024-01-01T00:00:00.000Z""",
 def get_all_shared_links(
     ctx: typer.Context,
     album_id: UUID | None = typer.Option(
-        None, "--album-id", help="""Filter by album ID"""
+        None, "--album-id", help=r"""Filter by album ID"""
     ),
-    id: UUID | None = typer.Option(None, "--id", help="""Filter by shared link ID"""),
+    id: UUID | None = typer.Option(None, "--id", help=r"""Filter by shared link ID"""),
 ) -> None:
     """Retrieve all shared links
 
@@ -128,8 +128,8 @@ def get_all_shared_links(
 @app.command("get-my-shared-link", deprecated=False, rich_help_panel="API commands")
 def get_my_shared_link(
     ctx: typer.Context,
-    key: str | None = typer.Option(None, "--key", help=""""""),
-    slug: str | None = typer.Option(None, "--slug", help=""""""),
+    key: str | None = typer.Option(None, "--key", help=r""""""),
+    slug: str | None = typer.Option(None, "--slug", help=r""""""),
 ) -> None:
     """Retrieve current shared link
 
@@ -148,7 +148,7 @@ def get_my_shared_link(
 @app.command("get-shared-link-by-id", deprecated=False, rich_help_panel="API commands")
 def get_shared_link_by_id(
     ctx: typer.Context,
-    id: UUID = typer.Argument(..., help=""""""),
+    id: UUID = typer.Argument(..., help=r""""""),
 ) -> None:
     """Retrieve a shared link
 
@@ -164,7 +164,7 @@ def get_shared_link_by_id(
 @app.command("remove-shared-link", deprecated=False, rich_help_panel="API commands")
 def remove_shared_link(
     ctx: typer.Context,
-    id: UUID = typer.Argument(..., help=""""""),
+    id: UUID = typer.Argument(..., help=r""""""),
 ) -> None:
     """Delete a shared link
 
@@ -182,8 +182,8 @@ def remove_shared_link(
 )
 def remove_shared_link_assets(
     ctx: typer.Context,
-    id: UUID = typer.Argument(..., help=""""""),
-    asset_ids: list[UUID] = typer.Option(..., "--asset-ids", help="""Asset IDs"""),
+    id: UUID = typer.Argument(..., help=r""""""),
+    asset_ids: list[UUID] = typer.Option(..., "--asset-ids", help=r"""Asset IDs"""),
 ) -> None:
     """Remove assets from a shared link
 
@@ -205,15 +205,15 @@ def remove_shared_link_assets(
 @app.command("shared-link-login", deprecated=False, rich_help_panel="API commands")
 def shared_link_login(
     ctx: typer.Context,
-    key: str | None = typer.Option(None, "--key", help=""""""),
+    key: str | None = typer.Option(None, "--key", help=r""""""),
     password: str = typer.Option(
         ...,
         "--password",
-        help="""Shared link password
+        help=r"""Shared link password
 
 Example: password""",
     ),
-    slug: str | None = typer.Option(None, "--slug", help=""""""),
+    slug: str | None = typer.Option(None, "--slug", help=r""""""),
 ) -> None:
     """Shared link login
 
@@ -236,28 +236,28 @@ Example: password""",
 @app.command("update-shared-link", deprecated=False, rich_help_panel="API commands")
 def update_shared_link(
     ctx: typer.Context,
-    id: UUID = typer.Argument(..., help=""""""),
+    id: UUID = typer.Argument(..., help=r""""""),
     allow_download: Literal["true", "false"] | None = typer.Option(
-        None, "--allow-download", help="""Allow downloads"""
+        None, "--allow-download", help=r"""Allow downloads"""
     ),
     allow_upload: Literal["true", "false"] | None = typer.Option(
-        None, "--allow-upload", help="""Allow uploads"""
+        None, "--allow-upload", help=r"""Allow uploads"""
     ),
     description: str | None = typer.Option(
-        None, "--description", help="""Link description"""
+        None, "--description", help=r"""Link description"""
     ),
     expires_at: datetime | None = typer.Option(
         None,
         "--expires-at",
-        help="""Expiration date
+        help=r"""Expiration date
 
 Example: 2024-01-01T00:00:00.000Z""",
     ),
-    password: str | None = typer.Option(None, "--password", help="""Link password"""),
+    password: str | None = typer.Option(None, "--password", help=r"""Link password"""),
     show_metadata: Literal["true", "false"] | None = typer.Option(
-        None, "--show-metadata", help="""Show metadata"""
+        None, "--show-metadata", help=r"""Show metadata"""
     ),
-    slug: str | None = typer.Option(None, "--slug", help="""Custom URL slug"""),
+    slug: str | None = typer.Option(None, "--slug", help=r"""Custom URL slug"""),
 ) -> None:
     """Update a shared link
 

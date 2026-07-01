@@ -21,7 +21,7 @@ app = typer.Typer(
 @app.command("delete-notification", deprecated=False, rich_help_panel="API commands")
 def delete_notification(
     ctx: typer.Context,
-    id: UUID = typer.Argument(..., help=""""""),
+    id: UUID = typer.Argument(..., help=r""""""),
 ) -> None:
     """Delete a notification
 
@@ -37,7 +37,9 @@ def delete_notification(
 @app.command("delete-notifications", deprecated=False, rich_help_panel="API commands")
 def delete_notifications(
     ctx: typer.Context,
-    ids: list[UUID] = typer.Option(..., "--ids", help="""Notification IDs to delete"""),
+    ids: list[UUID] = typer.Option(
+        ..., "--ids", help=r"""Notification IDs to delete"""
+    ),
 ) -> None:
     """Delete notifications
 
@@ -56,7 +58,7 @@ def delete_notifications(
 @app.command("get-notification", deprecated=False, rich_help_panel="API commands")
 def get_notification(
     ctx: typer.Context,
-    id: UUID = typer.Argument(..., help=""""""),
+    id: UUID = typer.Argument(..., help=r""""""),
 ) -> None:
     """Get a notification
 
@@ -72,11 +74,11 @@ def get_notification(
 @app.command("get-notifications", deprecated=False, rich_help_panel="API commands")
 def get_notifications(
     ctx: typer.Context,
-    id: UUID | None = typer.Option(None, "--id", help="""Filter by notification ID"""),
-    level: NotificationLevel | None = typer.Option(None, "--level", help=""""""),
-    type: NotificationType | None = typer.Option(None, "--type", help=""""""),
+    id: UUID | None = typer.Option(None, "--id", help=r"""Filter by notification ID"""),
+    level: NotificationLevel | None = typer.Option(None, "--level", help=r""""""),
+    type: NotificationType | None = typer.Option(None, "--type", help=r""""""),
     unread: Literal["true", "false"] | None = typer.Option(
-        None, "--unread", help="""Filter by unread status"""
+        None, "--unread", help=r"""Filter by unread status"""
     ),
 ) -> None:
     """Retrieve notifications
@@ -100,11 +102,11 @@ def get_notifications(
 @app.command("update-notification", deprecated=False, rich_help_panel="API commands")
 def update_notification(
     ctx: typer.Context,
-    id: UUID = typer.Argument(..., help=""""""),
+    id: UUID = typer.Argument(..., help=r""""""),
     read_at: datetime | None = typer.Option(
         None,
         "--read-at",
-        help="""Date when notification was read
+        help=r"""Date when notification was read
 
 Example: 2024-01-01T00:00:00.000Z""",
     ),
@@ -128,11 +130,13 @@ Example: 2024-01-01T00:00:00.000Z""",
 @app.command("update-notifications", deprecated=False, rich_help_panel="API commands")
 def update_notifications(
     ctx: typer.Context,
-    ids: list[UUID] = typer.Option(..., "--ids", help="""Notification IDs to update"""),
+    ids: list[UUID] = typer.Option(
+        ..., "--ids", help=r"""Notification IDs to update"""
+    ),
     read_at: datetime | None = typer.Option(
         None,
         "--read-at",
-        help="""Date when notifications were read
+        help=r"""Date when notifications were read
 
 Example: 2024-01-01T00:00:00.000Z""",
     ),

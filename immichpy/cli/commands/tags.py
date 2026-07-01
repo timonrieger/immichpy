@@ -20,8 +20,8 @@ app = typer.Typer(
 @app.command("bulk-tag-assets", deprecated=False, rich_help_panel="API commands")
 def bulk_tag_assets(
     ctx: typer.Context,
-    asset_ids: list[UUID] = typer.Option(..., "--asset-ids", help="""Asset IDs"""),
-    tag_ids: list[UUID] = typer.Option(..., "--tag-ids", help="""Tag IDs"""),
+    asset_ids: list[UUID] = typer.Option(..., "--asset-ids", help=r"""Asset IDs"""),
+    tag_ids: list[UUID] = typer.Option(..., "--tag-ids", help=r"""Tag IDs"""),
 ) -> None:
     """Tag assets
 
@@ -41,10 +41,10 @@ def bulk_tag_assets(
 @app.command("create-tag", deprecated=False, rich_help_panel="API commands")
 def create_tag(
     ctx: typer.Context,
-    color: str | None = typer.Option(None, "--color", help="""Tag color (hex)"""),
-    name: str = typer.Option(..., "--name", help="""Tag name"""),
+    color: str | None = typer.Option(None, "--color", help=r"""Tag color (hex)"""),
+    name: str = typer.Option(..., "--name", help=r"""Tag name"""),
     parent_id: UUID | None = typer.Option(
-        None, "--parent-id", help="""Parent tag ID"""
+        None, "--parent-id", help=r"""Parent tag ID"""
     ),
 ) -> None:
     """Create a tag
@@ -68,7 +68,7 @@ def create_tag(
 @app.command("delete-tag", deprecated=False, rich_help_panel="API commands")
 def delete_tag(
     ctx: typer.Context,
-    id: UUID = typer.Argument(..., help=""""""),
+    id: UUID = typer.Argument(..., help=r""""""),
 ) -> None:
     """Delete a tag
 
@@ -98,7 +98,7 @@ def get_all_tags(
 @app.command("get-tag-by-id", deprecated=False, rich_help_panel="API commands")
 def get_tag_by_id(
     ctx: typer.Context,
-    id: UUID = typer.Argument(..., help=""""""),
+    id: UUID = typer.Argument(..., help=r""""""),
 ) -> None:
     """Retrieve a tag
 
@@ -114,8 +114,8 @@ def get_tag_by_id(
 @app.command("tag-assets", deprecated=False, rich_help_panel="API commands")
 def tag_assets(
     ctx: typer.Context,
-    id: UUID = typer.Argument(..., help=""""""),
-    ids: list[UUID] = typer.Option(..., "--ids", help="""IDs to process"""),
+    id: UUID = typer.Argument(..., help=r""""""),
+    ids: list[UUID] = typer.Option(..., "--ids", help=r"""IDs to process"""),
 ) -> None:
     """Tag assets
 
@@ -135,8 +135,8 @@ def tag_assets(
 @app.command("untag-assets", deprecated=False, rich_help_panel="API commands")
 def untag_assets(
     ctx: typer.Context,
-    id: UUID = typer.Argument(..., help=""""""),
-    ids: list[UUID] = typer.Option(..., "--ids", help="""IDs to process"""),
+    id: UUID = typer.Argument(..., help=r""""""),
+    ids: list[UUID] = typer.Option(..., "--ids", help=r"""IDs to process"""),
 ) -> None:
     """Untag assets
 
@@ -156,8 +156,8 @@ def untag_assets(
 @app.command("update-tag", deprecated=True, rich_help_panel="API commands")
 def update_tag(
     ctx: typer.Context,
-    id: UUID = typer.Argument(..., help=""""""),
-    color: str | None = typer.Option(None, "--color", help="""Tag color (hex)"""),
+    id: UUID = typer.Argument(..., help=r""""""),
+    color: str | None = typer.Option(None, "--color", help=r"""Tag color (hex)"""),
 ) -> None:
     """Update a tag
 
@@ -178,7 +178,7 @@ def update_tag(
 @app.command("upsert-tags", deprecated=False, rich_help_panel="API commands")
 def upsert_tags(
     ctx: typer.Context,
-    tags: list[str] = typer.Option(..., "--tags", help="""Tag names to upsert"""),
+    tags: list[str] = typer.Option(..., "--tags", help=r"""Tag names to upsert"""),
 ) -> None:
     """Upsert tags
 

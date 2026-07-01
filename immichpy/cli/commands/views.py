@@ -21,7 +21,7 @@ app = typer.Typer(
 )
 def get_assets_by_original_path(
     ctx: typer.Context,
-    path: str = typer.Option(..., "--path", help=""""""),
+    path: str = typer.Option(..., "--path", help=r""""""),
 ) -> None:
     """Retrieve assets by original path
 

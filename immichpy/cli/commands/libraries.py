@@ -21,13 +21,13 @@ app = typer.Typer(
 def create_library(
     ctx: typer.Context,
     exclusion_patterns: list[str] | None = typer.Option(
-        None, "--exclusion-patterns", help="""Exclusion patterns (max 128)"""
+        None, "--exclusion-patterns", help=r"""Exclusion patterns (max 128)"""
     ),
     import_paths: list[str] | None = typer.Option(
-        None, "--import-paths", help="""Import paths (max 128)"""
+        None, "--import-paths", help=r"""Import paths (max 128)"""
     ),
-    name: str | None = typer.Option(None, "--name", help="""Library name"""),
-    owner_id: UUID = typer.Option(..., "--owner-id", help="""Owner user ID"""),
+    name: str | None = typer.Option(None, "--name", help=r"""Library name"""),
+    owner_id: UUID = typer.Option(..., "--owner-id", help=r"""Owner user ID"""),
 ) -> None:
     """Create a library
 
@@ -52,7 +52,7 @@ def create_library(
 @app.command("delete-library", deprecated=False, rich_help_panel="API commands")
 def delete_library(
     ctx: typer.Context,
-    id: UUID = typer.Argument(..., help=""""""),
+    id: UUID = typer.Argument(..., help=r""""""),
 ) -> None:
     """Delete a library
 
@@ -82,7 +82,7 @@ def get_all_libraries(
 @app.command("get-library", deprecated=False, rich_help_panel="API commands")
 def get_library(
     ctx: typer.Context,
-    id: UUID = typer.Argument(..., help=""""""),
+    id: UUID = typer.Argument(..., help=r""""""),
 ) -> None:
     """Retrieve a library
 
@@ -98,7 +98,7 @@ def get_library(
 @app.command("get-library-statistics", deprecated=False, rich_help_panel="API commands")
 def get_library_statistics(
     ctx: typer.Context,
-    id: UUID = typer.Argument(..., help=""""""),
+    id: UUID = typer.Argument(..., help=r""""""),
 ) -> None:
     """Retrieve library statistics
 
@@ -114,7 +114,7 @@ def get_library_statistics(
 @app.command("scan-library", deprecated=False, rich_help_panel="API commands")
 def scan_library(
     ctx: typer.Context,
-    id: UUID = typer.Argument(..., help=""""""),
+    id: UUID = typer.Argument(..., help=r""""""),
 ) -> None:
     """Scan a library
 
@@ -130,14 +130,14 @@ def scan_library(
 @app.command("update-library", deprecated=True, rich_help_panel="API commands")
 def update_library(
     ctx: typer.Context,
-    id: UUID = typer.Argument(..., help=""""""),
+    id: UUID = typer.Argument(..., help=r""""""),
     exclusion_patterns: list[str] | None = typer.Option(
-        None, "--exclusion-patterns", help="""Exclusion patterns (max 128)"""
+        None, "--exclusion-patterns", help=r"""Exclusion patterns (max 128)"""
     ),
     import_paths: list[str] | None = typer.Option(
-        None, "--import-paths", help="""Import paths (max 128)"""
+        None, "--import-paths", help=r"""Import paths (max 128)"""
     ),
-    name: str | None = typer.Option(None, "--name", help="""Library name"""),
+    name: str | None = typer.Option(None, "--name", help=r"""Library name"""),
 ) -> None:
     """Update a library
 
@@ -162,12 +162,12 @@ def update_library(
 @app.command("validate", deprecated=False, rich_help_panel="API commands")
 def validate(
     ctx: typer.Context,
-    id: UUID = typer.Argument(..., help=""""""),
+    id: UUID = typer.Argument(..., help=r""""""),
     exclusion_patterns: list[str] | None = typer.Option(
-        None, "--exclusion-patterns", help="""Exclusion patterns (max 128)"""
+        None, "--exclusion-patterns", help=r"""Exclusion patterns (max 128)"""
     ),
     import_paths: list[str] | None = typer.Option(
-        None, "--import-paths", help="""Import paths to validate (max 128)"""
+        None, "--import-paths", help=r"""Import paths to validate (max 128)"""
     ),
 ) -> None:
     """Validate library settings

@@ -22,16 +22,16 @@ app = typer.Typer(
 def create_person(
     ctx: typer.Context,
     birth_date: str | None = typer.Option(
-        None, "--birth-date", help="""Person date of birth"""
+        None, "--birth-date", help=r"""Person date of birth"""
     ),
-    color: str | None = typer.Option(None, "--color", help="""Person color (hex)"""),
+    color: str | None = typer.Option(None, "--color", help=r"""Person color (hex)"""),
     is_favorite: Literal["true", "false"] | None = typer.Option(
-        None, "--is-favorite", help="""Mark as favorite"""
+        None, "--is-favorite", help=r"""Mark as favorite"""
     ),
     is_hidden: Literal["true", "false"] | None = typer.Option(
-        None, "--is-hidden", help="""Person visibility (hidden)"""
+        None, "--is-hidden", help=r"""Person visibility (hidden)"""
     ),
-    name: str | None = typer.Option(None, "--name", help="""Person name"""),
+    name: str | None = typer.Option(None, "--name", help=r"""Person name"""),
 ) -> None:
     """Create a person
 
@@ -59,7 +59,7 @@ def create_person(
 @app.command("delete-people", deprecated=False, rich_help_panel="API commands")
 def delete_people(
     ctx: typer.Context,
-    ids: list[UUID] = typer.Option(..., "--ids", help="""IDs to process"""),
+    ids: list[UUID] = typer.Option(..., "--ids", help=r"""IDs to process"""),
 ) -> None:
     """Delete people
 
@@ -78,7 +78,7 @@ def delete_people(
 @app.command("delete-person", deprecated=False, rich_help_panel="API commands")
 def delete_person(
     ctx: typer.Context,
-    id: UUID = typer.Argument(..., help=""""""),
+    id: UUID = typer.Argument(..., help=r""""""),
 ) -> None:
     """Delete person
 
@@ -95,23 +95,23 @@ def delete_person(
 def get_all_people(
     ctx: typer.Context,
     closest_asset_id: UUID | None = typer.Option(
-        None, "--closest-asset-id", help="""Closest asset ID for similarity search"""
+        None, "--closest-asset-id", help=r"""Closest asset ID for similarity search"""
     ),
     closest_person_id: UUID | None = typer.Option(
-        None, "--closest-person-id", help="""Closest person ID for similarity search"""
+        None, "--closest-person-id", help=r"""Closest person ID for similarity search"""
     ),
     page: int | None = typer.Option(
         None,
         "--page",
-        help="""Page number for pagination""",
+        help=r"""Page number for pagination""",
         min=1,
         max=9007199254740991,
     ),
     size: int | None = typer.Option(
-        None, "--size", help="""Number of items per page""", min=1, max=1000
+        None, "--size", help=r"""Number of items per page""", min=1, max=1000
     ),
     with_hidden: Literal["true", "false"] | None = typer.Option(
-        None, "--with-hidden", help="""Include hidden people"""
+        None, "--with-hidden", help=r"""Include hidden people"""
     ),
 ) -> None:
     """Get all people
@@ -137,7 +137,7 @@ def get_all_people(
 @app.command("get-person", deprecated=False, rich_help_panel="API commands")
 def get_person(
     ctx: typer.Context,
-    id: UUID = typer.Argument(..., help=""""""),
+    id: UUID = typer.Argument(..., help=r""""""),
 ) -> None:
     """Get a person
 
@@ -153,7 +153,7 @@ def get_person(
 @app.command("get-person-statistics", deprecated=False, rich_help_panel="API commands")
 def get_person_statistics(
     ctx: typer.Context,
-    id: UUID = typer.Argument(..., help=""""""),
+    id: UUID = typer.Argument(..., help=r""""""),
 ) -> None:
     """Get person statistics
 
@@ -169,7 +169,7 @@ def get_person_statistics(
 @app.command("get-person-thumbnail", deprecated=False, rich_help_panel="API commands")
 def get_person_thumbnail(
     ctx: typer.Context,
-    id: UUID = typer.Argument(..., help=""""""),
+    id: UUID = typer.Argument(..., help=r""""""),
 ) -> None:
     """Get person thumbnail
 
@@ -185,8 +185,8 @@ def get_person_thumbnail(
 @app.command("merge-person", deprecated=False, rich_help_panel="API commands")
 def merge_person(
     ctx: typer.Context,
-    id: UUID = typer.Argument(..., help=""""""),
-    ids: list[UUID] = typer.Option(..., "--ids", help="""Person IDs to merge"""),
+    id: UUID = typer.Argument(..., help=r""""""),
+    ids: list[UUID] = typer.Option(..., "--ids", help=r"""Person IDs to merge"""),
 ) -> None:
     """Merge people
 
@@ -206,11 +206,11 @@ def merge_person(
 @app.command("reassign-faces", deprecated=False, rich_help_panel="API commands")
 def reassign_faces(
     ctx: typer.Context,
-    id: UUID = typer.Argument(..., help=""""""),
+    id: UUID = typer.Argument(..., help=r""""""),
     data: list[str] = typer.Option(
         ...,
         "--data",
-        help="""Face update items
+        help=r"""Face update items
 
 As a JSON string with keys: assetId (string), personId (string)""",
     ),
@@ -237,7 +237,7 @@ def update_people(
     people: list[str] = typer.Option(
         ...,
         "--people",
-        help="""People to update
+        help=r"""People to update
 
 As a JSON string with keys: birthDate (string), color (string), featureFaceAssetId (string), id (string), isFavorite (boolean), isHidden (boolean), name (string)""",
     ),
@@ -260,23 +260,23 @@ As a JSON string with keys: birthDate (string), color (string), featureFaceAsset
 @app.command("update-person", deprecated=True, rich_help_panel="API commands")
 def update_person(
     ctx: typer.Context,
-    id: UUID = typer.Argument(..., help=""""""),
+    id: UUID = typer.Argument(..., help=r""""""),
     birth_date: str | None = typer.Option(
-        None, "--birth-date", help="""Person date of birth"""
+        None, "--birth-date", help=r"""Person date of birth"""
     ),
-    color: str | None = typer.Option(None, "--color", help="""Person color (hex)"""),
+    color: str | None = typer.Option(None, "--color", help=r"""Person color (hex)"""),
     feature_face_asset_id: UUID | None = typer.Option(
         None,
         "--feature-face-asset-id",
-        help="""Asset ID used for feature face thumbnail""",
+        help=r"""Asset ID used for feature face thumbnail""",
     ),
     is_favorite: Literal["true", "false"] | None = typer.Option(
-        None, "--is-favorite", help="""Mark as favorite"""
+        None, "--is-favorite", help=r"""Mark as favorite"""
     ),
     is_hidden: Literal["true", "false"] | None = typer.Option(
-        None, "--is-hidden", help="""Person visibility (hidden)"""
+        None, "--is-hidden", help=r"""Person visibility (hidden)"""
     ),
-    name: str | None = typer.Option(None, "--name", help="""Person name"""),
+    name: str | None = typer.Option(None, "--name", help=r"""Person name"""),
 ) -> None:
     """Update person
 

@@ -20,7 +20,7 @@ app = typer.Typer(
 def delete_sync_ack(
     ctx: typer.Context,
     types: list[SyncEntityType] | None = typer.Option(
-        None, "--types", help="""Sync entity types to delete acks for"""
+        None, "--types", help=r"""Sync entity types to delete acks for"""
     ),
 ) -> None:
     """Delete acknowledgements
@@ -56,10 +56,10 @@ def get_sync_ack(
 def get_sync_stream(
     ctx: typer.Context,
     reset: Literal["true", "false"] | None = typer.Option(
-        None, "--reset", help="""Reset sync state"""
+        None, "--reset", help=r"""Reset sync state"""
     ),
     types: list[SyncRequestType] = typer.Option(
-        ..., "--types", help="""Sync request types"""
+        ..., "--types", help=r"""Sync request types"""
     ),
 ) -> None:
     """Stream sync changes
@@ -82,7 +82,7 @@ def get_sync_stream(
 def send_sync_ack(
     ctx: typer.Context,
     acks: list[str] = typer.Option(
-        ..., "--acks", help="""Acknowledgment IDs (max 1000)"""
+        ..., "--acks", help=r"""Acknowledgment IDs (max 1000)"""
     ),
 ) -> None:
     """Acknowledge changes

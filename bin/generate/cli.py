@@ -388,7 +388,7 @@ def generate_command_function(
     lines.append("    ctx: typer.Context,")
 
     for param in sorted(param_data, key=lambda x: (x.location != "path", x.name)):
-        help_arg = f", help={param.description}"
+        help_arg = f", help=r{param.description}"
         minimum = param.oaschema.get("minimum")
         maximum = param.oaschema.get("maximum")
         min_arg = f", min={minimum}" if minimum is not None else ""
