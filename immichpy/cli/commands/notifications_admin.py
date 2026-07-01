@@ -11,7 +11,7 @@ if TYPE_CHECKING:
     from immichpy import AsyncClient
 
 from immichpy.cli.runtime import (
-    parse_json_options,
+    parse_json_option,
     print_response,
     run_command,
     set_nested,
@@ -57,7 +57,7 @@ Example: 2024-01-01T00:00:00.000Z""",
     kwargs = {}
     json_data = {}
     if data is not None:
-        value_data = parse_json_options(data, "--data", ctx=ctx)
+        value_data = parse_json_option(data, "--data", ctx=ctx)
         set_nested(json_data, ["data"], value_data)
     if description is not None:
         set_nested(json_data, ["description"], description)
