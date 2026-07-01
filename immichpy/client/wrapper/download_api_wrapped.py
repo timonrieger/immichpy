@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from uuid import UUID, uuid4
+from uuid import uuid4
 from pathlib import Path
 from typing import Any
 
@@ -63,7 +63,7 @@ class DownloadApiWrapped(DownloadApi):
         archive_requests: list[tuple[DownloadArchiveDto, int]] = [
             (
                 DownloadArchiveDto(
-                    assetIds=[UUID(str(asset_id)) for asset_id in archive.asset_ids]
+                    assetIds=[asset_id for asset_id in archive.asset_ids]
                 ),
                 int(archive.size),
             )

@@ -128,7 +128,7 @@ def search_stacks(
     print_response(result, ctx)
 
 
-@app.command("update-stack", deprecated=False, rich_help_panel="API commands")
+@app.command("update-stack", deprecated=True, rich_help_panel="API commands")
 def update_stack(
     ctx: typer.Context,
     id: UUID = typer.Argument(..., help=""""""),

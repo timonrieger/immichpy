@@ -21,7 +21,7 @@ app = typer.Typer(
 def create_user_admin(
     ctx: typer.Context,
     avatar_color: str | None = typer.Option(
-        None, "--avatar-color", help="""Avatar color"""
+        None, "--avatar-color", help="""User avatar color"""
     ),
     email: str = typer.Option(..., "--email", help="""User email"""),
     is_admin: Literal["true", "false"] | None = typer.Option(
@@ -40,7 +40,11 @@ def create_user_admin(
 Example: 123456""",
     ),
     quota_size_in_bytes: int | None = typer.Option(
-        None, "--quota-size-in-bytes", help="""Storage quota in bytes""", min=0
+        None,
+        "--quota-size-in-bytes",
+        help="""Storage quota in bytes""",
+        min=0,
+        max=9007199254740991,
     ),
     should_change_password: Literal["true", "false"] | None = typer.Option(
         None,
@@ -126,6 +130,47 @@ def get_user_admin(
 
 
 @app.command(
+    "get-user-calendar-heatmap-admin", deprecated=False, rich_help_panel="API commands"
+)
+def get_user_calendar_heatmap_admin(
+    ctx: typer.Context,
+    id: UUID = typer.Argument(..., help=""""""),
+    from_: str | None = typer.Option(
+        None,
+        "--from",
+        help="""Start date in UTC
+
+Example: 2024-01-01""",
+    ),
+    to: str | None = typer.Option(
+        None,
+        "--to",
+        help="""End date in UTC
+
+Example: 2024-01-01""",
+    ),
+    type: CalendarHeatmapType | None = typer.Option(None, "--type", help=""""""),
+) -> None:
+    """Retrieve calendar heatmap activity
+
+    [link=https://api.immich.app/endpoints/users-admin/getUserCalendarHeatmapAdmin]Immich API documentation[/link]
+    """
+    kwargs = {}
+    if from_ is not None:
+        kwargs["from_"] = from_
+    kwargs["id"] = id
+    if to is not None:
+        kwargs["to"] = to
+    if type is not None:
+        kwargs["type"] = type
+    client: "AsyncClient" = ctx.obj["client"]
+    result = run_command(
+        client.users_admin.get_user_calendar_heatmap_admin, ctx=ctx, **kwargs
+    )
+    print_response(result, ctx)
+
+
+@app.command(
     "get-user-preferences-admin", deprecated=False, rich_help_panel="API commands"
 )
 def get_user_preferences_admin(
@@ -176,7 +221,7 @@ def get_user_statistics_admin(
         None, "--is-trashed", help="""Filter by trash status"""
     ),
     visibility: AssetVisibility | None = typer.Option(
-        None, "--visibility", help="""Filter by visibility"""
+        None, "--visibility", help=""""""
     ),
 ) -> None:
     """Retrieve user statistics
@@ -236,12 +281,12 @@ def search_users_admin(
     print_response(result, ctx)
 
 
-@app.command("update-user-admin", deprecated=False, rich_help_panel="API commands")
+@app.command("update-user-admin", deprecated=True, rich_help_panel="API commands")
 def update_user_admin(
     ctx: typer.Context,
     id: UUID = typer.Argument(..., help=""""""),
     avatar_color: str | None = typer.Option(
-        None, "--avatar-color", help="""Avatar color"""
+        None, "--avatar-color", help="""User avatar color"""
     ),
     email: str | None = typer.Option(None, "--email", help="""User email"""),
     is_admin: Literal["true", "false"] | None = typer.Option(
@@ -257,7 +302,11 @@ def update_user_admin(
 Example: 123456""",
     ),
     quota_size_in_bytes: int | None = typer.Option(
-        None, "--quota-size-in-bytes", help="""Storage quota in bytes""", min=0
+        None,
+        "--quota-size-in-bytes",
+        help="""Storage quota in bytes""",
+        min=0,
+        max=9007199254740991,
     ),
     should_change_password: Literal["true", "false"] | None = typer.Option(
         None,
@@ -305,7 +354,7 @@ Example: 123456""",
 
 
 @app.command(
-    "update-user-preferences-admin", deprecated=False, rich_help_panel="API commands"
+    "update-user-preferences-admin", deprecated=True, rich_help_panel="API commands"
 )
 def update_user_preferences_admin(
     ctx: typer.Context,
@@ -314,13 +363,17 @@ def update_user_preferences_admin(
         None, "--albums-default-asset-order", help="""Asset sort order"""
     ),
     avatar_color: str | None = typer.Option(
-        None, "--avatar-color", help="""Avatar color"""
+        None, "--avatar-color", help="""User avatar color"""
     ),
     cast_g_cast_enabled: Literal["true", "false"] | None = typer.Option(
         None, "--cast-g-cast-enabled", help="""Whether Google Cast is enabled"""
     ),
     download_archive_size: int | None = typer.Option(
-        None, "--download-archive-size", help="""Maximum archive size in bytes""", min=1
+        None,
+        "--download-archive-size",
+        help="""Maximum archive size in bytes""",
+        min=1,
+        max=9007199254740991,
     ),
     download_include_embedded_videos: Literal["true", "false"] | None = typer.Option(
         None,
@@ -349,13 +402,24 @@ def update_user_preferences_admin(
         None, "--folders-sidebar-web", help="""Whether folders appear in web sidebar"""
     ),
     memories_duration: int | None = typer.Option(
-        None, "--memories-duration", help="""Memory duration in seconds""", min=1
+        None,
+        "--memories-duration",
+        help="""Memory duration in seconds""",
+        min=1,
+        max=9007199254740991,
     ),
     memories_enabled: Literal["true", "false"] | None = typer.Option(
         None, "--memories-enabled", help="""Whether memories are enabled"""
     ),
     people_enabled: Literal["true", "false"] | None = typer.Option(
         None, "--people-enabled", help="""Whether people are enabled"""
+    ),
+    people_minimum_faces: int | None = typer.Option(
+        None,
+        "--people-minimum-faces",
+        help="""People face threshold""",
+        min=1,
+        max=9007199254740991,
     ),
     people_sidebar_web: Literal["true", "false"] | None = typer.Option(
         None, "--people-sidebar-web", help="""Whether people appear in web sidebar"""
@@ -441,6 +505,8 @@ def update_user_preferences_admin(
         set_nested(json_data, ["memories_enabled"], memories_enabled.lower() == "true")
     if people_enabled is not None:
         set_nested(json_data, ["people_enabled"], people_enabled.lower() == "true")
+    if people_minimum_faces is not None:
+        set_nested(json_data, ["people_minimum_faces"], people_minimum_faces)
     if people_sidebar_web is not None:
         set_nested(
             json_data, ["people_sidebar_web"], people_sidebar_web.lower() == "true"

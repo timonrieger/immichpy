@@ -26,9 +26,9 @@ def test_add_assets_to_album(
         [
             "albums",
             "add-assets-to-album",
-            album.id,
+            str(album.id),
             "--ids",
-            asset.id,
+            str(asset.id),
         ],
     )
     assert result.exit_code == 0, result.stdout + result.stderr

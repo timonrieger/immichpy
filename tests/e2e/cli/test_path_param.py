@@ -19,16 +19,15 @@ def test_get_album_info(
     runner_with_api_key: CliRunner, album: AlbumResponseDto
 ) -> None:
     """Test get-album-info command and validate response structure."""
-    album_id = album.id
     result = runner_with_api_key.invoke(
         cli_app,
         [
             "albums",
             "get-album-info",
-            album_id,
+            str(album.id),
         ],
     )
     assert result.exit_code == 0, result.stdout + result.stderr
     response_data = json.loads(result.stdout)
     album_info = AlbumResponseDto.model_validate(response_data)
-    assert album_info.id == album_id
+    assert album_info.id == album.id

@@ -83,6 +83,8 @@ def main() -> int:
         "--minimal-update",
         "--library",
         "asyncio",
+        "-t",
+        f"{str(root / 'bin' / 'generate' / 'templates')}",
     ]
     subprocess.run(generator_cmd, cwd=str(root), check=True)  # nosec: B603
 

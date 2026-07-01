@@ -46,6 +46,11 @@ Example: 11.075683,49.416711,11.117589,49.454875""",
         "--order",
         help="""Sort order for assets within time buckets (ASC for oldest first, DESC for newest first)""",
     ),
+    order_by: AssetOrderBy | None = typer.Option(
+        None,
+        "--order-by",
+        help="""Date to group and order assets by (takenAt for date taken, createdAt for date added to Immich)""",
+    ),
     person_id: UUID | None = typer.Option(
         None,
         "--person-id",
@@ -58,7 +63,7 @@ Example: 11.075683,49.416711,11.117589,49.454875""",
     time_bucket: str = typer.Option(
         ...,
         "--time-bucket",
-        help="""Time bucket identifier in YYYY-MM-DD format (e.g., "2024-01-01" for January 2024)
+        help="""Time bucket identifier in YYYY-MM-DD format
 
 Example: 2024-01-01""",
     ),
@@ -99,6 +104,8 @@ Example: 2024-01-01""",
         kwargs["key"] = key
     if order is not None:
         kwargs["order"] = order
+    if order_by is not None:
+        kwargs["order_by"] = order_by
     if person_id is not None:
         kwargs["person_id"] = person_id
     if slug is not None:
@@ -150,6 +157,11 @@ Example: 11.075683,49.416711,11.117589,49.454875""",
         "--order",
         help="""Sort order for assets within time buckets (ASC for oldest first, DESC for newest first)""",
     ),
+    order_by: AssetOrderBy | None = typer.Option(
+        None,
+        "--order-by",
+        help="""Date to group and order assets by (takenAt for date taken, createdAt for date added to Immich)""",
+    ),
     person_id: UUID | None = typer.Option(
         None,
         "--person-id",
@@ -196,6 +208,8 @@ Example: 11.075683,49.416711,11.117589,49.454875""",
         kwargs["key"] = key
     if order is not None:
         kwargs["order"] = order
+    if order_by is not None:
+        kwargs["order_by"] = order_by
     if person_id is not None:
         kwargs["person_id"] = person_id
     if slug is not None:

@@ -21,28 +21,19 @@ app = typer.Typer(
 @app.command("create-workflow", deprecated=False, rich_help_panel="API commands")
 def create_workflow(
     ctx: typer.Context,
-    actions: list[str] = typer.Option(
-        ...,
-        "--actions",
-        help="""Workflow actions
-
-As a JSON string with keys: actionConfig (object), pluginActionId (string)""",
-    ),
     description: str | None = typer.Option(
         None, "--description", help="""Workflow description"""
     ),
     enabled: Literal["true", "false"] | None = typer.Option(
         None, "--enabled", help="""Workflow enabled"""
     ),
-    filters: list[str] = typer.Option(
-        ...,
-        "--filters",
-        help="""Workflow filters
-
-As a JSON string with keys: filterConfig (object), pluginFilterId (string)""",
+    name: str | None = typer.Option(None, "--name", help="""Workflow name"""),
+    steps: list[str] | None = typer.Option(
+        None,
+        "--steps",
+        help="""As a JSON string with keys: config (object), enabled (boolean), method (string)""",
     ),
-    name: str = typer.Option(..., "--name", help="""Workflow name"""),
-    trigger_type: str = typer.Option(..., "--trigger-type", help="""Trigger type"""),
+    trigger: str = typer.Option(..., "--trigger", help="""Plugin trigger type"""),
 ) -> None:
     """Create a workflow
 
@@ -50,16 +41,16 @@ As a JSON string with keys: filterConfig (object), pluginFilterId (string)""",
     """
     kwargs = {}
     json_data = {}
-    value_actions = [json.loads(i) for i in actions]
-    set_nested(json_data, ["actions"], value_actions)
     if description is not None:
         set_nested(json_data, ["description"], description)
     if enabled is not None:
         set_nested(json_data, ["enabled"], enabled.lower() == "true")
-    value_filters = [json.loads(i) for i in filters]
-    set_nested(json_data, ["filters"], value_filters)
-    set_nested(json_data, ["name"], name)
-    set_nested(json_data, ["trigger_type"], trigger_type)
+    if name is not None:
+        set_nested(json_data, ["name"], name)
+    if steps is not None:
+        value_steps = [json.loads(i) for i in steps]
+        set_nested(json_data, ["steps"], value_steps)
+    set_nested(json_data, ["trigger"], trigger)
     workflow_create_dto = WorkflowCreateDto.model_validate(json_data)
     kwargs["workflow_create_dto"] = workflow_create_dto
     client: "AsyncClient" = ctx.obj["client"]
@@ -99,47 +90,89 @@ def get_workflow(
     print_response(result, ctx)
 
 
-@app.command("get-workflows", deprecated=False, rich_help_panel="API commands")
-def get_workflows(
+@app.command("get-workflow-for-share", deprecated=False, rich_help_panel="API commands")
+def get_workflow_for_share(
     ctx: typer.Context,
+    id: UUID = typer.Argument(..., help=""""""),
 ) -> None:
-    """List all workflows
+    """Retrieve a workflow
 
-    [link=https://api.immich.app/endpoints/workflows/getWorkflows]Immich API documentation[/link]
+    [link=https://api.immich.app/endpoints/workflows/getWorkflowForShare]Immich API documentation[/link]
     """
     kwargs = {}
+    kwargs["id"] = id
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client.workflows.get_workflows, ctx=ctx, **kwargs)
+    result = run_command(client.workflows.get_workflow_for_share, ctx=ctx, **kwargs)
     print_response(result, ctx)
 
 
-@app.command("update-workflow", deprecated=False, rich_help_panel="API commands")
-def update_workflow(
+@app.command("get-workflow-triggers", deprecated=False, rich_help_panel="API commands")
+def get_workflow_triggers(
     ctx: typer.Context,
-    id: UUID = typer.Argument(..., help=""""""),
-    actions: list[str] | None = typer.Option(
-        None,
-        "--actions",
-        help="""Workflow actions
+) -> None:
+    """List all workflow triggers
 
-As a JSON string with keys: actionConfig (object), pluginActionId (string)""",
-    ),
+    [link=https://api.immich.app/endpoints/workflows/getWorkflowTriggers]Immich API documentation[/link]
+    """
+    kwargs = {}
+    client: "AsyncClient" = ctx.obj["client"]
+    result = run_command(client.workflows.get_workflow_triggers, ctx=ctx, **kwargs)
+    print_response(result, ctx)
+
+
+@app.command("search-workflows", deprecated=False, rich_help_panel="API commands")
+def search_workflows(
+    ctx: typer.Context,
     description: str | None = typer.Option(
         None, "--description", help="""Workflow description"""
     ),
     enabled: Literal["true", "false"] | None = typer.Option(
         None, "--enabled", help="""Workflow enabled"""
     ),
-    filters: list[str] | None = typer.Option(
-        None,
-        "--filters",
-        help="""Workflow filters
+    id: UUID | None = typer.Option(None, "--id", help="""Workflow ID"""),
+    name: str | None = typer.Option(None, "--name", help="""Workflow name"""),
+    trigger: WorkflowTrigger | None = typer.Option(
+        None, "--trigger", help="""Workflow trigger type"""
+    ),
+) -> None:
+    """List all workflows
 
-As a JSON string with keys: filterConfig (object), pluginFilterId (string)""",
+    [link=https://api.immich.app/endpoints/workflows/searchWorkflows]Immich API documentation[/link]
+    """
+    kwargs = {}
+    if description is not None:
+        kwargs["description"] = description
+    if enabled is not None:
+        kwargs["enabled"] = enabled.lower() == "true"
+    if id is not None:
+        kwargs["id"] = id
+    if name is not None:
+        kwargs["name"] = name
+    if trigger is not None:
+        kwargs["trigger"] = trigger
+    client: "AsyncClient" = ctx.obj["client"]
+    result = run_command(client.workflows.search_workflows, ctx=ctx, **kwargs)
+    print_response(result, ctx)
+
+
+@app.command("update-workflow", deprecated=True, rich_help_panel="API commands")
+def update_workflow(
+    ctx: typer.Context,
+    id: UUID = typer.Argument(..., help=""""""),
+    description: str | None = typer.Option(
+        None, "--description", help="""Workflow description"""
+    ),
+    enabled: Literal["true", "false"] | None = typer.Option(
+        None, "--enabled", help="""Workflow enabled"""
     ),
     name: str | None = typer.Option(None, "--name", help="""Workflow name"""),
-    trigger_type: str | None = typer.Option(
-        None, "--trigger-type", help="""Trigger type"""
+    steps: list[str] | None = typer.Option(
+        None,
+        "--steps",
+        help="""As a JSON string with keys: config (object), enabled (boolean), method (string)""",
+    ),
+    trigger: str | None = typer.Option(
+        None, "--trigger", help="""Plugin trigger type"""
     ),
 ) -> None:
     """Update a workflow
@@ -149,20 +182,17 @@ As a JSON string with keys: filterConfig (object), pluginFilterId (string)""",
     kwargs = {}
     json_data = {}
     kwargs["id"] = id
-    if actions is not None:
-        value_actions = [json.loads(i) for i in actions]
-        set_nested(json_data, ["actions"], value_actions)
     if description is not None:
         set_nested(json_data, ["description"], description)
     if enabled is not None:
         set_nested(json_data, ["enabled"], enabled.lower() == "true")
-    if filters is not None:
-        value_filters = [json.loads(i) for i in filters]
-        set_nested(json_data, ["filters"], value_filters)
     if name is not None:
         set_nested(json_data, ["name"], name)
-    if trigger_type is not None:
-        set_nested(json_data, ["trigger_type"], trigger_type)
+    if steps is not None:
+        value_steps = [json.loads(i) for i in steps]
+        set_nested(json_data, ["steps"], value_steps)
+    if trigger is not None:
+        set_nested(json_data, ["trigger"], trigger)
     workflow_update_dto = WorkflowUpdateDto.model_validate(json_data)
     kwargs["workflow_update_dto"] = workflow_update_dto
     client: "AsyncClient" = ctx.obj["client"]

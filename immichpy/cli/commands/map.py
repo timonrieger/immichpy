@@ -21,10 +21,18 @@ app = typer.Typer(
 def get_map_markers(
     ctx: typer.Context,
     file_created_after: datetime | None = typer.Option(
-        None, "--file-created-after", help="""Filter assets created after this date"""
+        None,
+        "--file-created-after",
+        help="""Filter assets created after this date
+
+Example: 2024-01-01T00:00:00.000Z""",
     ),
     file_created_before: datetime | None = typer.Option(
-        None, "--file-created-before", help="""Filter assets created before this date"""
+        None,
+        "--file-created-before",
+        help="""Filter assets created before this date
+
+Example: 2024-01-01T00:00:00.000Z""",
     ),
     is_archived: Literal["true", "false"] | None = typer.Option(
         None, "--is-archived", help="""Filter by archived status"""
