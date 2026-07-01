@@ -153,7 +153,7 @@ def untag_assets(
     print_response(result, ctx)
 
 
-@app.command("update-tag", deprecated=False, rich_help_panel="API commands")
+@app.command("update-tag", deprecated=True, rich_help_panel="API commands")
 def update_tag(
     ctx: typer.Context,
     id: UUID = typer.Argument(..., help=""""""),

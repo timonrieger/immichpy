@@ -24,8 +24,12 @@ def create_session(
     device_type: str | None = typer.Option(
         None, "--device-type", help="""Device type"""
     ),
-    duration: float | None = typer.Option(
-        None, "--duration", help="""Session duration in seconds""", min=1
+    duration: int | None = typer.Option(
+        None,
+        "--duration",
+        help="""Session duration in seconds""",
+        min=1,
+        max=9007199254740991,
     ),
 ) -> None:
     """Create a session
@@ -107,7 +111,7 @@ def lock_session(
     print_response(result, ctx)
 
 
-@app.command("update-session", deprecated=False, rich_help_panel="API commands")
+@app.command("update-session", deprecated=True, rich_help_panel="API commands")
 def update_session(
     ctx: typer.Context,
     id: UUID = typer.Argument(..., help=""""""),

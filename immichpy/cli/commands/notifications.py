@@ -73,12 +73,8 @@ def get_notification(
 def get_notifications(
     ctx: typer.Context,
     id: UUID | None = typer.Option(None, "--id", help="""Filter by notification ID"""),
-    level: NotificationLevel | None = typer.Option(
-        None, "--level", help="""Filter by notification level"""
-    ),
-    type: NotificationType | None = typer.Option(
-        None, "--type", help="""Filter by notification type"""
-    ),
+    level: NotificationLevel | None = typer.Option(None, "--level", help=""""""),
+    type: NotificationType | None = typer.Option(None, "--type", help=""""""),
     unread: Literal["true", "false"] | None = typer.Option(
         None, "--unread", help="""Filter by unread status"""
     ),
@@ -106,7 +102,11 @@ def update_notification(
     ctx: typer.Context,
     id: UUID = typer.Argument(..., help=""""""),
     read_at: datetime | None = typer.Option(
-        None, "--read-at", help="""Date when notification was read"""
+        None,
+        "--read-at",
+        help="""Date when notification was read
+
+Example: 2024-01-01T00:00:00.000Z""",
     ),
 ) -> None:
     """Update a notification
@@ -130,7 +130,11 @@ def update_notifications(
     ctx: typer.Context,
     ids: list[UUID] = typer.Option(..., "--ids", help="""Notification IDs to update"""),
     read_at: datetime | None = typer.Option(
-        None, "--read-at", help="""Date when notifications were read"""
+        None,
+        "--read-at",
+        help="""Date when notifications were read
+
+Example: 2024-01-01T00:00:00.000Z""",
     ),
 ) -> None:
     """Update notifications

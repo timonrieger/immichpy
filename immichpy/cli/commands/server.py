@@ -158,20 +158,6 @@ def get_supported_media_types(
     print_response(result, ctx)
 
 
-@app.command("get-theme", deprecated=False, rich_help_panel="API commands")
-def get_theme(
-    ctx: typer.Context,
-) -> None:
-    """Get theme
-
-    [link=https://api.immich.app/endpoints/server/getTheme]Immich API documentation[/link]
-    """
-    kwargs = {}
-    client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client.server.get_theme, ctx=ctx, **kwargs)
-    print_response(result, ctx)
-
-
 @app.command("get-version-check", deprecated=False, rich_help_panel="API commands")
 def get_version_check(
     ctx: typer.Context,
@@ -221,7 +207,9 @@ def set_server_license(
         ..., "--activation-key", help="""Activation key"""
     ),
     license_key: str = typer.Option(
-        ..., "--license-key", help="""License key (format: IM(SV|CL)(-XXXX){8})"""
+        ...,
+        "--license-key",
+        help="""License key (format: /^IM(SV|CL)(-[\dA-Za-z]{4}){8}$/)""",
     ),
 ) -> None:
     """Set server product key
