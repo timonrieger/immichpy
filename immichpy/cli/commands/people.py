@@ -3,14 +3,18 @@
 from __future__ import annotations
 
 import typer
-import json
 from uuid import UUID
 from typing import Literal, TYPE_CHECKING
 
 if TYPE_CHECKING:
     from immichpy import AsyncClient
 
-from immichpy.cli.runtime import print_response, run_command, set_nested
+from immichpy.cli.runtime import (
+    parse_json_options,
+    print_response,
+    run_command,
+    set_nested,
+)
 from immichpy.client.generated.models import *
 
 app = typer.Typer(
@@ -222,7 +226,7 @@ As a JSON string with keys: assetId (string), personId (string)""",
     kwargs = {}
     json_data = {}
     kwargs["id"] = id
-    value_data = [json.loads(i) for i in data]
+    value_data = parse_json_options(data, "--data", ctx)
     set_nested(json_data, ["data"], value_data)
     asset_face_update_dto = AssetFaceUpdateDto.model_validate(json_data)
     kwargs["asset_face_update_dto"] = asset_face_update_dto
@@ -248,7 +252,7 @@ As a JSON string with keys: birthDate (string), color (string), featureFaceAsset
     """
     kwargs = {}
     json_data = {}
-    value_people = [json.loads(i) for i in people]
+    value_people = parse_json_options(people, "--people", ctx)
     set_nested(json_data, ["people"], value_people)
     people_update_dto = PeopleUpdateDto.model_validate(json_data)
     kwargs["people_update_dto"] = people_update_dto
