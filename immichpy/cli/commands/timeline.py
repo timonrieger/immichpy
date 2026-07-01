@@ -125,7 +125,7 @@ Example: 2024-01-01""",
         kwargs["with_stacked"] = with_stacked.lower() == "true"
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.timeline.get_time_bucket, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("get-time-buckets", deprecated=False, rich_help_panel="API commands")
@@ -228,4 +228,4 @@ Example: 11.075683,49.416711,11.117589,49.454875""",
         kwargs["with_stacked"] = with_stacked.lower() == "true"
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.timeline.get_time_buckets, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)

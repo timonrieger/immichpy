@@ -30,7 +30,7 @@ def get_plugin(
     kwargs["id"] = id
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.plugins.get_plugin, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("search-plugin-methods", deprecated=False, rich_help_panel="API commands")
@@ -81,7 +81,7 @@ def search_plugin_methods(
         kwargs["type"] = type
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.plugins.search_plugin_methods, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command(
@@ -97,7 +97,7 @@ def search_plugin_templates(
     kwargs = {}
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.plugins.search_plugin_templates, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("search-plugins", deprecated=False, rich_help_panel="API commands")
@@ -131,4 +131,4 @@ def search_plugins(
         kwargs["version"] = version
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.plugins.search_plugins, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)

@@ -44,7 +44,7 @@ def download_archive(
     kwargs["download_archive_dto"] = download_archive_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.download.download_archive, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("get-download-info", deprecated=False, rich_help_panel="API commands")
@@ -91,4 +91,4 @@ def get_download_info(
     kwargs["download_info_dto"] = download_info_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.download.get_download_info, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)

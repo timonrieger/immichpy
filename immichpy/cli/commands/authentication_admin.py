@@ -31,4 +31,4 @@ def unlink_all_o_auth_accounts_admin(
     result = run_command(
         client.auth_admin.unlink_all_o_auth_accounts_admin, ctx=ctx, **kwargs
     )
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)

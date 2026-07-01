@@ -29,7 +29,7 @@ def get_assets_by_city(
     kwargs = {}
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.search.get_assets_by_city, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("get-explore-data", deprecated=False, rich_help_panel="API commands")
@@ -43,7 +43,7 @@ def get_explore_data(
     kwargs = {}
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.search.get_explore_data, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("get-search-suggestions", deprecated=False, rich_help_panel="API commands")
@@ -87,7 +87,7 @@ def get_search_suggestions(
     kwargs["type"] = type
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.search.get_search_suggestions, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command(
@@ -276,7 +276,7 @@ Example: 2024-01-01T00:00:00.000Z""",
     kwargs["statistics_search_dto"] = statistics_search_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.search.search_asset_statistics, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("search-assets", deprecated=False, rich_help_panel="API commands")
@@ -529,7 +529,7 @@ Example: 2024-01-01T00:00:00.000Z""",
     kwargs["metadata_search_dto"] = metadata_search_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.search.search_assets, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("search-large-assets", deprecated=False, rich_help_panel="API commands")
@@ -732,7 +732,7 @@ Example: 2024-01-01T00:00:00.000Z""",
         kwargs["with_exif"] = with_exif.lower() == "true"
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.search.search_large_assets, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("search-person", deprecated=False, rich_help_panel="API commands")
@@ -753,7 +753,7 @@ def search_person(
         kwargs["with_hidden"] = with_hidden.lower() == "true"
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.search.search_person, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("search-places", deprecated=False, rich_help_panel="API commands")
@@ -769,7 +769,7 @@ def search_places(
     kwargs["name"] = name
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.search.search_places, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("search-random", deprecated=False, rich_help_panel="API commands")
@@ -976,7 +976,7 @@ Example: 2024-01-01T00:00:00.000Z""",
     kwargs["random_search_dto"] = random_search_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.search.search_random, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("search-smart", deprecated=False, rich_help_panel="API commands")
@@ -1193,4 +1193,4 @@ Example: 2024-01-01T00:00:00.000Z""",
     kwargs["smart_search_dto"] = smart_search_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.search.search_smart, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)

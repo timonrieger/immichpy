@@ -36,7 +36,7 @@ def add_memory_assets(
     kwargs["bulk_ids_dto"] = bulk_ids_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.memories.add_memory_assets, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("create-memory", deprecated=False, rich_help_panel="API commands")
@@ -104,7 +104,7 @@ Example: 2024-01-01T00:00:00.000Z""",
     kwargs["memory_create_dto"] = memory_create_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.memories.create_memory, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("delete-memory", deprecated=False, rich_help_panel="API commands")
@@ -120,7 +120,7 @@ def delete_memory(
     kwargs["id"] = id
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.memories.delete_memory, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("get-memory", deprecated=False, rich_help_panel="API commands")
@@ -136,7 +136,7 @@ def get_memory(
     kwargs["id"] = id
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.memories.get_memory, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("memories-statistics", deprecated=False, rich_help_panel="API commands")
@@ -184,7 +184,7 @@ Example: 2024-01-01T00:00:00.000Z""",
         kwargs["type"] = type
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.memories.memories_statistics, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("remove-memory-assets", deprecated=False, rich_help_panel="API commands")
@@ -205,7 +205,7 @@ def remove_memory_assets(
     kwargs["bulk_ids_dto"] = bulk_ids_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.memories.remove_memory_assets, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("search-memories", deprecated=False, rich_help_panel="API commands")
@@ -253,7 +253,7 @@ Example: 2024-01-01T00:00:00.000Z""",
         kwargs["type"] = type
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.memories.search_memories, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("update-memory", deprecated=True, rich_help_panel="API commands")
@@ -295,4 +295,4 @@ Example: 2024-01-01T00:00:00.000Z""",
     kwargs["memory_update_dto"] = memory_update_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.memories.update_memory, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)

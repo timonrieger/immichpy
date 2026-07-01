@@ -40,7 +40,7 @@ def add_assets_to_album(
     kwargs["bulk_ids_dto"] = bulk_ids_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.albums.add_assets_to_album, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("add-assets-to-albums", deprecated=False, rich_help_panel="API commands")
@@ -61,7 +61,7 @@ def add_assets_to_albums(
     kwargs["albums_add_assets_dto"] = albums_add_assets_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.albums.add_assets_to_albums, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("add-users-to-album", deprecated=False, rich_help_panel="API commands")
@@ -83,13 +83,13 @@ As a JSON string with keys: role (string), userId (string)""",
     kwargs = {}
     json_data = {}
     kwargs["id"] = id
-    value_album_users = parse_json_options(album_users, "--album-users", ctx)
+    value_album_users = parse_json_options(album_users, "--album-users", ctx=ctx)
     set_nested(json_data, ["album_users"], value_album_users)
     add_users_dto = AddUsersDto.model_validate(json_data)
     kwargs["add_users_dto"] = add_users_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.albums.add_users_to_album, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("create-album", deprecated=False, rich_help_panel="API commands")
@@ -118,7 +118,7 @@ As a JSON string with keys: role (string), userId (string)""",
     json_data = {}
     set_nested(json_data, ["album_name"], album_name)
     if album_users is not None:
-        value_album_users = parse_json_options(album_users, "--album-users", ctx)
+        value_album_users = parse_json_options(album_users, "--album-users", ctx=ctx)
         set_nested(json_data, ["album_users"], value_album_users)
     if asset_ids is not None:
         set_nested(json_data, ["asset_ids"], asset_ids)
@@ -128,7 +128,7 @@ As a JSON string with keys: role (string), userId (string)""",
     kwargs["create_album_dto"] = create_album_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.albums.create_album, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("delete-album", deprecated=False, rich_help_panel="API commands")
@@ -144,7 +144,7 @@ def delete_album(
     kwargs["id"] = id
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.albums.delete_album, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("get-album-info", deprecated=False, rich_help_panel="API commands")
@@ -166,7 +166,7 @@ def get_album_info(
         kwargs["slug"] = slug
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.albums.get_album_info, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("get-album-map-markers", deprecated=False, rich_help_panel="API commands")
@@ -188,7 +188,7 @@ def get_album_map_markers(
         kwargs["slug"] = slug
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.albums.get_album_map_markers, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("get-album-statistics", deprecated=False, rich_help_panel="API commands")
@@ -202,7 +202,7 @@ def get_album_statistics(
     kwargs = {}
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.albums.get_album_statistics, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("get-all-albums", deprecated=False, rich_help_panel="API commands")
@@ -245,7 +245,7 @@ def get_all_albums(
         kwargs["name"] = name
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.albums.get_all_albums, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command(
@@ -268,7 +268,7 @@ def remove_asset_from_album(
     kwargs["bulk_ids_dto"] = bulk_ids_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.albums.remove_asset_from_album, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("remove-user-from-album", deprecated=False, rich_help_panel="API commands")
@@ -286,7 +286,7 @@ def remove_user_from_album(
     kwargs["user_id"] = user_id
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.albums.remove_user_from_album, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("update-album-info", deprecated=False, rich_help_panel="API commands")
@@ -328,7 +328,7 @@ def update_album_info(
     kwargs["update_album_dto"] = update_album_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.albums.update_album_info, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("update-album-user", deprecated=False, rich_help_panel="API commands")
@@ -351,4 +351,4 @@ def update_album_user(
     kwargs["update_album_user_dto"] = update_album_user_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.albums.update_album_user, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)

@@ -53,7 +53,7 @@ Example: password""",
     kwargs["change_password_dto"] = change_password_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.auth.change_password, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("change-pin-code", deprecated=False, rich_help_panel="API commands")
@@ -92,7 +92,7 @@ Example: 123456""",
     kwargs["pin_code_change_dto"] = pin_code_change_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.auth.change_pin_code, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("finish-o-auth", deprecated=False, rich_help_panel="API commands")
@@ -121,7 +121,7 @@ def finish_o_auth(
     kwargs["o_auth_callback_dto"] = o_auth_callback_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.auth.finish_o_auth, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("get-auth-status", deprecated=False, rich_help_panel="API commands")
@@ -135,7 +135,7 @@ def get_auth_status(
     kwargs = {}
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.auth.get_auth_status, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("link-o-auth-account", deprecated=False, rich_help_panel="API commands")
@@ -164,7 +164,7 @@ def link_o_auth_account(
     kwargs["o_auth_callback_dto"] = o_auth_callback_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.auth.link_o_auth_account, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("lock-auth-session", deprecated=False, rich_help_panel="API commands")
@@ -178,7 +178,7 @@ def lock_auth_session(
     kwargs = {}
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.auth.lock_auth_session, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("login", deprecated=False, rich_help_panel="API commands")
@@ -211,7 +211,7 @@ Example: password""",
     kwargs["login_credential_dto"] = login_credential_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.auth.login, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("logout", deprecated=False, rich_help_panel="API commands")
@@ -225,7 +225,7 @@ def logout(
     kwargs = {}
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.auth.logout, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("logout-o-auth", deprecated=False, rich_help_panel="API commands")
@@ -245,7 +245,7 @@ def logout_o_auth(
     kwargs.update(json_data)
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.auth.logout_o_auth, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command(
@@ -261,7 +261,7 @@ def redirect_o_auth_to_mobile(
     kwargs = {}
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.auth.redirect_o_auth_to_mobile, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("reset-pin-code", deprecated=False, rich_help_panel="API commands")
@@ -296,7 +296,7 @@ Example: 123456""",
     kwargs["pin_code_reset_dto"] = pin_code_reset_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.auth.reset_pin_code, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("setup-pin-code", deprecated=False, rich_help_panel="API commands")
@@ -321,7 +321,7 @@ Example: 123456""",
     kwargs["pin_code_setup_dto"] = pin_code_setup_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.auth.setup_pin_code, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("sign-up-admin", deprecated=False, rich_help_panel="API commands")
@@ -362,7 +362,7 @@ Example: password""",
     kwargs["sign_up_dto"] = sign_up_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.auth.sign_up_admin, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("start-o-auth", deprecated=False, rich_help_panel="API commands")
@@ -393,7 +393,7 @@ def start_o_auth(
     kwargs["o_auth_config_dto"] = o_auth_config_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.auth.start_o_auth, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("unlink-o-auth-account", deprecated=False, rich_help_panel="API commands")
@@ -407,7 +407,7 @@ def unlink_o_auth_account(
     kwargs = {}
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.auth.unlink_o_auth_account, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("unlock-auth-session", deprecated=False, rich_help_panel="API commands")
@@ -442,7 +442,7 @@ Example: 123456""",
     kwargs["session_unlock_dto"] = session_unlock_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.auth.unlock_auth_session, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("validate-access-token", deprecated=False, rich_help_panel="API commands")
@@ -456,4 +456,4 @@ def validate_access_token(
     kwargs = {}
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.auth.validate_access_token, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)

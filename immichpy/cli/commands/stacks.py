@@ -35,7 +35,7 @@ def create_stack(
     kwargs["stack_create_dto"] = stack_create_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.stacks.create_stack, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("delete-stack", deprecated=False, rich_help_panel="API commands")
@@ -51,7 +51,7 @@ def delete_stack(
     kwargs["id"] = id
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.stacks.delete_stack, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("delete-stacks", deprecated=False, rich_help_panel="API commands")
@@ -70,7 +70,7 @@ def delete_stacks(
     kwargs["bulk_ids_dto"] = bulk_ids_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.stacks.delete_stacks, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("get-stack", deprecated=False, rich_help_panel="API commands")
@@ -86,7 +86,7 @@ def get_stack(
     kwargs["id"] = id
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.stacks.get_stack, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command(
@@ -106,7 +106,7 @@ def remove_asset_from_stack(
     kwargs["id"] = id
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.stacks.remove_asset_from_stack, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("search-stacks", deprecated=False, rich_help_panel="API commands")
@@ -125,7 +125,7 @@ def search_stacks(
         kwargs["primary_asset_id"] = primary_asset_id
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.stacks.search_stacks, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("update-stack", deprecated=True, rich_help_panel="API commands")
@@ -149,4 +149,4 @@ def update_stack(
     kwargs["stack_update_dto"] = stack_update_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.stacks.update_stack, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)

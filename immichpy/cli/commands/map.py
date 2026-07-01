@@ -66,7 +66,7 @@ Example: 2024-01-01T00:00:00.000Z""",
         kwargs["with_shared_albums"] = with_shared_albums.lower() == "true"
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.map.get_map_markers, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("reverse-geocode", deprecated=False, rich_help_panel="API commands")
@@ -84,4 +84,4 @@ def reverse_geocode(
     kwargs["lon"] = lon
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.map.reverse_geocode, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)

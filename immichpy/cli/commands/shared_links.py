@@ -36,7 +36,7 @@ def add_shared_link_assets(
     kwargs["asset_ids_dto"] = asset_ids_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.shared_links.add_shared_link_assets, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("create-shared-link", deprecated=False, rich_help_panel="API commands")
@@ -100,7 +100,7 @@ Example: 2024-01-01T00:00:00.000Z""",
     kwargs["shared_link_create_dto"] = shared_link_create_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.shared_links.create_shared_link, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("get-all-shared-links", deprecated=False, rich_help_panel="API commands")
@@ -122,7 +122,7 @@ def get_all_shared_links(
         kwargs["id"] = id
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.shared_links.get_all_shared_links, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("get-my-shared-link", deprecated=False, rich_help_panel="API commands")
@@ -142,7 +142,7 @@ def get_my_shared_link(
         kwargs["slug"] = slug
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.shared_links.get_my_shared_link, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("get-shared-link-by-id", deprecated=False, rich_help_panel="API commands")
@@ -158,7 +158,7 @@ def get_shared_link_by_id(
     kwargs["id"] = id
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.shared_links.get_shared_link_by_id, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("remove-shared-link", deprecated=False, rich_help_panel="API commands")
@@ -174,7 +174,7 @@ def remove_shared_link(
     kwargs["id"] = id
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.shared_links.remove_shared_link, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command(
@@ -199,7 +199,7 @@ def remove_shared_link_assets(
     result = run_command(
         client.shared_links.remove_shared_link_assets, ctx=ctx, **kwargs
     )
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("shared-link-login", deprecated=False, rich_help_panel="API commands")
@@ -230,7 +230,7 @@ Example: password""",
     kwargs["shared_link_login_dto"] = shared_link_login_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.shared_links.shared_link_login, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("update-shared-link", deprecated=False, rich_help_panel="API commands")
@@ -284,4 +284,4 @@ Example: 2024-01-01T00:00:00.000Z""",
     kwargs["shared_link_edit_dto"] = shared_link_edit_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.shared_links.update_shared_link, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)

@@ -35,7 +35,7 @@ def delete_sync_ack(
     kwargs["sync_ack_delete_dto"] = sync_ack_delete_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.sync.delete_sync_ack, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("get-sync-ack", deprecated=False, rich_help_panel="API commands")
@@ -49,7 +49,7 @@ def get_sync_ack(
     kwargs = {}
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.sync.get_sync_ack, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("get-sync-stream", deprecated=False, rich_help_panel="API commands")
@@ -75,7 +75,7 @@ def get_sync_stream(
     kwargs["sync_stream_dto"] = sync_stream_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.sync.get_sync_stream, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("send-sync-ack", deprecated=False, rich_help_panel="API commands")
@@ -96,4 +96,4 @@ def send_sync_ack(
     kwargs["sync_ack_set_dto"] = sync_ack_set_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.sync.send_sync_ack, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)

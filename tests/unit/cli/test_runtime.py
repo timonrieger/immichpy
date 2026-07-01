@@ -54,7 +54,7 @@ class TestPrintResponse:
             age: int
 
         data = TestModel(name="John", age=30)
-        print_response(data, ctx)
+        print_response(data, ctx=ctx)
 
         captured = capsys.readouterr()
         output = json.loads(captured.out)
@@ -70,7 +70,7 @@ class TestPrintResponse:
             name: str
 
         data = cast(list[BaseModel], [TestModel(name="John"), TestModel(name="Jane")])
-        print_response(data, ctx)
+        print_response(data, ctx=ctx)
 
         captured = capsys.readouterr()
         assert "John" in captured.out
@@ -82,7 +82,7 @@ class TestPrintResponse:
         ctx.obj = {"format": "json"}
 
         data = "simple string"
-        print_response(data, ctx)
+        print_response(data, ctx=ctx)
 
         captured = capsys.readouterr()
         output = json.loads(captured.out)

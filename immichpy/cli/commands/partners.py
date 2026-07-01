@@ -35,7 +35,7 @@ def create_partner(
     kwargs["partner_create_dto"] = partner_create_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.partners.create_partner, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command(
@@ -53,7 +53,7 @@ def create_partner_deprecated(
     kwargs["id"] = id
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.partners.create_partner_deprecated, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("get-partners", deprecated=False, rich_help_panel="API commands")
@@ -69,7 +69,7 @@ def get_partners(
     kwargs["direction"] = direction
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.partners.get_partners, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("remove-partner", deprecated=False, rich_help_panel="API commands")
@@ -85,7 +85,7 @@ def remove_partner(
     kwargs["id"] = id
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.partners.remove_partner, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("update-partner", deprecated=False, rich_help_panel="API commands")
@@ -108,4 +108,4 @@ def update_partner(
     kwargs["partner_update_dto"] = partner_update_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.partners.update_partner, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)

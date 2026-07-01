@@ -28,7 +28,7 @@ def empty_trash(
     kwargs = {}
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.trash.empty_trash, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("restore-assets", deprecated=False, rich_help_panel="API commands")
@@ -47,7 +47,7 @@ def restore_assets(
     kwargs["bulk_ids_dto"] = bulk_ids_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.trash.restore_assets, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("restore-trash", deprecated=False, rich_help_panel="API commands")
@@ -61,4 +61,4 @@ def restore_trash(
     kwargs = {}
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.trash.restore_trash, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)

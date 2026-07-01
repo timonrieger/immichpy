@@ -43,7 +43,7 @@ def set_nested(d: dict[str, Any], path: list[str], value: Any) -> None:
 
 
 def parse_json_options(
-    values: list[str], option: str, ctx: Context | None = None
+    values: list[str], option: str, *, ctx: Context | None = None
 ) -> list[Any]:
     """Parse a list of JSON option values, exiting cleanly on invalid JSON.
 
@@ -61,7 +61,7 @@ def parse_json_options(
         raise Exit(code=1)
 
 
-def print_response(data: MaybeBaseModel, ctx: Context) -> None:
+def print_response(data: MaybeBaseModel, *, ctx: Context) -> None:
     """Print response data.
 
     :param data: The data to print

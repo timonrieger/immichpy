@@ -32,7 +32,7 @@ def create_job(
     kwargs["job_create_dto"] = job_create_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.jobs.create_job, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("get-queues-legacy", deprecated=True, rich_help_panel="API commands")
@@ -46,7 +46,7 @@ def get_queues_legacy(
     kwargs = {}
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.jobs.get_queues_legacy, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command(
@@ -74,4 +74,4 @@ def run_queue_command_legacy(
     kwargs["queue_command_dto"] = queue_command_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.jobs.run_queue_command_legacy, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)

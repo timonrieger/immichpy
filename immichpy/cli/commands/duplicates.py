@@ -35,7 +35,7 @@ def delete_duplicate(
     kwargs["id"] = id
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.duplicates.delete_duplicate, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("delete-duplicates", deprecated=False, rich_help_panel="API commands")
@@ -54,7 +54,7 @@ def delete_duplicates(
     kwargs["bulk_ids_dto"] = bulk_ids_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.duplicates.delete_duplicates, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("get-asset-duplicates", deprecated=False, rich_help_panel="API commands")
@@ -68,7 +68,7 @@ def get_asset_duplicates(
     kwargs = {}
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.duplicates.get_asset_duplicates, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("resolve-duplicates", deprecated=False, rich_help_panel="API commands")
@@ -88,10 +88,10 @@ As a JSON string with keys: duplicateId (string), keepAssetIds (string[]), trash
     """
     kwargs = {}
     json_data = {}
-    value_groups = parse_json_options(groups, "--groups", ctx)
+    value_groups = parse_json_options(groups, "--groups", ctx=ctx)
     set_nested(json_data, ["groups"], value_groups)
     duplicate_resolve_dto = DuplicateResolveDto.model_validate(json_data)
     kwargs["duplicate_resolve_dto"] = duplicate_resolve_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.duplicates.resolve_duplicates, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
