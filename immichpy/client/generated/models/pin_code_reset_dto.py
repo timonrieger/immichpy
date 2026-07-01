@@ -42,16 +42,13 @@ class PinCodeResetDto(BaseModel):
     )
     __properties: ClassVar[List[str]] = ["password", "pinCode"]
 
-    @field_validator("pin_code")
+    @field_validator("pin_code", mode="before")
     def pin_code_validate_regular_expression(cls, value):
         """Validates the regular expression"""
         if value is None:
             return value
 
-        if not isinstance(value, str):
-            value = str(value)
-
-        if not re.match(r"^\d{6}$", value):
+        if isinstance(value, str) and not re.match(r"^\d{6}$", value):
             raise ValueError(r"must validate the regular expression /^\d{6}$/")
         return value
 

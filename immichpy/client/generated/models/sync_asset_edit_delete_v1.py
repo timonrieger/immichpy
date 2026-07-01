@@ -32,13 +32,10 @@ class SyncAssetEditDeleteV1(BaseModel):
     edit_id: UUID = Field(description="Edit ID", alias="editId")
     __properties: ClassVar[List[str]] = ["editId"]
 
-    @field_validator("edit_id")
+    @field_validator("edit_id", mode="before")
     def edit_id_validate_regular_expression(cls, value):
         """Validates the regular expression"""
-        if not isinstance(value, str):
-            value = str(value)
-
-        if not re.match(
+        if isinstance(value, str) and not re.match(
             r"^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12})$",
             value,
         ):

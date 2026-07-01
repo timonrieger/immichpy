@@ -37,13 +37,10 @@ class LoginCredentialDto(BaseModel):
     )
     __properties: ClassVar[List[str]] = ["email", "password"]
 
-    @field_validator("email")
+    @field_validator("email", mode="before")
     def email_validate_regular_expression(cls, value):
         """Validates the regular expression"""
-        if not isinstance(value, str):
-            value = str(value)
-
-        if not re.match(
+        if isinstance(value, str) and not re.match(
             r"^[a-zA-Z0-9.!#$%&\'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$",
             value,
         ):

@@ -38,13 +38,12 @@ class LicenseKeyDto(BaseModel):
     )
     __properties: ClassVar[List[str]] = ["activationKey", "licenseKey"]
 
-    @field_validator("license_key")
+    @field_validator("license_key", mode="before")
     def license_key_validate_regular_expression(cls, value):
         """Validates the regular expression"""
-        if not isinstance(value, str):
-            value = str(value)
-
-        if not re.match(r"^IM(SV|CL)(-[\dA-Za-z]{4}){8}$", value):
+        if isinstance(value, str) and not re.match(
+            r"^IM(SV|CL)(-[\dA-Za-z]{4}){8}$", value
+        ):
             raise ValueError(
                 r"must validate the regular expression /^IM(SV|CL)(-[\dA-Za-z]{4}){8}$/"
             )

@@ -56,13 +56,12 @@ class SystemConfigNightlyTasksDto(BaseModel):
         "syncQuotaUsage",
     ]
 
-    @field_validator("start_time")
+    @field_validator("start_time", mode="before")
     def start_time_validate_regular_expression(cls, value):
         """Validates the regular expression"""
-        if not isinstance(value, str):
-            value = str(value)
-
-        if not re.match(r"^(?:[01]\d|2[0-3]):[0-5]\d$", value):
+        if isinstance(value, str) and not re.match(
+            r"^(?:[01]\d|2[0-3]):[0-5]\d$", value
+        ):
             raise ValueError(
                 r"must validate the regular expression /^(?:[01]\d|2[0-3]):[0-5]\d$/"
             )

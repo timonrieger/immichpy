@@ -77,16 +77,13 @@ class UserAdminUpdateDto(BaseModel):
         "storageLabel",
     ]
 
-    @field_validator("email")
+    @field_validator("email", mode="before")
     def email_validate_regular_expression(cls, value):
         """Validates the regular expression"""
         if value is None:
             return value
 
-        if not isinstance(value, str):
-            value = str(value)
-
-        if not re.match(
+        if isinstance(value, str) and not re.match(
             r"^[a-zA-Z0-9.!#$%&\'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$",
             value,
         ):
@@ -95,16 +92,13 @@ class UserAdminUpdateDto(BaseModel):
             )
         return value
 
-    @field_validator("pin_code")
+    @field_validator("pin_code", mode="before")
     def pin_code_validate_regular_expression(cls, value):
         """Validates the regular expression"""
         if value is None:
             return value
 
-        if not isinstance(value, str):
-            value = str(value)
-
-        if not re.match(r"^\d{6}$", value):
+        if isinstance(value, str) and not re.match(r"^\d{6}$", value):
             raise ValueError(r"must validate the regular expression /^\d{6}$/")
         return value
 

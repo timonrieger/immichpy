@@ -34,16 +34,13 @@ class TagUpdateDto(BaseModel):
     )
     __properties: ClassVar[List[str]] = ["color"]
 
-    @field_validator("color")
+    @field_validator("color", mode="before")
     def color_validate_regular_expression(cls, value):
         """Validates the regular expression"""
         if value is None:
             return value
 
-        if not isinstance(value, str):
-            value = str(value)
-
-        if not re.match(
+        if isinstance(value, str) and not re.match(
             r"^#?([0-9A-Fa-f]{3}|[0-9A-Fa-f]{4}|[0-9A-Fa-f]{6}|[0-9A-Fa-f]{8})$", value
         ):
             raise ValueError(
