@@ -3,14 +3,18 @@
 from __future__ import annotations
 
 import typer
-import json
 from uuid import UUID
 from typing import Literal, TYPE_CHECKING
 
 if TYPE_CHECKING:
     from immichpy import AsyncClient
 
-from immichpy.cli.runtime import print_response, run_command, set_nested
+from immichpy.cli.runtime import (
+    parse_json_options,
+    print_response,
+    run_command,
+    set_nested,
+)
 from immichpy.client.generated.models import *
 
 app = typer.Typer(
@@ -79,7 +83,7 @@ As a JSON string with keys: role (string), userId (string)""",
     kwargs = {}
     json_data = {}
     kwargs["id"] = id
-    value_album_users = [json.loads(i) for i in album_users]
+    value_album_users = parse_json_options(album_users, "--album-users", ctx)
     set_nested(json_data, ["album_users"], value_album_users)
     add_users_dto = AddUsersDto.model_validate(json_data)
     kwargs["add_users_dto"] = add_users_dto
@@ -114,7 +118,7 @@ As a JSON string with keys: role (string), userId (string)""",
     json_data = {}
     set_nested(json_data, ["album_name"], album_name)
     if album_users is not None:
-        value_album_users = [json.loads(i) for i in album_users]
+        value_album_users = parse_json_options(album_users, "--album-users", ctx)
         set_nested(json_data, ["album_users"], value_album_users)
     if asset_ids is not None:
         set_nested(json_data, ["asset_ids"], asset_ids)

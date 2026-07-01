@@ -3,14 +3,18 @@
 from __future__ import annotations
 
 import typer
-import json
 from uuid import UUID
 from typing import Literal, TYPE_CHECKING
 
 if TYPE_CHECKING:
     from immichpy import AsyncClient
 
-from immichpy.cli.runtime import print_response, run_command, set_nested
+from immichpy.cli.runtime import (
+    parse_json_options,
+    print_response,
+    run_command,
+    set_nested,
+)
 from immichpy.client.generated.models import *
 
 app = typer.Typer(
@@ -48,7 +52,7 @@ def create_workflow(
     if name is not None:
         set_nested(json_data, ["name"], name)
     if steps is not None:
-        value_steps = [json.loads(i) for i in steps]
+        value_steps = parse_json_options(steps, "--steps", ctx)
         set_nested(json_data, ["steps"], value_steps)
     set_nested(json_data, ["trigger"], trigger)
     workflow_create_dto = WorkflowCreateDto.model_validate(json_data)
@@ -189,7 +193,7 @@ def update_workflow(
     if name is not None:
         set_nested(json_data, ["name"], name)
     if steps is not None:
-        value_steps = [json.loads(i) for i in steps]
+        value_steps = parse_json_options(steps, "--steps", ctx)
         set_nested(json_data, ["steps"], value_steps)
     if trigger is not None:
         set_nested(json_data, ["trigger"], trigger)

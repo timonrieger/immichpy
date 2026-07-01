@@ -3,7 +3,6 @@
 from __future__ import annotations
 
 import typer
-import json
 from datetime import datetime
 from pathlib import Path
 from uuid import UUID
@@ -12,7 +11,12 @@ from typing import Literal, TYPE_CHECKING
 if TYPE_CHECKING:
     from immichpy import AsyncClient
 
-from immichpy.cli.runtime import print_response, run_command, set_nested
+from immichpy.cli.runtime import (
+    parse_json_options,
+    print_response,
+    run_command,
+    set_nested,
+)
 from immichpy.client.generated.models import *
 
 app = typer.Typer(
@@ -37,7 +41,7 @@ As a JSON string with keys: checksum (string), id (string)""",
     """
     kwargs = {}
     json_data = {}
-    value_assets = [json.loads(i) for i in assets]
+    value_assets = parse_json_options(assets, "--assets", ctx)
     set_nested(json_data, ["assets"], value_assets)
     asset_bulk_upload_check_dto = AssetBulkUploadCheckDto.model_validate(json_data)
     kwargs["asset_bulk_upload_check_dto"] = asset_bulk_upload_check_dto
@@ -153,7 +157,7 @@ As a JSON string with keys: assetId (string), key (string)""",
     """
     kwargs = {}
     json_data = {}
-    value_items = [json.loads(i) for i in items]
+    value_items = parse_json_options(items, "--items", ctx)
     set_nested(json_data, ["items"], value_items)
     asset_metadata_bulk_delete_dto = AssetMetadataBulkDeleteDto.model_validate(
         json_data
@@ -210,7 +214,7 @@ As a JSON string with keys: action (string), parameters (string)""",
     kwargs = {}
     json_data = {}
     kwargs["id"] = id
-    value_edits = [json.loads(i) for i in edits]
+    value_edits = parse_json_options(edits, "--edits", ctx)
     set_nested(json_data, ["edits"], value_edits)
     asset_edits_create_dto = AssetEditsCreateDto.model_validate(json_data)
     kwargs["asset_edits_create_dto"] = asset_edits_create_dto
@@ -589,7 +593,7 @@ As a JSON string with keys: key (string), value (object)""",
     kwargs = {}
     json_data = {}
     kwargs["id"] = id
-    value_items = [json.loads(i) for i in items]
+    value_items = parse_json_options(items, "--items", ctx)
     set_nested(json_data, ["items"], value_items)
     asset_metadata_upsert_dto = AssetMetadataUpsertDto.model_validate(json_data)
     kwargs["asset_metadata_upsert_dto"] = asset_metadata_upsert_dto
@@ -694,7 +698,7 @@ As a JSON string with keys: assetId (string), key (string), value (object)""",
     """
     kwargs = {}
     json_data = {}
-    value_items = [json.loads(i) for i in items]
+    value_items = parse_json_options(items, "--items", ctx)
     set_nested(json_data, ["items"], value_items)
     asset_metadata_bulk_upsert_dto = AssetMetadataBulkUpsertDto.model_validate(
         json_data
@@ -784,7 +788,7 @@ As a JSON string with keys: key (string), value (object)""",
     if live_photo_video_id is not None:
         set_nested(json_data, ["live_photo_video_id"], live_photo_video_id)
     if metadata is not None:
-        value_metadata = [json.loads(i) for i in metadata]
+        value_metadata = parse_json_options(metadata, "--metadata", ctx)
         set_nested(json_data, ["metadata"], value_metadata)
     if sidecar_data is not None:
         set_nested(

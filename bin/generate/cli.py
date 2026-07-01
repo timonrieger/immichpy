@@ -455,7 +455,7 @@ def generate_command_function(
             if param.required:
                 if is_complex_type(param.oaschema, spec):
                     lines.append(
-                        f"    value_{param.name} = [json.loads(i) for i in {param.name}]"
+                        f'    value_{param.name} = parse_json_options({param.name}, "--{param.flag_name}", ctx)'
                     )
                     lines.append(
                         f"    set_nested(json_data, [{param.name!r}], value_{param.name})"
@@ -477,7 +477,7 @@ def generate_command_function(
                 lines.append(f"    if {param.name} is not None:")
                 if is_complex_type(param.oaschema, spec):
                     lines.append(
-                        f"        value_{param.name} = [json.loads(i) for i in {param.name}]"
+                        f'        value_{param.name} = parse_json_options({param.name}, "--{param.flag_name}", ctx)'
                     )
                     lines.append(
                         f"        set_nested(json_data, [{param.name!r}], value_{param.name})"
@@ -555,7 +555,7 @@ def generate_tag_app(
         "if TYPE_CHECKING:",
         "    from immichpy import AsyncClient",
         "",
-        "from immichpy.cli.runtime import print_response, run_command, set_nested",
+        "from immichpy.cli.runtime import parse_json_options, print_response, run_command, set_nested",
         "from immichpy.client.generated.models import *",
         "",
     ]

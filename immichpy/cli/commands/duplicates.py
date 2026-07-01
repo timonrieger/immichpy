@@ -3,14 +3,18 @@
 from __future__ import annotations
 
 import typer
-import json
 from uuid import UUID
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from immichpy import AsyncClient
 
-from immichpy.cli.runtime import print_response, run_command, set_nested
+from immichpy.cli.runtime import (
+    parse_json_options,
+    print_response,
+    run_command,
+    set_nested,
+)
 from immichpy.client.generated.models import *
 
 app = typer.Typer(
@@ -84,7 +88,7 @@ As a JSON string with keys: duplicateId (string), keepAssetIds (string[]), trash
     """
     kwargs = {}
     json_data = {}
-    value_groups = [json.loads(i) for i in groups]
+    value_groups = parse_json_options(groups, "--groups", ctx)
     set_nested(json_data, ["groups"], value_groups)
     duplicate_resolve_dto = DuplicateResolveDto.model_validate(json_data)
     kwargs["duplicate_resolve_dto"] = duplicate_resolve_dto

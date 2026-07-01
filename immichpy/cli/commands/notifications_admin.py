@@ -3,7 +3,6 @@
 from __future__ import annotations
 
 import typer
-import json
 from datetime import datetime
 from uuid import UUID
 from typing import TYPE_CHECKING
@@ -11,7 +10,12 @@ from typing import TYPE_CHECKING
 if TYPE_CHECKING:
     from immichpy import AsyncClient
 
-from immichpy.cli.runtime import print_response, run_command, set_nested
+from immichpy.cli.runtime import (
+    parse_json_options,
+    print_response,
+    run_command,
+    set_nested,
+)
 from immichpy.client.generated.models import *
 
 app = typer.Typer(
@@ -53,7 +57,7 @@ Example: 2024-01-01T00:00:00.000Z""",
     kwargs = {}
     json_data = {}
     if data is not None:
-        value_data = [json.loads(i) for i in data]
+        value_data = parse_json_options(data, "--data", ctx)
         set_nested(json_data, ["data"], value_data)
     if description is not None:
         set_nested(json_data, ["description"], description)
