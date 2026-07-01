@@ -12,14 +12,12 @@ Example command tested: create-profile-image
 import json
 from pathlib import Path
 
-import pytest
 from typer.testing import CliRunner
 
 from immichpy.cli.main import app as cli_app
 from immichpy.client.generated import CreateProfileImageResponseDto
 
 
-@pytest.mark.e2e
 def test_multipart_form_data(runner_with_api_key: CliRunner, test_image: Path) -> None:
     """Test multipart/form-data command and validate direct kwargs merge."""
     result = runner_with_api_key.invoke(

@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import typer
+from uuid import UUID
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -14,6 +15,26 @@ from immichpy.client.generated.models import *
 app = typer.Typer(
     help="""Maintenance mode allows you to put Immich in a read-only state to perform various operations.\n\n[link=https://api.immich.app/endpoints/maintenance-admin]Immich API documentation[/link]"""
 )
+
+
+@app.command(
+    "delete-integrity-report", deprecated=False, rich_help_panel="API commands"
+)
+def delete_integrity_report(
+    ctx: typer.Context,
+    id: UUID = typer.Argument(..., help=r""""""),
+) -> None:
+    """Delete integrity report item
+
+    [link=https://api.immich.app/endpoints/maintenance-admin/deleteIntegrityReport]Immich API documentation[/link]
+    """
+    kwargs = {}
+    kwargs["id"] = id
+    client: "AsyncClient" = ctx.obj["client"]
+    result = run_command(
+        client.maintenance_admin.delete_integrity_report, ctx=ctx, **kwargs
+    )
+    print_response(result, ctx=ctx)
 
 
 @app.command("detect-prior-install", deprecated=False, rich_help_panel="API commands")
@@ -29,7 +50,97 @@ def detect_prior_install(
     result = run_command(
         client.maintenance_admin.detect_prior_install, ctx=ctx, **kwargs
     )
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
+
+
+@app.command("get-integrity-report", deprecated=False, rich_help_panel="API commands")
+def get_integrity_report(
+    ctx: typer.Context,
+    cursor: str | None = typer.Option(
+        None, "--cursor", help=r"""Cursor for pagination"""
+    ),
+    limit: int | None = typer.Option(
+        None,
+        "--limit",
+        help=r"""Number of items per page""",
+        min=0,
+        max=9007199254740991,
+    ),
+    type: IntegrityReport = typer.Option(..., "--type", help=r""""""),
+) -> None:
+    """Get integrity report by type
+
+    [link=https://api.immich.app/endpoints/maintenance-admin/getIntegrityReport]Immich API documentation[/link]
+    """
+    kwargs = {}
+    if cursor is not None:
+        kwargs["cursor"] = cursor
+    if limit is not None:
+        kwargs["limit"] = limit
+    kwargs["type"] = type
+    client: "AsyncClient" = ctx.obj["client"]
+    result = run_command(
+        client.maintenance_admin.get_integrity_report, ctx=ctx, **kwargs
+    )
+    print_response(result, ctx=ctx)
+
+
+@app.command(
+    "get-integrity-report-csv", deprecated=False, rich_help_panel="API commands"
+)
+def get_integrity_report_csv(
+    ctx: typer.Context,
+    type: IntegrityReport = typer.Argument(..., help=r""""""),
+) -> None:
+    """Export integrity report by type as CSV
+
+    [link=https://api.immich.app/endpoints/maintenance-admin/getIntegrityReportCsv]Immich API documentation[/link]
+    """
+    kwargs = {}
+    kwargs["type"] = type
+    client: "AsyncClient" = ctx.obj["client"]
+    result = run_command(
+        client.maintenance_admin.get_integrity_report_csv, ctx=ctx, **kwargs
+    )
+    print_response(result, ctx=ctx)
+
+
+@app.command(
+    "get-integrity-report-file", deprecated=False, rich_help_panel="API commands"
+)
+def get_integrity_report_file(
+    ctx: typer.Context,
+    id: UUID = typer.Argument(..., help=r""""""),
+) -> None:
+    """Download flagged file
+
+    [link=https://api.immich.app/endpoints/maintenance-admin/getIntegrityReportFile]Immich API documentation[/link]
+    """
+    kwargs = {}
+    kwargs["id"] = id
+    client: "AsyncClient" = ctx.obj["client"]
+    result = run_command(
+        client.maintenance_admin.get_integrity_report_file, ctx=ctx, **kwargs
+    )
+    print_response(result, ctx=ctx)
+
+
+@app.command(
+    "get-integrity-report-summary", deprecated=False, rich_help_panel="API commands"
+)
+def get_integrity_report_summary(
+    ctx: typer.Context,
+) -> None:
+    """Get integrity report summary
+
+    [link=https://api.immich.app/endpoints/maintenance-admin/getIntegrityReportSummary]Immich API documentation[/link]
+    """
+    kwargs = {}
+    client: "AsyncClient" = ctx.obj["client"]
+    result = run_command(
+        client.maintenance_admin.get_integrity_report_summary, ctx=ctx, **kwargs
+    )
+    print_response(result, ctx=ctx)
 
 
 @app.command("get-maintenance-status", deprecated=False, rich_help_panel="API commands")
@@ -45,13 +156,13 @@ def get_maintenance_status(
     result = run_command(
         client.maintenance_admin.get_maintenance_status, ctx=ctx, **kwargs
     )
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("maintenance-login", deprecated=False, rich_help_panel="API commands")
 def maintenance_login(
     ctx: typer.Context,
-    token: str | None = typer.Option(None, "--token", help="""Maintenance token"""),
+    token: str | None = typer.Option(None, "--token", help=r"""Maintenance token"""),
 ) -> None:
     """Log into maintenance mode
 
@@ -65,15 +176,15 @@ def maintenance_login(
     kwargs["maintenance_login_dto"] = maintenance_login_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.maintenance_admin.maintenance_login, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("set-maintenance-mode", deprecated=False, rich_help_panel="API commands")
 def set_maintenance_mode(
     ctx: typer.Context,
-    action: str = typer.Option(..., "--action", help="""Maintenance action"""),
+    action: str = typer.Option(..., "--action", help=r"""Maintenance action"""),
     restore_backup_filename: str | None = typer.Option(
-        None, "--restore-backup-filename", help="""Restore backup filename"""
+        None, "--restore-backup-filename", help=r"""Restore backup filename"""
     ),
 ) -> None:
     """Set maintenance mode
@@ -91,4 +202,4 @@ def set_maintenance_mode(
     result = run_command(
         client.maintenance_admin.set_maintenance_mode, ctx=ctx, **kwargs
     )
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)

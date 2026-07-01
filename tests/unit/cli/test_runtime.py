@@ -16,6 +16,8 @@ if TYPE_CHECKING:
 
 from immichpy.cli.runtime import (
     set_nested,
+    parse_json_option,
+    parse_json_options,
     print_response,
     format_api_error,
     run_async,
@@ -39,6 +41,55 @@ class TestSetNested:
         assert d == {"user": {"name": "John"}}
 
 
+class TestParseJsonOption:
+    """Tests for parse_json_option function."""
+
+    def test_parse_json_option_valid(self) -> None:
+        """Valid JSON object is parsed into a dict."""
+        assert parse_json_option('{"role": "viewer"}', "--data") == {"role": "viewer"}
+
+    @patch("immichpy.cli.runtime.print_")
+    def test_parse_json_option_invalid_exits(self, mock_print: Mock) -> None:
+        """Invalid JSON prints a clean error naming the option and exits 1."""
+        with pytest.raises(Exit) as exc_info:
+            parse_json_option('{"role": "viewer}', "--data")
+
+        assert exc_info.value.exit_code == 1
+        error_calls = [
+            call
+            for call in mock_print.call_args_list
+            if call.kwargs.get("type") == "error"
+        ]
+        assert error_calls
+        assert "--data" in error_calls[0].args[0]
+
+
+class TestParseJsonOptions:
+    """Tests for parse_json_options function."""
+
+    def test_parse_json_options_valid(self) -> None:
+        """Each valid JSON string is parsed into the returned list."""
+        assert parse_json_options(['{"a": 1}', '{"b": 2}'], "--assets") == [
+            {"a": 1},
+            {"b": 2},
+        ]
+
+    @patch("immichpy.cli.runtime.print_")
+    def test_parse_json_options_invalid_element_exits(self, mock_print: Mock) -> None:
+        """A single invalid element prints a clean error and exits 1."""
+        with pytest.raises(Exit) as exc_info:
+            parse_json_options(['{"a": 1}', "not json"], "--assets")
+
+        assert exc_info.value.exit_code == 1
+        error_calls = [
+            call
+            for call in mock_print.call_args_list
+            if call.kwargs.get("type") == "error"
+        ]
+        assert error_calls
+        assert "--assets" in error_calls[0].args[0]
+
+
 class TestPrintResponse:
     """Tests for print_response function."""
 
@@ -54,7 +105,7 @@ class TestPrintResponse:
             age: int
 
         data = TestModel(name="John", age=30)
-        print_response(data, ctx)
+        print_response(data, ctx=ctx)
 
         captured = capsys.readouterr()
         output = json.loads(captured.out)
@@ -70,7 +121,7 @@ class TestPrintResponse:
             name: str
 
         data = cast(list[BaseModel], [TestModel(name="John"), TestModel(name="Jane")])
-        print_response(data, ctx)
+        print_response(data, ctx=ctx)
 
         captured = capsys.readouterr()
         assert "John" in captured.out
@@ -82,7 +133,7 @@ class TestPrintResponse:
         ctx.obj = {"format": "json"}
 
         data = "simple string"
-        print_response(data, ctx)
+        print_response(data, ctx=ctx)
 
         captured = capsys.readouterr()
         output = json.loads(captured.out)

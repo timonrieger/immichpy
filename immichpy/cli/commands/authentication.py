@@ -20,19 +20,19 @@ app = typer.Typer(
 def change_password(
     ctx: typer.Context,
     invalidate_sessions: Literal["true", "false"] | None = typer.Option(
-        None, "--invalidate-sessions", help="""Invalidate all other sessions"""
+        None, "--invalidate-sessions", help=r"""Invalidate all other sessions"""
     ),
     new_password: str = typer.Option(
         ...,
         "--new-password",
-        help="""New password (min 8 characters)
+        help=r"""New password (min 8 characters)
 
 Example: password""",
     ),
     password: str = typer.Option(
         ...,
         "--password",
-        help="""Current password
+        help=r"""Current password
 
 Example: password""",
     ),
@@ -53,28 +53,26 @@ Example: password""",
     kwargs["change_password_dto"] = change_password_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.auth.change_password, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("change-pin-code", deprecated=False, rich_help_panel="API commands")
 def change_pin_code(
     ctx: typer.Context,
     new_pin_code: str = typer.Option(
-        ...,
-        "--new-pin-code",
-        help="""New PIN code (4-6 digits)
-
-Example: 123456""",
+        ..., "--new-pin-code", help=r"""New PIN code (4-6 digits)"""
     ),
     password: str | None = typer.Option(
         None,
         "--password",
-        help="""User password (required if PIN code is not provided)""",
+        help=r"""User password (required if PIN code is not provided)
+
+Example: password""",
     ),
     pin_code: str | None = typer.Option(
         None,
         "--pin-code",
-        help="""New PIN code (4-6 digits)
+        help=r"""New PIN code (4-6 digits)
 
 Example: 123456""",
     ),
@@ -94,17 +92,19 @@ Example: 123456""",
     kwargs["pin_code_change_dto"] = pin_code_change_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.auth.change_pin_code, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("finish-o-auth", deprecated=False, rich_help_panel="API commands")
 def finish_o_auth(
     ctx: typer.Context,
     code_verifier: str | None = typer.Option(
-        None, "--code-verifier", help="""OAuth code verifier (PKCE)"""
+        None, "--code-verifier", help=r"""OAuth code verifier (PKCE)"""
     ),
-    state: str | None = typer.Option(None, "--state", help="""OAuth state parameter"""),
-    url: str = typer.Option(..., "--url", help="""OAuth callback URL"""),
+    state: str | None = typer.Option(
+        None, "--state", help=r"""OAuth state parameter"""
+    ),
+    url: str = typer.Option(..., "--url", help=r"""OAuth callback URL"""),
 ) -> None:
     """Finish OAuth
 
@@ -121,7 +121,7 @@ def finish_o_auth(
     kwargs["o_auth_callback_dto"] = o_auth_callback_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.auth.finish_o_auth, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("get-auth-status", deprecated=False, rich_help_panel="API commands")
@@ -135,17 +135,19 @@ def get_auth_status(
     kwargs = {}
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.auth.get_auth_status, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("link-o-auth-account", deprecated=False, rich_help_panel="API commands")
 def link_o_auth_account(
     ctx: typer.Context,
     code_verifier: str | None = typer.Option(
-        None, "--code-verifier", help="""OAuth code verifier (PKCE)"""
+        None, "--code-verifier", help=r"""OAuth code verifier (PKCE)"""
     ),
-    state: str | None = typer.Option(None, "--state", help="""OAuth state parameter"""),
-    url: str = typer.Option(..., "--url", help="""OAuth callback URL"""),
+    state: str | None = typer.Option(
+        None, "--state", help=r"""OAuth state parameter"""
+    ),
+    url: str = typer.Option(..., "--url", help=r"""OAuth callback URL"""),
 ) -> None:
     """Link OAuth account
 
@@ -162,7 +164,7 @@ def link_o_auth_account(
     kwargs["o_auth_callback_dto"] = o_auth_callback_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.auth.link_o_auth_account, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("lock-auth-session", deprecated=False, rich_help_panel="API commands")
@@ -176,7 +178,7 @@ def lock_auth_session(
     kwargs = {}
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.auth.lock_auth_session, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("login", deprecated=False, rich_help_panel="API commands")
@@ -185,14 +187,14 @@ def login(
     email: str = typer.Option(
         ...,
         "--email",
-        help="""User email
+        help=r"""User email
 
 Example: testuser@email.com""",
     ),
     password: str = typer.Option(
         ...,
         "--password",
-        help="""User password
+        help=r"""User password
 
 Example: password""",
     ),
@@ -209,7 +211,7 @@ Example: password""",
     kwargs["login_credential_dto"] = login_credential_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.auth.login, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("logout", deprecated=False, rich_help_panel="API commands")
@@ -223,7 +225,27 @@ def logout(
     kwargs = {}
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.auth.logout, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
+
+
+@app.command("logout-o-auth", deprecated=False, rich_help_panel="API commands")
+def logout_o_auth(
+    ctx: typer.Context,
+    logout_token: str = typer.Option(
+        ..., "--logout-token", help=r"""OAuth logout token"""
+    ),
+) -> None:
+    """Backchannel OAuth logout
+
+    [link=https://api.immich.app/endpoints/authentication/logoutOAuth]Immich API documentation[/link]
+    """
+    kwargs = {}
+    json_data = {}
+    set_nested(json_data, ["logout_token"], logout_token)
+    kwargs.update(json_data)
+    client: "AsyncClient" = ctx.obj["client"]
+    result = run_command(client.auth.logout_o_auth, ctx=ctx, **kwargs)
+    print_response(result, ctx=ctx)
 
 
 @app.command(
@@ -239,7 +261,7 @@ def redirect_o_auth_to_mobile(
     kwargs = {}
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.auth.redirect_o_auth_to_mobile, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("reset-pin-code", deprecated=False, rich_help_panel="API commands")
@@ -248,12 +270,14 @@ def reset_pin_code(
     password: str | None = typer.Option(
         None,
         "--password",
-        help="""User password (required if PIN code is not provided)""",
+        help=r"""User password (required if PIN code is not provided)
+
+Example: password""",
     ),
     pin_code: str | None = typer.Option(
         None,
         "--pin-code",
-        help="""New PIN code (4-6 digits)
+        help=r"""New PIN code (4-6 digits)
 
 Example: 123456""",
     ),
@@ -272,7 +296,7 @@ Example: 123456""",
     kwargs["pin_code_reset_dto"] = pin_code_reset_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.auth.reset_pin_code, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("setup-pin-code", deprecated=False, rich_help_panel="API commands")
@@ -281,7 +305,7 @@ def setup_pin_code(
     pin_code: str = typer.Option(
         ...,
         "--pin-code",
-        help="""PIN code (4-6 digits)
+        help=r"""PIN code (4-6 digits)
 
 Example: 123456""",
     ),
@@ -297,7 +321,7 @@ Example: 123456""",
     kwargs["pin_code_setup_dto"] = pin_code_setup_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.auth.setup_pin_code, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("sign-up-admin", deprecated=False, rich_help_panel="API commands")
@@ -306,21 +330,21 @@ def sign_up_admin(
     email: str = typer.Option(
         ...,
         "--email",
-        help="""User email
+        help=r"""User email
 
 Example: testuser@email.com""",
     ),
     name: str = typer.Option(
         ...,
         "--name",
-        help="""User name
+        help=r"""User name
 
 Example: Admin""",
     ),
     password: str = typer.Option(
         ...,
         "--password",
-        help="""User password
+        help=r"""User password
 
 Example: password""",
     ),
@@ -338,19 +362,21 @@ Example: password""",
     kwargs["sign_up_dto"] = sign_up_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.auth.sign_up_admin, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("start-o-auth", deprecated=False, rich_help_panel="API commands")
 def start_o_auth(
     ctx: typer.Context,
     code_challenge: str | None = typer.Option(
-        None, "--code-challenge", help="""OAuth code challenge (PKCE)"""
+        None, "--code-challenge", help=r"""OAuth code challenge (PKCE)"""
     ),
     redirect_uri: str = typer.Option(
-        ..., "--redirect-uri", help="""OAuth redirect URI"""
+        ..., "--redirect-uri", help=r"""OAuth redirect URI"""
     ),
-    state: str | None = typer.Option(None, "--state", help="""OAuth state parameter"""),
+    state: str | None = typer.Option(
+        None, "--state", help=r"""OAuth state parameter"""
+    ),
 ) -> None:
     """Start OAuth
 
@@ -367,7 +393,7 @@ def start_o_auth(
     kwargs["o_auth_config_dto"] = o_auth_config_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.auth.start_o_auth, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("unlink-o-auth-account", deprecated=False, rich_help_panel="API commands")
@@ -381,7 +407,7 @@ def unlink_o_auth_account(
     kwargs = {}
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.auth.unlink_o_auth_account, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("unlock-auth-session", deprecated=False, rich_help_panel="API commands")
@@ -390,12 +416,14 @@ def unlock_auth_session(
     password: str | None = typer.Option(
         None,
         "--password",
-        help="""User password (required if PIN code is not provided)""",
+        help=r"""User password (required if PIN code is not provided)
+
+Example: password""",
     ),
     pin_code: str | None = typer.Option(
         None,
         "--pin-code",
-        help="""New PIN code (4-6 digits)
+        help=r"""New PIN code (4-6 digits)
 
 Example: 123456""",
     ),
@@ -414,7 +442,7 @@ Example: 123456""",
     kwargs["session_unlock_dto"] = session_unlock_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.auth.unlock_auth_session, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("validate-access-token", deprecated=False, rich_help_panel="API commands")
@@ -428,4 +456,4 @@ def validate_access_token(
     kwargs = {}
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.auth.validate_access_token, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)

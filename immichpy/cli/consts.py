@@ -14,6 +14,9 @@ DEFAULT_PROFILE = "default"
 """The default profile for the CLI."""
 DEFAULT_FORMAT = "pretty"
 """The default format for the CLI."""
+SKIP_CLIENT_SETUP_KEY = "skip_client_setup"
+NON_API_COMMANDS = ["setup", "config"]
+"""CLI subcommands that don't request the API"""
 
 # Environment variables
 IMMICH_FORMAT = "IMMICH_FORMAT"

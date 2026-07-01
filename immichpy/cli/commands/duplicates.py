@@ -3,13 +3,18 @@
 from __future__ import annotations
 
 import typer
-import json
+from uuid import UUID
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from immichpy import AsyncClient
 
-from immichpy.cli.runtime import print_response, run_command, set_nested
+from immichpy.cli.runtime import (
+    parse_json_options,
+    print_response,
+    run_command,
+    set_nested,
+)
 from immichpy.client.generated.models import *
 
 app = typer.Typer(
@@ -20,9 +25,9 @@ app = typer.Typer(
 @app.command("delete-duplicate", deprecated=False, rich_help_panel="API commands")
 def delete_duplicate(
     ctx: typer.Context,
-    id: str = typer.Argument(..., help=""""""),
+    id: UUID = typer.Argument(..., help=r""""""),
 ) -> None:
-    """Delete a duplicate
+    """Dismiss a duplicate group
 
     [link=https://api.immich.app/endpoints/duplicates/deleteDuplicate]Immich API documentation[/link]
     """
@@ -30,13 +35,13 @@ def delete_duplicate(
     kwargs["id"] = id
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.duplicates.delete_duplicate, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("delete-duplicates", deprecated=False, rich_help_panel="API commands")
 def delete_duplicates(
     ctx: typer.Context,
-    ids: list[str] = typer.Option(..., "--ids", help="""IDs to process"""),
+    ids: list[UUID] = typer.Option(..., "--ids", help=r"""IDs to process"""),
 ) -> None:
     """Delete duplicates
 
@@ -49,7 +54,7 @@ def delete_duplicates(
     kwargs["bulk_ids_dto"] = bulk_ids_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.duplicates.delete_duplicates, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("get-asset-duplicates", deprecated=False, rich_help_panel="API commands")
@@ -63,7 +68,7 @@ def get_asset_duplicates(
     kwargs = {}
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.duplicates.get_asset_duplicates, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("resolve-duplicates", deprecated=False, rich_help_panel="API commands")
@@ -72,7 +77,7 @@ def resolve_duplicates(
     groups: list[str] = typer.Option(
         ...,
         "--groups",
-        help="""List of duplicate groups to resolve
+        help=r"""List of duplicate groups to resolve
 
 As a JSON string with keys: duplicateId (string), keepAssetIds (string[]), trashAssetIds (string[])""",
     ),
@@ -83,10 +88,10 @@ As a JSON string with keys: duplicateId (string), keepAssetIds (string[]), trash
     """
     kwargs = {}
     json_data = {}
-    value_groups = [json.loads(i) for i in groups]
+    value_groups = parse_json_options(groups, "--groups", ctx=ctx)
     set_nested(json_data, ["groups"], value_groups)
     duplicate_resolve_dto = DuplicateResolveDto.model_validate(json_data)
     kwargs["duplicate_resolve_dto"] = duplicate_resolve_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.duplicates.resolve_duplicates, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)

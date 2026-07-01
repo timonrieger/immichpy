@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import typer
+from uuid import UUID
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -19,8 +20,8 @@ app = typer.Typer(
 @app.command("create-stack", deprecated=False, rich_help_panel="API commands")
 def create_stack(
     ctx: typer.Context,
-    asset_ids: list[str] = typer.Option(
-        ..., "--asset-ids", help="""Asset IDs (first becomes primary, min 2)"""
+    asset_ids: list[UUID] = typer.Option(
+        ..., "--asset-ids", help=r"""Asset IDs (first becomes primary, min 2)"""
     ),
 ) -> None:
     """Create a stack
@@ -34,13 +35,13 @@ def create_stack(
     kwargs["stack_create_dto"] = stack_create_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.stacks.create_stack, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("delete-stack", deprecated=False, rich_help_panel="API commands")
 def delete_stack(
     ctx: typer.Context,
-    id: str = typer.Argument(..., help=""""""),
+    id: UUID = typer.Argument(..., help=r""""""),
 ) -> None:
     """Delete a stack
 
@@ -50,13 +51,13 @@ def delete_stack(
     kwargs["id"] = id
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.stacks.delete_stack, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("delete-stacks", deprecated=False, rich_help_panel="API commands")
 def delete_stacks(
     ctx: typer.Context,
-    ids: list[str] = typer.Option(..., "--ids", help="""IDs to process"""),
+    ids: list[UUID] = typer.Option(..., "--ids", help=r"""IDs to process"""),
 ) -> None:
     """Delete stacks
 
@@ -69,13 +70,13 @@ def delete_stacks(
     kwargs["bulk_ids_dto"] = bulk_ids_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.stacks.delete_stacks, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("get-stack", deprecated=False, rich_help_panel="API commands")
 def get_stack(
     ctx: typer.Context,
-    id: str = typer.Argument(..., help=""""""),
+    id: UUID = typer.Argument(..., help=r""""""),
 ) -> None:
     """Retrieve a stack
 
@@ -85,7 +86,7 @@ def get_stack(
     kwargs["id"] = id
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.stacks.get_stack, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command(
@@ -93,8 +94,8 @@ def get_stack(
 )
 def remove_asset_from_stack(
     ctx: typer.Context,
-    asset_id: str = typer.Argument(..., help=""""""),
-    id: str = typer.Argument(..., help=""""""),
+    asset_id: UUID = typer.Argument(..., help=r""""""),
+    id: UUID = typer.Argument(..., help=r""""""),
 ) -> None:
     """Remove an asset from a stack
 
@@ -105,14 +106,14 @@ def remove_asset_from_stack(
     kwargs["id"] = id
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.stacks.remove_asset_from_stack, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("search-stacks", deprecated=False, rich_help_panel="API commands")
 def search_stacks(
     ctx: typer.Context,
-    primary_asset_id: str | None = typer.Option(
-        None, "--primary-asset-id", help="""Filter by primary asset ID"""
+    primary_asset_id: UUID | None = typer.Option(
+        None, "--primary-asset-id", help=r"""Filter by primary asset ID"""
     ),
 ) -> None:
     """Retrieve stacks
@@ -124,15 +125,15 @@ def search_stacks(
         kwargs["primary_asset_id"] = primary_asset_id
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.stacks.search_stacks, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
-@app.command("update-stack", deprecated=False, rich_help_panel="API commands")
+@app.command("update-stack", deprecated=True, rich_help_panel="API commands")
 def update_stack(
     ctx: typer.Context,
-    id: str = typer.Argument(..., help=""""""),
-    primary_asset_id: str | None = typer.Option(
-        None, "--primary-asset-id", help="""Primary asset ID"""
+    id: UUID = typer.Argument(..., help=r""""""),
+    primary_asset_id: UUID | None = typer.Option(
+        None, "--primary-asset-id", help=r"""Primary asset ID"""
     ),
 ) -> None:
     """Update a stack
@@ -148,4 +149,4 @@ def update_stack(
     kwargs["stack_update_dto"] = stack_update_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.stacks.update_stack, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)

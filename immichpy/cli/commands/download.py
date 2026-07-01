@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import typer
+from uuid import UUID
 from typing import Literal, TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -19,12 +20,12 @@ app = typer.Typer(
 @app.command("download-archive", deprecated=False, rich_help_panel="API commands")
 def download_archive(
     ctx: typer.Context,
-    asset_ids: list[str] = typer.Option(..., "--asset-ids", help="""Asset IDs"""),
+    asset_ids: list[UUID] = typer.Option(..., "--asset-ids", help=r"""Asset IDs"""),
     edited: Literal["true", "false"] | None = typer.Option(
-        None, "--edited", help="""Download edited asset if available"""
+        None, "--edited", help=r"""Download edited asset if available"""
     ),
-    key: str | None = typer.Option(None, "--key", help=""""""),
-    slug: str | None = typer.Option(None, "--slug", help=""""""),
+    key: str | None = typer.Option(None, "--key", help=r""""""),
+    slug: str | None = typer.Option(None, "--slug", help=r""""""),
 ) -> None:
     """Download asset archive
 
@@ -43,25 +44,29 @@ def download_archive(
     kwargs["download_archive_dto"] = download_archive_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.download.download_archive, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("get-download-info", deprecated=False, rich_help_panel="API commands")
 def get_download_info(
     ctx: typer.Context,
-    album_id: str | None = typer.Option(
-        None, "--album-id", help="""Album ID to download"""
+    album_id: UUID | None = typer.Option(
+        None, "--album-id", help=r"""Album ID to download"""
     ),
     archive_size: int | None = typer.Option(
-        None, "--archive-size", help="""Archive size limit in bytes""", min=1
+        None,
+        "--archive-size",
+        help=r"""Archive size limit in bytes""",
+        min=1,
+        max=9007199254740991,
     ),
-    asset_ids: list[str] | None = typer.Option(
-        None, "--asset-ids", help="""Asset IDs to download"""
+    asset_ids: list[UUID] | None = typer.Option(
+        None, "--asset-ids", help=r"""Asset IDs to download"""
     ),
-    key: str | None = typer.Option(None, "--key", help=""""""),
-    slug: str | None = typer.Option(None, "--slug", help=""""""),
-    user_id: str | None = typer.Option(
-        None, "--user-id", help="""User ID to download assets from"""
+    key: str | None = typer.Option(None, "--key", help=r""""""),
+    slug: str | None = typer.Option(None, "--slug", help=r""""""),
+    user_id: UUID | None = typer.Option(
+        None, "--user-id", help=r"""User ID to download assets from"""
     ),
 ) -> None:
     """Retrieve download information
@@ -86,4 +91,4 @@ def get_download_info(
     kwargs["download_info_dto"] = download_info_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.download.get_download_info, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)

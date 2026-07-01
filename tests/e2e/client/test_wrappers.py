@@ -3,28 +3,24 @@
 from __future__ import annotations
 
 from pathlib import Path
-from typing import Callable, Awaitable
-from uuid import UUID
 
 import pytest
 
 from immichpy import AsyncClient
-from immichpy.client.types import UploadResult
-from immichpy.client.generated.models.album_response_dto import AlbumResponseDto
 from immichpy.client.generated.models.asset_media_size import AssetMediaSize
 from immichpy.client.generated.models.create_album_dto import CreateAlbumDto
 from immichpy.client.generated.models.download_info_dto import DownloadInfoDto
+from immichpy.client.generated.models.metadata_search_dto import MetadataSearchDto
 
 
 @pytest.mark.asyncio
-@pytest.mark.e2e
 async def test_assets_upload(
     test_image: Path,
     test_video: Path,
-    upload_assets: Callable[..., Awaitable[UploadResult]],
+    client_with_api_key: AsyncClient,
 ):
     """Test AssetsApiWrapped.upload method."""
-    result = await upload_assets(
+    result = await client_with_api_key.assets.upload(
         [test_image, test_video],
         skip_duplicates=True,  # Disable duplicate checking for test independence
         concurrency=2,
@@ -39,51 +35,49 @@ async def test_assets_upload(
 
 
 @pytest.mark.asyncio
-@pytest.mark.e2e
 async def test_assets_upload_duplicate_added_to_album(
     test_image: Path,
-    upload_assets: Callable[..., Awaitable[UploadResult]],
-    album_factory: Callable[..., Awaitable[AlbumResponseDto]],
     client_with_api_key: AsyncClient,
 ):
     """Test that duplicate assets are still added to the specified album."""
-    first_result = await upload_assets([test_image], show_progress=False)
-    assert len(first_result.uploaded) == 1
-    asset_id = UUID(first_result.uploaded[0].asset.id)
-
-    album = await album_factory(
-        CreateAlbumDto(albumName="Dupe Test Album").model_dump()
+    first_result = await client_with_api_key.assets.upload(
+        [test_image], show_progress=False
     )
-    album_id = UUID(str(album.id))
+    assert len(first_result.uploaded) == 1
 
-    second_result = await upload_assets(
+    album = await client_with_api_key.albums.create_album(
+        CreateAlbumDto(albumName="Dupe Test Album")
+    )
+
+    second_result = await client_with_api_key.assets.upload(
         [test_image], album_name="Dupe Test Album", show_progress=False
     )
     assert len(second_result.rejected) == 1
     assert second_result.rejected[0].reason == "duplicate"
 
-    album_info = await client_with_api_key.albums.get_album_info(id=album_id)
-    album_asset_ids = {UUID(a.id) for a in album_info.assets}
-    assert asset_id in album_asset_ids
+    search_response = await client_with_api_key.search.search_assets(
+        metadata_search_dto=MetadataSearchDto(albumIds=[album.id])
+    )
+    album_asset_ids = {a.id for a in search_response.assets.items}
+    assert first_result.uploaded[0].asset.id in album_asset_ids
 
 
 @pytest.mark.asyncio
-@pytest.mark.e2e
 async def test_assets_download_asset_to_file(
     client_with_api_key: AsyncClient,
     test_image: Path,
     tmp_path: Path,
-    upload_assets: Callable[..., Awaitable[UploadResult]],
 ):
     """Test AssetsApiWrapped.download_asset_to_file method."""
-    upload_result = await upload_assets([test_image], skip_duplicates=True)
+    upload_result = await client_with_api_key.assets.upload(
+        [test_image], skip_duplicates=True
+    )
     assert len(upload_result.uploaded) == 1
-    asset_id = UUID(upload_result.uploaded[0].asset.id)
 
     # Download the asset
     out_dir = tmp_path / "downloads"
     downloaded_path = await client_with_api_key.assets.download_asset_to_file(
-        id=asset_id, out_dir=out_dir
+        id=upload_result.uploaded[0].asset.id, out_dir=out_dir
     )
 
     assert downloaded_path.exists()
@@ -92,22 +86,23 @@ async def test_assets_download_asset_to_file(
 
 
 @pytest.mark.asyncio
-@pytest.mark.e2e
 async def test_assets_view_asset_to_file(
     client_with_api_key: AsyncClient,
     test_image: Path,
     tmp_path: Path,
-    upload_assets: Callable[..., Awaitable[UploadResult]],
 ):
     """Test AssetsApiWrapped.view_asset_to_file method."""
-    upload_result = await upload_assets([test_image], skip_duplicates=True)
+    upload_result = await client_with_api_key.assets.upload(
+        [test_image], skip_duplicates=True
+    )
     assert len(upload_result.uploaded) == 1
-    asset_id = UUID(upload_result.uploaded[0].asset.id)
 
     # Download thumbnail
     out_dir = tmp_path / "thumbnails"
     thumbnail_path = await client_with_api_key.assets.view_asset_to_file(
-        id=asset_id, out_dir=out_dir, size=AssetMediaSize.THUMBNAIL
+        id=upload_result.uploaded[0].asset.id,
+        out_dir=out_dir,
+        size=AssetMediaSize.THUMBNAIL,
     )
 
     assert thumbnail_path.exists()
@@ -115,22 +110,21 @@ async def test_assets_view_asset_to_file(
 
 
 @pytest.mark.asyncio
-@pytest.mark.e2e
 async def test_assets_play_asset_video_to_file(
     client_with_api_key: AsyncClient,
     test_video: Path,
     tmp_path: Path,
-    upload_assets: Callable[..., Awaitable[UploadResult]],
 ):
     """Test AssetsApiWrapped.play_asset_video_to_file method."""
-    upload_result = await upload_assets([test_video], skip_duplicates=True)
+    upload_result = await client_with_api_key.assets.upload(
+        [test_video], skip_duplicates=True
+    )
     assert len(upload_result.uploaded) == 1
-    asset_id = UUID(upload_result.uploaded[0].asset.id)
 
     # Download video stream
     out_dir = tmp_path / "videos"
     video_path = await client_with_api_key.assets.play_asset_video_to_file(
-        id=asset_id, out_dir=out_dir
+        id=upload_result.uploaded[0].asset.id, out_dir=out_dir
     )
 
     assert video_path.exists()
@@ -138,20 +132,19 @@ async def test_assets_play_asset_video_to_file(
 
 
 @pytest.mark.asyncio
-@pytest.mark.e2e
 async def test_download_archive_to_file(
     client_with_api_key: AsyncClient,
     test_image: Path,
     tmp_path: Path,
-    upload_assets: Callable[..., Awaitable[UploadResult]],
 ):
     """Test DownloadApiWrapped.download_archive_to_file method."""
-    upload_result = await upload_assets([test_image], skip_duplicates=True)
+    upload_result = await client_with_api_key.assets.upload(
+        [test_image], skip_duplicates=True
+    )
     assert len(upload_result.uploaded) == 1
-    asset_id = UUID(upload_result.uploaded[0].asset.id)
 
     # Create download info
-    download_info = DownloadInfoDto(assetIds=[asset_id])
+    download_info = DownloadInfoDto(assetIds=[upload_result.uploaded[0].asset.id])
 
     # Download archive
     out_dir = tmp_path / "archives"
@@ -165,7 +158,6 @@ async def test_download_archive_to_file(
 
 
 @pytest.mark.asyncio
-@pytest.mark.e2e
 async def test_users_get_profile_image_to_file(
     client_with_api_key: AsyncClient,
     test_image: Path,
@@ -174,7 +166,6 @@ async def test_users_get_profile_image_to_file(
     """Test UsersApiWrapped.get_profile_image_to_file method."""
     # Get current user info
     my_user = await client_with_api_key.users.get_my_user()
-    user_id = UUID(my_user.id)
 
     # Upload profile image
     img_bytes = test_image.read_bytes()
@@ -186,7 +177,7 @@ async def test_users_get_profile_image_to_file(
     # Download profile image
     out_dir = tmp_path / "profiles"
     profile_path = await client_with_api_key.users.get_profile_image_to_file(
-        id=user_id, out_dir=out_dir
+        id=my_user.id, out_dir=out_dir
     )
 
     assert profile_path.exists()

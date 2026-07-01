@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import typer
+from uuid import UUID
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -19,14 +20,14 @@ app = typer.Typer(
 @app.command("create-activity", deprecated=False, rich_help_panel="API commands")
 def create_activity(
     ctx: typer.Context,
-    album_id: str = typer.Option(..., "--album-id", help="""Album ID"""),
-    asset_id: str | None = typer.Option(
-        None, "--asset-id", help="""Asset ID (if activity is for an asset)"""
+    album_id: UUID = typer.Option(..., "--album-id", help=r"""Album ID"""),
+    asset_id: UUID | None = typer.Option(
+        None, "--asset-id", help=r"""Asset ID (if activity is for an asset)"""
     ),
     comment: str | None = typer.Option(
-        None, "--comment", help="""Comment text (required if type is comment)"""
+        None, "--comment", help=r"""Comment text (required if type is comment)"""
     ),
-    type: str = typer.Option(..., "--type", help="""Activity type (like or comment)"""),
+    type: str = typer.Option(..., "--type", help=r"""Reaction type"""),
 ) -> None:
     """Create an activity
 
@@ -44,13 +45,13 @@ def create_activity(
     kwargs["activity_create_dto"] = activity_create_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.activities.create_activity, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("delete-activity", deprecated=False, rich_help_panel="API commands")
 def delete_activity(
     ctx: typer.Context,
-    id: str = typer.Argument(..., help=""""""),
+    id: UUID = typer.Argument(..., help=r""""""),
 ) -> None:
     """Delete an activity
 
@@ -60,23 +61,21 @@ def delete_activity(
     kwargs["id"] = id
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.activities.delete_activity, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("get-activities", deprecated=False, rich_help_panel="API commands")
 def get_activities(
     ctx: typer.Context,
-    album_id: str = typer.Option(..., "--album-id", help="""Album ID"""),
-    asset_id: str | None = typer.Option(
-        None, "--asset-id", help="""Asset ID (if activity is for an asset)"""
+    album_id: UUID = typer.Option(..., "--album-id", help=r"""Album ID"""),
+    asset_id: UUID | None = typer.Option(
+        None, "--asset-id", help=r"""Asset ID (if activity is for an asset)"""
     ),
-    level: ReactionLevel | None = typer.Option(
-        None, "--level", help="""Filter by activity level"""
+    level: ReactionLevel | None = typer.Option(None, "--level", help=r""""""),
+    type: ReactionType | None = typer.Option(None, "--type", help=r""""""),
+    user_id: UUID | None = typer.Option(
+        None, "--user-id", help=r"""Filter by user ID"""
     ),
-    type: ReactionType | None = typer.Option(
-        None, "--type", help="""Filter by activity type"""
-    ),
-    user_id: str | None = typer.Option(None, "--user-id", help="""Filter by user ID"""),
 ) -> None:
     """List all activities
 
@@ -94,7 +93,7 @@ def get_activities(
         kwargs["user_id"] = user_id
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.activities.get_activities, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command(
@@ -102,9 +101,9 @@ def get_activities(
 )
 def get_activity_statistics(
     ctx: typer.Context,
-    album_id: str = typer.Option(..., "--album-id", help="""Album ID"""),
-    asset_id: str | None = typer.Option(
-        None, "--asset-id", help="""Asset ID (if activity is for an asset)"""
+    album_id: UUID = typer.Option(..., "--album-id", help=r"""Album ID"""),
+    asset_id: UUID | None = typer.Option(
+        None, "--asset-id", help=r"""Asset ID (if activity is for an asset)"""
     ),
 ) -> None:
     """Retrieve activity statistics
@@ -117,4 +116,4 @@ def get_activity_statistics(
         kwargs["asset_id"] = asset_id
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.activities.get_activity_statistics, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)

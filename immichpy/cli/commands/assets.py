@@ -3,15 +3,20 @@
 from __future__ import annotations
 
 import typer
-import json
 from datetime import datetime
 from pathlib import Path
+from uuid import UUID
 from typing import Literal, TYPE_CHECKING
 
 if TYPE_CHECKING:
     from immichpy import AsyncClient
 
-from immichpy.cli.runtime import print_response, run_command, set_nested
+from immichpy.cli.runtime import (
+    parse_json_options,
+    print_response,
+    run_command,
+    set_nested,
+)
 from immichpy.client.generated.models import *
 
 app = typer.Typer(
@@ -25,7 +30,7 @@ def check_bulk_upload(
     assets: list[str] = typer.Option(
         ...,
         "--assets",
-        help="""Assets to check
+        help=r"""Assets to check
 
 As a JSON string with keys: checksum (string), id (string)""",
     ),
@@ -36,58 +41,35 @@ As a JSON string with keys: checksum (string), id (string)""",
     """
     kwargs = {}
     json_data = {}
-    value_assets = [json.loads(i) for i in assets]
+    value_assets = parse_json_options(assets, "--assets", ctx=ctx)
     set_nested(json_data, ["assets"], value_assets)
     asset_bulk_upload_check_dto = AssetBulkUploadCheckDto.model_validate(json_data)
     kwargs["asset_bulk_upload_check_dto"] = asset_bulk_upload_check_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.assets.check_bulk_upload, ctx=ctx, **kwargs)
-    print_response(result, ctx)
-
-
-@app.command("check-existing-assets", deprecated=False, rich_help_panel="API commands")
-def check_existing_assets(
-    ctx: typer.Context,
-    device_asset_ids: list[str] = typer.Option(
-        ..., "--device-asset-ids", help="""Device asset IDs to check"""
-    ),
-    device_id: str = typer.Option(..., "--device-id", help="""Device ID"""),
-) -> None:
-    """Check existing assets
-
-    [link=https://api.immich.app/endpoints/assets/checkExistingAssets]Immich API documentation[/link]
-    """
-    kwargs = {}
-    json_data = {}
-    set_nested(json_data, ["device_asset_ids"], device_asset_ids)
-    set_nested(json_data, ["device_id"], device_id)
-    check_existing_assets_dto = CheckExistingAssetsDto.model_validate(json_data)
-    kwargs["check_existing_assets_dto"] = check_existing_assets_dto
-    client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client.assets.check_existing_assets, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("copy-asset", deprecated=False, rich_help_panel="API commands")
 def copy_asset(
     ctx: typer.Context,
     albums: Literal["true", "false"] | None = typer.Option(
-        None, "--albums", help="""Copy album associations"""
+        None, "--albums", help=r"""Copy album associations"""
     ),
     favorite: Literal["true", "false"] | None = typer.Option(
-        None, "--favorite", help="""Copy favorite status"""
+        None, "--favorite", help=r"""Copy favorite status"""
     ),
     shared_links: Literal["true", "false"] | None = typer.Option(
-        None, "--shared-links", help="""Copy shared links"""
+        None, "--shared-links", help=r"""Copy shared links"""
     ),
     sidecar: Literal["true", "false"] | None = typer.Option(
-        None, "--sidecar", help="""Copy sidecar file"""
+        None, "--sidecar", help=r"""Copy sidecar file"""
     ),
-    source_id: str = typer.Option(..., "--source-id", help="""Source asset ID"""),
+    source_id: UUID = typer.Option(..., "--source-id", help=r"""Source asset ID"""),
     stack: Literal["true", "false"] | None = typer.Option(
-        None, "--stack", help="""Copy stack association"""
+        None, "--stack", help=r"""Copy stack association"""
     ),
-    target_id: str = typer.Option(..., "--target-id", help="""Target asset ID"""),
+    target_id: UUID = typer.Option(..., "--target-id", help=r"""Target asset ID"""),
 ) -> None:
     """Copy asset
 
@@ -111,14 +93,14 @@ def copy_asset(
     kwargs["asset_copy_dto"] = asset_copy_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.assets.copy_asset, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("delete-asset-metadata", deprecated=False, rich_help_panel="API commands")
 def delete_asset_metadata(
     ctx: typer.Context,
-    id: str = typer.Argument(..., help="""Asset ID"""),
-    key: str = typer.Argument(..., help="""Metadata key"""),
+    id: UUID = typer.Argument(..., help=r"""Asset ID"""),
+    key: str = typer.Argument(..., help=r"""Metadata key"""),
 ) -> None:
     """Delete asset metadata by key
 
@@ -129,16 +111,16 @@ def delete_asset_metadata(
     kwargs["key"] = key
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.assets.delete_asset_metadata, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("delete-assets", deprecated=False, rich_help_panel="API commands")
 def delete_assets(
     ctx: typer.Context,
     force: Literal["true", "false"] | None = typer.Option(
-        None, "--force", help="""Force delete even if in use"""
+        None, "--force", help=r"""Force delete even if in use"""
     ),
-    ids: list[str] = typer.Option(..., "--ids", help="""IDs to process"""),
+    ids: list[UUID] = typer.Option(..., "--ids", help=r"""IDs to process"""),
 ) -> None:
     """Delete assets
 
@@ -153,7 +135,7 @@ def delete_assets(
     kwargs["asset_bulk_delete_dto"] = asset_bulk_delete_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.assets.delete_assets, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command(
@@ -164,7 +146,7 @@ def delete_bulk_asset_metadata(
     items: list[str] = typer.Option(
         ...,
         "--items",
-        help="""Metadata items to delete
+        help=r"""Metadata items to delete
 
 As a JSON string with keys: assetId (string), key (string)""",
     ),
@@ -175,7 +157,7 @@ As a JSON string with keys: assetId (string), key (string)""",
     """
     kwargs = {}
     json_data = {}
-    value_items = [json.loads(i) for i in items]
+    value_items = parse_json_options(items, "--items", ctx=ctx)
     set_nested(json_data, ["items"], value_items)
     asset_metadata_bulk_delete_dto = AssetMetadataBulkDeleteDto.model_validate(
         json_data
@@ -183,18 +165,18 @@ As a JSON string with keys: assetId (string), key (string)""",
     kwargs["asset_metadata_bulk_delete_dto"] = asset_metadata_bulk_delete_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.assets.delete_bulk_asset_metadata, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("download-asset", deprecated=False, rich_help_panel="API commands")
 def download_asset(
     ctx: typer.Context,
-    id: str = typer.Argument(..., help=""""""),
+    id: UUID = typer.Argument(..., help=r""""""),
     edited: Literal["true", "false"] | None = typer.Option(
-        None, "--edited", help="""Return edited asset if available"""
+        None, "--edited", help=r"""Return edited asset if available"""
     ),
-    key: str | None = typer.Option(None, "--key", help=""""""),
-    slug: str | None = typer.Option(None, "--slug", help=""""""),
+    key: str | None = typer.Option(None, "--key", help=r""""""),
+    slug: str | None = typer.Option(None, "--slug", help=r""""""),
 ) -> None:
     """Download original asset
 
@@ -210,17 +192,17 @@ def download_asset(
         kwargs["slug"] = slug
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.assets.download_asset, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("edit-asset", deprecated=False, rich_help_panel="API commands")
 def edit_asset(
     ctx: typer.Context,
-    id: str = typer.Argument(..., help=""""""),
+    id: UUID = typer.Argument(..., help=r""""""),
     edits: list[str] = typer.Option(
         ...,
         "--edits",
-        help="""List of edit actions to apply (crop, rotate, or mirror)
+        help=r"""List of edit actions to apply (crop, rotate, or mirror)
 
 As a JSON string with keys: action (string), parameters (string)""",
     ),
@@ -232,39 +214,43 @@ As a JSON string with keys: action (string), parameters (string)""",
     kwargs = {}
     json_data = {}
     kwargs["id"] = id
-    value_edits = [json.loads(i) for i in edits]
+    value_edits = parse_json_options(edits, "--edits", ctx=ctx)
     set_nested(json_data, ["edits"], value_edits)
     asset_edits_create_dto = AssetEditsCreateDto.model_validate(json_data)
     kwargs["asset_edits_create_dto"] = asset_edits_create_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.assets.edit_asset, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
-@app.command(
-    "get-all-user-assets-by-device-id", deprecated=True, rich_help_panel="API commands"
-)
-def get_all_user_assets_by_device_id(
+@app.command("end-session", deprecated=False, rich_help_panel="API commands")
+def end_session(
     ctx: typer.Context,
-    device_id: str = typer.Argument(..., help="""Device ID"""),
+    id: UUID = typer.Argument(..., help=r""""""),
+    session_id: UUID = typer.Argument(..., help=r""""""),
+    key: str | None = typer.Option(None, "--key", help=r""""""),
+    slug: str | None = typer.Option(None, "--slug", help=r""""""),
 ) -> None:
-    """Retrieve assets by device ID
+    """End HLS streaming session
 
-    [link=https://api.immich.app/endpoints/assets/getAllUserAssetsByDeviceId]Immich API documentation[/link]
+    [link=https://api.immich.app/endpoints/assets/endSession]Immich API documentation[/link]
     """
     kwargs = {}
-    kwargs["device_id"] = device_id
+    kwargs["id"] = id
+    if key is not None:
+        kwargs["key"] = key
+    kwargs["session_id"] = session_id
+    if slug is not None:
+        kwargs["slug"] = slug
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(
-        client.assets.get_all_user_assets_by_device_id, ctx=ctx, **kwargs
-    )
-    print_response(result, ctx)
+    result = run_command(client.assets.end_session, ctx=ctx, **kwargs)
+    print_response(result, ctx=ctx)
 
 
 @app.command("get-asset-edits", deprecated=False, rich_help_panel="API commands")
 def get_asset_edits(
     ctx: typer.Context,
-    id: str = typer.Argument(..., help=""""""),
+    id: UUID = typer.Argument(..., help=r""""""),
 ) -> None:
     """Retrieve edits for an existing asset
 
@@ -274,15 +260,15 @@ def get_asset_edits(
     kwargs["id"] = id
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.assets.get_asset_edits, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("get-asset-info", deprecated=False, rich_help_panel="API commands")
 def get_asset_info(
     ctx: typer.Context,
-    id: str = typer.Argument(..., help=""""""),
-    key: str | None = typer.Option(None, "--key", help=""""""),
-    slug: str | None = typer.Option(None, "--slug", help=""""""),
+    id: UUID = typer.Argument(..., help=r""""""),
+    key: str | None = typer.Option(None, "--key", help=r""""""),
+    slug: str | None = typer.Option(None, "--slug", help=r""""""),
 ) -> None:
     """Retrieve an asset
 
@@ -296,13 +282,13 @@ def get_asset_info(
         kwargs["slug"] = slug
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.assets.get_asset_info, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("get-asset-metadata", deprecated=False, rich_help_panel="API commands")
 def get_asset_metadata(
     ctx: typer.Context,
-    id: str = typer.Argument(..., help=""""""),
+    id: UUID = typer.Argument(..., help=r""""""),
 ) -> None:
     """Get asset metadata
 
@@ -312,7 +298,7 @@ def get_asset_metadata(
     kwargs["id"] = id
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.assets.get_asset_metadata, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command(
@@ -320,8 +306,8 @@ def get_asset_metadata(
 )
 def get_asset_metadata_by_key(
     ctx: typer.Context,
-    id: str = typer.Argument(..., help="""Asset ID"""),
-    key: str = typer.Argument(..., help="""Metadata key"""),
+    id: UUID = typer.Argument(..., help=r"""Asset ID"""),
+    key: str = typer.Argument(..., help=r"""Metadata key"""),
 ) -> None:
     """Retrieve asset metadata by key
 
@@ -332,13 +318,13 @@ def get_asset_metadata_by_key(
     kwargs["key"] = key
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.assets.get_asset_metadata_by_key, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("get-asset-ocr", deprecated=False, rich_help_panel="API commands")
 def get_asset_ocr(
     ctx: typer.Context,
-    id: str = typer.Argument(..., help=""""""),
+    id: UUID = typer.Argument(..., help=r""""""),
 ) -> None:
     """Retrieve asset OCR data
 
@@ -348,20 +334,20 @@ def get_asset_ocr(
     kwargs["id"] = id
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.assets.get_asset_ocr, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("get-asset-statistics", deprecated=False, rich_help_panel="API commands")
 def get_asset_statistics(
     ctx: typer.Context,
     is_favorite: Literal["true", "false"] | None = typer.Option(
-        None, "--is-favorite", help="""Filter by favorite status"""
+        None, "--is-favorite", help=r"""Filter by favorite status"""
     ),
     is_trashed: Literal["true", "false"] | None = typer.Option(
-        None, "--is-trashed", help="""Filter by trash status"""
+        None, "--is-trashed", help=r"""Filter by trash status"""
     ),
     visibility: AssetVisibility | None = typer.Option(
-        None, "--visibility", help="""Filter by visibility"""
+        None, "--visibility", help=r""""""
     ),
 ) -> None:
     """Get asset statistics
@@ -377,34 +363,101 @@ def get_asset_statistics(
         kwargs["visibility"] = visibility
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.assets.get_asset_statistics, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
-@app.command("get-random", deprecated=True, rich_help_panel="API commands")
-def get_random(
+@app.command("get-main-playlist", deprecated=False, rich_help_panel="API commands")
+def get_main_playlist(
     ctx: typer.Context,
-    count: float | None = typer.Option(
-        None, "--count", help="""Number of random assets to return""", min=1
-    ),
+    id: UUID = typer.Argument(..., help=r""""""),
+    key: str | None = typer.Option(None, "--key", help=r""""""),
+    slug: str | None = typer.Option(None, "--slug", help=r""""""),
 ) -> None:
-    """Get random assets
+    """Get HLS main playlist
 
-    [link=https://api.immich.app/endpoints/assets/getRandom]Immich API documentation[/link]
+    [link=https://api.immich.app/endpoints/assets/getMainPlaylist]Immich API documentation[/link]
     """
     kwargs = {}
-    if count is not None:
-        kwargs["count"] = count
+    kwargs["id"] = id
+    if key is not None:
+        kwargs["key"] = key
+    if slug is not None:
+        kwargs["slug"] = slug
     client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client.assets.get_random, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    result = run_command(client.assets.get_main_playlist, ctx=ctx, **kwargs)
+    print_response(result, ctx=ctx)
+
+
+@app.command("get-media-playlist", deprecated=False, rich_help_panel="API commands")
+def get_media_playlist(
+    ctx: typer.Context,
+    id: UUID = typer.Argument(..., help=r""""""),
+    session_id: UUID = typer.Argument(..., help=r""""""),
+    variant_index: int = typer.Argument(..., help=r""""""),
+    key: str | None = typer.Option(None, "--key", help=r""""""),
+    slug: str | None = typer.Option(None, "--slug", help=r""""""),
+    x_immich_hls_pos: float | None = typer.Option(
+        None, "--x-immich-hls-pos", help=r"""""", min=0
+    ),
+) -> None:
+    """Get HLS media playlist
+
+    [link=https://api.immich.app/endpoints/assets/getMediaPlaylist]Immich API documentation[/link]
+    """
+    kwargs = {}
+    kwargs["id"] = id
+    if key is not None:
+        kwargs["key"] = key
+    kwargs["session_id"] = session_id
+    if slug is not None:
+        kwargs["slug"] = slug
+    kwargs["variant_index"] = variant_index
+    if x_immich_hls_pos is not None:
+        kwargs["x_immich_hls_pos"] = x_immich_hls_pos
+    client: "AsyncClient" = ctx.obj["client"]
+    result = run_command(client.assets.get_media_playlist, ctx=ctx, **kwargs)
+    print_response(result, ctx=ctx)
+
+
+@app.command("get-segment", deprecated=False, rich_help_panel="API commands")
+def get_segment(
+    ctx: typer.Context,
+    filename: str = typer.Argument(..., help=r""""""),
+    id: UUID = typer.Argument(..., help=r""""""),
+    session_id: UUID = typer.Argument(..., help=r""""""),
+    variant_index: int = typer.Argument(..., help=r""""""),
+    key: str | None = typer.Option(None, "--key", help=r""""""),
+    slug: str | None = typer.Option(None, "--slug", help=r""""""),
+    x_immich_hls_msn: int | None = typer.Option(
+        None, "--x-immich-hls-msn", help=r"""""", min=0, max=9007199254740991
+    ),
+) -> None:
+    """Get HLS segment or init file
+
+    [link=https://api.immich.app/endpoints/assets/getSegment]Immich API documentation[/link]
+    """
+    kwargs = {}
+    kwargs["filename"] = filename
+    kwargs["id"] = id
+    if key is not None:
+        kwargs["key"] = key
+    kwargs["session_id"] = session_id
+    if slug is not None:
+        kwargs["slug"] = slug
+    kwargs["variant_index"] = variant_index
+    if x_immich_hls_msn is not None:
+        kwargs["x_immich_hls_msn"] = x_immich_hls_msn
+    client: "AsyncClient" = ctx.obj["client"]
+    result = run_command(client.assets.get_segment, ctx=ctx, **kwargs)
+    print_response(result, ctx=ctx)
 
 
 @app.command("play-asset-video", deprecated=False, rich_help_panel="API commands")
 def play_asset_video(
     ctx: typer.Context,
-    id: str = typer.Argument(..., help=""""""),
-    key: str | None = typer.Option(None, "--key", help=""""""),
-    slug: str | None = typer.Option(None, "--slug", help=""""""),
+    id: UUID = typer.Argument(..., help=r""""""),
+    key: str | None = typer.Option(None, "--key", help=r""""""),
+    slug: str | None = typer.Option(None, "--slug", help=r""""""),
 ) -> None:
     """Play asset video
 
@@ -418,13 +471,13 @@ def play_asset_video(
         kwargs["slug"] = slug
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.assets.play_asset_video, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("remove-asset-edits", deprecated=False, rich_help_panel="API commands")
 def remove_asset_edits(
     ctx: typer.Context,
-    id: str = typer.Argument(..., help=""""""),
+    id: UUID = typer.Argument(..., help=r""""""),
 ) -> None:
     """Remove edits from an existing asset
 
@@ -434,64 +487,14 @@ def remove_asset_edits(
     kwargs["id"] = id
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.assets.remove_asset_edits, ctx=ctx, **kwargs)
-    print_response(result, ctx)
-
-
-@app.command("replace-asset", deprecated=True, rich_help_panel="API commands")
-def replace_asset(
-    ctx: typer.Context,
-    id: str = typer.Argument(..., help=""""""),
-    asset_data: Path = typer.Option(
-        ..., "--asset-data", help="""Asset file data""", exists=True
-    ),
-    device_asset_id: str = typer.Option(
-        ..., "--device-asset-id", help="""Device asset ID"""
-    ),
-    device_id: str = typer.Option(..., "--device-id", help="""Device ID"""),
-    duration: str | None = typer.Option(
-        None, "--duration", help="""Duration (for videos)"""
-    ),
-    file_created_at: datetime = typer.Option(
-        ..., "--file-created-at", help="""File creation date"""
-    ),
-    file_modified_at: datetime = typer.Option(
-        ..., "--file-modified-at", help="""File modification date"""
-    ),
-    filename: str | None = typer.Option(None, "--filename", help="""Filename"""),
-    key: str | None = typer.Option(None, "--key", help=""""""),
-    slug: str | None = typer.Option(None, "--slug", help=""""""),
-) -> None:
-    """Replace asset
-
-    [link=https://api.immich.app/endpoints/assets/replaceAsset]Immich API documentation[/link]
-    """
-    kwargs = {}
-    json_data = {}
-    kwargs["id"] = id
-    if key is not None:
-        kwargs["key"] = key
-    if slug is not None:
-        kwargs["slug"] = slug
-    kwargs["asset_data"] = (asset_data.name, asset_data.read_bytes())
-    set_nested(json_data, ["device_asset_id"], device_asset_id)
-    set_nested(json_data, ["device_id"], device_id)
-    if duration is not None:
-        set_nested(json_data, ["duration"], duration)
-    set_nested(json_data, ["file_created_at"], file_created_at)
-    set_nested(json_data, ["file_modified_at"], file_modified_at)
-    if filename is not None:
-        set_nested(json_data, ["filename"], filename)
-    kwargs.update(json_data)
-    client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client.assets.replace_asset, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("run-asset-jobs", deprecated=False, rich_help_panel="API commands")
 def run_asset_jobs(
     ctx: typer.Context,
-    asset_ids: list[str] = typer.Option(..., "--asset-ids", help="""Asset IDs"""),
-    name: str = typer.Option(..., "--name", help="""Job name"""),
+    asset_ids: list[UUID] = typer.Option(..., "--asset-ids", help=r"""Asset IDs"""),
+    name: str = typer.Option(..., "--name", help=r"""Job name"""),
 ) -> None:
     """Run an asset job
 
@@ -505,40 +508,40 @@ def run_asset_jobs(
     kwargs["asset_jobs_dto"] = asset_jobs_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.assets.run_asset_jobs, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
-@app.command("update-asset", deprecated=False, rich_help_panel="API commands")
+@app.command("update-asset", deprecated=True, rich_help_panel="API commands")
 def update_asset(
     ctx: typer.Context,
-    id: str = typer.Argument(..., help=""""""),
+    id: UUID = typer.Argument(..., help=r""""""),
     date_time_original: str | None = typer.Option(
-        None, "--date-time-original", help="""Original date and time"""
+        None, "--date-time-original", help=r"""Original date and time"""
     ),
     description: str | None = typer.Option(
-        None, "--description", help="""Asset description"""
+        None, "--description", help=r"""Asset description"""
     ),
     is_favorite: Literal["true", "false"] | None = typer.Option(
-        None, "--is-favorite", help="""Mark as favorite"""
+        None, "--is-favorite", help=r"""Mark as favorite"""
     ),
     latitude: float | None = typer.Option(
-        None, "--latitude", help="""Latitude coordinate"""
+        None, "--latitude", help=r"""Latitude coordinate""", min=-90, max=90
     ),
-    live_photo_video_id: str | None = typer.Option(
-        None, "--live-photo-video-id", help="""Live photo video ID"""
+    live_photo_video_id: UUID | None = typer.Option(
+        None, "--live-photo-video-id", help=r"""Live photo video ID"""
     ),
     longitude: float | None = typer.Option(
-        None, "--longitude", help="""Longitude coordinate"""
+        None, "--longitude", help=r"""Longitude coordinate""", min=-180, max=180
     ),
-    rating: float | None = typer.Option(
+    rating: int | None = typer.Option(
         None,
         "--rating",
-        help="""Rating in range [1-5], or null for unrated""",
+        help=r"""Rating in range [1-5] (starred), -1 (rejected), or null (unrated)""",
         min=-1,
         max=5,
     ),
     visibility: str | None = typer.Option(
-        None, "--visibility", help="""Asset visibility"""
+        None, "--visibility", help=r"""Asset visibility"""
     ),
 ) -> None:
     """Update an asset
@@ -568,17 +571,17 @@ def update_asset(
     kwargs["update_asset_dto"] = update_asset_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.assets.update_asset, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("update-asset-metadata", deprecated=False, rich_help_panel="API commands")
 def update_asset_metadata(
     ctx: typer.Context,
-    id: str = typer.Argument(..., help=""""""),
+    id: UUID = typer.Argument(..., help=r""""""),
     items: list[str] = typer.Option(
         ...,
         "--items",
-        help="""Metadata items to upsert
+        help=r"""Metadata items to upsert
 
 As a JSON string with keys: key (string), value (object)""",
     ),
@@ -590,52 +593,56 @@ As a JSON string with keys: key (string), value (object)""",
     kwargs = {}
     json_data = {}
     kwargs["id"] = id
-    value_items = [json.loads(i) for i in items]
+    value_items = parse_json_options(items, "--items", ctx=ctx)
     set_nested(json_data, ["items"], value_items)
     asset_metadata_upsert_dto = AssetMetadataUpsertDto.model_validate(json_data)
     kwargs["asset_metadata_upsert_dto"] = asset_metadata_upsert_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.assets.update_asset_metadata, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
-@app.command("update-assets", deprecated=False, rich_help_panel="API commands")
+@app.command("update-assets", deprecated=True, rich_help_panel="API commands")
 def update_assets(
     ctx: typer.Context,
     date_time_original: str | None = typer.Option(
-        None, "--date-time-original", help="""Original date and time"""
+        None, "--date-time-original", help=r"""Original date and time"""
     ),
-    date_time_relative: float | None = typer.Option(
-        None, "--date-time-relative", help="""Relative time offset in seconds"""
+    date_time_relative: int | None = typer.Option(
+        None,
+        "--date-time-relative",
+        help=r"""Relative time offset in minutes""",
+        min=-9007199254740991,
+        max=9007199254740991,
     ),
     description: str | None = typer.Option(
-        None, "--description", help="""Asset description"""
+        None, "--description", help=r"""Asset description"""
     ),
     duplicate_id: str | None = typer.Option(
-        None, "--duplicate-id", help="""Duplicate ID"""
+        None, "--duplicate-id", help=r"""Duplicate ID"""
     ),
-    ids: list[str] = typer.Option(..., "--ids", help="""Asset IDs to update"""),
+    ids: list[UUID] = typer.Option(..., "--ids", help=r"""Asset IDs to update"""),
     is_favorite: Literal["true", "false"] | None = typer.Option(
-        None, "--is-favorite", help="""Mark as favorite"""
+        None, "--is-favorite", help=r"""Mark as favorite"""
     ),
     latitude: float | None = typer.Option(
-        None, "--latitude", help="""Latitude coordinate"""
+        None, "--latitude", help=r"""Latitude coordinate""", min=-90, max=90
     ),
     longitude: float | None = typer.Option(
-        None, "--longitude", help="""Longitude coordinate"""
+        None, "--longitude", help=r"""Longitude coordinate""", min=-180, max=180
     ),
-    rating: float | None = typer.Option(
+    rating: int | None = typer.Option(
         None,
         "--rating",
-        help="""Rating in range [1-5], or null for unrated""",
+        help=r"""Rating in range [1-5] (starred), -1 (rejected), or null (unrated)""",
         min=-1,
         max=5,
     ),
     time_zone: str | None = typer.Option(
-        None, "--time-zone", help="""Time zone (IANA timezone)"""
+        None, "--time-zone", help=r"""Time zone (IANA timezone)"""
     ),
     visibility: str | None = typer.Option(
-        None, "--visibility", help="""Asset visibility"""
+        None, "--visibility", help=r"""Asset visibility"""
     ),
 ) -> None:
     """Update assets
@@ -669,7 +676,7 @@ def update_assets(
     kwargs["asset_bulk_update_dto"] = asset_bulk_update_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.assets.update_assets, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command(
@@ -680,7 +687,7 @@ def update_bulk_asset_metadata(
     items: list[str] = typer.Option(
         ...,
         "--items",
-        help="""Metadata items to upsert
+        help=r"""Metadata items to upsert
 
 As a JSON string with keys: assetId (string), key (string), value (object)""",
     ),
@@ -691,7 +698,7 @@ As a JSON string with keys: assetId (string), key (string), value (object)""",
     """
     kwargs = {}
     json_data = {}
-    value_items = [json.loads(i) for i in items]
+    value_items = parse_json_options(items, "--items", ctx=ctx)
     set_nested(json_data, ["items"], value_items)
     asset_metadata_bulk_upsert_dto = AssetMetadataBulkUpsertDto.model_validate(
         json_data
@@ -699,54 +706,62 @@ As a JSON string with keys: assetId (string), key (string), value (object)""",
     kwargs["asset_metadata_bulk_upsert_dto"] = asset_metadata_bulk_upsert_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.assets.update_bulk_asset_metadata, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("upload-asset", deprecated=False, rich_help_panel="API commands")
 def upload_asset(
     ctx: typer.Context,
     asset_data: Path = typer.Option(
-        ..., "--asset-data", help="""Asset file data""", exists=True
+        ..., "--asset-data", help=r"""Asset file data""", exists=True
     ),
-    device_asset_id: str = typer.Option(
-        ..., "--device-asset-id", help="""Device asset ID"""
-    ),
-    device_id: str = typer.Option(..., "--device-id", help="""Device ID"""),
-    duration: str | None = typer.Option(
-        None, "--duration", help="""Duration (for videos)"""
+    duration: int | None = typer.Option(
+        None,
+        "--duration",
+        help=r"""Duration in milliseconds (for videos)""",
+        min=0,
+        max=9007199254740991,
     ),
     file_created_at: datetime = typer.Option(
-        ..., "--file-created-at", help="""File creation date"""
+        ...,
+        "--file-created-at",
+        help=r"""File creation date
+
+Example: 2024-01-01T00:00:00.000Z""",
     ),
     file_modified_at: datetime = typer.Option(
-        ..., "--file-modified-at", help="""File modification date"""
+        ...,
+        "--file-modified-at",
+        help=r"""File modification date
+
+Example: 2024-01-01T00:00:00.000Z""",
     ),
-    filename: str | None = typer.Option(None, "--filename", help="""Filename"""),
+    filename: str | None = typer.Option(None, "--filename", help=r"""Filename"""),
     is_favorite: Literal["true", "false"] | None = typer.Option(
-        None, "--is-favorite", help="""Mark as favorite"""
+        None, "--is-favorite", help=r"""Mark as favorite"""
     ),
-    key: str | None = typer.Option(None, "--key", help=""""""),
-    live_photo_video_id: str | None = typer.Option(
-        None, "--live-photo-video-id", help="""Live photo video ID"""
+    key: str | None = typer.Option(None, "--key", help=r""""""),
+    live_photo_video_id: UUID | None = typer.Option(
+        None, "--live-photo-video-id", help=r"""Live photo video ID"""
     ),
     metadata: list[str] | None = typer.Option(
         None,
         "--metadata",
-        help="""Asset metadata items
+        help=r"""Asset metadata items
 
 As a JSON string with keys: key (string), value (object)""",
     ),
     sidecar_data: Path | None = typer.Option(
-        None, "--sidecar-data", help="""Sidecar file data""", exists=True
+        None, "--sidecar-data", help=r"""Sidecar file data""", exists=True
     ),
-    slug: str | None = typer.Option(None, "--slug", help=""""""),
+    slug: str | None = typer.Option(None, "--slug", help=r""""""),
     visibility: str | None = typer.Option(
-        None, "--visibility", help="""Asset visibility"""
+        None, "--visibility", help=r"""Asset visibility"""
     ),
     x_immich_checksum: str | None = typer.Option(
         None,
         "--x-immich-checksum",
-        help="""sha1 checksum that can be used for duplicate detection before the file is uploaded""",
+        help=r"""sha1 checksum that can be used for duplicate detection before the file is uploaded""",
     ),
 ) -> None:
     """Upload asset
@@ -762,8 +777,6 @@ As a JSON string with keys: key (string), value (object)""",
     if x_immich_checksum is not None:
         kwargs["x_immich_checksum"] = x_immich_checksum
     kwargs["asset_data"] = (asset_data.name, asset_data.read_bytes())
-    set_nested(json_data, ["device_asset_id"], device_asset_id)
-    set_nested(json_data, ["device_id"], device_id)
     if duration is not None:
         set_nested(json_data, ["duration"], duration)
     set_nested(json_data, ["file_created_at"], file_created_at)
@@ -775,7 +788,7 @@ As a JSON string with keys: key (string), value (object)""",
     if live_photo_video_id is not None:
         set_nested(json_data, ["live_photo_video_id"], live_photo_video_id)
     if metadata is not None:
-        value_metadata = [json.loads(i) for i in metadata]
+        value_metadata = parse_json_options(metadata, "--metadata", ctx=ctx)
         set_nested(json_data, ["metadata"], value_metadata)
     if sidecar_data is not None:
         set_nested(
@@ -786,21 +799,19 @@ As a JSON string with keys: key (string), value (object)""",
     kwargs.update(json_data)
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.assets.upload_asset, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("view-asset", deprecated=False, rich_help_panel="API commands")
 def view_asset(
     ctx: typer.Context,
-    id: str = typer.Argument(..., help=""""""),
+    id: UUID = typer.Argument(..., help=r""""""),
     edited: Literal["true", "false"] | None = typer.Option(
-        None, "--edited", help="""Return edited asset if available"""
+        None, "--edited", help=r"""Return edited asset if available"""
     ),
-    key: str | None = typer.Option(None, "--key", help=""""""),
-    size: AssetMediaSize | None = typer.Option(
-        None, "--size", help="""Asset media size"""
-    ),
-    slug: str | None = typer.Option(None, "--slug", help=""""""),
+    key: str | None = typer.Option(None, "--key", help=r""""""),
+    size: AssetMediaSize | None = typer.Option(None, "--size", help=r""""""),
+    slug: str | None = typer.Option(None, "--slug", help=r""""""),
 ) -> None:
     """View asset thumbnail
 
@@ -818,4 +829,4 @@ def view_asset(
         kwargs["slug"] = slug
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.assets.view_asset, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)

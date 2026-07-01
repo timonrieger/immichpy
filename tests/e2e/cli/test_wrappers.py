@@ -1,8 +1,7 @@
 import asyncio
 import json
 from pathlib import Path
-from typing import Awaitable, Callable
-from uuid import UUID
+from typing import Callable
 
 import pytest
 from typer.testing import CliRunner
@@ -18,21 +17,19 @@ from immichpy.client.types import UploadResult
 
 
 @pytest.mark.asyncio
-@pytest.mark.e2e
 async def test_download_asset_to_file(
     runner_with_api_key: CliRunner,
     asset: AssetResponseDto,
     tmp_path: Path,
 ) -> None:
     """Test download-asset-to-file command and verify file is downloaded."""
-    asset_id = asset.id
     out_dir = tmp_path / "downloads"
     out_dir.mkdir()
 
     result = await asyncio.to_thread(
         runner_with_api_key.invoke,
         cli_app,
-        ["assets", "download-asset-to-file", asset_id, str(out_dir)],
+        ["assets", "download-asset-to-file", str(asset.id), str(out_dir)],
     )
     assert result.exit_code == 0, result.stdout + result.stderr
     response_data = json.loads(result.stdout)
@@ -46,20 +43,20 @@ async def test_download_asset_to_file(
 
 
 @pytest.mark.asyncio
-@pytest.mark.e2e
 async def test_play_asset_video_to_file(
     runner_with_api_key: CliRunner,
     test_video_factory: Callable[..., Path],
-    upload_assets: Callable[..., Awaitable[UploadResult]],
+    client_with_api_key: AsyncClient,
     tmp_path: Path,
 ) -> None:
     """Test play-asset-video-to-file command and verify video file is downloaded."""
     # Upload a video asset
     video = test_video_factory()
-    upload_result = await upload_assets([video], skip_duplicates=True)
+    upload_result = await client_with_api_key.assets.upload(
+        [video], skip_duplicates=True
+    )
     if upload_result.stats.uploaded == 0:
         pytest.skip(f"No video assets uploaded, {upload_result.model_dump_json()}")
-    video_asset = upload_result.uploaded[0].asset
 
     out_dir = tmp_path / "video_downloads"
     out_dir.mkdir()
@@ -70,7 +67,7 @@ async def test_play_asset_video_to_file(
         [
             "assets",
             "play-asset-video-to-file",
-            video_asset.id,
+            str(upload_result.uploaded[0].asset.id),
             str(out_dir),
         ],
     )
@@ -86,14 +83,12 @@ async def test_play_asset_video_to_file(
 
 
 @pytest.mark.asyncio
-@pytest.mark.e2e
 async def test_view_asset_to_file(
     runner_with_api_key: CliRunner,
     asset: AssetResponseDto,
     tmp_path: Path,
 ) -> None:
     """Test view-asset-to-file command and verify thumbnail file is downloaded."""
-    asset_id = asset.id
     out_dir = tmp_path / "thumbnails"
     out_dir.mkdir()
 
@@ -103,7 +98,7 @@ async def test_view_asset_to_file(
         [
             "assets",
             "view-asset-to-file",
-            asset_id,
+            str(asset.id),
             str(out_dir),
             "--size",
             "thumbnail",
@@ -121,7 +116,6 @@ async def test_view_asset_to_file(
 
 
 @pytest.mark.asyncio
-@pytest.mark.e2e
 async def test_upload(
     runner_with_api_key: CliRunner,
     client_with_api_key: AsyncClient,
@@ -156,21 +150,17 @@ async def test_upload(
 
     # cleanup uploaded assets
     await client_with_api_key.assets.delete_assets(
-        AssetBulkDeleteDto(
-            ids=[UUID(u.asset.id) for u in upload_result.uploaded], force=True
-        )
+        AssetBulkDeleteDto(ids=[u.asset.id for u in upload_result.uploaded], force=True)
     )
 
 
 @pytest.mark.asyncio
-@pytest.mark.e2e
 async def test_download_archive_to_file(
     runner_with_api_key: CliRunner,
     asset: AssetResponseDto,
     tmp_path: Path,
 ) -> None:
     """Test download-archive-to-file command and verify archive is downloaded."""
-    asset_id = asset.id
     out_dir = tmp_path / "archives"
     out_dir.mkdir()
 
@@ -182,7 +172,7 @@ async def test_download_archive_to_file(
             "download-archive-to-file",
             str(out_dir),
             "--asset-ids",
-            asset_id,
+            str(asset.id),
         ],
     )
     assert result.exit_code == 0, result.stdout + result.stderr
@@ -198,7 +188,6 @@ async def test_download_archive_to_file(
 
 
 @pytest.mark.asyncio
-@pytest.mark.e2e
 async def test_users_get_profile_image_to_file(
     runner_with_api_key: CliRunner,
     client_with_api_key: AsyncClient,
@@ -232,7 +221,7 @@ async def test_users_get_profile_image_to_file(
         [
             "users",
             "get-profile-image-to-file",
-            user_id,
+            str(user_id),
             str(out_dir),
         ],
     )

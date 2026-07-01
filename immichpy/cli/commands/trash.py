@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import typer
+from uuid import UUID
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -27,13 +28,13 @@ def empty_trash(
     kwargs = {}
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.trash.empty_trash, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("restore-assets", deprecated=False, rich_help_panel="API commands")
 def restore_assets(
     ctx: typer.Context,
-    ids: list[str] = typer.Option(..., "--ids", help="""IDs to process"""),
+    ids: list[UUID] = typer.Option(..., "--ids", help=r"""IDs to process"""),
 ) -> None:
     """Restore assets
 
@@ -46,7 +47,7 @@ def restore_assets(
     kwargs["bulk_ids_dto"] = bulk_ids_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.trash.restore_assets, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("restore-trash", deprecated=False, rich_help_panel="API commands")
@@ -60,4 +61,4 @@ def restore_trash(
     kwargs = {}
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.trash.restore_trash, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)

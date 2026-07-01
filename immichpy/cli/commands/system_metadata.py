@@ -27,7 +27,7 @@ def get_admin_onboarding(
     kwargs = {}
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.system_metadata.get_admin_onboarding, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command(
@@ -45,7 +45,7 @@ def get_reverse_geocoding_state(
     result = run_command(
         client.system_metadata.get_reverse_geocoding_state, ctx=ctx, **kwargs
     )
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command(
@@ -63,7 +63,7 @@ def get_version_check_state(
     result = run_command(
         client.system_metadata.get_version_check_state, ctx=ctx, **kwargs
     )
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command(
@@ -72,7 +72,7 @@ def get_version_check_state(
 def update_admin_onboarding(
     ctx: typer.Context,
     is_onboarded: bool = typer.Option(
-        ..., "--is-onboarded", help="""Is admin onboarded"""
+        ..., "--is-onboarded", help=r"""Is admin onboarded"""
     ),
 ) -> None:
     """Update admin onboarding
@@ -88,4 +88,4 @@ def update_admin_onboarding(
     result = run_command(
         client.system_metadata.update_admin_onboarding, ctx=ctx, **kwargs
     )
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)

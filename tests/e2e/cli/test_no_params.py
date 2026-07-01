@@ -9,14 +9,12 @@ Example command tested: get-all-albums
 
 import json
 
-import pytest
 from typer.testing import CliRunner
 
 from immichpy.cli.main import app as cli_app
 from immichpy.client.generated import AlbumResponseDto
 
 
-@pytest.mark.e2e
 def test_get_all_albums(
     runner_with_api_key: CliRunner, album: AlbumResponseDto
 ) -> None:
@@ -31,6 +29,5 @@ def test_get_all_albums(
     assert isinstance(response_data, list)
     albums: list[AlbumResponseDto] = []
     for item in response_data:
-        album = AlbumResponseDto.model_validate(item)
-        albums.append(album)
+        albums.append(AlbumResponseDto.model_validate(item))
     assert any(album.id == album_id for album in albums)

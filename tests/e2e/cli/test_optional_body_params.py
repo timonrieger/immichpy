@@ -10,25 +10,22 @@ Example command tested: update-album-info
 
 import json
 
-import pytest
 from typer.testing import CliRunner
 
 from immichpy.cli.main import app as cli_app
 from immichpy.client.generated import AlbumResponseDto
 
 
-@pytest.mark.e2e
 def test_update_album_info(
     runner_with_api_key: CliRunner, album: AlbumResponseDto
 ) -> None:
     """Test update-album-info command and validate response structure."""
-    album_id = album.id
     result = runner_with_api_key.invoke(
         cli_app,
         [
             "albums",
             "update-album-info",
-            album_id,
+            str(album.id),
             "--album-name",
             "Updated Album Name",
             "--description",
@@ -38,6 +35,6 @@ def test_update_album_info(
     assert result.exit_code == 0, result.stdout + result.stderr
     response_data = json.loads(result.stdout)
     updated_album = AlbumResponseDto.model_validate(response_data)
-    assert updated_album.id == album_id
+    assert updated_album.id == album.id
     assert updated_album.album_name == "Updated Album Name"
     assert updated_album.description == "Updated description"

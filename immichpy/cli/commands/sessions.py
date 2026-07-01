@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import typer
+from uuid import UUID
 from typing import Literal, TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -19,12 +20,16 @@ app = typer.Typer(
 @app.command("create-session", deprecated=False, rich_help_panel="API commands")
 def create_session(
     ctx: typer.Context,
-    device_os: str | None = typer.Option(None, "--device-os", help="""Device OS"""),
+    device_os: str | None = typer.Option(None, "--device-os", help=r"""Device OS"""),
     device_type: str | None = typer.Option(
-        None, "--device-type", help="""Device type"""
+        None, "--device-type", help=r"""Device type"""
     ),
-    duration: float | None = typer.Option(
-        None, "--duration", help="""Session duration in seconds""", min=1
+    duration: int | None = typer.Option(
+        None,
+        "--duration",
+        help=r"""Session duration in seconds""",
+        min=1,
+        max=9007199254740991,
     ),
 ) -> None:
     """Create a session
@@ -43,7 +48,7 @@ def create_session(
     kwargs["session_create_dto"] = session_create_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.sessions.create_session, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("delete-all-sessions", deprecated=False, rich_help_panel="API commands")
@@ -57,13 +62,13 @@ def delete_all_sessions(
     kwargs = {}
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.sessions.delete_all_sessions, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("delete-session", deprecated=False, rich_help_panel="API commands")
 def delete_session(
     ctx: typer.Context,
-    id: str = typer.Argument(..., help=""""""),
+    id: UUID = typer.Argument(..., help=r""""""),
 ) -> None:
     """Delete a session
 
@@ -73,7 +78,7 @@ def delete_session(
     kwargs["id"] = id
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.sessions.delete_session, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("get-sessions", deprecated=False, rich_help_panel="API commands")
@@ -87,13 +92,13 @@ def get_sessions(
     kwargs = {}
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.sessions.get_sessions, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("lock-session", deprecated=False, rich_help_panel="API commands")
 def lock_session(
     ctx: typer.Context,
-    id: str = typer.Argument(..., help=""""""),
+    id: UUID = typer.Argument(..., help=r""""""),
 ) -> None:
     """Lock a session
 
@@ -103,15 +108,15 @@ def lock_session(
     kwargs["id"] = id
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.sessions.lock_session, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
-@app.command("update-session", deprecated=False, rich_help_panel="API commands")
+@app.command("update-session", deprecated=True, rich_help_panel="API commands")
 def update_session(
     ctx: typer.Context,
-    id: str = typer.Argument(..., help=""""""),
+    id: UUID = typer.Argument(..., help=r""""""),
     is_pending_sync_reset: Literal["true", "false"] | None = typer.Option(
-        None, "--is-pending-sync-reset", help="""Reset pending sync state"""
+        None, "--is-pending-sync-reset", help=r"""Reset pending sync state"""
     ),
 ) -> None:
     """Update a session
@@ -131,4 +136,4 @@ def update_session(
     kwargs["session_update_dto"] = session_update_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.sessions.update_session, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)

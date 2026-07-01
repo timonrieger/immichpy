@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import typer
 from datetime import datetime
+from uuid import UUID
 from typing import Literal, TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -20,7 +21,7 @@ app = typer.Typer(
 @app.command("delete-notification", deprecated=False, rich_help_panel="API commands")
 def delete_notification(
     ctx: typer.Context,
-    id: str = typer.Argument(..., help=""""""),
+    id: UUID = typer.Argument(..., help=r""""""),
 ) -> None:
     """Delete a notification
 
@@ -30,13 +31,15 @@ def delete_notification(
     kwargs["id"] = id
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.notifications.delete_notification, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("delete-notifications", deprecated=False, rich_help_panel="API commands")
 def delete_notifications(
     ctx: typer.Context,
-    ids: list[str] = typer.Option(..., "--ids", help="""Notification IDs to delete"""),
+    ids: list[UUID] = typer.Option(
+        ..., "--ids", help=r"""Notification IDs to delete"""
+    ),
 ) -> None:
     """Delete notifications
 
@@ -49,13 +52,13 @@ def delete_notifications(
     kwargs["notification_delete_all_dto"] = notification_delete_all_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.notifications.delete_notifications, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("get-notification", deprecated=False, rich_help_panel="API commands")
 def get_notification(
     ctx: typer.Context,
-    id: str = typer.Argument(..., help=""""""),
+    id: UUID = typer.Argument(..., help=r""""""),
 ) -> None:
     """Get a notification
 
@@ -65,21 +68,17 @@ def get_notification(
     kwargs["id"] = id
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.notifications.get_notification, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("get-notifications", deprecated=False, rich_help_panel="API commands")
 def get_notifications(
     ctx: typer.Context,
-    id: str | None = typer.Option(None, "--id", help="""Filter by notification ID"""),
-    level: NotificationLevel | None = typer.Option(
-        None, "--level", help="""Filter by notification level"""
-    ),
-    type: NotificationType | None = typer.Option(
-        None, "--type", help="""Filter by notification type"""
-    ),
+    id: UUID | None = typer.Option(None, "--id", help=r"""Filter by notification ID"""),
+    level: NotificationLevel | None = typer.Option(None, "--level", help=r""""""),
+    type: NotificationType | None = typer.Option(None, "--type", help=r""""""),
     unread: Literal["true", "false"] | None = typer.Option(
-        None, "--unread", help="""Filter by unread status"""
+        None, "--unread", help=r"""Filter by unread status"""
     ),
 ) -> None:
     """Retrieve notifications
@@ -97,15 +96,19 @@ def get_notifications(
         kwargs["unread"] = unread.lower() == "true"
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.notifications.get_notifications, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("update-notification", deprecated=False, rich_help_panel="API commands")
 def update_notification(
     ctx: typer.Context,
-    id: str = typer.Argument(..., help=""""""),
+    id: UUID = typer.Argument(..., help=r""""""),
     read_at: datetime | None = typer.Option(
-        None, "--read-at", help="""Date when notification was read"""
+        None,
+        "--read-at",
+        help=r"""Date when notification was read
+
+Example: 2024-01-01T00:00:00.000Z""",
     ),
 ) -> None:
     """Update a notification
@@ -121,15 +124,21 @@ def update_notification(
     kwargs["notification_update_dto"] = notification_update_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.notifications.update_notification, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("update-notifications", deprecated=False, rich_help_panel="API commands")
 def update_notifications(
     ctx: typer.Context,
-    ids: list[str] = typer.Option(..., "--ids", help="""Notification IDs to update"""),
+    ids: list[UUID] = typer.Option(
+        ..., "--ids", help=r"""Notification IDs to update"""
+    ),
     read_at: datetime | None = typer.Option(
-        None, "--read-at", help="""Date when notifications were read"""
+        None,
+        "--read-at",
+        help=r"""Date when notifications were read
+
+Example: 2024-01-01T00:00:00.000Z""",
     ),
 ) -> None:
     """Update notifications
@@ -145,4 +154,4 @@ def update_notifications(
     kwargs["notification_update_all_dto"] = notification_update_all_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.notifications.update_notifications, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)

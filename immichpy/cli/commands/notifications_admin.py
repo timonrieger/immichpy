@@ -3,14 +3,19 @@
 from __future__ import annotations
 
 import typer
-import json
 from datetime import datetime
+from uuid import UUID
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from immichpy import AsyncClient
 
-from immichpy.cli.runtime import print_response, run_command, set_nested
+from immichpy.cli.runtime import (
+    parse_json_option,
+    print_response,
+    run_command,
+    set_nested,
+)
 from immichpy.client.generated.models import *
 
 app = typer.Typer(
@@ -24,21 +29,25 @@ def create_notification(
     data: str | None = typer.Option(
         None,
         "--data",
-        help="""Additional notification data
+        help=r"""Additional notification data
 
 As a JSON string""",
     ),
     description: str | None = typer.Option(
-        None, "--description", help="""Notification description"""
+        None, "--description", help=r"""Notification description"""
     ),
-    level: str | None = typer.Option(None, "--level", help="""Notification level"""),
+    level: str | None = typer.Option(None, "--level", help=r"""Notification level"""),
     read_at: datetime | None = typer.Option(
-        None, "--read-at", help="""Date when notification was read"""
+        None,
+        "--read-at",
+        help=r"""Date when notification was read
+
+Example: 2024-01-01T00:00:00.000Z""",
     ),
-    title: str = typer.Option(..., "--title", help="""Notification title"""),
-    type: str | None = typer.Option(None, "--type", help="""Notification type"""),
-    user_id: str = typer.Option(
-        ..., "--user-id", help="""User ID to send notification to"""
+    title: str = typer.Option(..., "--title", help=r"""Notification title"""),
+    type: str | None = typer.Option(None, "--type", help=r"""Notification type"""),
+    user_id: UUID = typer.Option(
+        ..., "--user-id", help=r"""User ID to send notification to"""
     ),
 ) -> None:
     """Create a notification
@@ -48,7 +57,7 @@ As a JSON string""",
     kwargs = {}
     json_data = {}
     if data is not None:
-        value_data = [json.loads(i) for i in data]
+        value_data = parse_json_option(data, "--data", ctx=ctx)
         set_nested(json_data, ["data"], value_data)
     if description is not None:
         set_nested(json_data, ["description"], description)
@@ -66,7 +75,7 @@ As a JSON string""",
     result = run_command(
         client.notifications_admin.create_notification, ctx=ctx, **kwargs
     )
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command(
@@ -74,8 +83,8 @@ As a JSON string""",
 )
 def get_notification_template_admin(
     ctx: typer.Context,
-    name: str = typer.Argument(..., help=""""""),
-    template: str = typer.Option(..., "--template", help="""Template name"""),
+    name: str = typer.Argument(..., help=r""""""),
+    template: str = typer.Option(..., "--template", help=r"""Template name"""),
 ) -> None:
     """Render email template
 
@@ -91,38 +100,40 @@ def get_notification_template_admin(
     result = run_command(
         client.notifications_admin.get_notification_template_admin, ctx=ctx, **kwargs
     )
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("send-test-email-admin", deprecated=False, rich_help_panel="API commands")
 def send_test_email_admin(
     ctx: typer.Context,
     enabled: bool = typer.Option(
-        ..., "--enabled", help="""Whether SMTP email notifications are enabled"""
+        ..., "--enabled", help=r"""Whether SMTP email notifications are enabled"""
     ),
-    from_: str = typer.Option(..., "--from", help="""Email address to send from"""),
+    from_: str = typer.Option(..., "--from", help=r"""Email address to send from"""),
     reply_to: str = typer.Option(
-        ..., "--reply-to", help="""Email address for replies"""
+        ..., "--reply-to", help=r"""Email address for replies"""
     ),
     transport_host: str = typer.Option(
-        ..., "--transport-host", help="""SMTP server hostname"""
+        ..., "--transport-host", help=r"""SMTP server hostname"""
     ),
     transport_ignore_cert: bool = typer.Option(
         ...,
         "--transport-ignore-cert",
-        help="""Whether to ignore SSL certificate errors""",
+        help=r"""Whether to ignore SSL certificate errors""",
     ),
     transport_password: str = typer.Option(
-        ..., "--transport-password", help="""SMTP password"""
+        ..., "--transport-password", help=r"""SMTP password"""
     ),
-    transport_port: float = typer.Option(
-        ..., "--transport-port", help="""SMTP server port""", min=0, max=65535
+    transport_port: int = typer.Option(
+        ..., "--transport-port", help=r"""SMTP server port""", min=0, max=65535
     ),
     transport_secure: bool = typer.Option(
-        ..., "--transport-secure", help="""Whether to use secure connection (TLS/SSL)"""
+        ...,
+        "--transport-secure",
+        help=r"""Whether to use secure connection (TLS/SSL)""",
     ),
     transport_username: str = typer.Option(
-        ..., "--transport-username", help="""SMTP username"""
+        ..., "--transport-username", help=r"""SMTP username"""
     ),
 ) -> None:
     """Send test email
@@ -146,4 +157,4 @@ def send_test_email_admin(
     result = run_command(
         client.notifications_admin.send_test_email_admin, ctx=ctx, **kwargs
     )
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)

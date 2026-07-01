@@ -19,7 +19,7 @@ app = typer.Typer(
 @app.command("create-job", deprecated=False, rich_help_panel="API commands")
 def create_job(
     ctx: typer.Context,
-    name: str = typer.Option(..., "--name", help="""Job name"""),
+    name: str = typer.Option(..., "--name", help=r"""Manual job name"""),
 ) -> None:
     """Create a manual job
 
@@ -32,7 +32,7 @@ def create_job(
     kwargs["job_create_dto"] = job_create_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.jobs.create_job, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("get-queues-legacy", deprecated=True, rich_help_panel="API commands")
@@ -46,7 +46,7 @@ def get_queues_legacy(
     kwargs = {}
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.jobs.get_queues_legacy, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command(
@@ -54,10 +54,10 @@ def get_queues_legacy(
 )
 def run_queue_command_legacy(
     ctx: typer.Context,
-    name: QueueName = typer.Argument(..., help="""Queue name"""),
-    command: str = typer.Option(..., "--command", help="""Queue command to execute"""),
+    name: QueueName = typer.Argument(..., help=r""""""),
+    command: str = typer.Option(..., "--command", help=r"""Queue command to execute"""),
     force: Literal["true", "false"] | None = typer.Option(
-        None, "--force", help="""Force the command execution (if applicable)"""
+        None, "--force", help=r"""Force the command execution (if applicable)"""
     ),
 ) -> None:
     """Run jobs
@@ -74,4 +74,4 @@ def run_queue_command_legacy(
     kwargs["queue_command_dto"] = queue_command_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.jobs.run_queue_command_legacy, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)

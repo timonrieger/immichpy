@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import typer
 from datetime import datetime
+from uuid import UUID
 from typing import Literal, TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -20,8 +21,8 @@ app = typer.Typer(
 @app.command("add-memory-assets", deprecated=False, rich_help_panel="API commands")
 def add_memory_assets(
     ctx: typer.Context,
-    id: str = typer.Argument(..., help=""""""),
-    ids: list[str] = typer.Option(..., "--ids", help="""IDs to process"""),
+    id: UUID = typer.Argument(..., help=r""""""),
+    ids: list[UUID] = typer.Option(..., "--ids", help=r"""IDs to process"""),
 ) -> None:
     """Add assets to a memory
 
@@ -35,32 +36,50 @@ def add_memory_assets(
     kwargs["bulk_ids_dto"] = bulk_ids_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.memories.add_memory_assets, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("create-memory", deprecated=False, rich_help_panel="API commands")
 def create_memory(
     ctx: typer.Context,
-    asset_ids: list[str] | None = typer.Option(
-        None, "--asset-ids", help="""Asset IDs to associate with memory"""
+    asset_ids: list[UUID] | None = typer.Option(
+        None, "--asset-ids", help=r"""Asset IDs to associate with memory"""
     ),
-    data_year: float = typer.Option(
-        ..., "--data-year", help="""Year for on this day memory""", min=1
+    data_year: int = typer.Option(
+        ..., "--data-year", help=r"""Year for on this day memory""", min=1000, max=9999
     ),
     hide_at: datetime | None = typer.Option(
-        None, "--hide-at", help="""Date when memory should be hidden"""
+        None,
+        "--hide-at",
+        help=r"""Date when memory should be hidden
+
+Example: 2024-01-01T00:00:00.000Z""",
     ),
     is_saved: Literal["true", "false"] | None = typer.Option(
-        None, "--is-saved", help="""Is memory saved"""
+        None, "--is-saved", help=r"""Is memory saved"""
     ),
-    memory_at: datetime = typer.Option(..., "--memory-at", help="""Memory date"""),
+    memory_at: datetime = typer.Option(
+        ...,
+        "--memory-at",
+        help=r"""Memory date
+
+Example: 2024-01-01T00:00:00.000Z""",
+    ),
     seen_at: datetime | None = typer.Option(
-        None, "--seen-at", help="""Date when memory was seen"""
+        None,
+        "--seen-at",
+        help=r"""Date when memory was seen
+
+Example: 2024-01-01T00:00:00.000Z""",
     ),
     show_at: datetime | None = typer.Option(
-        None, "--show-at", help="""Date when memory should be shown"""
+        None,
+        "--show-at",
+        help=r"""Date when memory should be shown
+
+Example: 2024-01-01T00:00:00.000Z""",
     ),
-    type: str = typer.Option(..., "--type", help="""Memory type"""),
+    type: str = typer.Option(..., "--type", help=r"""Memory type"""),
 ) -> None:
     """Create a memory
 
@@ -85,13 +104,13 @@ def create_memory(
     kwargs["memory_create_dto"] = memory_create_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.memories.create_memory, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("delete-memory", deprecated=False, rich_help_panel="API commands")
 def delete_memory(
     ctx: typer.Context,
-    id: str = typer.Argument(..., help=""""""),
+    id: UUID = typer.Argument(..., help=r""""""),
 ) -> None:
     """Delete a memory
 
@@ -101,13 +120,13 @@ def delete_memory(
     kwargs["id"] = id
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.memories.delete_memory, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("get-memory", deprecated=False, rich_help_panel="API commands")
 def get_memory(
     ctx: typer.Context,
-    id: str = typer.Argument(..., help=""""""),
+    id: UUID = typer.Argument(..., help=r""""""),
 ) -> None:
     """Retrieve a memory
 
@@ -117,26 +136,34 @@ def get_memory(
     kwargs["id"] = id
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.memories.get_memory, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("memories-statistics", deprecated=False, rich_help_panel="API commands")
 def memories_statistics(
     ctx: typer.Context,
-    for_: datetime | None = typer.Option(None, "--for", help="""Filter by date"""),
+    for_: datetime | None = typer.Option(
+        None,
+        "--for",
+        help=r"""Filter by date
+
+Example: 2024-01-01T00:00:00.000Z""",
+    ),
     is_saved: Literal["true", "false"] | None = typer.Option(
-        None, "--is-saved", help="""Filter by saved status"""
+        None, "--is-saved", help=r"""Filter by saved status"""
     ),
     is_trashed: Literal["true", "false"] | None = typer.Option(
-        None, "--is-trashed", help="""Include trashed memories"""
+        None, "--is-trashed", help=r"""Include trashed memories"""
     ),
-    order: MemorySearchOrder | None = typer.Option(
-        None, "--order", help="""Sort order"""
-    ),
+    order: MemorySearchOrder | None = typer.Option(None, "--order", help=r""""""),
     size: int | None = typer.Option(
-        None, "--size", help="""Number of memories to return""", min=1
+        None,
+        "--size",
+        help=r"""Number of memories to return""",
+        min=1,
+        max=9007199254740991,
     ),
-    type: MemoryType | None = typer.Option(None, "--type", help="""Memory type"""),
+    type: MemoryType | None = typer.Option(None, "--type", help=r""""""),
 ) -> None:
     """Retrieve memories statistics
 
@@ -157,14 +184,14 @@ def memories_statistics(
         kwargs["type"] = type
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.memories.memories_statistics, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("remove-memory-assets", deprecated=False, rich_help_panel="API commands")
 def remove_memory_assets(
     ctx: typer.Context,
-    id: str = typer.Argument(..., help=""""""),
-    ids: list[str] = typer.Option(..., "--ids", help="""IDs to process"""),
+    id: UUID = typer.Argument(..., help=r""""""),
+    ids: list[UUID] = typer.Option(..., "--ids", help=r"""IDs to process"""),
 ) -> None:
     """Remove assets from a memory
 
@@ -178,26 +205,34 @@ def remove_memory_assets(
     kwargs["bulk_ids_dto"] = bulk_ids_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.memories.remove_memory_assets, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("search-memories", deprecated=False, rich_help_panel="API commands")
 def search_memories(
     ctx: typer.Context,
-    for_: datetime | None = typer.Option(None, "--for", help="""Filter by date"""),
+    for_: datetime | None = typer.Option(
+        None,
+        "--for",
+        help=r"""Filter by date
+
+Example: 2024-01-01T00:00:00.000Z""",
+    ),
     is_saved: Literal["true", "false"] | None = typer.Option(
-        None, "--is-saved", help="""Filter by saved status"""
+        None, "--is-saved", help=r"""Filter by saved status"""
     ),
     is_trashed: Literal["true", "false"] | None = typer.Option(
-        None, "--is-trashed", help="""Include trashed memories"""
+        None, "--is-trashed", help=r"""Include trashed memories"""
     ),
-    order: MemorySearchOrder | None = typer.Option(
-        None, "--order", help="""Sort order"""
-    ),
+    order: MemorySearchOrder | None = typer.Option(None, "--order", help=r""""""),
     size: int | None = typer.Option(
-        None, "--size", help="""Number of memories to return""", min=1
+        None,
+        "--size",
+        help=r"""Number of memories to return""",
+        min=1,
+        max=9007199254740991,
     ),
-    type: MemoryType | None = typer.Option(None, "--type", help="""Memory type"""),
+    type: MemoryType | None = typer.Option(None, "--type", help=r""""""),
 ) -> None:
     """Retrieve memories
 
@@ -218,21 +253,29 @@ def search_memories(
         kwargs["type"] = type
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.memories.search_memories, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
-@app.command("update-memory", deprecated=False, rich_help_panel="API commands")
+@app.command("update-memory", deprecated=True, rich_help_panel="API commands")
 def update_memory(
     ctx: typer.Context,
-    id: str = typer.Argument(..., help=""""""),
+    id: UUID = typer.Argument(..., help=r""""""),
     is_saved: Literal["true", "false"] | None = typer.Option(
-        None, "--is-saved", help="""Is memory saved"""
+        None, "--is-saved", help=r"""Is memory saved"""
     ),
     memory_at: datetime | None = typer.Option(
-        None, "--memory-at", help="""Memory date"""
+        None,
+        "--memory-at",
+        help=r"""Memory date
+
+Example: 2024-01-01T00:00:00.000Z""",
     ),
     seen_at: datetime | None = typer.Option(
-        None, "--seen-at", help="""Date when memory was seen"""
+        None,
+        "--seen-at",
+        help=r"""Date when memory was seen
+
+Example: 2024-01-01T00:00:00.000Z""",
     ),
 ) -> None:
     """Update a memory
@@ -252,4 +295,4 @@ def update_memory(
     kwargs["memory_update_dto"] = memory_update_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.memories.update_memory, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)

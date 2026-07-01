@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import typer
+from uuid import UUID
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -12,25 +13,57 @@ from immichpy.cli.runtime import print_response, run_command, set_nested
 from immichpy.client.generated.models import *
 
 app = typer.Typer(
-    help="""A face is a detected human face within an asset, which can be associated with a person. Faces are normally detected via machine learning, but can also be created via manually.\n\n[link=https://api.immich.app/endpoints/faces]Immich API documentation[/link]"""
+    help="""A face is a detected human face within an asset, which can be associated with a person. Faces are normally detected via machine learning, but can also be created manually.\n\n[link=https://api.immich.app/endpoints/faces]Immich API documentation[/link]"""
 )
 
 
 @app.command("create-face", deprecated=False, rich_help_panel="API commands")
 def create_face(
     ctx: typer.Context,
-    asset_id: str = typer.Option(..., "--asset-id", help="""Asset ID"""),
-    height: int = typer.Option(..., "--height", help="""Face bounding box height"""),
+    asset_id: UUID = typer.Option(..., "--asset-id", help=r"""Asset ID"""),
+    height: int = typer.Option(
+        ...,
+        "--height",
+        help=r"""Face bounding box height""",
+        min=-9007199254740991,
+        max=9007199254740991,
+    ),
     image_height: int = typer.Option(
-        ..., "--image-height", help="""Image height in pixels"""
+        ...,
+        "--image-height",
+        help=r"""Image height in pixels""",
+        min=-9007199254740991,
+        max=9007199254740991,
     ),
     image_width: int = typer.Option(
-        ..., "--image-width", help="""Image width in pixels"""
+        ...,
+        "--image-width",
+        help=r"""Image width in pixels""",
+        min=-9007199254740991,
+        max=9007199254740991,
     ),
-    person_id: str = typer.Option(..., "--person-id", help="""Person ID"""),
-    width: int = typer.Option(..., "--width", help="""Face bounding box width"""),
-    x: int = typer.Option(..., "--x", help="""Face bounding box X coordinate"""),
-    y: int = typer.Option(..., "--y", help="""Face bounding box Y coordinate"""),
+    person_id: UUID = typer.Option(..., "--person-id", help=r"""Person ID"""),
+    width: int = typer.Option(
+        ...,
+        "--width",
+        help=r"""Face bounding box width""",
+        min=-9007199254740991,
+        max=9007199254740991,
+    ),
+    x: int = typer.Option(
+        ...,
+        "--x",
+        help=r"""Face bounding box X coordinate""",
+        min=-9007199254740991,
+        max=9007199254740991,
+    ),
+    y: int = typer.Option(
+        ...,
+        "--y",
+        help=r"""Face bounding box Y coordinate""",
+        min=-9007199254740991,
+        max=9007199254740991,
+    ),
 ) -> None:
     """Create a face
 
@@ -50,15 +83,15 @@ def create_face(
     kwargs["asset_face_create_dto"] = asset_face_create_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.faces.create_face, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("delete-face", deprecated=False, rich_help_panel="API commands")
 def delete_face(
     ctx: typer.Context,
-    id: str = typer.Argument(..., help=""""""),
+    id: UUID = typer.Argument(..., help=r""""""),
     force: bool = typer.Option(
-        ..., "--force", help="""Force delete even if person has other faces"""
+        ..., "--force", help=r"""Force delete even if person has other faces"""
     ),
 ) -> None:
     """Delete a face
@@ -73,13 +106,13 @@ def delete_face(
     kwargs["asset_face_delete_dto"] = asset_face_delete_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.faces.delete_face, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("get-faces", deprecated=False, rich_help_panel="API commands")
 def get_faces(
     ctx: typer.Context,
-    id: str = typer.Option(..., "--id", help="""Face ID"""),
+    id: UUID = typer.Option(..., "--id", help=r"""Face ID"""),
 ) -> None:
     """Retrieve faces for asset
 
@@ -89,14 +122,14 @@ def get_faces(
     kwargs["id"] = id
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.faces.get_faces, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("reassign-faces-by-id", deprecated=False, rich_help_panel="API commands")
 def reassign_faces_by_id(
     ctx: typer.Context,
-    id: str = typer.Argument(..., help=""""""),
-    body_id: str = typer.Option(..., "--body-id", help="""Face ID"""),
+    id: UUID = typer.Argument(..., help=r""""""),
+    body_id: UUID = typer.Option(..., "--body-id", help=r"""Face ID"""),
 ) -> None:
     """Re-assign a face to another person
 
@@ -110,4 +143,4 @@ def reassign_faces_by_id(
     kwargs["face_dto"] = face_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.faces.reassign_faces_by_id, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)

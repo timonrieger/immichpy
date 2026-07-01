@@ -42,6 +42,37 @@ def set_nested(d: dict[str, Any], path: list[str], value: Any) -> None:
     current[path[-1]] = value
 
 
+def parse_json_option(value: str, option: str, *, ctx: Context | None = None) -> Any:
+    """Parse a single JSON option value, exiting cleanly on invalid JSON.
+
+    :param value: The raw option string to parse
+    :param option: The option flag name, used in the error message
+    :param ctx: Optional Typer context for CLI output formatting
+    :return: The parsed JSON value
+    :raises Exit: Raised with exit code 1 when the value is not valid JSON
+    """
+    try:
+        return json.loads(value)
+    except json.JSONDecodeError as e:
+        print_(f"Invalid JSON in {option}: {e}", type="error", ctx=ctx)
+        print_(traceback.format_exc(), type="debug", ctx=ctx)
+        raise Exit(code=1)
+
+
+def parse_json_options(
+    values: list[str], option: str, *, ctx: Context | None = None
+) -> list[Any]:
+    """Parse a list of JSON option values, exiting cleanly on invalid JSON.
+
+    :param values: The raw option strings to parse
+    :param option: The option flag name, used in the error message
+    :param ctx: Optional Typer context for CLI output formatting
+    :return: The parsed JSON values
+    :raises Exit: Raised with exit code 1 when any value is not valid JSON
+    """
+    return [parse_json_option(value, option, ctx=ctx) for value in values]
+
+
 def print_response(data: MaybeBaseModel, ctx: Context) -> None:
     """Print response data.
 
@@ -59,7 +90,7 @@ def print_response(data: MaybeBaseModel, ctx: Context) -> None:
         if isinstance(obj, list):
             return [convert_to_dict(item) for item in obj]
         elif isinstance(obj, BaseModel):
-            return obj.model_dump()
+            return obj.model_dump(mode="json")
         else:
             return obj
 

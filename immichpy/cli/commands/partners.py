@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import typer
+from uuid import UUID
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -19,8 +20,8 @@ app = typer.Typer(
 @app.command("create-partner", deprecated=False, rich_help_panel="API commands")
 def create_partner(
     ctx: typer.Context,
-    shared_with_id: str = typer.Option(
-        ..., "--shared-with-id", help="""User ID to share with"""
+    shared_with_id: UUID = typer.Option(
+        ..., "--shared-with-id", help=r"""User ID to share with"""
     ),
 ) -> None:
     """Create a partner
@@ -34,7 +35,7 @@ def create_partner(
     kwargs["partner_create_dto"] = partner_create_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.partners.create_partner, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command(
@@ -42,7 +43,7 @@ def create_partner(
 )
 def create_partner_deprecated(
     ctx: typer.Context,
-    id: str = typer.Argument(..., help=""""""),
+    id: UUID = typer.Argument(..., help=r""""""),
 ) -> None:
     """Create a partner
 
@@ -52,15 +53,13 @@ def create_partner_deprecated(
     kwargs["id"] = id
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.partners.create_partner_deprecated, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("get-partners", deprecated=False, rich_help_panel="API commands")
 def get_partners(
     ctx: typer.Context,
-    direction: PartnerDirection = typer.Option(
-        ..., "--direction", help="""Partner direction"""
-    ),
+    direction: PartnerDirection = typer.Option(..., "--direction", help=r""""""),
 ) -> None:
     """Retrieve partners
 
@@ -70,13 +69,13 @@ def get_partners(
     kwargs["direction"] = direction
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.partners.get_partners, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("remove-partner", deprecated=False, rich_help_panel="API commands")
 def remove_partner(
     ctx: typer.Context,
-    id: str = typer.Argument(..., help=""""""),
+    id: UUID = typer.Argument(..., help=r""""""),
 ) -> None:
     """Remove a partner
 
@@ -86,15 +85,15 @@ def remove_partner(
     kwargs["id"] = id
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.partners.remove_partner, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("update-partner", deprecated=False, rich_help_panel="API commands")
 def update_partner(
     ctx: typer.Context,
-    id: str = typer.Argument(..., help=""""""),
+    id: UUID = typer.Argument(..., help=r""""""),
     in_timeline: bool = typer.Option(
-        ..., "--in-timeline", help="""Show partner assets in timeline"""
+        ..., "--in-timeline", help=r"""Show partner assets in timeline"""
     ),
 ) -> None:
     """Update a partner
@@ -109,4 +108,4 @@ def update_partner(
     kwargs["partner_update_dto"] = partner_update_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.partners.update_partner, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)

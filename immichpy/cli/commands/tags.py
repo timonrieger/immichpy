@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import typer
+from uuid import UUID
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -19,8 +20,8 @@ app = typer.Typer(
 @app.command("bulk-tag-assets", deprecated=False, rich_help_panel="API commands")
 def bulk_tag_assets(
     ctx: typer.Context,
-    asset_ids: list[str] = typer.Option(..., "--asset-ids", help="""Asset IDs"""),
-    tag_ids: list[str] = typer.Option(..., "--tag-ids", help="""Tag IDs"""),
+    asset_ids: list[UUID] = typer.Option(..., "--asset-ids", help=r"""Asset IDs"""),
+    tag_ids: list[UUID] = typer.Option(..., "--tag-ids", help=r"""Tag IDs"""),
 ) -> None:
     """Tag assets
 
@@ -34,15 +35,17 @@ def bulk_tag_assets(
     kwargs["tag_bulk_assets_dto"] = tag_bulk_assets_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.tags.bulk_tag_assets, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("create-tag", deprecated=False, rich_help_panel="API commands")
 def create_tag(
     ctx: typer.Context,
-    color: str | None = typer.Option(None, "--color", help="""Tag color (hex)"""),
-    name: str = typer.Option(..., "--name", help="""Tag name"""),
-    parent_id: str | None = typer.Option(None, "--parent-id", help="""Parent tag ID"""),
+    color: str | None = typer.Option(None, "--color", help=r"""Tag color (hex)"""),
+    name: str = typer.Option(..., "--name", help=r"""Tag name"""),
+    parent_id: UUID | None = typer.Option(
+        None, "--parent-id", help=r"""Parent tag ID"""
+    ),
 ) -> None:
     """Create a tag
 
@@ -59,13 +62,13 @@ def create_tag(
     kwargs["tag_create_dto"] = tag_create_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.tags.create_tag, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("delete-tag", deprecated=False, rich_help_panel="API commands")
 def delete_tag(
     ctx: typer.Context,
-    id: str = typer.Argument(..., help=""""""),
+    id: UUID = typer.Argument(..., help=r""""""),
 ) -> None:
     """Delete a tag
 
@@ -75,7 +78,7 @@ def delete_tag(
     kwargs["id"] = id
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.tags.delete_tag, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("get-all-tags", deprecated=False, rich_help_panel="API commands")
@@ -89,13 +92,13 @@ def get_all_tags(
     kwargs = {}
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.tags.get_all_tags, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("get-tag-by-id", deprecated=False, rich_help_panel="API commands")
 def get_tag_by_id(
     ctx: typer.Context,
-    id: str = typer.Argument(..., help=""""""),
+    id: UUID = typer.Argument(..., help=r""""""),
 ) -> None:
     """Retrieve a tag
 
@@ -105,14 +108,14 @@ def get_tag_by_id(
     kwargs["id"] = id
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.tags.get_tag_by_id, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("tag-assets", deprecated=False, rich_help_panel="API commands")
 def tag_assets(
     ctx: typer.Context,
-    id: str = typer.Argument(..., help=""""""),
-    ids: list[str] = typer.Option(..., "--ids", help="""IDs to process"""),
+    id: UUID = typer.Argument(..., help=r""""""),
+    ids: list[UUID] = typer.Option(..., "--ids", help=r"""IDs to process"""),
 ) -> None:
     """Tag assets
 
@@ -126,14 +129,14 @@ def tag_assets(
     kwargs["bulk_ids_dto"] = bulk_ids_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.tags.tag_assets, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("untag-assets", deprecated=False, rich_help_panel="API commands")
 def untag_assets(
     ctx: typer.Context,
-    id: str = typer.Argument(..., help=""""""),
-    ids: list[str] = typer.Option(..., "--ids", help="""IDs to process"""),
+    id: UUID = typer.Argument(..., help=r""""""),
+    ids: list[UUID] = typer.Option(..., "--ids", help=r"""IDs to process"""),
 ) -> None:
     """Untag assets
 
@@ -147,14 +150,14 @@ def untag_assets(
     kwargs["bulk_ids_dto"] = bulk_ids_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.tags.untag_assets, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
-@app.command("update-tag", deprecated=False, rich_help_panel="API commands")
+@app.command("update-tag", deprecated=True, rich_help_panel="API commands")
 def update_tag(
     ctx: typer.Context,
-    id: str = typer.Argument(..., help=""""""),
-    color: str | None = typer.Option(None, "--color", help="""Tag color (hex)"""),
+    id: UUID = typer.Argument(..., help=r""""""),
+    color: str | None = typer.Option(None, "--color", help=r"""Tag color (hex)"""),
 ) -> None:
     """Update a tag
 
@@ -169,13 +172,13 @@ def update_tag(
     kwargs["tag_update_dto"] = tag_update_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.tags.update_tag, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("upsert-tags", deprecated=False, rich_help_panel="API commands")
 def upsert_tags(
     ctx: typer.Context,
-    tags: list[str] = typer.Option(..., "--tags", help="""Tag names to upsert"""),
+    tags: list[str] = typer.Option(..., "--tags", help=r"""Tag names to upsert"""),
 ) -> None:
     """Upsert tags
 
@@ -188,4 +191,4 @@ def upsert_tags(
     kwargs["tag_upsert_dto"] = tag_upsert_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.tags.upsert_tags, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)

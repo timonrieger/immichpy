@@ -2,6 +2,7 @@ from pathlib import Path
 from typing import Literal
 from multidict import CIMultiDictProxy
 from pydantic import BaseModel, Field
+from uuid import UUID
 
 from immichpy.client.generated import AssetMediaResponseDto
 
@@ -22,7 +23,7 @@ class RejectedEntry(BaseModel):
     filepath: Path = Field(
         ..., description="The path to the local file that was rejected."
     )
-    asset_id: str | None = Field(
+    asset_id: UUID | None = Field(
         None, description="The ID of the asset. Set if reason is 'duplicate'."
     )
     reason: RejectionReason | None = Field(

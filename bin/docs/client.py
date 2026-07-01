@@ -7,13 +7,6 @@ import shutil
 # Explicit mapping for special cases
 SPECIAL_CASES: dict[str, tuple[str, str]] = {
     "api_keys_api": ("APIKeysApi", "API Keys Api"),
-    "api_key_create_dto": ("APIKeyCreateDto", "API Key Create Dto"),
-    "api_key_create_response_dto": (
-        "APIKeyCreateResponseDto",
-        "API Key Create Response Dto",
-    ),
-    "api_key_response_dto": ("APIKeyResponseDto", "API Key Response Dto"),
-    "api_key_update_dto": ("APIKeyUpdateDto", "API Key Update Dto"),
     "clip_config": ("CLIPConfig", "CLIP Config"),
     "transcode_hw_accel": ("TranscodeHWAccel", "Transcode HW Accel"),
     "o_auth_callback_dto": ("OAuthCallbackDto", "OAuth Callback Dto"),

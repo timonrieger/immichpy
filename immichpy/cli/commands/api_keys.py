@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import typer
+from uuid import UUID
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -19,9 +20,9 @@ app = typer.Typer(
 @app.command("create-api-key", deprecated=False, rich_help_panel="API commands")
 def create_api_key(
     ctx: typer.Context,
-    name: str | None = typer.Option(None, "--name", help="""API key name"""),
+    name: str | None = typer.Option(None, "--name", help=r"""API key name"""),
     permissions: list[Permission] = typer.Option(
-        ..., "--permissions", help="""List of permissions"""
+        ..., "--permissions", help=r"""List of permissions"""
     ),
 ) -> None:
     """Create an API key
@@ -33,17 +34,17 @@ def create_api_key(
     if name is not None:
         set_nested(json_data, ["name"], name)
     set_nested(json_data, ["permissions"], permissions)
-    api_key_create_dto = APIKeyCreateDto.model_validate(json_data)
+    api_key_create_dto = ApiKeyCreateDto.model_validate(json_data)
     kwargs["api_key_create_dto"] = api_key_create_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.api_keys.create_api_key, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("delete-api-key", deprecated=False, rich_help_panel="API commands")
 def delete_api_key(
     ctx: typer.Context,
-    id: str = typer.Argument(..., help=""""""),
+    id: UUID = typer.Argument(..., help=r""""""),
 ) -> None:
     """Delete an API key
 
@@ -53,13 +54,13 @@ def delete_api_key(
     kwargs["id"] = id
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.api_keys.delete_api_key, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("get-api-key", deprecated=False, rich_help_panel="API commands")
 def get_api_key(
     ctx: typer.Context,
-    id: str = typer.Argument(..., help=""""""),
+    id: UUID = typer.Argument(..., help=r""""""),
 ) -> None:
     """Retrieve an API key
 
@@ -69,7 +70,7 @@ def get_api_key(
     kwargs["id"] = id
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.api_keys.get_api_key, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("get-api-keys", deprecated=False, rich_help_panel="API commands")
@@ -83,7 +84,7 @@ def get_api_keys(
     kwargs = {}
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.api_keys.get_api_keys, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("get-my-api-key", deprecated=False, rich_help_panel="API commands")
@@ -97,16 +98,16 @@ def get_my_api_key(
     kwargs = {}
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.api_keys.get_my_api_key, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
-@app.command("update-api-key", deprecated=False, rich_help_panel="API commands")
+@app.command("update-api-key", deprecated=True, rich_help_panel="API commands")
 def update_api_key(
     ctx: typer.Context,
-    id: str = typer.Argument(..., help=""""""),
-    name: str | None = typer.Option(None, "--name", help="""API key name"""),
+    id: UUID = typer.Argument(..., help=r""""""),
+    name: str | None = typer.Option(None, "--name", help=r"""API key name"""),
     permissions: list[Permission] | None = typer.Option(
-        None, "--permissions", help="""List of permissions"""
+        None, "--permissions", help=r"""List of permissions"""
     ),
 ) -> None:
     """Update an API key
@@ -120,8 +121,8 @@ def update_api_key(
         set_nested(json_data, ["name"], name)
     if permissions is not None:
         set_nested(json_data, ["permissions"], permissions)
-    api_key_update_dto = APIKeyUpdateDto.model_validate(json_data)
+    api_key_update_dto = ApiKeyUpdateDto.model_validate(json_data)
     kwargs["api_key_update_dto"] = api_key_update_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.api_keys.update_api_key, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)

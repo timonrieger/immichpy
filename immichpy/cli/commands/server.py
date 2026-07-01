@@ -27,7 +27,7 @@ def delete_server_license(
     kwargs = {}
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.server.delete_server_license, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("get-about-info", deprecated=False, rich_help_panel="API commands")
@@ -41,7 +41,7 @@ def get_about_info(
     kwargs = {}
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.server.get_about_info, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("get-apk-links", deprecated=False, rich_help_panel="API commands")
@@ -55,7 +55,7 @@ def get_apk_links(
     kwargs = {}
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.server.get_apk_links, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("get-server-config", deprecated=False, rich_help_panel="API commands")
@@ -69,7 +69,7 @@ def get_server_config(
     kwargs = {}
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.server.get_server_config, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("get-server-features", deprecated=False, rich_help_panel="API commands")
@@ -83,7 +83,7 @@ def get_server_features(
     kwargs = {}
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.server.get_server_features, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("get-server-license", deprecated=False, rich_help_panel="API commands")
@@ -97,7 +97,7 @@ def get_server_license(
     kwargs = {}
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.server.get_server_license, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("get-server-statistics", deprecated=False, rich_help_panel="API commands")
@@ -111,7 +111,7 @@ def get_server_statistics(
     kwargs = {}
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.server.get_server_statistics, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("get-server-version", deprecated=False, rich_help_panel="API commands")
@@ -125,7 +125,7 @@ def get_server_version(
     kwargs = {}
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.server.get_server_version, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("get-storage", deprecated=False, rich_help_panel="API commands")
@@ -139,7 +139,7 @@ def get_storage(
     kwargs = {}
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.server.get_storage, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command(
@@ -155,21 +155,7 @@ def get_supported_media_types(
     kwargs = {}
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.server.get_supported_media_types, ctx=ctx, **kwargs)
-    print_response(result, ctx)
-
-
-@app.command("get-theme", deprecated=False, rich_help_panel="API commands")
-def get_theme(
-    ctx: typer.Context,
-) -> None:
-    """Get theme
-
-    [link=https://api.immich.app/endpoints/server/getTheme]Immich API documentation[/link]
-    """
-    kwargs = {}
-    client: "AsyncClient" = ctx.obj["client"]
-    result = run_command(client.server.get_theme, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("get-version-check", deprecated=False, rich_help_panel="API commands")
@@ -183,7 +169,7 @@ def get_version_check(
     kwargs = {}
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.server.get_version_check, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("get-version-history", deprecated=False, rich_help_panel="API commands")
@@ -197,7 +183,7 @@ def get_version_history(
     kwargs = {}
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.server.get_version_history, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("ping-server", deprecated=False, rich_help_panel="API commands")
@@ -211,17 +197,19 @@ def ping_server(
     kwargs = {}
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.server.ping_server, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("set-server-license", deprecated=False, rich_help_panel="API commands")
 def set_server_license(
     ctx: typer.Context,
     activation_key: str = typer.Option(
-        ..., "--activation-key", help="""Activation key"""
+        ..., "--activation-key", help=r"""Activation key"""
     ),
     license_key: str = typer.Option(
-        ..., "--license-key", help="""License key (format: IM(SV|CL)(-XXXX){8})"""
+        ...,
+        "--license-key",
+        help=r"""License key (format: /^IM(SV|CL)(-[\dA-Za-z]{4}){8}$/)""",
     ),
 ) -> None:
     """Set server product key
@@ -236,4 +224,4 @@ def set_server_license(
     kwargs["license_key_dto"] = license_key_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.server.set_server_license, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)

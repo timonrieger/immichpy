@@ -3,13 +3,18 @@
 from __future__ import annotations
 
 import typer
-import json
+from uuid import UUID
 from typing import Literal, TYPE_CHECKING
 
 if TYPE_CHECKING:
     from immichpy import AsyncClient
 
-from immichpy.cli.runtime import print_response, run_command, set_nested
+from immichpy.cli.runtime import (
+    parse_json_options,
+    print_response,
+    run_command,
+    set_nested,
+)
 from immichpy.client.generated.models import *
 
 app = typer.Typer(
@@ -20,10 +25,8 @@ app = typer.Typer(
 @app.command("add-assets-to-album", deprecated=False, rich_help_panel="API commands")
 def add_assets_to_album(
     ctx: typer.Context,
-    id: str = typer.Argument(..., help=""""""),
-    ids: list[str] = typer.Option(..., "--ids", help="""IDs to process"""),
-    key: str | None = typer.Option(None, "--key", help=""""""),
-    slug: str | None = typer.Option(None, "--slug", help=""""""),
+    id: UUID = typer.Argument(..., help=r""""""),
+    ids: list[UUID] = typer.Option(..., "--ids", help=r"""IDs to process"""),
 ) -> None:
     """Add assets to an album
 
@@ -32,25 +35,19 @@ def add_assets_to_album(
     kwargs = {}
     json_data = {}
     kwargs["id"] = id
-    if key is not None:
-        kwargs["key"] = key
-    if slug is not None:
-        kwargs["slug"] = slug
     set_nested(json_data, ["ids"], ids)
     bulk_ids_dto = BulkIdsDto.model_validate(json_data)
     kwargs["bulk_ids_dto"] = bulk_ids_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.albums.add_assets_to_album, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("add-assets-to-albums", deprecated=False, rich_help_panel="API commands")
 def add_assets_to_albums(
     ctx: typer.Context,
-    album_ids: list[str] = typer.Option(..., "--album-ids", help="""Album IDs"""),
-    asset_ids: list[str] = typer.Option(..., "--asset-ids", help="""Asset IDs"""),
-    key: str | None = typer.Option(None, "--key", help=""""""),
-    slug: str | None = typer.Option(None, "--slug", help=""""""),
+    album_ids: list[UUID] = typer.Option(..., "--album-ids", help=r"""Album IDs"""),
+    asset_ids: list[UUID] = typer.Option(..., "--asset-ids", help=r"""Asset IDs"""),
 ) -> None:
     """Add assets to albums
 
@@ -58,27 +55,23 @@ def add_assets_to_albums(
     """
     kwargs = {}
     json_data = {}
-    if key is not None:
-        kwargs["key"] = key
-    if slug is not None:
-        kwargs["slug"] = slug
     set_nested(json_data, ["album_ids"], album_ids)
     set_nested(json_data, ["asset_ids"], asset_ids)
     albums_add_assets_dto = AlbumsAddAssetsDto.model_validate(json_data)
     kwargs["albums_add_assets_dto"] = albums_add_assets_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.albums.add_assets_to_albums, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("add-users-to-album", deprecated=False, rich_help_panel="API commands")
 def add_users_to_album(
     ctx: typer.Context,
-    id: str = typer.Argument(..., help=""""""),
+    id: UUID = typer.Argument(..., help=r""""""),
     album_users: list[str] = typer.Option(
         ...,
         "--album-users",
-        help="""Album users to add
+        help=r"""Album users to add
 
 As a JSON string with keys: role (string), userId (string)""",
     ),
@@ -90,31 +83,31 @@ As a JSON string with keys: role (string), userId (string)""",
     kwargs = {}
     json_data = {}
     kwargs["id"] = id
-    value_album_users = [json.loads(i) for i in album_users]
+    value_album_users = parse_json_options(album_users, "--album-users", ctx=ctx)
     set_nested(json_data, ["album_users"], value_album_users)
     add_users_dto = AddUsersDto.model_validate(json_data)
     kwargs["add_users_dto"] = add_users_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.albums.add_users_to_album, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("create-album", deprecated=False, rich_help_panel="API commands")
 def create_album(
     ctx: typer.Context,
-    album_name: str = typer.Option(..., "--album-name", help="""Album name"""),
+    album_name: str = typer.Option(..., "--album-name", help=r"""Album name"""),
     album_users: list[str] | None = typer.Option(
         None,
         "--album-users",
-        help="""Album users
+        help=r"""Album users
 
 As a JSON string with keys: role (string), userId (string)""",
     ),
-    asset_ids: list[str] | None = typer.Option(
-        None, "--asset-ids", help="""Initial asset IDs"""
+    asset_ids: list[UUID] | None = typer.Option(
+        None, "--asset-ids", help=r"""Initial asset IDs"""
     ),
     description: str | None = typer.Option(
-        None, "--description", help="""Album description"""
+        None, "--description", help=r"""Album description"""
     ),
 ) -> None:
     """Create an album
@@ -125,7 +118,7 @@ As a JSON string with keys: role (string), userId (string)""",
     json_data = {}
     set_nested(json_data, ["album_name"], album_name)
     if album_users is not None:
-        value_album_users = [json.loads(i) for i in album_users]
+        value_album_users = parse_json_options(album_users, "--album-users", ctx=ctx)
         set_nested(json_data, ["album_users"], value_album_users)
     if asset_ids is not None:
         set_nested(json_data, ["asset_ids"], asset_ids)
@@ -135,13 +128,13 @@ As a JSON string with keys: role (string), userId (string)""",
     kwargs["create_album_dto"] = create_album_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.albums.create_album, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("delete-album", deprecated=False, rich_help_panel="API commands")
 def delete_album(
     ctx: typer.Context,
-    id: str = typer.Argument(..., help=""""""),
+    id: UUID = typer.Argument(..., help=r""""""),
 ) -> None:
     """Delete an album
 
@@ -151,18 +144,15 @@ def delete_album(
     kwargs["id"] = id
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.albums.delete_album, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("get-album-info", deprecated=False, rich_help_panel="API commands")
 def get_album_info(
     ctx: typer.Context,
-    id: str = typer.Argument(..., help=""""""),
-    key: str | None = typer.Option(None, "--key", help=""""""),
-    slug: str | None = typer.Option(None, "--slug", help=""""""),
-    without_assets: Literal["true", "false"] | None = typer.Option(
-        None, "--without-assets", help="""Exclude assets from response"""
-    ),
+    id: UUID = typer.Argument(..., help=r""""""),
+    key: str | None = typer.Option(None, "--key", help=r""""""),
+    slug: str | None = typer.Option(None, "--slug", help=r""""""),
 ) -> None:
     """Retrieve an album
 
@@ -174,11 +164,31 @@ def get_album_info(
         kwargs["key"] = key
     if slug is not None:
         kwargs["slug"] = slug
-    if without_assets is not None:
-        kwargs["without_assets"] = without_assets.lower() == "true"
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.albums.get_album_info, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
+
+
+@app.command("get-album-map-markers", deprecated=False, rich_help_panel="API commands")
+def get_album_map_markers(
+    ctx: typer.Context,
+    id: UUID = typer.Argument(..., help=r""""""),
+    key: str | None = typer.Option(None, "--key", help=r""""""),
+    slug: str | None = typer.Option(None, "--slug", help=r""""""),
+) -> None:
+    """Retrieve album map markers
+
+    [link=https://api.immich.app/endpoints/albums/getAlbumMapMarkers]Immich API documentation[/link]
+    """
+    kwargs = {}
+    kwargs["id"] = id
+    if key is not None:
+        kwargs["key"] = key
+    if slug is not None:
+        kwargs["slug"] = slug
+    client: "AsyncClient" = ctx.obj["client"]
+    result = run_command(client.albums.get_album_map_markers, ctx=ctx, **kwargs)
+    print_response(result, ctx=ctx)
 
 
 @app.command("get-album-statistics", deprecated=False, rich_help_panel="API commands")
@@ -192,21 +202,30 @@ def get_album_statistics(
     kwargs = {}
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.albums.get_album_statistics, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("get-all-albums", deprecated=False, rich_help_panel="API commands")
 def get_all_albums(
     ctx: typer.Context,
-    asset_id: str | None = typer.Option(
+    asset_id: UUID | None = typer.Option(
         None,
         "--asset-id",
-        help="""Filter albums containing this asset ID (ignores shared parameter)""",
+        help=r"""Filter albums containing this asset ID (ignores other parameters)""",
     ),
-    shared: Literal["true", "false"] | None = typer.Option(
+    id: UUID | None = typer.Option(None, "--id", help=r"""Album ID"""),
+    is_owned: Literal["true", "false"] | None = typer.Option(
         None,
-        "--shared",
-        help="""Filter by shared status: true = only shared, false = not shared, undefined = all owned albums""",
+        "--is-owned",
+        help=r"""Filter by ownership: true = only owned, false = only shared-with-me, undefined = no filter""",
+    ),
+    is_shared: Literal["true", "false"] | None = typer.Option(
+        None,
+        "--is-shared",
+        help=r"""Filter by shared status: true = only shared, false = not shared, undefined = no filter""",
+    ),
+    name: str | None = typer.Option(
+        None, "--name", help=r"""Album name (exact match)"""
     ),
 ) -> None:
     """List all albums
@@ -216,11 +235,17 @@ def get_all_albums(
     kwargs = {}
     if asset_id is not None:
         kwargs["asset_id"] = asset_id
-    if shared is not None:
-        kwargs["shared"] = shared.lower() == "true"
+    if id is not None:
+        kwargs["id"] = id
+    if is_owned is not None:
+        kwargs["is_owned"] = is_owned.lower() == "true"
+    if is_shared is not None:
+        kwargs["is_shared"] = is_shared.lower() == "true"
+    if name is not None:
+        kwargs["name"] = name
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.albums.get_all_albums, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command(
@@ -228,8 +253,8 @@ def get_all_albums(
 )
 def remove_asset_from_album(
     ctx: typer.Context,
-    id: str = typer.Argument(..., help=""""""),
-    ids: list[str] = typer.Option(..., "--ids", help="""IDs to process"""),
+    id: UUID = typer.Argument(..., help=r""""""),
+    ids: list[UUID] = typer.Option(..., "--ids", help=r"""IDs to process"""),
 ) -> None:
     """Remove assets from an album
 
@@ -243,14 +268,14 @@ def remove_asset_from_album(
     kwargs["bulk_ids_dto"] = bulk_ids_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.albums.remove_asset_from_album, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("remove-user-from-album", deprecated=False, rich_help_panel="API commands")
 def remove_user_from_album(
     ctx: typer.Context,
-    id: str = typer.Argument(..., help=""""""),
-    user_id: str = typer.Argument(..., help=""""""),
+    id: UUID = typer.Argument(..., help=r""""""),
+    user_id: str = typer.Argument(..., help=r""""""),
 ) -> None:
     """Remove user from album
 
@@ -261,24 +286,24 @@ def remove_user_from_album(
     kwargs["user_id"] = user_id
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.albums.remove_user_from_album, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("update-album-info", deprecated=False, rich_help_panel="API commands")
 def update_album_info(
     ctx: typer.Context,
-    id: str = typer.Argument(..., help=""""""),
-    album_name: str | None = typer.Option(None, "--album-name", help="""Album name"""),
-    album_thumbnail_asset_id: str | None = typer.Option(
-        None, "--album-thumbnail-asset-id", help="""Album thumbnail asset ID"""
+    id: UUID = typer.Argument(..., help=r""""""),
+    album_name: str | None = typer.Option(None, "--album-name", help=r"""Album name"""),
+    album_thumbnail_asset_id: UUID | None = typer.Option(
+        None, "--album-thumbnail-asset-id", help=r"""Album thumbnail asset ID"""
     ),
     description: str | None = typer.Option(
-        None, "--description", help="""Album description"""
+        None, "--description", help=r"""Album description"""
     ),
     is_activity_enabled: Literal["true", "false"] | None = typer.Option(
-        None, "--is-activity-enabled", help="""Enable activity feed"""
+        None, "--is-activity-enabled", help=r"""Enable activity feed"""
     ),
-    order: str | None = typer.Option(None, "--order", help="""Asset sort order"""),
+    order: str | None = typer.Option(None, "--order", help=r"""Asset sort order"""),
 ) -> None:
     """Update an album
 
@@ -303,15 +328,15 @@ def update_album_info(
     kwargs["update_album_dto"] = update_album_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.albums.update_album_info, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("update-album-user", deprecated=False, rich_help_panel="API commands")
 def update_album_user(
     ctx: typer.Context,
-    id: str = typer.Argument(..., help=""""""),
-    user_id: str = typer.Argument(..., help=""""""),
-    role: str = typer.Option(..., "--role", help="""Album user role"""),
+    id: UUID = typer.Argument(..., help=r""""""),
+    user_id: str = typer.Argument(..., help=r""""""),
+    role: str = typer.Option(..., "--role", help=r"""Album user role"""),
 ) -> None:
     """Update user role
 
@@ -326,4 +351,4 @@ def update_album_user(
     kwargs["update_album_user_dto"] = update_album_user_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.albums.update_album_user, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)

@@ -14,6 +14,8 @@ from typing import cast
 from uuid import UUID
 import uuid
 
+import tenacity
+from aiohttp import ClientConnectionError
 from rich.progress import (
     Progress,
     SpinnerColumn,
@@ -23,7 +25,6 @@ from rich.progress import (
     TransferSpeedColumn,
     TimeRemainingColumn,
 )
-from immichpy.client.consts import DEVICE_ID
 from immichpy.client.types import (
     RejectedEntry,
     FailedEntry,
@@ -33,7 +34,6 @@ from immichpy.client.types import (
 from immichpy.client.generated.api.albums_api import AlbumsApi
 from immichpy.client.generated.api.assets_api import AssetsApi
 from immichpy.client.generated.api.server_api import ServerApi
-from immichpy.client.generated.api_response import ApiResponse
 from immichpy.client.generated.models.asset_bulk_upload_check_dto import (
     AssetBulkUploadCheckDto,
 )
@@ -52,16 +52,22 @@ logger = logging.getLogger(__name__)
 
 BATCH_SIZE = 5000
 
+# Immich emits no 429, so only transient server errors and dropped connections
+# are worth retrying. 4xx are not transient and fail fast. The upload POST is
+# safe to retry because the server deduplicates by checksum.
+RETRY_STATUSES = frozenset({500, 502, 503, 504})
 
-def get_device_asset_id(filepath: Path, stats: os.stat_result) -> str:
-    """Get the device asset ID for a given file path and stats.
 
-    :param filepath: The path to the file.
-    :param stats: The stats of the file.
+def _is_retryable_upload_error(exc: BaseException) -> bool:
+    """Return whether an upload error is transient and worth retrying.
 
-    :return: The device asset ID.
+    :param exc: The exception raised by the upload call.
+
+    :return: True for retryable 5xx responses and connection errors.
     """
-    return f"{filepath.name}-{stats.st_size}".replace(" ", "")
+    if isinstance(exc, ApiException):
+        return exc.status in RETRY_STATUSES
+    return isinstance(exc, (ClientConnectionError, asyncio.TimeoutError))
 
 
 async def scan_files(
@@ -249,25 +255,19 @@ async def upload_file(
     filepath: Path,
     assets_api: AssetsApi,
     dry_run: bool = False,
-) -> ApiResponse[AssetMediaResponseDto]:
+    retries: int = 3,
+) -> AssetMediaResponseDto:
     """Upload a single asset file to the server.
 
     :param filepath: Path to the file to upload.
     :param assets_api: Assets API instance for upload.
     :param dry_run: Return mock response without actual upload.
+    :param retries: Maximum number of upload attempts on transient errors (>= 1).
 
     :return: API response containing the uploaded asset metadata.
     """
     if dry_run:
-        mock_data = AssetMediaResponseDto(
-            id=str(uuid.uuid4()), status=AssetMediaStatus.CREATED
-        )
-        return ApiResponse(
-            status_code=201,
-            headers=None,
-            data=mock_data,
-            raw_data=b"",
-        )
+        return AssetMediaResponseDto(id=uuid.uuid4(), status=AssetMediaStatus.CREATED)
 
     stats = filepath.stat()
 
@@ -276,19 +276,21 @@ async def upload_file(
     if sidecar_path:
         sidecar_data = str(sidecar_path)
 
-    asset_data = str(filepath)
-
     file_created_at, file_modified_at = get_file_times(filepath, stats)
 
-    response = await assets_api.upload_asset_with_http_info(
-        asset_data=asset_data,
-        device_asset_id=get_device_asset_id(filepath, stats),
-        device_id=DEVICE_ID,
+    retryer = tenacity.AsyncRetrying(
+        retry=tenacity.retry_if_exception(_is_retryable_upload_error),
+        stop=tenacity.stop_after_attempt(retries),
+        wait=tenacity.wait_exponential_jitter(initial=0.1, max=5.0),
+        reraise=True,
+    )
+    return await retryer(
+        assets_api.upload_asset,
+        asset_data=str(filepath),
         file_created_at=file_created_at,
         file_modified_at=file_modified_at,
         sidecar_data=sidecar_data,
     )
-    return response
 
 
 async def upload_files(
@@ -297,6 +299,7 @@ async def upload_files(
     concurrency: int = 5,
     show_progress: bool = False,
     dry_run: bool = False,
+    retries: int = 3,
 ) -> tuple[list[UploadedEntry], list[RejectedEntry], list[FailedEntry]]:
     """Upload multiple asset files concurrently.
 
@@ -305,6 +308,7 @@ async def upload_files(
     :param concurrency: Maximum number of concurrent uploads.
     :param show_progress: Whether to show upload progress bar.
     :param dry_run: Simulate uploads without actual API calls.
+    :param retries: Maximum number of upload attempts per file on transient errors (>= 1).
 
     :return: Tuple of (uploaded_entries, rejected_entries, failed_entries).
     """
@@ -333,24 +337,15 @@ async def upload_files(
         async def upload_with_semaphore(filepath: Path) -> None:
             async with semaphore:
                 try:
-                    response = await upload_file(filepath, assets_api, dry_run)
-                    if response.status_code == 201:
-                        uploaded.append(
-                            UploadedEntry(asset=response.data, filepath=filepath)
-                        )
-                    elif response.status_code == 200:
+                    asset = await upload_file(filepath, assets_api, dry_run, retries)
+                    if asset.status == AssetMediaStatus.CREATED:
+                        uploaded.append(UploadedEntry(asset=asset, filepath=filepath))
+                    elif asset.status == AssetMediaStatus.DUPLICATE:
                         rejected.append(
                             RejectedEntry(
                                 filepath=filepath,
-                                asset_id=response.data.id,
+                                asset_id=asset.id,
                                 reason="duplicate",
-                            )
-                        )
-                    else:
-                        failed.append(
-                            FailedEntry(
-                                filepath=filepath,
-                                error=f"Unexpected status_code={response.status_code}",
                             )
                         )
                     if not dry_run:
@@ -376,7 +371,7 @@ async def upload_files(
 
 
 async def update_albums(
-    asset_ids: list[str],
+    asset_ids: list[UUID],
     album_name: str | None,
     albums_api: AlbumsApi,
 ) -> None:
@@ -401,12 +396,11 @@ async def update_albums(
         album_map[album_name] = album.id
 
     album_id = album_map[album_name]
-    asset_uuids = [UUID(entry) for entry in asset_ids]
 
-    for i in range(0, len(asset_uuids), 1000):
-        batch = asset_uuids[i : i + 1000]
+    for i in range(0, len(asset_ids), 1000):
+        batch = asset_ids[i : i + 1000]
         await albums_api.add_assets_to_album(
-            id=UUID(str(album_id)), bulk_ids_dto=BulkIdsDto(ids=batch)
+            id=album_id, bulk_ids_dto=BulkIdsDto(ids=batch)
         )
 
 

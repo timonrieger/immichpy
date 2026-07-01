@@ -28,16 +28,7 @@ def python_triple_quoted_str(value: str) -> str:
 
 
 PythonType = (
-    Literal[
-        "str",
-        "int",
-        "float",
-        "list",
-        "dict",
-        "Path",
-        "bool",
-        "datetime",
-    ]
+    Literal["str", "int", "float", "list", "dict", "Path", "bool", "datetime", "UUID"]
     | str
 )
 
@@ -133,7 +124,7 @@ def python_type_from_schema(
         if "format" in nschema:
             fmt = nschema["format"]
             if fmt == "uuid":
-                return "str"  # UUID as string for CLI
+                return "UUID"
             elif fmt == "date-time":
                 return "datetime"  # Typer handles datetime parsing
             elif fmt == "binary":
@@ -397,7 +388,7 @@ def generate_command_function(
     lines.append("    ctx: typer.Context,")
 
     for param in sorted(param_data, key=lambda x: (x.location != "path", x.name)):
-        help_arg = f", help={param.description}"
+        help_arg = f", help=r{param.description}"
         minimum = param.oaschema.get("minimum")
         maximum = param.oaschema.get("maximum")
         min_arg = f", min={minimum}" if minimum is not None else ""
@@ -463,9 +454,14 @@ def generate_command_function(
         elif param.location == "body":
             if param.required:
                 if is_complex_type(param.oaschema, spec):
-                    lines.append(
-                        f"    value_{param.name} = [json.loads(i) for i in {param.name}]"
-                    )
+                    if param.type.startswith("list"):
+                        lines.append(
+                            f'    value_{param.name} = parse_json_options({param.name}, "--{param.flag_name}", ctx=ctx)'
+                        )
+                    else:
+                        lines.append(
+                            f'    value_{param.name} = parse_json_option({param.name}, "--{param.flag_name}", ctx=ctx)'
+                        )
                     lines.append(
                         f"    set_nested(json_data, [{param.name!r}], value_{param.name})"
                     )
@@ -485,9 +481,14 @@ def generate_command_function(
             else:
                 lines.append(f"    if {param.name} is not None:")
                 if is_complex_type(param.oaschema, spec):
-                    lines.append(
-                        f"        value_{param.name} = [json.loads(i) for i in {param.name}]"
-                    )
+                    if param.type.startswith("list"):
+                        lines.append(
+                            f'        value_{param.name} = parse_json_options({param.name}, "--{param.flag_name}", ctx=ctx)'
+                        )
+                    else:
+                        lines.append(
+                            f'        value_{param.name} = parse_json_option({param.name}, "--{param.flag_name}", ctx=ctx)'
+                        )
                     lines.append(
                         f"        set_nested(json_data, [{param.name!r}], value_{param.name})"
                     )
@@ -513,11 +514,19 @@ def generate_command_function(
                         f"    {model_instance} = {param.model_name}.model_validate(json_data)"
                     )
                     lines.append(f"    kwargs['{model_instance}'] = {model_instance}")
-                elif media_type == "multipart/form-data":
-                    # despite having a model name, we don't use it for multipart/form-data as
-                    # openapi-generator doesn't generate a model for multipart/form-data, but use kwargs
+                elif media_type in (
+                    "multipart/form-data",
+                    "application/x-www-form-urlencoded",
+                ):
+                    # despite having a model name, we don't use it for form media types as
+                    # openapi-generator doesn't generate a model for them, but uses kwargs
                     # instead we simply merge the json_data into the kwargs
                     lines.append("    kwargs.update(json_data)")
+                else:
+                    print(
+                        f"WARNING: {operation_id!r} has unsupported media type {media_type!r}; "
+                        "body params will be dropped from the generated command"
+                    )
     # Call method
     method_name = to_snake_case(operation_id)
     lines.append("    client: 'AsyncClient' = ctx.obj['client']")
@@ -526,7 +535,7 @@ def generate_command_function(
     )
 
     # Print result
-    lines.append("    print_response(result, ctx)")
+    lines.append("    print_response(result, ctx=ctx)")
 
     return "\n".join(lines)
 
@@ -551,11 +560,12 @@ def generate_tag_app(
         "import json",
         "from datetime import datetime",
         "from pathlib import Path",
+        "from uuid import UUID",
         "from typing import Literal, TYPE_CHECKING",
         "if TYPE_CHECKING:",
         "    from immichpy import AsyncClient",
         "",
-        "from immichpy.cli.runtime import print_response, run_command, set_nested",
+        "from immichpy.cli.runtime import parse_json_option, parse_json_options, print_response, run_command, set_nested",
         "from immichpy.client.generated.models import *",
         "",
     ]

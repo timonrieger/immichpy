@@ -20,7 +20,9 @@ app = typer.Typer(
 @app.command("delete-database-backup", deprecated=False, rich_help_panel="API commands")
 def delete_database_backup(
     ctx: typer.Context,
-    backups: list[str] = typer.Option(..., "--backups", help=""""""),
+    backups: list[str] = typer.Option(
+        ..., "--backups", help=r"""Backup filenames to delete"""
+    ),
 ) -> None:
     """Delete database backup
 
@@ -33,7 +35,7 @@ def delete_database_backup(
     kwargs["database_backup_delete_dto"] = database_backup_delete_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.backups.delete_database_backup, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command(
@@ -41,7 +43,7 @@ def delete_database_backup(
 )
 def download_database_backup(
     ctx: typer.Context,
-    filename: str = typer.Argument(..., help=""""""),
+    filename: str = typer.Argument(..., help=r""""""),
 ) -> None:
     """Download database backup
 
@@ -51,7 +53,7 @@ def download_database_backup(
     kwargs["filename"] = filename
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.backups.download_database_backup, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("list-database-backups", deprecated=False, rich_help_panel="API commands")
@@ -65,7 +67,7 @@ def list_database_backups(
     kwargs = {}
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.backups.list_database_backups, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command(
@@ -81,13 +83,15 @@ def start_database_restore_flow(
     kwargs = {}
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.backups.start_database_restore_flow, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("upload-database-backup", deprecated=False, rich_help_panel="API commands")
 def upload_database_backup(
     ctx: typer.Context,
-    file: Path | None = typer.Option(None, "--file", help="""""", exists=True),
+    file: Path | None = typer.Option(
+        None, "--file", help=r"""Database backup file""", exists=True
+    ),
 ) -> None:
     """Upload database backup
 
@@ -100,4 +104,4 @@ def upload_database_backup(
     kwargs.update(json_data)
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.backups.upload_database_backup, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)

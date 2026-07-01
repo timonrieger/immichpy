@@ -19,11 +19,11 @@ app = typer.Typer(
 @app.command("empty-queue", deprecated=False, rich_help_panel="API commands")
 def empty_queue(
     ctx: typer.Context,
-    name: QueueName = typer.Argument(..., help="""Queue name"""),
+    name: QueueName = typer.Argument(..., help=r""""""),
     failed: Literal["true", "false"] | None = typer.Option(
         None,
         "--failed",
-        help="""If true, will also remove failed jobs from the queue.""",
+        help=r"""If true, will also remove failed jobs from the queue.""",
     ),
 ) -> None:
     """Empty a queue
@@ -39,13 +39,13 @@ def empty_queue(
     kwargs["queue_delete_dto"] = queue_delete_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.queues.empty_queue, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("get-queue", deprecated=False, rich_help_panel="API commands")
 def get_queue(
     ctx: typer.Context,
-    name: QueueName = typer.Argument(..., help="""Queue name"""),
+    name: QueueName = typer.Argument(..., help=r""""""),
 ) -> None:
     """Retrieve a queue
 
@@ -55,15 +55,15 @@ def get_queue(
     kwargs["name"] = name
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.queues.get_queue, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("get-queue-jobs", deprecated=False, rich_help_panel="API commands")
 def get_queue_jobs(
     ctx: typer.Context,
-    name: QueueName = typer.Argument(..., help="""Queue name"""),
+    name: QueueName = typer.Argument(..., help=r""""""),
     status: list[QueueJobStatus] | None = typer.Option(
-        None, "--status", help="""Filter jobs by status"""
+        None, "--status", help=r"""Filter jobs by status"""
     ),
 ) -> None:
     """Retrieve queue jobs
@@ -76,7 +76,7 @@ def get_queue_jobs(
         kwargs["status"] = status
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.queues.get_queue_jobs, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("get-queues", deprecated=False, rich_help_panel="API commands")
@@ -90,15 +90,15 @@ def get_queues(
     kwargs = {}
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.queues.get_queues, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
 
 
 @app.command("update-queue", deprecated=False, rich_help_panel="API commands")
 def update_queue(
     ctx: typer.Context,
-    name: QueueName = typer.Argument(..., help="""Queue name"""),
+    name: QueueName = typer.Argument(..., help=r""""""),
     is_paused: Literal["true", "false"] | None = typer.Option(
-        None, "--is-paused", help="""Whether to pause the queue"""
+        None, "--is-paused", help=r"""Whether to pause the queue"""
     ),
 ) -> None:
     """Update a queue
@@ -114,4 +114,4 @@ def update_queue(
     kwargs["queue_update_dto"] = queue_update_dto
     client: "AsyncClient" = ctx.obj["client"]
     result = run_command(client.queues.update_queue, ctx=ctx, **kwargs)
-    print_response(result, ctx)
+    print_response(result, ctx=ctx)
