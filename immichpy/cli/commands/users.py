@@ -346,6 +346,11 @@ def update_my_preferences(
     ratings_enabled: Literal["true", "false"] | None = typer.Option(
         None, "--ratings-enabled", help=r"""Whether ratings are enabled"""
     ),
+    recently_added_sidebar_web: Literal["true", "false"] | None = typer.Option(
+        None,
+        "--recently-added-sidebar-web",
+        help=r"""Whether the recently added page appears in the web sidebar""",
+    ),
     shared_links_enabled: Literal["true", "false"] | None = typer.Option(
         None, "--shared-links-enabled", help=r"""Whether shared links are enabled"""
     ),
@@ -435,6 +440,12 @@ def update_my_preferences(
         )
     if ratings_enabled is not None:
         set_nested(json_data, ["ratings_enabled"], ratings_enabled.lower() == "true")
+    if recently_added_sidebar_web is not None:
+        set_nested(
+            json_data,
+            ["recently_added_sidebar_web"],
+            recently_added_sidebar_web.lower() == "true",
+        )
     if shared_links_enabled is not None:
         set_nested(
             json_data, ["shared_links_enabled"], shared_links_enabled.lower() == "true"
