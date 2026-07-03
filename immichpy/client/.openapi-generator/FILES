@@ -239,6 +239,8 @@ generated/models/ratings_response.py
 generated/models/ratings_update.py
 generated/models/reaction_level.py
 generated/models/reaction_type.py
+generated/models/recently_added_response.py
+generated/models/recently_added_update.py
 generated/models/release_channel.py
 generated/models/release_event_v1.py
 generated/models/release_type.py

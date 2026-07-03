@@ -6031,6 +6031,7 @@ $ immichpy users update-my-preferences [OPTIONS]
 * `--purchase-hide-buy-button-until TEXT`: Date until which to hide buy button
 * `--purchase-show-support-badge [true|false]`: Whether to show support badge
 * `--ratings-enabled [true|false]`: Whether ratings are enabled
+* `--recently-added-sidebar-web [true|false]`: Whether the recently added page appears in the web sidebar
 * `--shared-links-enabled [true|false]`: Whether shared links are enabled
 * `--shared-links-sidebar-web [true|false]`: Whether shared links appear in web sidebar
 * `--tags-enabled [true|false]`: Whether tags are enabled
@@ -6375,6 +6376,7 @@ $ immichpy users-admin update-user-preferences-admin [OPTIONS] ID
 * `--purchase-hide-buy-button-until TEXT`: Date until which to hide buy button
 * `--purchase-show-support-badge [true|false]`: Whether to show support badge
 * `--ratings-enabled [true|false]`: Whether ratings are enabled
+* `--recently-added-sidebar-web [true|false]`: Whether the recently added page appears in the web sidebar
 * `--shared-links-enabled [true|false]`: Whether shared links are enabled
 * `--shared-links-sidebar-web [true|false]`: Whether shared links appear in web sidebar
 * `--tags-enabled [true|false]`: Whether tags are enabled
