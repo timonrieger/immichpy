@@ -316,6 +316,8 @@ nav = [
                 "client/reference/models/ratings_update.md",
                 "client/reference/models/reaction_level.md",
                 "client/reference/models/reaction_type.md",
+                "client/reference/models/recently_added_response.md",
+                "client/reference/models/recently_added_update.md",
                 "client/reference/models/release_channel.md",
                 "client/reference/models/release_event_v1.md",
                 "client/reference/models/release_type.md",
