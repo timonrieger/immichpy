@@ -2,7 +2,10 @@
 """Generate API documentation markdown files from client classes."""
 
 from pathlib import Path
+import re
 import shutil
+
+import rtoml
 
 # Explicit mapping for special cases
 SPECIAL_CASES: dict[str, tuple[str, str]] = {
@@ -85,6 +88,57 @@ def process_directory(
     return len(files)
 
 
+def update_nav(project_root: Path) -> None:
+    """Rewrite the API and Models nav arrays in zensical.toml to match the
+    reference pages on disk, keeping every other line (comments, curated
+    sections, hand-authored root pages) untouched.
+
+    Pages are read from ``docs/client/reference/{api,models,custom}``. Wrapper
+    pages (``custom/*_api_wrapped.md``) join the API section; any other custom
+    page (e.g. the hand-authored ``upload_result.md``) joins Models. Each
+    section is sorted by filename so custom pages land next to their siblings.
+    """
+    docs_dir = project_root / "docs"
+    ref_dir = docs_dir / "client" / "reference"
+
+    def nav_paths(subdir: str) -> list[str]:
+        return [
+            p.relative_to(docs_dir).as_posix() for p in ref_dir.glob(f"{subdir}/*.md")
+        ]
+
+    def nav_key(path: str) -> str:
+        return path.rsplit("/", 1)[-1]
+
+    wrapped: list[str] = []
+    other: list[str] = []
+    for path in nav_paths("custom"):
+        bucket = wrapped if nav_key(path).endswith("_api_wrapped.md") else other
+        bucket.append(path)
+
+    sections = {
+        "API": sorted(nav_paths("api") + wrapped, key=nav_key),
+        "Models": sorted(nav_paths("models") + other, key=nav_key),
+    }
+
+    config_path = project_root / "zensical.toml"
+    text = config_path.read_text()
+
+    item_indent = " " * 16
+    close_indent = " " * 12
+    for key, paths in sections.items():
+        body = "\n".join(f'{item_indent}"{path}",' for path in paths)
+        replacement = f"{{ {key} = [\n{body}\n{close_indent}] }},"
+        pattern = re.compile(r"\{ " + key + r" = \[.*?\] \},", re.DOTALL)
+        # function replacement keeps the splice literal (no backslash/group expansion)
+        text = pattern.sub(lambda _: replacement, text, count=1)
+
+    config_path.write_text(text)
+    rtoml.load(config_path)  # fail loudly if the splice produced invalid TOML
+    print(
+        f"  Updated nav: {len(sections['API'])} API, {len(sections['Models'])} models"
+    )
+
+
 def main():
     """Generate markdown files for all client classes."""
     project_root = Path(__file__).parent.parent.parent
@@ -128,6 +182,10 @@ def main():
     )
     total_generated += count
     print(f"  {count} wrapper files")
+
+    # 4. Sync the API and Models nav arrays in zensical.toml
+    print("\nUpdating zensical.toml nav...")
+    update_nav(project_root)
 
     print(f"\nTotal: {total_generated} documentation files generated")
 
