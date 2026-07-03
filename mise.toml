@@ -84,6 +84,8 @@ description = "Run generate then lint sequentially (set IMMICH_OPENAPI_REF to a 
 run = [
     { task = "generate" },
     { task = "docs:generate" },
+    # Stage generated files so pre-commit (which only lints git-tracked files) picks up newly created ones
+    "git add -A",
     { task = "lint:fix" },
 ]
 
