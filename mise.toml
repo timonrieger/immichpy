@@ -6,11 +6,11 @@ uv = "0.11.25"
 _.python.venv = { path = ".venv" }
 
 [tasks.lint]
-run = "uvx pre-commit run --all-files"
+run = "uvx prek run --all-files"
 description = "Run pre-commit hooks"
 
 [tasks."lint:fix"]
-run = "uvx pre-commit run --all-files || true"
+run = "uvx prek run --all-files || true"
 description = "Run pre-commit hooks without failing"
 
 [tasks."ci:lint"]
@@ -47,7 +47,7 @@ run = "uv tree --outdated --all-groups --depth 1"
 description = "Check dependencies for updates"
 
 [tasks.setup]
-run = ["mise run install", "uvx pre-commit install"]
+run = ["mise run install", "uvx prek install -f"]
 description = "Setup the project"
 
 [tasks.build]
