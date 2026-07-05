@@ -124,6 +124,7 @@ class RESTClientObject:
         fields (trace_configs / client_session_kwargs) are read via getattr
         so older Configuration objects remain compatible.
         """
+        extra = getattr(self.configuration, "client_session_kwargs", None)
         kwargs: Dict[str, Any] = {
             "connector": self._create_connector(),
             "trust_env": True,
@@ -131,7 +132,6 @@ class RESTClientObject:
         trace_configs = getattr(self.configuration, "trace_configs", None)
         if trace_configs is not None:
             kwargs["trace_configs"] = trace_configs
-        extra = getattr(self.configuration, "client_session_kwargs", None)
         if extra:
             kwargs.update(extra)
         return aiohttp.ClientSession(**kwargs)
