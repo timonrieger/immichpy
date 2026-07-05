@@ -11,11 +11,11 @@ alias = "i"
 description = "Install dependencies (alias: 'i'); asserts the lockfile with --locked under CI"
 
 [tasks."install:upgrade"]
-run = ["mise run install --upgrade", "uvx prek update"]
+run = ["mise run install --upgrade", "uvx prek update --freeze"]
 description = "Upgrade dependencies in the allowed ranges"
 
 [tasks."install:check"]
-run = ["uv tree --outdated --all-groups --depth 1", "uvx prek update --dry-run"]
+run = ["uv tree --outdated --all-groups --depth 1", "uvx prek update --freeze --dry-run"]
 description = "Check dependencies for updates"
 
 [tasks.setup]
