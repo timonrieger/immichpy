@@ -36,3 +36,8 @@ repos:
     hooks:
       - id: markdownlint
         args: [--fix, --disable, MD013] # ignore line length
+
+  - repo: https://github.com/astral-sh/ty-pre-commit
+    rev: v0.0.55
+    hooks:
+      - id: ty

@@ -89,14 +89,6 @@ run = [
     { task = "lint:fix" },
 ]
 
-[tasks."ci:check"]
-description = "Run lint then check sequentially"
-depends = ["ci:install"]
-run = [
-    { task = "lint" },
-    { task = "check" },
-]
-
 [tasks."ci:install"]
 description = "Install dependencies in CI"
 depends = ["ci:install"]
