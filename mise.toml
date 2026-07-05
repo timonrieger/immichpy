@@ -5,132 +5,88 @@ uv = "0.11.25"
 [env]
 _.python.venv = { path = ".venv" }
 
+[tasks.install]
+run = "uv sync --all-groups --all-extras ${CI:+--locked}"
+alias = "i"
+description = "Install dependencies (alias: 'i'); asserts the lockfile with --locked under CI"
+
+[tasks."install:upgrade"]
+run = ["mise run install --upgrade", "uvx prek update"]
+description = "Upgrade dependencies in the allowed ranges"
+
+[tasks."install:check"]
+run = ["uv tree --outdated --all-groups --depth 1", "uvx prek update --dry-run"]
+description = "Check dependencies for updates"
+
+[tasks.setup]
+run = ["mise run install", "uvx prek install"]
+description = "Setup the project"
+
 [tasks.lint]
+depends = ["install"]
 run = "uvx prek run --all-files"
 description = "Run pre-commit hooks"
 
 [tasks."lint:fix"]
+depends = ["install"]
 run = "uvx prek run --all-files || true"
-description = "Run pre-commit hooks without failing"
-
-[tasks."ci:lint"]
-description = "Run pre-commit hooks in CI"
-depends = ["ci:install", "lint"]
+description = "Run pre-commit hooks, ignoring failures"
 
 [tasks."test:unit:cli"]
 run = "uv run pytest tests/unit/cli"
-description = "Run CLI unit tests with pytest"
+description = "Run CLI unit tests"
 
 [tasks."test:unit:client"]
 run = "uv run pytest tests/unit/client"
-description = "Run client unit tests with pytest"
+description = "Run client unit tests"
+
+[tasks."test:unit"]
+depends = ["install"]
+run = [{ task = "test:unit:cli" }, { task = "test:unit:client" }]
+description = "Run all unit tests"
 
 [tasks."test:e2e:cli"]
 run = "uv run pytest tests/e2e/cli"
-description = "Run e2e CLI tests with pytest"
+description = "Run e2e CLI tests"
 
 [tasks."test:e2e:client"]
 run = "uv run pytest tests/e2e/client"
-description = "Run e2e client tests with pytest"
+description = "Run e2e client tests"
 
-[tasks.install]
-run = "uv sync --all-groups --all-extras"
-alias = "i"
-description = "Install dependencies (alias: 'i')"
-
-[tasks."install:upgrade"]
-run = "mise run install --upgrade"
-description = "Upgrade dependencies in the allowed ranges"
-
-[tasks."install:check"]
-run = "uv tree --outdated --all-groups --depth 1"
-description = "Check dependencies for updates"
-
-[tasks.setup]
-run = ["mise run install", "uvx prek install -f"]
-description = "Setup the project"
-
-[tasks.build]
-run = "uv build"
-description = "Build the package"
-
-[tasks."version:dry"]
-run = "uvx --from 'python-semantic-release==10' semantic-release --noop -c pyproject.toml version"
-description = "Dry run version bump"
+[tasks."test:e2e"]
+depends = ["install"]
+run = [{ task = "test:e2e:cli" }, { task = "test:e2e:client" }]
+description = "Run all e2e tests"
 
 [tasks."generate:client"]
+run = "uv run bin/generate/client.py"
 description = "Generate Immich API client"
-run = '''
-set -eu
-uv run bin/generate/client.py
-'''
 
 [tasks."generate:cli"]
+run = "uv run bin/generate/cli.py"
 description = "Generate Immich CLI"
-run = '''
-set -eu
-uv run bin/generate/cli.py
-'''
-
-[tasks.generate]
-description = "Generate Immich API client and CLI"
-run = [
-    { task = "generate:client" },
-    { task = "generate:cli" },
-]
-
-[tasks."ci:gen"]
-description = "Run generate then lint sequentially (set IMMICH_OPENAPI_REF to a git ref to generate the client and CLI)"
-run = [
-    { task = "generate" },
-    { task = "docs:generate" },
-    # Stage generated files so pre-commit (which only lints git-tracked files) picks up newly created ones
-    "git add -A",
-    { task = "lint:fix" },
-]
-
-[tasks."ci:install"]
-description = "Install dependencies in CI"
-depends = ["install --locked"]
-
-[tasks."ci:test:unit"]
-description = "Run unit tests in CI"
-depends = ["ci:install"]
-run = [
-    { task = "test:unit:cli" },
-    { task = "test:unit:client" },
-]
-
-[tasks."ci:test:e2e"]
-description = "Run e2e tests in CI"
-depends = ["ci:install"]
-run = [
-    { task = "test:e2e:cli" },
-    { task = "test:e2e:client" },
-]
 
 [tasks."docs:dev"]
-description = "Run documentation development server"
 run = "uv run zensical serve"
+description = "Run documentation development server"
 
 [tasks."docs:generate:cli"]
-depends = ["ci:install"]
-description = "Generate documentation for the CLI"
+depends = ["install"]
 run = "uv run typer immichpy/cli/main.py utils docs --name immichpy --output docs/cli/reference.md --title Reference"
-
+description = "Generate CLI documentation"
 
 [tasks."docs:generate:client"]
-description = "Generate documentation for the client"
-run = [
-"""
-set -eu
-uv run bin/docs/client.py
-"""
-]
+run = "uv run bin/docs/client.py"
+description = "Generate client documentation"
 
-[tasks."docs:generate"]
-description = "Generate documentation for the CLI and client"
+[tasks."ci:gen"]
+description = "Regenerate client, CLI, and docs, then stage and lint (set IMMICH_OPENAPI_REF to a git ref)"
 run = [
+    { task = "generate:cli" },
+    { task = "generate:client" },
     { task = "docs:generate:cli" },
     { task = "docs:generate:client" },
+    # Stage generated files so pre-commit (which only lints tracked files) picks up new ones
+    "git add -A",
+    { task = "lint:fix" },
 ]

@@ -12,7 +12,7 @@ We manage the project with [mise](https://mise.jdx.dev). To get started, install
 
 Before submitting a pull request, please ensure:
 
-1. Run `mise run ci:check` to verify all checks pass
+1. Run `mise run lint` to verify linting
 2. Run all tests (see [Testing](#testing))
 
 ### Auto-generated code restrictions
