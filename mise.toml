@@ -13,9 +13,9 @@ description = "Run pre-commit hooks"
 run = "uvx pre-commit run --all-files || true"
 description = "Run pre-commit hooks without failing"
 
-[tasks.check]
-run = "uv run ty check"
-description = "Run type checking"
+[tasks."ci:lint"]
+description = "Run pre-commit hooks in CI"
+depends = ["ci:install", "lint"]
 
 [tasks."test:unit:cli"]
 run = "uv run pytest tests/unit/cli"
@@ -89,18 +89,9 @@ run = [
     { task = "lint:fix" },
 ]
 
-[tasks."ci:check"]
-description = "Run lint then check sequentially"
-depends = ["ci:install"]
-run = [
-    { task = "lint" },
-    { task = "check" },
-]
-
 [tasks."ci:install"]
 description = "Install dependencies in CI"
-depends = ["ci:install"]
-run = ["mise run install --locked"]
+depends = ["install --locked"]
 
 [tasks."ci:test:unit"]
 description = "Run unit tests in CI"
