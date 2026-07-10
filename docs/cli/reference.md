@@ -3900,6 +3900,7 @@ Example: 2024-01-01T00:00:00.000Z
 * `--is-motion [true|false]`: Filter by motion photo status
 * `--is-not-in-album [true|false]`: Filter assets not in any album
 * `--is-offline [true|false]`: Filter by offline status
+* `--key TEXT`
 * `--lens-model TEXT`: Filter by lens model
 * `--library-id UUID`: Library ID to filter by
 * `--make TEXT`: Filter by camera make
@@ -3913,6 +3914,7 @@ Example: 2024-01-01T00:00:00.000Z
 * `--preview-path TEXT`: Filter by preview file path
 * `--rating INTEGER RANGE`: Filter by rating [1-5], or null for unrated  [1&lt;=x&lt;=5]
 * `--size INTEGER RANGE`: Number of results to return  [1&lt;=x&lt;=1000]
+* `--slug TEXT`
 * `--state TEXT`: Filter by state/province name
 * `--tag-ids UUID`: Filter by tag IDs
 * `--taken-after [%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S]`: Filter by taken date (after)
@@ -5141,6 +5143,8 @@ $ immichpy system-config update-config [OPTIONS]
 * `--ffmpeg-preferred-hw-device TEXT`: Preferred hardware device  [required]
 * `--ffmpeg-preset TEXT`: Preset  [required]
 * `--ffmpeg-realtime-enabled`: Enable real-time HLS transcoding (alpha)  [required]
+* `--ffmpeg-realtime-resolutions [480|720|1080|1440|2160]`: Resolutions to use for real-time HLS transcoding  [required]
+* `--ffmpeg-realtime-video-codecs [h264|hevc|vp9|av1]`: Video codecs to use for real-time HLS transcoding  [required]
 * `--ffmpeg-refs INTEGER RANGE`: References  [0&lt;=x&lt;=6; required]
 * `--ffmpeg-target-audio-codec TEXT`: Target audio codec  [required]
 * `--ffmpeg-target-resolution TEXT`: Target resolution  [required]
@@ -5166,7 +5170,7 @@ $ immichpy system-config update-config [OPTIONS]
 * `--image-thumbnail-size INTEGER RANGE`: Size  [1&lt;=x&lt;=9007199254740991; required]
 * `--integrity-checks-checksum-files-cron-expression TEXT`: Cron expression for when the integrity check should run  [required]
 * `--integrity-checks-checksum-files-enabled`: Enabled  [required]
-* `--integrity-checks-checksum-files-percentage-limit INTEGER RANGE`: Percentage limit of the integrity checksum job  [0&lt;=x&lt;=9007199254740991; required]
+* `--integrity-checks-checksum-files-percentage-limit FLOAT RANGE`: Percentage limit of the integrity checksum job  [0&lt;=x&lt;=1; required]
 * `--integrity-checks-checksum-files-time-limit INTEGER RANGE`: How long the integrity checksum job may run for  [0&lt;=x&lt;=9007199254740991; required]
 * `--integrity-checks-missing-files-cron-expression TEXT`: Cron expression for when the integrity check should run  [required]
 * `--integrity-checks-missing-files-enabled`: Enabled  [required]

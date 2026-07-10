@@ -113,6 +113,16 @@ def update_config(
         "--ffmpeg-realtime-enabled",
         help=r"""Enable real-time HLS transcoding (alpha)""",
     ),
+    ffmpeg_realtime_resolutions: list[HlsVideoResolution] = typer.Option(
+        ...,
+        "--ffmpeg-realtime-resolutions",
+        help=r"""Resolutions to use for real-time HLS transcoding""",
+    ),
+    ffmpeg_realtime_video_codecs: list[VideoCodec] = typer.Option(
+        ...,
+        "--ffmpeg-realtime-video-codecs",
+        help=r"""Video codecs to use for real-time HLS transcoding""",
+    ),
     ffmpeg_refs: int = typer.Option(
         ..., "--ffmpeg-refs", help=r"""References""", min=0, max=6
     ),
@@ -190,12 +200,12 @@ def update_config(
     integrity_checks_checksum_files_enabled: bool = typer.Option(
         ..., "--integrity-checks-checksum-files-enabled", help=r"""Enabled"""
     ),
-    integrity_checks_checksum_files_percentage_limit: int = typer.Option(
+    integrity_checks_checksum_files_percentage_limit: float = typer.Option(
         ...,
         "--integrity-checks-checksum-files-percentage-limit",
         help=r"""Percentage limit of the integrity checksum job""",
         min=0,
-        max=9007199254740991,
+        max=1,
     ),
     integrity_checks_checksum_files_time_limit: int = typer.Option(
         ...,
@@ -661,6 +671,10 @@ def update_config(
     set_nested(json_data, ["ffmpeg_preferred_hw_device"], ffmpeg_preferred_hw_device)
     set_nested(json_data, ["ffmpeg_preset"], ffmpeg_preset)
     set_nested(json_data, ["ffmpeg_realtime_enabled"], ffmpeg_realtime_enabled)
+    set_nested(json_data, ["ffmpeg_realtime_resolutions"], ffmpeg_realtime_resolutions)
+    set_nested(
+        json_data, ["ffmpeg_realtime_video_codecs"], ffmpeg_realtime_video_codecs
+    )
     set_nested(json_data, ["ffmpeg_refs"], ffmpeg_refs)
     set_nested(json_data, ["ffmpeg_target_audio_codec"], ffmpeg_target_audio_codec)
     set_nested(json_data, ["ffmpeg_target_resolution"], ffmpeg_target_resolution)

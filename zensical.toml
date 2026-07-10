@@ -223,6 +223,7 @@ nav = [
                 "client/reference/models/facial_recognition_config.md",
                 "client/reference/models/folders_response.md",
                 "client/reference/models/folders_update.md",
+                "client/reference/models/hls_video_resolution.md",
                 "client/reference/models/image_format.md",
                 "client/reference/models/integrity_report.md",
                 "client/reference/models/integrity_report_response_dto.md",
