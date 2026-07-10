@@ -146,6 +146,7 @@ generated/models/face_dto.py
 generated/models/facial_recognition_config.py
 generated/models/folders_response.py
 generated/models/folders_update.py
+generated/models/hls_video_resolution.py
 generated/models/image_format.py
 generated/models/integrity_report.py
 generated/models/integrity_report_response_dto.py

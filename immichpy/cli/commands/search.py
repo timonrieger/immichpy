@@ -328,6 +328,7 @@ Example: 2024-01-01T00:00:00.000Z""",
     is_offline: Literal["true", "false"] | None = typer.Option(
         None, "--is-offline", help=r"""Filter by offline status"""
     ),
+    key: str | None = typer.Option(None, "--key", help=r""""""),
     lens_model: str | None = typer.Option(
         None, "--lens-model", help=r"""Filter by lens model"""
     ),
@@ -367,6 +368,7 @@ Example: 2024-01-01T00:00:00.000Z""",
     size: int | None = typer.Option(
         None, "--size", help=r"""Number of results to return""", min=1, max=1000
     ),
+    slug: str | None = typer.Option(None, "--slug", help=r""""""),
     state: str | None = typer.Option(
         None, "--state", help=r"""Filter by state/province name"""
     ),
@@ -441,6 +443,10 @@ Example: 2024-01-01T00:00:00.000Z""",
     """
     kwargs = {}
     json_data = {}
+    if key is not None:
+        kwargs["key"] = key
+    if slug is not None:
+        kwargs["slug"] = slug
     if album_ids is not None:
         set_nested(json_data, ["album_ids"], album_ids)
     if checksum is not None:
