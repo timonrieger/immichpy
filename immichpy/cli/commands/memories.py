@@ -142,12 +142,12 @@ def get_memory(
 @app.command("memories-statistics", deprecated=False, rich_help_panel="API commands")
 def memories_statistics(
     ctx: typer.Context,
-    for_: datetime | None = typer.Option(
+    for_: str | None = typer.Option(
         None,
         "--for",
         help=r"""Filter by date
 
-Example: 2024-01-01T00:00:00.000Z""",
+Example: 2024-01-01""",
     ),
     is_saved: Literal["true", "false"] | None = typer.Option(
         None, "--is-saved", help=r"""Filter by saved status"""
@@ -211,12 +211,12 @@ def remove_memory_assets(
 @app.command("search-memories", deprecated=False, rich_help_panel="API commands")
 def search_memories(
     ctx: typer.Context,
-    for_: datetime | None = typer.Option(
+    for_: str | None = typer.Option(
         None,
         "--for",
         help=r"""Filter by date
 
-Example: 2024-01-01T00:00:00.000Z""",
+Example: 2024-01-01""",
     ),
     is_saved: Literal["true", "false"] | None = typer.Option(
         None, "--is-saved", help=r"""Filter by saved status"""
