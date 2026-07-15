@@ -2796,9 +2796,9 @@ $ immichpy memories memories-statistics [OPTIONS]
 
 **Options**:
 
-* `--for [%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S]`: Filter by date
+* `--for TEXT`: Filter by date
 
-Example: 2024-01-01T00:00:00.000Z
+Example: 2024-01-01
 * `--is-saved [true|false]`: Filter by saved status
 * `--is-trashed [true|false]`: Include trashed memories
 * `--order [asc|desc|random]`
@@ -2841,9 +2841,9 @@ $ immichpy memories search-memories [OPTIONS]
 
 **Options**:
 
-* `--for [%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S]`: Filter by date
+* `--for TEXT`: Filter by date
 
-Example: 2024-01-01T00:00:00.000Z
+Example: 2024-01-01
 * `--is-saved [true|false]`: Filter by saved status
 * `--is-trashed [true|false]`: Include trashed memories
 * `--order [asc|desc|random]`
