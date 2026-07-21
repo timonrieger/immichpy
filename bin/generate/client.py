@@ -1,7 +1,7 @@
 # /// script
 # requires-python = ">=3.11"
 # dependencies = [
-#   "openapi-generator-cli[jdk4py]==7.23.0",
+#   "openapi-generator-cli[jdk4py]==7.24.0",
 # ]
 # ///
 
@@ -83,8 +83,6 @@ def main() -> int:
         "--minimal-update",
         "--library",
         "asyncio",
-        "-t",
-        f"{str(root / 'bin' / 'generate' / 'templates')}",
     ]
     subprocess.run(generator_cmd, cwd=str(root), check=True)  # nosec: B603
 
