@@ -4,7 +4,7 @@ This guide shows how to replace raw HTTP requests with immichpy with minimal cha
 
 ## Synchronous clients
 
-If you use a synchronous HTTP client (e.g. `requests`) to fetch server version, you can keep a sync entrypoint and call the async client via a small helper. All examples below call the fetch-server-version endpoint.
+If you use a synchronous HTTP client (e.g. `requests`) to fetch server version, you can keep a sync entrypoint and call the async client via a small helper.
 
 === "requests"
 

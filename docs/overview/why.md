@@ -10,7 +10,7 @@ The primary goal of immichpy is to track Immich API changes quickly and maintain
 Using immichpy does not change your architecture - it simply replaces manual HTTP calls with typed endpoint functions. If a project later decides to remove the dependency, the calls map directly back to the raw API, avoiding any architectural dead ends. Read more about the [integration](/client/integration-guide).
 
 ### 4. Longevity
-immichpy is designed as a shared, reliable API layer for Python projects in the Immich ecosystem, not just a single-use library. While the project is still young, its foundations are solid:
+immichpy is designed as a shared, reliable API layer for Python projects in the Immich ecosystem, not just a single-use library. The library's foundations are solid:
 
 - The code generation approach is mature and well-tested
 - The client structure is based on patterns already used in production systems

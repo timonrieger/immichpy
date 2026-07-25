@@ -52,9 +52,9 @@ edit_uri = "edit/main/docs"
 nav = [
     {"Home" = "index.md"},
     { Overview = [
+        "overview/getting-started.md",
         "overview/why.md",
         "overview/who-uses-immichpy.md",
-        "overview/getting-started.md",
         "overview/features.md",
         "overview/versioning.md",
         "overview/auto-sync.md",
