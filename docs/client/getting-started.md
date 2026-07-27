@@ -62,7 +62,8 @@ You can use the client with or without a context manager.
     ```
 
 Run it with
-<div class="termy">
+
+<!-- termynal -->
 
 ```console
 $ python main.py
