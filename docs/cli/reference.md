@@ -570,8 +570,8 @@ $ immichpy albums remove-user-from-album [OPTIONS] ID USER_ID
 
 **Arguments**:
 
-* `ID`: [required]
-* `USER_ID`: [required]
+* `ID`: Album ID  [required]
+* `USER_ID`: Album user ID, or &quot;me&quot; to reference the current user.  [required]
 
 **Options**:
 
@@ -616,8 +616,8 @@ $ immichpy albums update-album-user [OPTIONS] ID USER_ID
 
 **Arguments**:
 
-* `ID`: [required]
-* `USER_ID`: [required]
+* `ID`: Album ID  [required]
+* `USER_ID`: Album user ID, or &quot;me&quot; to reference the current user.  [required]
 
 **Options**:
 

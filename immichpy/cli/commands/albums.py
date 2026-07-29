@@ -274,8 +274,10 @@ def remove_asset_from_album(
 @app.command("remove-user-from-album", deprecated=False, rich_help_panel="API commands")
 def remove_user_from_album(
     ctx: typer.Context,
-    id: UUID = typer.Argument(..., help=r""""""),
-    user_id: str = typer.Argument(..., help=r""""""),
+    id: UUID = typer.Argument(..., help=r"""Album ID"""),
+    user_id: str = typer.Argument(
+        ..., help=r"""Album user ID, or "me" to reference the current user."""
+    ),
 ) -> None:
     """Remove user from album
 
@@ -334,8 +336,10 @@ def update_album_info(
 @app.command("update-album-user", deprecated=False, rich_help_panel="API commands")
 def update_album_user(
     ctx: typer.Context,
-    id: UUID = typer.Argument(..., help=r""""""),
-    user_id: str = typer.Argument(..., help=r""""""),
+    id: UUID = typer.Argument(..., help=r"""Album ID"""),
+    user_id: str = typer.Argument(
+        ..., help=r"""Album user ID, or "me" to reference the current user."""
+    ),
     role: str = typer.Option(..., "--role", help=r"""Album user role"""),
 ) -> None:
     """Update user role
