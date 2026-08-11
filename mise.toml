@@ -1,9 +1,16 @@
+[settings]
+experimental = true # required for [deps]
+
 [tools]
 python = "3.14.6"
 uv = "0.11.25"
 
 [env]
 _.python.venv = { path = ".venv" }
+
+[deps.uv]
+auto = true
+run = "uv sync --all-groups --all-extras ${CI:+--locked}"
 
 [tasks.install]
 run = "uv sync --all-groups --all-extras ${CI:+--locked}"
@@ -23,12 +30,10 @@ run = ["mise run install", "uvx prek install"]
 description = "Setup the project"
 
 [tasks.lint]
-depends = ["install"]
 run = "uvx prek run --all-files"
 description = "Run pre-commit hooks"
 
 [tasks."lint:fix"]
-depends = ["install"]
 run = "uvx prek run --all-files || true"
 description = "Run pre-commit hooks, ignoring failures"
 
@@ -41,7 +46,6 @@ run = "uv run pytest tests/unit/client"
 description = "Run client unit tests"
 
 [tasks."test:unit"]
-depends = ["install"]
 run = [{ task = "test:unit:cli" }, { task = "test:unit:client" }]
 description = "Run all unit tests"
 
@@ -54,7 +58,6 @@ run = "uv run pytest tests/e2e/client"
 description = "Run e2e client tests"
 
 [tasks."test:e2e"]
-depends = ["install"]
 run = [{ task = "test:e2e:cli" }, { task = "test:e2e:client" }]
 description = "Run all e2e tests"
 
@@ -71,7 +74,6 @@ run = "uv run zensical serve"
 description = "Run documentation development server"
 
 [tasks."docs:generate:cli"]
-depends = ["install"]
 run = "uv run typer immichpy/cli/main.py utils docs --name immichpy --output docs/cli/reference.md --title Reference"
 description = "Generate CLI documentation"
 
