@@ -1,3 +1,7 @@
+#!/usr/bin/env -S uv run --script
+# fmt: off
+#MISE description="Generate Immich CLI"
+# fmt: on
 # /// script
 # requires-python = ">=3.11"
 # dependencies = [
@@ -591,7 +595,8 @@ def generate_tag_app(
 
 def main() -> None:
     """Main codegen entrypoint."""
-    commands_dir = Path(__file__).resolve().parents[2] / "immichpy" / "cli" / "commands"
+    # This file lives at .mise/tasks/generate/cli.py
+    commands_dir = Path(__file__).resolve().parents[3] / "immichpy" / "cli" / "commands"
 
     # Fetch OpenAPI spec
     url = openapi_url(os.environ.get("IMMICH_OPENAPI_REF", "main"))

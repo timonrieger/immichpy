@@ -1,4 +1,13 @@
-#!/usr/bin/env python3
+#!/usr/bin/env -S uv run --script
+# fmt: off
+#MISE description="Generate client documentation"
+# fmt: on
+# /// script
+# requires-python = ">=3.11"
+# dependencies = [
+#   "rtoml>=0.13.0,<0.14.0",
+# ]
+# ///
 """Generate API documentation markdown files from client classes."""
 
 from pathlib import Path
@@ -141,7 +150,8 @@ def update_nav(project_root: Path) -> None:
 
 def main():
     """Generate markdown files for all client classes."""
-    project_root = Path(__file__).parent.parent.parent
+    # This file lives at .mise/tasks/docs/generate/client.py
+    project_root = Path(__file__).resolve().parents[4]
     client_dir = project_root / "immichpy" / "client"
     docs_ref_dir = project_root / "docs" / "client" / "reference"
 

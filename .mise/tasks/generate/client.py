@@ -1,3 +1,7 @@
+#!/usr/bin/env -S uv run --script
+# fmt: off
+#MISE description="Generate Immich API client"
+# fmt: on
 # /// script
 # requires-python = ">=3.11"
 # dependencies = [
@@ -14,8 +18,8 @@ from pathlib import Path
 
 
 def project_root() -> Path:
-    # This file lives at bin/generate/client.py
-    return Path(__file__).resolve().parents[2]
+    # This file lives at .mise/tasks/generate/client.py
+    return Path(__file__).resolve().parents[3]
 
 
 def openapi_url(ref: str) -> str:
