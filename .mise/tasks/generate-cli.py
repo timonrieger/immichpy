@@ -595,8 +595,8 @@ def generate_tag_app(
 
 def main() -> None:
     """Main codegen entrypoint."""
-    # This file lives at .mise/tasks/generate/cli.py
-    commands_dir = Path(__file__).resolve().parents[3] / "immichpy" / "cli" / "commands"
+    # This file lives at .mise/tasks/generate-cli.py
+    commands_dir = Path(__file__).resolve().parents[2] / "immichpy" / "cli" / "commands"
 
     # Fetch OpenAPI spec
     url = openapi_url(os.environ.get("IMMICH_OPENAPI_REF", "main"))

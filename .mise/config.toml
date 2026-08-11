@@ -17,11 +17,11 @@ run = "uv sync --all-groups --all-extras ${CI:+--locked}"
 alias = "i"
 description = "Install dependencies (alias: 'i'); asserts the lockfile with --locked under CI"
 
-[tasks."install:upgrade"]
+[tasks.install-upgrade]
 run = ["mise run install --upgrade", "uvx prek update --freeze"]
 description = "Upgrade dependencies in the allowed ranges"
 
-[tasks."install:check"]
+[tasks.install-check]
 run = ["uv tree --outdated --all-groups --depth 1", "uvx prek update --freeze --dry-run"]
 description = "Check dependencies for updates"
 
@@ -33,50 +33,50 @@ description = "Setup the project"
 run = "uvx prek run --all-files"
 description = "Run pre-commit hooks"
 
-[tasks."lint:fix"]
+[tasks.lint-fix]
 run = "uvx prek run --all-files || true"
 description = "Run pre-commit hooks, ignoring failures"
 
-[tasks."test:unit:cli"]
+[tasks.test-unit-cli]
 run = "uv run pytest tests/unit/cli"
 description = "Run CLI unit tests"
 
-[tasks."test:unit:client"]
+[tasks.test-unit-client]
 run = "uv run pytest tests/unit/client"
 description = "Run client unit tests"
 
-[tasks."test:unit"]
-run = [{ task = "test:unit:cli" }, { task = "test:unit:client" }]
+[tasks.test-unit]
+run = [{ task = "test-unit-cli" }, { task = "test-unit-client" }]
 description = "Run all unit tests"
 
-[tasks."test:e2e:cli"]
+[tasks.test-e2e-cli]
 run = "uv run pytest tests/e2e/cli"
 description = "Run e2e CLI tests"
 
-[tasks."test:e2e:client"]
+[tasks.test-e2e-client]
 run = "uv run pytest tests/e2e/client"
 description = "Run e2e client tests"
 
-[tasks."test:e2e"]
-run = [{ task = "test:e2e:cli" }, { task = "test:e2e:client" }]
+[tasks.test-e2e]
+run = [{ task = "test-e2e-cli" }, { task = "test-e2e-client" }]
 description = "Run all e2e tests"
 
-[tasks."docs:dev"]
+[tasks.docs-dev]
 run = "uv run zensical serve"
 description = "Run documentation development server"
 
-[tasks."docs:generate:cli"]
+[tasks.docs-generate-cli]
 run = "uv run typer immichpy/cli/main.py utils docs --name immichpy --output docs/cli/reference.md --title Reference"
 description = "Generate CLI documentation"
 
-[tasks."ci:gen"]
+[tasks.ci-gen]
 description = "Regenerate client, CLI, and docs, then stage and lint (set IMMICH_OPENAPI_REF to a git ref)"
 run = [
-    { task = "generate:cli" },
-    { task = "generate:client" },
-    { task = "docs:generate:cli" },
-    { task = "docs:generate:client" },
+    { task = "generate-cli" },
+    { task = "generate-client" },
+    { task = "docs-generate-cli" },
+    { task = "docs-generate-client" },
     # Stage generated files so pre-commit (which only lints tracked files) picks up new ones
     "git add -A",
-    { task = "lint:fix" },
+    { task = "lint-fix" },
 ]

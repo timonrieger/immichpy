@@ -24,7 +24,7 @@ The following directories contain auto-generated code and **must not be modified
 
 ### Testing
 
-To run tests, run any of the `mise run test:*` tasks. Make sure all tests pass before submitting a pull request. To run End-to-End tests against a local server, replicate the CI workflow commands locally.
+To run tests, run any of the `mise run test-*` tasks. Make sure all tests pass before submitting a pull request. To run End-to-End tests against a local server, replicate the CI workflow commands locally.
 
 ## Issues
 
