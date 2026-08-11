@@ -10,7 +10,7 @@
 
 ## Commands
 
-Use `mise` tasks to run all project commands. See `mise.toml` for all available tasks.
+Use `mise` tasks to run all project commands. See `.mise/config.toml` for all available tasks.
 
 ## Commit Messages
 

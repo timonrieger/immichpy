@@ -61,14 +61,6 @@ description = "Run e2e client tests"
 run = [{ task = "test:e2e:cli" }, { task = "test:e2e:client" }]
 description = "Run all e2e tests"
 
-[tasks."generate:client"]
-run = "uv run bin/generate/client.py"
-description = "Generate Immich API client"
-
-[tasks."generate:cli"]
-run = "uv run bin/generate/cli.py"
-description = "Generate Immich CLI"
-
 [tasks."docs:dev"]
 run = "uv run zensical serve"
 description = "Run documentation development server"
@@ -76,10 +68,6 @@ description = "Run documentation development server"
 [tasks."docs:generate:cli"]
 run = "uv run typer immichpy/cli/main.py utils docs --name immichpy --output docs/cli/reference.md --title Reference"
 description = "Generate CLI documentation"
-
-[tasks."docs:generate:client"]
-run = "uv run bin/docs/client.py"
-description = "Generate client documentation"
 
 [tasks."ci:gen"]
 description = "Regenerate client, CLI, and docs, then stage and lint (set IMMICH_OPENAPI_REF to a git ref)"
