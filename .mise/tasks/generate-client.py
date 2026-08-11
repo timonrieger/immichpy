@@ -18,8 +18,8 @@ from pathlib import Path
 
 
 def project_root() -> Path:
-    # This file lives at .mise/tasks/generate/client.py
-    return Path(__file__).resolve().parents[3]
+    # This file lives at .mise/tasks/generate-client.py
+    return Path(__file__).resolve().parents[2]
 
 
 def openapi_url(ref: str) -> str:

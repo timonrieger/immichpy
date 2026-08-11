@@ -150,8 +150,8 @@ def update_nav(project_root: Path) -> None:
 
 def main():
     """Generate markdown files for all client classes."""
-    # This file lives at .mise/tasks/docs/generate/client.py
-    project_root = Path(__file__).resolve().parents[4]
+    # This file lives at .mise/tasks/docs-generate-client.py
+    project_root = Path(__file__).resolve().parents[2]
     client_dir = project_root / "immichpy" / "client"
     docs_ref_dir = project_root / "docs" / "client" / "reference"
 

@@ -152,7 +152,7 @@ jobs:
         if: steps.check_sync.outputs.sync_needed == 'true'
         env:
           IMMICH_OPENAPI_REF: ${{ steps.tag_to_use.outputs.tag }}
-        run: mise run ci:gen
+        run: mise run ci-gen
 
       - name: Update stored tag file
         if: steps.check_sync.outputs.sync_needed == 'true'
