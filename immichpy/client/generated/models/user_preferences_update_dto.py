@@ -33,7 +33,7 @@ from immichpy.client.generated.models.ratings_update import RatingsUpdate
 from immichpy.client.generated.models.recently_added_update import RecentlyAddedUpdate
 from immichpy.client.generated.models.shared_links_update import SharedLinksUpdate
 from immichpy.client.generated.models.tags_update import TagsUpdate
-from typing import Set
+from typing import Optional, Set
 from typing_extensions import Self
 from pydantic_core import to_jsonable_python
 

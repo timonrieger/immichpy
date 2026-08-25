@@ -22,7 +22,7 @@ from immichpy.client.generated.models.workflow_share_step_dto import (
     WorkflowShareStepDto,
 )
 from immichpy.client.generated.models.workflow_trigger import WorkflowTrigger
-from typing import Set
+from typing import Optional, Set
 from typing_extensions import Self
 from pydantic_core import to_jsonable_python
 
@@ -79,8 +79,9 @@ class WorkflowShareResponseDto(BaseModel):
         _items = []
         if self.steps:
             for _item_steps in self.steps:
-                if _item_steps:
-                    _items.append(_item_steps.to_dict())
+                _items.append(
+                    _item_steps.to_dict() if _item_steps is not None else None
+                )
             _dict["steps"] = _items
         # set to None if description (nullable) is None
         # and model_fields_set contains the field

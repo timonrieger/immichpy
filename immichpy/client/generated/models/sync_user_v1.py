@@ -28,7 +28,7 @@ from pydantic import (
 from typing import Any, ClassVar, Dict, List, Optional
 from uuid import UUID
 from immichpy.client.generated.models.user_avatar_color import UserAvatarColor
-from typing import Set
+from typing import Optional, Set
 from typing_extensions import Self
 from pydantic_core import to_jsonable_python
 

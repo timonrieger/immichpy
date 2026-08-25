@@ -5,7 +5,7 @@
 # /// script
 # requires-python = ">=3.11"
 # dependencies = [
-#   "openapi-generator-cli[jdk4py]==7.24.0",
+#   "openapi-generator-cli[jdk4py]==7.25.0",
 # ]
 # ///
 

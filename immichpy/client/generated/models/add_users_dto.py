@@ -76,8 +76,11 @@ class AddUsersDto(BaseModel):
         _items = []
         if self.album_users:
             for _item_album_users in self.album_users:
-                if _item_album_users:
-                    _items.append(_item_album_users.to_dict())
+                _items.append(
+                    _item_album_users.to_dict()
+                    if _item_album_users is not None
+                    else None
+                )
             _dict["albumUsers"] = _items
         return _dict
 

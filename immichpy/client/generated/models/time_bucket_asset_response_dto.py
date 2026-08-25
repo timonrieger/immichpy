@@ -28,7 +28,7 @@ from pydantic import (
 from typing import Any, ClassVar, Dict, List, Optional, Union
 from typing_extensions import Annotated
 from immichpy.client.generated.models.asset_visibility import AssetVisibility
-from typing import Set
+from typing import Optional, Set
 from typing_extensions import Self
 from pydantic_core import to_jsonable_python
 

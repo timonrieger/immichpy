@@ -19,7 +19,7 @@ import json
 from pydantic import BaseModel, ConfigDict, Field, StrictBool
 from typing import Any, ClassVar, Dict, List, Optional
 from immichpy.client.generated.models.queue_command import QueueCommand
-from typing import Set
+from typing import Optional, Set
 from typing_extensions import Self
 from pydantic_core import to_jsonable_python
 

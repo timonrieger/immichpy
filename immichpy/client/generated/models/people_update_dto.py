@@ -73,8 +73,9 @@ class PeopleUpdateDto(BaseModel):
         _items = []
         if self.people:
             for _item_people in self.people:
-                if _item_people:
-                    _items.append(_item_people.to_dict())
+                _items.append(
+                    _item_people.to_dict() if _item_people is not None else None
+                )
             _dict["people"] = _items
         return _dict
 

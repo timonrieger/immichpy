@@ -15,7 +15,9 @@ from typing import Any, Dict, List, Optional, Tuple, Union
 from typing_extensions import Annotated
 
 from datetime import datetime
-from pydantic import StrictBool, StrictBytes
+from pydantic import Field, StrictBool, StrictBytes, StrictStr, field_validator
+from typing import List, Optional, Tuple, Union
+from typing_extensions import Annotated
 from uuid import UUID
 from immichpy.client.generated.models.asset_bulk_delete_dto import AssetBulkDeleteDto
 from immichpy.client.generated.models.asset_bulk_update_dto import AssetBulkUpdateDto

@@ -73,8 +73,9 @@ class DatabaseBackupListResponseDto(BaseModel):
         _items = []
         if self.backups:
             for _item_backups in self.backups:
-                if _item_backups:
-                    _items.append(_item_backups.to_dict())
+                _items.append(
+                    _item_backups.to_dict() if _item_backups is not None else None
+                )
             _dict["backups"] = _items
         return _dict
 

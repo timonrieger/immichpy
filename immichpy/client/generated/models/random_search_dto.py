@@ -30,7 +30,7 @@ from typing_extensions import Annotated
 from uuid import UUID
 from immichpy.client.generated.models.asset_type_enum import AssetTypeEnum
 from immichpy.client.generated.models.asset_visibility import AssetVisibility
-from typing import Set
+from typing import Optional, Set
 from typing_extensions import Self
 from pydantic_core import to_jsonable_python
 
