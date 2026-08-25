@@ -2,9 +2,10 @@
 
 from __future__ import annotations
 
-import typer
 from pathlib import Path
 from typing import TYPE_CHECKING
+
+import typer
 
 if TYPE_CHECKING:
     from immichpy import AsyncClient
@@ -33,7 +34,7 @@ def delete_database_backup(
     set_nested(json_data, ["backups"], backups)
     database_backup_delete_dto = DatabaseBackupDeleteDto.model_validate(json_data)
     kwargs["database_backup_delete_dto"] = database_backup_delete_dto
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.backups.delete_database_backup, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)
 
@@ -51,7 +52,7 @@ def download_database_backup(
     """
     kwargs = {}
     kwargs["filename"] = filename
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.backups.download_database_backup, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)
 
@@ -65,7 +66,7 @@ def list_database_backups(
     [link=https://api.immich.app/endpoints/database-backups-admin/listDatabaseBackups]Immich API documentation[/link]
     """
     kwargs = {}
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.backups.list_database_backups, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)
 
@@ -81,7 +82,7 @@ def start_database_restore_flow(
     [link=https://api.immich.app/endpoints/database-backups-admin/startDatabaseRestoreFlow]Immich API documentation[/link]
     """
     kwargs = {}
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.backups.start_database_restore_flow, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)
 
@@ -102,6 +103,6 @@ def upload_database_backup(
     if file is not None:
         set_nested(json_data, ["file"], (file.name, file.read_bytes()))
     kwargs.update(json_data)
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.backups.upload_database_backup, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)

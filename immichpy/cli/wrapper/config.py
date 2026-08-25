@@ -1,4 +1,5 @@
 import typer
+
 from immichpy.cli.consts import CONFIG_FILE
 from immichpy.cli.utils import (
     check_config,

@@ -2,9 +2,10 @@
 
 from __future__ import annotations
 
-import typer
+from typing import TYPE_CHECKING, Literal
 from uuid import UUID
-from typing import Literal, TYPE_CHECKING
+
+import typer
 
 if TYPE_CHECKING:
     from immichpy import AsyncClient
@@ -123,7 +124,7 @@ Example: 2024-01-01""",
         kwargs["with_partners"] = with_partners.lower() == "true"
     if with_stacked is not None:
         kwargs["with_stacked"] = with_stacked.lower() == "true"
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.timeline.get_time_bucket, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)
 
@@ -226,6 +227,6 @@ Example: 11.075683,49.416711,11.117589,49.454875""",
         kwargs["with_partners"] = with_partners.lower() == "true"
     if with_stacked is not None:
         kwargs["with_stacked"] = with_stacked.lower() == "true"
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.timeline.get_time_buckets, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)

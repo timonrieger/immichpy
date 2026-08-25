@@ -2,9 +2,10 @@
 
 from __future__ import annotations
 
-import typer
+from typing import TYPE_CHECKING, Literal
 from uuid import UUID
-from typing import Literal, TYPE_CHECKING
+
+import typer
 
 if TYPE_CHECKING:
     from immichpy import AsyncClient
@@ -46,7 +47,7 @@ def create_session(
         set_nested(json_data, ["duration"], duration)
     session_create_dto = SessionCreateDto.model_validate(json_data)
     kwargs["session_create_dto"] = session_create_dto
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.sessions.create_session, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)
 
@@ -60,7 +61,7 @@ def delete_all_sessions(
     [link=https://api.immich.app/endpoints/sessions/deleteAllSessions]Immich API documentation[/link]
     """
     kwargs = {}
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.sessions.delete_all_sessions, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)
 
@@ -76,7 +77,7 @@ def delete_session(
     """
     kwargs = {}
     kwargs["id"] = id
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.sessions.delete_session, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)
 
@@ -90,7 +91,7 @@ def get_sessions(
     [link=https://api.immich.app/endpoints/sessions/getSessions]Immich API documentation[/link]
     """
     kwargs = {}
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.sessions.get_sessions, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)
 
@@ -106,7 +107,7 @@ def lock_session(
     """
     kwargs = {}
     kwargs["id"] = id
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.sessions.lock_session, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)
 
@@ -134,6 +135,6 @@ def update_session(
         )
     session_update_dto = SessionUpdateDto.model_validate(json_data)
     kwargs["session_update_dto"] = session_update_dto
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.sessions.update_session, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)

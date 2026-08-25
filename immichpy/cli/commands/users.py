@@ -2,10 +2,11 @@
 
 from __future__ import annotations
 
-import typer
 from pathlib import Path
+from typing import TYPE_CHECKING, Literal
 from uuid import UUID
-from typing import Literal, TYPE_CHECKING
+
+import typer
 
 if TYPE_CHECKING:
     from immichpy import AsyncClient
@@ -33,7 +34,7 @@ def create_profile_image(
     json_data = {}
     kwargs["file"] = (file.name, file.read_bytes())
     kwargs.update(json_data)
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.users.create_profile_image, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)
 
@@ -47,7 +48,7 @@ def delete_profile_image(
     [link=https://api.immich.app/endpoints/users/deleteProfileImage]Immich API documentation[/link]
     """
     kwargs = {}
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.users.delete_profile_image, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)
 
@@ -61,7 +62,7 @@ def delete_user_license(
     [link=https://api.immich.app/endpoints/users/deleteUserLicense]Immich API documentation[/link]
     """
     kwargs = {}
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.users.delete_user_license, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)
 
@@ -75,7 +76,7 @@ def delete_user_onboarding(
     [link=https://api.immich.app/endpoints/users/deleteUserOnboarding]Immich API documentation[/link]
     """
     kwargs = {}
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.users.delete_user_onboarding, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)
 
@@ -112,7 +113,7 @@ Example: 2024-01-01""",
         kwargs["to"] = to
     if type is not None:
         kwargs["type"] = type
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.users.get_my_calendar_heatmap, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)
 
@@ -126,7 +127,7 @@ def get_my_preferences(
     [link=https://api.immich.app/endpoints/users/getMyPreferences]Immich API documentation[/link]
     """
     kwargs = {}
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.users.get_my_preferences, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)
 
@@ -140,7 +141,7 @@ def get_my_user(
     [link=https://api.immich.app/endpoints/users/getMyUser]Immich API documentation[/link]
     """
     kwargs = {}
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.users.get_my_user, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)
 
@@ -156,7 +157,7 @@ def get_profile_image(
     """
     kwargs = {}
     kwargs["id"] = id
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.users.get_profile_image, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)
 
@@ -172,7 +173,7 @@ def get_user(
     """
     kwargs = {}
     kwargs["id"] = id
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.users.get_user, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)
 
@@ -186,7 +187,7 @@ def get_user_license(
     [link=https://api.immich.app/endpoints/users/getUserLicense]Immich API documentation[/link]
     """
     kwargs = {}
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.users.get_user_license, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)
 
@@ -200,7 +201,7 @@ def get_user_onboarding(
     [link=https://api.immich.app/endpoints/users/getUserOnboarding]Immich API documentation[/link]
     """
     kwargs = {}
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.users.get_user_onboarding, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)
 
@@ -214,7 +215,7 @@ def search_users(
     [link=https://api.immich.app/endpoints/users/searchUsers]Immich API documentation[/link]
     """
     kwargs = {}
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.users.search_users, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)
 
@@ -241,7 +242,7 @@ def set_user_license(
     set_nested(json_data, ["license_key"], license_key)
     license_key_dto = LicenseKeyDto.model_validate(json_data)
     kwargs["license_key_dto"] = license_key_dto
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.users.set_user_license, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)
 
@@ -262,7 +263,7 @@ def set_user_onboarding(
     set_nested(json_data, ["is_onboarded"], is_onboarded)
     onboarding_dto = OnboardingDto.model_validate(json_data)
     kwargs["onboarding_dto"] = onboarding_dto
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.users.set_user_onboarding, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)
 
@@ -462,7 +463,7 @@ def update_my_preferences(
         set_nested(json_data, ["tags_sidebar_web"], tags_sidebar_web.lower() == "true")
     user_preferences_update_dto = UserPreferencesUpdateDto.model_validate(json_data)
     kwargs["user_preferences_update_dto"] = user_preferences_update_dto
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.users.update_my_preferences, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)
 
@@ -497,6 +498,6 @@ def update_my_user(
         set_nested(json_data, ["password"], password)
     user_update_me_dto = UserUpdateMeDto.model_validate(json_data)
     kwargs["user_update_me_dto"] = user_update_me_dto
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.users.update_my_user, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)

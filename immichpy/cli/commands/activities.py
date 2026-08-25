@@ -2,9 +2,10 @@
 
 from __future__ import annotations
 
-import typer
-from uuid import UUID
 from typing import TYPE_CHECKING
+from uuid import UUID
+
+import typer
 
 if TYPE_CHECKING:
     from immichpy import AsyncClient
@@ -43,7 +44,7 @@ def create_activity(
     set_nested(json_data, ["type"], type)
     activity_create_dto = ActivityCreateDto.model_validate(json_data)
     kwargs["activity_create_dto"] = activity_create_dto
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.activities.create_activity, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)
 
@@ -59,7 +60,7 @@ def delete_activity(
     """
     kwargs = {}
     kwargs["id"] = id
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.activities.delete_activity, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)
 
@@ -91,7 +92,7 @@ def get_activities(
         kwargs["type"] = type
     if user_id is not None:
         kwargs["user_id"] = user_id
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.activities.get_activities, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)
 
@@ -114,6 +115,6 @@ def get_activity_statistics(
     kwargs["album_id"] = album_id
     if asset_id is not None:
         kwargs["asset_id"] = asset_id
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.activities.get_activity_statistics, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)

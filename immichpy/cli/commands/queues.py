@@ -2,8 +2,9 @@
 
 from __future__ import annotations
 
+from typing import TYPE_CHECKING, Literal
+
 import typer
-from typing import Literal, TYPE_CHECKING
 
 if TYPE_CHECKING:
     from immichpy import AsyncClient
@@ -37,7 +38,7 @@ def empty_queue(
         set_nested(json_data, ["failed"], failed.lower() == "true")
     queue_delete_dto = QueueDeleteDto.model_validate(json_data)
     kwargs["queue_delete_dto"] = queue_delete_dto
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.queues.empty_queue, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)
 
@@ -53,7 +54,7 @@ def get_queue(
     """
     kwargs = {}
     kwargs["name"] = name
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.queues.get_queue, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)
 
@@ -74,7 +75,7 @@ def get_queue_jobs(
     kwargs["name"] = name
     if status is not None:
         kwargs["status"] = status
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.queues.get_queue_jobs, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)
 
@@ -88,7 +89,7 @@ def get_queues(
     [link=https://api.immich.app/endpoints/queues/getQueues]Immich API documentation[/link]
     """
     kwargs = {}
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.queues.get_queues, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)
 
@@ -112,6 +113,6 @@ def update_queue(
         set_nested(json_data, ["is_paused"], is_paused.lower() == "true")
     queue_update_dto = QueueUpdateDto.model_validate(json_data)
     kwargs["queue_update_dto"] = queue_update_dto
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.queues.update_queue, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)

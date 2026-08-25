@@ -1,10 +1,11 @@
-from typing import Any, cast, overload
 import json
+from typing import Any, cast, overload
 
-from rich import print as print_rich, print_json
-from rich.table import Table
 import rtoml
 import typer
+from rich import print as print_rich
+from rich import print_json
+from rich.table import Table
 
 from immichpy.cli.consts import CONFIG_FILE, DEFAULT_FORMAT, SECRET_KEYS
 from immichpy.cli.types import ClientConfig, FormatMode, PrintType
@@ -179,9 +180,8 @@ def mask(obj: Any, start: int = 3, end: int = 3, key: str | None = None) -> Any:
         }
     if isinstance(obj, list):
         return [mask(v, start, end) for v in obj]
-    if isinstance(obj, str):
-        if key is None or _is_secret_key(key):
-            return _redact_secret(obj, start, end)
+    if isinstance(obj, str) and (key is None or _is_secret_key(key)):
+        return _redact_secret(obj, start, end)
     return obj
 
 

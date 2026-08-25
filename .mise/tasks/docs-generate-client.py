@@ -10,9 +10,9 @@
 # ///
 """Generate API documentation markdown files from client classes."""
 
-from pathlib import Path
 import re
 import shutil
+from pathlib import Path
 
 import rtoml
 
@@ -139,7 +139,9 @@ def update_nav(project_root: Path) -> None:
         replacement = f"{{ {key} = [\n{body}\n{close_indent}] }},"
         pattern = re.compile(r"\{ " + key + r" = \[.*?\] \},", re.DOTALL)
         # function replacement keeps the splice literal (no backslash/group expansion)
-        text = pattern.sub(lambda _: replacement, text, count=1)
+        text = pattern.sub(
+            lambda _, replacement=replacement: replacement, text, count=1
+        )
 
     config_path.write_text(text)
     rtoml.load(config_path)  # fail loudly if the splice produced invalid TOML

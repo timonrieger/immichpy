@@ -3,40 +3,24 @@
 from __future__ import annotations
 
 import sys
-import typer
 from importlib.metadata import version
 
+import typer
 from rich.console import Console
 from typer._click.core import Context, ParameterSource
 from typer.core import TyperGroup
 
-from immichpy.cli.consts import (
-    API_KEY_URL,
-    DEFAULT_FORMAT,
-    DEFAULT_PROFILE,
-    IMMICH_API_KEY,
-    IMMICH_ACCESS_TOKEN,
-    IMMICH_API_URL,
-    IMMICH_FORMAT,
-    IMMICH_PROFILE,
-    NON_API_COMMANDS,
-    SKIP_CLIENT_SETUP_KEY,
-)
-from immichpy.cli.utils import resolve_client_config, mask, print_
-
 from immichpy import AsyncClient
-from immichpy.cli.types import FormatMode, ClientConfig
+from immichpy.cli.commands import activities as activities_commands
+from immichpy.cli.commands import albums as albums_commands
 
 # Import command modules
 from immichpy.cli.commands import api_keys as api_keys_commands
-from immichpy.cli.commands import activities as activities_commands
-from immichpy.cli.commands import albums as albums_commands
-from immichpy.cli.wrapper import assets as assets_wrapper
 from immichpy.cli.commands import authentication as authentication_commands
 from immichpy.cli.commands import authentication_admin as authentication_admin_commands
-from immichpy.cli.wrapper import download as download_wrapper
-from immichpy.cli.wrapper import config as config_commands
-from immichpy.cli.wrapper import setup as setup_commands
+from immichpy.cli.commands import (
+    database_backups_admin as database_backups_admin_commands,
+)
 from immichpy.cli.commands import duplicates as duplicates_commands
 from immichpy.cli.commands import faces as faces_commands
 from immichpy.cli.commands import jobs as jobs_commands
@@ -61,13 +45,28 @@ from immichpy.cli.commands import system_metadata as system_metadata_commands
 from immichpy.cli.commands import tags as tags_commands
 from immichpy.cli.commands import timeline as timeline_commands
 from immichpy.cli.commands import trash as trash_commands
-from immichpy.cli.wrapper import users as users_wrapper
 from immichpy.cli.commands import users_admin as users_admin_commands
 from immichpy.cli.commands import views as views_commands
 from immichpy.cli.commands import workflows as workflows_commands
-from immichpy.cli.commands import (
-    database_backups_admin as database_backups_admin_commands,
+from immichpy.cli.consts import (
+    API_KEY_URL,
+    DEFAULT_FORMAT,
+    DEFAULT_PROFILE,
+    IMMICH_ACCESS_TOKEN,
+    IMMICH_API_KEY,
+    IMMICH_API_URL,
+    IMMICH_FORMAT,
+    IMMICH_PROFILE,
+    NON_API_COMMANDS,
+    SKIP_CLIENT_SETUP_KEY,
 )
+from immichpy.cli.types import ClientConfig, FormatMode
+from immichpy.cli.utils import mask, print_, resolve_client_config
+from immichpy.cli.wrapper import assets as assets_wrapper
+from immichpy.cli.wrapper import config as config_commands
+from immichpy.cli.wrapper import download as download_wrapper
+from immichpy.cli.wrapper import setup as setup_commands
+from immichpy.cli.wrapper import users as users_wrapper
 
 
 class ClientSetupGroup(TyperGroup):
@@ -260,10 +259,10 @@ def callback(
             cli_vars = {
                 k: v
                 for k, v in ctx.params.items()
-                if k in ClientConfig.model_fields.keys() and v is not None
+                if k in ClientConfig.model_fields and v is not None
             }
             print_("Configuration used:", type="debug", ctx=ctx)
-            for field in ClientConfig.model_fields.keys():
+            for field in ClientConfig.model_fields:
                 value = mask(getattr(config, field), key=field)
                 source = "cli/env" if field in cli_vars else f"profile '{profile}'"
                 print_(f"- {field}: {value} (from {source})", type="debug", ctx=ctx)

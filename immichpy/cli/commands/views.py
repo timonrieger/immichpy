@@ -2,8 +2,9 @@
 
 from __future__ import annotations
 
-import typer
 from typing import TYPE_CHECKING
+
+import typer
 
 if TYPE_CHECKING:
     from immichpy import AsyncClient
@@ -29,7 +30,7 @@ def get_assets_by_original_path(
     """
     kwargs = {}
     kwargs["path"] = path
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.views.get_assets_by_original_path, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)
 
@@ -45,6 +46,6 @@ def get_unique_original_paths(
     [link=https://api.immich.app/endpoints/views/getUniqueOriginalPaths]Immich API documentation[/link]
     """
     kwargs = {}
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.views.get_unique_original_paths, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)

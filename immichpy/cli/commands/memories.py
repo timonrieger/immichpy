@@ -2,10 +2,11 @@
 
 from __future__ import annotations
 
-import typer
 from datetime import datetime
+from typing import TYPE_CHECKING, Literal
 from uuid import UUID
-from typing import Literal, TYPE_CHECKING
+
+import typer
 
 if TYPE_CHECKING:
     from immichpy import AsyncClient
@@ -34,7 +35,7 @@ def add_memory_assets(
     set_nested(json_data, ["ids"], ids)
     bulk_ids_dto = BulkIdsDto.model_validate(json_data)
     kwargs["bulk_ids_dto"] = bulk_ids_dto
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.memories.add_memory_assets, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)
 
@@ -102,7 +103,7 @@ Example: 2024-01-01T00:00:00.000Z""",
     set_nested(json_data, ["type"], type)
     memory_create_dto = MemoryCreateDto.model_validate(json_data)
     kwargs["memory_create_dto"] = memory_create_dto
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.memories.create_memory, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)
 
@@ -118,7 +119,7 @@ def delete_memory(
     """
     kwargs = {}
     kwargs["id"] = id
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.memories.delete_memory, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)
 
@@ -134,7 +135,7 @@ def get_memory(
     """
     kwargs = {}
     kwargs["id"] = id
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.memories.get_memory, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)
 
@@ -182,7 +183,7 @@ Example: 2024-01-01""",
         kwargs["size"] = size
     if type is not None:
         kwargs["type"] = type
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.memories.memories_statistics, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)
 
@@ -203,7 +204,7 @@ def remove_memory_assets(
     set_nested(json_data, ["ids"], ids)
     bulk_ids_dto = BulkIdsDto.model_validate(json_data)
     kwargs["bulk_ids_dto"] = bulk_ids_dto
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.memories.remove_memory_assets, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)
 
@@ -251,7 +252,7 @@ Example: 2024-01-01""",
         kwargs["size"] = size
     if type is not None:
         kwargs["type"] = type
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.memories.search_memories, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)
 
@@ -293,6 +294,6 @@ Example: 2024-01-01T00:00:00.000Z""",
         set_nested(json_data, ["seen_at"], seen_at)
     memory_update_dto = MemoryUpdateDto.model_validate(json_data)
     kwargs["memory_update_dto"] = memory_update_dto
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.memories.update_memory, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)

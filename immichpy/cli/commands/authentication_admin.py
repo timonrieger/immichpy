@@ -2,8 +2,9 @@
 
 from __future__ import annotations
 
-import typer
 from typing import TYPE_CHECKING
+
+import typer
 
 if TYPE_CHECKING:
     from immichpy import AsyncClient
@@ -27,7 +28,7 @@ def unlink_all_o_auth_accounts_admin(
     [link=https://api.immich.app/endpoints/authentication-admin/unlinkAllOAuthAccountsAdmin]Immich API documentation[/link]
     """
     kwargs = {}
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(
         client.auth_admin.unlink_all_o_auth_accounts_admin, ctx=ctx, **kwargs
     )

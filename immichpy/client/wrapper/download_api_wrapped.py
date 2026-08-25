@@ -1,25 +1,25 @@
 from __future__ import annotations
 
-from uuid import uuid4
 from pathlib import Path
 from typing import Any
+from uuid import uuid4
 
+from pydantic import StrictStr
 from rich.progress import (
+    BarColumn,
+    DownloadColumn,
     Progress,
     SpinnerColumn,
-    BarColumn,
     TextColumn,
-    DownloadColumn,
-    TransferSpeedColumn,
     TimeRemainingColumn,
+    TransferSpeedColumn,
 )
-from pydantic import StrictStr
 
 from immichpy.client.generated.api.download_api import DownloadApi
 from immichpy.client.generated.models.download_archive_dto import DownloadArchiveDto
 from immichpy.client.generated.models.download_info_dto import DownloadInfoDto
-from immichpy.client.utils.download import download_file
 from immichpy.client.types import HeadersType
+from immichpy.client.utils.download import download_file
 
 
 class DownloadApiWrapped(DownloadApi):
@@ -90,7 +90,10 @@ class DownloadApiWrapped(DownloadApi):
             for download_archive_dto, expected_size in archive_requests:
                 filename = f"archive-{uuid4()}.zip"
 
-                def make_request(extra_headers: HeadersType | None):
+                def make_request(
+                    extra_headers: HeadersType | None,
+                    download_archive_dto: DownloadArchiveDto = download_archive_dto,
+                ):
                     return self.download_archive_without_preload_content(
                         download_archive_dto=download_archive_dto,
                         key=key,
@@ -106,7 +109,7 @@ class DownloadApiWrapped(DownloadApi):
                 await download_file(
                     make_request=make_request,
                     out_dir=out_dir,
-                    resolve_filename=lambda headers: filename,
+                    resolve_filename=lambda headers, filename=filename: filename,
                     show_progress=show_progress,
                     progress=progress,
                     task_id=download_task,

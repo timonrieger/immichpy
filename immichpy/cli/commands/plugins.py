@@ -2,9 +2,10 @@
 
 from __future__ import annotations
 
-import typer
+from typing import TYPE_CHECKING, Literal
 from uuid import UUID
-from typing import Literal, TYPE_CHECKING
+
+import typer
 
 if TYPE_CHECKING:
     from immichpy import AsyncClient
@@ -28,7 +29,7 @@ def get_plugin(
     """
     kwargs = {}
     kwargs["id"] = id
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.plugins.get_plugin, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)
 
@@ -79,7 +80,7 @@ def search_plugin_methods(
         kwargs["trigger"] = trigger
     if type is not None:
         kwargs["type"] = type
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.plugins.search_plugin_methods, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)
 
@@ -95,7 +96,7 @@ def search_plugin_templates(
     [link=https://api.immich.app/endpoints/plugins/searchPluginTemplates]Immich API documentation[/link]
     """
     kwargs = {}
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.plugins.search_plugin_templates, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)
 
@@ -129,6 +130,6 @@ def search_plugins(
         kwargs["title"] = title
     if version is not None:
         kwargs["version"] = version
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.plugins.search_plugins, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)

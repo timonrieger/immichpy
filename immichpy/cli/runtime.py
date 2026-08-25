@@ -5,14 +5,14 @@ from __future__ import annotations
 import asyncio
 import json
 import traceback
-from typing import Any, Awaitable, Callable, Protocol, cast
+from collections.abc import Awaitable, Callable
+from typing import Any, Protocol, cast
 
-from immichpy.cli.utils import print_
 from pydantic import BaseModel
 from typer import Context, Exit
 
 from immichpy.cli.types import MaybeBaseModel
-
+from immichpy.cli.utils import print_
 from immichpy.client.generated.api_client import ApiClient
 from immichpy.client.generated.exceptions import ApiException
 
@@ -34,9 +34,7 @@ def set_nested(d: dict[str, Any], path: list[str], value: Any) -> None:
     """
     current = d
     for part in path[:-1]:
-        if part not in current:
-            current[part] = {}
-        elif not isinstance(current[part], dict):
+        if part not in current or not isinstance(current[part], dict):
             current[part] = {}
         current = current[part]
     current[path[-1]] = value
@@ -158,7 +156,7 @@ def run_command(
         print_(traceback.format_exc(), type="debug", ctx=ctx)
         raise Exit(code=code)
 
-    except Exception as e:
+    except Exception as e:  # noqa: BLE001 - CLI top-level error boundary
         print_(f"Unexpected error: {str(e).strip()}", type="error", ctx=ctx)
         print_(traceback.format_exc(), type="debug", ctx=ctx)
         raise Exit(code=1)

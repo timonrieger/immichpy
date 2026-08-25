@@ -2,8 +2,9 @@
 
 from __future__ import annotations
 
-import typer
 from typing import TYPE_CHECKING
+
+import typer
 
 if TYPE_CHECKING:
     from immichpy import AsyncClient
@@ -25,7 +26,7 @@ def delete_server_license(
     [link=https://api.immich.app/endpoints/server/deleteServerLicense]Immich API documentation[/link]
     """
     kwargs = {}
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.server.delete_server_license, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)
 
@@ -39,7 +40,7 @@ def get_about_info(
     [link=https://api.immich.app/endpoints/server/getAboutInfo]Immich API documentation[/link]
     """
     kwargs = {}
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.server.get_about_info, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)
 
@@ -53,7 +54,7 @@ def get_apk_links(
     [link=https://api.immich.app/endpoints/server/getApkLinks]Immich API documentation[/link]
     """
     kwargs = {}
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.server.get_apk_links, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)
 
@@ -67,7 +68,7 @@ def get_server_config(
     [link=https://api.immich.app/endpoints/server/getServerConfig]Immich API documentation[/link]
     """
     kwargs = {}
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.server.get_server_config, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)
 
@@ -81,7 +82,7 @@ def get_server_features(
     [link=https://api.immich.app/endpoints/server/getServerFeatures]Immich API documentation[/link]
     """
     kwargs = {}
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.server.get_server_features, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)
 
@@ -95,7 +96,7 @@ def get_server_license(
     [link=https://api.immich.app/endpoints/server/getServerLicense]Immich API documentation[/link]
     """
     kwargs = {}
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.server.get_server_license, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)
 
@@ -109,7 +110,7 @@ def get_server_statistics(
     [link=https://api.immich.app/endpoints/server/getServerStatistics]Immich API documentation[/link]
     """
     kwargs = {}
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.server.get_server_statistics, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)
 
@@ -123,7 +124,7 @@ def get_server_version(
     [link=https://api.immich.app/endpoints/server/getServerVersion]Immich API documentation[/link]
     """
     kwargs = {}
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.server.get_server_version, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)
 
@@ -137,7 +138,7 @@ def get_storage(
     [link=https://api.immich.app/endpoints/server/getStorage]Immich API documentation[/link]
     """
     kwargs = {}
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.server.get_storage, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)
 
@@ -153,7 +154,7 @@ def get_supported_media_types(
     [link=https://api.immich.app/endpoints/server/getSupportedMediaTypes]Immich API documentation[/link]
     """
     kwargs = {}
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.server.get_supported_media_types, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)
 
@@ -167,7 +168,7 @@ def get_version_check(
     [link=https://api.immich.app/endpoints/server/getVersionCheck]Immich API documentation[/link]
     """
     kwargs = {}
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.server.get_version_check, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)
 
@@ -181,7 +182,7 @@ def get_version_history(
     [link=https://api.immich.app/endpoints/server/getVersionHistory]Immich API documentation[/link]
     """
     kwargs = {}
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.server.get_version_history, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)
 
@@ -195,7 +196,7 @@ def ping_server(
     [link=https://api.immich.app/endpoints/server/pingServer]Immich API documentation[/link]
     """
     kwargs = {}
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.server.ping_server, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)
 
@@ -222,6 +223,6 @@ def set_server_license(
     set_nested(json_data, ["license_key"], license_key)
     license_key_dto = LicenseKeyDto.model_validate(json_data)
     kwargs["license_key_dto"] = license_key_dto
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.server.set_server_license, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)

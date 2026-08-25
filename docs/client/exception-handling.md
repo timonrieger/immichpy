@@ -35,6 +35,7 @@ Catch [ApiException](reference/exceptions.md#immichpy.client.generated.exception
 from immichpy import AsyncClient
 from immichpy.client.generated.exceptions import ApiException
 
+
 async def get_server_version(base_url: str, api_key: str) -> None:
     async with AsyncClient(api_key=api_key, base_url=base_url) as client:
         try:
@@ -54,6 +55,7 @@ import asyncio
 import aiohttp
 from immichpy import AsyncClient
 from immichpy.client.generated.exceptions import ApiException
+
 
 async def get_server_version_with_timeout(base_url: str, api_key: str) -> None:
     session = aiohttp.ClientSession(
@@ -87,6 +89,7 @@ from immichpy.client.generated.exceptions import (
     UnauthorizedException,
 )
 
+
 async def validate_api_key(base_url: str, api_key: str) -> str:
     async with AsyncClient(api_key=api_key, base_url=base_url) as client:
         try:
@@ -107,6 +110,7 @@ from immichpy.client.generated.exceptions import (
     ConflictException,
     UnprocessableEntityException,
 )
+
 
 async def ensure_album_exists(client: AsyncClient, album_name: str) -> str:
     try:

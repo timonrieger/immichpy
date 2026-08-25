@@ -14,6 +14,7 @@ If you use a synchronous HTTP client (e.g. `requests`) to fetch server version, 
     base_url = "http://localhost:2283/api"
     api_key = "your-immich-api-key"
 
+
     def main():
         r = requests.get(
             f"{base_url}/server/version",
@@ -37,19 +38,18 @@ If you use a synchronous HTTP client (e.g. `requests`) to fetch server version, 
 
     T = TypeVar("T")
 
+
     def request_api(fn: Callable[[AsyncClient], Awaitable[T]]) -> T:
         async def _run():
-            async with AsyncClient(
-                api_key=api_key,
-                base_url=base_url
-            ) as client:
+            async with AsyncClient(api_key=api_key, base_url=base_url) as client:
                 return await fn(client)
 
         return asyncio.run(_run())
 
+
     def main():
-        version = request_api(lambda c: c.server.get_server_version()) # (1)!
-        print(f"Server version: {version.major}.{version.minor}.{version.patch}") # (2)!
+        version = request_api(lambda c: c.server.get_server_version())  # (1)!
+        print(f"Server version: {version.major}.{version.minor}.{version.patch}")  # (2)!
     ```
 
     1. Here we pass a callable that returns the result of the API call. Python knows the return type from the function signature…
@@ -68,21 +68,22 @@ If you use an async HTTP client (`aiohttp` or `httpx`) to talk to the Immich API
     BASE_URL = "http://localhost:2283/api"
     API_KEY = "your-immich-api-key"
 
+
     def _get_client():
         return aiohttp.ClientSession(
             timeout=aiohttp.ClientTimeout(connect=5, sock_read=60),
         )
 
+
     async def main():
         async with _get_client() as client:
             # Fetch server version
             headers = {"x-api-key": API_KEY, "Accept": "application/json"}
-            async with client.get(
-                f"{BASE_URL}/server/version", headers=headers
-            ) as resp:
+            async with client.get(f"{BASE_URL}/server/version", headers=headers) as resp:
                 resp.raise_for_status()
                 data = await resp.json()
             print(f"Server version: {data['major']}.{data['minor']}.{data['patch']}")
+
 
     asyncio.run(main())
     ```
@@ -96,12 +97,12 @@ If you use an async HTTP client (`aiohttp` or `httpx`) to talk to the Immich API
     BASE_URL = "http://localhost:2283/api"
     API_KEY = "your-immich-api-key"
 
+
     def _get_client():
         return httpx.AsyncClient(
-            timeout=httpx.Timeout(
-                connect=5.0, read=60.0, write=10.0, pool=5.0
-            )
+            timeout=httpx.Timeout(connect=5.0, read=60.0, write=10.0, pool=5.0)
         )
+
 
     async def main():
         async with _get_client() as client:
@@ -111,6 +112,7 @@ If you use an async HTTP client (`aiohttp` or `httpx`) to talk to the Immich API
             r.raise_for_status()
             data = r.json()
             print(f"Server version: {data['major']}.{data['minor']}.{data['patch']}")
+
 
     asyncio.run(main())
     ```
@@ -125,6 +127,7 @@ If you use an async HTTP client (`aiohttp` or `httpx`) to talk to the Immich API
     BASE_URL = "http://localhost:2283/api"
     API_KEY = "your-immich-api-key"
 
+
     def _get_client():
         session = aiohttp.ClientSession(
             timeout=aiohttp.ClientTimeout(connect=5, sock_read=60),
@@ -135,10 +138,12 @@ If you use an async HTTP client (`aiohttp` or `httpx`) to talk to the Immich API
             http_client=session,
         )
 
+
     async def main():
         async with _get_client() as client:
             version = await client.server.get_server_version()
             print(f"Server version: {version.major}.{version.minor}.{version.patch}")
+
 
     asyncio.run(main())
     ```
@@ -158,7 +163,7 @@ Each library raises different exceptions for connection failures, timeouts, and 
     except requests.ConnectionError:
         # Connection failed (DNS, refused, etc.)
         raise
-    except requests.Timeout: # (1)!
+    except requests.Timeout:  # (1)!
         # Connect or read timeout
         raise
     except requests.HTTPError as e:
@@ -216,7 +221,7 @@ Each library raises different exceptions for connection failures, timeouts, and 
         msg = str(e.body) if e.body else "API error"
         logging.error("%s (status %s)", msg, e.status)
         raise
-    except asyncio.TimeoutError as e: # (1)!
+    except asyncio.TimeoutError as e:  # (1)!
         # Timeout error
         raise
     ```

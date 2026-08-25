@@ -1,6 +1,7 @@
 import os
+from collections.abc import AsyncGenerator, Awaitable, Callable, Generator
 from pathlib import Path
-from typing import AsyncGenerator, Awaitable, Callable, Generator, ParamSpec, TypeVar
+from typing import ParamSpec, TypeVar
 from uuid import UUID, uuid4
 
 import pytest
@@ -16,7 +17,6 @@ from immichpy.cli.consts import (
     IMMICH_FORMAT,
     IMMICH_PROFILE,
 )
-from immichpy.client.types import UploadResult
 from immichpy.client.generated import (
     AlbumResponseDto,
     AssetBulkDeleteDto,
@@ -34,6 +34,7 @@ from immichpy.client.generated.models.api_key_create_dto import ApiKeyCreateDto
 from immichpy.client.generated.models.login_credential_dto import LoginCredentialDto
 from immichpy.client.generated.models.permission import Permission
 from immichpy.client.generated.models.sign_up_dto import SignUpDto
+from immichpy.client.types import UploadResult
 from tests.generators import make_random_image, make_random_video
 
 P = ParamSpec("P")
@@ -49,7 +50,7 @@ def _wrap_factory(
     async def _call(*args: P.args, **kwargs: P.kwargs) -> R:
         try:
             result = await method(*args, **kwargs)
-        except Exception as e:
+        except Exception as e:  # noqa: BLE001
             pytest.skip(f"Factory call failed:\n{e}")
         on_result(result)
         return result

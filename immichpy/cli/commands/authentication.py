@@ -2,8 +2,9 @@
 
 from __future__ import annotations
 
+from typing import TYPE_CHECKING, Literal
+
 import typer
-from typing import Literal, TYPE_CHECKING
 
 if TYPE_CHECKING:
     from immichpy import AsyncClient
@@ -51,7 +52,7 @@ Example: password""",
     set_nested(json_data, ["password"], password)
     change_password_dto = ChangePasswordDto.model_validate(json_data)
     kwargs["change_password_dto"] = change_password_dto
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.auth.change_password, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)
 
@@ -90,7 +91,7 @@ Example: 123456""",
         set_nested(json_data, ["pin_code"], pin_code)
     pin_code_change_dto = PinCodeChangeDto.model_validate(json_data)
     kwargs["pin_code_change_dto"] = pin_code_change_dto
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.auth.change_pin_code, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)
 
@@ -119,7 +120,7 @@ def finish_o_auth(
     set_nested(json_data, ["url"], url)
     o_auth_callback_dto = OAuthCallbackDto.model_validate(json_data)
     kwargs["o_auth_callback_dto"] = o_auth_callback_dto
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.auth.finish_o_auth, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)
 
@@ -133,7 +134,7 @@ def get_auth_status(
     [link=https://api.immich.app/endpoints/authentication/getAuthStatus]Immich API documentation[/link]
     """
     kwargs = {}
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.auth.get_auth_status, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)
 
@@ -162,7 +163,7 @@ def link_o_auth_account(
     set_nested(json_data, ["url"], url)
     o_auth_callback_dto = OAuthCallbackDto.model_validate(json_data)
     kwargs["o_auth_callback_dto"] = o_auth_callback_dto
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.auth.link_o_auth_account, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)
 
@@ -176,7 +177,7 @@ def lock_auth_session(
     [link=https://api.immich.app/endpoints/authentication/lockAuthSession]Immich API documentation[/link]
     """
     kwargs = {}
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.auth.lock_auth_session, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)
 
@@ -209,7 +210,7 @@ Example: password""",
     set_nested(json_data, ["password"], password)
     login_credential_dto = LoginCredentialDto.model_validate(json_data)
     kwargs["login_credential_dto"] = login_credential_dto
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.auth.login, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)
 
@@ -223,7 +224,7 @@ def logout(
     [link=https://api.immich.app/endpoints/authentication/logout]Immich API documentation[/link]
     """
     kwargs = {}
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.auth.logout, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)
 
@@ -243,7 +244,7 @@ def logout_o_auth(
     json_data = {}
     set_nested(json_data, ["logout_token"], logout_token)
     kwargs.update(json_data)
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.auth.logout_o_auth, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)
 
@@ -259,7 +260,7 @@ def redirect_o_auth_to_mobile(
     [link=https://api.immich.app/endpoints/authentication/redirectOAuthToMobile]Immich API documentation[/link]
     """
     kwargs = {}
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.auth.redirect_o_auth_to_mobile, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)
 
@@ -294,7 +295,7 @@ Example: 123456""",
         set_nested(json_data, ["pin_code"], pin_code)
     pin_code_reset_dto = PinCodeResetDto.model_validate(json_data)
     kwargs["pin_code_reset_dto"] = pin_code_reset_dto
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.auth.reset_pin_code, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)
 
@@ -319,7 +320,7 @@ Example: 123456""",
     set_nested(json_data, ["pin_code"], pin_code)
     pin_code_setup_dto = PinCodeSetupDto.model_validate(json_data)
     kwargs["pin_code_setup_dto"] = pin_code_setup_dto
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.auth.setup_pin_code, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)
 
@@ -360,7 +361,7 @@ Example: password""",
     set_nested(json_data, ["password"], password)
     sign_up_dto = SignUpDto.model_validate(json_data)
     kwargs["sign_up_dto"] = sign_up_dto
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.auth.sign_up_admin, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)
 
@@ -391,7 +392,7 @@ def start_o_auth(
         set_nested(json_data, ["state"], state)
     o_auth_config_dto = OAuthConfigDto.model_validate(json_data)
     kwargs["o_auth_config_dto"] = o_auth_config_dto
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.auth.start_o_auth, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)
 
@@ -405,7 +406,7 @@ def unlink_o_auth_account(
     [link=https://api.immich.app/endpoints/authentication/unlinkOAuthAccount]Immich API documentation[/link]
     """
     kwargs = {}
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.auth.unlink_o_auth_account, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)
 
@@ -440,7 +441,7 @@ Example: 123456""",
         set_nested(json_data, ["pin_code"], pin_code)
     session_unlock_dto = SessionUnlockDto.model_validate(json_data)
     kwargs["session_unlock_dto"] = session_unlock_dto
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.auth.unlock_auth_session, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)
 
@@ -454,6 +455,6 @@ def validate_access_token(
     [link=https://api.immich.app/endpoints/authentication/validateAccessToken]Immich API documentation[/link]
     """
     kwargs = {}
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.auth.validate_access_token, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)

@@ -2,9 +2,10 @@
 
 from __future__ import annotations
 
-import typer
+from typing import TYPE_CHECKING, Literal
 from uuid import UUID
-from typing import Literal, TYPE_CHECKING
+
+import typer
 
 if TYPE_CHECKING:
     from immichpy import AsyncClient
@@ -42,7 +43,7 @@ def download_archive(
         set_nested(json_data, ["edited"], edited.lower() == "true")
     download_archive_dto = DownloadArchiveDto.model_validate(json_data)
     kwargs["download_archive_dto"] = download_archive_dto
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.download.download_archive, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)
 
@@ -89,6 +90,6 @@ def get_download_info(
         set_nested(json_data, ["user_id"], user_id)
     download_info_dto = DownloadInfoDto.model_validate(json_data)
     kwargs["download_info_dto"] = download_info_dto
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.download.get_download_info, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)

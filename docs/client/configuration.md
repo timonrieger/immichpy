@@ -78,6 +78,7 @@ api_client.user_agent = "immichpy"
 server_api = ServerApi(api_client)
 users_api = UsersApiWrapped(api_client)
 
+
 async def main():
     info = await server_api.ping_server()
     me = await users_api.get_my_user()

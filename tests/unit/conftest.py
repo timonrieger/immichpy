@@ -1,8 +1,8 @@
 from __future__ import annotations
 
-from pathlib import Path
-from typing import Callable, Generator
 import uuid
+from collections.abc import Callable, Generator
+from pathlib import Path
 
 import pytest
 

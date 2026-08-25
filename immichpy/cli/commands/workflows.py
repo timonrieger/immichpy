@@ -2,9 +2,10 @@
 
 from __future__ import annotations
 
-import typer
+from typing import TYPE_CHECKING, Literal
 from uuid import UUID
-from typing import Literal, TYPE_CHECKING
+
+import typer
 
 if TYPE_CHECKING:
     from immichpy import AsyncClient
@@ -57,7 +58,7 @@ def create_workflow(
     set_nested(json_data, ["trigger"], trigger)
     workflow_create_dto = WorkflowCreateDto.model_validate(json_data)
     kwargs["workflow_create_dto"] = workflow_create_dto
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.workflows.create_workflow, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)
 
@@ -73,7 +74,7 @@ def delete_workflow(
     """
     kwargs = {}
     kwargs["id"] = id
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.workflows.delete_workflow, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)
 
@@ -89,7 +90,7 @@ def get_workflow(
     """
     kwargs = {}
     kwargs["id"] = id
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.workflows.get_workflow, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)
 
@@ -105,7 +106,7 @@ def get_workflow_for_share(
     """
     kwargs = {}
     kwargs["id"] = id
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.workflows.get_workflow_for_share, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)
 
@@ -119,7 +120,7 @@ def get_workflow_triggers(
     [link=https://api.immich.app/endpoints/workflows/getWorkflowTriggers]Immich API documentation[/link]
     """
     kwargs = {}
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.workflows.get_workflow_triggers, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)
 
@@ -154,7 +155,7 @@ def search_workflows(
         kwargs["name"] = name
     if trigger is not None:
         kwargs["trigger"] = trigger
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.workflows.search_workflows, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)
 
@@ -199,6 +200,6 @@ def update_workflow(
         set_nested(json_data, ["trigger"], trigger)
     workflow_update_dto = WorkflowUpdateDto.model_validate(json_data)
     kwargs["workflow_update_dto"] = workflow_update_dto
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.workflows.update_workflow, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)

@@ -2,9 +2,10 @@
 
 from __future__ import annotations
 
-import typer
 from datetime import datetime
-from typing import Literal, TYPE_CHECKING
+from typing import TYPE_CHECKING, Literal
+
+import typer
 
 if TYPE_CHECKING:
     from immichpy import AsyncClient
@@ -64,7 +65,7 @@ Example: 2024-01-01T00:00:00.000Z""",
         kwargs["with_partners"] = with_partners.lower() == "true"
     if with_shared_albums is not None:
         kwargs["with_shared_albums"] = with_shared_albums.lower() == "true"
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.map.get_map_markers, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)
 
@@ -82,6 +83,6 @@ def reverse_geocode(
     kwargs = {}
     kwargs["lat"] = lat
     kwargs["lon"] = lon
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.map.reverse_geocode, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)

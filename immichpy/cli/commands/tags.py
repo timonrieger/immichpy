@@ -2,9 +2,10 @@
 
 from __future__ import annotations
 
-import typer
-from uuid import UUID
 from typing import TYPE_CHECKING
+from uuid import UUID
+
+import typer
 
 if TYPE_CHECKING:
     from immichpy import AsyncClient
@@ -33,7 +34,7 @@ def bulk_tag_assets(
     set_nested(json_data, ["tag_ids"], tag_ids)
     tag_bulk_assets_dto = TagBulkAssetsDto.model_validate(json_data)
     kwargs["tag_bulk_assets_dto"] = tag_bulk_assets_dto
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.tags.bulk_tag_assets, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)
 
@@ -60,7 +61,7 @@ def create_tag(
         set_nested(json_data, ["parent_id"], parent_id)
     tag_create_dto = TagCreateDto.model_validate(json_data)
     kwargs["tag_create_dto"] = tag_create_dto
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.tags.create_tag, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)
 
@@ -76,7 +77,7 @@ def delete_tag(
     """
     kwargs = {}
     kwargs["id"] = id
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.tags.delete_tag, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)
 
@@ -90,7 +91,7 @@ def get_all_tags(
     [link=https://api.immich.app/endpoints/tags/getAllTags]Immich API documentation[/link]
     """
     kwargs = {}
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.tags.get_all_tags, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)
 
@@ -106,7 +107,7 @@ def get_tag_by_id(
     """
     kwargs = {}
     kwargs["id"] = id
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.tags.get_tag_by_id, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)
 
@@ -127,7 +128,7 @@ def tag_assets(
     set_nested(json_data, ["ids"], ids)
     bulk_ids_dto = BulkIdsDto.model_validate(json_data)
     kwargs["bulk_ids_dto"] = bulk_ids_dto
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.tags.tag_assets, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)
 
@@ -148,7 +149,7 @@ def untag_assets(
     set_nested(json_data, ["ids"], ids)
     bulk_ids_dto = BulkIdsDto.model_validate(json_data)
     kwargs["bulk_ids_dto"] = bulk_ids_dto
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.tags.untag_assets, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)
 
@@ -170,7 +171,7 @@ def update_tag(
         set_nested(json_data, ["color"], color)
     tag_update_dto = TagUpdateDto.model_validate(json_data)
     kwargs["tag_update_dto"] = tag_update_dto
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.tags.update_tag, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)
 
@@ -189,6 +190,6 @@ def upsert_tags(
     set_nested(json_data, ["tags"], tags)
     tag_upsert_dto = TagUpsertDto.model_validate(json_data)
     kwargs["tag_upsert_dto"] = tag_upsert_dto
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.tags.upsert_tags, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)

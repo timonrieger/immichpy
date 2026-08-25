@@ -2,8 +2,9 @@
 
 from __future__ import annotations
 
+from typing import TYPE_CHECKING, Literal
+
 import typer
-from typing import Literal, TYPE_CHECKING
 
 if TYPE_CHECKING:
     from immichpy import AsyncClient
@@ -30,7 +31,7 @@ def create_job(
     set_nested(json_data, ["name"], name)
     job_create_dto = JobCreateDto.model_validate(json_data)
     kwargs["job_create_dto"] = job_create_dto
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.jobs.create_job, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)
 
@@ -44,7 +45,7 @@ def get_queues_legacy(
     [link=https://api.immich.app/endpoints/jobs/getQueuesLegacy]Immich API documentation[/link]
     """
     kwargs = {}
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.jobs.get_queues_legacy, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)
 
@@ -72,6 +73,6 @@ def run_queue_command_legacy(
         set_nested(json_data, ["force"], force.lower() == "true")
     queue_command_dto = QueueCommandDto.model_validate(json_data)
     kwargs["queue_command_dto"] = queue_command_dto
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.jobs.run_queue_command_legacy, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)

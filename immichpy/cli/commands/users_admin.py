@@ -2,9 +2,10 @@
 
 from __future__ import annotations
 
-import typer
+from typing import TYPE_CHECKING, Literal
 from uuid import UUID
-from typing import Literal, TYPE_CHECKING
+
+import typer
 
 if TYPE_CHECKING:
     from immichpy import AsyncClient
@@ -84,7 +85,7 @@ Example: 123456""",
         set_nested(json_data, ["storage_label"], storage_label)
     user_admin_create_dto = UserAdminCreateDto.model_validate(json_data)
     kwargs["user_admin_create_dto"] = user_admin_create_dto
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.users_admin.create_user_admin, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)
 
@@ -108,7 +109,7 @@ def delete_user_admin(
         set_nested(json_data, ["force"], force.lower() == "true")
     user_admin_delete_dto = UserAdminDeleteDto.model_validate(json_data)
     kwargs["user_admin_delete_dto"] = user_admin_delete_dto
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.users_admin.delete_user_admin, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)
 
@@ -124,7 +125,7 @@ def get_user_admin(
     """
     kwargs = {}
     kwargs["id"] = id
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.users_admin.get_user_admin, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)
 
@@ -163,7 +164,7 @@ Example: 2024-01-01""",
         kwargs["to"] = to
     if type is not None:
         kwargs["type"] = type
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(
         client.users_admin.get_user_calendar_heatmap_admin, ctx=ctx, **kwargs
     )
@@ -183,7 +184,7 @@ def get_user_preferences_admin(
     """
     kwargs = {}
     kwargs["id"] = id
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(
         client.users_admin.get_user_preferences_admin, ctx=ctx, **kwargs
     )
@@ -203,7 +204,7 @@ def get_user_sessions_admin(
     """
     kwargs = {}
     kwargs["id"] = id
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.users_admin.get_user_sessions_admin, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)
 
@@ -236,7 +237,7 @@ def get_user_statistics_admin(
         kwargs["is_trashed"] = is_trashed.lower() == "true"
     if visibility is not None:
         kwargs["visibility"] = visibility
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(
         client.users_admin.get_user_statistics_admin, ctx=ctx, **kwargs
     )
@@ -254,7 +255,7 @@ def restore_user_admin(
     """
     kwargs = {}
     kwargs["id"] = id
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.users_admin.restore_user_admin, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)
 
@@ -276,7 +277,7 @@ def search_users_admin(
         kwargs["id"] = id
     if with_deleted is not None:
         kwargs["with_deleted"] = with_deleted.lower() == "true"
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.users_admin.search_users_admin, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)
 
@@ -348,7 +349,7 @@ Example: 123456""",
         set_nested(json_data, ["storage_label"], storage_label)
     user_admin_update_dto = UserAdminUpdateDto.model_validate(json_data)
     kwargs["user_admin_update_dto"] = user_admin_update_dto
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.users_admin.update_user_admin, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)
 
@@ -552,7 +553,7 @@ def update_user_preferences_admin(
         set_nested(json_data, ["tags_sidebar_web"], tags_sidebar_web.lower() == "true")
     user_preferences_update_dto = UserPreferencesUpdateDto.model_validate(json_data)
     kwargs["user_preferences_update_dto"] = user_preferences_update_dto
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(
         client.users_admin.update_user_preferences_admin, ctx=ctx, **kwargs
     )

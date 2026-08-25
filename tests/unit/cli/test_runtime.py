@@ -15,13 +15,13 @@ if TYPE_CHECKING:
     from _pytest.capture import CaptureFixture
 
 from immichpy.cli.runtime import (
-    set_nested,
+    format_api_error,
     parse_json_option,
     parse_json_options,
     print_response,
-    format_api_error,
     run_async,
     run_command,
+    set_nested,
 )
 from immichpy.client.generated.exceptions import ApiException
 
@@ -93,9 +93,7 @@ class TestParseJsonOptions:
 class TestPrintResponse:
     """Tests for print_response function."""
 
-    def test_print_response_base_model_json(
-        self, capsys: "CaptureFixture[str]"
-    ) -> None:
+    def test_print_response_base_model_json(self, capsys: CaptureFixture[str]) -> None:
         """Test print_response with BaseModel and json format."""
         ctx: Mock = Mock(spec=Context)
         ctx.obj = {"format": "json"}
@@ -112,7 +110,7 @@ class TestPrintResponse:
         assert output["name"] == "John"
         assert output["age"] == 30
 
-    def test_print_response_list_pretty(self, capsys: "CaptureFixture[str]") -> None:
+    def test_print_response_list_pretty(self, capsys: CaptureFixture[str]) -> None:
         """Test print_response with list and pretty format."""
         ctx: Mock = Mock(spec=Context)
         ctx.obj = {"format": "pretty"}
@@ -127,7 +125,7 @@ class TestPrintResponse:
         assert "John" in captured.out
         assert "Jane" in captured.out
 
-    def test_print_response_primitive_type(self, capsys: "CaptureFixture[str]") -> None:
+    def test_print_response_primitive_type(self, capsys: CaptureFixture[str]) -> None:
         """Test print_response with primitive type (neither list nor BaseModel)."""
         ctx: Mock = Mock(spec=Context)
         ctx.obj = {"format": "json"}

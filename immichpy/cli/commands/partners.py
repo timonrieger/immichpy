@@ -2,9 +2,10 @@
 
 from __future__ import annotations
 
-import typer
-from uuid import UUID
 from typing import TYPE_CHECKING
+from uuid import UUID
+
+import typer
 
 if TYPE_CHECKING:
     from immichpy import AsyncClient
@@ -33,7 +34,7 @@ def create_partner(
     set_nested(json_data, ["shared_with_id"], shared_with_id)
     partner_create_dto = PartnerCreateDto.model_validate(json_data)
     kwargs["partner_create_dto"] = partner_create_dto
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.partners.create_partner, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)
 
@@ -51,7 +52,7 @@ def create_partner_deprecated(
     """
     kwargs = {}
     kwargs["id"] = id
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.partners.create_partner_deprecated, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)
 
@@ -67,7 +68,7 @@ def get_partners(
     """
     kwargs = {}
     kwargs["direction"] = direction
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.partners.get_partners, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)
 
@@ -83,7 +84,7 @@ def remove_partner(
     """
     kwargs = {}
     kwargs["id"] = id
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.partners.remove_partner, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)
 
@@ -106,6 +107,6 @@ def update_partner(
     set_nested(json_data, ["in_timeline"], in_timeline)
     partner_update_dto = PartnerUpdateDto.model_validate(json_data)
     kwargs["partner_update_dto"] = partner_update_dto
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.partners.update_partner, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)

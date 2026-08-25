@@ -186,5 +186,5 @@ async def test_users_get_profile_image_to_file(
     # Cleanup profile image
     try:
         await client_with_api_key.users.delete_profile_image()
-    except Exception:
+    except Exception:  # noqa: S110, BLE001
         pass  # Ignore cleanup errors

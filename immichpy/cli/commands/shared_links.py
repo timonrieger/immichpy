@@ -2,10 +2,11 @@
 
 from __future__ import annotations
 
-import typer
 from datetime import datetime
+from typing import TYPE_CHECKING, Literal
 from uuid import UUID
-from typing import Literal, TYPE_CHECKING
+
+import typer
 
 if TYPE_CHECKING:
     from immichpy import AsyncClient
@@ -34,7 +35,7 @@ def add_shared_link_assets(
     set_nested(json_data, ["asset_ids"], asset_ids)
     asset_ids_dto = AssetIdsDto.model_validate(json_data)
     kwargs["asset_ids_dto"] = asset_ids_dto
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.shared_links.add_shared_link_assets, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)
 
@@ -98,7 +99,7 @@ Example: 2024-01-01T00:00:00.000Z""",
     set_nested(json_data, ["type"], type)
     shared_link_create_dto = SharedLinkCreateDto.model_validate(json_data)
     kwargs["shared_link_create_dto"] = shared_link_create_dto
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.shared_links.create_shared_link, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)
 
@@ -120,7 +121,7 @@ def get_all_shared_links(
         kwargs["album_id"] = album_id
     if id is not None:
         kwargs["id"] = id
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.shared_links.get_all_shared_links, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)
 
@@ -140,7 +141,7 @@ def get_my_shared_link(
         kwargs["key"] = key
     if slug is not None:
         kwargs["slug"] = slug
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.shared_links.get_my_shared_link, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)
 
@@ -156,7 +157,7 @@ def get_shared_link_by_id(
     """
     kwargs = {}
     kwargs["id"] = id
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.shared_links.get_shared_link_by_id, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)
 
@@ -172,7 +173,7 @@ def remove_shared_link(
     """
     kwargs = {}
     kwargs["id"] = id
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.shared_links.remove_shared_link, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)
 
@@ -195,7 +196,7 @@ def remove_shared_link_assets(
     set_nested(json_data, ["asset_ids"], asset_ids)
     asset_ids_dto = AssetIdsDto.model_validate(json_data)
     kwargs["asset_ids_dto"] = asset_ids_dto
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(
         client.shared_links.remove_shared_link_assets, ctx=ctx, **kwargs
     )
@@ -228,7 +229,7 @@ Example: password""",
     set_nested(json_data, ["password"], password)
     shared_link_login_dto = SharedLinkLoginDto.model_validate(json_data)
     kwargs["shared_link_login_dto"] = shared_link_login_dto
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.shared_links.shared_link_login, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)
 
@@ -282,6 +283,6 @@ Example: 2024-01-01T00:00:00.000Z""",
         set_nested(json_data, ["slug"], slug)
     shared_link_edit_dto = SharedLinkEditDto.model_validate(json_data)
     kwargs["shared_link_edit_dto"] = shared_link_edit_dto
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.shared_links.update_shared_link, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)

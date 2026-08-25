@@ -2,8 +2,9 @@
 
 from __future__ import annotations
 
+from typing import TYPE_CHECKING, Literal
+
 import typer
-from typing import Literal, TYPE_CHECKING
 
 if TYPE_CHECKING:
     from immichpy import AsyncClient
@@ -33,7 +34,7 @@ def delete_sync_ack(
         set_nested(json_data, ["types"], types)
     sync_ack_delete_dto = SyncAckDeleteDto.model_validate(json_data)
     kwargs["sync_ack_delete_dto"] = sync_ack_delete_dto
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.sync.delete_sync_ack, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)
 
@@ -47,7 +48,7 @@ def get_sync_ack(
     [link=https://api.immich.app/endpoints/sync/getSyncAck]Immich API documentation[/link]
     """
     kwargs = {}
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.sync.get_sync_ack, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)
 
@@ -73,7 +74,7 @@ def get_sync_stream(
     set_nested(json_data, ["types"], types)
     sync_stream_dto = SyncStreamDto.model_validate(json_data)
     kwargs["sync_stream_dto"] = sync_stream_dto
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.sync.get_sync_stream, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)
 
@@ -94,6 +95,6 @@ def send_sync_ack(
     set_nested(json_data, ["acks"], acks)
     sync_ack_set_dto = SyncAckSetDto.model_validate(json_data)
     kwargs["sync_ack_set_dto"] = sync_ack_set_dto
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.sync.send_sync_ack, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)
