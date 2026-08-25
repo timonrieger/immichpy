@@ -1,0 +1,4 @@
+MD013: false # ignore line length
+MD033: false # inline HTML is used throughout the docs
+MD046: false # fenced/indented code blocks mix inside mkdocs admonitions
+MD060: false # don't require aligned table pipes

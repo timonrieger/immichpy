@@ -11,19 +11,18 @@ The client raises exceptions if the API returns an error response. Most of the t
 ## Exception hierarchy
 
 - [**OpenApiException**](reference/exceptions.md#immichpy.client.generated.exceptions.OpenApiException) (base for all client exceptions)
-    - [**ApiException**](reference/exceptions.md#immichpy.client.generated.exceptions.ApiException) (HTTP API errors)
-        - [**BadRequestException**](reference/exceptions.md#immichpy.client.generated.exceptions.BadRequestException) (400)
-        - [**UnauthorizedException**](reference/exceptions.md#immichpy.client.generated.exceptions.UnauthorizedException) (401)
-        - [**ForbiddenException**](reference/exceptions.md#immichpy.client.generated.exceptions.ForbiddenException) (403)
-        - [**NotFoundException**](reference/exceptions.md#immichpy.client.generated.exceptions.NotFoundException) (404)
-        - [**ConflictException**](reference/exceptions.md#immichpy.client.generated.exceptions.ConflictException) (409)
-        - [**UnprocessableEntityException**](reference/exceptions.md#immichpy.client.generated.exceptions.UnprocessableEntityException) (422)
-        - [**ServiceException**](reference/exceptions.md#immichpy.client.generated.exceptions.ServiceException) (5xx)
-    - [**ApiTypeError**](reference/exceptions.md#immichpy.client.generated.exceptions.ApiTypeError) (also `TypeError`)
-    - [**ApiValueError**](reference/exceptions.md#immichpy.client.generated.exceptions.ApiValueError) (also `ValueError`)
-    - [**ApiAttributeError**](reference/exceptions.md#immichpy.client.generated.exceptions.ApiAttributeError) (also `AttributeError`)
-    - [**ApiKeyError**](reference/exceptions.md#immichpy.client.generated.exceptions.ApiKeyError) (also `KeyError`)
-
+  - [**ApiException**](reference/exceptions.md#immichpy.client.generated.exceptions.ApiException) (HTTP API errors)
+    - [**BadRequestException**](reference/exceptions.md#immichpy.client.generated.exceptions.BadRequestException) (400)
+    - [**UnauthorizedException**](reference/exceptions.md#immichpy.client.generated.exceptions.UnauthorizedException) (401)
+    - [**ForbiddenException**](reference/exceptions.md#immichpy.client.generated.exceptions.ForbiddenException) (403)
+    - [**NotFoundException**](reference/exceptions.md#immichpy.client.generated.exceptions.NotFoundException) (404)
+    - [**ConflictException**](reference/exceptions.md#immichpy.client.generated.exceptions.ConflictException) (409)
+    - [**UnprocessableEntityException**](reference/exceptions.md#immichpy.client.generated.exceptions.UnprocessableEntityException) (422)
+    - [**ServiceException**](reference/exceptions.md#immichpy.client.generated.exceptions.ServiceException) (5xx)
+  - [**ApiTypeError**](reference/exceptions.md#immichpy.client.generated.exceptions.ApiTypeError) (also `TypeError`)
+  - [**ApiValueError**](reference/exceptions.md#immichpy.client.generated.exceptions.ApiValueError) (also `ValueError`)
+  - [**ApiAttributeError**](reference/exceptions.md#immichpy.client.generated.exceptions.ApiAttributeError) (also `AttributeError`)
+  - [**ApiKeyError**](reference/exceptions.md#immichpy.client.generated.exceptions.ApiKeyError) (also `KeyError`)
 
 ## Examples
 

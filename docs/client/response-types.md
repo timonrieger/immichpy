@@ -22,7 +22,6 @@ ServerAboutResponseDto(
 )
 ```
 
-
 ## Serialized Response with HTTP Info
 
 To get additional metadata about the HTTP response, you can suffix the function name with `_with_http_info`. This returns an [ApiResponse](reference/responses.md#immichpy.client.generated.api_response.ApiResponse) object.

@@ -56,7 +56,6 @@ This section covers additional configuration of the client. For most usecases, t
 !!! info "No support from maintainers"
     The high-level client is the recommended way to use the API. We will not provide support for custom configurations. For reference, you can inspect the implementation of the high-level client yourself.
 
-
 Build your own [Configuration](../client/reference/configuration.md), create an [ApiClient](../client/reference/api_client.md), then instantiate only the API classes you need. You must call `api_client.close()` when done. To use a custom aiohttp session (connector, proxy, timeouts), set `api_client.rest_client.pool_manager` before making requests.
 
 ```python
