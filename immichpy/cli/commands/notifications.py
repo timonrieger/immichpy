@@ -2,10 +2,11 @@
 
 from __future__ import annotations
 
-import typer
 from datetime import datetime
+from typing import TYPE_CHECKING, Literal
 from uuid import UUID
-from typing import Literal, TYPE_CHECKING
+
+import typer
 
 if TYPE_CHECKING:
     from immichpy import AsyncClient
@@ -29,7 +30,7 @@ def delete_notification(
     """
     kwargs = {}
     kwargs["id"] = id
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.notifications.delete_notification, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)
 
@@ -50,7 +51,7 @@ def delete_notifications(
     set_nested(json_data, ["ids"], ids)
     notification_delete_all_dto = NotificationDeleteAllDto.model_validate(json_data)
     kwargs["notification_delete_all_dto"] = notification_delete_all_dto
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.notifications.delete_notifications, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)
 
@@ -66,7 +67,7 @@ def get_notification(
     """
     kwargs = {}
     kwargs["id"] = id
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.notifications.get_notification, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)
 
@@ -94,7 +95,7 @@ def get_notifications(
         kwargs["type"] = type
     if unread is not None:
         kwargs["unread"] = unread.lower() == "true"
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.notifications.get_notifications, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)
 
@@ -122,7 +123,7 @@ Example: 2024-01-01T00:00:00.000Z""",
         set_nested(json_data, ["read_at"], read_at)
     notification_update_dto = NotificationUpdateDto.model_validate(json_data)
     kwargs["notification_update_dto"] = notification_update_dto
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.notifications.update_notification, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)
 
@@ -152,6 +153,6 @@ Example: 2024-01-01T00:00:00.000Z""",
         set_nested(json_data, ["read_at"], read_at)
     notification_update_all_dto = NotificationUpdateAllDto.model_validate(json_data)
     kwargs["notification_update_all_dto"] = notification_update_all_dto
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.notifications.update_notifications, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)

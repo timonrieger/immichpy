@@ -101,11 +101,20 @@ module-name = "immichpy"
 module-root = ""
 
 [tool.ruff]
-lint.ignore = [
-    "F403", # star imports in generator
+fix = true
+lint.exclude = ["immichpy/client/generated/**"] # generated code is only formatted, not linted
+
+[tool.ruff.lint.per-file-ignores]
+"immichpy/cli/commands/**" = [
+    "F403", # star imports in generated CLI commands
     "F405", # same
-    "F841", # Unused local variable (after client gen)
     ]
+
+[tool.ruff.lint.flake8-bugbear]
+extend-immutable-calls = ["typer.Option", "typer.Argument"]
+
+[tool.bandit]
+exclude_dirs = ["immichpy/client", "tests"]
 
 [tool.pytest.ini_options]
 asyncio_default_fixture_loop_scope = "function"
@@ -115,5 +124,6 @@ asyncio_mode = "auto"
 omit = ["immichpy/client/generated/**", "immichpy/cli/commands/**", "immichpy/client/wrapper/**"]
 
 [tool.ty]
+environment.python = ".venv"
 environment.root = ['immichpy']
 src.exclude = ["immichpy/client/generated/**"]

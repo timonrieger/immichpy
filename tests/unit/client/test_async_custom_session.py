@@ -1,5 +1,6 @@
 import pytest
 from aiohttp import ClientSession
+
 from immichpy import AsyncClient
 
 

@@ -38,9 +38,13 @@ You can use the client with or without a context manager.
     import asyncio
     from immichpy import AsyncClient
 
+
     async def main():
-        async with AsyncClient(api_key="your-immich-api-key", base_url="http://localhost:2283/api") as client:
+        async with AsyncClient(
+            api_key="your-immich-api-key", base_url="http://localhost:2283/api"
+        ) as client:
             await client.server.get_about_info()
+
 
     asyncio.run(main())
     ```
@@ -51,12 +55,16 @@ You can use the client with or without a context manager.
     import asyncio
     from immichpy import AsyncClient
 
+
     async def main():
-        client = AsyncClient(api_key="your-immich-api-key", base_url="http://localhost:2283/api")
+        client = AsyncClient(
+            api_key="your-immich-api-key", base_url="http://localhost:2283/api"
+        )
         try:
             await client.server.get_about_info()
         finally:
             await client.close()
+
 
     asyncio.run(main())
     ```

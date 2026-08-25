@@ -15,7 +15,7 @@ See [Getting Started](getting-started.md#create-a-profile) for a walkthrough.
 ## Environment Variables
 
 | Variable | Description | Equivalent flag |
-|---|---|---|
+| --- | --- | --- |
 | `IMMICH_API_URL` | Server URL | `--base-url` |
 | `IMMICH_API_KEY` | API key | `--api-key` |
 | `IMMICH_ACCESS_TOKEN` | Access token | `--access-token` |

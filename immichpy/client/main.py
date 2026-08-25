@@ -1,15 +1,13 @@
 from __future__ import annotations
 
 from typing import Final
-from aiohttp import ClientSession
 
-from immichpy.client.generated.api_client import ApiClient
-from immichpy.client.generated.configuration import Configuration
+from aiohttp import ClientSession
+from typing_extensions import Self
 
 from immichpy.client.generated.api.activities_api import ActivitiesApi
 from immichpy.client.generated.api.albums_api import AlbumsApi
 from immichpy.client.generated.api.api_keys_api import APIKeysApi
-from immichpy.client.wrapper.assets_api_wrapped import AssetsApiWrapped
 from immichpy.client.generated.api.authentication_admin_api import (
     AuthenticationAdminApi,
 )
@@ -18,7 +16,6 @@ from immichpy.client.generated.api.database_backups_admin_api import (
     DatabaseBackupsAdminApi,
 )
 from immichpy.client.generated.api.deprecated_api import DeprecatedApi
-from immichpy.client.wrapper.download_api_wrapped import DownloadApiWrapped
 from immichpy.client.generated.api.duplicates_api import DuplicatesApi
 from immichpy.client.generated.api.faces_api import FacesApi
 from immichpy.client.generated.api.jobs_api import JobsApi
@@ -44,9 +41,13 @@ from immichpy.client.generated.api.tags_api import TagsApi
 from immichpy.client.generated.api.timeline_api import TimelineApi
 from immichpy.client.generated.api.trash_api import TrashApi
 from immichpy.client.generated.api.users_admin_api import UsersAdminApi
-from immichpy.client.wrapper.users_api_wrapped import UsersApiWrapped
 from immichpy.client.generated.api.views_api import ViewsApi
 from immichpy.client.generated.api.workflows_api import WorkflowsApi
+from immichpy.client.generated.api_client import ApiClient
+from immichpy.client.generated.configuration import Configuration
+from immichpy.client.wrapper.assets_api_wrapped import AssetsApiWrapped
+from immichpy.client.wrapper.download_api_wrapped import DownloadApiWrapped
+from immichpy.client.wrapper.users_api_wrapped import UsersApiWrapped
 
 
 def _normalize_base_url(base_url: str) -> str:
@@ -374,7 +375,7 @@ class AsyncClient:
         # Now close higher-level stuff that does NOT own the session
         await self.base_client.close()
 
-    async def __aenter__(self) -> "AsyncClient":
+    async def __aenter__(self) -> Self:
         """Enter the context manager."""
         if self._injected_http_client is None:
             self._injected_http_client = ClientSession()

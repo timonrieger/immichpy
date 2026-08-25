@@ -1,15 +1,16 @@
 import os
+
 import typer
+
+from immichpy import AsyncClient
 from immichpy.cli.consts import (
     CONFIG_FILE,
     DEFAULT_PROFILE,
     DEMO_API_URL,
     IMMICH_API_URL,
 )
-from immichpy.cli.utils import load_config, print_, set_path, write_config
 from immichpy.cli.runtime import run_command
-
-from immichpy import AsyncClient
+from immichpy.cli.utils import load_config, print_, set_path, write_config
 
 
 def setup(
@@ -78,7 +79,7 @@ def setup(
 
     write_config(data)
 
-    print("")
+    print()
     print_(
         f"Profile [bold]{profile}[/bold] written to [bold]{CONFIG_FILE}[/bold].",
         type="success",

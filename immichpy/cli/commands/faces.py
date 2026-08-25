@@ -2,9 +2,10 @@
 
 from __future__ import annotations
 
-import typer
-from uuid import UUID
 from typing import TYPE_CHECKING
+from uuid import UUID
+
+import typer
 
 if TYPE_CHECKING:
     from immichpy import AsyncClient
@@ -81,7 +82,7 @@ def create_face(
     set_nested(json_data, ["y"], y)
     asset_face_create_dto = AssetFaceCreateDto.model_validate(json_data)
     kwargs["asset_face_create_dto"] = asset_face_create_dto
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.faces.create_face, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)
 
@@ -104,7 +105,7 @@ def delete_face(
     set_nested(json_data, ["force"], force)
     asset_face_delete_dto = AssetFaceDeleteDto.model_validate(json_data)
     kwargs["asset_face_delete_dto"] = asset_face_delete_dto
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.faces.delete_face, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)
 
@@ -120,7 +121,7 @@ def get_faces(
     """
     kwargs = {}
     kwargs["id"] = id
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.faces.get_faces, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)
 
@@ -141,6 +142,6 @@ def reassign_faces_by_id(
     set_nested(json_data, ["body_id"], body_id)
     face_dto = FaceDto.model_validate(json_data)
     kwargs["face_dto"] = face_dto
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.faces.reassign_faces_by_id, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)

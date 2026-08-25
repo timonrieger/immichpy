@@ -2,10 +2,11 @@
 
 from __future__ import annotations
 
-import typer
 from datetime import datetime
+from typing import TYPE_CHECKING, Literal
 from uuid import UUID
-from typing import Literal, TYPE_CHECKING
+
+import typer
 
 if TYPE_CHECKING:
     from immichpy import AsyncClient
@@ -27,7 +28,7 @@ def get_assets_by_city(
     [link=https://api.immich.app/endpoints/search/getAssetsByCity]Immich API documentation[/link]
     """
     kwargs = {}
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.search.get_assets_by_city, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)
 
@@ -41,7 +42,7 @@ def get_explore_data(
     [link=https://api.immich.app/endpoints/search/getExploreData]Immich API documentation[/link]
     """
     kwargs = {}
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.search.get_explore_data, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)
 
@@ -85,7 +86,7 @@ def get_search_suggestions(
     if state is not None:
         kwargs["state"] = state
     kwargs["type"] = type
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.search.get_search_suggestions, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)
 
@@ -274,7 +275,7 @@ Example: 2024-01-01T00:00:00.000Z""",
         set_nested(json_data, ["visibility"], visibility)
     statistics_search_dto = StatisticsSearchDto.model_validate(json_data)
     kwargs["statistics_search_dto"] = statistics_search_dto
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.search.search_asset_statistics, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)
 
@@ -533,7 +534,7 @@ Example: 2024-01-01T00:00:00.000Z""",
         set_nested(json_data, ["with_stacked"], with_stacked.lower() == "true")
     metadata_search_dto = MetadataSearchDto.model_validate(json_data)
     kwargs["metadata_search_dto"] = metadata_search_dto
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.search.search_assets, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)
 
@@ -736,7 +737,7 @@ Example: 2024-01-01T00:00:00.000Z""",
         kwargs["with_deleted"] = with_deleted.lower() == "true"
     if with_exif is not None:
         kwargs["with_exif"] = with_exif.lower() == "true"
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.search.search_large_assets, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)
 
@@ -757,7 +758,7 @@ def search_person(
     kwargs["name"] = name
     if with_hidden is not None:
         kwargs["with_hidden"] = with_hidden.lower() == "true"
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.search.search_person, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)
 
@@ -773,7 +774,7 @@ def search_places(
     """
     kwargs = {}
     kwargs["name"] = name
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.search.search_places, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)
 
@@ -980,7 +981,7 @@ Example: 2024-01-01T00:00:00.000Z""",
         set_nested(json_data, ["with_stacked"], with_stacked.lower() == "true")
     random_search_dto = RandomSearchDto.model_validate(json_data)
     kwargs["random_search_dto"] = random_search_dto
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.search.search_random, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)
 
@@ -1197,6 +1198,6 @@ Example: 2024-01-01T00:00:00.000Z""",
         set_nested(json_data, ["with_exif"], with_exif.lower() == "true")
     smart_search_dto = SmartSearchDto.model_validate(json_data)
     kwargs["smart_search_dto"] = smart_search_dto
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.search.search_smart, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)

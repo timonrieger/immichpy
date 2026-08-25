@@ -7,33 +7,29 @@ import json
 import logging
 import os
 import sys
-from statx import statx
+import uuid
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import cast
 from uuid import UUID
-import uuid
 
 import tenacity
 from aiohttp import ClientConnectionError
 from rich.progress import (
+    BarColumn,
+    DownloadColumn,
     Progress,
     SpinnerColumn,
-    BarColumn,
     TextColumn,
-    DownloadColumn,
-    TransferSpeedColumn,
     TimeRemainingColumn,
+    TransferSpeedColumn,
 )
-from immichpy.client.types import (
-    RejectedEntry,
-    FailedEntry,
-    UploadedEntry,
-    RejectionReason,
-)
+from statx import statx
+
 from immichpy.client.generated.api.albums_api import AlbumsApi
 from immichpy.client.generated.api.assets_api import AssetsApi
 from immichpy.client.generated.api.server_api import ServerApi
+from immichpy.client.generated.exceptions import ApiException
 from immichpy.client.generated.models.asset_bulk_upload_check_dto import (
     AssetBulkUploadCheckDto,
 )
@@ -46,7 +42,12 @@ from immichpy.client.generated.models.asset_media_response_dto import (
 from immichpy.client.generated.models.asset_media_status import AssetMediaStatus
 from immichpy.client.generated.models.bulk_ids_dto import BulkIdsDto
 from immichpy.client.generated.models.create_album_dto import CreateAlbumDto
-from immichpy.client.generated.exceptions import ApiException
+from immichpy.client.types import (
+    FailedEntry,
+    RejectedEntry,
+    RejectionReason,
+    UploadedEntry,
+)
 
 logger = logging.getLogger(__name__)
 
@@ -356,7 +357,7 @@ async def upload_files(
                         try:
                             body = json.loads(cast(str, e.body))
                             msg = str(body.get("message", msg))
-                        except Exception:  # nosec: B110
+                        except Exception:  # noqa: S110, BLE001 # nosec: B110
                             pass
                     failed.append(FailedEntry(filepath=filepath, error=msg))
                     logger.exception("Failed to upload %s: %s", filepath, msg)

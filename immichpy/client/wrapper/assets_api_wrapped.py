@@ -10,15 +10,17 @@ from immichpy.client.generated.api.albums_api import AlbumsApi
 from immichpy.client.generated.api.assets_api import AssetsApi
 from immichpy.client.generated.api.server_api import ServerApi
 from immichpy.client.generated.models.asset_media_size import AssetMediaSize
+from immichpy.client.types import HeadersType, UploadResult, UploadStats
+from immichpy.client.utils.download import download_file, resolve_output_filename
 from immichpy.client.utils.upload import (
     check_duplicates as check_dupes,
+)
+from immichpy.client.utils.upload import (
     delete_files,
     scan_files,
     update_albums,
     upload_files,
 )
-from immichpy.client.utils.download import download_file, resolve_output_filename
-from immichpy.client.types import HeadersType, UploadResult, UploadStats
 
 
 class AssetsApiWrapped(AssetsApi):

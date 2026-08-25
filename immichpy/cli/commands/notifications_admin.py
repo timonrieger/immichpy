@@ -2,10 +2,11 @@
 
 from __future__ import annotations
 
-import typer
 from datetime import datetime
-from uuid import UUID
 from typing import TYPE_CHECKING
+from uuid import UUID
+
+import typer
 
 if TYPE_CHECKING:
     from immichpy import AsyncClient
@@ -71,7 +72,7 @@ Example: 2024-01-01T00:00:00.000Z""",
     set_nested(json_data, ["user_id"], user_id)
     notification_create_dto = NotificationCreateDto.model_validate(json_data)
     kwargs["notification_create_dto"] = notification_create_dto
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(
         client.notifications_admin.create_notification, ctx=ctx, **kwargs
     )
@@ -96,7 +97,7 @@ def get_notification_template_admin(
     set_nested(json_data, ["template"], template)
     template_dto = TemplateDto.model_validate(json_data)
     kwargs["template_dto"] = template_dto
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(
         client.notifications_admin.get_notification_template_admin, ctx=ctx, **kwargs
     )
@@ -153,7 +154,7 @@ def send_test_email_admin(
     set_nested(json_data, ["transport_username"], transport_username)
     system_config_smtp_dto = SystemConfigSmtpDto.model_validate(json_data)
     kwargs["system_config_smtp_dto"] = system_config_smtp_dto
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(
         client.notifications_admin.send_test_email_admin, ctx=ctx, **kwargs
     )

@@ -2,9 +2,10 @@
 
 from __future__ import annotations
 
-import typer
-from uuid import UUID
 from typing import TYPE_CHECKING
+from uuid import UUID
+
+import typer
 
 if TYPE_CHECKING:
     from immichpy import AsyncClient
@@ -30,7 +31,7 @@ def delete_integrity_report(
     """
     kwargs = {}
     kwargs["id"] = id
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(
         client.maintenance_admin.delete_integrity_report, ctx=ctx, **kwargs
     )
@@ -46,7 +47,7 @@ def detect_prior_install(
     [link=https://api.immich.app/endpoints/maintenance-admin/detectPriorInstall]Immich API documentation[/link]
     """
     kwargs = {}
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(
         client.maintenance_admin.detect_prior_install, ctx=ctx, **kwargs
     )
@@ -78,7 +79,7 @@ def get_integrity_report(
     if limit is not None:
         kwargs["limit"] = limit
     kwargs["type"] = type
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(
         client.maintenance_admin.get_integrity_report, ctx=ctx, **kwargs
     )
@@ -98,7 +99,7 @@ def get_integrity_report_csv(
     """
     kwargs = {}
     kwargs["type"] = type
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(
         client.maintenance_admin.get_integrity_report_csv, ctx=ctx, **kwargs
     )
@@ -118,7 +119,7 @@ def get_integrity_report_file(
     """
     kwargs = {}
     kwargs["id"] = id
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(
         client.maintenance_admin.get_integrity_report_file, ctx=ctx, **kwargs
     )
@@ -136,7 +137,7 @@ def get_integrity_report_summary(
     [link=https://api.immich.app/endpoints/maintenance-admin/getIntegrityReportSummary]Immich API documentation[/link]
     """
     kwargs = {}
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(
         client.maintenance_admin.get_integrity_report_summary, ctx=ctx, **kwargs
     )
@@ -152,7 +153,7 @@ def get_maintenance_status(
     [link=https://api.immich.app/endpoints/maintenance-admin/getMaintenanceStatus]Immich API documentation[/link]
     """
     kwargs = {}
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(
         client.maintenance_admin.get_maintenance_status, ctx=ctx, **kwargs
     )
@@ -174,7 +175,7 @@ def maintenance_login(
         set_nested(json_data, ["token"], token)
     maintenance_login_dto = MaintenanceLoginDto.model_validate(json_data)
     kwargs["maintenance_login_dto"] = maintenance_login_dto
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.maintenance_admin.maintenance_login, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)
 
@@ -198,7 +199,7 @@ def set_maintenance_mode(
         set_nested(json_data, ["restore_backup_filename"], restore_backup_filename)
     set_maintenance_mode_dto = SetMaintenanceModeDto.model_validate(json_data)
     kwargs["set_maintenance_mode_dto"] = set_maintenance_mode_dto
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(
         client.maintenance_admin.set_maintenance_mode, ctx=ctx, **kwargs
     )

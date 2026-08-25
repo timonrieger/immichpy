@@ -1,22 +1,21 @@
 from __future__ import annotations
 
+import logging
+from collections.abc import Awaitable, Callable
 from email.message import Message
 from mimetypes import guess_extension
 from pathlib import Path
-from typing import Awaitable, Callable
 
-import logging
 from rich.progress import (
+    BarColumn,
+    DownloadColumn,
     Progress,
     SpinnerColumn,
-    BarColumn,
-    TextColumn,
-    DownloadColumn,
-    TransferSpeedColumn,
-    TimeRemainingColumn,
     TaskID,
+    TextColumn,
+    TimeRemainingColumn,
+    TransferSpeedColumn,
 )
-
 
 from immichpy.client.generated.rest import RESTResponseType
 from immichpy.client.types import HeadersType

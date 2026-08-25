@@ -2,9 +2,10 @@
 
 from __future__ import annotations
 
-import typer
-from uuid import UUID
 from typing import TYPE_CHECKING
+from uuid import UUID
+
+import typer
 
 if TYPE_CHECKING:
     from immichpy import AsyncClient
@@ -44,7 +45,7 @@ def create_library(
     set_nested(json_data, ["owner_id"], owner_id)
     create_library_dto = CreateLibraryDto.model_validate(json_data)
     kwargs["create_library_dto"] = create_library_dto
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.libraries.create_library, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)
 
@@ -60,7 +61,7 @@ def delete_library(
     """
     kwargs = {}
     kwargs["id"] = id
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.libraries.delete_library, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)
 
@@ -74,7 +75,7 @@ def get_all_libraries(
     [link=https://api.immich.app/endpoints/libraries/getAllLibraries]Immich API documentation[/link]
     """
     kwargs = {}
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.libraries.get_all_libraries, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)
 
@@ -90,7 +91,7 @@ def get_library(
     """
     kwargs = {}
     kwargs["id"] = id
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.libraries.get_library, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)
 
@@ -106,7 +107,7 @@ def get_library_statistics(
     """
     kwargs = {}
     kwargs["id"] = id
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.libraries.get_library_statistics, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)
 
@@ -122,7 +123,7 @@ def scan_library(
     """
     kwargs = {}
     kwargs["id"] = id
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.libraries.scan_library, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)
 
@@ -154,7 +155,7 @@ def update_library(
         set_nested(json_data, ["name"], name)
     update_library_dto = UpdateLibraryDto.model_validate(json_data)
     kwargs["update_library_dto"] = update_library_dto
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.libraries.update_library, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)
 
@@ -183,6 +184,6 @@ def validate(
         set_nested(json_data, ["import_paths"], import_paths)
     validate_library_dto = ValidateLibraryDto.model_validate(json_data)
     kwargs["validate_library_dto"] = validate_library_dto
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.libraries.validate, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)

@@ -2,9 +2,10 @@
 
 from __future__ import annotations
 
-import typer
+from typing import TYPE_CHECKING, Literal
 from uuid import UUID
-from typing import Literal, TYPE_CHECKING
+
+import typer
 
 if TYPE_CHECKING:
     from immichpy import AsyncClient
@@ -55,7 +56,7 @@ def create_person(
         set_nested(json_data, ["name"], name)
     person_create_dto = PersonCreateDto.model_validate(json_data)
     kwargs["person_create_dto"] = person_create_dto
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.people.create_person, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)
 
@@ -74,7 +75,7 @@ def delete_people(
     set_nested(json_data, ["ids"], ids)
     bulk_ids_dto = BulkIdsDto.model_validate(json_data)
     kwargs["bulk_ids_dto"] = bulk_ids_dto
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.people.delete_people, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)
 
@@ -90,7 +91,7 @@ def delete_person(
     """
     kwargs = {}
     kwargs["id"] = id
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.people.delete_person, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)
 
@@ -133,7 +134,7 @@ def get_all_people(
         kwargs["size"] = size
     if with_hidden is not None:
         kwargs["with_hidden"] = with_hidden.lower() == "true"
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.people.get_all_people, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)
 
@@ -149,7 +150,7 @@ def get_person(
     """
     kwargs = {}
     kwargs["id"] = id
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.people.get_person, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)
 
@@ -165,7 +166,7 @@ def get_person_statistics(
     """
     kwargs = {}
     kwargs["id"] = id
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.people.get_person_statistics, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)
 
@@ -181,7 +182,7 @@ def get_person_thumbnail(
     """
     kwargs = {}
     kwargs["id"] = id
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.people.get_person_thumbnail, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)
 
@@ -202,7 +203,7 @@ def merge_person(
     set_nested(json_data, ["ids"], ids)
     merge_person_dto = MergePersonDto.model_validate(json_data)
     kwargs["merge_person_dto"] = merge_person_dto
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.people.merge_person, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)
 
@@ -230,7 +231,7 @@ As a JSON string with keys: assetId (string), personId (string)""",
     set_nested(json_data, ["data"], value_data)
     asset_face_update_dto = AssetFaceUpdateDto.model_validate(json_data)
     kwargs["asset_face_update_dto"] = asset_face_update_dto
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.people.reassign_faces, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)
 
@@ -256,7 +257,7 @@ As a JSON string with keys: birthDate (string), color (string), featureFaceAsset
     set_nested(json_data, ["people"], value_people)
     people_update_dto = PeopleUpdateDto.model_validate(json_data)
     kwargs["people_update_dto"] = people_update_dto
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.people.update_people, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)
 
@@ -303,6 +304,6 @@ def update_person(
         set_nested(json_data, ["name"], name)
     person_update_dto = PersonUpdateDto.model_validate(json_data)
     kwargs["person_update_dto"] = person_update_dto
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.people.update_person, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)

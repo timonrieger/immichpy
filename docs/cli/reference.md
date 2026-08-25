@@ -3,7 +3,7 @@
 **Usage**:
 
 ```console
-$ immichpy [OPTIONS] COMMAND [ARGS]...
+immichpy [OPTIONS] COMMAND [ARGS]...
 ```
 
 **Options**:
@@ -67,7 +67,7 @@ Interactively set up a profile for the CLI to connect to an Immich server.
 **Usage**:
 
 ```console
-$ immichpy setup [OPTIONS]
+immichpy setup [OPTIONS]
 ```
 
 **Options**:
@@ -88,7 +88,7 @@ An api key can be used to programmatically access the Immich API.
 **Usage**:
 
 ```console
-$ immichpy api-keys [OPTIONS] COMMAND [ARGS]...
+immichpy api-keys [OPTIONS] COMMAND [ARGS]...
 ```
 
 **Options**:
@@ -113,7 +113,7 @@ Create an API key
 **Usage**:
 
 ```console
-$ immichpy api-keys create-api-key [OPTIONS]
+immichpy api-keys create-api-key [OPTIONS]
 ```
 
 **Options**:
@@ -131,7 +131,7 @@ Delete an API key
 **Usage**:
 
 ```console
-$ immichpy api-keys delete-api-key [OPTIONS] ID
+immichpy api-keys delete-api-key [OPTIONS] ID
 ```
 
 **Arguments**:
@@ -151,7 +151,7 @@ Retrieve an API key
 **Usage**:
 
 ```console
-$ immichpy api-keys get-api-key [OPTIONS] ID
+immichpy api-keys get-api-key [OPTIONS] ID
 ```
 
 **Arguments**:
@@ -171,7 +171,7 @@ List all API keys
 **Usage**:
 
 ```console
-$ immichpy api-keys get-api-keys [OPTIONS]
+immichpy api-keys get-api-keys [OPTIONS]
 ```
 
 **Options**:
@@ -187,7 +187,7 @@ Retrieve the current API key
 **Usage**:
 
 ```console
-$ immichpy api-keys get-my-api-key [OPTIONS]
+immichpy api-keys get-my-api-key [OPTIONS]
 ```
 
 **Options**:
@@ -203,7 +203,7 @@ Update an API key
 **Usage**:
 
 ```console
-$ immichpy api-keys update-api-key [OPTIONS] ID
+immichpy api-keys update-api-key [OPTIONS] ID
 ```
 
 **Arguments**:
@@ -225,7 +225,7 @@ An activity is a like or a comment made by a user on an asset or album.
 **Usage**:
 
 ```console
-$ immichpy activities [OPTIONS] COMMAND [ARGS]...
+immichpy activities [OPTIONS] COMMAND [ARGS]...
 ```
 
 **Options**:
@@ -248,7 +248,7 @@ Create an activity
 **Usage**:
 
 ```console
-$ immichpy activities create-activity [OPTIONS]
+immichpy activities create-activity [OPTIONS]
 ```
 
 **Options**:
@@ -268,7 +268,7 @@ Delete an activity
 **Usage**:
 
 ```console
-$ immichpy activities delete-activity [OPTIONS] ID
+immichpy activities delete-activity [OPTIONS] ID
 ```
 
 **Arguments**:
@@ -288,7 +288,7 @@ List all activities
 **Usage**:
 
 ```console
-$ immichpy activities get-activities [OPTIONS]
+immichpy activities get-activities [OPTIONS]
 ```
 
 **Options**:
@@ -309,7 +309,7 @@ Retrieve activity statistics
 **Usage**:
 
 ```console
-$ immichpy activities get-activity-statistics [OPTIONS]
+immichpy activities get-activity-statistics [OPTIONS]
 ```
 
 **Options**:
@@ -327,7 +327,7 @@ An album is a collection of assets that can be shared with other users or via sh
 **Usage**:
 
 ```console
-$ immichpy albums [OPTIONS] COMMAND [ARGS]...
+immichpy albums [OPTIONS] COMMAND [ARGS]...
 ```
 
 **Options**:
@@ -359,7 +359,7 @@ Add assets to an album
 **Usage**:
 
 ```console
-$ immichpy albums add-assets-to-album [OPTIONS] ID
+immichpy albums add-assets-to-album [OPTIONS] ID
 ```
 
 **Arguments**:
@@ -380,7 +380,7 @@ Add assets to albums
 **Usage**:
 
 ```console
-$ immichpy albums add-assets-to-albums [OPTIONS]
+immichpy albums add-assets-to-albums [OPTIONS]
 ```
 
 **Options**:
@@ -398,7 +398,7 @@ Share album with users
 **Usage**:
 
 ```console
-$ immichpy albums add-users-to-album [OPTIONS] ID
+immichpy albums add-users-to-album [OPTIONS] ID
 ```
 
 **Arguments**:
@@ -410,6 +410,7 @@ $ immichpy albums add-users-to-album [OPTIONS] ID
 * `--album-users TEXT`: Album users to add
 
 As a JSON string with keys: role (string), userId (string)  [required]
+
 * `--help`: Show this message and exit.
 
 ### `immichpy albums create-album`
@@ -421,7 +422,7 @@ Create an album
 **Usage**:
 
 ```console
-$ immichpy albums create-album [OPTIONS]
+immichpy albums create-album [OPTIONS]
 ```
 
 **Options**:
@@ -430,6 +431,7 @@ $ immichpy albums create-album [OPTIONS]
 * `--album-users TEXT`: Album users
 
 As a JSON string with keys: role (string), userId (string)
+
 * `--asset-ids UUID`: Initial asset IDs
 * `--description TEXT`: Album description
 * `--help`: Show this message and exit.
@@ -443,7 +445,7 @@ Delete an album
 **Usage**:
 
 ```console
-$ immichpy albums delete-album [OPTIONS] ID
+immichpy albums delete-album [OPTIONS] ID
 ```
 
 **Arguments**:
@@ -463,7 +465,7 @@ Retrieve an album
 **Usage**:
 
 ```console
-$ immichpy albums get-album-info [OPTIONS] ID
+immichpy albums get-album-info [OPTIONS] ID
 ```
 
 **Arguments**:
@@ -485,7 +487,7 @@ Retrieve album map markers
 **Usage**:
 
 ```console
-$ immichpy albums get-album-map-markers [OPTIONS] ID
+immichpy albums get-album-map-markers [OPTIONS] ID
 ```
 
 **Arguments**:
@@ -507,7 +509,7 @@ Retrieve album statistics
 **Usage**:
 
 ```console
-$ immichpy albums get-album-statistics [OPTIONS]
+immichpy albums get-album-statistics [OPTIONS]
 ```
 
 **Options**:
@@ -523,7 +525,7 @@ List all albums
 **Usage**:
 
 ```console
-$ immichpy albums get-all-albums [OPTIONS]
+immichpy albums get-all-albums [OPTIONS]
 ```
 
 **Options**:
@@ -544,7 +546,7 @@ Remove assets from an album
 **Usage**:
 
 ```console
-$ immichpy albums remove-asset-from-album [OPTIONS] ID
+immichpy albums remove-asset-from-album [OPTIONS] ID
 ```
 
 **Arguments**:
@@ -565,7 +567,7 @@ Remove user from album
 **Usage**:
 
 ```console
-$ immichpy albums remove-user-from-album [OPTIONS] ID USER_ID
+immichpy albums remove-user-from-album [OPTIONS] ID USER_ID
 ```
 
 **Arguments**:
@@ -586,7 +588,7 @@ Update an album
 **Usage**:
 
 ```console
-$ immichpy albums update-album-info [OPTIONS] ID
+immichpy albums update-album-info [OPTIONS] ID
 ```
 
 **Arguments**:
@@ -611,7 +613,7 @@ Update user role
 **Usage**:
 
 ```console
-$ immichpy albums update-album-user [OPTIONS] ID USER_ID
+immichpy albums update-album-user [OPTIONS] ID USER_ID
 ```
 
 **Arguments**:
@@ -633,7 +635,7 @@ An asset is an image or video that has been uploaded to Immich.
 **Usage**:
 
 ```console
-$ immichpy assets [OPTIONS] COMMAND [ARGS]...
+immichpy assets [OPTIONS] COMMAND [ARGS]...
 ```
 
 **Options**:
@@ -682,7 +684,7 @@ Check bulk upload
 **Usage**:
 
 ```console
-$ immichpy assets check-bulk-upload [OPTIONS]
+immichpy assets check-bulk-upload [OPTIONS]
 ```
 
 **Options**:
@@ -690,6 +692,7 @@ $ immichpy assets check-bulk-upload [OPTIONS]
 * `--assets TEXT`: Assets to check
 
 As a JSON string with keys: checksum (string), id (string)  [required]
+
 * `--help`: Show this message and exit.
 
 ### `immichpy assets copy-asset`
@@ -701,7 +704,7 @@ Copy asset
 **Usage**:
 
 ```console
-$ immichpy assets copy-asset [OPTIONS]
+immichpy assets copy-asset [OPTIONS]
 ```
 
 **Options**:
@@ -724,7 +727,7 @@ Delete asset metadata by key
 **Usage**:
 
 ```console
-$ immichpy assets delete-asset-metadata [OPTIONS] ID KEY
+immichpy assets delete-asset-metadata [OPTIONS] ID KEY
 ```
 
 **Arguments**:
@@ -745,7 +748,7 @@ Delete assets
 **Usage**:
 
 ```console
-$ immichpy assets delete-assets [OPTIONS]
+immichpy assets delete-assets [OPTIONS]
 ```
 
 **Options**:
@@ -763,7 +766,7 @@ Delete asset metadata
 **Usage**:
 
 ```console
-$ immichpy assets delete-bulk-asset-metadata [OPTIONS]
+immichpy assets delete-bulk-asset-metadata [OPTIONS]
 ```
 
 **Options**:
@@ -771,6 +774,7 @@ $ immichpy assets delete-bulk-asset-metadata [OPTIONS]
 * `--items TEXT`: Metadata items to delete
 
 As a JSON string with keys: assetId (string), key (string)  [required]
+
 * `--help`: Show this message and exit.
 
 ### `immichpy assets download-asset`
@@ -782,7 +786,7 @@ Download original asset
 **Usage**:
 
 ```console
-$ immichpy assets download-asset [OPTIONS] ID
+immichpy assets download-asset [OPTIONS] ID
 ```
 
 **Arguments**:
@@ -805,7 +809,7 @@ Apply edits to an existing asset
 **Usage**:
 
 ```console
-$ immichpy assets edit-asset [OPTIONS] ID
+immichpy assets edit-asset [OPTIONS] ID
 ```
 
 **Arguments**:
@@ -817,6 +821,7 @@ $ immichpy assets edit-asset [OPTIONS] ID
 * `--edits TEXT`: List of edit actions to apply (crop, rotate, or mirror)
 
 As a JSON string with keys: action (string), parameters (string)  [required]
+
 * `--help`: Show this message and exit.
 
 ### `immichpy assets end-session`
@@ -828,7 +833,7 @@ End HLS streaming session
 **Usage**:
 
 ```console
-$ immichpy assets end-session [OPTIONS] ID SESSION_ID
+immichpy assets end-session [OPTIONS] ID SESSION_ID
 ```
 
 **Arguments**:
@@ -851,7 +856,7 @@ Retrieve edits for an existing asset
 **Usage**:
 
 ```console
-$ immichpy assets get-asset-edits [OPTIONS] ID
+immichpy assets get-asset-edits [OPTIONS] ID
 ```
 
 **Arguments**:
@@ -871,7 +876,7 @@ Retrieve an asset
 **Usage**:
 
 ```console
-$ immichpy assets get-asset-info [OPTIONS] ID
+immichpy assets get-asset-info [OPTIONS] ID
 ```
 
 **Arguments**:
@@ -893,7 +898,7 @@ Get asset metadata
 **Usage**:
 
 ```console
-$ immichpy assets get-asset-metadata [OPTIONS] ID
+immichpy assets get-asset-metadata [OPTIONS] ID
 ```
 
 **Arguments**:
@@ -913,7 +918,7 @@ Retrieve asset metadata by key
 **Usage**:
 
 ```console
-$ immichpy assets get-asset-metadata-by-key [OPTIONS] ID KEY
+immichpy assets get-asset-metadata-by-key [OPTIONS] ID KEY
 ```
 
 **Arguments**:
@@ -934,7 +939,7 @@ Retrieve asset OCR data
 **Usage**:
 
 ```console
-$ immichpy assets get-asset-ocr [OPTIONS] ID
+immichpy assets get-asset-ocr [OPTIONS] ID
 ```
 
 **Arguments**:
@@ -954,7 +959,7 @@ Get asset statistics
 **Usage**:
 
 ```console
-$ immichpy assets get-asset-statistics [OPTIONS]
+immichpy assets get-asset-statistics [OPTIONS]
 ```
 
 **Options**:
@@ -973,7 +978,7 @@ Get HLS main playlist
 **Usage**:
 
 ```console
-$ immichpy assets get-main-playlist [OPTIONS] ID
+immichpy assets get-main-playlist [OPTIONS] ID
 ```
 
 **Arguments**:
@@ -995,7 +1000,7 @@ Get HLS media playlist
 **Usage**:
 
 ```console
-$ immichpy assets get-media-playlist [OPTIONS] ID SESSION_ID VARIANT_INDEX
+immichpy assets get-media-playlist [OPTIONS] ID SESSION_ID VARIANT_INDEX
 ```
 
 **Arguments**:
@@ -1020,7 +1025,7 @@ Get HLS segment or init file
 **Usage**:
 
 ```console
-$ immichpy assets get-segment [OPTIONS] FILENAME ID SESSION_ID VARIANT_INDEX
+immichpy assets get-segment [OPTIONS] FILENAME ID SESSION_ID VARIANT_INDEX
 ```
 
 **Arguments**:
@@ -1046,7 +1051,7 @@ Play asset video
 **Usage**:
 
 ```console
-$ immichpy assets play-asset-video [OPTIONS] ID
+immichpy assets play-asset-video [OPTIONS] ID
 ```
 
 **Arguments**:
@@ -1068,7 +1073,7 @@ Remove edits from an existing asset
 **Usage**:
 
 ```console
-$ immichpy assets remove-asset-edits [OPTIONS] ID
+immichpy assets remove-asset-edits [OPTIONS] ID
 ```
 
 **Arguments**:
@@ -1088,7 +1093,7 @@ Run an asset job
 **Usage**:
 
 ```console
-$ immichpy assets run-asset-jobs [OPTIONS]
+immichpy assets run-asset-jobs [OPTIONS]
 ```
 
 **Options**:
@@ -1106,7 +1111,7 @@ Update an asset
 **Usage**:
 
 ```console
-$ immichpy assets update-asset [OPTIONS] ID
+immichpy assets update-asset [OPTIONS] ID
 ```
 
 **Arguments**:
@@ -1134,7 +1139,7 @@ Update asset metadata
 **Usage**:
 
 ```console
-$ immichpy assets update-asset-metadata [OPTIONS] ID
+immichpy assets update-asset-metadata [OPTIONS] ID
 ```
 
 **Arguments**:
@@ -1146,6 +1151,7 @@ $ immichpy assets update-asset-metadata [OPTIONS] ID
 * `--items TEXT`: Metadata items to upsert
 
 As a JSON string with keys: key (string), value (object)  [required]
+
 * `--help`: Show this message and exit.
 
 ### `immichpy assets update-assets`
@@ -1157,7 +1163,7 @@ Update assets
 **Usage**:
 
 ```console
-$ immichpy assets update-assets [OPTIONS]
+immichpy assets update-assets [OPTIONS]
 ```
 
 **Options**:
@@ -1184,7 +1190,7 @@ Upsert asset metadata
 **Usage**:
 
 ```console
-$ immichpy assets update-bulk-asset-metadata [OPTIONS]
+immichpy assets update-bulk-asset-metadata [OPTIONS]
 ```
 
 **Options**:
@@ -1192,6 +1198,7 @@ $ immichpy assets update-bulk-asset-metadata [OPTIONS]
 * `--items TEXT`: Metadata items to upsert
 
 As a JSON string with keys: assetId (string), key (string), value (object)  [required]
+
 * `--help`: Show this message and exit.
 
 ### `immichpy assets upload-asset`
@@ -1203,7 +1210,7 @@ Upload asset
 **Usage**:
 
 ```console
-$ immichpy assets upload-asset [OPTIONS]
+immichpy assets upload-asset [OPTIONS]
 ```
 
 **Options**:
@@ -1213,9 +1220,11 @@ $ immichpy assets upload-asset [OPTIONS]
 * `--file-created-at [%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S]`: File creation date
 
 Example: 2024-01-01T00:00:00.000Z  [required]
+
 * `--file-modified-at [%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S]`: File modification date
 
 Example: 2024-01-01T00:00:00.000Z  [required]
+
 * `--filename TEXT`: Filename
 * `--is-favorite [true|false]`: Mark as favorite
 * `--key TEXT`
@@ -1223,6 +1232,7 @@ Example: 2024-01-01T00:00:00.000Z  [required]
 * `--metadata TEXT`: Asset metadata items
 
 As a JSON string with keys: key (string), value (object)
+
 * `--sidecar-data PATH`: Sidecar file data
 * `--slug TEXT`
 * `--visibility TEXT`: Asset visibility
@@ -1238,7 +1248,7 @@ View asset thumbnail
 **Usage**:
 
 ```console
-$ immichpy assets view-asset [OPTIONS] ID
+immichpy assets view-asset [OPTIONS] ID
 ```
 
 **Arguments**:
@@ -1263,7 +1273,7 @@ The filename can be specified or will be derived from the response headers.
 **Usage**:
 
 ```console
-$ immichpy assets download-asset-to-file [OPTIONS] ID OUT_DIR
+immichpy assets download-asset-to-file [OPTIONS] ID OUT_DIR
 ```
 
 **Arguments**:
@@ -1289,7 +1299,7 @@ The filename can be specified or will be derived from the response headers.
 **Usage**:
 
 ```console
-$ immichpy assets play-asset-video-to-file [OPTIONS] ID OUT_DIR
+immichpy assets play-asset-video-to-file [OPTIONS] ID OUT_DIR
 ```
 
 **Arguments**:
@@ -1315,7 +1325,7 @@ The filename can be specified or will be derived from the response headers.
 **Usage**:
 
 ```console
-$ immichpy assets view-asset-to-file [OPTIONS] ID OUT_DIR
+immichpy assets view-asset-to-file [OPTIONS] ID OUT_DIR
 ```
 
 **Arguments**:
@@ -1342,7 +1352,7 @@ Directories are automatically walked recursively.
 **Usage**:
 
 ```console
-$ immichpy assets upload [OPTIONS] PATHS...
+immichpy assets upload [OPTIONS] PATHS...
 ```
 
 **Arguments**:
@@ -1372,7 +1382,7 @@ Endpoints related to user authentication, including OAuth.
 **Usage**:
 
 ```console
-$ immichpy auth [OPTIONS] COMMAND [ARGS]...
+immichpy auth [OPTIONS] COMMAND [ARGS]...
 ```
 
 **Options**:
@@ -1408,7 +1418,7 @@ Change password
 **Usage**:
 
 ```console
-$ immichpy auth change-password [OPTIONS]
+immichpy auth change-password [OPTIONS]
 ```
 
 **Options**:
@@ -1417,9 +1427,11 @@ $ immichpy auth change-password [OPTIONS]
 * `--new-password TEXT`: New password (min 8 characters)
 
 Example: password  [required]
+
 * `--password TEXT`: Current password
 
 Example: password  [required]
+
 * `--help`: Show this message and exit.
 
 ### `immichpy auth change-pin-code`
@@ -1431,7 +1443,7 @@ Change pin code
 **Usage**:
 
 ```console
-$ immichpy auth change-pin-code [OPTIONS]
+immichpy auth change-pin-code [OPTIONS]
 ```
 
 **Options**:
@@ -1440,9 +1452,11 @@ $ immichpy auth change-pin-code [OPTIONS]
 * `--password TEXT`: User password (required if PIN code is not provided)
 
 Example: password
+
 * `--pin-code TEXT`: New PIN code (4-6 digits)
 
 Example: 123456
+
 * `--help`: Show this message and exit.
 
 ### `immichpy auth finish-o-auth`
@@ -1454,7 +1468,7 @@ Finish OAuth
 **Usage**:
 
 ```console
-$ immichpy auth finish-o-auth [OPTIONS]
+immichpy auth finish-o-auth [OPTIONS]
 ```
 
 **Options**:
@@ -1473,7 +1487,7 @@ Retrieve auth status
 **Usage**:
 
 ```console
-$ immichpy auth get-auth-status [OPTIONS]
+immichpy auth get-auth-status [OPTIONS]
 ```
 
 **Options**:
@@ -1489,7 +1503,7 @@ Link OAuth account
 **Usage**:
 
 ```console
-$ immichpy auth link-o-auth-account [OPTIONS]
+immichpy auth link-o-auth-account [OPTIONS]
 ```
 
 **Options**:
@@ -1508,7 +1522,7 @@ Lock auth session
 **Usage**:
 
 ```console
-$ immichpy auth lock-auth-session [OPTIONS]
+immichpy auth lock-auth-session [OPTIONS]
 ```
 
 **Options**:
@@ -1524,17 +1538,19 @@ Login
 **Usage**:
 
 ```console
-$ immichpy auth login [OPTIONS]
+immichpy auth login [OPTIONS]
 ```
 
 **Options**:
 
 * `--email TEXT`: User email
 
-Example: testuser@email.com  [required]
+Example: <testuser@email.com>  [required]
+
 * `--password TEXT`: User password
 
 Example: password  [required]
+
 * `--help`: Show this message and exit.
 
 ### `immichpy auth logout`
@@ -1546,7 +1562,7 @@ Logout
 **Usage**:
 
 ```console
-$ immichpy auth logout [OPTIONS]
+immichpy auth logout [OPTIONS]
 ```
 
 **Options**:
@@ -1562,7 +1578,7 @@ Backchannel OAuth logout
 **Usage**:
 
 ```console
-$ immichpy auth logout-o-auth [OPTIONS]
+immichpy auth logout-o-auth [OPTIONS]
 ```
 
 **Options**:
@@ -1579,7 +1595,7 @@ Redirect OAuth to mobile
 **Usage**:
 
 ```console
-$ immichpy auth redirect-o-auth-to-mobile [OPTIONS]
+immichpy auth redirect-o-auth-to-mobile [OPTIONS]
 ```
 
 **Options**:
@@ -1595,7 +1611,7 @@ Reset pin code
 **Usage**:
 
 ```console
-$ immichpy auth reset-pin-code [OPTIONS]
+immichpy auth reset-pin-code [OPTIONS]
 ```
 
 **Options**:
@@ -1603,9 +1619,11 @@ $ immichpy auth reset-pin-code [OPTIONS]
 * `--password TEXT`: User password (required if PIN code is not provided)
 
 Example: password
+
 * `--pin-code TEXT`: New PIN code (4-6 digits)
 
 Example: 123456
+
 * `--help`: Show this message and exit.
 
 ### `immichpy auth setup-pin-code`
@@ -1617,7 +1635,7 @@ Setup pin code
 **Usage**:
 
 ```console
-$ immichpy auth setup-pin-code [OPTIONS]
+immichpy auth setup-pin-code [OPTIONS]
 ```
 
 **Options**:
@@ -1625,6 +1643,7 @@ $ immichpy auth setup-pin-code [OPTIONS]
 * `--pin-code TEXT`: PIN code (4-6 digits)
 
 Example: 123456  [required]
+
 * `--help`: Show this message and exit.
 
 ### `immichpy auth sign-up-admin`
@@ -1636,20 +1655,23 @@ Register admin
 **Usage**:
 
 ```console
-$ immichpy auth sign-up-admin [OPTIONS]
+immichpy auth sign-up-admin [OPTIONS]
 ```
 
 **Options**:
 
 * `--email TEXT`: User email
 
-Example: testuser@email.com  [required]
+Example: <testuser@email.com>  [required]
+
 * `--name TEXT`: User name
 
 Example: Admin  [required]
+
 * `--password TEXT`: User password
 
 Example: password  [required]
+
 * `--help`: Show this message and exit.
 
 ### `immichpy auth start-o-auth`
@@ -1661,7 +1683,7 @@ Start OAuth
 **Usage**:
 
 ```console
-$ immichpy auth start-o-auth [OPTIONS]
+immichpy auth start-o-auth [OPTIONS]
 ```
 
 **Options**:
@@ -1680,7 +1702,7 @@ Unlink OAuth account
 **Usage**:
 
 ```console
-$ immichpy auth unlink-o-auth-account [OPTIONS]
+immichpy auth unlink-o-auth-account [OPTIONS]
 ```
 
 **Options**:
@@ -1696,7 +1718,7 @@ Unlock auth session
 **Usage**:
 
 ```console
-$ immichpy auth unlock-auth-session [OPTIONS]
+immichpy auth unlock-auth-session [OPTIONS]
 ```
 
 **Options**:
@@ -1704,9 +1726,11 @@ $ immichpy auth unlock-auth-session [OPTIONS]
 * `--password TEXT`: User password (required if PIN code is not provided)
 
 Example: password
+
 * `--pin-code TEXT`: New PIN code (4-6 digits)
 
 Example: 123456
+
 * `--help`: Show this message and exit.
 
 ### `immichpy auth validate-access-token`
@@ -1718,7 +1742,7 @@ Validate access token
 **Usage**:
 
 ```console
-$ immichpy auth validate-access-token [OPTIONS]
+immichpy auth validate-access-token [OPTIONS]
 ```
 
 **Options**:
@@ -1734,7 +1758,7 @@ Administrative endpoints related to authentication.
 **Usage**:
 
 ```console
-$ immichpy auth-admin [OPTIONS] COMMAND [ARGS]...
+immichpy auth-admin [OPTIONS] COMMAND [ARGS]...
 ```
 
 **Options**:
@@ -1754,7 +1778,7 @@ Unlink all OAuth accounts
 **Usage**:
 
 ```console
-$ immichpy auth-admin unlink-all-o-auth-accounts-admin [OPTIONS]
+immichpy auth-admin unlink-all-o-auth-accounts-admin [OPTIONS]
 ```
 
 **Options**:
@@ -1770,7 +1794,7 @@ Endpoints for downloading assets or collections of assets.
 **Usage**:
 
 ```console
-$ immichpy download [OPTIONS] COMMAND [ARGS]...
+immichpy download [OPTIONS] COMMAND [ARGS]...
 ```
 
 **Options**:
@@ -1792,7 +1816,7 @@ Download asset archive
 **Usage**:
 
 ```console
-$ immichpy download download-archive [OPTIONS]
+immichpy download download-archive [OPTIONS]
 ```
 
 **Options**:
@@ -1812,7 +1836,7 @@ Retrieve download information
 **Usage**:
 
 ```console
-$ immichpy download get-download-info [OPTIONS]
+immichpy download get-download-info [OPTIONS]
 ```
 
 **Options**:
@@ -1835,7 +1859,7 @@ The download_info parameter can be provided via --json or using dotted flags.
 **Usage**:
 
 ```console
-$ immichpy download download-archive-to-file [OPTIONS] OUT_DIR
+immichpy download download-archive-to-file [OPTIONS] OUT_DIR
 ```
 
 **Arguments**:
@@ -1860,7 +1884,7 @@ Configure the CLI with server details, profiles, and request settings.
 **Usage**:
 
 ```console
-$ immichpy config [OPTIONS] COMMAND [ARGS]...
+immichpy config [OPTIONS] COMMAND [ARGS]...
 ```
 
 **Options**:
@@ -1881,7 +1905,7 @@ Set a value in the config file.
 **Usage**:
 
 ```console
-$ immichpy config set [OPTIONS] KEY
+immichpy config set [OPTIONS] KEY
 ```
 
 **Arguments**:
@@ -1900,7 +1924,7 @@ Get a value from the config file. Secrets are redacted by default.
 **Usage**:
 
 ```console
-$ immichpy config get [OPTIONS] KEY
+immichpy config get [OPTIONS] KEY
 ```
 
 **Arguments**:
@@ -1919,7 +1943,7 @@ Reset the configuration by deleting the config file.
 **Usage**:
 
 ```console
-$ immichpy config reset [OPTIONS]
+immichpy config reset [OPTIONS]
 ```
 
 **Options**:
@@ -1934,7 +1958,7 @@ Open the config file in the default editor.
 **Usage**:
 
 ```console
-$ immichpy config open [OPTIONS]
+immichpy config open [OPTIONS]
 ```
 
 **Options**:
@@ -1950,7 +1974,7 @@ Endpoints for managing and identifying duplicate assets.
 **Usage**:
 
 ```console
-$ immichpy duplicates [OPTIONS] COMMAND [ARGS]...
+immichpy duplicates [OPTIONS] COMMAND [ARGS]...
 ```
 
 **Options**:
@@ -1973,7 +1997,7 @@ Dismiss a duplicate group
 **Usage**:
 
 ```console
-$ immichpy duplicates delete-duplicate [OPTIONS] ID
+immichpy duplicates delete-duplicate [OPTIONS] ID
 ```
 
 **Arguments**:
@@ -1993,7 +2017,7 @@ Delete duplicates
 **Usage**:
 
 ```console
-$ immichpy duplicates delete-duplicates [OPTIONS]
+immichpy duplicates delete-duplicates [OPTIONS]
 ```
 
 **Options**:
@@ -2010,7 +2034,7 @@ Retrieve duplicates
 **Usage**:
 
 ```console
-$ immichpy duplicates get-asset-duplicates [OPTIONS]
+immichpy duplicates get-asset-duplicates [OPTIONS]
 ```
 
 **Options**:
@@ -2026,7 +2050,7 @@ Resolve duplicate groups
 **Usage**:
 
 ```console
-$ immichpy duplicates resolve-duplicates [OPTIONS]
+immichpy duplicates resolve-duplicates [OPTIONS]
 ```
 
 **Options**:
@@ -2034,6 +2058,7 @@ $ immichpy duplicates resolve-duplicates [OPTIONS]
 * `--groups TEXT`: List of duplicate groups to resolve
 
 As a JSON string with keys: duplicateId (string), keepAssetIds (string[]), trashAssetIds (string[])  [required]
+
 * `--help`: Show this message and exit.
 
 ## `immichpy faces`
@@ -2045,7 +2070,7 @@ A face is a detected human face within an asset, which can be associated with a 
 **Usage**:
 
 ```console
-$ immichpy faces [OPTIONS] COMMAND [ARGS]...
+immichpy faces [OPTIONS] COMMAND [ARGS]...
 ```
 
 **Options**:
@@ -2068,7 +2093,7 @@ Create a face
 **Usage**:
 
 ```console
-$ immichpy faces create-face [OPTIONS]
+immichpy faces create-face [OPTIONS]
 ```
 
 **Options**:
@@ -2092,7 +2117,7 @@ Delete a face
 **Usage**:
 
 ```console
-$ immichpy faces delete-face [OPTIONS] ID
+immichpy faces delete-face [OPTIONS] ID
 ```
 
 **Arguments**:
@@ -2113,7 +2138,7 @@ Retrieve faces for asset
 **Usage**:
 
 ```console
-$ immichpy faces get-faces [OPTIONS]
+immichpy faces get-faces [OPTIONS]
 ```
 
 **Options**:
@@ -2130,7 +2155,7 @@ Re-assign a face to another person
 **Usage**:
 
 ```console
-$ immichpy faces reassign-faces-by-id [OPTIONS] ID
+immichpy faces reassign-faces-by-id [OPTIONS] ID
 ```
 
 **Arguments**:
@@ -2151,7 +2176,7 @@ Queues and background jobs are used for processing tasks asynchronously. Queues 
 **Usage**:
 
 ```console
-$ immichpy jobs [OPTIONS] COMMAND [ARGS]...
+immichpy jobs [OPTIONS] COMMAND [ARGS]...
 ```
 
 **Options**:
@@ -2173,7 +2198,7 @@ Create a manual job
 **Usage**:
 
 ```console
-$ immichpy jobs create-job [OPTIONS]
+immichpy jobs create-job [OPTIONS]
 ```
 
 **Options**:
@@ -2190,7 +2215,7 @@ Retrieve queue counts and status
 **Usage**:
 
 ```console
-$ immichpy jobs get-queues-legacy [OPTIONS]
+immichpy jobs get-queues-legacy [OPTIONS]
 ```
 
 **Options**:
@@ -2206,7 +2231,7 @@ Run jobs
 **Usage**:
 
 ```console
-$ immichpy jobs run-queue-command-legacy [OPTIONS] NAME:{thumbnailGeneration|metadataExtraction|videoConversion|faceDetection|facialRecognition|smartSearch|duplicateDetection|backgroundTask|storageTemplateMigration|migration|search|sidecar|library|notifications|backupDatabase|ocr|workflow|integrityCheck|editor}
+immichpy jobs run-queue-command-legacy [OPTIONS] NAME:{thumbnailGeneration|metadataExtraction|videoConversion|faceDetection|facialRecognition|smartSearch|duplicateDetection|backgroundTask|storageTemplateMigration|migration|search|sidecar|library|notifications|backupDatabase|ocr|workflow|integrityCheck|editor}
 ```
 
 **Arguments**:
@@ -2228,7 +2253,7 @@ An external library is made up of input file paths or expressions that are scann
 **Usage**:
 
 ```console
-$ immichpy libraries [OPTIONS] COMMAND [ARGS]...
+immichpy libraries [OPTIONS] COMMAND [ARGS]...
 ```
 
 **Options**:
@@ -2255,7 +2280,7 @@ Create a library
 **Usage**:
 
 ```console
-$ immichpy libraries create-library [OPTIONS]
+immichpy libraries create-library [OPTIONS]
 ```
 
 **Options**:
@@ -2275,7 +2300,7 @@ Delete a library
 **Usage**:
 
 ```console
-$ immichpy libraries delete-library [OPTIONS] ID
+immichpy libraries delete-library [OPTIONS] ID
 ```
 
 **Arguments**:
@@ -2295,7 +2320,7 @@ Retrieve libraries
 **Usage**:
 
 ```console
-$ immichpy libraries get-all-libraries [OPTIONS]
+immichpy libraries get-all-libraries [OPTIONS]
 ```
 
 **Options**:
@@ -2311,7 +2336,7 @@ Retrieve a library
 **Usage**:
 
 ```console
-$ immichpy libraries get-library [OPTIONS] ID
+immichpy libraries get-library [OPTIONS] ID
 ```
 
 **Arguments**:
@@ -2331,7 +2356,7 @@ Retrieve library statistics
 **Usage**:
 
 ```console
-$ immichpy libraries get-library-statistics [OPTIONS] ID
+immichpy libraries get-library-statistics [OPTIONS] ID
 ```
 
 **Arguments**:
@@ -2351,7 +2376,7 @@ Scan a library
 **Usage**:
 
 ```console
-$ immichpy libraries scan-library [OPTIONS] ID
+immichpy libraries scan-library [OPTIONS] ID
 ```
 
 **Arguments**:
@@ -2371,7 +2396,7 @@ Update a library
 **Usage**:
 
 ```console
-$ immichpy libraries update-library [OPTIONS] ID
+immichpy libraries update-library [OPTIONS] ID
 ```
 
 **Arguments**:
@@ -2394,7 +2419,7 @@ Validate library settings
 **Usage**:
 
 ```console
-$ immichpy libraries validate [OPTIONS] ID
+immichpy libraries validate [OPTIONS] ID
 ```
 
 **Arguments**:
@@ -2416,7 +2441,7 @@ Maintenance mode allows you to put Immich in a read-only state to perform variou
 **Usage**:
 
 ```console
-$ immichpy maintenance-admin [OPTIONS] COMMAND [ARGS]...
+immichpy maintenance-admin [OPTIONS] COMMAND [ARGS]...
 ```
 
 **Options**:
@@ -2444,7 +2469,7 @@ Delete integrity report item
 **Usage**:
 
 ```console
-$ immichpy maintenance-admin delete-integrity-report [OPTIONS] ID
+immichpy maintenance-admin delete-integrity-report [OPTIONS] ID
 ```
 
 **Arguments**:
@@ -2464,7 +2489,7 @@ Detect existing install
 **Usage**:
 
 ```console
-$ immichpy maintenance-admin detect-prior-install [OPTIONS]
+immichpy maintenance-admin detect-prior-install [OPTIONS]
 ```
 
 **Options**:
@@ -2480,7 +2505,7 @@ Get integrity report by type
 **Usage**:
 
 ```console
-$ immichpy maintenance-admin get-integrity-report [OPTIONS]
+immichpy maintenance-admin get-integrity-report [OPTIONS]
 ```
 
 **Options**:
@@ -2499,7 +2524,7 @@ Export integrity report by type as CSV
 **Usage**:
 
 ```console
-$ immichpy maintenance-admin get-integrity-report-csv [OPTIONS] TYPE:{untracked_file|missing_file|checksum_mismatch}
+immichpy maintenance-admin get-integrity-report-csv [OPTIONS] TYPE:{untracked_file|missing_file|checksum_mismatch}
 ```
 
 **Arguments**:
@@ -2519,7 +2544,7 @@ Download flagged file
 **Usage**:
 
 ```console
-$ immichpy maintenance-admin get-integrity-report-file [OPTIONS] ID
+immichpy maintenance-admin get-integrity-report-file [OPTIONS] ID
 ```
 
 **Arguments**:
@@ -2539,7 +2564,7 @@ Get integrity report summary
 **Usage**:
 
 ```console
-$ immichpy maintenance-admin get-integrity-report-summary [OPTIONS]
+immichpy maintenance-admin get-integrity-report-summary [OPTIONS]
 ```
 
 **Options**:
@@ -2555,7 +2580,7 @@ Get maintenance mode status
 **Usage**:
 
 ```console
-$ immichpy maintenance-admin get-maintenance-status [OPTIONS]
+immichpy maintenance-admin get-maintenance-status [OPTIONS]
 ```
 
 **Options**:
@@ -2571,7 +2596,7 @@ Log into maintenance mode
 **Usage**:
 
 ```console
-$ immichpy maintenance-admin maintenance-login [OPTIONS]
+immichpy maintenance-admin maintenance-login [OPTIONS]
 ```
 
 **Options**:
@@ -2588,7 +2613,7 @@ Set maintenance mode
 **Usage**:
 
 ```console
-$ immichpy maintenance-admin set-maintenance-mode [OPTIONS]
+immichpy maintenance-admin set-maintenance-mode [OPTIONS]
 ```
 
 **Options**:
@@ -2606,7 +2631,7 @@ Map endpoints include supplemental functionality related to geolocation, such as
 **Usage**:
 
 ```console
-$ immichpy map [OPTIONS] COMMAND [ARGS]...
+immichpy map [OPTIONS] COMMAND [ARGS]...
 ```
 
 **Options**:
@@ -2627,7 +2652,7 @@ Retrieve map markers
 **Usage**:
 
 ```console
-$ immichpy map get-map-markers [OPTIONS]
+immichpy map get-map-markers [OPTIONS]
 ```
 
 **Options**:
@@ -2635,9 +2660,11 @@ $ immichpy map get-map-markers [OPTIONS]
 * `--file-created-after [%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S]`: Filter assets created after this date
 
 Example: 2024-01-01T00:00:00.000Z
+
 * `--file-created-before [%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S]`: Filter assets created before this date
 
 Example: 2024-01-01T00:00:00.000Z
+
 * `--is-archived [true|false]`: Filter by archived status
 * `--is-favorite [true|false]`: Filter by favorite status
 * `--with-partners [true|false]`: Include partner assets
@@ -2653,7 +2680,7 @@ Reverse geocode coordinates
 **Usage**:
 
 ```console
-$ immichpy map reverse-geocode [OPTIONS]
+immichpy map reverse-geocode [OPTIONS]
 ```
 
 **Options**:
@@ -2671,7 +2698,7 @@ A memory is a specialized collection of assets with dedicated viewing implementa
 **Usage**:
 
 ```console
-$ immichpy memories [OPTIONS] COMMAND [ARGS]...
+immichpy memories [OPTIONS] COMMAND [ARGS]...
 ```
 
 **Options**:
@@ -2698,7 +2725,7 @@ Add assets to a memory
 **Usage**:
 
 ```console
-$ immichpy memories add-memory-assets [OPTIONS] ID
+immichpy memories add-memory-assets [OPTIONS] ID
 ```
 
 **Arguments**:
@@ -2719,7 +2746,7 @@ Create a memory
 **Usage**:
 
 ```console
-$ immichpy memories create-memory [OPTIONS]
+immichpy memories create-memory [OPTIONS]
 ```
 
 **Options**:
@@ -2729,16 +2756,20 @@ $ immichpy memories create-memory [OPTIONS]
 * `--hide-at [%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S]`: Date when memory should be hidden
 
 Example: 2024-01-01T00:00:00.000Z
+
 * `--is-saved [true|false]`: Is memory saved
 * `--memory-at [%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S]`: Memory date
 
 Example: 2024-01-01T00:00:00.000Z  [required]
+
 * `--seen-at [%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S]`: Date when memory was seen
 
 Example: 2024-01-01T00:00:00.000Z
+
 * `--show-at [%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S]`: Date when memory should be shown
 
 Example: 2024-01-01T00:00:00.000Z
+
 * `--type TEXT`: Memory type  [required]
 * `--help`: Show this message and exit.
 
@@ -2751,7 +2782,7 @@ Delete a memory
 **Usage**:
 
 ```console
-$ immichpy memories delete-memory [OPTIONS] ID
+immichpy memories delete-memory [OPTIONS] ID
 ```
 
 **Arguments**:
@@ -2771,7 +2802,7 @@ Retrieve a memory
 **Usage**:
 
 ```console
-$ immichpy memories get-memory [OPTIONS] ID
+immichpy memories get-memory [OPTIONS] ID
 ```
 
 **Arguments**:
@@ -2791,7 +2822,7 @@ Retrieve memories statistics
 **Usage**:
 
 ```console
-$ immichpy memories memories-statistics [OPTIONS]
+immichpy memories memories-statistics [OPTIONS]
 ```
 
 **Options**:
@@ -2799,6 +2830,7 @@ $ immichpy memories memories-statistics [OPTIONS]
 * `--for TEXT`: Filter by date
 
 Example: 2024-01-01
+
 * `--is-saved [true|false]`: Filter by saved status
 * `--is-trashed [true|false]`: Include trashed memories
 * `--order [asc|desc|random]`
@@ -2815,7 +2847,7 @@ Remove assets from a memory
 **Usage**:
 
 ```console
-$ immichpy memories remove-memory-assets [OPTIONS] ID
+immichpy memories remove-memory-assets [OPTIONS] ID
 ```
 
 **Arguments**:
@@ -2836,7 +2868,7 @@ Retrieve memories
 **Usage**:
 
 ```console
-$ immichpy memories search-memories [OPTIONS]
+immichpy memories search-memories [OPTIONS]
 ```
 
 **Options**:
@@ -2844,6 +2876,7 @@ $ immichpy memories search-memories [OPTIONS]
 * `--for TEXT`: Filter by date
 
 Example: 2024-01-01
+
 * `--is-saved [true|false]`: Filter by saved status
 * `--is-trashed [true|false]`: Include trashed memories
 * `--order [asc|desc|random]`
@@ -2860,7 +2893,7 @@ Update a memory
 **Usage**:
 
 ```console
-$ immichpy memories update-memory [OPTIONS] ID
+immichpy memories update-memory [OPTIONS] ID
 ```
 
 **Arguments**:
@@ -2873,9 +2906,11 @@ $ immichpy memories update-memory [OPTIONS] ID
 * `--memory-at [%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S]`: Memory date
 
 Example: 2024-01-01T00:00:00.000Z
+
 * `--seen-at [%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S]`: Date when memory was seen
 
 Example: 2024-01-01T00:00:00.000Z
+
 * `--help`: Show this message and exit.
 
 ## `immichpy notifications`
@@ -2887,7 +2922,7 @@ A notification is a specialized message sent to users to inform them of importan
 **Usage**:
 
 ```console
-$ immichpy notifications [OPTIONS] COMMAND [ARGS]...
+immichpy notifications [OPTIONS] COMMAND [ARGS]...
 ```
 
 **Options**:
@@ -2912,7 +2947,7 @@ Delete a notification
 **Usage**:
 
 ```console
-$ immichpy notifications delete-notification [OPTIONS] ID
+immichpy notifications delete-notification [OPTIONS] ID
 ```
 
 **Arguments**:
@@ -2932,7 +2967,7 @@ Delete notifications
 **Usage**:
 
 ```console
-$ immichpy notifications delete-notifications [OPTIONS]
+immichpy notifications delete-notifications [OPTIONS]
 ```
 
 **Options**:
@@ -2949,7 +2984,7 @@ Get a notification
 **Usage**:
 
 ```console
-$ immichpy notifications get-notification [OPTIONS] ID
+immichpy notifications get-notification [OPTIONS] ID
 ```
 
 **Arguments**:
@@ -2969,7 +3004,7 @@ Retrieve notifications
 **Usage**:
 
 ```console
-$ immichpy notifications get-notifications [OPTIONS]
+immichpy notifications get-notifications [OPTIONS]
 ```
 
 **Options**:
@@ -2989,7 +3024,7 @@ Update a notification
 **Usage**:
 
 ```console
-$ immichpy notifications update-notification [OPTIONS] ID
+immichpy notifications update-notification [OPTIONS] ID
 ```
 
 **Arguments**:
@@ -3001,6 +3036,7 @@ $ immichpy notifications update-notification [OPTIONS] ID
 * `--read-at [%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S]`: Date when notification was read
 
 Example: 2024-01-01T00:00:00.000Z
+
 * `--help`: Show this message and exit.
 
 ### `immichpy notifications update-notifications`
@@ -3012,7 +3048,7 @@ Update notifications
 **Usage**:
 
 ```console
-$ immichpy notifications update-notifications [OPTIONS]
+immichpy notifications update-notifications [OPTIONS]
 ```
 
 **Options**:
@@ -3021,6 +3057,7 @@ $ immichpy notifications update-notifications [OPTIONS]
 * `--read-at [%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S]`: Date when notifications were read
 
 Example: 2024-01-01T00:00:00.000Z
+
 * `--help`: Show this message and exit.
 
 ## `immichpy notifications-admin`
@@ -3032,7 +3069,7 @@ Notification administrative endpoints.
 **Usage**:
 
 ```console
-$ immichpy notifications-admin [OPTIONS] COMMAND [ARGS]...
+immichpy notifications-admin [OPTIONS] COMMAND [ARGS]...
 ```
 
 **Options**:
@@ -3054,7 +3091,7 @@ Create a notification
 **Usage**:
 
 ```console
-$ immichpy notifications-admin create-notification [OPTIONS]
+immichpy notifications-admin create-notification [OPTIONS]
 ```
 
 **Options**:
@@ -3062,11 +3099,13 @@ $ immichpy notifications-admin create-notification [OPTIONS]
 * `--data TEXT`: Additional notification data
 
 As a JSON string
+
 * `--description TEXT`: Notification description
 * `--level TEXT`: Notification level
 * `--read-at [%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S]`: Date when notification was read
 
 Example: 2024-01-01T00:00:00.000Z
+
 * `--title TEXT`: Notification title  [required]
 * `--type TEXT`: Notification type
 * `--user-id UUID`: User ID to send notification to  [required]
@@ -3081,7 +3120,7 @@ Render email template
 **Usage**:
 
 ```console
-$ immichpy notifications-admin get-notification-template-admin [OPTIONS] NAME
+immichpy notifications-admin get-notification-template-admin [OPTIONS] NAME
 ```
 
 **Arguments**:
@@ -3102,7 +3141,7 @@ Send test email
 **Usage**:
 
 ```console
-$ immichpy notifications-admin send-test-email-admin [OPTIONS]
+immichpy notifications-admin send-test-email-admin [OPTIONS]
 ```
 
 **Options**:
@@ -3127,7 +3166,7 @@ A partner is a link with another user that allows sharing of assets between two 
 **Usage**:
 
 ```console
-$ immichpy partners [OPTIONS] COMMAND [ARGS]...
+immichpy partners [OPTIONS] COMMAND [ARGS]...
 ```
 
 **Options**:
@@ -3151,7 +3190,7 @@ Create a partner
 **Usage**:
 
 ```console
-$ immichpy partners create-partner [OPTIONS]
+immichpy partners create-partner [OPTIONS]
 ```
 
 **Options**:
@@ -3168,7 +3207,7 @@ Create a partner
 **Usage**:
 
 ```console
-$ immichpy partners create-partner-deprecated [OPTIONS] ID
+immichpy partners create-partner-deprecated [OPTIONS] ID
 ```
 
 **Arguments**:
@@ -3188,7 +3227,7 @@ Retrieve partners
 **Usage**:
 
 ```console
-$ immichpy partners get-partners [OPTIONS]
+immichpy partners get-partners [OPTIONS]
 ```
 
 **Options**:
@@ -3205,7 +3244,7 @@ Remove a partner
 **Usage**:
 
 ```console
-$ immichpy partners remove-partner [OPTIONS] ID
+immichpy partners remove-partner [OPTIONS] ID
 ```
 
 **Arguments**:
@@ -3225,7 +3264,7 @@ Update a partner
 **Usage**:
 
 ```console
-$ immichpy partners update-partner [OPTIONS] ID
+immichpy partners update-partner [OPTIONS] ID
 ```
 
 **Arguments**:
@@ -3246,7 +3285,7 @@ A person is a collection of faces, which can be favorited and named. A person ca
 **Usage**:
 
 ```console
-$ immichpy people [OPTIONS] COMMAND [ARGS]...
+immichpy people [OPTIONS] COMMAND [ARGS]...
 ```
 
 **Options**:
@@ -3276,7 +3315,7 @@ Create a person
 **Usage**:
 
 ```console
-$ immichpy people create-person [OPTIONS]
+immichpy people create-person [OPTIONS]
 ```
 
 **Options**:
@@ -3297,7 +3336,7 @@ Delete people
 **Usage**:
 
 ```console
-$ immichpy people delete-people [OPTIONS]
+immichpy people delete-people [OPTIONS]
 ```
 
 **Options**:
@@ -3314,7 +3353,7 @@ Delete person
 **Usage**:
 
 ```console
-$ immichpy people delete-person [OPTIONS] ID
+immichpy people delete-person [OPTIONS] ID
 ```
 
 **Arguments**:
@@ -3334,7 +3373,7 @@ Get all people
 **Usage**:
 
 ```console
-$ immichpy people get-all-people [OPTIONS]
+immichpy people get-all-people [OPTIONS]
 ```
 
 **Options**:
@@ -3355,7 +3394,7 @@ Get a person
 **Usage**:
 
 ```console
-$ immichpy people get-person [OPTIONS] ID
+immichpy people get-person [OPTIONS] ID
 ```
 
 **Arguments**:
@@ -3375,7 +3414,7 @@ Get person statistics
 **Usage**:
 
 ```console
-$ immichpy people get-person-statistics [OPTIONS] ID
+immichpy people get-person-statistics [OPTIONS] ID
 ```
 
 **Arguments**:
@@ -3395,7 +3434,7 @@ Get person thumbnail
 **Usage**:
 
 ```console
-$ immichpy people get-person-thumbnail [OPTIONS] ID
+immichpy people get-person-thumbnail [OPTIONS] ID
 ```
 
 **Arguments**:
@@ -3415,7 +3454,7 @@ Merge people
 **Usage**:
 
 ```console
-$ immichpy people merge-person [OPTIONS] ID
+immichpy people merge-person [OPTIONS] ID
 ```
 
 **Arguments**:
@@ -3436,7 +3475,7 @@ Reassign faces
 **Usage**:
 
 ```console
-$ immichpy people reassign-faces [OPTIONS] ID
+immichpy people reassign-faces [OPTIONS] ID
 ```
 
 **Arguments**:
@@ -3448,6 +3487,7 @@ $ immichpy people reassign-faces [OPTIONS] ID
 * `--data TEXT`: Face update items
 
 As a JSON string with keys: assetId (string), personId (string)  [required]
+
 * `--help`: Show this message and exit.
 
 ### `immichpy people update-people`
@@ -3459,7 +3499,7 @@ Update people
 **Usage**:
 
 ```console
-$ immichpy people update-people [OPTIONS]
+immichpy people update-people [OPTIONS]
 ```
 
 **Options**:
@@ -3467,6 +3507,7 @@ $ immichpy people update-people [OPTIONS]
 * `--people TEXT`: People to update
 
 As a JSON string with keys: birthDate (string), color (string), featureFaceAssetId (string), id (string), isFavorite (boolean), isHidden (boolean), name (string)  [required]
+
 * `--help`: Show this message and exit.
 
 ### `immichpy people update-person`
@@ -3478,7 +3519,7 @@ Update person
 **Usage**:
 
 ```console
-$ immichpy people update-person [OPTIONS] ID
+immichpy people update-person [OPTIONS] ID
 ```
 
 **Arguments**:
@@ -3504,7 +3545,7 @@ A plugin is an installed module that makes filters and actions available for the
 **Usage**:
 
 ```console
-$ immichpy plugins [OPTIONS] COMMAND [ARGS]...
+immichpy plugins [OPTIONS] COMMAND [ARGS]...
 ```
 
 **Options**:
@@ -3527,7 +3568,7 @@ Retrieve a plugin
 **Usage**:
 
 ```console
-$ immichpy plugins get-plugin [OPTIONS] ID
+immichpy plugins get-plugin [OPTIONS] ID
 ```
 
 **Arguments**:
@@ -3547,7 +3588,7 @@ Retrieve plugin methods
 **Usage**:
 
 ```console
-$ immichpy plugins search-plugin-methods [OPTIONS]
+immichpy plugins search-plugin-methods [OPTIONS]
 ```
 
 **Options**:
@@ -3572,7 +3613,7 @@ Retrieve workflow templates
 **Usage**:
 
 ```console
-$ immichpy plugins search-plugin-templates [OPTIONS]
+immichpy plugins search-plugin-templates [OPTIONS]
 ```
 
 **Options**:
@@ -3588,7 +3629,7 @@ List all plugins
 **Usage**:
 
 ```console
-$ immichpy plugins search-plugins [OPTIONS]
+immichpy plugins search-plugins [OPTIONS]
 ```
 
 **Options**:
@@ -3610,7 +3651,7 @@ Queues and background jobs are used for processing tasks asynchronously. Queues 
 **Usage**:
 
 ```console
-$ immichpy queues [OPTIONS] COMMAND [ARGS]...
+immichpy queues [OPTIONS] COMMAND [ARGS]...
 ```
 
 **Options**:
@@ -3634,7 +3675,7 @@ Empty a queue
 **Usage**:
 
 ```console
-$ immichpy queues empty-queue [OPTIONS] NAME:{thumbnailGeneration|metadataExtraction|videoConversion|faceDetection|facialRecognition|smartSearch|duplicateDetection|backgroundTask|storageTemplateMigration|migration|search|sidecar|library|notifications|backupDatabase|ocr|workflow|integrityCheck|editor}
+immichpy queues empty-queue [OPTIONS] NAME:{thumbnailGeneration|metadataExtraction|videoConversion|faceDetection|facialRecognition|smartSearch|duplicateDetection|backgroundTask|storageTemplateMigration|migration|search|sidecar|library|notifications|backupDatabase|ocr|workflow|integrityCheck|editor}
 ```
 
 **Arguments**:
@@ -3655,7 +3696,7 @@ Retrieve a queue
 **Usage**:
 
 ```console
-$ immichpy queues get-queue [OPTIONS] NAME:{thumbnailGeneration|metadataExtraction|videoConversion|faceDetection|facialRecognition|smartSearch|duplicateDetection|backgroundTask|storageTemplateMigration|migration|search|sidecar|library|notifications|backupDatabase|ocr|workflow|integrityCheck|editor}
+immichpy queues get-queue [OPTIONS] NAME:{thumbnailGeneration|metadataExtraction|videoConversion|faceDetection|facialRecognition|smartSearch|duplicateDetection|backgroundTask|storageTemplateMigration|migration|search|sidecar|library|notifications|backupDatabase|ocr|workflow|integrityCheck|editor}
 ```
 
 **Arguments**:
@@ -3675,7 +3716,7 @@ Retrieve queue jobs
 **Usage**:
 
 ```console
-$ immichpy queues get-queue-jobs [OPTIONS] NAME:{thumbnailGeneration|metadataExtraction|videoConversion|faceDetection|facialRecognition|smartSearch|duplicateDetection|backgroundTask|storageTemplateMigration|migration|search|sidecar|library|notifications|backupDatabase|ocr|workflow|integrityCheck|editor}
+immichpy queues get-queue-jobs [OPTIONS] NAME:{thumbnailGeneration|metadataExtraction|videoConversion|faceDetection|facialRecognition|smartSearch|duplicateDetection|backgroundTask|storageTemplateMigration|migration|search|sidecar|library|notifications|backupDatabase|ocr|workflow|integrityCheck|editor}
 ```
 
 **Arguments**:
@@ -3696,7 +3737,7 @@ List all queues
 **Usage**:
 
 ```console
-$ immichpy queues get-queues [OPTIONS]
+immichpy queues get-queues [OPTIONS]
 ```
 
 **Options**:
@@ -3712,7 +3753,7 @@ Update a queue
 **Usage**:
 
 ```console
-$ immichpy queues update-queue [OPTIONS] NAME:{thumbnailGeneration|metadataExtraction|videoConversion|faceDetection|facialRecognition|smartSearch|duplicateDetection|backgroundTask|storageTemplateMigration|migration|search|sidecar|library|notifications|backupDatabase|ocr|workflow|integrityCheck|editor}
+immichpy queues update-queue [OPTIONS] NAME:{thumbnailGeneration|metadataExtraction|videoConversion|faceDetection|facialRecognition|smartSearch|duplicateDetection|backgroundTask|storageTemplateMigration|migration|search|sidecar|library|notifications|backupDatabase|ocr|workflow|integrityCheck|editor}
 ```
 
 **Arguments**:
@@ -3733,7 +3774,7 @@ Endpoints related to searching assets via text, smart search, optical character 
 **Usage**:
 
 ```console
-$ immichpy search [OPTIONS] COMMAND [ARGS]...
+immichpy search [OPTIONS] COMMAND [ARGS]...
 ```
 
 **Options**:
@@ -3762,7 +3803,7 @@ Retrieve assets by city
 **Usage**:
 
 ```console
-$ immichpy search get-assets-by-city [OPTIONS]
+immichpy search get-assets-by-city [OPTIONS]
 ```
 
 **Options**:
@@ -3778,7 +3819,7 @@ Retrieve explore data
 **Usage**:
 
 ```console
-$ immichpy search get-explore-data [OPTIONS]
+immichpy search get-explore-data [OPTIONS]
 ```
 
 **Options**:
@@ -3794,7 +3835,7 @@ Retrieve search suggestions
 **Usage**:
 
 ```console
-$ immichpy search get-search-suggestions [OPTIONS]
+immichpy search get-search-suggestions [OPTIONS]
 ```
 
 **Options**:
@@ -3817,7 +3858,7 @@ Search asset statistics
 **Usage**:
 
 ```console
-$ immichpy search search-asset-statistics [OPTIONS]
+immichpy search search-asset-statistics [OPTIONS]
 ```
 
 **Options**:
@@ -3828,9 +3869,11 @@ $ immichpy search search-asset-statistics [OPTIONS]
 * `--created-after [%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S]`: Filter by creation date (after)
 
 Example: 2024-01-01T00:00:00.000Z
+
 * `--created-before [%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S]`: Filter by creation date (before)
 
 Example: 2024-01-01T00:00:00.000Z
+
 * `--description TEXT`: Filter by description text
 * `--is-encoded [true|false]`: Filter by encoded status
 * `--is-favorite [true|false]`: Filter by favorite status
@@ -3849,22 +3892,28 @@ Example: 2024-01-01T00:00:00.000Z
 * `--taken-after [%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S]`: Filter by taken date (after)
 
 Example: 2024-01-01T00:00:00.000Z
+
 * `--taken-before [%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S]`: Filter by taken date (before)
 
 Example: 2024-01-01T00:00:00.000Z
+
 * `--trashed-after [%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S]`: Filter by trash date (after)
 
 Example: 2024-01-01T00:00:00.000Z
+
 * `--trashed-before [%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S]`: Filter by trash date (before)
 
 Example: 2024-01-01T00:00:00.000Z
+
 * `--type TEXT`: Asset type
 * `--updated-after [%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S]`: Filter by update date (after)
 
 Example: 2024-01-01T00:00:00.000Z
+
 * `--updated-before [%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S]`: Filter by update date (before)
 
 Example: 2024-01-01T00:00:00.000Z
+
 * `--visibility TEXT`: Asset visibility
 * `--help`: Show this message and exit.
 
@@ -3877,7 +3926,7 @@ Search assets by metadata
 **Usage**:
 
 ```console
-$ immichpy search search-assets [OPTIONS]
+immichpy search search-assets [OPTIONS]
 ```
 
 **Options**:
@@ -3889,9 +3938,11 @@ $ immichpy search search-assets [OPTIONS]
 * `--created-after [%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S]`: Filter by creation date (after)
 
 Example: 2024-01-01T00:00:00.000Z
+
 * `--created-before [%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S]`: Filter by creation date (before)
 
 Example: 2024-01-01T00:00:00.000Z
+
 * `--description TEXT`: Filter by description text
 * `--encoded-video-path TEXT`: Filter by encoded video file path
 * `--id UUID`: Filter by asset ID
@@ -3920,23 +3971,29 @@ Example: 2024-01-01T00:00:00.000Z
 * `--taken-after [%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S]`: Filter by taken date (after)
 
 Example: 2024-01-01T00:00:00.000Z
+
 * `--taken-before [%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S]`: Filter by taken date (before)
 
 Example: 2024-01-01T00:00:00.000Z
+
 * `--thumbnail-path TEXT`: Filter by thumbnail file path
 * `--trashed-after [%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S]`: Filter by trash date (after)
 
 Example: 2024-01-01T00:00:00.000Z
+
 * `--trashed-before [%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S]`: Filter by trash date (before)
 
 Example: 2024-01-01T00:00:00.000Z
+
 * `--type TEXT`: Asset type
 * `--updated-after [%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S]`: Filter by update date (after)
 
 Example: 2024-01-01T00:00:00.000Z
+
 * `--updated-before [%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S]`: Filter by update date (before)
 
 Example: 2024-01-01T00:00:00.000Z
+
 * `--visibility TEXT`: Asset visibility
 * `--with-deleted [true|false]`: Include deleted assets
 * `--with-exif [true|false]`: Include EXIF data in response
@@ -3953,7 +4010,7 @@ Search large assets
 **Usage**:
 
 ```console
-$ immichpy search search-large-assets [OPTIONS]
+immichpy search search-large-assets [OPTIONS]
 ```
 
 **Options**:
@@ -3964,9 +4021,11 @@ $ immichpy search search-large-assets [OPTIONS]
 * `--created-after [%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S]`: Filter by creation date (after)
 
 Example: 2024-01-01T00:00:00.000Z
+
 * `--created-before [%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S]`: Filter by creation date (before)
 
 Example: 2024-01-01T00:00:00.000Z
+
 * `--is-encoded [true|false]`: Filter by encoded status
 * `--is-favorite [true|false]`: Filter by favorite status
 * `--is-motion [true|false]`: Filter by motion photo status
@@ -3986,22 +4045,28 @@ Example: 2024-01-01T00:00:00.000Z
 * `--taken-after [%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S]`: Filter by taken date (after)
 
 Example: 2024-01-01T00:00:00.000Z
+
 * `--taken-before [%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S]`: Filter by taken date (before)
 
 Example: 2024-01-01T00:00:00.000Z
+
 * `--trashed-after [%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S]`: Filter by trash date (after)
 
 Example: 2024-01-01T00:00:00.000Z
+
 * `--trashed-before [%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S]`: Filter by trash date (before)
 
 Example: 2024-01-01T00:00:00.000Z
+
 * `--type [IMAGE|VIDEO|AUDIO|OTHER]`
 * `--updated-after [%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S]`: Filter by update date (after)
 
 Example: 2024-01-01T00:00:00.000Z
+
 * `--updated-before [%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S]`: Filter by update date (before)
 
 Example: 2024-01-01T00:00:00.000Z
+
 * `--visibility [archive|timeline|hidden|locked]`
 * `--with-deleted [true|false]`: Include deleted assets
 * `--with-exif [true|false]`: Include EXIF data in response
@@ -4016,7 +4081,7 @@ Search people
 **Usage**:
 
 ```console
-$ immichpy search search-person [OPTIONS]
+immichpy search search-person [OPTIONS]
 ```
 
 **Options**:
@@ -4034,7 +4099,7 @@ Search places
 **Usage**:
 
 ```console
-$ immichpy search search-places [OPTIONS]
+immichpy search search-places [OPTIONS]
 ```
 
 **Options**:
@@ -4051,7 +4116,7 @@ Search random assets
 **Usage**:
 
 ```console
-$ immichpy search search-random [OPTIONS]
+immichpy search search-random [OPTIONS]
 ```
 
 **Options**:
@@ -4062,9 +4127,11 @@ $ immichpy search search-random [OPTIONS]
 * `--created-after [%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S]`: Filter by creation date (after)
 
 Example: 2024-01-01T00:00:00.000Z
+
 * `--created-before [%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S]`: Filter by creation date (before)
 
 Example: 2024-01-01T00:00:00.000Z
+
 * `--is-encoded [true|false]`: Filter by encoded status
 * `--is-favorite [true|false]`: Filter by favorite status
 * `--is-motion [true|false]`: Filter by motion photo status
@@ -4083,22 +4150,28 @@ Example: 2024-01-01T00:00:00.000Z
 * `--taken-after [%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S]`: Filter by taken date (after)
 
 Example: 2024-01-01T00:00:00.000Z
+
 * `--taken-before [%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S]`: Filter by taken date (before)
 
 Example: 2024-01-01T00:00:00.000Z
+
 * `--trashed-after [%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S]`: Filter by trash date (after)
 
 Example: 2024-01-01T00:00:00.000Z
+
 * `--trashed-before [%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S]`: Filter by trash date (before)
 
 Example: 2024-01-01T00:00:00.000Z
+
 * `--type TEXT`: Asset type
 * `--updated-after [%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S]`: Filter by update date (after)
 
 Example: 2024-01-01T00:00:00.000Z
+
 * `--updated-before [%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S]`: Filter by update date (before)
 
 Example: 2024-01-01T00:00:00.000Z
+
 * `--visibility TEXT`: Asset visibility
 * `--with-deleted [true|false]`: Include deleted assets
 * `--with-exif [true|false]`: Include EXIF data in response
@@ -4115,7 +4188,7 @@ Smart asset search
 **Usage**:
 
 ```console
-$ immichpy search search-smart [OPTIONS]
+immichpy search search-smart [OPTIONS]
 ```
 
 **Options**:
@@ -4126,9 +4199,11 @@ $ immichpy search search-smart [OPTIONS]
 * `--created-after [%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S]`: Filter by creation date (after)
 
 Example: 2024-01-01T00:00:00.000Z
+
 * `--created-before [%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S]`: Filter by creation date (before)
 
 Example: 2024-01-01T00:00:00.000Z
+
 * `--is-encoded [true|false]`: Filter by encoded status
 * `--is-favorite [true|false]`: Filter by favorite status
 * `--is-motion [true|false]`: Filter by motion photo status
@@ -4151,22 +4226,28 @@ Example: 2024-01-01T00:00:00.000Z
 * `--taken-after [%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S]`: Filter by taken date (after)
 
 Example: 2024-01-01T00:00:00.000Z
+
 * `--taken-before [%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S]`: Filter by taken date (before)
 
 Example: 2024-01-01T00:00:00.000Z
+
 * `--trashed-after [%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S]`: Filter by trash date (after)
 
 Example: 2024-01-01T00:00:00.000Z
+
 * `--trashed-before [%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S]`: Filter by trash date (before)
 
 Example: 2024-01-01T00:00:00.000Z
+
 * `--type TEXT`: Asset type
 * `--updated-after [%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S]`: Filter by update date (after)
 
 Example: 2024-01-01T00:00:00.000Z
+
 * `--updated-before [%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S]`: Filter by update date (before)
 
 Example: 2024-01-01T00:00:00.000Z
+
 * `--visibility TEXT`: Asset visibility
 * `--with-deleted [true|false]`: Include deleted assets
 * `--with-exif [true|false]`: Include EXIF data in response
@@ -4181,7 +4262,7 @@ Information about the current server deployment, including version and build inf
 **Usage**:
 
 ```console
-$ immichpy server [OPTIONS] COMMAND [ARGS]...
+immichpy server [OPTIONS] COMMAND [ARGS]...
 ```
 
 **Options**:
@@ -4214,7 +4295,7 @@ Delete server product key
 **Usage**:
 
 ```console
-$ immichpy server delete-server-license [OPTIONS]
+immichpy server delete-server-license [OPTIONS]
 ```
 
 **Options**:
@@ -4230,7 +4311,7 @@ Get server information
 **Usage**:
 
 ```console
-$ immichpy server get-about-info [OPTIONS]
+immichpy server get-about-info [OPTIONS]
 ```
 
 **Options**:
@@ -4246,7 +4327,7 @@ Get APK links
 **Usage**:
 
 ```console
-$ immichpy server get-apk-links [OPTIONS]
+immichpy server get-apk-links [OPTIONS]
 ```
 
 **Options**:
@@ -4262,7 +4343,7 @@ Get config
 **Usage**:
 
 ```console
-$ immichpy server get-server-config [OPTIONS]
+immichpy server get-server-config [OPTIONS]
 ```
 
 **Options**:
@@ -4278,7 +4359,7 @@ Get features
 **Usage**:
 
 ```console
-$ immichpy server get-server-features [OPTIONS]
+immichpy server get-server-features [OPTIONS]
 ```
 
 **Options**:
@@ -4294,7 +4375,7 @@ Get product key
 **Usage**:
 
 ```console
-$ immichpy server get-server-license [OPTIONS]
+immichpy server get-server-license [OPTIONS]
 ```
 
 **Options**:
@@ -4310,7 +4391,7 @@ Get statistics
 **Usage**:
 
 ```console
-$ immichpy server get-server-statistics [OPTIONS]
+immichpy server get-server-statistics [OPTIONS]
 ```
 
 **Options**:
@@ -4326,7 +4407,7 @@ Get server version
 **Usage**:
 
 ```console
-$ immichpy server get-server-version [OPTIONS]
+immichpy server get-server-version [OPTIONS]
 ```
 
 **Options**:
@@ -4342,7 +4423,7 @@ Get storage
 **Usage**:
 
 ```console
-$ immichpy server get-storage [OPTIONS]
+immichpy server get-storage [OPTIONS]
 ```
 
 **Options**:
@@ -4358,7 +4439,7 @@ Get supported media types
 **Usage**:
 
 ```console
-$ immichpy server get-supported-media-types [OPTIONS]
+immichpy server get-supported-media-types [OPTIONS]
 ```
 
 **Options**:
@@ -4374,7 +4455,7 @@ Get version check status
 **Usage**:
 
 ```console
-$ immichpy server get-version-check [OPTIONS]
+immichpy server get-version-check [OPTIONS]
 ```
 
 **Options**:
@@ -4390,7 +4471,7 @@ Get version history
 **Usage**:
 
 ```console
-$ immichpy server get-version-history [OPTIONS]
+immichpy server get-version-history [OPTIONS]
 ```
 
 **Options**:
@@ -4406,7 +4487,7 @@ Ping
 **Usage**:
 
 ```console
-$ immichpy server ping-server [OPTIONS]
+immichpy server ping-server [OPTIONS]
 ```
 
 **Options**:
@@ -4422,7 +4503,7 @@ Set server product key
 **Usage**:
 
 ```console
-$ immichpy server set-server-license [OPTIONS]
+immichpy server set-server-license [OPTIONS]
 ```
 
 **Options**:
@@ -4440,7 +4521,7 @@ A session represents an authenticated login session for a user. Sessions also ap
 **Usage**:
 
 ```console
-$ immichpy sessions [OPTIONS] COMMAND [ARGS]...
+immichpy sessions [OPTIONS] COMMAND [ARGS]...
 ```
 
 **Options**:
@@ -4465,7 +4546,7 @@ Create a session
 **Usage**:
 
 ```console
-$ immichpy sessions create-session [OPTIONS]
+immichpy sessions create-session [OPTIONS]
 ```
 
 **Options**:
@@ -4484,7 +4565,7 @@ Delete all sessions
 **Usage**:
 
 ```console
-$ immichpy sessions delete-all-sessions [OPTIONS]
+immichpy sessions delete-all-sessions [OPTIONS]
 ```
 
 **Options**:
@@ -4500,7 +4581,7 @@ Delete a session
 **Usage**:
 
 ```console
-$ immichpy sessions delete-session [OPTIONS] ID
+immichpy sessions delete-session [OPTIONS] ID
 ```
 
 **Arguments**:
@@ -4520,7 +4601,7 @@ Retrieve sessions
 **Usage**:
 
 ```console
-$ immichpy sessions get-sessions [OPTIONS]
+immichpy sessions get-sessions [OPTIONS]
 ```
 
 **Options**:
@@ -4536,7 +4617,7 @@ Lock a session
 **Usage**:
 
 ```console
-$ immichpy sessions lock-session [OPTIONS] ID
+immichpy sessions lock-session [OPTIONS] ID
 ```
 
 **Arguments**:
@@ -4556,7 +4637,7 @@ Update a session
 **Usage**:
 
 ```console
-$ immichpy sessions update-session [OPTIONS] ID
+immichpy sessions update-session [OPTIONS] ID
 ```
 
 **Arguments**:
@@ -4577,7 +4658,7 @@ A shared link is a public url that provides access to a specific album, asset, o
 **Usage**:
 
 ```console
-$ immichpy shared-links [OPTIONS] COMMAND [ARGS]...
+immichpy shared-links [OPTIONS] COMMAND [ARGS]...
 ```
 
 **Options**:
@@ -4605,7 +4686,7 @@ Add assets to a shared link
 **Usage**:
 
 ```console
-$ immichpy shared-links add-shared-link-assets [OPTIONS] ID
+immichpy shared-links add-shared-link-assets [OPTIONS] ID
 ```
 
 **Arguments**:
@@ -4626,7 +4707,7 @@ Create a shared link
 **Usage**:
 
 ```console
-$ immichpy shared-links create-shared-link [OPTIONS]
+immichpy shared-links create-shared-link [OPTIONS]
 ```
 
 **Options**:
@@ -4639,6 +4720,7 @@ $ immichpy shared-links create-shared-link [OPTIONS]
 * `--expires-at [%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S]`: Expiration date
 
 Example: 2024-01-01T00:00:00.000Z
+
 * `--password TEXT`: Link password
 * `--show-metadata [true|false]`: Show metadata
 * `--slug TEXT`: Custom URL slug
@@ -4654,7 +4736,7 @@ Retrieve all shared links
 **Usage**:
 
 ```console
-$ immichpy shared-links get-all-shared-links [OPTIONS]
+immichpy shared-links get-all-shared-links [OPTIONS]
 ```
 
 **Options**:
@@ -4672,7 +4754,7 @@ Retrieve current shared link
 **Usage**:
 
 ```console
-$ immichpy shared-links get-my-shared-link [OPTIONS]
+immichpy shared-links get-my-shared-link [OPTIONS]
 ```
 
 **Options**:
@@ -4690,7 +4772,7 @@ Retrieve a shared link
 **Usage**:
 
 ```console
-$ immichpy shared-links get-shared-link-by-id [OPTIONS] ID
+immichpy shared-links get-shared-link-by-id [OPTIONS] ID
 ```
 
 **Arguments**:
@@ -4710,7 +4792,7 @@ Delete a shared link
 **Usage**:
 
 ```console
-$ immichpy shared-links remove-shared-link [OPTIONS] ID
+immichpy shared-links remove-shared-link [OPTIONS] ID
 ```
 
 **Arguments**:
@@ -4730,7 +4812,7 @@ Remove assets from a shared link
 **Usage**:
 
 ```console
-$ immichpy shared-links remove-shared-link-assets [OPTIONS] ID
+immichpy shared-links remove-shared-link-assets [OPTIONS] ID
 ```
 
 **Arguments**:
@@ -4751,7 +4833,7 @@ Shared link login
 **Usage**:
 
 ```console
-$ immichpy shared-links shared-link-login [OPTIONS]
+immichpy shared-links shared-link-login [OPTIONS]
 ```
 
 **Options**:
@@ -4760,6 +4842,7 @@ $ immichpy shared-links shared-link-login [OPTIONS]
 * `--password TEXT`: Shared link password
 
 Example: password  [required]
+
 * `--slug TEXT`
 * `--help`: Show this message and exit.
 
@@ -4772,7 +4855,7 @@ Update a shared link
 **Usage**:
 
 ```console
-$ immichpy shared-links update-shared-link [OPTIONS] ID
+immichpy shared-links update-shared-link [OPTIONS] ID
 ```
 
 **Arguments**:
@@ -4787,6 +4870,7 @@ $ immichpy shared-links update-shared-link [OPTIONS] ID
 * `--expires-at [%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S]`: Expiration date
 
 Example: 2024-01-01T00:00:00.000Z
+
 * `--password TEXT`: Link password
 * `--show-metadata [true|false]`: Show metadata
 * `--slug TEXT`: Custom URL slug
@@ -4801,7 +4885,7 @@ A stack is a group of related assets. One asset is the &quot;primary&quot; asset
 **Usage**:
 
 ```console
-$ immichpy stacks [OPTIONS] COMMAND [ARGS]...
+immichpy stacks [OPTIONS] COMMAND [ARGS]...
 ```
 
 **Options**:
@@ -4827,7 +4911,7 @@ Create a stack
 **Usage**:
 
 ```console
-$ immichpy stacks create-stack [OPTIONS]
+immichpy stacks create-stack [OPTIONS]
 ```
 
 **Options**:
@@ -4844,7 +4928,7 @@ Delete a stack
 **Usage**:
 
 ```console
-$ immichpy stacks delete-stack [OPTIONS] ID
+immichpy stacks delete-stack [OPTIONS] ID
 ```
 
 **Arguments**:
@@ -4864,7 +4948,7 @@ Delete stacks
 **Usage**:
 
 ```console
-$ immichpy stacks delete-stacks [OPTIONS]
+immichpy stacks delete-stacks [OPTIONS]
 ```
 
 **Options**:
@@ -4881,7 +4965,7 @@ Retrieve a stack
 **Usage**:
 
 ```console
-$ immichpy stacks get-stack [OPTIONS] ID
+immichpy stacks get-stack [OPTIONS] ID
 ```
 
 **Arguments**:
@@ -4901,7 +4985,7 @@ Remove an asset from a stack
 **Usage**:
 
 ```console
-$ immichpy stacks remove-asset-from-stack [OPTIONS] ASSET_ID ID
+immichpy stacks remove-asset-from-stack [OPTIONS] ASSET_ID ID
 ```
 
 **Arguments**:
@@ -4922,7 +5006,7 @@ Retrieve stacks
 **Usage**:
 
 ```console
-$ immichpy stacks search-stacks [OPTIONS]
+immichpy stacks search-stacks [OPTIONS]
 ```
 
 **Options**:
@@ -4939,7 +5023,7 @@ Update a stack
 **Usage**:
 
 ```console
-$ immichpy stacks update-stack [OPTIONS] ID
+immichpy stacks update-stack [OPTIONS] ID
 ```
 
 **Arguments**:
@@ -4960,7 +5044,7 @@ A collection of endpoints for the new mobile synchronization implementation.
 **Usage**:
 
 ```console
-$ immichpy sync [OPTIONS] COMMAND [ARGS]...
+immichpy sync [OPTIONS] COMMAND [ARGS]...
 ```
 
 **Options**:
@@ -4983,7 +5067,7 @@ Delete acknowledgements
 **Usage**:
 
 ```console
-$ immichpy sync delete-sync-ack [OPTIONS]
+immichpy sync delete-sync-ack [OPTIONS]
 ```
 
 **Options**:
@@ -5000,7 +5084,7 @@ Retrieve acknowledgements
 **Usage**:
 
 ```console
-$ immichpy sync get-sync-ack [OPTIONS]
+immichpy sync get-sync-ack [OPTIONS]
 ```
 
 **Options**:
@@ -5016,7 +5100,7 @@ Stream sync changes
 **Usage**:
 
 ```console
-$ immichpy sync get-sync-stream [OPTIONS]
+immichpy sync get-sync-stream [OPTIONS]
 ```
 
 **Options**:
@@ -5034,7 +5118,7 @@ Acknowledge changes
 **Usage**:
 
 ```console
-$ immichpy sync send-sync-ack [OPTIONS]
+immichpy sync send-sync-ack [OPTIONS]
 ```
 
 **Options**:
@@ -5051,7 +5135,7 @@ Endpoints to view, modify, and validate the system configuration settings.
 **Usage**:
 
 ```console
-$ immichpy system-config [OPTIONS] COMMAND [ARGS]...
+immichpy system-config [OPTIONS] COMMAND [ARGS]...
 ```
 
 **Options**:
@@ -5074,7 +5158,7 @@ Get system configuration
 **Usage**:
 
 ```console
-$ immichpy system-config get-config [OPTIONS]
+immichpy system-config get-config [OPTIONS]
 ```
 
 **Options**:
@@ -5090,7 +5174,7 @@ Get system configuration defaults
 **Usage**:
 
 ```console
-$ immichpy system-config get-config-defaults [OPTIONS]
+immichpy system-config get-config-defaults [OPTIONS]
 ```
 
 **Options**:
@@ -5106,7 +5190,7 @@ Get storage template options
 **Usage**:
 
 ```console
-$ immichpy system-config get-storage-template-options [OPTIONS]
+immichpy system-config get-storage-template-options [OPTIONS]
 ```
 
 **Options**:
@@ -5122,7 +5206,7 @@ Update system configuration
 **Usage**:
 
 ```console
-$ immichpy system-config update-config [OPTIONS]
+immichpy system-config update-config [OPTIONS]
 ```
 
 **Options**:
@@ -5283,7 +5367,7 @@ Endpoints to view, modify, and validate the system metadata, which includes info
 **Usage**:
 
 ```console
-$ immichpy system-metadata [OPTIONS] COMMAND [ARGS]...
+immichpy system-metadata [OPTIONS] COMMAND [ARGS]...
 ```
 
 **Options**:
@@ -5306,7 +5390,7 @@ Retrieve admin onboarding
 **Usage**:
 
 ```console
-$ immichpy system-metadata get-admin-onboarding [OPTIONS]
+immichpy system-metadata get-admin-onboarding [OPTIONS]
 ```
 
 **Options**:
@@ -5322,7 +5406,7 @@ Retrieve reverse geocoding state
 **Usage**:
 
 ```console
-$ immichpy system-metadata get-reverse-geocoding-state [OPTIONS]
+immichpy system-metadata get-reverse-geocoding-state [OPTIONS]
 ```
 
 **Options**:
@@ -5338,7 +5422,7 @@ Retrieve version check state
 **Usage**:
 
 ```console
-$ immichpy system-metadata get-version-check-state [OPTIONS]
+immichpy system-metadata get-version-check-state [OPTIONS]
 ```
 
 **Options**:
@@ -5354,7 +5438,7 @@ Update admin onboarding
 **Usage**:
 
 ```console
-$ immichpy system-metadata update-admin-onboarding [OPTIONS]
+immichpy system-metadata update-admin-onboarding [OPTIONS]
 ```
 
 **Options**:
@@ -5371,7 +5455,7 @@ A tag is a user-defined label that can be applied to assets for organizational p
 **Usage**:
 
 ```console
-$ immichpy tags [OPTIONS] COMMAND [ARGS]...
+immichpy tags [OPTIONS] COMMAND [ARGS]...
 ```
 
 **Options**:
@@ -5399,7 +5483,7 @@ Tag assets
 **Usage**:
 
 ```console
-$ immichpy tags bulk-tag-assets [OPTIONS]
+immichpy tags bulk-tag-assets [OPTIONS]
 ```
 
 **Options**:
@@ -5417,7 +5501,7 @@ Create a tag
 **Usage**:
 
 ```console
-$ immichpy tags create-tag [OPTIONS]
+immichpy tags create-tag [OPTIONS]
 ```
 
 **Options**:
@@ -5436,7 +5520,7 @@ Delete a tag
 **Usage**:
 
 ```console
-$ immichpy tags delete-tag [OPTIONS] ID
+immichpy tags delete-tag [OPTIONS] ID
 ```
 
 **Arguments**:
@@ -5456,7 +5540,7 @@ Retrieve tags
 **Usage**:
 
 ```console
-$ immichpy tags get-all-tags [OPTIONS]
+immichpy tags get-all-tags [OPTIONS]
 ```
 
 **Options**:
@@ -5472,7 +5556,7 @@ Retrieve a tag
 **Usage**:
 
 ```console
-$ immichpy tags get-tag-by-id [OPTIONS] ID
+immichpy tags get-tag-by-id [OPTIONS] ID
 ```
 
 **Arguments**:
@@ -5492,7 +5576,7 @@ Tag assets
 **Usage**:
 
 ```console
-$ immichpy tags tag-assets [OPTIONS] ID
+immichpy tags tag-assets [OPTIONS] ID
 ```
 
 **Arguments**:
@@ -5513,7 +5597,7 @@ Untag assets
 **Usage**:
 
 ```console
-$ immichpy tags untag-assets [OPTIONS] ID
+immichpy tags untag-assets [OPTIONS] ID
 ```
 
 **Arguments**:
@@ -5534,7 +5618,7 @@ Update a tag
 **Usage**:
 
 ```console
-$ immichpy tags update-tag [OPTIONS] ID
+immichpy tags update-tag [OPTIONS] ID
 ```
 
 **Arguments**:
@@ -5555,7 +5639,7 @@ Upsert tags
 **Usage**:
 
 ```console
-$ immichpy tags upsert-tags [OPTIONS]
+immichpy tags upsert-tags [OPTIONS]
 ```
 
 **Options**:
@@ -5572,7 +5656,7 @@ Specialized endpoints related to the timeline implementation used in the web app
 **Usage**:
 
 ```console
-$ immichpy timeline [OPTIONS] COMMAND [ARGS]...
+immichpy timeline [OPTIONS] COMMAND [ARGS]...
 ```
 
 **Options**:
@@ -5593,7 +5677,7 @@ Get time bucket
 **Usage**:
 
 ```console
-$ immichpy timeline get-time-bucket [OPTIONS]
+immichpy timeline get-time-bucket [OPTIONS]
 ```
 
 **Options**:
@@ -5602,6 +5686,7 @@ $ immichpy timeline get-time-bucket [OPTIONS]
 * `--bbox TEXT`: Bounding box coordinates as west,south,east,north (WGS84)
 
 Example: 11.075683,49.416711,11.117589,49.454875
+
 * `--is-favorite [true|false]`: Filter by favorite status (true for favorites only, false for non-favorites only)
 * `--is-trashed [true|false]`: Filter by trash status (true for trashed assets only, false for non-trashed only)
 * `--key TEXT`
@@ -5613,6 +5698,7 @@ Example: 11.075683,49.416711,11.117589,49.454875
 * `--time-bucket TEXT`: Time bucket identifier in YYYY-MM-DD format
 
 Example: 2024-01-01  [required]
+
 * `--user-id UUID`: Filter assets by specific user ID
 * `--visibility [archive|timeline|hidden|locked]`: Filter by asset visibility status (ARCHIVE, TIMELINE, HIDDEN, LOCKED)
 * `--with-coordinates [true|false]`: Include location data in the response
@@ -5629,7 +5715,7 @@ Get time buckets
 **Usage**:
 
 ```console
-$ immichpy timeline get-time-buckets [OPTIONS]
+immichpy timeline get-time-buckets [OPTIONS]
 ```
 
 **Options**:
@@ -5638,6 +5724,7 @@ $ immichpy timeline get-time-buckets [OPTIONS]
 * `--bbox TEXT`: Bounding box coordinates as west,south,east,north (WGS84)
 
 Example: 11.075683,49.416711,11.117589,49.454875
+
 * `--is-favorite [true|false]`: Filter by favorite status (true for favorites only, false for non-favorites only)
 * `--is-trashed [true|false]`: Filter by trash status (true for trashed assets only, false for non-trashed only)
 * `--key TEXT`
@@ -5662,7 +5749,7 @@ Endpoints for managing the trash can, which includes assets that have been disca
 **Usage**:
 
 ```console
-$ immichpy trash [OPTIONS] COMMAND [ARGS]...
+immichpy trash [OPTIONS] COMMAND [ARGS]...
 ```
 
 **Options**:
@@ -5684,7 +5771,7 @@ Empty trash
 **Usage**:
 
 ```console
-$ immichpy trash empty-trash [OPTIONS]
+immichpy trash empty-trash [OPTIONS]
 ```
 
 **Options**:
@@ -5700,7 +5787,7 @@ Restore assets
 **Usage**:
 
 ```console
-$ immichpy trash restore-assets [OPTIONS]
+immichpy trash restore-assets [OPTIONS]
 ```
 
 **Options**:
@@ -5717,7 +5804,7 @@ Restore trash
 **Usage**:
 
 ```console
-$ immichpy trash restore-trash [OPTIONS]
+immichpy trash restore-trash [OPTIONS]
 ```
 
 **Options**:
@@ -5733,7 +5820,7 @@ Endpoints for viewing and updating the current users, including product key info
 **Usage**:
 
 ```console
-$ immichpy users [OPTIONS] COMMAND [ARGS]...
+immichpy users [OPTIONS] COMMAND [ARGS]...
 ```
 
 **Options**:
@@ -5769,7 +5856,7 @@ Create user profile image
 **Usage**:
 
 ```console
-$ immichpy users create-profile-image [OPTIONS]
+immichpy users create-profile-image [OPTIONS]
 ```
 
 **Options**:
@@ -5786,7 +5873,7 @@ Delete user profile image
 **Usage**:
 
 ```console
-$ immichpy users delete-profile-image [OPTIONS]
+immichpy users delete-profile-image [OPTIONS]
 ```
 
 **Options**:
@@ -5802,7 +5889,7 @@ Delete user product key
 **Usage**:
 
 ```console
-$ immichpy users delete-user-license [OPTIONS]
+immichpy users delete-user-license [OPTIONS]
 ```
 
 **Options**:
@@ -5818,7 +5905,7 @@ Delete user onboarding
 **Usage**:
 
 ```console
-$ immichpy users delete-user-onboarding [OPTIONS]
+immichpy users delete-user-onboarding [OPTIONS]
 ```
 
 **Options**:
@@ -5834,7 +5921,7 @@ Retrieve calendar heatmap activity
 **Usage**:
 
 ```console
-$ immichpy users get-my-calendar-heatmap [OPTIONS]
+immichpy users get-my-calendar-heatmap [OPTIONS]
 ```
 
 **Options**:
@@ -5842,9 +5929,11 @@ $ immichpy users get-my-calendar-heatmap [OPTIONS]
 * `--from TEXT`: Start date in UTC
 
 Example: 2024-01-01
+
 * `--to TEXT`: End date in UTC
 
 Example: 2024-01-01
+
 * `--type [Upload|Taken]`
 * `--help`: Show this message and exit.
 
@@ -5857,7 +5946,7 @@ Get my preferences
 **Usage**:
 
 ```console
-$ immichpy users get-my-preferences [OPTIONS]
+immichpy users get-my-preferences [OPTIONS]
 ```
 
 **Options**:
@@ -5873,7 +5962,7 @@ Get current user
 **Usage**:
 
 ```console
-$ immichpy users get-my-user [OPTIONS]
+immichpy users get-my-user [OPTIONS]
 ```
 
 **Options**:
@@ -5889,7 +5978,7 @@ Retrieve user profile image
 **Usage**:
 
 ```console
-$ immichpy users get-profile-image [OPTIONS] ID
+immichpy users get-profile-image [OPTIONS] ID
 ```
 
 **Arguments**:
@@ -5909,7 +5998,7 @@ Retrieve a user
 **Usage**:
 
 ```console
-$ immichpy users get-user [OPTIONS] ID
+immichpy users get-user [OPTIONS] ID
 ```
 
 **Arguments**:
@@ -5929,7 +6018,7 @@ Retrieve user product key
 **Usage**:
 
 ```console
-$ immichpy users get-user-license [OPTIONS]
+immichpy users get-user-license [OPTIONS]
 ```
 
 **Options**:
@@ -5945,7 +6034,7 @@ Retrieve user onboarding
 **Usage**:
 
 ```console
-$ immichpy users get-user-onboarding [OPTIONS]
+immichpy users get-user-onboarding [OPTIONS]
 ```
 
 **Options**:
@@ -5961,7 +6050,7 @@ Get all users
 **Usage**:
 
 ```console
-$ immichpy users search-users [OPTIONS]
+immichpy users search-users [OPTIONS]
 ```
 
 **Options**:
@@ -5977,7 +6066,7 @@ Set user product key
 **Usage**:
 
 ```console
-$ immichpy users set-user-license [OPTIONS]
+immichpy users set-user-license [OPTIONS]
 ```
 
 **Options**:
@@ -5995,7 +6084,7 @@ Update user onboarding
 **Usage**:
 
 ```console
-$ immichpy users set-user-onboarding [OPTIONS]
+immichpy users set-user-onboarding [OPTIONS]
 ```
 
 **Options**:
@@ -6012,7 +6101,7 @@ Update my preferences
 **Usage**:
 
 ```console
-$ immichpy users update-my-preferences [OPTIONS]
+immichpy users update-my-preferences [OPTIONS]
 ```
 
 **Options**:
@@ -6051,7 +6140,7 @@ Update current user
 **Usage**:
 
 ```console
-$ immichpy users update-my-user [OPTIONS]
+immichpy users update-my-user [OPTIONS]
 ```
 
 **Options**:
@@ -6072,7 +6161,7 @@ The filename can be specified or will be derived from the response headers.
 **Usage**:
 
 ```console
-$ immichpy users get-profile-image-to-file [OPTIONS] ID OUT_DIR
+immichpy users get-profile-image-to-file [OPTIONS] ID OUT_DIR
 ```
 
 **Arguments**:
@@ -6095,7 +6184,7 @@ Administrative endpoints for managing users, including creating, updating, delet
 **Usage**:
 
 ```console
-$ immichpy users-admin [OPTIONS] COMMAND [ARGS]...
+immichpy users-admin [OPTIONS] COMMAND [ARGS]...
 ```
 
 **Options**:
@@ -6125,7 +6214,7 @@ Create a user
 **Usage**:
 
 ```console
-$ immichpy users-admin create-user-admin [OPTIONS]
+immichpy users-admin create-user-admin [OPTIONS]
 ```
 
 **Options**:
@@ -6139,6 +6228,7 @@ $ immichpy users-admin create-user-admin [OPTIONS]
 * `--pin-code TEXT`: PIN code
 
 Example: 123456
+
 * `--quota-size-in-bytes INTEGER RANGE`: Storage quota in bytes  [0&lt;=x&lt;=9007199254740991]
 * `--should-change-password [true|false]`: Require password change on next login
 * `--storage-label TEXT`: Storage label
@@ -6153,7 +6243,7 @@ Delete a user
 **Usage**:
 
 ```console
-$ immichpy users-admin delete-user-admin [OPTIONS] ID
+immichpy users-admin delete-user-admin [OPTIONS] ID
 ```
 
 **Arguments**:
@@ -6174,7 +6264,7 @@ Retrieve a user
 **Usage**:
 
 ```console
-$ immichpy users-admin get-user-admin [OPTIONS] ID
+immichpy users-admin get-user-admin [OPTIONS] ID
 ```
 
 **Arguments**:
@@ -6194,7 +6284,7 @@ Retrieve calendar heatmap activity
 **Usage**:
 
 ```console
-$ immichpy users-admin get-user-calendar-heatmap-admin [OPTIONS] ID
+immichpy users-admin get-user-calendar-heatmap-admin [OPTIONS] ID
 ```
 
 **Arguments**:
@@ -6206,9 +6296,11 @@ $ immichpy users-admin get-user-calendar-heatmap-admin [OPTIONS] ID
 * `--from TEXT`: Start date in UTC
 
 Example: 2024-01-01
+
 * `--to TEXT`: End date in UTC
 
 Example: 2024-01-01
+
 * `--type [Upload|Taken]`
 * `--help`: Show this message and exit.
 
@@ -6221,7 +6313,7 @@ Retrieve user preferences
 **Usage**:
 
 ```console
-$ immichpy users-admin get-user-preferences-admin [OPTIONS] ID
+immichpy users-admin get-user-preferences-admin [OPTIONS] ID
 ```
 
 **Arguments**:
@@ -6241,7 +6333,7 @@ Retrieve user sessions
 **Usage**:
 
 ```console
-$ immichpy users-admin get-user-sessions-admin [OPTIONS] ID
+immichpy users-admin get-user-sessions-admin [OPTIONS] ID
 ```
 
 **Arguments**:
@@ -6261,7 +6353,7 @@ Retrieve user statistics
 **Usage**:
 
 ```console
-$ immichpy users-admin get-user-statistics-admin [OPTIONS] ID
+immichpy users-admin get-user-statistics-admin [OPTIONS] ID
 ```
 
 **Arguments**:
@@ -6284,7 +6376,7 @@ Restore a deleted user
 **Usage**:
 
 ```console
-$ immichpy users-admin restore-user-admin [OPTIONS] ID
+immichpy users-admin restore-user-admin [OPTIONS] ID
 ```
 
 **Arguments**:
@@ -6304,7 +6396,7 @@ Search users
 **Usage**:
 
 ```console
-$ immichpy users-admin search-users-admin [OPTIONS]
+immichpy users-admin search-users-admin [OPTIONS]
 ```
 
 **Options**:
@@ -6322,7 +6414,7 @@ Update a user
 **Usage**:
 
 ```console
-$ immichpy users-admin update-user-admin [OPTIONS] ID
+immichpy users-admin update-user-admin [OPTIONS] ID
 ```
 
 **Arguments**:
@@ -6339,6 +6431,7 @@ $ immichpy users-admin update-user-admin [OPTIONS] ID
 * `--pin-code TEXT`: PIN code
 
 Example: 123456
+
 * `--quota-size-in-bytes INTEGER RANGE`: Storage quota in bytes  [0&lt;=x&lt;=9007199254740991]
 * `--should-change-password [true|false]`: Require password change on next login
 * `--storage-label TEXT`: Storage label
@@ -6353,7 +6446,7 @@ Update user preferences
 **Usage**:
 
 ```console
-$ immichpy users-admin update-user-preferences-admin [OPTIONS] ID
+immichpy users-admin update-user-preferences-admin [OPTIONS] ID
 ```
 
 **Arguments**:
@@ -6396,7 +6489,7 @@ Endpoints for specialized views, such as the folder view.
 **Usage**:
 
 ```console
-$ immichpy views [OPTIONS] COMMAND [ARGS]...
+immichpy views [OPTIONS] COMMAND [ARGS]...
 ```
 
 **Options**:
@@ -6417,7 +6510,7 @@ Retrieve assets by original path
 **Usage**:
 
 ```console
-$ immichpy views get-assets-by-original-path [OPTIONS]
+immichpy views get-assets-by-original-path [OPTIONS]
 ```
 
 **Options**:
@@ -6434,7 +6527,7 @@ Retrieve unique paths
 **Usage**:
 
 ```console
-$ immichpy views get-unique-original-paths [OPTIONS]
+immichpy views get-unique-original-paths [OPTIONS]
 ```
 
 **Options**:
@@ -6450,7 +6543,7 @@ A workflow is a set of actions that run whenever a triggering event occurs. Work
 **Usage**:
 
 ```console
-$ immichpy workflows [OPTIONS] COMMAND [ARGS]...
+immichpy workflows [OPTIONS] COMMAND [ARGS]...
 ```
 
 **Options**:
@@ -6476,7 +6569,7 @@ Create a workflow
 **Usage**:
 
 ```console
-$ immichpy workflows create-workflow [OPTIONS]
+immichpy workflows create-workflow [OPTIONS]
 ```
 
 **Options**:
@@ -6497,7 +6590,7 @@ Delete a workflow
 **Usage**:
 
 ```console
-$ immichpy workflows delete-workflow [OPTIONS] ID
+immichpy workflows delete-workflow [OPTIONS] ID
 ```
 
 **Arguments**:
@@ -6517,7 +6610,7 @@ Retrieve a workflow
 **Usage**:
 
 ```console
-$ immichpy workflows get-workflow [OPTIONS] ID
+immichpy workflows get-workflow [OPTIONS] ID
 ```
 
 **Arguments**:
@@ -6537,7 +6630,7 @@ Retrieve a workflow
 **Usage**:
 
 ```console
-$ immichpy workflows get-workflow-for-share [OPTIONS] ID
+immichpy workflows get-workflow-for-share [OPTIONS] ID
 ```
 
 **Arguments**:
@@ -6557,7 +6650,7 @@ List all workflow triggers
 **Usage**:
 
 ```console
-$ immichpy workflows get-workflow-triggers [OPTIONS]
+immichpy workflows get-workflow-triggers [OPTIONS]
 ```
 
 **Options**:
@@ -6573,7 +6666,7 @@ List all workflows
 **Usage**:
 
 ```console
-$ immichpy workflows search-workflows [OPTIONS]
+immichpy workflows search-workflows [OPTIONS]
 ```
 
 **Options**:
@@ -6594,7 +6687,7 @@ Update a workflow
 **Usage**:
 
 ```console
-$ immichpy workflows update-workflow [OPTIONS] ID
+immichpy workflows update-workflow [OPTIONS] ID
 ```
 
 **Arguments**:
@@ -6619,7 +6712,7 @@ Manage backups of the Immich database.
 **Usage**:
 
 ```console
-$ immichpy backups [OPTIONS] COMMAND [ARGS]...
+immichpy backups [OPTIONS] COMMAND [ARGS]...
 ```
 
 **Options**:
@@ -6643,7 +6736,7 @@ Delete database backup
 **Usage**:
 
 ```console
-$ immichpy backups delete-database-backup [OPTIONS]
+immichpy backups delete-database-backup [OPTIONS]
 ```
 
 **Options**:
@@ -6660,7 +6753,7 @@ Download database backup
 **Usage**:
 
 ```console
-$ immichpy backups download-database-backup [OPTIONS] FILENAME
+immichpy backups download-database-backup [OPTIONS] FILENAME
 ```
 
 **Arguments**:
@@ -6680,7 +6773,7 @@ List database backups
 **Usage**:
 
 ```console
-$ immichpy backups list-database-backups [OPTIONS]
+immichpy backups list-database-backups [OPTIONS]
 ```
 
 **Options**:
@@ -6696,7 +6789,7 @@ Start database backup restore flow
 **Usage**:
 
 ```console
-$ immichpy backups start-database-restore-flow [OPTIONS]
+immichpy backups start-database-restore-flow [OPTIONS]
 ```
 
 **Options**:
@@ -6712,7 +6805,7 @@ Upload database backup
 **Usage**:
 
 ```console
-$ immichpy backups upload-database-backup [OPTIONS]
+immichpy backups upload-database-backup [OPTIONS]
 ```
 
 **Options**:

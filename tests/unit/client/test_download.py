@@ -4,8 +4,8 @@ from pathlib import Path
 
 import pytest
 
-from immichpy.client.types import HeadersType
 import immichpy.client.utils.download as download_utils
+from immichpy.client.types import HeadersType
 
 
 @pytest.mark.parametrize(

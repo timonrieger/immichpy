@@ -2,8 +2,9 @@
 
 from __future__ import annotations
 
-import typer
 from typing import TYPE_CHECKING
+
+import typer
 
 if TYPE_CHECKING:
     from immichpy import AsyncClient
@@ -25,7 +26,7 @@ def get_admin_onboarding(
     [link=https://api.immich.app/endpoints/system-metadata/getAdminOnboarding]Immich API documentation[/link]
     """
     kwargs = {}
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.system_metadata.get_admin_onboarding, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)
 
@@ -41,7 +42,7 @@ def get_reverse_geocoding_state(
     [link=https://api.immich.app/endpoints/system-metadata/getReverseGeocodingState]Immich API documentation[/link]
     """
     kwargs = {}
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(
         client.system_metadata.get_reverse_geocoding_state, ctx=ctx, **kwargs
     )
@@ -59,7 +60,7 @@ def get_version_check_state(
     [link=https://api.immich.app/endpoints/system-metadata/getVersionCheckState]Immich API documentation[/link]
     """
     kwargs = {}
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(
         client.system_metadata.get_version_check_state, ctx=ctx, **kwargs
     )
@@ -84,7 +85,7 @@ def update_admin_onboarding(
     set_nested(json_data, ["is_onboarded"], is_onboarded)
     admin_onboarding_update_dto = AdminOnboardingUpdateDto.model_validate(json_data)
     kwargs["admin_onboarding_update_dto"] = admin_onboarding_update_dto
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(
         client.system_metadata.update_admin_onboarding, ctx=ctx, **kwargs
     )

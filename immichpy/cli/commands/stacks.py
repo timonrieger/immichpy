@@ -2,9 +2,10 @@
 
 from __future__ import annotations
 
-import typer
-from uuid import UUID
 from typing import TYPE_CHECKING
+from uuid import UUID
+
+import typer
 
 if TYPE_CHECKING:
     from immichpy import AsyncClient
@@ -33,7 +34,7 @@ def create_stack(
     set_nested(json_data, ["asset_ids"], asset_ids)
     stack_create_dto = StackCreateDto.model_validate(json_data)
     kwargs["stack_create_dto"] = stack_create_dto
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.stacks.create_stack, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)
 
@@ -49,7 +50,7 @@ def delete_stack(
     """
     kwargs = {}
     kwargs["id"] = id
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.stacks.delete_stack, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)
 
@@ -68,7 +69,7 @@ def delete_stacks(
     set_nested(json_data, ["ids"], ids)
     bulk_ids_dto = BulkIdsDto.model_validate(json_data)
     kwargs["bulk_ids_dto"] = bulk_ids_dto
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.stacks.delete_stacks, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)
 
@@ -84,7 +85,7 @@ def get_stack(
     """
     kwargs = {}
     kwargs["id"] = id
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.stacks.get_stack, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)
 
@@ -104,7 +105,7 @@ def remove_asset_from_stack(
     kwargs = {}
     kwargs["asset_id"] = asset_id
     kwargs["id"] = id
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.stacks.remove_asset_from_stack, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)
 
@@ -123,7 +124,7 @@ def search_stacks(
     kwargs = {}
     if primary_asset_id is not None:
         kwargs["primary_asset_id"] = primary_asset_id
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.stacks.search_stacks, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)
 
@@ -147,6 +148,6 @@ def update_stack(
         set_nested(json_data, ["primary_asset_id"], primary_asset_id)
     stack_update_dto = StackUpdateDto.model_validate(json_data)
     kwargs["stack_update_dto"] = stack_update_dto
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.stacks.update_stack, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)

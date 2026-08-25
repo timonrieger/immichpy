@@ -2,9 +2,10 @@
 
 from __future__ import annotations
 
-import typer
-from uuid import UUID
 from typing import TYPE_CHECKING
+from uuid import UUID
+
+import typer
 
 if TYPE_CHECKING:
     from immichpy import AsyncClient
@@ -36,7 +37,7 @@ def create_api_key(
     set_nested(json_data, ["permissions"], permissions)
     api_key_create_dto = ApiKeyCreateDto.model_validate(json_data)
     kwargs["api_key_create_dto"] = api_key_create_dto
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.api_keys.create_api_key, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)
 
@@ -52,7 +53,7 @@ def delete_api_key(
     """
     kwargs = {}
     kwargs["id"] = id
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.api_keys.delete_api_key, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)
 
@@ -68,7 +69,7 @@ def get_api_key(
     """
     kwargs = {}
     kwargs["id"] = id
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.api_keys.get_api_key, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)
 
@@ -82,7 +83,7 @@ def get_api_keys(
     [link=https://api.immich.app/endpoints/api-keys/getApiKeys]Immich API documentation[/link]
     """
     kwargs = {}
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.api_keys.get_api_keys, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)
 
@@ -96,7 +97,7 @@ def get_my_api_key(
     [link=https://api.immich.app/endpoints/api-keys/getMyApiKey]Immich API documentation[/link]
     """
     kwargs = {}
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.api_keys.get_my_api_key, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)
 
@@ -123,6 +124,6 @@ def update_api_key(
         set_nested(json_data, ["permissions"], permissions)
     api_key_update_dto = ApiKeyUpdateDto.model_validate(json_data)
     kwargs["api_key_update_dto"] = api_key_update_dto
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.api_keys.update_api_key, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)

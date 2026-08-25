@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from pathlib import Path
+from typing import TYPE_CHECKING
 
 import typer
 
@@ -12,7 +13,6 @@ from immichpy.cli.runtime import (
     run_command,
     set_nested,
 )
-from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from immichpy import AsyncClient
@@ -76,6 +76,6 @@ def download_archive_to_file(
     kwargs["slug"] = slug
     kwargs["show_progress"] = show_progress
 
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.download.download_archive_to_file, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)

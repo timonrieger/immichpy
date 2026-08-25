@@ -2,8 +2,9 @@
 
 from __future__ import annotations
 
+from typing import TYPE_CHECKING, Literal
+
 import typer
-from typing import Literal, TYPE_CHECKING
 
 if TYPE_CHECKING:
     from immichpy import AsyncClient
@@ -25,7 +26,7 @@ def get_config(
     [link=https://api.immich.app/endpoints/system-config/getConfig]Immich API documentation[/link]
     """
     kwargs = {}
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.system_config.get_config, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)
 
@@ -39,7 +40,7 @@ def get_config_defaults(
     [link=https://api.immich.app/endpoints/system-config/getConfigDefaults]Immich API documentation[/link]
     """
     kwargs = {}
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.system_config.get_config_defaults, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)
 
@@ -55,7 +56,7 @@ def get_storage_template_options(
     [link=https://api.immich.app/endpoints/system-config/getStorageTemplateOptions]Immich API documentation[/link]
     """
     kwargs = {}
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(
         client.system_config.get_storage_template_options, ctx=ctx, **kwargs
     )
@@ -999,6 +1000,6 @@ def update_config(
     set_nested(json_data, ["user_delete_delay"], user_delete_delay)
     system_config_dto = SystemConfigDto.model_validate(json_data)
     kwargs["system_config_dto"] = system_config_dto
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.system_config.update_config, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)

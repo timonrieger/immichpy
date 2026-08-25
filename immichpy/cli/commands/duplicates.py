@@ -2,9 +2,10 @@
 
 from __future__ import annotations
 
-import typer
-from uuid import UUID
 from typing import TYPE_CHECKING
+from uuid import UUID
+
+import typer
 
 if TYPE_CHECKING:
     from immichpy import AsyncClient
@@ -33,7 +34,7 @@ def delete_duplicate(
     """
     kwargs = {}
     kwargs["id"] = id
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.duplicates.delete_duplicate, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)
 
@@ -52,7 +53,7 @@ def delete_duplicates(
     set_nested(json_data, ["ids"], ids)
     bulk_ids_dto = BulkIdsDto.model_validate(json_data)
     kwargs["bulk_ids_dto"] = bulk_ids_dto
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.duplicates.delete_duplicates, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)
 
@@ -66,7 +67,7 @@ def get_asset_duplicates(
     [link=https://api.immich.app/endpoints/duplicates/getAssetDuplicates]Immich API documentation[/link]
     """
     kwargs = {}
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.duplicates.get_asset_duplicates, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)
 
@@ -92,6 +93,6 @@ As a JSON string with keys: duplicateId (string), keepAssetIds (string[]), trash
     set_nested(json_data, ["groups"], value_groups)
     duplicate_resolve_dto = DuplicateResolveDto.model_validate(json_data)
     kwargs["duplicate_resolve_dto"] = duplicate_resolve_dto
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.duplicates.resolve_duplicates, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)

@@ -2,9 +2,10 @@
 
 from __future__ import annotations
 
-import typer
+from typing import TYPE_CHECKING, Literal
 from uuid import UUID
-from typing import Literal, TYPE_CHECKING
+
+import typer
 
 if TYPE_CHECKING:
     from immichpy import AsyncClient
@@ -38,7 +39,7 @@ def add_assets_to_album(
     set_nested(json_data, ["ids"], ids)
     bulk_ids_dto = BulkIdsDto.model_validate(json_data)
     kwargs["bulk_ids_dto"] = bulk_ids_dto
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.albums.add_assets_to_album, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)
 
@@ -59,7 +60,7 @@ def add_assets_to_albums(
     set_nested(json_data, ["asset_ids"], asset_ids)
     albums_add_assets_dto = AlbumsAddAssetsDto.model_validate(json_data)
     kwargs["albums_add_assets_dto"] = albums_add_assets_dto
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.albums.add_assets_to_albums, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)
 
@@ -87,7 +88,7 @@ As a JSON string with keys: role (string), userId (string)""",
     set_nested(json_data, ["album_users"], value_album_users)
     add_users_dto = AddUsersDto.model_validate(json_data)
     kwargs["add_users_dto"] = add_users_dto
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.albums.add_users_to_album, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)
 
@@ -126,7 +127,7 @@ As a JSON string with keys: role (string), userId (string)""",
         set_nested(json_data, ["description"], description)
     create_album_dto = CreateAlbumDto.model_validate(json_data)
     kwargs["create_album_dto"] = create_album_dto
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.albums.create_album, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)
 
@@ -142,7 +143,7 @@ def delete_album(
     """
     kwargs = {}
     kwargs["id"] = id
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.albums.delete_album, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)
 
@@ -164,7 +165,7 @@ def get_album_info(
         kwargs["key"] = key
     if slug is not None:
         kwargs["slug"] = slug
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.albums.get_album_info, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)
 
@@ -186,7 +187,7 @@ def get_album_map_markers(
         kwargs["key"] = key
     if slug is not None:
         kwargs["slug"] = slug
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.albums.get_album_map_markers, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)
 
@@ -200,7 +201,7 @@ def get_album_statistics(
     [link=https://api.immich.app/endpoints/albums/getAlbumStatistics]Immich API documentation[/link]
     """
     kwargs = {}
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.albums.get_album_statistics, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)
 
@@ -243,7 +244,7 @@ def get_all_albums(
         kwargs["is_shared"] = is_shared.lower() == "true"
     if name is not None:
         kwargs["name"] = name
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.albums.get_all_albums, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)
 
@@ -266,7 +267,7 @@ def remove_asset_from_album(
     set_nested(json_data, ["ids"], ids)
     bulk_ids_dto = BulkIdsDto.model_validate(json_data)
     kwargs["bulk_ids_dto"] = bulk_ids_dto
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.albums.remove_asset_from_album, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)
 
@@ -286,7 +287,7 @@ def remove_user_from_album(
     kwargs = {}
     kwargs["id"] = id
     kwargs["user_id"] = user_id
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.albums.remove_user_from_album, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)
 
@@ -328,7 +329,7 @@ def update_album_info(
         set_nested(json_data, ["order"], order)
     update_album_dto = UpdateAlbumDto.model_validate(json_data)
     kwargs["update_album_dto"] = update_album_dto
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.albums.update_album_info, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)
 
@@ -353,6 +354,6 @@ def update_album_user(
     set_nested(json_data, ["role"], role)
     update_album_user_dto = UpdateAlbumUserDto.model_validate(json_data)
     kwargs["update_album_user_dto"] = update_album_user_dto
-    client: "AsyncClient" = ctx.obj["client"]
+    client: AsyncClient = ctx.obj["client"]
     result = run_command(client.albums.update_album_user, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)

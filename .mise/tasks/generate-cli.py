@@ -13,14 +13,15 @@
 
 from __future__ import annotations
 
-from collections import defaultdict
 import keyword
 import os
 import shutil
-import urllib3  # ty: ignore[unresolved-import]
+from collections import defaultdict
 from pathlib import Path
 from typing import Annotated, Any, Literal
+
 import inflection  # ty: ignore[unresolved-import]
+import urllib3  # ty: ignore[unresolved-import]
 from pydantic import AfterValidator, BaseModel
 
 
@@ -212,22 +213,15 @@ def is_complex_type(schema: dict[str, Any], spec: dict[str, Any] | None = None) 
         return True
     if schema_type == "array":
         items = schema.get("items", {})
-        if "$ref" in items:
-            # Resolve the ref to check if it's an enum/primitive or an object
-            if spec is not None:
-                resolved = resolve_schema_ref(spec, items["$ref"])
-                # Enums and primitives are not complex - only objects are
-                if "enum" in resolved:
-                    return False  # Array of enums is simple
-                # If it's an object or unknown, treat as complex
-                return True
+        if "$ref" in items and spec is not None:
+            # Resolve the ref to check if it's an enum/primitive or an object.
+            # Arrays of enums are simple; objects and unknowns are complex.
+            resolved = resolve_schema_ref(spec, items["$ref"])
+            return "enum" not in resolved
         return is_complex_type(items, spec)
 
     # oneOf, anyOf, allOf are complex
-    if any(key in schema for key in ["oneOf", "anyOf", "allOf"]):
-        return True
-
-    return False
+    return any(key in schema for key in ["oneOf", "anyOf", "allOf"])
 
 
 def flatten_schema(

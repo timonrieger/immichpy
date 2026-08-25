@@ -1,29 +1,31 @@
 from __future__ import annotations
 
-from pathlib import Path
-from typing import Callable, Literal
-from unittest.mock import AsyncMock, MagicMock, patch
 import uuid
+from collections.abc import Callable
+from pathlib import Path
+from typing import Literal
+from unittest.mock import AsyncMock, MagicMock, patch
 
 import pytest
 
 from immichpy.client.generated import AssetRejectReason, AssetUploadAction
+from immichpy.client.generated.exceptions import ApiException
+from immichpy.client.generated.models.album_response_dto import AlbumResponseDto
 from immichpy.client.generated.models.asset_bulk_upload_check_response_dto import (
     AssetBulkUploadCheckResponseDto,
 )
 from immichpy.client.generated.models.asset_bulk_upload_check_result import (
     AssetBulkUploadCheckResult,
 )
-from immichpy.client.generated.models.bulk_ids_dto import BulkIdsDto
 from immichpy.client.generated.models.asset_media_response_dto import (
     AssetMediaResponseDto,
 )
 from immichpy.client.generated.models.asset_media_status import AssetMediaStatus
+from immichpy.client.generated.models.bulk_ids_dto import BulkIdsDto
 from immichpy.client.generated.models.server_media_types_response_dto import (
     ServerMediaTypesResponseDto,
 )
-from immichpy.client.generated.models.album_response_dto import AlbumResponseDto
-from immichpy.client.generated.exceptions import ApiException
+from immichpy.client.types import RejectedEntry, UploadedEntry
 from immichpy.client.utils.upload import (
     check_duplicates,
     delete_files,
@@ -33,7 +35,6 @@ from immichpy.client.utils.upload import (
     upload_file,
     upload_files,
 )
-from immichpy.client.types import RejectedEntry, UploadedEntry
 
 
 @pytest.fixture
@@ -543,7 +544,7 @@ async def test_upload_files_dry_run_no_progress_update(
         mock_upload.return_value = AssetMediaResponseDto(
             id=uuid.uuid4(), status=AssetMediaStatus.CREATED
         )
-        uploaded, rejected, failed = await upload_files(
+        uploaded, _rejected, _failed = await upload_files(
             [file1], mock_assets, dry_run=True
         )
         assert len(uploaded) == 1
@@ -759,7 +760,7 @@ async def test_delete_files_deletion_failure(
     def failing_unlink(self: PathClass):
         target = sidecar1 if fail_file == "sidecar" else file1
         if self.resolve() == target.resolve():
-            raise Exception("Permission denied")
+            raise PermissionError("Permission denied")
         return original_unlink(self)
 
     with patch.object(PathClass, "unlink", failing_unlink):

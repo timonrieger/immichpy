@@ -11,19 +11,18 @@ The client raises exceptions if the API returns an error response. Most of the t
 ## Exception hierarchy
 
 - [**OpenApiException**](reference/exceptions.md#immichpy.client.generated.exceptions.OpenApiException) (base for all client exceptions)
-    - [**ApiException**](reference/exceptions.md#immichpy.client.generated.exceptions.ApiException) (HTTP API errors)
-        - [**BadRequestException**](reference/exceptions.md#immichpy.client.generated.exceptions.BadRequestException) (400)
-        - [**UnauthorizedException**](reference/exceptions.md#immichpy.client.generated.exceptions.UnauthorizedException) (401)
-        - [**ForbiddenException**](reference/exceptions.md#immichpy.client.generated.exceptions.ForbiddenException) (403)
-        - [**NotFoundException**](reference/exceptions.md#immichpy.client.generated.exceptions.NotFoundException) (404)
-        - [**ConflictException**](reference/exceptions.md#immichpy.client.generated.exceptions.ConflictException) (409)
-        - [**UnprocessableEntityException**](reference/exceptions.md#immichpy.client.generated.exceptions.UnprocessableEntityException) (422)
-        - [**ServiceException**](reference/exceptions.md#immichpy.client.generated.exceptions.ServiceException) (5xx)
-    - [**ApiTypeError**](reference/exceptions.md#immichpy.client.generated.exceptions.ApiTypeError) (also `TypeError`)
-    - [**ApiValueError**](reference/exceptions.md#immichpy.client.generated.exceptions.ApiValueError) (also `ValueError`)
-    - [**ApiAttributeError**](reference/exceptions.md#immichpy.client.generated.exceptions.ApiAttributeError) (also `AttributeError`)
-    - [**ApiKeyError**](reference/exceptions.md#immichpy.client.generated.exceptions.ApiKeyError) (also `KeyError`)
-
+  - [**ApiException**](reference/exceptions.md#immichpy.client.generated.exceptions.ApiException) (HTTP API errors)
+    - [**BadRequestException**](reference/exceptions.md#immichpy.client.generated.exceptions.BadRequestException) (400)
+    - [**UnauthorizedException**](reference/exceptions.md#immichpy.client.generated.exceptions.UnauthorizedException) (401)
+    - [**ForbiddenException**](reference/exceptions.md#immichpy.client.generated.exceptions.ForbiddenException) (403)
+    - [**NotFoundException**](reference/exceptions.md#immichpy.client.generated.exceptions.NotFoundException) (404)
+    - [**ConflictException**](reference/exceptions.md#immichpy.client.generated.exceptions.ConflictException) (409)
+    - [**UnprocessableEntityException**](reference/exceptions.md#immichpy.client.generated.exceptions.UnprocessableEntityException) (422)
+    - [**ServiceException**](reference/exceptions.md#immichpy.client.generated.exceptions.ServiceException) (5xx)
+  - [**ApiTypeError**](reference/exceptions.md#immichpy.client.generated.exceptions.ApiTypeError) (also `TypeError`)
+  - [**ApiValueError**](reference/exceptions.md#immichpy.client.generated.exceptions.ApiValueError) (also `ValueError`)
+  - [**ApiAttributeError**](reference/exceptions.md#immichpy.client.generated.exceptions.ApiAttributeError) (also `AttributeError`)
+  - [**ApiKeyError**](reference/exceptions.md#immichpy.client.generated.exceptions.ApiKeyError) (also `KeyError`)
 
 ## Examples
 
@@ -34,6 +33,7 @@ Catch [ApiException](reference/exceptions.md#immichpy.client.generated.exception
 ```python
 from immichpy import AsyncClient
 from immichpy.client.generated.exceptions import ApiException
+
 
 async def get_server_version(base_url: str, api_key: str) -> None:
     async with AsyncClient(api_key=api_key, base_url=base_url) as client:
@@ -54,6 +54,7 @@ import asyncio
 import aiohttp
 from immichpy import AsyncClient
 from immichpy.client.generated.exceptions import ApiException
+
 
 async def get_server_version_with_timeout(base_url: str, api_key: str) -> None:
     session = aiohttp.ClientSession(
@@ -87,6 +88,7 @@ from immichpy.client.generated.exceptions import (
     UnauthorizedException,
 )
 
+
 async def validate_api_key(base_url: str, api_key: str) -> str:
     async with AsyncClient(api_key=api_key, base_url=base_url) as client:
         try:
@@ -107,6 +109,7 @@ from immichpy.client.generated.exceptions import (
     ConflictException,
     UnprocessableEntityException,
 )
+
 
 async def ensure_album_exists(client: AsyncClient, album_name: str) -> str:
     try:

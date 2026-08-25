@@ -1,8 +1,9 @@
 from pathlib import Path
 from typing import Literal
+from uuid import UUID
+
 from multidict import CIMultiDictProxy
 from pydantic import BaseModel, Field
-from uuid import UUID
 
 from immichpy.client.generated import AssetMediaResponseDto
 

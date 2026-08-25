@@ -1,0 +1,5 @@
+MD013: false # ignore line length
+MD033: # allow the inline HTML used by the docs and generated CLI reference
+  allowed_elements: [a, img, span, p, h1, h3, kbd]
+MD046: false # fenced/indented code blocks mix inside mkdocs content tabs
+MD060: false # don't require aligned table pipes

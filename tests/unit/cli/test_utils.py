@@ -4,19 +4,19 @@ from unittest.mock import Mock, patch
 import pytest
 import typer
 
+from immichpy.cli.types import ClientConfig
 from immichpy.cli.utils import (
+    _is_secret_key,
+    _redact_secret,
     check_config,
-    resolve_client_config,
     get_path,
     load_config,
-    _is_secret_key,
     mask,
-    _redact_secret,
+    print_,
+    resolve_client_config,
     set_path,
     write_config,
-    print_,
 )
-from immichpy.cli.types import ClientConfig
 
 
 class TestSetPath:
