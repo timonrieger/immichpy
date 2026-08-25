@@ -22,7 +22,7 @@ from typing import Any, ClassVar, Dict, List, Optional
 from uuid import UUID
 from immichpy.client.generated.models.reaction_type import ReactionType
 from immichpy.client.generated.models.user_response_dto import UserResponseDto
-from typing import Set
+from typing import Optional, Set
 from typing_extensions import Self
 from pydantic_core import to_jsonable_python
 

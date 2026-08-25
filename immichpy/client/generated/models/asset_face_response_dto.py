@@ -22,7 +22,7 @@ from typing_extensions import Annotated
 from uuid import UUID
 from immichpy.client.generated.models.person_response_dto import PersonResponseDto
 from immichpy.client.generated.models.source_type import SourceType
-from typing import Set
+from typing import Optional, Set
 from typing_extensions import Self
 from pydantic_core import to_jsonable_python
 

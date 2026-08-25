@@ -106,8 +106,9 @@ class PluginResponseDto(BaseModel):
         _items = []
         if self.methods:
             for _item_methods in self.methods:
-                if _item_methods:
-                    _items.append(_item_methods.to_dict())
+                _items.append(
+                    _item_methods.to_dict() if _item_methods is not None else None
+                )
             _dict["methods"] = _items
         return _dict
 

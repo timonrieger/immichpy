@@ -30,7 +30,7 @@ from uuid import UUID
 from immichpy.client.generated.models.album_response_dto import AlbumResponseDto
 from immichpy.client.generated.models.asset_response_dto import AssetResponseDto
 from immichpy.client.generated.models.shared_link_type import SharedLinkType
-from typing import Set
+from typing import Optional, Set
 from typing_extensions import Self
 from pydantic_core import to_jsonable_python
 
@@ -176,8 +176,9 @@ class SharedLinkResponseDto(BaseModel):
         _items = []
         if self.assets:
             for _item_assets in self.assets:
-                if _item_assets:
-                    _items.append(_item_assets.to_dict())
+                _items.append(
+                    _item_assets.to_dict() if _item_assets is not None else None
+                )
             _dict["assets"] = _items
         # set to None if description (nullable) is None
         # and model_fields_set contains the field

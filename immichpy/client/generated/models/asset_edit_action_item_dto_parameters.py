@@ -12,16 +12,25 @@ Do not edit the class manually.
 """  # noqa: E501
 
 from __future__ import annotations
+from inspect import getfullargspec
 import json
 import pprint
 import re  # noqa: F401
-from pydantic import BaseModel, ValidationError, field_validator
+from pydantic import (
+    BaseModel,
+    ConfigDict,
+    Field,
+    StrictStr,
+    ValidationError,
+    field_validator,
+)
 from typing import Optional
 from immichpy.client.generated.models.crop_parameters import CropParameters
 from immichpy.client.generated.models.mirror_parameters import MirrorParameters
 from immichpy.client.generated.models.rotate_parameters import RotateParameters
-from typing import Union, Any, Set, TYPE_CHECKING, Dict
-from typing_extensions import Self
+from typing import Union, Any, List, Set, TYPE_CHECKING, Optional, Dict
+from typing_extensions import Literal, Self
+from pydantic import Field
 
 ASSETEDITACTIONITEMDTOPARAMETERS_ANY_OF_SCHEMAS = [
     "CropParameters",

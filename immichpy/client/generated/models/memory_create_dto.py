@@ -22,7 +22,7 @@ from typing import Any, ClassVar, Dict, List, Optional
 from uuid import UUID
 from immichpy.client.generated.models.memory_type import MemoryType
 from immichpy.client.generated.models.on_this_day_dto import OnThisDayDto
-from typing import Set
+from typing import Optional, Set
 from typing_extensions import Self
 from pydantic_core import to_jsonable_python
 

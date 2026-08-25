@@ -93,8 +93,9 @@ class AssetEditsResponseDto(BaseModel):
         _items = []
         if self.edits:
             for _item_edits in self.edits:
-                if _item_edits:
-                    _items.append(_item_edits.to_dict())
+                _items.append(
+                    _item_edits.to_dict() if _item_edits is not None else None
+                )
             _dict["edits"] = _items
         return _dict
 

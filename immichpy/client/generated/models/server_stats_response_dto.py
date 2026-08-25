@@ -98,8 +98,11 @@ class ServerStatsResponseDto(BaseModel):
         _items = []
         if self.usage_by_user:
             for _item_usage_by_user in self.usage_by_user:
-                if _item_usage_by_user:
-                    _items.append(_item_usage_by_user.to_dict())
+                _items.append(
+                    _item_usage_by_user.to_dict()
+                    if _item_usage_by_user is not None
+                    else None
+                )
             _dict["usageByUser"] = _items
         return _dict
 

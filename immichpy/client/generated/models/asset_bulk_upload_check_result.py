@@ -28,7 +28,7 @@ from typing import Any, ClassVar, Dict, List, Optional
 from uuid import UUID
 from immichpy.client.generated.models.asset_reject_reason import AssetRejectReason
 from immichpy.client.generated.models.asset_upload_action import AssetUploadAction
-from typing import Set
+from typing import Optional, Set
 from typing_extensions import Self
 from pydantic_core import to_jsonable_python
 

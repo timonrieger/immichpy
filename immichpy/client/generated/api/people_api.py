@@ -14,7 +14,9 @@ from pydantic import validate_call, Field, StrictFloat, StrictStr, StrictInt
 from typing import Any, Dict, List, Optional, Tuple, Union
 from typing_extensions import Annotated
 
-from pydantic import StrictBool
+from pydantic import Field, StrictBool, StrictBytes, StrictStr, field_validator
+from typing import List, Optional, Tuple, Union
+from typing_extensions import Annotated
 from uuid import UUID
 from immichpy.client.generated.models.asset_face_update_dto import AssetFaceUpdateDto
 from immichpy.client.generated.models.bulk_id_response_dto import BulkIdResponseDto

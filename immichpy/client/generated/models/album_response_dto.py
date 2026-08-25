@@ -35,7 +35,7 @@ from immichpy.client.generated.models.asset_order import AssetOrder
 from immichpy.client.generated.models.contributor_count_response_dto import (
     ContributorCountResponseDto,
 )
-from typing import Set
+from typing import Optional, Set
 from typing_extensions import Self
 from pydantic_core import to_jsonable_python
 
@@ -169,15 +169,21 @@ class AlbumResponseDto(BaseModel):
         _items = []
         if self.album_users:
             for _item_album_users in self.album_users:
-                if _item_album_users:
-                    _items.append(_item_album_users.to_dict())
+                _items.append(
+                    _item_album_users.to_dict()
+                    if _item_album_users is not None
+                    else None
+                )
             _dict["albumUsers"] = _items
         # override the default output from pydantic by calling `to_dict()` of each item in contributor_counts (list)
         _items = []
         if self.contributor_counts:
             for _item_contributor_counts in self.contributor_counts:
-                if _item_contributor_counts:
-                    _items.append(_item_contributor_counts.to_dict())
+                _items.append(
+                    _item_contributor_counts.to_dict()
+                    if _item_contributor_counts is not None
+                    else None
+                )
             _dict["contributorCounts"] = _items
         # set to None if album_thumbnail_asset_id (nullable) is None
         # and model_fields_set contains the field

@@ -23,7 +23,7 @@ from immichpy.client.generated.models.asset_response_dto import AssetResponseDto
 from immichpy.client.generated.models.search_facet_response_dto import (
     SearchFacetResponseDto,
 )
-from typing import Set
+from typing import Optional, Set
 from typing_extensions import Self
 from pydantic_core import to_jsonable_python
 
@@ -93,15 +93,17 @@ class SearchAssetResponseDto(BaseModel):
         _items = []
         if self.facets:
             for _item_facets in self.facets:
-                if _item_facets:
-                    _items.append(_item_facets.to_dict())
+                _items.append(
+                    _item_facets.to_dict() if _item_facets is not None else None
+                )
             _dict["facets"] = _items
         # override the default output from pydantic by calling `to_dict()` of each item in items (list)
         _items = []
         if self.items:
             for _item_items in self.items:
-                if _item_items:
-                    _items.append(_item_items.to_dict())
+                _items.append(
+                    _item_items.to_dict() if _item_items is not None else None
+                )
             _dict["items"] = _items
         # set to None if next_page (nullable) is None
         # and model_fields_set contains the field

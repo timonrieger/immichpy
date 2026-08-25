@@ -22,7 +22,7 @@ from typing_extensions import Annotated
 from immichpy.client.generated.models.o_auth_token_endpoint_auth_method import (
     OAuthTokenEndpointAuthMethod,
 )
-from typing import Set
+from typing import Optional, Set
 from typing_extensions import Self
 from pydantic_core import to_jsonable_python
 

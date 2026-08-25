@@ -75,8 +75,9 @@ class MaintenanceDetectInstallResponseDto(BaseModel):
         _items = []
         if self.storage:
             for _item_storage in self.storage:
-                if _item_storage:
-                    _items.append(_item_storage.to_dict())
+                _items.append(
+                    _item_storage.to_dict() if _item_storage is not None else None
+                )
             _dict["storage"] = _items
         return _dict
 

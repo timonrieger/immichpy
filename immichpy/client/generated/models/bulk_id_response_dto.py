@@ -27,7 +27,7 @@ from pydantic import (
 from typing import Any, ClassVar, Dict, List, Optional
 from uuid import UUID
 from immichpy.client.generated.models.bulk_id_error_reason import BulkIdErrorReason
-from typing import Set
+from typing import Optional, Set
 from typing_extensions import Self
 from pydantic_core import to_jsonable_python
 

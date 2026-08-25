@@ -22,7 +22,7 @@ from typing import Any, ClassVar, Dict, List, Optional
 from uuid import UUID
 from immichpy.client.generated.models.notification_level import NotificationLevel
 from immichpy.client.generated.models.notification_type import NotificationType
-from typing import Set
+from typing import Optional, Set
 from typing_extensions import Self
 from pydantic_core import to_jsonable_python
 

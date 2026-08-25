@@ -16,11 +16,11 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictStr
+from pydantic import BaseModel, ConfigDict, Field, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List, Optional
 from uuid import UUID
 from immichpy.client.generated.models.album_user_create_dto import AlbumUserCreateDto
-from typing import Set
+from typing import Optional, Set
 from typing_extensions import Self
 from pydantic_core import to_jsonable_python
 
@@ -88,8 +88,11 @@ class CreateAlbumDto(BaseModel):
         _items = []
         if self.album_users:
             for _item_album_users in self.album_users:
-                if _item_album_users:
-                    _items.append(_item_album_users.to_dict())
+                _items.append(
+                    _item_album_users.to_dict()
+                    if _item_album_users is not None
+                    else None
+                )
             _dict["albumUsers"] = _items
         return _dict
 

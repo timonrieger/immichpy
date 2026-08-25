@@ -14,6 +14,8 @@ from pydantic import validate_call, Field, StrictFloat, StrictStr, StrictInt
 from typing import Any, Dict, List, Optional, Tuple, Union
 from typing_extensions import Annotated
 
+from pydantic import field_validator
+from typing import List
 from uuid import UUID
 from immichpy.client.generated.models.bulk_id_response_dto import BulkIdResponseDto
 from immichpy.client.generated.models.bulk_ids_dto import BulkIdsDto
