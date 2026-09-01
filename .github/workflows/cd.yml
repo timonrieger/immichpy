@@ -128,7 +128,7 @@ jobs:
 
       - name: Action | Semantic Version Release
         id: release
-        uses: python-semantic-release/python-semantic-release@350c48fcb3ffcdfd2e0a235206bc2ecea6b69df0 # v10
+        uses: python-semantic-release/python-semantic-release@9a026e9303981c866c3425723009becb2437c757 # v10
         with:
           directory: ./
           github_token: ${{ secrets.RELEASE_PAT }}
