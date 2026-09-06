@@ -65,7 +65,7 @@ docs = [
     "pymdown-extensions>=11,<11.1",
     "termynal>=0.14.0,<0.15.0",
     "typer>=0.26.3,<0.27.0",
-    "zensical>=0.0.46,<0.0.47",
+    "zensical>=0.0.59,<0.0.60",
 ]
 
 [tool.semantic_release]
