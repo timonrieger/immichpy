@@ -1,0 +1,7 @@
+nav:
+  - getting-started.md
+  - integration-guide.md
+  - response-types.md
+  - exception-handling.md
+  - configuration.md
+  - Reference: reference
