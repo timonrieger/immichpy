@@ -37,6 +37,6 @@ repos:
         args: [--fix]
 
   - repo: https://github.com/astral-sh/ty-pre-commit
-    rev: 1241d80d7f628b8b0c60540b7a8c83b947136a4f  # frozen: v0.0.74
+    rev: 743d21e292f7a36ed70cc2318aa3c8711b1e0437  # frozen: v0.0.78
     hooks:
       - id: ty
