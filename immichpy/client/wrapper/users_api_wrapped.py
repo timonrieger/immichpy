@@ -28,9 +28,9 @@ class UsersApiWrapped(UsersApi):
         :param filename: The filename to use. If not provided, we try to derive it from the headers
             or default to "profile-" + user_id.
         :param show_progress: Whether to show a progress bar while downloading.
-        :param kwargs: Additional arguments to pass to the `get_profile_image_without_preload_content` method.
+        :param kwargs: Additional arguments to pass to the [UsersApi.get_profile_image_without_preload_content][immichpy.client.generated.api.users_api.UsersApi.get_profile_image_without_preload_content] method.
 
-        For exact request/response behavior, inspect `UsersApi.get_profile_image_without_preload_content`
+        For exact request/response behavior, inspect [UsersApi.get_profile_image_without_preload_content][immichpy.client.generated.api.users_api.UsersApi.get_profile_image_without_preload_content]
         in the generated client.
         """
         out_dir.mkdir(parents=True, exist_ok=True)

@@ -42,16 +42,16 @@ class DownloadApiWrapped(DownloadApi):
         CPU/disk load on the Immich server and may lead to timeouts or degraded performance for other users.
         If you choose to parallelize, keep concurrency low and do so at your own risk.
 
-        :param download_info: The download info (two-step flow; downloads all archives returned by `get_download_info`).
+        :param download_info: The download info (two-step flow; downloads all archives returned by [DownloadApi.get_download_info][immichpy.client.generated.api.download_api.DownloadApi.get_download_info]).
         :param out_dir: The directory to write the ZIP archive to.
         :param key: Public share key (the last path segment of a public share URL, i.e. `/share/<key>`). Allows access without authentication. Typically you pass either `key` or `slug`.
         :param slug: Public share slug for custom share URLs (the last path segment of `/s/<slug>`). Allows access without authentication. Typically you pass either `slug` or `key`.
         :param show_progress: Whether to show progress bars (per-archive bytes + overall archive count).
-        :param kwargs: Additional arguments to pass to the underlying SDK calls.
+        :param kwargs: Additional arguments to pass to the underlying [DownloadApi.get_download_info][immichpy.client.generated.api.download_api.DownloadApi.get_download_info] and [DownloadApi.download_archive_without_preload_content][immichpy.client.generated.api.download_api.DownloadApi.download_archive_without_preload_content] calls.
 
         :return: The list of paths to the downloaded archives.
 
-        For exact request/response behavior, inspect `DownloadApi.download_archive_without_preload_content`
+        For exact request/response behavior, inspect [DownloadApi.download_archive_without_preload_content][immichpy.client.generated.api.download_api.DownloadApi.download_archive_without_preload_content]
         in the generated client.
         """
         out_dir.mkdir(parents=True, exist_ok=True)

@@ -45,10 +45,10 @@ class AssetsApiWrapped(AssetsApi):
         :param slug: Public share slug for custom share URLs (the last path segment of `/s/<slug>`). Allows access without authentication. Typically you pass either `slug` or `key`.
         :param filename: The filename to use. If not provided, we use the original filename from the headers or default to "orig-" + asset_id.
         :param show_progress: Whether to show a progress bar while downloading.
-        :param kwargs: Additional arguments to pass to the `download_asset_without_preload_content` method.
+        :param kwargs: Additional arguments to pass to the [AssetsApi.download_asset_without_preload_content][immichpy.client.generated.api.assets_api.AssetsApi.download_asset_without_preload_content] method.
         :return: The path to the downloaded file.
 
-        For exact request/response behavior, inspect `AssetsApi.download_asset_without_preload_content`
+        For exact request/response behavior, inspect [AssetsApi.download_asset_without_preload_content][immichpy.client.generated.api.assets_api.AssetsApi.download_asset_without_preload_content]
         in the generated client.
         """
         out_dir.mkdir(parents=True, exist_ok=True)
@@ -92,7 +92,7 @@ class AssetsApiWrapped(AssetsApi):
         :param slug: Public share slug for custom share URLs (the last path segment of `/s/<slug>`). Allows access without authentication. Typically you pass either `slug` or `key`.
         :param filename: The filename to use. If not provided, we use the original filename from the headers or default to "video-" + asset_id.
         :param show_progress: Whether to show a progress bar while downloading.
-        :param kwargs: Additional arguments to pass to the [AssetsApi.play_asset_video_without_preload_content][] method.
+        :param kwargs: Additional arguments to pass to the [AssetsApi.play_asset_video_without_preload_content][immichpy.client.generated.api.assets_api.AssetsApi.play_asset_video_without_preload_content] method.
         :return: The path to the downloaded file.
         """
         out_dir.mkdir(parents=True, exist_ok=True)
@@ -138,7 +138,7 @@ class AssetsApiWrapped(AssetsApi):
         :param slug: Public share slug for custom share URLs (the last path segment of `/s/<slug>`). Allows access without authentication. Typically you pass either `slug` or `key`.
         :param filename: The filename to use. If not provided, we use the original filename from the headers or default to "thumb-" + asset_id.
         :param show_progress: Whether to show a progress bar while downloading.
-        :param kwargs: Additional arguments to pass to the [AssetsApi.view_asset_without_preload_content][] method.
+        :param kwargs: Additional arguments to pass to the [AssetsApi.view_asset_without_preload_content][immichpy.client.generated.api.assets_api.AssetsApi.view_asset_without_preload_content] method.
         :return: The path to the downloaded file.
         """
         out_dir.mkdir(parents=True, exist_ok=True)
@@ -183,7 +183,7 @@ class AssetsApiWrapped(AssetsApi):
         Upload assets with smart features (duplicate detection, album management, sidecar support, dry run).
 
         :param paths: File or directory paths to upload. Can be a single path or list of paths. Directories are automatically walked recursively. To ignore subdirectories, use the `ignore_pattern` parameter.
-        :param ignore_pattern: Wildcard pattern to ignore files (uses `fnmatch` stdlib module, not regex). Examples: "*.tmp" (ignore all .tmp files), "*/subdir/*" (ignore files in subdir at any level).
+        :param ignore_pattern: Wildcard pattern to ignore files (uses [fnmatch][] stdlib module, not regex). Examples: "*.tmp" (ignore all .tmp files), "*/subdir/*" (ignore files in subdir at any level).
         :param include_hidden: Whether to include hidden files (starting with ".").
         :param skip_duplicates: Whether to skip duplicate checking (might still get rejected on the server).
         :param concurrency: Number of concurrent uploads. Defaults to 5. A higher number may increase upload speed, but also increases the risk of rate limiting or other issues.
@@ -193,7 +193,7 @@ class AssetsApiWrapped(AssetsApi):
         :param delete_uploads: Whether to delete successfully uploaded files locally.
         :param delete_duplicates: Whether to delete duplicate files locally.
         :param dry_run: Simulate uploads without actually uploading.
-        :return: UploadResult with uploaded assets, rejected files, failures, and statistics.
+        :return: [UploadResult][immichpy.client.types.UploadResult] with uploaded assets, rejected files, failures, and statistics.
         """
         if concurrency < 1:
             raise ValueError("concurrency must be >= 1")
