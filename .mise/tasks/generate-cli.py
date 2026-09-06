@@ -20,8 +20,8 @@ from collections import defaultdict
 from pathlib import Path
 from typing import Annotated, Any, Literal
 
-import inflection  # ty: ignore[unresolved-import]
-import urllib3  # ty: ignore[unresolved-import]
+import inflection
+import urllib3
 from pydantic import AfterValidator, BaseModel
 
 
