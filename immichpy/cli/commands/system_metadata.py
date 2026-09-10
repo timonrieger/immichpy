@@ -10,7 +10,7 @@ if TYPE_CHECKING:
     from immichpy import AsyncClient
 
 from immichpy.cli.runtime import print_response, run_command, set_nested
-from immichpy.client.generated.models import *
+from immichpy.client.generated.models import AdminOnboardingUpdateDto
 
 app = typer.Typer(
     help="""Endpoints to view, modify, and validate the system metadata, which includes information about things like admin onboarding status.\n\n[link=https://api.immich.app/endpoints/system-metadata]Immich API documentation[/link]"""

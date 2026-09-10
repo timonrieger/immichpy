@@ -11,7 +11,7 @@ if TYPE_CHECKING:
     from immichpy import AsyncClient
 
 from immichpy.cli.runtime import print_response, run_command
-from immichpy.client.generated.models import *
+from immichpy.client.generated.models import AssetOrder, AssetOrderBy, AssetVisibility
 
 app = typer.Typer(
     help="""Specialized endpoints related to the timeline implementation used in the web application. External applications or tools should not use or rely on these endpoints, as they are subject to change without notice.\n\n[link=https://api.immich.app/endpoints/timeline]Immich API documentation[/link]"""

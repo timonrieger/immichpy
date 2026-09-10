@@ -11,7 +11,14 @@ if TYPE_CHECKING:
     from immichpy import AsyncClient
 
 from immichpy.cli.runtime import print_response, run_command, set_nested
-from immichpy.client.generated.models import *
+from immichpy.client.generated.models import (
+    AssetVisibility,
+    CalendarHeatmapType,
+    UserAdminCreateDto,
+    UserAdminDeleteDto,
+    UserAdminUpdateDto,
+    UserPreferencesUpdateDto,
+)
 
 app = typer.Typer(
     help="""Administrative endpoints for managing users, including creating, updating, deleting, and restoring users. Also includes endpoints for resetting passwords and PIN codes.\n\n[link=https://api.immich.app/endpoints/users-admin]Immich API documentation[/link]"""

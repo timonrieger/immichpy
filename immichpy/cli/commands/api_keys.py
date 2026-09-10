@@ -11,7 +11,11 @@ if TYPE_CHECKING:
     from immichpy import AsyncClient
 
 from immichpy.cli.runtime import print_response, run_command, set_nested
-from immichpy.client.generated.models import *
+from immichpy.client.generated.models import (
+    ApiKeyCreateDto,
+    ApiKeyUpdateDto,
+    Permission,
+)
 
 app = typer.Typer(
     help="""An api key can be used to programmatically access the Immich API.\n\n[link=https://api.immich.app/endpoints/api-keys]Immich API documentation[/link]"""

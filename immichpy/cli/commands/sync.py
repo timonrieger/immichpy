@@ -10,7 +10,13 @@ if TYPE_CHECKING:
     from immichpy import AsyncClient
 
 from immichpy.cli.runtime import print_response, run_command, set_nested
-from immichpy.client.generated.models import *
+from immichpy.client.generated.models import (
+    SyncAckDeleteDto,
+    SyncAckSetDto,
+    SyncEntityType,
+    SyncRequestType,
+    SyncStreamDto,
+)
 
 app = typer.Typer(
     help="""A collection of endpoints for the new mobile synchronization implementation.\n\n[link=https://api.immich.app/endpoints/sync]Immich API documentation[/link]"""

@@ -12,7 +12,13 @@ if TYPE_CHECKING:
     from immichpy import AsyncClient
 
 from immichpy.cli.runtime import print_response, run_command, set_nested
-from immichpy.client.generated.models import *
+from immichpy.client.generated.models import (
+    CalendarHeatmapType,
+    LicenseKeyDto,
+    OnboardingDto,
+    UserPreferencesUpdateDto,
+    UserUpdateMeDto,
+)
 
 app = typer.Typer(
     help="""Endpoints for viewing and updating the current users, including product key information, profile picture data, onboarding progress, and more.\n\n[link=https://api.immich.app/endpoints/users]Immich API documentation[/link]"""

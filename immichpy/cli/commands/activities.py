@@ -11,7 +11,11 @@ if TYPE_CHECKING:
     from immichpy import AsyncClient
 
 from immichpy.cli.runtime import print_response, run_command, set_nested
-from immichpy.client.generated.models import *
+from immichpy.client.generated.models import (
+    ActivityCreateDto,
+    ReactionLevel,
+    ReactionType,
+)
 
 app = typer.Typer(
     help="""An activity is a like or a comment made by a user on an asset or album.\n\n[link=https://api.immich.app/endpoints/activities]Immich API documentation[/link]"""

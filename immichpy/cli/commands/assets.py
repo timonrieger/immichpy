@@ -18,7 +18,20 @@ from immichpy.cli.runtime import (
     run_command,
     set_nested,
 )
-from immichpy.client.generated.models import *
+from immichpy.client.generated.models import (
+    AssetBulkDeleteDto,
+    AssetBulkUpdateDto,
+    AssetBulkUploadCheckDto,
+    AssetCopyDto,
+    AssetEditsCreateDto,
+    AssetJobsDto,
+    AssetMediaSize,
+    AssetMetadataBulkDeleteDto,
+    AssetMetadataBulkUpsertDto,
+    AssetMetadataUpsertDto,
+    AssetVisibility,
+    UpdateAssetDto,
+)
 
 app = typer.Typer(
     help="""An asset is an image or video that has been uploaded to Immich.\n\n[link=https://api.immich.app/endpoints/assets]Immich API documentation[/link]"""

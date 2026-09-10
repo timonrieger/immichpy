@@ -10,7 +10,12 @@ if TYPE_CHECKING:
     from immichpy import AsyncClient
 
 from immichpy.cli.runtime import print_response, run_command, set_nested
-from immichpy.client.generated.models import *
+from immichpy.client.generated.models import (
+    QueueDeleteDto,
+    QueueJobStatus,
+    QueueName,
+    QueueUpdateDto,
+)
 
 app = typer.Typer(
     help="""Queues and background jobs are used for processing tasks asynchronously. Queues can be paused and resumed as needed.\n\n[link=https://api.immich.app/endpoints/queues]Immich API documentation[/link]"""

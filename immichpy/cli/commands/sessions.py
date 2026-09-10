@@ -11,7 +11,7 @@ if TYPE_CHECKING:
     from immichpy import AsyncClient
 
 from immichpy.cli.runtime import print_response, run_command, set_nested
-from immichpy.client.generated.models import *
+from immichpy.client.generated.models import SessionCreateDto, SessionUpdateDto
 
 app = typer.Typer(
     help="""A session represents an authenticated login session for a user. Sessions also appear in the web application as "Authorized devices".\n\n[link=https://api.immich.app/endpoints/sessions]Immich API documentation[/link]"""

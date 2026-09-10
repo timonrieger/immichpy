@@ -16,7 +16,14 @@ from immichpy.cli.runtime import (
     run_command,
     set_nested,
 )
-from immichpy.client.generated.models import *
+from immichpy.client.generated.models import (
+    AddUsersDto,
+    AlbumsAddAssetsDto,
+    BulkIdsDto,
+    CreateAlbumDto,
+    UpdateAlbumDto,
+    UpdateAlbumUserDto,
+)
 
 app = typer.Typer(
     help="""An album is a collection of assets that can be shared with other users or via shared links.\n\n[link=https://api.immich.app/endpoints/albums]Immich API documentation[/link]"""

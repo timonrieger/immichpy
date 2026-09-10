@@ -11,7 +11,6 @@ if TYPE_CHECKING:
     from immichpy import AsyncClient
 
 from immichpy.cli.runtime import print_response, run_command
-from immichpy.client.generated.models import *
 
 app = typer.Typer(
     help="""Map endpoints include supplemental functionality related to geolocation, such as reverse geocoding and retrieving map markers for assets with geolocation data.\n\n[link=https://api.immich.app/endpoints/map]Immich API documentation[/link]"""

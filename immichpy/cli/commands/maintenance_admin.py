@@ -11,7 +11,11 @@ if TYPE_CHECKING:
     from immichpy import AsyncClient
 
 from immichpy.cli.runtime import print_response, run_command, set_nested
-from immichpy.client.generated.models import *
+from immichpy.client.generated.models import (
+    IntegrityReport,
+    MaintenanceLoginDto,
+    SetMaintenanceModeDto,
+)
 
 app = typer.Typer(
     help="""Maintenance mode allows you to put Immich in a read-only state to perform various operations.\n\n[link=https://api.immich.app/endpoints/maintenance-admin]Immich API documentation[/link]"""

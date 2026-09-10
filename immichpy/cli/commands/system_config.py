@@ -10,7 +10,13 @@ if TYPE_CHECKING:
     from immichpy import AsyncClient
 
 from immichpy.cli.runtime import print_response, run_command, set_nested
-from immichpy.client.generated.models import *
+from immichpy.client.generated.models import (
+    AdminConfigDto,
+    AudioCodec,
+    HlsVideoResolution,
+    VideoCodec,
+    VideoContainer,
+)
 
 app = typer.Typer(
     help="""Endpoints to view, modify, and validate the system configuration settings.\n\n[link=https://api.immich.app/endpoints/system-config]Immich API documentation[/link]"""

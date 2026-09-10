@@ -15,6 +15,7 @@ from __future__ import annotations
 
 import keyword
 import os
+import re
 import shutil
 from collections import defaultdict
 from pathlib import Path
@@ -36,6 +37,16 @@ PythonType = (
     Literal["str", "int", "float", "list", "dict", "Path", "bool", "datetime", "UUID"]
     | str
 )
+
+BUILTIN_TYPE_NAMES = frozenset(
+    {"str", "int", "float", "list", "dict", "Path", "bool", "datetime", "UUID"}
+)
+
+
+def model_names_in_type(type_str: PythonType) -> set[str]:
+    """Extract generated model names (e.g. enums) referenced by a type hint."""
+    names = re.findall(r"[A-Za-z_][A-Za-z0-9_]*", type_str)
+    return {name for name in names if name not in BUILTIN_TYPE_NAMES}
 
 
 class RequestParam(BaseModel):
@@ -337,6 +348,7 @@ def generate_command_function(
     spec: dict[str, Any],
     tag_attr: str,
     tag: str,
+    used_models: set[str],
 ) -> str:
     """Generate a Typer command function for an operation.
 
@@ -377,6 +389,9 @@ def generate_command_function(
     # Get request body info
     body_params = get_request_body_info(operation, spec)
     param_data.extend(body_params)
+
+    for param in param_data:
+        used_models.update(model_names_in_type(param.type))
 
     # Build function signature
     lines = [
@@ -507,6 +522,7 @@ def generate_command_function(
                 media_type = _get_media_type(operation)
                 if media_type == "application/json":
                     # Validate and create model
+                    used_models.add(param.model_name)  # ty: ignore[invalid-argument-type]
                     model_instance = to_snake_case(param.model_name)  # ty: ignore[invalid-argument-type]
                     lines.append(
                         f"    {model_instance} = {param.model_name}.model_validate(json_data)"
@@ -547,6 +563,17 @@ def generate_tag_app(
     tag_slug = inflection.parameterize(tag)
     tag_help = f"{tag_description}\\n\\n[link=https://api.immich.app/endpoints/{tag_slug}]Immich API documentation[/link]"
 
+    # Generate command for each operation
+    used_models: set[str] = set()
+    command_codes: list[str] = []
+    for path, method, operation in sorted(
+        operations, key=lambda x: x[2].get("operationId", "")
+    ):
+        func_code = generate_command_function(
+            operation, spec, tag_attr, tag, used_models
+        )
+        command_codes.append(func_code)
+
     lines = [
         '"""Generated CLI commands for '
         + tag
@@ -564,17 +591,13 @@ def generate_tag_app(
         "    from immichpy import AsyncClient",
         "",
         "from immichpy.cli.runtime import parse_json_option, parse_json_options, print_response, run_command, set_nested",
-        "from immichpy.client.generated.models import *",
-        "",
     ]
-
-    # Generate command for each operation
-    command_codes: list[str] = []
-    for path, method, operation in sorted(
-        operations, key=lambda x: x[2].get("operationId", "")
-    ):
-        func_code = generate_command_function(operation, spec, tag_attr, tag)
-        command_codes.append(func_code)
+    if used_models:
+        lines.append(
+            "from immichpy.client.generated.models import "
+            + ", ".join(sorted(used_models))
+        )
+    lines.append("")
 
     lines.append(f"app = typer.Typer(help={python_triple_quoted_str(tag_help)})")
     lines.append("")
