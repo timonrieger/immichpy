@@ -15,7 +15,7 @@ from __future__ import annotations
 from inspect import getfullargspec
 import json
 import pprint
-import re  # noqa: F401
+import regex as re  # noqa: F401
 from pydantic import (
     BaseModel,
     ConfigDict,
