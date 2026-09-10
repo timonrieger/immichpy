@@ -102,6 +102,22 @@ def get_my_api_key(
     print_response(result, ctx=ctx)
 
 
+@app.command("rotate-api-key", deprecated=False, rich_help_panel="API commands")
+def rotate_api_key(
+    ctx: typer.Context,
+    id: UUID = typer.Argument(..., help=r""""""),
+) -> None:
+    """Rotate an API key
+
+    [link=https://api.immich.app/endpoints/api-keys/rotateApiKey]Immich API documentation[/link]
+    """
+    kwargs = {}
+    kwargs["id"] = id
+    client: AsyncClient = ctx.obj["client"]
+    result = run_command(client.api_keys.rotate_api_key, ctx=ctx, **kwargs)
+    print_response(result, ctx=ctx)
+
+
 @app.command("update-api-key", deprecated=True, rich_help_panel="API commands")
 def update_api_key(
     ctx: typer.Context,

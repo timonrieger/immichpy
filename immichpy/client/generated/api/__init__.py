@@ -4,11 +4,16 @@
 from immichpy.client.generated.api.api_keys_api import APIKeysApi
 from immichpy.client.generated.api.activities_api import ActivitiesApi
 from immichpy.client.generated.api.albums_api import AlbumsApi
+from immichpy.client.generated.api.asset_files_api import AssetFilesApi
 from immichpy.client.generated.api.assets_api import AssetsApi
 from immichpy.client.generated.api.authentication_api import AuthenticationApi
 from immichpy.client.generated.api.authentication_admin_api import (
     AuthenticationAdminApi,
 )
+from immichpy.client.generated.api.cluster_groups_api import ClusterGroupsApi
+from immichpy.client.generated.api.config_admin_api import ConfigAdminApi
+from immichpy.client.generated.api.config_public_api import ConfigPublicApi
+from immichpy.client.generated.api.config_user_api import ConfigUserApi
 from immichpy.client.generated.api.database_backups_admin_api import (
     DatabaseBackupsAdminApi,
 )

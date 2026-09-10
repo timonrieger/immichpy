@@ -59,7 +59,7 @@ def get_apk_links(
     print_response(result, ctx=ctx)
 
 
-@app.command("get-server-config", deprecated=False, rich_help_panel="API commands")
+@app.command("get-server-config", deprecated=True, rich_help_panel="API commands")
 def get_server_config(
     ctx: typer.Context,
 ) -> None:
@@ -73,7 +73,7 @@ def get_server_config(
     print_response(result, ctx=ctx)
 
 
-@app.command("get-server-features", deprecated=False, rich_help_panel="API commands")
+@app.command("get-server-features", deprecated=True, rich_help_panel="API commands")
 def get_server_features(
     ctx: typer.Context,
 ) -> None:

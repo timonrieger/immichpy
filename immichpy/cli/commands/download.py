@@ -21,6 +21,11 @@ app = typer.Typer(
 @app.command("download-archive", deprecated=False, rich_help_panel="API commands")
 def download_archive(
     ctx: typer.Context,
+    archive_name: str | None = typer.Option(
+        None,
+        "--archive-name",
+        help=r"""The name of the archive to download, without extension""",
+    ),
     asset_ids: list[UUID] = typer.Option(..., "--asset-ids", help=r"""Asset IDs"""),
     edited: Literal["true", "false"] | None = typer.Option(
         None, "--edited", help=r"""Download edited asset if available"""
@@ -38,6 +43,8 @@ def download_archive(
         kwargs["key"] = key
     if slug is not None:
         kwargs["slug"] = slug
+    if archive_name is not None:
+        set_nested(json_data, ["archive_name"], archive_name)
     set_nested(json_data, ["asset_ids"], asset_ids)
     if edited is not None:
         set_nested(json_data, ["edited"], edited.lower() == "true")

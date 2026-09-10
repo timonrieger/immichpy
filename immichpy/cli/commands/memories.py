@@ -150,13 +150,22 @@ def memories_statistics(
 
 Example: 2024-01-01""",
     ),
+    id: UUID | None = typer.Option(None, "--id", help=r"""Memory ID"""),
     is_saved: Literal["true", "false"] | None = typer.Option(
         None, "--is-saved", help=r"""Filter by saved status"""
     ),
     is_trashed: Literal["true", "false"] | None = typer.Option(
         None, "--is-trashed", help=r"""Include trashed memories"""
     ),
+    is_upcoming: Literal["true", "false"] | None = typer.Option(
+        None,
+        "--is-upcoming",
+        help=r"""Filter by memories that have not been shown yet""",
+    ),
     order: MemorySearchOrder | None = typer.Option(None, "--order", help=r""""""),
+    page: int | None = typer.Option(
+        None, "--page", help=r"""Page number""", min=1, max=9007199254740991
+    ),
     size: int | None = typer.Option(
         None,
         "--size",
@@ -173,12 +182,18 @@ Example: 2024-01-01""",
     kwargs = {}
     if for_ is not None:
         kwargs["for_"] = for_
+    if id is not None:
+        kwargs["id"] = id
     if is_saved is not None:
         kwargs["is_saved"] = is_saved.lower() == "true"
     if is_trashed is not None:
         kwargs["is_trashed"] = is_trashed.lower() == "true"
+    if is_upcoming is not None:
+        kwargs["is_upcoming"] = is_upcoming.lower() == "true"
     if order is not None:
         kwargs["order"] = order
+    if page is not None:
+        kwargs["page"] = page
     if size is not None:
         kwargs["size"] = size
     if type is not None:
@@ -219,13 +234,22 @@ def search_memories(
 
 Example: 2024-01-01""",
     ),
+    id: UUID | None = typer.Option(None, "--id", help=r"""Memory ID"""),
     is_saved: Literal["true", "false"] | None = typer.Option(
         None, "--is-saved", help=r"""Filter by saved status"""
     ),
     is_trashed: Literal["true", "false"] | None = typer.Option(
         None, "--is-trashed", help=r"""Include trashed memories"""
     ),
+    is_upcoming: Literal["true", "false"] | None = typer.Option(
+        None,
+        "--is-upcoming",
+        help=r"""Filter by memories that have not been shown yet""",
+    ),
     order: MemorySearchOrder | None = typer.Option(None, "--order", help=r""""""),
+    page: int | None = typer.Option(
+        None, "--page", help=r"""Page number""", min=1, max=9007199254740991
+    ),
     size: int | None = typer.Option(
         None,
         "--size",
@@ -242,12 +266,18 @@ Example: 2024-01-01""",
     kwargs = {}
     if for_ is not None:
         kwargs["for_"] = for_
+    if id is not None:
+        kwargs["id"] = id
     if is_saved is not None:
         kwargs["is_saved"] = is_saved.lower() == "true"
     if is_trashed is not None:
         kwargs["is_trashed"] = is_trashed.lower() == "true"
+    if is_upcoming is not None:
+        kwargs["is_upcoming"] = is_upcoming.lower() == "true"
     if order is not None:
         kwargs["order"] = order
+    if page is not None:
+        kwargs["page"] = page
     if size is not None:
         kwargs["size"] = size
     if type is not None:

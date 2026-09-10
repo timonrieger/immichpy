@@ -17,7 +17,7 @@ app = typer.Typer(
 )
 
 
-@app.command("get-config", deprecated=False, rich_help_panel="API commands")
+@app.command("get-config", deprecated=True, rich_help_panel="API commands")
 def get_config(
     ctx: typer.Context,
 ) -> None:
@@ -31,7 +31,7 @@ def get_config(
     print_response(result, ctx=ctx)
 
 
-@app.command("get-config-defaults", deprecated=False, rich_help_panel="API commands")
+@app.command("get-config-defaults", deprecated=True, rich_help_panel="API commands")
 def get_config_defaults(
     ctx: typer.Context,
 ) -> None:
@@ -63,7 +63,7 @@ def get_storage_template_options(
     print_response(result, ctx=ctx)
 
 
-@app.command("update-config", deprecated=False, rich_help_panel="API commands")
+@app.command("update-config", deprecated=True, rich_help_panel="API commands")
 def update_config(
     ctx: typer.Context,
     backup_database_cron_expression: str = typer.Option(
@@ -517,6 +517,9 @@ def update_config(
     notifications_smtp_transport_username: str = typer.Option(
         ..., "--notifications-smtp-transport-username", help=r"""SMTP username"""
     ),
+    oauth_account_management_url: str | None = typer.Option(
+        None, "--oauth-account-management-url", help=r"""Account management URL"""
+    ),
     oauth_allow_insecure_requests: bool = typer.Option(
         ..., "--oauth-allow-insecure-requests", help=r"""Allow insecure requests"""
     ),
@@ -936,6 +939,10 @@ def update_config(
         ["notifications_smtp_transport_username"],
         notifications_smtp_transport_username,
     )
+    if oauth_account_management_url is not None:
+        set_nested(
+            json_data, ["oauth_account_management_url"], oauth_account_management_url
+        )
     set_nested(
         json_data, ["oauth_allow_insecure_requests"], oauth_allow_insecure_requests
     )
@@ -998,8 +1005,8 @@ def update_config(
     set_nested(json_data, ["trash_days"], trash_days)
     set_nested(json_data, ["trash_enabled"], trash_enabled)
     set_nested(json_data, ["user_delete_delay"], user_delete_delay)
-    system_config_dto = SystemConfigDto.model_validate(json_data)
-    kwargs["system_config_dto"] = system_config_dto
+    admin_config_dto = AdminConfigDto.model_validate(json_data)
+    kwargs["admin_config_dto"] = admin_config_dto
     client: AsyncClient = ctx.obj["client"]
     result = run_command(client.system_config.update_config, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)

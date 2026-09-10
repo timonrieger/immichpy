@@ -152,8 +152,8 @@ def send_test_email_admin(
     set_nested(json_data, ["transport_port"], transport_port)
     set_nested(json_data, ["transport_secure"], transport_secure)
     set_nested(json_data, ["transport_username"], transport_username)
-    system_config_smtp_dto = SystemConfigSmtpDto.model_validate(json_data)
-    kwargs["system_config_smtp_dto"] = system_config_smtp_dto
+    admin_config_smtp_dto = AdminConfigSmtpDto.model_validate(json_data)
+    kwargs["admin_config_smtp_dto"] = admin_config_smtp_dto
     client: AsyncClient = ctx.obj["client"]
     result = run_command(
         client.notifications_admin.send_test_email_admin, ctx=ctx, **kwargs
