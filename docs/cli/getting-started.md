@@ -47,9 +47,6 @@ Completion will take effect once you restart the terminal
 
 You will get auto-completion for the commands and options when hitting the <kbd>Tab</kbd> key.
 
-!!! note "Performance"
-    Due to the size of the CLI and Python's runtime overhead, the auto-completion is not as fast as I hoped it could be (see [typer#231](https://github.com/fastapi/typer/issues/231)).
-
 ## Setup
 
 1. Have your Immich server running or use the [demo server](https://demo.immich.app).
