@@ -159,6 +159,7 @@ def update_tag(
     ctx: typer.Context,
     id: UUID = typer.Argument(..., help=r""""""),
     color: str | None = typer.Option(None, "--color", help=r"""Tag color (hex)"""),
+    name: str | None = typer.Option(None, "--name", help=r"""Tag name"""),
 ) -> None:
     """Update a tag
 
@@ -169,6 +170,8 @@ def update_tag(
     kwargs["id"] = id
     if color is not None:
         set_nested(json_data, ["color"], color)
+    if name is not None:
+        set_nested(json_data, ["name"], name)
     tag_update_dto = TagUpdateDto.model_validate(json_data)
     kwargs["tag_update_dto"] = tag_update_dto
     client: AsyncClient = ctx.obj["client"]

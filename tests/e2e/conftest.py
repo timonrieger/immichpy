@@ -173,7 +173,7 @@ async def client_with_access_token(env: dict[str, str]):
     setup_client = AsyncClient(base_url=env[IMMICH_API_URL])
 
     try:
-        # Sign up admin (idempotent: subsequent tests will hit "already has an admin")
+        # Sign up admin (idempotent: subsequent tests will hit "Admin setup is not available")
         try:
             await setup_client.auth.sign_up_admin(
                 SignUpDto(
@@ -181,7 +181,9 @@ async def client_with_access_token(env: dict[str, str]):
                 )
             )
         except BadRequestException as e:
-            if not (e.status == 400 and e.body and "already has an admin" in e.body):
+            if not (
+                e.status == 400 and e.body and "Admin setup is not available" in e.body
+            ):
                 raise
 
         # Login to get access token

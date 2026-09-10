@@ -102,6 +102,7 @@ immichpy api-keys [OPTIONS] COMMAND [ARGS]...
 * `get-api-key`: Retrieve an API key
 * `get-api-keys`: List all API keys
 * `get-my-api-key`: Retrieve the current API key
+* `rotate-api-key`: Rotate an API key
 * `update-api-key`: Update an API key (DEPRECATED)
 
 ### `immichpy api-keys create-api-key`
@@ -119,7 +120,7 @@ immichpy api-keys create-api-key [OPTIONS]
 **Options**:
 
 * `--name <str>`: API key name
-* `--permissions <all|activity.create|activity.read|activity.update|activity.delete|activity.statistics|apiKey.create|apiKey.read|apiKey.update|apiKey.delete|asset.read|asset.update|asset.delete|asset.statistics|asset.share|asset.view|asset.download|asset.upload|asset.copy|asset.derive|asset.edit.get|asset.edit.create|asset.edit.delete|album.create|album.read|album.update|album.delete|album.statistics|album.share|album.download|albumAsset.create|albumAsset.delete|albumUser.create|albumUser.update|albumUser.delete|auth.changePassword|authDevice.delete|archive.read|backup.list|backup.download|backup.upload|backup.delete|duplicate.read|duplicate.delete|face.create|face.read|face.update|face.delete|folder.read|job.create|job.read|library.create|library.read|library.update|library.delete|library.statistics|timeline.read|timeline.download|maintenance|map.read|map.search|memory.create|memory.read|memory.update|memory.delete|memory.statistics|memoryAsset.create|memoryAsset.delete|notification.create|notification.read|notification.update|notification.delete|partner.create|partner.read|partner.update|partner.delete|person.create|person.read|person.update|person.delete|person.statistics|person.merge|person.reassign|pinCode.create|pinCode.update|pinCode.delete|plugin.create|plugin.read|plugin.update|plugin.delete|server.about|server.apkLinks|server.storage|server.statistics|server.versionCheck|serverLicense.read|serverLicense.update|serverLicense.delete|session.create|session.read|session.update|session.delete|session.lock|sharedLink.create|sharedLink.read|sharedLink.update|sharedLink.delete|stack.create|stack.read|stack.update|stack.delete|sync.stream|syncCheckpoint.read|syncCheckpoint.update|syncCheckpoint.delete|systemConfig.read|systemConfig.update|systemMetadata.read|systemMetadata.update|tag.create|tag.read|tag.update|tag.delete|tag.asset|user.read|user.update|userLicense.create|userLicense.read|userLicense.update|userLicense.delete|userOnboarding.read|userOnboarding.update|userOnboarding.delete|userPreference.read|userPreference.update|userProfileImage.create|userProfileImage.read|userProfileImage.update|userProfileImage.delete|queue.read|queue.update|queueJob.create|queueJob.read|queueJob.update|queueJob.delete|workflow.create|workflow.read|workflow.update|workflow.delete|adminUser.create|adminUser.read|adminUser.update|adminUser.delete|adminSession.read|adminAuth.unlinkAll>`: List of permissions  [required]
+* `--permissions <all|activity.create|activity.read|activity.update|activity.delete|activity.statistics|apiKey.create|apiKey.read|apiKey.update|apiKey.delete|apiKey.rotate|asset.read|asset.update|asset.delete|asset.statistics|asset.share|asset.view|asset.download|asset.upload|asset.copy|asset.derive|assetFile.read|assetFile.delete|assetFile.download|asset.edit.get|asset.edit.create|asset.edit.delete|album.create|album.read|album.update|album.delete|album.statistics|album.share|album.download|albumAsset.create|albumAsset.delete|albumUser.create|albumUser.update|albumUser.delete|auth.changePassword|authDevice.delete|archive.read|backup.list|backup.download|backup.upload|backup.delete|clusterGroup.read|clusterGroup.leave|clusterGroupRequest.create|clusterGroupRequest.read|clusterGroupRequest.delete|adminConfig.read|adminConfig.update|userConfig.read|duplicate.read|duplicate.delete|face.create|face.read|face.update|face.delete|folder.read|job.create|job.read|library.create|library.read|library.update|library.delete|library.statistics|timeline.read|timeline.download|maintenance|map.read|map.search|memory.create|memory.read|memory.update|memory.delete|memory.statistics|memoryAsset.create|memoryAsset.delete|notification.create|notification.read|notification.update|notification.delete|partner.create|partner.read|partner.update|partner.delete|person.create|person.read|person.update|person.delete|person.statistics|person.merge|person.reassign|pinCode.create|pinCode.update|pinCode.delete|plugin.create|plugin.read|plugin.update|plugin.delete|server.about|server.apkLinks|server.storage|server.statistics|server.versionCheck|serverLicense.read|serverLicense.update|serverLicense.delete|session.create|session.read|session.update|session.delete|session.lock|sharedLink.create|sharedLink.read|sharedLink.update|sharedLink.delete|stack.create|stack.read|stack.update|stack.delete|sync.stream|syncCheckpoint.read|syncCheckpoint.update|syncCheckpoint.delete|systemConfig.read|systemConfig.update|systemMetadata.read|systemMetadata.update|tag.create|tag.read|tag.update|tag.delete|tag.asset|user.read|user.update|userLicense.create|userLicense.read|userLicense.update|userLicense.delete|userOnboarding.read|userOnboarding.update|userOnboarding.delete|userPreference.read|userPreference.update|userProfileImage.create|userProfileImage.read|userProfileImage.update|userProfileImage.delete|queue.read|queue.update|queueJob.create|queueJob.read|queueJob.update|queueJob.delete|workflow.create|workflow.read|workflow.update|workflow.delete|workflow.logs|adminUser.create|adminUser.read|adminUser.update|adminUser.delete|adminSession.read|adminAuth.unlinkAll>`: List of permissions  [required]
 * `--help`: Show this message and exit.
 
 ### `immichpy api-keys delete-api-key`
@@ -194,6 +195,26 @@ immichpy api-keys get-my-api-key [OPTIONS]
 
 * `--help`: Show this message and exit.
 
+### `immichpy api-keys rotate-api-key`
+
+Rotate an API key
+
+<a href="https://api.immich.app/endpoints/api-keys/rotateApiKey">Immich API documentation</a>
+
+**Usage**:
+
+```console
+immichpy api-keys rotate-api-key [OPTIONS] {id}
+```
+
+**Arguments**:
+
+* `id`: [required]
+
+**Options**:
+
+* `--help`: Show this message and exit.
+
 ### `immichpy api-keys update-api-key`
 
 Update an API key
@@ -213,7 +234,7 @@ immichpy api-keys update-api-key [OPTIONS] {id}
 **Options**:
 
 * `--name <str>`: API key name
-* `--permissions <all|activity.create|activity.read|activity.update|activity.delete|activity.statistics|apiKey.create|apiKey.read|apiKey.update|apiKey.delete|asset.read|asset.update|asset.delete|asset.statistics|asset.share|asset.view|asset.download|asset.upload|asset.copy|asset.derive|asset.edit.get|asset.edit.create|asset.edit.delete|album.create|album.read|album.update|album.delete|album.statistics|album.share|album.download|albumAsset.create|albumAsset.delete|albumUser.create|albumUser.update|albumUser.delete|auth.changePassword|authDevice.delete|archive.read|backup.list|backup.download|backup.upload|backup.delete|duplicate.read|duplicate.delete|face.create|face.read|face.update|face.delete|folder.read|job.create|job.read|library.create|library.read|library.update|library.delete|library.statistics|timeline.read|timeline.download|maintenance|map.read|map.search|memory.create|memory.read|memory.update|memory.delete|memory.statistics|memoryAsset.create|memoryAsset.delete|notification.create|notification.read|notification.update|notification.delete|partner.create|partner.read|partner.update|partner.delete|person.create|person.read|person.update|person.delete|person.statistics|person.merge|person.reassign|pinCode.create|pinCode.update|pinCode.delete|plugin.create|plugin.read|plugin.update|plugin.delete|server.about|server.apkLinks|server.storage|server.statistics|server.versionCheck|serverLicense.read|serverLicense.update|serverLicense.delete|session.create|session.read|session.update|session.delete|session.lock|sharedLink.create|sharedLink.read|sharedLink.update|sharedLink.delete|stack.create|stack.read|stack.update|stack.delete|sync.stream|syncCheckpoint.read|syncCheckpoint.update|syncCheckpoint.delete|systemConfig.read|systemConfig.update|systemMetadata.read|systemMetadata.update|tag.create|tag.read|tag.update|tag.delete|tag.asset|user.read|user.update|userLicense.create|userLicense.read|userLicense.update|userLicense.delete|userOnboarding.read|userOnboarding.update|userOnboarding.delete|userPreference.read|userPreference.update|userProfileImage.create|userProfileImage.read|userProfileImage.update|userProfileImage.delete|queue.read|queue.update|queueJob.create|queueJob.read|queueJob.update|queueJob.delete|workflow.create|workflow.read|workflow.update|workflow.delete|adminUser.create|adminUser.read|adminUser.update|adminUser.delete|adminSession.read|adminAuth.unlinkAll>`: List of permissions
+* `--permissions <all|activity.create|activity.read|activity.update|activity.delete|activity.statistics|apiKey.create|apiKey.read|apiKey.update|apiKey.delete|apiKey.rotate|asset.read|asset.update|asset.delete|asset.statistics|asset.share|asset.view|asset.download|asset.upload|asset.copy|asset.derive|assetFile.read|assetFile.delete|assetFile.download|asset.edit.get|asset.edit.create|asset.edit.delete|album.create|album.read|album.update|album.delete|album.statistics|album.share|album.download|albumAsset.create|albumAsset.delete|albumUser.create|albumUser.update|albumUser.delete|auth.changePassword|authDevice.delete|archive.read|backup.list|backup.download|backup.upload|backup.delete|clusterGroup.read|clusterGroup.leave|clusterGroupRequest.create|clusterGroupRequest.read|clusterGroupRequest.delete|adminConfig.read|adminConfig.update|userConfig.read|duplicate.read|duplicate.delete|face.create|face.read|face.update|face.delete|folder.read|job.create|job.read|library.create|library.read|library.update|library.delete|library.statistics|timeline.read|timeline.download|maintenance|map.read|map.search|memory.create|memory.read|memory.update|memory.delete|memory.statistics|memoryAsset.create|memoryAsset.delete|notification.create|notification.read|notification.update|notification.delete|partner.create|partner.read|partner.update|partner.delete|person.create|person.read|person.update|person.delete|person.statistics|person.merge|person.reassign|pinCode.create|pinCode.update|pinCode.delete|plugin.create|plugin.read|plugin.update|plugin.delete|server.about|server.apkLinks|server.storage|server.statistics|server.versionCheck|serverLicense.read|serverLicense.update|serverLicense.delete|session.create|session.read|session.update|session.delete|session.lock|sharedLink.create|sharedLink.read|sharedLink.update|sharedLink.delete|stack.create|stack.read|stack.update|stack.delete|sync.stream|syncCheckpoint.read|syncCheckpoint.update|syncCheckpoint.delete|systemConfig.read|systemConfig.update|systemMetadata.read|systemMetadata.update|tag.create|tag.read|tag.update|tag.delete|tag.asset|user.read|user.update|userLicense.create|userLicense.read|userLicense.update|userLicense.delete|userOnboarding.read|userOnboarding.update|userOnboarding.delete|userPreference.read|userPreference.update|userProfileImage.create|userProfileImage.read|userProfileImage.update|userProfileImage.delete|queue.read|queue.update|queueJob.create|queueJob.read|queueJob.update|queueJob.delete|workflow.create|workflow.read|workflow.update|workflow.delete|workflow.logs|adminUser.create|adminUser.read|adminUser.update|adminUser.delete|adminSession.read|adminAuth.unlinkAll>`: List of permissions
 * `--help`: Show this message and exit.
 
 ## `immichpy activities`
@@ -1821,6 +1842,7 @@ immichpy download download-archive [OPTIONS]
 
 **Options**:
 
+* `--archive-name <str>`: The name of the archive to download, without extension
 * `--asset-ids <uuid>`: Asset IDs  [required]
 * `--edited <true|false>`: Download edited asset if available
 * `--key <str>`
@@ -2831,9 +2853,12 @@ immichpy memories memories-statistics [OPTIONS]
 
 Example: 2024-01-01
 
+* `--id <uuid>`: Memory ID
 * `--is-saved <true|false>`: Filter by saved status
 * `--is-trashed <true|false>`: Include trashed memories
+* `--is-upcoming <true|false>`: Filter by memories that have not been shown yet
 * `--order <asc|desc|random>`
+* `--page <int range>`: Page number  [1&lt;=x&lt;=9007199254740991]
 * `--size <int range>`: Number of memories to return  [1&lt;=x&lt;=9007199254740991]
 * `--type <on_this_day>`
 * `--help`: Show this message and exit.
@@ -2877,9 +2902,12 @@ immichpy memories search-memories [OPTIONS]
 
 Example: 2024-01-01
 
+* `--id <uuid>`: Memory ID
 * `--is-saved <true|false>`: Filter by saved status
 * `--is-trashed <true|false>`: Include trashed memories
+* `--is-upcoming <true|false>`: Filter by memories that have not been shown yet
 * `--order <asc|desc|random>`
+* `--page <int range>`: Page number  [1&lt;=x&lt;=9007199254740991]
 * `--size <int range>`: Number of memories to return  [1&lt;=x&lt;=9007199254740991]
 * `--type <on_this_day>`
 * `--help`: Show this message and exit.
@@ -3011,7 +3039,7 @@ immichpy notifications get-notifications [OPTIONS]
 
 * `--id <uuid>`: Filter by notification ID
 * `--level <success|error|warning|info>`
-* `--type <JobFailed|BackupFailed|SystemMessage|AlbumInvite|AlbumUpdate|Custom>`
+* `--type <JobFailed|BackupFailed|SystemMessage|AlbumInvite|AlbumUpdate|ClusterGroupRequest|Custom>`
 * `--unread <true|false>`: Filter by unread status
 * `--help`: Show this message and exit.
 
@@ -3600,7 +3628,7 @@ immichpy plugins search-plugin-methods [OPTIONS]
 * `--plugin-name <str>`: Plugin name
 * `--plugin-version <str>`: Plugin version
 * `--title <str>`
-* `--trigger <AssetCreate|AssetMetadataExtraction>`: Workflow trigger
+* `--trigger <AssetCreate|AssetMetadataExtraction|AssetTagged>`: Workflow trigger
 * `--type <AssetV1>`: Workflow types
 * `--help`: Show this message and exit.
 
@@ -3788,7 +3816,7 @@ immichpy search [OPTIONS] COMMAND [ARGS]...
 * `get-search-suggestions`: Retrieve search suggestions
 * `search-asset-statistics`: Search asset statistics
 * `search-assets`: Search assets by metadata
-* `search-large-assets`: Search large assets
+* `search-large-assets`: Search large assets (DEPRECATED)
 * `search-person`: Search people
 * `search-places`: Search places
 * `search-random`: Search random assets
@@ -3875,6 +3903,132 @@ Example: 2024-01-01T00:00:00.000Z
 Example: 2024-01-01T00:00:00.000Z
 
 * `--description <str>`: Filter by description text
+* `--filter-album-ids-all <uuid>`
+* `--filter-album-ids-any <uuid>`
+* `--filter-album-ids-none <uuid>`
+* `--filter-checksum-eq <str>`
+* `--filter-checksum-in <str>`
+* `--filter-checksum-ne <str>`
+* `--filter-checksum-not-in <str>`
+* `--filter-city-eq <str>`
+* `--filter-city-in <str>`
+* `--filter-city-ne <str>`
+* `--filter-city-not-in <str>`
+* `--filter-country-eq <str>`
+* `--filter-country-in <str>`
+* `--filter-country-ne <str>`
+* `--filter-country-not-in <str>`
+* `--filter-created-at-eq <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
+* `--filter-created-at-gt <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
+* `--filter-created-at-gte <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
+* `--filter-created-at-lt <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
+* `--filter-created-at-lte <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
+* `--filter-created-at-ne <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
+* `--filter-description-ends-with <str>`
+* `--filter-description-eq <str>`
+* `--filter-description-in <str>`
+* `--filter-description-like <str>`
+* `--filter-description-ne <str>`
+* `--filter-description-not-in <str>`
+* `--filter-description-not-like <str>`
+* `--filter-description-starts-with <str>`
+* `--filter-encoded-video-path-eq <str>`
+* `--filter-encoded-video-path-in <str>`
+* `--filter-encoded-video-path-ne <str>`
+* `--filter-encoded-video-path-not-in <str>`
+* `--filter-file-size-in-bytes-eq <float>`
+* `--filter-file-size-in-bytes-gt <float>`
+* `--filter-file-size-in-bytes-gte <float>`
+* `--filter-file-size-in-bytes-in <float>`
+* `--filter-file-size-in-bytes-lt <float>`
+* `--filter-file-size-in-bytes-lte <float>`
+* `--filter-file-size-in-bytes-ne <float>`
+* `--filter-file-size-in-bytes-not-in <float>`
+* `--filter-has-albums-eq <true|false>`
+* `--filter-has-people-eq <true|false>`
+* `--filter-has-tags-eq <true|false>`
+* `--filter-id-eq <uuid>`
+* `--filter-id-ne <uuid>`
+* `--filter-is-encoded-eq <true|false>`
+* `--filter-is-favorite-eq <true|false>`
+* `--filter-is-motion-eq <true|false>`
+* `--filter-is-offline-eq <true|false>`
+* `--filter-lens-model-eq <str>`
+* `--filter-lens-model-in <str>`
+* `--filter-lens-model-ne <str>`
+* `--filter-lens-model-not-in <str>`
+* `--filter-library-id-eq <uuid>`
+* `--filter-library-id-ne <uuid>`
+* `--filter-make-eq <str>`
+* `--filter-make-in <str>`
+* `--filter-make-ne <str>`
+* `--filter-make-not-in <str>`
+* `--filter-model-eq <str>`
+* `--filter-model-in <str>`
+* `--filter-model-ne <str>`
+* `--filter-model-not-in <str>`
+* `--filter-ocr-matches <str>`
+* `--filter-or <str>`: As a JSON string with keys: albumIds (object), checksum (object), city (object), country (object), createdAt (object), description (object), encodedVideoPath (object), fileSizeInBytes (object), hasAlbums (object), hasPeople (object), hasTags (object), id (object), isEncoded (object), isFavorite (object), isMotion (object), isOffline (object), lensModel (object), libraryId (object), make (object), model (object), ocr (object), originalFileName (object), originalPath (object), personIds (object), rating (object), state (object), tagIds (object), takenAt (object), trashedAt (object), type (object), updatedAt (object), visibility (object)
+* `--filter-original-file-name-ends-with <str>`
+* `--filter-original-file-name-eq <str>`
+* `--filter-original-file-name-in <str>`
+* `--filter-original-file-name-like <str>`
+* `--filter-original-file-name-ne <str>`
+* `--filter-original-file-name-not-in <str>`
+* `--filter-original-file-name-not-like <str>`
+* `--filter-original-file-name-starts-with <str>`
+* `--filter-original-path-ends-with <str>`
+* `--filter-original-path-eq <str>`
+* `--filter-original-path-in <str>`
+* `--filter-original-path-like <str>`
+* `--filter-original-path-ne <str>`
+* `--filter-original-path-not-in <str>`
+* `--filter-original-path-not-like <str>`
+* `--filter-original-path-starts-with <str>`
+* `--filter-person-ids-all <uuid>`
+* `--filter-person-ids-any <uuid>`
+* `--filter-person-ids-none <uuid>`
+* `--filter-rating-eq <float>`
+* `--filter-rating-gt <float>`
+* `--filter-rating-gte <float>`
+* `--filter-rating-in <float>`
+* `--filter-rating-lt <float>`
+* `--filter-rating-lte <float>`
+* `--filter-rating-ne <float>`
+* `--filter-rating-not-in <float>`
+* `--filter-state-eq <str>`
+* `--filter-state-in <str>`
+* `--filter-state-ne <str>`
+* `--filter-state-not-in <str>`
+* `--filter-tag-ids-all <uuid>`
+* `--filter-tag-ids-any <uuid>`
+* `--filter-tag-ids-none <uuid>`
+* `--filter-taken-at-eq <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
+* `--filter-taken-at-gt <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
+* `--filter-taken-at-gte <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
+* `--filter-taken-at-lt <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
+* `--filter-taken-at-lte <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
+* `--filter-taken-at-ne <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
+* `--filter-trashed-at-eq <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
+* `--filter-trashed-at-gt <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
+* `--filter-trashed-at-gte <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
+* `--filter-trashed-at-lt <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
+* `--filter-trashed-at-lte <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
+* `--filter-trashed-at-ne <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
+* `--filter-type-eq <str>`: Asset type
+* `--filter-type-in <IMAGE|VIDEO|AUDIO|OTHER>`
+* `--filter-type-ne <str>`: Asset type
+* `--filter-type-not-in <IMAGE|VIDEO|AUDIO|OTHER>`
+* `--filter-updated-at-eq <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
+* `--filter-updated-at-gt <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
+* `--filter-updated-at-gte <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
+* `--filter-updated-at-lt <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
+* `--filter-updated-at-lte <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
+* `--filter-updated-at-ne <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
+* `--filter-visibility-eq <str>`: Asset visibility
+* `--filter-visibility-in <archive|timeline|hidden|locked>`
+* `--filter-visibility-ne <str>`: Asset visibility
+* `--filter-visibility-not-in <archive|timeline|hidden|locked>`
 * `--is-encoded <true|false>`: Filter by encoded status
 * `--is-favorite <true|false>`: Filter by favorite status
 * `--is-motion <true|false>`: Filter by motion photo status
@@ -3943,8 +4097,135 @@ Example: 2024-01-01T00:00:00.000Z
 
 Example: 2024-01-01T00:00:00.000Z
 
+* `--cursor <str>`: Cursor for the next page of results
 * `--description <str>`: Filter by description text
 * `--encoded-video-path <str>`: Filter by encoded video file path
+* `--filter-album-ids-all <uuid>`
+* `--filter-album-ids-any <uuid>`
+* `--filter-album-ids-none <uuid>`
+* `--filter-checksum-eq <str>`
+* `--filter-checksum-in <str>`
+* `--filter-checksum-ne <str>`
+* `--filter-checksum-not-in <str>`
+* `--filter-city-eq <str>`
+* `--filter-city-in <str>`
+* `--filter-city-ne <str>`
+* `--filter-city-not-in <str>`
+* `--filter-country-eq <str>`
+* `--filter-country-in <str>`
+* `--filter-country-ne <str>`
+* `--filter-country-not-in <str>`
+* `--filter-created-at-eq <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
+* `--filter-created-at-gt <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
+* `--filter-created-at-gte <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
+* `--filter-created-at-lt <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
+* `--filter-created-at-lte <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
+* `--filter-created-at-ne <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
+* `--filter-description-ends-with <str>`
+* `--filter-description-eq <str>`
+* `--filter-description-in <str>`
+* `--filter-description-like <str>`
+* `--filter-description-ne <str>`
+* `--filter-description-not-in <str>`
+* `--filter-description-not-like <str>`
+* `--filter-description-starts-with <str>`
+* `--filter-encoded-video-path-eq <str>`
+* `--filter-encoded-video-path-in <str>`
+* `--filter-encoded-video-path-ne <str>`
+* `--filter-encoded-video-path-not-in <str>`
+* `--filter-file-size-in-bytes-eq <float>`
+* `--filter-file-size-in-bytes-gt <float>`
+* `--filter-file-size-in-bytes-gte <float>`
+* `--filter-file-size-in-bytes-in <float>`
+* `--filter-file-size-in-bytes-lt <float>`
+* `--filter-file-size-in-bytes-lte <float>`
+* `--filter-file-size-in-bytes-ne <float>`
+* `--filter-file-size-in-bytes-not-in <float>`
+* `--filter-has-albums-eq <true|false>`
+* `--filter-has-people-eq <true|false>`
+* `--filter-has-tags-eq <true|false>`
+* `--filter-id-eq <uuid>`
+* `--filter-id-ne <uuid>`
+* `--filter-is-encoded-eq <true|false>`
+* `--filter-is-favorite-eq <true|false>`
+* `--filter-is-motion-eq <true|false>`
+* `--filter-is-offline-eq <true|false>`
+* `--filter-lens-model-eq <str>`
+* `--filter-lens-model-in <str>`
+* `--filter-lens-model-ne <str>`
+* `--filter-lens-model-not-in <str>`
+* `--filter-library-id-eq <uuid>`
+* `--filter-library-id-ne <uuid>`
+* `--filter-make-eq <str>`
+* `--filter-make-in <str>`
+* `--filter-make-ne <str>`
+* `--filter-make-not-in <str>`
+* `--filter-model-eq <str>`
+* `--filter-model-in <str>`
+* `--filter-model-ne <str>`
+* `--filter-model-not-in <str>`
+* `--filter-ocr-matches <str>`
+* `--filter-or <str>`: As a JSON string with keys: albumIds (object), checksum (object), city (object), country (object), createdAt (object), description (object), encodedVideoPath (object), fileSizeInBytes (object), hasAlbums (object), hasPeople (object), hasTags (object), id (object), isEncoded (object), isFavorite (object), isMotion (object), isOffline (object), lensModel (object), libraryId (object), make (object), model (object), ocr (object), originalFileName (object), originalPath (object), personIds (object), rating (object), state (object), tagIds (object), takenAt (object), trashedAt (object), type (object), updatedAt (object), visibility (object)
+* `--filter-original-file-name-ends-with <str>`
+* `--filter-original-file-name-eq <str>`
+* `--filter-original-file-name-in <str>`
+* `--filter-original-file-name-like <str>`
+* `--filter-original-file-name-ne <str>`
+* `--filter-original-file-name-not-in <str>`
+* `--filter-original-file-name-not-like <str>`
+* `--filter-original-file-name-starts-with <str>`
+* `--filter-original-path-ends-with <str>`
+* `--filter-original-path-eq <str>`
+* `--filter-original-path-in <str>`
+* `--filter-original-path-like <str>`
+* `--filter-original-path-ne <str>`
+* `--filter-original-path-not-in <str>`
+* `--filter-original-path-not-like <str>`
+* `--filter-original-path-starts-with <str>`
+* `--filter-person-ids-all <uuid>`
+* `--filter-person-ids-any <uuid>`
+* `--filter-person-ids-none <uuid>`
+* `--filter-rating-eq <float>`
+* `--filter-rating-gt <float>`
+* `--filter-rating-gte <float>`
+* `--filter-rating-in <float>`
+* `--filter-rating-lt <float>`
+* `--filter-rating-lte <float>`
+* `--filter-rating-ne <float>`
+* `--filter-rating-not-in <float>`
+* `--filter-state-eq <str>`
+* `--filter-state-in <str>`
+* `--filter-state-ne <str>`
+* `--filter-state-not-in <str>`
+* `--filter-tag-ids-all <uuid>`
+* `--filter-tag-ids-any <uuid>`
+* `--filter-tag-ids-none <uuid>`
+* `--filter-taken-at-eq <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
+* `--filter-taken-at-gt <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
+* `--filter-taken-at-gte <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
+* `--filter-taken-at-lt <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
+* `--filter-taken-at-lte <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
+* `--filter-taken-at-ne <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
+* `--filter-trashed-at-eq <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
+* `--filter-trashed-at-gt <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
+* `--filter-trashed-at-gte <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
+* `--filter-trashed-at-lt <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
+* `--filter-trashed-at-lte <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
+* `--filter-trashed-at-ne <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
+* `--filter-type-eq <str>`: Asset type
+* `--filter-type-in <IMAGE|VIDEO|AUDIO|OTHER>`
+* `--filter-type-ne <str>`: Asset type
+* `--filter-type-not-in <IMAGE|VIDEO|AUDIO|OTHER>`
+* `--filter-updated-at-eq <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
+* `--filter-updated-at-gt <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
+* `--filter-updated-at-gte <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
+* `--filter-updated-at-lt <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
+* `--filter-updated-at-lte <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
+* `--filter-updated-at-ne <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
+* `--filter-visibility-eq <str>`: Asset visibility
+* `--filter-visibility-in <archive|timeline|hidden|locked>`
+* `--filter-visibility-ne <str>`: Asset visibility
+* `--filter-visibility-not-in <archive|timeline|hidden|locked>`
 * `--id <uuid>`: Filter by asset ID
 * `--is-encoded <true|false>`: Filter by encoded status
 * `--is-favorite <true|false>`: Filter by favorite status
@@ -3958,6 +4239,8 @@ Example: 2024-01-01T00:00:00.000Z
 * `--model <str>`: Filter by camera model
 * `--ocr <str>`: Filter by OCR text content
 * `--order <str>`: Asset sort order
+* `--order-by-direction <str>`: Asset sort order
+* `--order-by-field <str>`
 * `--original-file-name <str>`: Filter by original file name
 * `--original-path <str>`: Filter by original file path
 * `--page <int range>`: Page number  [1&lt;=x&lt;=9007199254740991]
@@ -4132,6 +4415,132 @@ Example: 2024-01-01T00:00:00.000Z
 
 Example: 2024-01-01T00:00:00.000Z
 
+* `--filter-album-ids-all <uuid>`
+* `--filter-album-ids-any <uuid>`
+* `--filter-album-ids-none <uuid>`
+* `--filter-checksum-eq <str>`
+* `--filter-checksum-in <str>`
+* `--filter-checksum-ne <str>`
+* `--filter-checksum-not-in <str>`
+* `--filter-city-eq <str>`
+* `--filter-city-in <str>`
+* `--filter-city-ne <str>`
+* `--filter-city-not-in <str>`
+* `--filter-country-eq <str>`
+* `--filter-country-in <str>`
+* `--filter-country-ne <str>`
+* `--filter-country-not-in <str>`
+* `--filter-created-at-eq <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
+* `--filter-created-at-gt <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
+* `--filter-created-at-gte <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
+* `--filter-created-at-lt <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
+* `--filter-created-at-lte <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
+* `--filter-created-at-ne <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
+* `--filter-description-ends-with <str>`
+* `--filter-description-eq <str>`
+* `--filter-description-in <str>`
+* `--filter-description-like <str>`
+* `--filter-description-ne <str>`
+* `--filter-description-not-in <str>`
+* `--filter-description-not-like <str>`
+* `--filter-description-starts-with <str>`
+* `--filter-encoded-video-path-eq <str>`
+* `--filter-encoded-video-path-in <str>`
+* `--filter-encoded-video-path-ne <str>`
+* `--filter-encoded-video-path-not-in <str>`
+* `--filter-file-size-in-bytes-eq <float>`
+* `--filter-file-size-in-bytes-gt <float>`
+* `--filter-file-size-in-bytes-gte <float>`
+* `--filter-file-size-in-bytes-in <float>`
+* `--filter-file-size-in-bytes-lt <float>`
+* `--filter-file-size-in-bytes-lte <float>`
+* `--filter-file-size-in-bytes-ne <float>`
+* `--filter-file-size-in-bytes-not-in <float>`
+* `--filter-has-albums-eq <true|false>`
+* `--filter-has-people-eq <true|false>`
+* `--filter-has-tags-eq <true|false>`
+* `--filter-id-eq <uuid>`
+* `--filter-id-ne <uuid>`
+* `--filter-is-encoded-eq <true|false>`
+* `--filter-is-favorite-eq <true|false>`
+* `--filter-is-motion-eq <true|false>`
+* `--filter-is-offline-eq <true|false>`
+* `--filter-lens-model-eq <str>`
+* `--filter-lens-model-in <str>`
+* `--filter-lens-model-ne <str>`
+* `--filter-lens-model-not-in <str>`
+* `--filter-library-id-eq <uuid>`
+* `--filter-library-id-ne <uuid>`
+* `--filter-make-eq <str>`
+* `--filter-make-in <str>`
+* `--filter-make-ne <str>`
+* `--filter-make-not-in <str>`
+* `--filter-model-eq <str>`
+* `--filter-model-in <str>`
+* `--filter-model-ne <str>`
+* `--filter-model-not-in <str>`
+* `--filter-ocr-matches <str>`
+* `--filter-or <str>`: As a JSON string with keys: albumIds (object), checksum (object), city (object), country (object), createdAt (object), description (object), encodedVideoPath (object), fileSizeInBytes (object), hasAlbums (object), hasPeople (object), hasTags (object), id (object), isEncoded (object), isFavorite (object), isMotion (object), isOffline (object), lensModel (object), libraryId (object), make (object), model (object), ocr (object), originalFileName (object), originalPath (object), personIds (object), rating (object), state (object), tagIds (object), takenAt (object), trashedAt (object), type (object), updatedAt (object), visibility (object)
+* `--filter-original-file-name-ends-with <str>`
+* `--filter-original-file-name-eq <str>`
+* `--filter-original-file-name-in <str>`
+* `--filter-original-file-name-like <str>`
+* `--filter-original-file-name-ne <str>`
+* `--filter-original-file-name-not-in <str>`
+* `--filter-original-file-name-not-like <str>`
+* `--filter-original-file-name-starts-with <str>`
+* `--filter-original-path-ends-with <str>`
+* `--filter-original-path-eq <str>`
+* `--filter-original-path-in <str>`
+* `--filter-original-path-like <str>`
+* `--filter-original-path-ne <str>`
+* `--filter-original-path-not-in <str>`
+* `--filter-original-path-not-like <str>`
+* `--filter-original-path-starts-with <str>`
+* `--filter-person-ids-all <uuid>`
+* `--filter-person-ids-any <uuid>`
+* `--filter-person-ids-none <uuid>`
+* `--filter-rating-eq <float>`
+* `--filter-rating-gt <float>`
+* `--filter-rating-gte <float>`
+* `--filter-rating-in <float>`
+* `--filter-rating-lt <float>`
+* `--filter-rating-lte <float>`
+* `--filter-rating-ne <float>`
+* `--filter-rating-not-in <float>`
+* `--filter-state-eq <str>`
+* `--filter-state-in <str>`
+* `--filter-state-ne <str>`
+* `--filter-state-not-in <str>`
+* `--filter-tag-ids-all <uuid>`
+* `--filter-tag-ids-any <uuid>`
+* `--filter-tag-ids-none <uuid>`
+* `--filter-taken-at-eq <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
+* `--filter-taken-at-gt <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
+* `--filter-taken-at-gte <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
+* `--filter-taken-at-lt <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
+* `--filter-taken-at-lte <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
+* `--filter-taken-at-ne <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
+* `--filter-trashed-at-eq <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
+* `--filter-trashed-at-gt <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
+* `--filter-trashed-at-gte <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
+* `--filter-trashed-at-lt <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
+* `--filter-trashed-at-lte <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
+* `--filter-trashed-at-ne <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
+* `--filter-type-eq <str>`: Asset type
+* `--filter-type-in <IMAGE|VIDEO|AUDIO|OTHER>`
+* `--filter-type-ne <str>`: Asset type
+* `--filter-type-not-in <IMAGE|VIDEO|AUDIO|OTHER>`
+* `--filter-updated-at-eq <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
+* `--filter-updated-at-gt <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
+* `--filter-updated-at-gte <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
+* `--filter-updated-at-lt <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
+* `--filter-updated-at-lte <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
+* `--filter-updated-at-ne <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
+* `--filter-visibility-eq <str>`: Asset visibility
+* `--filter-visibility-in <archive|timeline|hidden|locked>`
+* `--filter-visibility-ne <str>`: Asset visibility
+* `--filter-visibility-not-in <archive|timeline|hidden|locked>`
 * `--is-encoded <true|false>`: Filter by encoded status
 * `--is-favorite <true|false>`: Filter by favorite status
 * `--is-motion <true|false>`: Filter by motion photo status
@@ -4204,6 +4613,132 @@ Example: 2024-01-01T00:00:00.000Z
 
 Example: 2024-01-01T00:00:00.000Z
 
+* `--filter-album-ids-all <uuid>`
+* `--filter-album-ids-any <uuid>`
+* `--filter-album-ids-none <uuid>`
+* `--filter-checksum-eq <str>`
+* `--filter-checksum-in <str>`
+* `--filter-checksum-ne <str>`
+* `--filter-checksum-not-in <str>`
+* `--filter-city-eq <str>`
+* `--filter-city-in <str>`
+* `--filter-city-ne <str>`
+* `--filter-city-not-in <str>`
+* `--filter-country-eq <str>`
+* `--filter-country-in <str>`
+* `--filter-country-ne <str>`
+* `--filter-country-not-in <str>`
+* `--filter-created-at-eq <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
+* `--filter-created-at-gt <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
+* `--filter-created-at-gte <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
+* `--filter-created-at-lt <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
+* `--filter-created-at-lte <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
+* `--filter-created-at-ne <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
+* `--filter-description-ends-with <str>`
+* `--filter-description-eq <str>`
+* `--filter-description-in <str>`
+* `--filter-description-like <str>`
+* `--filter-description-ne <str>`
+* `--filter-description-not-in <str>`
+* `--filter-description-not-like <str>`
+* `--filter-description-starts-with <str>`
+* `--filter-encoded-video-path-eq <str>`
+* `--filter-encoded-video-path-in <str>`
+* `--filter-encoded-video-path-ne <str>`
+* `--filter-encoded-video-path-not-in <str>`
+* `--filter-file-size-in-bytes-eq <float>`
+* `--filter-file-size-in-bytes-gt <float>`
+* `--filter-file-size-in-bytes-gte <float>`
+* `--filter-file-size-in-bytes-in <float>`
+* `--filter-file-size-in-bytes-lt <float>`
+* `--filter-file-size-in-bytes-lte <float>`
+* `--filter-file-size-in-bytes-ne <float>`
+* `--filter-file-size-in-bytes-not-in <float>`
+* `--filter-has-albums-eq <true|false>`
+* `--filter-has-people-eq <true|false>`
+* `--filter-has-tags-eq <true|false>`
+* `--filter-id-eq <uuid>`
+* `--filter-id-ne <uuid>`
+* `--filter-is-encoded-eq <true|false>`
+* `--filter-is-favorite-eq <true|false>`
+* `--filter-is-motion-eq <true|false>`
+* `--filter-is-offline-eq <true|false>`
+* `--filter-lens-model-eq <str>`
+* `--filter-lens-model-in <str>`
+* `--filter-lens-model-ne <str>`
+* `--filter-lens-model-not-in <str>`
+* `--filter-library-id-eq <uuid>`
+* `--filter-library-id-ne <uuid>`
+* `--filter-make-eq <str>`
+* `--filter-make-in <str>`
+* `--filter-make-ne <str>`
+* `--filter-make-not-in <str>`
+* `--filter-model-eq <str>`
+* `--filter-model-in <str>`
+* `--filter-model-ne <str>`
+* `--filter-model-not-in <str>`
+* `--filter-ocr-matches <str>`
+* `--filter-or <str>`: As a JSON string with keys: albumIds (object), checksum (object), city (object), country (object), createdAt (object), description (object), encodedVideoPath (object), fileSizeInBytes (object), hasAlbums (object), hasPeople (object), hasTags (object), id (object), isEncoded (object), isFavorite (object), isMotion (object), isOffline (object), lensModel (object), libraryId (object), make (object), model (object), ocr (object), originalFileName (object), originalPath (object), personIds (object), rating (object), state (object), tagIds (object), takenAt (object), trashedAt (object), type (object), updatedAt (object), visibility (object)
+* `--filter-original-file-name-ends-with <str>`
+* `--filter-original-file-name-eq <str>`
+* `--filter-original-file-name-in <str>`
+* `--filter-original-file-name-like <str>`
+* `--filter-original-file-name-ne <str>`
+* `--filter-original-file-name-not-in <str>`
+* `--filter-original-file-name-not-like <str>`
+* `--filter-original-file-name-starts-with <str>`
+* `--filter-original-path-ends-with <str>`
+* `--filter-original-path-eq <str>`
+* `--filter-original-path-in <str>`
+* `--filter-original-path-like <str>`
+* `--filter-original-path-ne <str>`
+* `--filter-original-path-not-in <str>`
+* `--filter-original-path-not-like <str>`
+* `--filter-original-path-starts-with <str>`
+* `--filter-person-ids-all <uuid>`
+* `--filter-person-ids-any <uuid>`
+* `--filter-person-ids-none <uuid>`
+* `--filter-rating-eq <float>`
+* `--filter-rating-gt <float>`
+* `--filter-rating-gte <float>`
+* `--filter-rating-in <float>`
+* `--filter-rating-lt <float>`
+* `--filter-rating-lte <float>`
+* `--filter-rating-ne <float>`
+* `--filter-rating-not-in <float>`
+* `--filter-state-eq <str>`
+* `--filter-state-in <str>`
+* `--filter-state-ne <str>`
+* `--filter-state-not-in <str>`
+* `--filter-tag-ids-all <uuid>`
+* `--filter-tag-ids-any <uuid>`
+* `--filter-tag-ids-none <uuid>`
+* `--filter-taken-at-eq <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
+* `--filter-taken-at-gt <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
+* `--filter-taken-at-gte <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
+* `--filter-taken-at-lt <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
+* `--filter-taken-at-lte <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
+* `--filter-taken-at-ne <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
+* `--filter-trashed-at-eq <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
+* `--filter-trashed-at-gt <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
+* `--filter-trashed-at-gte <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
+* `--filter-trashed-at-lt <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
+* `--filter-trashed-at-lte <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
+* `--filter-trashed-at-ne <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
+* `--filter-type-eq <str>`: Asset type
+* `--filter-type-in <IMAGE|VIDEO|AUDIO|OTHER>`
+* `--filter-type-ne <str>`: Asset type
+* `--filter-type-not-in <IMAGE|VIDEO|AUDIO|OTHER>`
+* `--filter-updated-at-eq <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
+* `--filter-updated-at-gt <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
+* `--filter-updated-at-gte <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
+* `--filter-updated-at-lt <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
+* `--filter-updated-at-lte <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
+* `--filter-updated-at-ne <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
+* `--filter-visibility-eq <str>`: Asset visibility
+* `--filter-visibility-in <archive|timeline|hidden|locked>`
+* `--filter-visibility-ne <str>`: Asset visibility
+* `--filter-visibility-not-in <archive|timeline|hidden|locked>`
 * `--is-encoded <true|false>`: Filter by encoded status
 * `--is-favorite <true|false>`: Filter by favorite status
 * `--is-motion <true|false>`: Filter by motion photo status
@@ -4274,8 +4809,8 @@ immichpy server [OPTIONS] COMMAND [ARGS]...
 * `delete-server-license`: Delete server product key
 * `get-about-info`: Get server information
 * `get-apk-links`: Get APK links
-* `get-server-config`: Get config
-* `get-server-features`: Get features
+* `get-server-config`: Get config (DEPRECATED)
+* `get-server-features`: Get features (DEPRECATED)
 * `get-server-license`: Get product key
 * `get-server-statistics`: Get statistics
 * `get-server-version`: Get server version
@@ -5144,10 +5679,10 @@ immichpy system-config [OPTIONS] COMMAND [ARGS]...
 
 **Commands**:
 
-* `get-config`: Get system configuration
-* `get-config-defaults`: Get system configuration defaults
+* `get-config`: Get system configuration (DEPRECATED)
+* `get-config-defaults`: Get system configuration defaults (DEPRECATED)
 * `get-storage-template-options`: Get storage template options
-* `update-config`: Update system configuration
+* `update-config`: Update system configuration (DEPRECATED)
 
 ### `immichpy system-config get-config`
 
@@ -5320,6 +5855,7 @@ immichpy system-config update-config [OPTIONS]
 * `--notifications-smtp-transport-port <int range>`: SMTP server port  [0&lt;=x&lt;=65535; required]
 * `--notifications-smtp-transport-secure`: Whether to use secure connection (TLS/SSL)  [required]
 * `--notifications-smtp-transport-username <str>`: SMTP username  [required]
+* `--oauth-account-management-url <str>`: Account management URL
 * `--oauth-allow-insecure-requests`: Allow insecure requests  [required]
 * `--oauth-auto-launch`: Auto launch  [required]
 * `--oauth-auto-register`: Auto register  [required]
@@ -5628,6 +6164,7 @@ immichpy tags update-tag [OPTIONS] {id}
 **Options**:
 
 * `--color <str>`: Tag color (hex)
+* `--name <str>`: Tag name
 * `--help`: Show this message and exit.
 
 ### `immichpy tags upsert-tags`
@@ -6118,6 +6655,7 @@ immichpy users update-my-preferences [OPTIONS]
 * `--folders-sidebar-web <true|false>`: Whether folders appear in web sidebar
 * `--memories-duration <int range>`: Memory duration in seconds  [1&lt;=x&lt;=9007199254740991]
 * `--memories-enabled <true|false>`: Whether memories are enabled
+* `--memories-sidebar-web <true|false>`: Whether memories appear in web sidebar
 * `--people-enabled <true|false>`: Whether people are enabled
 * `--people-minimum-faces <int range>`: People face threshold  [1&lt;=x&lt;=9007199254740991]
 * `--people-sidebar-web <true|false>`: Whether people appear in web sidebar
@@ -6467,6 +7005,7 @@ immichpy users-admin update-user-preferences-admin [OPTIONS] {id}
 * `--folders-sidebar-web <true|false>`: Whether folders appear in web sidebar
 * `--memories-duration <int range>`: Memory duration in seconds  [1&lt;=x&lt;=9007199254740991]
 * `--memories-enabled <true|false>`: Whether memories are enabled
+* `--memories-sidebar-web <true|false>`: Whether memories appear in web sidebar
 * `--people-enabled <true|false>`: Whether people are enabled
 * `--people-minimum-faces <int range>`: People face threshold  [1&lt;=x&lt;=9007199254740991]
 * `--people-sidebar-web <true|false>`: Whether people appear in web sidebar
@@ -6556,6 +7095,7 @@ immichpy workflows [OPTIONS] COMMAND [ARGS]...
 * `delete-workflow`: Delete a workflow
 * `get-workflow`: Retrieve a workflow
 * `get-workflow-for-share`: Retrieve a workflow
+* `get-workflow-logs`: Retrieve workflow logs
 * `get-workflow-triggers`: List all workflow triggers
 * `search-workflows`: List all workflows
 * `update-workflow`: Update a workflow (DEPRECATED)
@@ -6576,6 +7116,7 @@ immichpy workflows create-workflow [OPTIONS]
 
 * `--description <str>`: Workflow description
 * `--enabled <true|false>`: Workflow enabled
+* `--logging <true|false>`: Workflow logs run results
 * `--name <str>`: Workflow name
 * `--steps <str>`: As a JSON string with keys: config (object), enabled (boolean), method (string)
 * `--trigger <str>`: Plugin trigger type  [required]
@@ -6641,6 +7182,32 @@ immichpy workflows get-workflow-for-share [OPTIONS] {id}
 
 * `--help`: Show this message and exit.
 
+### `immichpy workflows get-workflow-logs`
+
+Retrieve workflow logs
+
+<a href="https://api.immich.app/endpoints/workflows/getWorkflowLogs">Immich API documentation</a>
+
+**Usage**:
+
+```console
+immichpy workflows get-workflow-logs [OPTIONS] {id}
+```
+
+**Arguments**:
+
+* `id`: [required]
+
+**Options**:
+
+* `--before <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Filter by runs before a date/time
+
+Example: 2024-01-01T00:00:00.000Z
+
+* `--limit <int range>`: Maximum number of logs  [0&lt;=x&lt;=9007199254740991]
+* `--result <completed|halted|error>`: Filter by run result
+* `--help`: Show this message and exit.
+
 ### `immichpy workflows get-workflow-triggers`
 
 List all workflow triggers
@@ -6674,8 +7241,9 @@ immichpy workflows search-workflows [OPTIONS]
 * `--description <str>`: Workflow description
 * `--enabled <true|false>`: Workflow enabled
 * `--id <uuid>`: Workflow ID
+* `--logging <true|false>`: Workflow logs run results
 * `--name <str>`: Workflow name
-* `--trigger <AssetCreate|AssetMetadataExtraction>`: Workflow trigger type
+* `--trigger <AssetCreate|AssetMetadataExtraction|AssetTagged>`: Workflow trigger type
 * `--help`: Show this message and exit.
 
 ### `immichpy workflows update-workflow`
@@ -6698,6 +7266,7 @@ immichpy workflows update-workflow [OPTIONS] {id}
 
 * `--description <str>`: Workflow description
 * `--enabled <true|false>`: Workflow enabled
+* `--logging <true|false>`: Workflow logs run results
 * `--name <str>`: Workflow name
 * `--steps <str>`: As a JSON string with keys: config (object), enabled (boolean), method (string)
 * `--trigger <str>`: Plugin trigger type

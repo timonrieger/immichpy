@@ -11,7 +11,12 @@ import typer
 if TYPE_CHECKING:
     from immichpy import AsyncClient
 
-from immichpy.cli.runtime import print_response, run_command, set_nested
+from immichpy.cli.runtime import (
+    parse_json_options,
+    print_response,
+    run_command,
+    set_nested,
+)
 from immichpy.client.generated.models import *
 
 app = typer.Typer(
@@ -119,6 +124,366 @@ Example: 2024-01-01T00:00:00.000Z""",
     ),
     description: str | None = typer.Option(
         None, "--description", help=r"""Filter by description text"""
+    ),
+    filter_album_ids_all: list[UUID] | None = typer.Option(
+        None, "--filter-album-ids-all", help=r""""""
+    ),
+    filter_album_ids_any: list[UUID] | None = typer.Option(
+        None, "--filter-album-ids-any", help=r""""""
+    ),
+    filter_album_ids_none: list[UUID] | None = typer.Option(
+        None, "--filter-album-ids-none", help=r""""""
+    ),
+    filter_checksum_eq: str | None = typer.Option(
+        None, "--filter-checksum-eq", help=r""""""
+    ),
+    filter_checksum_in_: list[str] | None = typer.Option(
+        None, "--filter-checksum-in", help=r""""""
+    ),
+    filter_checksum_ne: str | None = typer.Option(
+        None, "--filter-checksum-ne", help=r""""""
+    ),
+    filter_checksum_not_in: list[str] | None = typer.Option(
+        None, "--filter-checksum-not-in", help=r""""""
+    ),
+    filter_city_eq: str | None = typer.Option(None, "--filter-city-eq", help=r""""""),
+    filter_city_in_: list[str] | None = typer.Option(
+        None, "--filter-city-in", help=r""""""
+    ),
+    filter_city_ne: str | None = typer.Option(None, "--filter-city-ne", help=r""""""),
+    filter_city_not_in: list[str] | None = typer.Option(
+        None, "--filter-city-not-in", help=r""""""
+    ),
+    filter_country_eq: str | None = typer.Option(
+        None, "--filter-country-eq", help=r""""""
+    ),
+    filter_country_in_: list[str] | None = typer.Option(
+        None, "--filter-country-in", help=r""""""
+    ),
+    filter_country_ne: str | None = typer.Option(
+        None, "--filter-country-ne", help=r""""""
+    ),
+    filter_country_not_in: list[str] | None = typer.Option(
+        None, "--filter-country-not-in", help=r""""""
+    ),
+    filter_created_at_eq: datetime | None = typer.Option(
+        None, "--filter-created-at-eq", help=r"""Example: 2024-01-01T00:00:00.000Z"""
+    ),
+    filter_created_at_gt: datetime | None = typer.Option(
+        None, "--filter-created-at-gt", help=r"""Example: 2024-01-01T00:00:00.000Z"""
+    ),
+    filter_created_at_gte: datetime | None = typer.Option(
+        None, "--filter-created-at-gte", help=r"""Example: 2024-01-01T00:00:00.000Z"""
+    ),
+    filter_created_at_lt: datetime | None = typer.Option(
+        None, "--filter-created-at-lt", help=r"""Example: 2024-01-01T00:00:00.000Z"""
+    ),
+    filter_created_at_lte: datetime | None = typer.Option(
+        None, "--filter-created-at-lte", help=r"""Example: 2024-01-01T00:00:00.000Z"""
+    ),
+    filter_created_at_ne: datetime | None = typer.Option(
+        None, "--filter-created-at-ne", help=r"""Example: 2024-01-01T00:00:00.000Z"""
+    ),
+    filter_description_ends_with: str | None = typer.Option(
+        None, "--filter-description-ends-with", help=r""""""
+    ),
+    filter_description_eq: str | None = typer.Option(
+        None, "--filter-description-eq", help=r""""""
+    ),
+    filter_description_in_: list[str] | None = typer.Option(
+        None, "--filter-description-in", help=r""""""
+    ),
+    filter_description_like: str | None = typer.Option(
+        None, "--filter-description-like", help=r""""""
+    ),
+    filter_description_ne: str | None = typer.Option(
+        None, "--filter-description-ne", help=r""""""
+    ),
+    filter_description_not_in: list[str] | None = typer.Option(
+        None, "--filter-description-not-in", help=r""""""
+    ),
+    filter_description_not_like: str | None = typer.Option(
+        None, "--filter-description-not-like", help=r""""""
+    ),
+    filter_description_starts_with: str | None = typer.Option(
+        None, "--filter-description-starts-with", help=r""""""
+    ),
+    filter_encoded_video_path_eq: str | None = typer.Option(
+        None, "--filter-encoded-video-path-eq", help=r""""""
+    ),
+    filter_encoded_video_path_in_: list[str] | None = typer.Option(
+        None, "--filter-encoded-video-path-in", help=r""""""
+    ),
+    filter_encoded_video_path_ne: str | None = typer.Option(
+        None, "--filter-encoded-video-path-ne", help=r""""""
+    ),
+    filter_encoded_video_path_not_in: list[str] | None = typer.Option(
+        None, "--filter-encoded-video-path-not-in", help=r""""""
+    ),
+    filter_file_size_in_bytes_eq: float | None = typer.Option(
+        None, "--filter-file-size-in-bytes-eq", help=r""""""
+    ),
+    filter_file_size_in_bytes_gt: float | None = typer.Option(
+        None, "--filter-file-size-in-bytes-gt", help=r""""""
+    ),
+    filter_file_size_in_bytes_gte: float | None = typer.Option(
+        None, "--filter-file-size-in-bytes-gte", help=r""""""
+    ),
+    filter_file_size_in_bytes_in_: list[float] | None = typer.Option(
+        None, "--filter-file-size-in-bytes-in", help=r""""""
+    ),
+    filter_file_size_in_bytes_lt: float | None = typer.Option(
+        None, "--filter-file-size-in-bytes-lt", help=r""""""
+    ),
+    filter_file_size_in_bytes_lte: float | None = typer.Option(
+        None, "--filter-file-size-in-bytes-lte", help=r""""""
+    ),
+    filter_file_size_in_bytes_ne: float | None = typer.Option(
+        None, "--filter-file-size-in-bytes-ne", help=r""""""
+    ),
+    filter_file_size_in_bytes_not_in: list[float] | None = typer.Option(
+        None, "--filter-file-size-in-bytes-not-in", help=r""""""
+    ),
+    filter_has_albums_eq: Literal["true", "false"] | None = typer.Option(
+        None, "--filter-has-albums-eq", help=r""""""
+    ),
+    filter_has_people_eq: Literal["true", "false"] | None = typer.Option(
+        None, "--filter-has-people-eq", help=r""""""
+    ),
+    filter_has_tags_eq: Literal["true", "false"] | None = typer.Option(
+        None, "--filter-has-tags-eq", help=r""""""
+    ),
+    filter_id_eq: UUID | None = typer.Option(None, "--filter-id-eq", help=r""""""),
+    filter_id_ne: UUID | None = typer.Option(None, "--filter-id-ne", help=r""""""),
+    filter_is_encoded_eq: Literal["true", "false"] | None = typer.Option(
+        None, "--filter-is-encoded-eq", help=r""""""
+    ),
+    filter_is_favorite_eq: Literal["true", "false"] | None = typer.Option(
+        None, "--filter-is-favorite-eq", help=r""""""
+    ),
+    filter_is_motion_eq: Literal["true", "false"] | None = typer.Option(
+        None, "--filter-is-motion-eq", help=r""""""
+    ),
+    filter_is_offline_eq: Literal["true", "false"] | None = typer.Option(
+        None, "--filter-is-offline-eq", help=r""""""
+    ),
+    filter_lens_model_eq: str | None = typer.Option(
+        None, "--filter-lens-model-eq", help=r""""""
+    ),
+    filter_lens_model_in_: list[str] | None = typer.Option(
+        None, "--filter-lens-model-in", help=r""""""
+    ),
+    filter_lens_model_ne: str | None = typer.Option(
+        None, "--filter-lens-model-ne", help=r""""""
+    ),
+    filter_lens_model_not_in: list[str] | None = typer.Option(
+        None, "--filter-lens-model-not-in", help=r""""""
+    ),
+    filter_library_id_eq: UUID | None = typer.Option(
+        None, "--filter-library-id-eq", help=r""""""
+    ),
+    filter_library_id_ne: UUID | None = typer.Option(
+        None, "--filter-library-id-ne", help=r""""""
+    ),
+    filter_make_eq: str | None = typer.Option(None, "--filter-make-eq", help=r""""""),
+    filter_make_in_: list[str] | None = typer.Option(
+        None, "--filter-make-in", help=r""""""
+    ),
+    filter_make_ne: str | None = typer.Option(None, "--filter-make-ne", help=r""""""),
+    filter_make_not_in: list[str] | None = typer.Option(
+        None, "--filter-make-not-in", help=r""""""
+    ),
+    filter_model_eq: str | None = typer.Option(None, "--filter-model-eq", help=r""""""),
+    filter_model_in_: list[str] | None = typer.Option(
+        None, "--filter-model-in", help=r""""""
+    ),
+    filter_model_ne: str | None = typer.Option(None, "--filter-model-ne", help=r""""""),
+    filter_model_not_in: list[str] | None = typer.Option(
+        None, "--filter-model-not-in", help=r""""""
+    ),
+    filter_ocr_matches: str | None = typer.Option(
+        None, "--filter-ocr-matches", help=r""""""
+    ),
+    filter_or_: list[str] | None = typer.Option(
+        None,
+        "--filter-or",
+        help=r"""As a JSON string with keys: albumIds (object), checksum (object), city (object), country (object), createdAt (object), description (object), encodedVideoPath (object), fileSizeInBytes (object), hasAlbums (object), hasPeople (object), hasTags (object), id (object), isEncoded (object), isFavorite (object), isMotion (object), isOffline (object), lensModel (object), libraryId (object), make (object), model (object), ocr (object), originalFileName (object), originalPath (object), personIds (object), rating (object), state (object), tagIds (object), takenAt (object), trashedAt (object), type (object), updatedAt (object), visibility (object)""",
+    ),
+    filter_original_file_name_ends_with: str | None = typer.Option(
+        None, "--filter-original-file-name-ends-with", help=r""""""
+    ),
+    filter_original_file_name_eq: str | None = typer.Option(
+        None, "--filter-original-file-name-eq", help=r""""""
+    ),
+    filter_original_file_name_in_: list[str] | None = typer.Option(
+        None, "--filter-original-file-name-in", help=r""""""
+    ),
+    filter_original_file_name_like: str | None = typer.Option(
+        None, "--filter-original-file-name-like", help=r""""""
+    ),
+    filter_original_file_name_ne: str | None = typer.Option(
+        None, "--filter-original-file-name-ne", help=r""""""
+    ),
+    filter_original_file_name_not_in: list[str] | None = typer.Option(
+        None, "--filter-original-file-name-not-in", help=r""""""
+    ),
+    filter_original_file_name_not_like: str | None = typer.Option(
+        None, "--filter-original-file-name-not-like", help=r""""""
+    ),
+    filter_original_file_name_starts_with: str | None = typer.Option(
+        None, "--filter-original-file-name-starts-with", help=r""""""
+    ),
+    filter_original_path_ends_with: str | None = typer.Option(
+        None, "--filter-original-path-ends-with", help=r""""""
+    ),
+    filter_original_path_eq: str | None = typer.Option(
+        None, "--filter-original-path-eq", help=r""""""
+    ),
+    filter_original_path_in_: list[str] | None = typer.Option(
+        None, "--filter-original-path-in", help=r""""""
+    ),
+    filter_original_path_like: str | None = typer.Option(
+        None, "--filter-original-path-like", help=r""""""
+    ),
+    filter_original_path_ne: str | None = typer.Option(
+        None, "--filter-original-path-ne", help=r""""""
+    ),
+    filter_original_path_not_in: list[str] | None = typer.Option(
+        None, "--filter-original-path-not-in", help=r""""""
+    ),
+    filter_original_path_not_like: str | None = typer.Option(
+        None, "--filter-original-path-not-like", help=r""""""
+    ),
+    filter_original_path_starts_with: str | None = typer.Option(
+        None, "--filter-original-path-starts-with", help=r""""""
+    ),
+    filter_person_ids_all: list[UUID] | None = typer.Option(
+        None, "--filter-person-ids-all", help=r""""""
+    ),
+    filter_person_ids_any: list[UUID] | None = typer.Option(
+        None, "--filter-person-ids-any", help=r""""""
+    ),
+    filter_person_ids_none: list[UUID] | None = typer.Option(
+        None, "--filter-person-ids-none", help=r""""""
+    ),
+    filter_rating_eq: float | None = typer.Option(
+        None, "--filter-rating-eq", help=r""""""
+    ),
+    filter_rating_gt: float | None = typer.Option(
+        None, "--filter-rating-gt", help=r""""""
+    ),
+    filter_rating_gte: float | None = typer.Option(
+        None, "--filter-rating-gte", help=r""""""
+    ),
+    filter_rating_in_: list[float] | None = typer.Option(
+        None, "--filter-rating-in", help=r""""""
+    ),
+    filter_rating_lt: float | None = typer.Option(
+        None, "--filter-rating-lt", help=r""""""
+    ),
+    filter_rating_lte: float | None = typer.Option(
+        None, "--filter-rating-lte", help=r""""""
+    ),
+    filter_rating_ne: float | None = typer.Option(
+        None, "--filter-rating-ne", help=r""""""
+    ),
+    filter_rating_not_in: list[float] | None = typer.Option(
+        None, "--filter-rating-not-in", help=r""""""
+    ),
+    filter_state_eq: str | None = typer.Option(None, "--filter-state-eq", help=r""""""),
+    filter_state_in_: list[str] | None = typer.Option(
+        None, "--filter-state-in", help=r""""""
+    ),
+    filter_state_ne: str | None = typer.Option(None, "--filter-state-ne", help=r""""""),
+    filter_state_not_in: list[str] | None = typer.Option(
+        None, "--filter-state-not-in", help=r""""""
+    ),
+    filter_tag_ids_all: list[UUID] | None = typer.Option(
+        None, "--filter-tag-ids-all", help=r""""""
+    ),
+    filter_tag_ids_any: list[UUID] | None = typer.Option(
+        None, "--filter-tag-ids-any", help=r""""""
+    ),
+    filter_tag_ids_none: list[UUID] | None = typer.Option(
+        None, "--filter-tag-ids-none", help=r""""""
+    ),
+    filter_taken_at_eq: datetime | None = typer.Option(
+        None, "--filter-taken-at-eq", help=r"""Example: 2024-01-01T00:00:00.000Z"""
+    ),
+    filter_taken_at_gt: datetime | None = typer.Option(
+        None, "--filter-taken-at-gt", help=r"""Example: 2024-01-01T00:00:00.000Z"""
+    ),
+    filter_taken_at_gte: datetime | None = typer.Option(
+        None, "--filter-taken-at-gte", help=r"""Example: 2024-01-01T00:00:00.000Z"""
+    ),
+    filter_taken_at_lt: datetime | None = typer.Option(
+        None, "--filter-taken-at-lt", help=r"""Example: 2024-01-01T00:00:00.000Z"""
+    ),
+    filter_taken_at_lte: datetime | None = typer.Option(
+        None, "--filter-taken-at-lte", help=r"""Example: 2024-01-01T00:00:00.000Z"""
+    ),
+    filter_taken_at_ne: datetime | None = typer.Option(
+        None, "--filter-taken-at-ne", help=r"""Example: 2024-01-01T00:00:00.000Z"""
+    ),
+    filter_trashed_at_eq: datetime | None = typer.Option(
+        None, "--filter-trashed-at-eq", help=r"""Example: 2024-01-01T00:00:00.000Z"""
+    ),
+    filter_trashed_at_gt: datetime | None = typer.Option(
+        None, "--filter-trashed-at-gt", help=r"""Example: 2024-01-01T00:00:00.000Z"""
+    ),
+    filter_trashed_at_gte: datetime | None = typer.Option(
+        None, "--filter-trashed-at-gte", help=r"""Example: 2024-01-01T00:00:00.000Z"""
+    ),
+    filter_trashed_at_lt: datetime | None = typer.Option(
+        None, "--filter-trashed-at-lt", help=r"""Example: 2024-01-01T00:00:00.000Z"""
+    ),
+    filter_trashed_at_lte: datetime | None = typer.Option(
+        None, "--filter-trashed-at-lte", help=r"""Example: 2024-01-01T00:00:00.000Z"""
+    ),
+    filter_trashed_at_ne: datetime | None = typer.Option(
+        None, "--filter-trashed-at-ne", help=r"""Example: 2024-01-01T00:00:00.000Z"""
+    ),
+    filter_type_eq: str | None = typer.Option(
+        None, "--filter-type-eq", help=r"""Asset type"""
+    ),
+    filter_type_in_: list[AssetTypeEnum] | None = typer.Option(
+        None, "--filter-type-in", help=r""""""
+    ),
+    filter_type_ne: str | None = typer.Option(
+        None, "--filter-type-ne", help=r"""Asset type"""
+    ),
+    filter_type_not_in: list[AssetTypeEnum] | None = typer.Option(
+        None, "--filter-type-not-in", help=r""""""
+    ),
+    filter_updated_at_eq: datetime | None = typer.Option(
+        None, "--filter-updated-at-eq", help=r"""Example: 2024-01-01T00:00:00.000Z"""
+    ),
+    filter_updated_at_gt: datetime | None = typer.Option(
+        None, "--filter-updated-at-gt", help=r"""Example: 2024-01-01T00:00:00.000Z"""
+    ),
+    filter_updated_at_gte: datetime | None = typer.Option(
+        None, "--filter-updated-at-gte", help=r"""Example: 2024-01-01T00:00:00.000Z"""
+    ),
+    filter_updated_at_lt: datetime | None = typer.Option(
+        None, "--filter-updated-at-lt", help=r"""Example: 2024-01-01T00:00:00.000Z"""
+    ),
+    filter_updated_at_lte: datetime | None = typer.Option(
+        None, "--filter-updated-at-lte", help=r"""Example: 2024-01-01T00:00:00.000Z"""
+    ),
+    filter_updated_at_ne: datetime | None = typer.Option(
+        None, "--filter-updated-at-ne", help=r"""Example: 2024-01-01T00:00:00.000Z"""
+    ),
+    filter_visibility_eq: str | None = typer.Option(
+        None, "--filter-visibility-eq", help=r"""Asset visibility"""
+    ),
+    filter_visibility_in_: list[AssetVisibility] | None = typer.Option(
+        None, "--filter-visibility-in", help=r""""""
+    ),
+    filter_visibility_ne: str | None = typer.Option(
+        None, "--filter-visibility-ne", help=r"""Asset visibility"""
+    ),
+    filter_visibility_not_in: list[AssetVisibility] | None = typer.Option(
+        None, "--filter-visibility-not-in", help=r""""""
     ),
     is_encoded: Literal["true", "false"] | None = typer.Option(
         None, "--is-encoded", help=r"""Filter by encoded status"""
@@ -229,6 +594,349 @@ Example: 2024-01-01T00:00:00.000Z""",
         set_nested(json_data, ["created_before"], created_before)
     if description is not None:
         set_nested(json_data, ["description"], description)
+    if filter_album_ids_all is not None:
+        set_nested(json_data, ["filter_album_ids_all"], filter_album_ids_all)
+    if filter_album_ids_any is not None:
+        set_nested(json_data, ["filter_album_ids_any"], filter_album_ids_any)
+    if filter_album_ids_none is not None:
+        set_nested(json_data, ["filter_album_ids_none"], filter_album_ids_none)
+    if filter_checksum_eq is not None:
+        set_nested(json_data, ["filter_checksum_eq"], filter_checksum_eq)
+    if filter_checksum_in_ is not None:
+        set_nested(json_data, ["filter_checksum_in_"], filter_checksum_in_)
+    if filter_checksum_ne is not None:
+        set_nested(json_data, ["filter_checksum_ne"], filter_checksum_ne)
+    if filter_checksum_not_in is not None:
+        set_nested(json_data, ["filter_checksum_not_in"], filter_checksum_not_in)
+    if filter_city_eq is not None:
+        set_nested(json_data, ["filter_city_eq"], filter_city_eq)
+    if filter_city_in_ is not None:
+        set_nested(json_data, ["filter_city_in_"], filter_city_in_)
+    if filter_city_ne is not None:
+        set_nested(json_data, ["filter_city_ne"], filter_city_ne)
+    if filter_city_not_in is not None:
+        set_nested(json_data, ["filter_city_not_in"], filter_city_not_in)
+    if filter_country_eq is not None:
+        set_nested(json_data, ["filter_country_eq"], filter_country_eq)
+    if filter_country_in_ is not None:
+        set_nested(json_data, ["filter_country_in_"], filter_country_in_)
+    if filter_country_ne is not None:
+        set_nested(json_data, ["filter_country_ne"], filter_country_ne)
+    if filter_country_not_in is not None:
+        set_nested(json_data, ["filter_country_not_in"], filter_country_not_in)
+    if filter_created_at_eq is not None:
+        set_nested(json_data, ["filter_created_at_eq"], filter_created_at_eq)
+    if filter_created_at_gt is not None:
+        set_nested(json_data, ["filter_created_at_gt"], filter_created_at_gt)
+    if filter_created_at_gte is not None:
+        set_nested(json_data, ["filter_created_at_gte"], filter_created_at_gte)
+    if filter_created_at_lt is not None:
+        set_nested(json_data, ["filter_created_at_lt"], filter_created_at_lt)
+    if filter_created_at_lte is not None:
+        set_nested(json_data, ["filter_created_at_lte"], filter_created_at_lte)
+    if filter_created_at_ne is not None:
+        set_nested(json_data, ["filter_created_at_ne"], filter_created_at_ne)
+    if filter_description_ends_with is not None:
+        set_nested(
+            json_data, ["filter_description_ends_with"], filter_description_ends_with
+        )
+    if filter_description_eq is not None:
+        set_nested(json_data, ["filter_description_eq"], filter_description_eq)
+    if filter_description_in_ is not None:
+        set_nested(json_data, ["filter_description_in_"], filter_description_in_)
+    if filter_description_like is not None:
+        set_nested(json_data, ["filter_description_like"], filter_description_like)
+    if filter_description_ne is not None:
+        set_nested(json_data, ["filter_description_ne"], filter_description_ne)
+    if filter_description_not_in is not None:
+        set_nested(json_data, ["filter_description_not_in"], filter_description_not_in)
+    if filter_description_not_like is not None:
+        set_nested(
+            json_data, ["filter_description_not_like"], filter_description_not_like
+        )
+    if filter_description_starts_with is not None:
+        set_nested(
+            json_data,
+            ["filter_description_starts_with"],
+            filter_description_starts_with,
+        )
+    if filter_encoded_video_path_eq is not None:
+        set_nested(
+            json_data, ["filter_encoded_video_path_eq"], filter_encoded_video_path_eq
+        )
+    if filter_encoded_video_path_in_ is not None:
+        set_nested(
+            json_data, ["filter_encoded_video_path_in_"], filter_encoded_video_path_in_
+        )
+    if filter_encoded_video_path_ne is not None:
+        set_nested(
+            json_data, ["filter_encoded_video_path_ne"], filter_encoded_video_path_ne
+        )
+    if filter_encoded_video_path_not_in is not None:
+        set_nested(
+            json_data,
+            ["filter_encoded_video_path_not_in"],
+            filter_encoded_video_path_not_in,
+        )
+    if filter_file_size_in_bytes_eq is not None:
+        set_nested(
+            json_data, ["filter_file_size_in_bytes_eq"], filter_file_size_in_bytes_eq
+        )
+    if filter_file_size_in_bytes_gt is not None:
+        set_nested(
+            json_data, ["filter_file_size_in_bytes_gt"], filter_file_size_in_bytes_gt
+        )
+    if filter_file_size_in_bytes_gte is not None:
+        set_nested(
+            json_data, ["filter_file_size_in_bytes_gte"], filter_file_size_in_bytes_gte
+        )
+    if filter_file_size_in_bytes_in_ is not None:
+        set_nested(
+            json_data, ["filter_file_size_in_bytes_in_"], filter_file_size_in_bytes_in_
+        )
+    if filter_file_size_in_bytes_lt is not None:
+        set_nested(
+            json_data, ["filter_file_size_in_bytes_lt"], filter_file_size_in_bytes_lt
+        )
+    if filter_file_size_in_bytes_lte is not None:
+        set_nested(
+            json_data, ["filter_file_size_in_bytes_lte"], filter_file_size_in_bytes_lte
+        )
+    if filter_file_size_in_bytes_ne is not None:
+        set_nested(
+            json_data, ["filter_file_size_in_bytes_ne"], filter_file_size_in_bytes_ne
+        )
+    if filter_file_size_in_bytes_not_in is not None:
+        set_nested(
+            json_data,
+            ["filter_file_size_in_bytes_not_in"],
+            filter_file_size_in_bytes_not_in,
+        )
+    if filter_has_albums_eq is not None:
+        set_nested(
+            json_data, ["filter_has_albums_eq"], filter_has_albums_eq.lower() == "true"
+        )
+    if filter_has_people_eq is not None:
+        set_nested(
+            json_data, ["filter_has_people_eq"], filter_has_people_eq.lower() == "true"
+        )
+    if filter_has_tags_eq is not None:
+        set_nested(
+            json_data, ["filter_has_tags_eq"], filter_has_tags_eq.lower() == "true"
+        )
+    if filter_id_eq is not None:
+        set_nested(json_data, ["filter_id_eq"], filter_id_eq)
+    if filter_id_ne is not None:
+        set_nested(json_data, ["filter_id_ne"], filter_id_ne)
+    if filter_is_encoded_eq is not None:
+        set_nested(
+            json_data, ["filter_is_encoded_eq"], filter_is_encoded_eq.lower() == "true"
+        )
+    if filter_is_favorite_eq is not None:
+        set_nested(
+            json_data,
+            ["filter_is_favorite_eq"],
+            filter_is_favorite_eq.lower() == "true",
+        )
+    if filter_is_motion_eq is not None:
+        set_nested(
+            json_data, ["filter_is_motion_eq"], filter_is_motion_eq.lower() == "true"
+        )
+    if filter_is_offline_eq is not None:
+        set_nested(
+            json_data, ["filter_is_offline_eq"], filter_is_offline_eq.lower() == "true"
+        )
+    if filter_lens_model_eq is not None:
+        set_nested(json_data, ["filter_lens_model_eq"], filter_lens_model_eq)
+    if filter_lens_model_in_ is not None:
+        set_nested(json_data, ["filter_lens_model_in_"], filter_lens_model_in_)
+    if filter_lens_model_ne is not None:
+        set_nested(json_data, ["filter_lens_model_ne"], filter_lens_model_ne)
+    if filter_lens_model_not_in is not None:
+        set_nested(json_data, ["filter_lens_model_not_in"], filter_lens_model_not_in)
+    if filter_library_id_eq is not None:
+        set_nested(json_data, ["filter_library_id_eq"], filter_library_id_eq)
+    if filter_library_id_ne is not None:
+        set_nested(json_data, ["filter_library_id_ne"], filter_library_id_ne)
+    if filter_make_eq is not None:
+        set_nested(json_data, ["filter_make_eq"], filter_make_eq)
+    if filter_make_in_ is not None:
+        set_nested(json_data, ["filter_make_in_"], filter_make_in_)
+    if filter_make_ne is not None:
+        set_nested(json_data, ["filter_make_ne"], filter_make_ne)
+    if filter_make_not_in is not None:
+        set_nested(json_data, ["filter_make_not_in"], filter_make_not_in)
+    if filter_model_eq is not None:
+        set_nested(json_data, ["filter_model_eq"], filter_model_eq)
+    if filter_model_in_ is not None:
+        set_nested(json_data, ["filter_model_in_"], filter_model_in_)
+    if filter_model_ne is not None:
+        set_nested(json_data, ["filter_model_ne"], filter_model_ne)
+    if filter_model_not_in is not None:
+        set_nested(json_data, ["filter_model_not_in"], filter_model_not_in)
+    if filter_ocr_matches is not None:
+        set_nested(json_data, ["filter_ocr_matches"], filter_ocr_matches)
+    if filter_or_ is not None:
+        value_filter_or_ = parse_json_options(filter_or_, "--filter-or", ctx=ctx)
+        set_nested(json_data, ["filter_or_"], value_filter_or_)
+    if filter_original_file_name_ends_with is not None:
+        set_nested(
+            json_data,
+            ["filter_original_file_name_ends_with"],
+            filter_original_file_name_ends_with,
+        )
+    if filter_original_file_name_eq is not None:
+        set_nested(
+            json_data, ["filter_original_file_name_eq"], filter_original_file_name_eq
+        )
+    if filter_original_file_name_in_ is not None:
+        set_nested(
+            json_data, ["filter_original_file_name_in_"], filter_original_file_name_in_
+        )
+    if filter_original_file_name_like is not None:
+        set_nested(
+            json_data,
+            ["filter_original_file_name_like"],
+            filter_original_file_name_like,
+        )
+    if filter_original_file_name_ne is not None:
+        set_nested(
+            json_data, ["filter_original_file_name_ne"], filter_original_file_name_ne
+        )
+    if filter_original_file_name_not_in is not None:
+        set_nested(
+            json_data,
+            ["filter_original_file_name_not_in"],
+            filter_original_file_name_not_in,
+        )
+    if filter_original_file_name_not_like is not None:
+        set_nested(
+            json_data,
+            ["filter_original_file_name_not_like"],
+            filter_original_file_name_not_like,
+        )
+    if filter_original_file_name_starts_with is not None:
+        set_nested(
+            json_data,
+            ["filter_original_file_name_starts_with"],
+            filter_original_file_name_starts_with,
+        )
+    if filter_original_path_ends_with is not None:
+        set_nested(
+            json_data,
+            ["filter_original_path_ends_with"],
+            filter_original_path_ends_with,
+        )
+    if filter_original_path_eq is not None:
+        set_nested(json_data, ["filter_original_path_eq"], filter_original_path_eq)
+    if filter_original_path_in_ is not None:
+        set_nested(json_data, ["filter_original_path_in_"], filter_original_path_in_)
+    if filter_original_path_like is not None:
+        set_nested(json_data, ["filter_original_path_like"], filter_original_path_like)
+    if filter_original_path_ne is not None:
+        set_nested(json_data, ["filter_original_path_ne"], filter_original_path_ne)
+    if filter_original_path_not_in is not None:
+        set_nested(
+            json_data, ["filter_original_path_not_in"], filter_original_path_not_in
+        )
+    if filter_original_path_not_like is not None:
+        set_nested(
+            json_data, ["filter_original_path_not_like"], filter_original_path_not_like
+        )
+    if filter_original_path_starts_with is not None:
+        set_nested(
+            json_data,
+            ["filter_original_path_starts_with"],
+            filter_original_path_starts_with,
+        )
+    if filter_person_ids_all is not None:
+        set_nested(json_data, ["filter_person_ids_all"], filter_person_ids_all)
+    if filter_person_ids_any is not None:
+        set_nested(json_data, ["filter_person_ids_any"], filter_person_ids_any)
+    if filter_person_ids_none is not None:
+        set_nested(json_data, ["filter_person_ids_none"], filter_person_ids_none)
+    if filter_rating_eq is not None:
+        set_nested(json_data, ["filter_rating_eq"], filter_rating_eq)
+    if filter_rating_gt is not None:
+        set_nested(json_data, ["filter_rating_gt"], filter_rating_gt)
+    if filter_rating_gte is not None:
+        set_nested(json_data, ["filter_rating_gte"], filter_rating_gte)
+    if filter_rating_in_ is not None:
+        set_nested(json_data, ["filter_rating_in_"], filter_rating_in_)
+    if filter_rating_lt is not None:
+        set_nested(json_data, ["filter_rating_lt"], filter_rating_lt)
+    if filter_rating_lte is not None:
+        set_nested(json_data, ["filter_rating_lte"], filter_rating_lte)
+    if filter_rating_ne is not None:
+        set_nested(json_data, ["filter_rating_ne"], filter_rating_ne)
+    if filter_rating_not_in is not None:
+        set_nested(json_data, ["filter_rating_not_in"], filter_rating_not_in)
+    if filter_state_eq is not None:
+        set_nested(json_data, ["filter_state_eq"], filter_state_eq)
+    if filter_state_in_ is not None:
+        set_nested(json_data, ["filter_state_in_"], filter_state_in_)
+    if filter_state_ne is not None:
+        set_nested(json_data, ["filter_state_ne"], filter_state_ne)
+    if filter_state_not_in is not None:
+        set_nested(json_data, ["filter_state_not_in"], filter_state_not_in)
+    if filter_tag_ids_all is not None:
+        set_nested(json_data, ["filter_tag_ids_all"], filter_tag_ids_all)
+    if filter_tag_ids_any is not None:
+        set_nested(json_data, ["filter_tag_ids_any"], filter_tag_ids_any)
+    if filter_tag_ids_none is not None:
+        set_nested(json_data, ["filter_tag_ids_none"], filter_tag_ids_none)
+    if filter_taken_at_eq is not None:
+        set_nested(json_data, ["filter_taken_at_eq"], filter_taken_at_eq)
+    if filter_taken_at_gt is not None:
+        set_nested(json_data, ["filter_taken_at_gt"], filter_taken_at_gt)
+    if filter_taken_at_gte is not None:
+        set_nested(json_data, ["filter_taken_at_gte"], filter_taken_at_gte)
+    if filter_taken_at_lt is not None:
+        set_nested(json_data, ["filter_taken_at_lt"], filter_taken_at_lt)
+    if filter_taken_at_lte is not None:
+        set_nested(json_data, ["filter_taken_at_lte"], filter_taken_at_lte)
+    if filter_taken_at_ne is not None:
+        set_nested(json_data, ["filter_taken_at_ne"], filter_taken_at_ne)
+    if filter_trashed_at_eq is not None:
+        set_nested(json_data, ["filter_trashed_at_eq"], filter_trashed_at_eq)
+    if filter_trashed_at_gt is not None:
+        set_nested(json_data, ["filter_trashed_at_gt"], filter_trashed_at_gt)
+    if filter_trashed_at_gte is not None:
+        set_nested(json_data, ["filter_trashed_at_gte"], filter_trashed_at_gte)
+    if filter_trashed_at_lt is not None:
+        set_nested(json_data, ["filter_trashed_at_lt"], filter_trashed_at_lt)
+    if filter_trashed_at_lte is not None:
+        set_nested(json_data, ["filter_trashed_at_lte"], filter_trashed_at_lte)
+    if filter_trashed_at_ne is not None:
+        set_nested(json_data, ["filter_trashed_at_ne"], filter_trashed_at_ne)
+    if filter_type_eq is not None:
+        set_nested(json_data, ["filter_type_eq"], filter_type_eq)
+    if filter_type_in_ is not None:
+        set_nested(json_data, ["filter_type_in_"], filter_type_in_)
+    if filter_type_ne is not None:
+        set_nested(json_data, ["filter_type_ne"], filter_type_ne)
+    if filter_type_not_in is not None:
+        set_nested(json_data, ["filter_type_not_in"], filter_type_not_in)
+    if filter_updated_at_eq is not None:
+        set_nested(json_data, ["filter_updated_at_eq"], filter_updated_at_eq)
+    if filter_updated_at_gt is not None:
+        set_nested(json_data, ["filter_updated_at_gt"], filter_updated_at_gt)
+    if filter_updated_at_gte is not None:
+        set_nested(json_data, ["filter_updated_at_gte"], filter_updated_at_gte)
+    if filter_updated_at_lt is not None:
+        set_nested(json_data, ["filter_updated_at_lt"], filter_updated_at_lt)
+    if filter_updated_at_lte is not None:
+        set_nested(json_data, ["filter_updated_at_lte"], filter_updated_at_lte)
+    if filter_updated_at_ne is not None:
+        set_nested(json_data, ["filter_updated_at_ne"], filter_updated_at_ne)
+    if filter_visibility_eq is not None:
+        set_nested(json_data, ["filter_visibility_eq"], filter_visibility_eq)
+    if filter_visibility_in_ is not None:
+        set_nested(json_data, ["filter_visibility_in_"], filter_visibility_in_)
+    if filter_visibility_ne is not None:
+        set_nested(json_data, ["filter_visibility_ne"], filter_visibility_ne)
+    if filter_visibility_not_in is not None:
+        set_nested(json_data, ["filter_visibility_not_in"], filter_visibility_not_in)
     if is_encoded is not None:
         set_nested(json_data, ["is_encoded"], is_encoded.lower() == "true")
     if is_favorite is not None:
@@ -307,11 +1015,374 @@ Example: 2024-01-01T00:00:00.000Z""",
 
 Example: 2024-01-01T00:00:00.000Z""",
     ),
+    cursor: str | None = typer.Option(
+        None, "--cursor", help=r"""Cursor for the next page of results"""
+    ),
     description: str | None = typer.Option(
         None, "--description", help=r"""Filter by description text"""
     ),
     encoded_video_path: str | None = typer.Option(
         None, "--encoded-video-path", help=r"""Filter by encoded video file path"""
+    ),
+    filter_album_ids_all: list[UUID] | None = typer.Option(
+        None, "--filter-album-ids-all", help=r""""""
+    ),
+    filter_album_ids_any: list[UUID] | None = typer.Option(
+        None, "--filter-album-ids-any", help=r""""""
+    ),
+    filter_album_ids_none: list[UUID] | None = typer.Option(
+        None, "--filter-album-ids-none", help=r""""""
+    ),
+    filter_checksum_eq: str | None = typer.Option(
+        None, "--filter-checksum-eq", help=r""""""
+    ),
+    filter_checksum_in_: list[str] | None = typer.Option(
+        None, "--filter-checksum-in", help=r""""""
+    ),
+    filter_checksum_ne: str | None = typer.Option(
+        None, "--filter-checksum-ne", help=r""""""
+    ),
+    filter_checksum_not_in: list[str] | None = typer.Option(
+        None, "--filter-checksum-not-in", help=r""""""
+    ),
+    filter_city_eq: str | None = typer.Option(None, "--filter-city-eq", help=r""""""),
+    filter_city_in_: list[str] | None = typer.Option(
+        None, "--filter-city-in", help=r""""""
+    ),
+    filter_city_ne: str | None = typer.Option(None, "--filter-city-ne", help=r""""""),
+    filter_city_not_in: list[str] | None = typer.Option(
+        None, "--filter-city-not-in", help=r""""""
+    ),
+    filter_country_eq: str | None = typer.Option(
+        None, "--filter-country-eq", help=r""""""
+    ),
+    filter_country_in_: list[str] | None = typer.Option(
+        None, "--filter-country-in", help=r""""""
+    ),
+    filter_country_ne: str | None = typer.Option(
+        None, "--filter-country-ne", help=r""""""
+    ),
+    filter_country_not_in: list[str] | None = typer.Option(
+        None, "--filter-country-not-in", help=r""""""
+    ),
+    filter_created_at_eq: datetime | None = typer.Option(
+        None, "--filter-created-at-eq", help=r"""Example: 2024-01-01T00:00:00.000Z"""
+    ),
+    filter_created_at_gt: datetime | None = typer.Option(
+        None, "--filter-created-at-gt", help=r"""Example: 2024-01-01T00:00:00.000Z"""
+    ),
+    filter_created_at_gte: datetime | None = typer.Option(
+        None, "--filter-created-at-gte", help=r"""Example: 2024-01-01T00:00:00.000Z"""
+    ),
+    filter_created_at_lt: datetime | None = typer.Option(
+        None, "--filter-created-at-lt", help=r"""Example: 2024-01-01T00:00:00.000Z"""
+    ),
+    filter_created_at_lte: datetime | None = typer.Option(
+        None, "--filter-created-at-lte", help=r"""Example: 2024-01-01T00:00:00.000Z"""
+    ),
+    filter_created_at_ne: datetime | None = typer.Option(
+        None, "--filter-created-at-ne", help=r"""Example: 2024-01-01T00:00:00.000Z"""
+    ),
+    filter_description_ends_with: str | None = typer.Option(
+        None, "--filter-description-ends-with", help=r""""""
+    ),
+    filter_description_eq: str | None = typer.Option(
+        None, "--filter-description-eq", help=r""""""
+    ),
+    filter_description_in_: list[str] | None = typer.Option(
+        None, "--filter-description-in", help=r""""""
+    ),
+    filter_description_like: str | None = typer.Option(
+        None, "--filter-description-like", help=r""""""
+    ),
+    filter_description_ne: str | None = typer.Option(
+        None, "--filter-description-ne", help=r""""""
+    ),
+    filter_description_not_in: list[str] | None = typer.Option(
+        None, "--filter-description-not-in", help=r""""""
+    ),
+    filter_description_not_like: str | None = typer.Option(
+        None, "--filter-description-not-like", help=r""""""
+    ),
+    filter_description_starts_with: str | None = typer.Option(
+        None, "--filter-description-starts-with", help=r""""""
+    ),
+    filter_encoded_video_path_eq: str | None = typer.Option(
+        None, "--filter-encoded-video-path-eq", help=r""""""
+    ),
+    filter_encoded_video_path_in_: list[str] | None = typer.Option(
+        None, "--filter-encoded-video-path-in", help=r""""""
+    ),
+    filter_encoded_video_path_ne: str | None = typer.Option(
+        None, "--filter-encoded-video-path-ne", help=r""""""
+    ),
+    filter_encoded_video_path_not_in: list[str] | None = typer.Option(
+        None, "--filter-encoded-video-path-not-in", help=r""""""
+    ),
+    filter_file_size_in_bytes_eq: float | None = typer.Option(
+        None, "--filter-file-size-in-bytes-eq", help=r""""""
+    ),
+    filter_file_size_in_bytes_gt: float | None = typer.Option(
+        None, "--filter-file-size-in-bytes-gt", help=r""""""
+    ),
+    filter_file_size_in_bytes_gte: float | None = typer.Option(
+        None, "--filter-file-size-in-bytes-gte", help=r""""""
+    ),
+    filter_file_size_in_bytes_in_: list[float] | None = typer.Option(
+        None, "--filter-file-size-in-bytes-in", help=r""""""
+    ),
+    filter_file_size_in_bytes_lt: float | None = typer.Option(
+        None, "--filter-file-size-in-bytes-lt", help=r""""""
+    ),
+    filter_file_size_in_bytes_lte: float | None = typer.Option(
+        None, "--filter-file-size-in-bytes-lte", help=r""""""
+    ),
+    filter_file_size_in_bytes_ne: float | None = typer.Option(
+        None, "--filter-file-size-in-bytes-ne", help=r""""""
+    ),
+    filter_file_size_in_bytes_not_in: list[float] | None = typer.Option(
+        None, "--filter-file-size-in-bytes-not-in", help=r""""""
+    ),
+    filter_has_albums_eq: Literal["true", "false"] | None = typer.Option(
+        None, "--filter-has-albums-eq", help=r""""""
+    ),
+    filter_has_people_eq: Literal["true", "false"] | None = typer.Option(
+        None, "--filter-has-people-eq", help=r""""""
+    ),
+    filter_has_tags_eq: Literal["true", "false"] | None = typer.Option(
+        None, "--filter-has-tags-eq", help=r""""""
+    ),
+    filter_id_eq: UUID | None = typer.Option(None, "--filter-id-eq", help=r""""""),
+    filter_id_ne: UUID | None = typer.Option(None, "--filter-id-ne", help=r""""""),
+    filter_is_encoded_eq: Literal["true", "false"] | None = typer.Option(
+        None, "--filter-is-encoded-eq", help=r""""""
+    ),
+    filter_is_favorite_eq: Literal["true", "false"] | None = typer.Option(
+        None, "--filter-is-favorite-eq", help=r""""""
+    ),
+    filter_is_motion_eq: Literal["true", "false"] | None = typer.Option(
+        None, "--filter-is-motion-eq", help=r""""""
+    ),
+    filter_is_offline_eq: Literal["true", "false"] | None = typer.Option(
+        None, "--filter-is-offline-eq", help=r""""""
+    ),
+    filter_lens_model_eq: str | None = typer.Option(
+        None, "--filter-lens-model-eq", help=r""""""
+    ),
+    filter_lens_model_in_: list[str] | None = typer.Option(
+        None, "--filter-lens-model-in", help=r""""""
+    ),
+    filter_lens_model_ne: str | None = typer.Option(
+        None, "--filter-lens-model-ne", help=r""""""
+    ),
+    filter_lens_model_not_in: list[str] | None = typer.Option(
+        None, "--filter-lens-model-not-in", help=r""""""
+    ),
+    filter_library_id_eq: UUID | None = typer.Option(
+        None, "--filter-library-id-eq", help=r""""""
+    ),
+    filter_library_id_ne: UUID | None = typer.Option(
+        None, "--filter-library-id-ne", help=r""""""
+    ),
+    filter_make_eq: str | None = typer.Option(None, "--filter-make-eq", help=r""""""),
+    filter_make_in_: list[str] | None = typer.Option(
+        None, "--filter-make-in", help=r""""""
+    ),
+    filter_make_ne: str | None = typer.Option(None, "--filter-make-ne", help=r""""""),
+    filter_make_not_in: list[str] | None = typer.Option(
+        None, "--filter-make-not-in", help=r""""""
+    ),
+    filter_model_eq: str | None = typer.Option(None, "--filter-model-eq", help=r""""""),
+    filter_model_in_: list[str] | None = typer.Option(
+        None, "--filter-model-in", help=r""""""
+    ),
+    filter_model_ne: str | None = typer.Option(None, "--filter-model-ne", help=r""""""),
+    filter_model_not_in: list[str] | None = typer.Option(
+        None, "--filter-model-not-in", help=r""""""
+    ),
+    filter_ocr_matches: str | None = typer.Option(
+        None, "--filter-ocr-matches", help=r""""""
+    ),
+    filter_or_: list[str] | None = typer.Option(
+        None,
+        "--filter-or",
+        help=r"""As a JSON string with keys: albumIds (object), checksum (object), city (object), country (object), createdAt (object), description (object), encodedVideoPath (object), fileSizeInBytes (object), hasAlbums (object), hasPeople (object), hasTags (object), id (object), isEncoded (object), isFavorite (object), isMotion (object), isOffline (object), lensModel (object), libraryId (object), make (object), model (object), ocr (object), originalFileName (object), originalPath (object), personIds (object), rating (object), state (object), tagIds (object), takenAt (object), trashedAt (object), type (object), updatedAt (object), visibility (object)""",
+    ),
+    filter_original_file_name_ends_with: str | None = typer.Option(
+        None, "--filter-original-file-name-ends-with", help=r""""""
+    ),
+    filter_original_file_name_eq: str | None = typer.Option(
+        None, "--filter-original-file-name-eq", help=r""""""
+    ),
+    filter_original_file_name_in_: list[str] | None = typer.Option(
+        None, "--filter-original-file-name-in", help=r""""""
+    ),
+    filter_original_file_name_like: str | None = typer.Option(
+        None, "--filter-original-file-name-like", help=r""""""
+    ),
+    filter_original_file_name_ne: str | None = typer.Option(
+        None, "--filter-original-file-name-ne", help=r""""""
+    ),
+    filter_original_file_name_not_in: list[str] | None = typer.Option(
+        None, "--filter-original-file-name-not-in", help=r""""""
+    ),
+    filter_original_file_name_not_like: str | None = typer.Option(
+        None, "--filter-original-file-name-not-like", help=r""""""
+    ),
+    filter_original_file_name_starts_with: str | None = typer.Option(
+        None, "--filter-original-file-name-starts-with", help=r""""""
+    ),
+    filter_original_path_ends_with: str | None = typer.Option(
+        None, "--filter-original-path-ends-with", help=r""""""
+    ),
+    filter_original_path_eq: str | None = typer.Option(
+        None, "--filter-original-path-eq", help=r""""""
+    ),
+    filter_original_path_in_: list[str] | None = typer.Option(
+        None, "--filter-original-path-in", help=r""""""
+    ),
+    filter_original_path_like: str | None = typer.Option(
+        None, "--filter-original-path-like", help=r""""""
+    ),
+    filter_original_path_ne: str | None = typer.Option(
+        None, "--filter-original-path-ne", help=r""""""
+    ),
+    filter_original_path_not_in: list[str] | None = typer.Option(
+        None, "--filter-original-path-not-in", help=r""""""
+    ),
+    filter_original_path_not_like: str | None = typer.Option(
+        None, "--filter-original-path-not-like", help=r""""""
+    ),
+    filter_original_path_starts_with: str | None = typer.Option(
+        None, "--filter-original-path-starts-with", help=r""""""
+    ),
+    filter_person_ids_all: list[UUID] | None = typer.Option(
+        None, "--filter-person-ids-all", help=r""""""
+    ),
+    filter_person_ids_any: list[UUID] | None = typer.Option(
+        None, "--filter-person-ids-any", help=r""""""
+    ),
+    filter_person_ids_none: list[UUID] | None = typer.Option(
+        None, "--filter-person-ids-none", help=r""""""
+    ),
+    filter_rating_eq: float | None = typer.Option(
+        None, "--filter-rating-eq", help=r""""""
+    ),
+    filter_rating_gt: float | None = typer.Option(
+        None, "--filter-rating-gt", help=r""""""
+    ),
+    filter_rating_gte: float | None = typer.Option(
+        None, "--filter-rating-gte", help=r""""""
+    ),
+    filter_rating_in_: list[float] | None = typer.Option(
+        None, "--filter-rating-in", help=r""""""
+    ),
+    filter_rating_lt: float | None = typer.Option(
+        None, "--filter-rating-lt", help=r""""""
+    ),
+    filter_rating_lte: float | None = typer.Option(
+        None, "--filter-rating-lte", help=r""""""
+    ),
+    filter_rating_ne: float | None = typer.Option(
+        None, "--filter-rating-ne", help=r""""""
+    ),
+    filter_rating_not_in: list[float] | None = typer.Option(
+        None, "--filter-rating-not-in", help=r""""""
+    ),
+    filter_state_eq: str | None = typer.Option(None, "--filter-state-eq", help=r""""""),
+    filter_state_in_: list[str] | None = typer.Option(
+        None, "--filter-state-in", help=r""""""
+    ),
+    filter_state_ne: str | None = typer.Option(None, "--filter-state-ne", help=r""""""),
+    filter_state_not_in: list[str] | None = typer.Option(
+        None, "--filter-state-not-in", help=r""""""
+    ),
+    filter_tag_ids_all: list[UUID] | None = typer.Option(
+        None, "--filter-tag-ids-all", help=r""""""
+    ),
+    filter_tag_ids_any: list[UUID] | None = typer.Option(
+        None, "--filter-tag-ids-any", help=r""""""
+    ),
+    filter_tag_ids_none: list[UUID] | None = typer.Option(
+        None, "--filter-tag-ids-none", help=r""""""
+    ),
+    filter_taken_at_eq: datetime | None = typer.Option(
+        None, "--filter-taken-at-eq", help=r"""Example: 2024-01-01T00:00:00.000Z"""
+    ),
+    filter_taken_at_gt: datetime | None = typer.Option(
+        None, "--filter-taken-at-gt", help=r"""Example: 2024-01-01T00:00:00.000Z"""
+    ),
+    filter_taken_at_gte: datetime | None = typer.Option(
+        None, "--filter-taken-at-gte", help=r"""Example: 2024-01-01T00:00:00.000Z"""
+    ),
+    filter_taken_at_lt: datetime | None = typer.Option(
+        None, "--filter-taken-at-lt", help=r"""Example: 2024-01-01T00:00:00.000Z"""
+    ),
+    filter_taken_at_lte: datetime | None = typer.Option(
+        None, "--filter-taken-at-lte", help=r"""Example: 2024-01-01T00:00:00.000Z"""
+    ),
+    filter_taken_at_ne: datetime | None = typer.Option(
+        None, "--filter-taken-at-ne", help=r"""Example: 2024-01-01T00:00:00.000Z"""
+    ),
+    filter_trashed_at_eq: datetime | None = typer.Option(
+        None, "--filter-trashed-at-eq", help=r"""Example: 2024-01-01T00:00:00.000Z"""
+    ),
+    filter_trashed_at_gt: datetime | None = typer.Option(
+        None, "--filter-trashed-at-gt", help=r"""Example: 2024-01-01T00:00:00.000Z"""
+    ),
+    filter_trashed_at_gte: datetime | None = typer.Option(
+        None, "--filter-trashed-at-gte", help=r"""Example: 2024-01-01T00:00:00.000Z"""
+    ),
+    filter_trashed_at_lt: datetime | None = typer.Option(
+        None, "--filter-trashed-at-lt", help=r"""Example: 2024-01-01T00:00:00.000Z"""
+    ),
+    filter_trashed_at_lte: datetime | None = typer.Option(
+        None, "--filter-trashed-at-lte", help=r"""Example: 2024-01-01T00:00:00.000Z"""
+    ),
+    filter_trashed_at_ne: datetime | None = typer.Option(
+        None, "--filter-trashed-at-ne", help=r"""Example: 2024-01-01T00:00:00.000Z"""
+    ),
+    filter_type_eq: str | None = typer.Option(
+        None, "--filter-type-eq", help=r"""Asset type"""
+    ),
+    filter_type_in_: list[AssetTypeEnum] | None = typer.Option(
+        None, "--filter-type-in", help=r""""""
+    ),
+    filter_type_ne: str | None = typer.Option(
+        None, "--filter-type-ne", help=r"""Asset type"""
+    ),
+    filter_type_not_in: list[AssetTypeEnum] | None = typer.Option(
+        None, "--filter-type-not-in", help=r""""""
+    ),
+    filter_updated_at_eq: datetime | None = typer.Option(
+        None, "--filter-updated-at-eq", help=r"""Example: 2024-01-01T00:00:00.000Z"""
+    ),
+    filter_updated_at_gt: datetime | None = typer.Option(
+        None, "--filter-updated-at-gt", help=r"""Example: 2024-01-01T00:00:00.000Z"""
+    ),
+    filter_updated_at_gte: datetime | None = typer.Option(
+        None, "--filter-updated-at-gte", help=r"""Example: 2024-01-01T00:00:00.000Z"""
+    ),
+    filter_updated_at_lt: datetime | None = typer.Option(
+        None, "--filter-updated-at-lt", help=r"""Example: 2024-01-01T00:00:00.000Z"""
+    ),
+    filter_updated_at_lte: datetime | None = typer.Option(
+        None, "--filter-updated-at-lte", help=r"""Example: 2024-01-01T00:00:00.000Z"""
+    ),
+    filter_updated_at_ne: datetime | None = typer.Option(
+        None, "--filter-updated-at-ne", help=r"""Example: 2024-01-01T00:00:00.000Z"""
+    ),
+    filter_visibility_eq: str | None = typer.Option(
+        None, "--filter-visibility-eq", help=r"""Asset visibility"""
+    ),
+    filter_visibility_in_: list[AssetVisibility] | None = typer.Option(
+        None, "--filter-visibility-in", help=r""""""
+    ),
+    filter_visibility_ne: str | None = typer.Option(
+        None, "--filter-visibility-ne", help=r"""Asset visibility"""
+    ),
+    filter_visibility_not_in: list[AssetVisibility] | None = typer.Option(
+        None, "--filter-visibility-not-in", help=r""""""
     ),
     id: UUID | None = typer.Option(None, "--id", help=r"""Filter by asset ID"""),
     is_encoded: Literal["true", "false"] | None = typer.Option(
@@ -344,6 +1415,10 @@ Example: 2024-01-01T00:00:00.000Z""",
         None, "--ocr", help=r"""Filter by OCR text content"""
     ),
     order: str | None = typer.Option(None, "--order", help=r"""Asset sort order"""),
+    order_by_direction: str | None = typer.Option(
+        None, "--order-by-direction", help=r"""Asset sort order"""
+    ),
+    order_by_field: str | None = typer.Option(None, "--order-by-field", help=r""""""),
     original_file_name: str | None = typer.Option(
         None, "--original-file-name", help=r"""Filter by original file name"""
     ),
@@ -460,10 +1535,355 @@ Example: 2024-01-01T00:00:00.000Z""",
         set_nested(json_data, ["created_after"], created_after)
     if created_before is not None:
         set_nested(json_data, ["created_before"], created_before)
+    if cursor is not None:
+        set_nested(json_data, ["cursor"], cursor)
     if description is not None:
         set_nested(json_data, ["description"], description)
     if encoded_video_path is not None:
         set_nested(json_data, ["encoded_video_path"], encoded_video_path)
+    if filter_album_ids_all is not None:
+        set_nested(json_data, ["filter_album_ids_all"], filter_album_ids_all)
+    if filter_album_ids_any is not None:
+        set_nested(json_data, ["filter_album_ids_any"], filter_album_ids_any)
+    if filter_album_ids_none is not None:
+        set_nested(json_data, ["filter_album_ids_none"], filter_album_ids_none)
+    if filter_checksum_eq is not None:
+        set_nested(json_data, ["filter_checksum_eq"], filter_checksum_eq)
+    if filter_checksum_in_ is not None:
+        set_nested(json_data, ["filter_checksum_in_"], filter_checksum_in_)
+    if filter_checksum_ne is not None:
+        set_nested(json_data, ["filter_checksum_ne"], filter_checksum_ne)
+    if filter_checksum_not_in is not None:
+        set_nested(json_data, ["filter_checksum_not_in"], filter_checksum_not_in)
+    if filter_city_eq is not None:
+        set_nested(json_data, ["filter_city_eq"], filter_city_eq)
+    if filter_city_in_ is not None:
+        set_nested(json_data, ["filter_city_in_"], filter_city_in_)
+    if filter_city_ne is not None:
+        set_nested(json_data, ["filter_city_ne"], filter_city_ne)
+    if filter_city_not_in is not None:
+        set_nested(json_data, ["filter_city_not_in"], filter_city_not_in)
+    if filter_country_eq is not None:
+        set_nested(json_data, ["filter_country_eq"], filter_country_eq)
+    if filter_country_in_ is not None:
+        set_nested(json_data, ["filter_country_in_"], filter_country_in_)
+    if filter_country_ne is not None:
+        set_nested(json_data, ["filter_country_ne"], filter_country_ne)
+    if filter_country_not_in is not None:
+        set_nested(json_data, ["filter_country_not_in"], filter_country_not_in)
+    if filter_created_at_eq is not None:
+        set_nested(json_data, ["filter_created_at_eq"], filter_created_at_eq)
+    if filter_created_at_gt is not None:
+        set_nested(json_data, ["filter_created_at_gt"], filter_created_at_gt)
+    if filter_created_at_gte is not None:
+        set_nested(json_data, ["filter_created_at_gte"], filter_created_at_gte)
+    if filter_created_at_lt is not None:
+        set_nested(json_data, ["filter_created_at_lt"], filter_created_at_lt)
+    if filter_created_at_lte is not None:
+        set_nested(json_data, ["filter_created_at_lte"], filter_created_at_lte)
+    if filter_created_at_ne is not None:
+        set_nested(json_data, ["filter_created_at_ne"], filter_created_at_ne)
+    if filter_description_ends_with is not None:
+        set_nested(
+            json_data, ["filter_description_ends_with"], filter_description_ends_with
+        )
+    if filter_description_eq is not None:
+        set_nested(json_data, ["filter_description_eq"], filter_description_eq)
+    if filter_description_in_ is not None:
+        set_nested(json_data, ["filter_description_in_"], filter_description_in_)
+    if filter_description_like is not None:
+        set_nested(json_data, ["filter_description_like"], filter_description_like)
+    if filter_description_ne is not None:
+        set_nested(json_data, ["filter_description_ne"], filter_description_ne)
+    if filter_description_not_in is not None:
+        set_nested(json_data, ["filter_description_not_in"], filter_description_not_in)
+    if filter_description_not_like is not None:
+        set_nested(
+            json_data, ["filter_description_not_like"], filter_description_not_like
+        )
+    if filter_description_starts_with is not None:
+        set_nested(
+            json_data,
+            ["filter_description_starts_with"],
+            filter_description_starts_with,
+        )
+    if filter_encoded_video_path_eq is not None:
+        set_nested(
+            json_data, ["filter_encoded_video_path_eq"], filter_encoded_video_path_eq
+        )
+    if filter_encoded_video_path_in_ is not None:
+        set_nested(
+            json_data, ["filter_encoded_video_path_in_"], filter_encoded_video_path_in_
+        )
+    if filter_encoded_video_path_ne is not None:
+        set_nested(
+            json_data, ["filter_encoded_video_path_ne"], filter_encoded_video_path_ne
+        )
+    if filter_encoded_video_path_not_in is not None:
+        set_nested(
+            json_data,
+            ["filter_encoded_video_path_not_in"],
+            filter_encoded_video_path_not_in,
+        )
+    if filter_file_size_in_bytes_eq is not None:
+        set_nested(
+            json_data, ["filter_file_size_in_bytes_eq"], filter_file_size_in_bytes_eq
+        )
+    if filter_file_size_in_bytes_gt is not None:
+        set_nested(
+            json_data, ["filter_file_size_in_bytes_gt"], filter_file_size_in_bytes_gt
+        )
+    if filter_file_size_in_bytes_gte is not None:
+        set_nested(
+            json_data, ["filter_file_size_in_bytes_gte"], filter_file_size_in_bytes_gte
+        )
+    if filter_file_size_in_bytes_in_ is not None:
+        set_nested(
+            json_data, ["filter_file_size_in_bytes_in_"], filter_file_size_in_bytes_in_
+        )
+    if filter_file_size_in_bytes_lt is not None:
+        set_nested(
+            json_data, ["filter_file_size_in_bytes_lt"], filter_file_size_in_bytes_lt
+        )
+    if filter_file_size_in_bytes_lte is not None:
+        set_nested(
+            json_data, ["filter_file_size_in_bytes_lte"], filter_file_size_in_bytes_lte
+        )
+    if filter_file_size_in_bytes_ne is not None:
+        set_nested(
+            json_data, ["filter_file_size_in_bytes_ne"], filter_file_size_in_bytes_ne
+        )
+    if filter_file_size_in_bytes_not_in is not None:
+        set_nested(
+            json_data,
+            ["filter_file_size_in_bytes_not_in"],
+            filter_file_size_in_bytes_not_in,
+        )
+    if filter_has_albums_eq is not None:
+        set_nested(
+            json_data, ["filter_has_albums_eq"], filter_has_albums_eq.lower() == "true"
+        )
+    if filter_has_people_eq is not None:
+        set_nested(
+            json_data, ["filter_has_people_eq"], filter_has_people_eq.lower() == "true"
+        )
+    if filter_has_tags_eq is not None:
+        set_nested(
+            json_data, ["filter_has_tags_eq"], filter_has_tags_eq.lower() == "true"
+        )
+    if filter_id_eq is not None:
+        set_nested(json_data, ["filter_id_eq"], filter_id_eq)
+    if filter_id_ne is not None:
+        set_nested(json_data, ["filter_id_ne"], filter_id_ne)
+    if filter_is_encoded_eq is not None:
+        set_nested(
+            json_data, ["filter_is_encoded_eq"], filter_is_encoded_eq.lower() == "true"
+        )
+    if filter_is_favorite_eq is not None:
+        set_nested(
+            json_data,
+            ["filter_is_favorite_eq"],
+            filter_is_favorite_eq.lower() == "true",
+        )
+    if filter_is_motion_eq is not None:
+        set_nested(
+            json_data, ["filter_is_motion_eq"], filter_is_motion_eq.lower() == "true"
+        )
+    if filter_is_offline_eq is not None:
+        set_nested(
+            json_data, ["filter_is_offline_eq"], filter_is_offline_eq.lower() == "true"
+        )
+    if filter_lens_model_eq is not None:
+        set_nested(json_data, ["filter_lens_model_eq"], filter_lens_model_eq)
+    if filter_lens_model_in_ is not None:
+        set_nested(json_data, ["filter_lens_model_in_"], filter_lens_model_in_)
+    if filter_lens_model_ne is not None:
+        set_nested(json_data, ["filter_lens_model_ne"], filter_lens_model_ne)
+    if filter_lens_model_not_in is not None:
+        set_nested(json_data, ["filter_lens_model_not_in"], filter_lens_model_not_in)
+    if filter_library_id_eq is not None:
+        set_nested(json_data, ["filter_library_id_eq"], filter_library_id_eq)
+    if filter_library_id_ne is not None:
+        set_nested(json_data, ["filter_library_id_ne"], filter_library_id_ne)
+    if filter_make_eq is not None:
+        set_nested(json_data, ["filter_make_eq"], filter_make_eq)
+    if filter_make_in_ is not None:
+        set_nested(json_data, ["filter_make_in_"], filter_make_in_)
+    if filter_make_ne is not None:
+        set_nested(json_data, ["filter_make_ne"], filter_make_ne)
+    if filter_make_not_in is not None:
+        set_nested(json_data, ["filter_make_not_in"], filter_make_not_in)
+    if filter_model_eq is not None:
+        set_nested(json_data, ["filter_model_eq"], filter_model_eq)
+    if filter_model_in_ is not None:
+        set_nested(json_data, ["filter_model_in_"], filter_model_in_)
+    if filter_model_ne is not None:
+        set_nested(json_data, ["filter_model_ne"], filter_model_ne)
+    if filter_model_not_in is not None:
+        set_nested(json_data, ["filter_model_not_in"], filter_model_not_in)
+    if filter_ocr_matches is not None:
+        set_nested(json_data, ["filter_ocr_matches"], filter_ocr_matches)
+    if filter_or_ is not None:
+        value_filter_or_ = parse_json_options(filter_or_, "--filter-or", ctx=ctx)
+        set_nested(json_data, ["filter_or_"], value_filter_or_)
+    if filter_original_file_name_ends_with is not None:
+        set_nested(
+            json_data,
+            ["filter_original_file_name_ends_with"],
+            filter_original_file_name_ends_with,
+        )
+    if filter_original_file_name_eq is not None:
+        set_nested(
+            json_data, ["filter_original_file_name_eq"], filter_original_file_name_eq
+        )
+    if filter_original_file_name_in_ is not None:
+        set_nested(
+            json_data, ["filter_original_file_name_in_"], filter_original_file_name_in_
+        )
+    if filter_original_file_name_like is not None:
+        set_nested(
+            json_data,
+            ["filter_original_file_name_like"],
+            filter_original_file_name_like,
+        )
+    if filter_original_file_name_ne is not None:
+        set_nested(
+            json_data, ["filter_original_file_name_ne"], filter_original_file_name_ne
+        )
+    if filter_original_file_name_not_in is not None:
+        set_nested(
+            json_data,
+            ["filter_original_file_name_not_in"],
+            filter_original_file_name_not_in,
+        )
+    if filter_original_file_name_not_like is not None:
+        set_nested(
+            json_data,
+            ["filter_original_file_name_not_like"],
+            filter_original_file_name_not_like,
+        )
+    if filter_original_file_name_starts_with is not None:
+        set_nested(
+            json_data,
+            ["filter_original_file_name_starts_with"],
+            filter_original_file_name_starts_with,
+        )
+    if filter_original_path_ends_with is not None:
+        set_nested(
+            json_data,
+            ["filter_original_path_ends_with"],
+            filter_original_path_ends_with,
+        )
+    if filter_original_path_eq is not None:
+        set_nested(json_data, ["filter_original_path_eq"], filter_original_path_eq)
+    if filter_original_path_in_ is not None:
+        set_nested(json_data, ["filter_original_path_in_"], filter_original_path_in_)
+    if filter_original_path_like is not None:
+        set_nested(json_data, ["filter_original_path_like"], filter_original_path_like)
+    if filter_original_path_ne is not None:
+        set_nested(json_data, ["filter_original_path_ne"], filter_original_path_ne)
+    if filter_original_path_not_in is not None:
+        set_nested(
+            json_data, ["filter_original_path_not_in"], filter_original_path_not_in
+        )
+    if filter_original_path_not_like is not None:
+        set_nested(
+            json_data, ["filter_original_path_not_like"], filter_original_path_not_like
+        )
+    if filter_original_path_starts_with is not None:
+        set_nested(
+            json_data,
+            ["filter_original_path_starts_with"],
+            filter_original_path_starts_with,
+        )
+    if filter_person_ids_all is not None:
+        set_nested(json_data, ["filter_person_ids_all"], filter_person_ids_all)
+    if filter_person_ids_any is not None:
+        set_nested(json_data, ["filter_person_ids_any"], filter_person_ids_any)
+    if filter_person_ids_none is not None:
+        set_nested(json_data, ["filter_person_ids_none"], filter_person_ids_none)
+    if filter_rating_eq is not None:
+        set_nested(json_data, ["filter_rating_eq"], filter_rating_eq)
+    if filter_rating_gt is not None:
+        set_nested(json_data, ["filter_rating_gt"], filter_rating_gt)
+    if filter_rating_gte is not None:
+        set_nested(json_data, ["filter_rating_gte"], filter_rating_gte)
+    if filter_rating_in_ is not None:
+        set_nested(json_data, ["filter_rating_in_"], filter_rating_in_)
+    if filter_rating_lt is not None:
+        set_nested(json_data, ["filter_rating_lt"], filter_rating_lt)
+    if filter_rating_lte is not None:
+        set_nested(json_data, ["filter_rating_lte"], filter_rating_lte)
+    if filter_rating_ne is not None:
+        set_nested(json_data, ["filter_rating_ne"], filter_rating_ne)
+    if filter_rating_not_in is not None:
+        set_nested(json_data, ["filter_rating_not_in"], filter_rating_not_in)
+    if filter_state_eq is not None:
+        set_nested(json_data, ["filter_state_eq"], filter_state_eq)
+    if filter_state_in_ is not None:
+        set_nested(json_data, ["filter_state_in_"], filter_state_in_)
+    if filter_state_ne is not None:
+        set_nested(json_data, ["filter_state_ne"], filter_state_ne)
+    if filter_state_not_in is not None:
+        set_nested(json_data, ["filter_state_not_in"], filter_state_not_in)
+    if filter_tag_ids_all is not None:
+        set_nested(json_data, ["filter_tag_ids_all"], filter_tag_ids_all)
+    if filter_tag_ids_any is not None:
+        set_nested(json_data, ["filter_tag_ids_any"], filter_tag_ids_any)
+    if filter_tag_ids_none is not None:
+        set_nested(json_data, ["filter_tag_ids_none"], filter_tag_ids_none)
+    if filter_taken_at_eq is not None:
+        set_nested(json_data, ["filter_taken_at_eq"], filter_taken_at_eq)
+    if filter_taken_at_gt is not None:
+        set_nested(json_data, ["filter_taken_at_gt"], filter_taken_at_gt)
+    if filter_taken_at_gte is not None:
+        set_nested(json_data, ["filter_taken_at_gte"], filter_taken_at_gte)
+    if filter_taken_at_lt is not None:
+        set_nested(json_data, ["filter_taken_at_lt"], filter_taken_at_lt)
+    if filter_taken_at_lte is not None:
+        set_nested(json_data, ["filter_taken_at_lte"], filter_taken_at_lte)
+    if filter_taken_at_ne is not None:
+        set_nested(json_data, ["filter_taken_at_ne"], filter_taken_at_ne)
+    if filter_trashed_at_eq is not None:
+        set_nested(json_data, ["filter_trashed_at_eq"], filter_trashed_at_eq)
+    if filter_trashed_at_gt is not None:
+        set_nested(json_data, ["filter_trashed_at_gt"], filter_trashed_at_gt)
+    if filter_trashed_at_gte is not None:
+        set_nested(json_data, ["filter_trashed_at_gte"], filter_trashed_at_gte)
+    if filter_trashed_at_lt is not None:
+        set_nested(json_data, ["filter_trashed_at_lt"], filter_trashed_at_lt)
+    if filter_trashed_at_lte is not None:
+        set_nested(json_data, ["filter_trashed_at_lte"], filter_trashed_at_lte)
+    if filter_trashed_at_ne is not None:
+        set_nested(json_data, ["filter_trashed_at_ne"], filter_trashed_at_ne)
+    if filter_type_eq is not None:
+        set_nested(json_data, ["filter_type_eq"], filter_type_eq)
+    if filter_type_in_ is not None:
+        set_nested(json_data, ["filter_type_in_"], filter_type_in_)
+    if filter_type_ne is not None:
+        set_nested(json_data, ["filter_type_ne"], filter_type_ne)
+    if filter_type_not_in is not None:
+        set_nested(json_data, ["filter_type_not_in"], filter_type_not_in)
+    if filter_updated_at_eq is not None:
+        set_nested(json_data, ["filter_updated_at_eq"], filter_updated_at_eq)
+    if filter_updated_at_gt is not None:
+        set_nested(json_data, ["filter_updated_at_gt"], filter_updated_at_gt)
+    if filter_updated_at_gte is not None:
+        set_nested(json_data, ["filter_updated_at_gte"], filter_updated_at_gte)
+    if filter_updated_at_lt is not None:
+        set_nested(json_data, ["filter_updated_at_lt"], filter_updated_at_lt)
+    if filter_updated_at_lte is not None:
+        set_nested(json_data, ["filter_updated_at_lte"], filter_updated_at_lte)
+    if filter_updated_at_ne is not None:
+        set_nested(json_data, ["filter_updated_at_ne"], filter_updated_at_ne)
+    if filter_visibility_eq is not None:
+        set_nested(json_data, ["filter_visibility_eq"], filter_visibility_eq)
+    if filter_visibility_in_ is not None:
+        set_nested(json_data, ["filter_visibility_in_"], filter_visibility_in_)
+    if filter_visibility_ne is not None:
+        set_nested(json_data, ["filter_visibility_ne"], filter_visibility_ne)
+    if filter_visibility_not_in is not None:
+        set_nested(json_data, ["filter_visibility_not_in"], filter_visibility_not_in)
     if id is not None:
         set_nested(json_data, ["id"], id)
     if is_encoded is not None:
@@ -488,6 +1908,10 @@ Example: 2024-01-01T00:00:00.000Z""",
         set_nested(json_data, ["ocr"], ocr)
     if order is not None:
         set_nested(json_data, ["order"], order)
+    if order_by_direction is not None:
+        set_nested(json_data, ["order_by_direction"], order_by_direction)
+    if order_by_field is not None:
+        set_nested(json_data, ["order_by_field"], order_by_field)
     if original_file_name is not None:
         set_nested(json_data, ["original_file_name"], original_file_name)
     if original_path is not None:
@@ -539,7 +1963,7 @@ Example: 2024-01-01T00:00:00.000Z""",
     print_response(result, ctx=ctx)
 
 
-@app.command("search-large-assets", deprecated=False, rich_help_panel="API commands")
+@app.command("search-large-assets", deprecated=True, rich_help_panel="API commands")
 def search_large_assets(
     ctx: typer.Context,
     album_ids: list[UUID] | None = typer.Option(
@@ -803,6 +2227,366 @@ Example: 2024-01-01T00:00:00.000Z""",
 
 Example: 2024-01-01T00:00:00.000Z""",
     ),
+    filter_album_ids_all: list[UUID] | None = typer.Option(
+        None, "--filter-album-ids-all", help=r""""""
+    ),
+    filter_album_ids_any: list[UUID] | None = typer.Option(
+        None, "--filter-album-ids-any", help=r""""""
+    ),
+    filter_album_ids_none: list[UUID] | None = typer.Option(
+        None, "--filter-album-ids-none", help=r""""""
+    ),
+    filter_checksum_eq: str | None = typer.Option(
+        None, "--filter-checksum-eq", help=r""""""
+    ),
+    filter_checksum_in_: list[str] | None = typer.Option(
+        None, "--filter-checksum-in", help=r""""""
+    ),
+    filter_checksum_ne: str | None = typer.Option(
+        None, "--filter-checksum-ne", help=r""""""
+    ),
+    filter_checksum_not_in: list[str] | None = typer.Option(
+        None, "--filter-checksum-not-in", help=r""""""
+    ),
+    filter_city_eq: str | None = typer.Option(None, "--filter-city-eq", help=r""""""),
+    filter_city_in_: list[str] | None = typer.Option(
+        None, "--filter-city-in", help=r""""""
+    ),
+    filter_city_ne: str | None = typer.Option(None, "--filter-city-ne", help=r""""""),
+    filter_city_not_in: list[str] | None = typer.Option(
+        None, "--filter-city-not-in", help=r""""""
+    ),
+    filter_country_eq: str | None = typer.Option(
+        None, "--filter-country-eq", help=r""""""
+    ),
+    filter_country_in_: list[str] | None = typer.Option(
+        None, "--filter-country-in", help=r""""""
+    ),
+    filter_country_ne: str | None = typer.Option(
+        None, "--filter-country-ne", help=r""""""
+    ),
+    filter_country_not_in: list[str] | None = typer.Option(
+        None, "--filter-country-not-in", help=r""""""
+    ),
+    filter_created_at_eq: datetime | None = typer.Option(
+        None, "--filter-created-at-eq", help=r"""Example: 2024-01-01T00:00:00.000Z"""
+    ),
+    filter_created_at_gt: datetime | None = typer.Option(
+        None, "--filter-created-at-gt", help=r"""Example: 2024-01-01T00:00:00.000Z"""
+    ),
+    filter_created_at_gte: datetime | None = typer.Option(
+        None, "--filter-created-at-gte", help=r"""Example: 2024-01-01T00:00:00.000Z"""
+    ),
+    filter_created_at_lt: datetime | None = typer.Option(
+        None, "--filter-created-at-lt", help=r"""Example: 2024-01-01T00:00:00.000Z"""
+    ),
+    filter_created_at_lte: datetime | None = typer.Option(
+        None, "--filter-created-at-lte", help=r"""Example: 2024-01-01T00:00:00.000Z"""
+    ),
+    filter_created_at_ne: datetime | None = typer.Option(
+        None, "--filter-created-at-ne", help=r"""Example: 2024-01-01T00:00:00.000Z"""
+    ),
+    filter_description_ends_with: str | None = typer.Option(
+        None, "--filter-description-ends-with", help=r""""""
+    ),
+    filter_description_eq: str | None = typer.Option(
+        None, "--filter-description-eq", help=r""""""
+    ),
+    filter_description_in_: list[str] | None = typer.Option(
+        None, "--filter-description-in", help=r""""""
+    ),
+    filter_description_like: str | None = typer.Option(
+        None, "--filter-description-like", help=r""""""
+    ),
+    filter_description_ne: str | None = typer.Option(
+        None, "--filter-description-ne", help=r""""""
+    ),
+    filter_description_not_in: list[str] | None = typer.Option(
+        None, "--filter-description-not-in", help=r""""""
+    ),
+    filter_description_not_like: str | None = typer.Option(
+        None, "--filter-description-not-like", help=r""""""
+    ),
+    filter_description_starts_with: str | None = typer.Option(
+        None, "--filter-description-starts-with", help=r""""""
+    ),
+    filter_encoded_video_path_eq: str | None = typer.Option(
+        None, "--filter-encoded-video-path-eq", help=r""""""
+    ),
+    filter_encoded_video_path_in_: list[str] | None = typer.Option(
+        None, "--filter-encoded-video-path-in", help=r""""""
+    ),
+    filter_encoded_video_path_ne: str | None = typer.Option(
+        None, "--filter-encoded-video-path-ne", help=r""""""
+    ),
+    filter_encoded_video_path_not_in: list[str] | None = typer.Option(
+        None, "--filter-encoded-video-path-not-in", help=r""""""
+    ),
+    filter_file_size_in_bytes_eq: float | None = typer.Option(
+        None, "--filter-file-size-in-bytes-eq", help=r""""""
+    ),
+    filter_file_size_in_bytes_gt: float | None = typer.Option(
+        None, "--filter-file-size-in-bytes-gt", help=r""""""
+    ),
+    filter_file_size_in_bytes_gte: float | None = typer.Option(
+        None, "--filter-file-size-in-bytes-gte", help=r""""""
+    ),
+    filter_file_size_in_bytes_in_: list[float] | None = typer.Option(
+        None, "--filter-file-size-in-bytes-in", help=r""""""
+    ),
+    filter_file_size_in_bytes_lt: float | None = typer.Option(
+        None, "--filter-file-size-in-bytes-lt", help=r""""""
+    ),
+    filter_file_size_in_bytes_lte: float | None = typer.Option(
+        None, "--filter-file-size-in-bytes-lte", help=r""""""
+    ),
+    filter_file_size_in_bytes_ne: float | None = typer.Option(
+        None, "--filter-file-size-in-bytes-ne", help=r""""""
+    ),
+    filter_file_size_in_bytes_not_in: list[float] | None = typer.Option(
+        None, "--filter-file-size-in-bytes-not-in", help=r""""""
+    ),
+    filter_has_albums_eq: Literal["true", "false"] | None = typer.Option(
+        None, "--filter-has-albums-eq", help=r""""""
+    ),
+    filter_has_people_eq: Literal["true", "false"] | None = typer.Option(
+        None, "--filter-has-people-eq", help=r""""""
+    ),
+    filter_has_tags_eq: Literal["true", "false"] | None = typer.Option(
+        None, "--filter-has-tags-eq", help=r""""""
+    ),
+    filter_id_eq: UUID | None = typer.Option(None, "--filter-id-eq", help=r""""""),
+    filter_id_ne: UUID | None = typer.Option(None, "--filter-id-ne", help=r""""""),
+    filter_is_encoded_eq: Literal["true", "false"] | None = typer.Option(
+        None, "--filter-is-encoded-eq", help=r""""""
+    ),
+    filter_is_favorite_eq: Literal["true", "false"] | None = typer.Option(
+        None, "--filter-is-favorite-eq", help=r""""""
+    ),
+    filter_is_motion_eq: Literal["true", "false"] | None = typer.Option(
+        None, "--filter-is-motion-eq", help=r""""""
+    ),
+    filter_is_offline_eq: Literal["true", "false"] | None = typer.Option(
+        None, "--filter-is-offline-eq", help=r""""""
+    ),
+    filter_lens_model_eq: str | None = typer.Option(
+        None, "--filter-lens-model-eq", help=r""""""
+    ),
+    filter_lens_model_in_: list[str] | None = typer.Option(
+        None, "--filter-lens-model-in", help=r""""""
+    ),
+    filter_lens_model_ne: str | None = typer.Option(
+        None, "--filter-lens-model-ne", help=r""""""
+    ),
+    filter_lens_model_not_in: list[str] | None = typer.Option(
+        None, "--filter-lens-model-not-in", help=r""""""
+    ),
+    filter_library_id_eq: UUID | None = typer.Option(
+        None, "--filter-library-id-eq", help=r""""""
+    ),
+    filter_library_id_ne: UUID | None = typer.Option(
+        None, "--filter-library-id-ne", help=r""""""
+    ),
+    filter_make_eq: str | None = typer.Option(None, "--filter-make-eq", help=r""""""),
+    filter_make_in_: list[str] | None = typer.Option(
+        None, "--filter-make-in", help=r""""""
+    ),
+    filter_make_ne: str | None = typer.Option(None, "--filter-make-ne", help=r""""""),
+    filter_make_not_in: list[str] | None = typer.Option(
+        None, "--filter-make-not-in", help=r""""""
+    ),
+    filter_model_eq: str | None = typer.Option(None, "--filter-model-eq", help=r""""""),
+    filter_model_in_: list[str] | None = typer.Option(
+        None, "--filter-model-in", help=r""""""
+    ),
+    filter_model_ne: str | None = typer.Option(None, "--filter-model-ne", help=r""""""),
+    filter_model_not_in: list[str] | None = typer.Option(
+        None, "--filter-model-not-in", help=r""""""
+    ),
+    filter_ocr_matches: str | None = typer.Option(
+        None, "--filter-ocr-matches", help=r""""""
+    ),
+    filter_or_: list[str] | None = typer.Option(
+        None,
+        "--filter-or",
+        help=r"""As a JSON string with keys: albumIds (object), checksum (object), city (object), country (object), createdAt (object), description (object), encodedVideoPath (object), fileSizeInBytes (object), hasAlbums (object), hasPeople (object), hasTags (object), id (object), isEncoded (object), isFavorite (object), isMotion (object), isOffline (object), lensModel (object), libraryId (object), make (object), model (object), ocr (object), originalFileName (object), originalPath (object), personIds (object), rating (object), state (object), tagIds (object), takenAt (object), trashedAt (object), type (object), updatedAt (object), visibility (object)""",
+    ),
+    filter_original_file_name_ends_with: str | None = typer.Option(
+        None, "--filter-original-file-name-ends-with", help=r""""""
+    ),
+    filter_original_file_name_eq: str | None = typer.Option(
+        None, "--filter-original-file-name-eq", help=r""""""
+    ),
+    filter_original_file_name_in_: list[str] | None = typer.Option(
+        None, "--filter-original-file-name-in", help=r""""""
+    ),
+    filter_original_file_name_like: str | None = typer.Option(
+        None, "--filter-original-file-name-like", help=r""""""
+    ),
+    filter_original_file_name_ne: str | None = typer.Option(
+        None, "--filter-original-file-name-ne", help=r""""""
+    ),
+    filter_original_file_name_not_in: list[str] | None = typer.Option(
+        None, "--filter-original-file-name-not-in", help=r""""""
+    ),
+    filter_original_file_name_not_like: str | None = typer.Option(
+        None, "--filter-original-file-name-not-like", help=r""""""
+    ),
+    filter_original_file_name_starts_with: str | None = typer.Option(
+        None, "--filter-original-file-name-starts-with", help=r""""""
+    ),
+    filter_original_path_ends_with: str | None = typer.Option(
+        None, "--filter-original-path-ends-with", help=r""""""
+    ),
+    filter_original_path_eq: str | None = typer.Option(
+        None, "--filter-original-path-eq", help=r""""""
+    ),
+    filter_original_path_in_: list[str] | None = typer.Option(
+        None, "--filter-original-path-in", help=r""""""
+    ),
+    filter_original_path_like: str | None = typer.Option(
+        None, "--filter-original-path-like", help=r""""""
+    ),
+    filter_original_path_ne: str | None = typer.Option(
+        None, "--filter-original-path-ne", help=r""""""
+    ),
+    filter_original_path_not_in: list[str] | None = typer.Option(
+        None, "--filter-original-path-not-in", help=r""""""
+    ),
+    filter_original_path_not_like: str | None = typer.Option(
+        None, "--filter-original-path-not-like", help=r""""""
+    ),
+    filter_original_path_starts_with: str | None = typer.Option(
+        None, "--filter-original-path-starts-with", help=r""""""
+    ),
+    filter_person_ids_all: list[UUID] | None = typer.Option(
+        None, "--filter-person-ids-all", help=r""""""
+    ),
+    filter_person_ids_any: list[UUID] | None = typer.Option(
+        None, "--filter-person-ids-any", help=r""""""
+    ),
+    filter_person_ids_none: list[UUID] | None = typer.Option(
+        None, "--filter-person-ids-none", help=r""""""
+    ),
+    filter_rating_eq: float | None = typer.Option(
+        None, "--filter-rating-eq", help=r""""""
+    ),
+    filter_rating_gt: float | None = typer.Option(
+        None, "--filter-rating-gt", help=r""""""
+    ),
+    filter_rating_gte: float | None = typer.Option(
+        None, "--filter-rating-gte", help=r""""""
+    ),
+    filter_rating_in_: list[float] | None = typer.Option(
+        None, "--filter-rating-in", help=r""""""
+    ),
+    filter_rating_lt: float | None = typer.Option(
+        None, "--filter-rating-lt", help=r""""""
+    ),
+    filter_rating_lte: float | None = typer.Option(
+        None, "--filter-rating-lte", help=r""""""
+    ),
+    filter_rating_ne: float | None = typer.Option(
+        None, "--filter-rating-ne", help=r""""""
+    ),
+    filter_rating_not_in: list[float] | None = typer.Option(
+        None, "--filter-rating-not-in", help=r""""""
+    ),
+    filter_state_eq: str | None = typer.Option(None, "--filter-state-eq", help=r""""""),
+    filter_state_in_: list[str] | None = typer.Option(
+        None, "--filter-state-in", help=r""""""
+    ),
+    filter_state_ne: str | None = typer.Option(None, "--filter-state-ne", help=r""""""),
+    filter_state_not_in: list[str] | None = typer.Option(
+        None, "--filter-state-not-in", help=r""""""
+    ),
+    filter_tag_ids_all: list[UUID] | None = typer.Option(
+        None, "--filter-tag-ids-all", help=r""""""
+    ),
+    filter_tag_ids_any: list[UUID] | None = typer.Option(
+        None, "--filter-tag-ids-any", help=r""""""
+    ),
+    filter_tag_ids_none: list[UUID] | None = typer.Option(
+        None, "--filter-tag-ids-none", help=r""""""
+    ),
+    filter_taken_at_eq: datetime | None = typer.Option(
+        None, "--filter-taken-at-eq", help=r"""Example: 2024-01-01T00:00:00.000Z"""
+    ),
+    filter_taken_at_gt: datetime | None = typer.Option(
+        None, "--filter-taken-at-gt", help=r"""Example: 2024-01-01T00:00:00.000Z"""
+    ),
+    filter_taken_at_gte: datetime | None = typer.Option(
+        None, "--filter-taken-at-gte", help=r"""Example: 2024-01-01T00:00:00.000Z"""
+    ),
+    filter_taken_at_lt: datetime | None = typer.Option(
+        None, "--filter-taken-at-lt", help=r"""Example: 2024-01-01T00:00:00.000Z"""
+    ),
+    filter_taken_at_lte: datetime | None = typer.Option(
+        None, "--filter-taken-at-lte", help=r"""Example: 2024-01-01T00:00:00.000Z"""
+    ),
+    filter_taken_at_ne: datetime | None = typer.Option(
+        None, "--filter-taken-at-ne", help=r"""Example: 2024-01-01T00:00:00.000Z"""
+    ),
+    filter_trashed_at_eq: datetime | None = typer.Option(
+        None, "--filter-trashed-at-eq", help=r"""Example: 2024-01-01T00:00:00.000Z"""
+    ),
+    filter_trashed_at_gt: datetime | None = typer.Option(
+        None, "--filter-trashed-at-gt", help=r"""Example: 2024-01-01T00:00:00.000Z"""
+    ),
+    filter_trashed_at_gte: datetime | None = typer.Option(
+        None, "--filter-trashed-at-gte", help=r"""Example: 2024-01-01T00:00:00.000Z"""
+    ),
+    filter_trashed_at_lt: datetime | None = typer.Option(
+        None, "--filter-trashed-at-lt", help=r"""Example: 2024-01-01T00:00:00.000Z"""
+    ),
+    filter_trashed_at_lte: datetime | None = typer.Option(
+        None, "--filter-trashed-at-lte", help=r"""Example: 2024-01-01T00:00:00.000Z"""
+    ),
+    filter_trashed_at_ne: datetime | None = typer.Option(
+        None, "--filter-trashed-at-ne", help=r"""Example: 2024-01-01T00:00:00.000Z"""
+    ),
+    filter_type_eq: str | None = typer.Option(
+        None, "--filter-type-eq", help=r"""Asset type"""
+    ),
+    filter_type_in_: list[AssetTypeEnum] | None = typer.Option(
+        None, "--filter-type-in", help=r""""""
+    ),
+    filter_type_ne: str | None = typer.Option(
+        None, "--filter-type-ne", help=r"""Asset type"""
+    ),
+    filter_type_not_in: list[AssetTypeEnum] | None = typer.Option(
+        None, "--filter-type-not-in", help=r""""""
+    ),
+    filter_updated_at_eq: datetime | None = typer.Option(
+        None, "--filter-updated-at-eq", help=r"""Example: 2024-01-01T00:00:00.000Z"""
+    ),
+    filter_updated_at_gt: datetime | None = typer.Option(
+        None, "--filter-updated-at-gt", help=r"""Example: 2024-01-01T00:00:00.000Z"""
+    ),
+    filter_updated_at_gte: datetime | None = typer.Option(
+        None, "--filter-updated-at-gte", help=r"""Example: 2024-01-01T00:00:00.000Z"""
+    ),
+    filter_updated_at_lt: datetime | None = typer.Option(
+        None, "--filter-updated-at-lt", help=r"""Example: 2024-01-01T00:00:00.000Z"""
+    ),
+    filter_updated_at_lte: datetime | None = typer.Option(
+        None, "--filter-updated-at-lte", help=r"""Example: 2024-01-01T00:00:00.000Z"""
+    ),
+    filter_updated_at_ne: datetime | None = typer.Option(
+        None, "--filter-updated-at-ne", help=r"""Example: 2024-01-01T00:00:00.000Z"""
+    ),
+    filter_visibility_eq: str | None = typer.Option(
+        None, "--filter-visibility-eq", help=r"""Asset visibility"""
+    ),
+    filter_visibility_in_: list[AssetVisibility] | None = typer.Option(
+        None, "--filter-visibility-in", help=r""""""
+    ),
+    filter_visibility_ne: str | None = typer.Option(
+        None, "--filter-visibility-ne", help=r"""Asset visibility"""
+    ),
+    filter_visibility_not_in: list[AssetVisibility] | None = typer.Option(
+        None, "--filter-visibility-not-in", help=r""""""
+    ),
     is_encoded: Literal["true", "false"] | None = typer.Option(
         None, "--is-encoded", help=r"""Filter by encoded status"""
     ),
@@ -925,6 +2709,349 @@ Example: 2024-01-01T00:00:00.000Z""",
         set_nested(json_data, ["created_after"], created_after)
     if created_before is not None:
         set_nested(json_data, ["created_before"], created_before)
+    if filter_album_ids_all is not None:
+        set_nested(json_data, ["filter_album_ids_all"], filter_album_ids_all)
+    if filter_album_ids_any is not None:
+        set_nested(json_data, ["filter_album_ids_any"], filter_album_ids_any)
+    if filter_album_ids_none is not None:
+        set_nested(json_data, ["filter_album_ids_none"], filter_album_ids_none)
+    if filter_checksum_eq is not None:
+        set_nested(json_data, ["filter_checksum_eq"], filter_checksum_eq)
+    if filter_checksum_in_ is not None:
+        set_nested(json_data, ["filter_checksum_in_"], filter_checksum_in_)
+    if filter_checksum_ne is not None:
+        set_nested(json_data, ["filter_checksum_ne"], filter_checksum_ne)
+    if filter_checksum_not_in is not None:
+        set_nested(json_data, ["filter_checksum_not_in"], filter_checksum_not_in)
+    if filter_city_eq is not None:
+        set_nested(json_data, ["filter_city_eq"], filter_city_eq)
+    if filter_city_in_ is not None:
+        set_nested(json_data, ["filter_city_in_"], filter_city_in_)
+    if filter_city_ne is not None:
+        set_nested(json_data, ["filter_city_ne"], filter_city_ne)
+    if filter_city_not_in is not None:
+        set_nested(json_data, ["filter_city_not_in"], filter_city_not_in)
+    if filter_country_eq is not None:
+        set_nested(json_data, ["filter_country_eq"], filter_country_eq)
+    if filter_country_in_ is not None:
+        set_nested(json_data, ["filter_country_in_"], filter_country_in_)
+    if filter_country_ne is not None:
+        set_nested(json_data, ["filter_country_ne"], filter_country_ne)
+    if filter_country_not_in is not None:
+        set_nested(json_data, ["filter_country_not_in"], filter_country_not_in)
+    if filter_created_at_eq is not None:
+        set_nested(json_data, ["filter_created_at_eq"], filter_created_at_eq)
+    if filter_created_at_gt is not None:
+        set_nested(json_data, ["filter_created_at_gt"], filter_created_at_gt)
+    if filter_created_at_gte is not None:
+        set_nested(json_data, ["filter_created_at_gte"], filter_created_at_gte)
+    if filter_created_at_lt is not None:
+        set_nested(json_data, ["filter_created_at_lt"], filter_created_at_lt)
+    if filter_created_at_lte is not None:
+        set_nested(json_data, ["filter_created_at_lte"], filter_created_at_lte)
+    if filter_created_at_ne is not None:
+        set_nested(json_data, ["filter_created_at_ne"], filter_created_at_ne)
+    if filter_description_ends_with is not None:
+        set_nested(
+            json_data, ["filter_description_ends_with"], filter_description_ends_with
+        )
+    if filter_description_eq is not None:
+        set_nested(json_data, ["filter_description_eq"], filter_description_eq)
+    if filter_description_in_ is not None:
+        set_nested(json_data, ["filter_description_in_"], filter_description_in_)
+    if filter_description_like is not None:
+        set_nested(json_data, ["filter_description_like"], filter_description_like)
+    if filter_description_ne is not None:
+        set_nested(json_data, ["filter_description_ne"], filter_description_ne)
+    if filter_description_not_in is not None:
+        set_nested(json_data, ["filter_description_not_in"], filter_description_not_in)
+    if filter_description_not_like is not None:
+        set_nested(
+            json_data, ["filter_description_not_like"], filter_description_not_like
+        )
+    if filter_description_starts_with is not None:
+        set_nested(
+            json_data,
+            ["filter_description_starts_with"],
+            filter_description_starts_with,
+        )
+    if filter_encoded_video_path_eq is not None:
+        set_nested(
+            json_data, ["filter_encoded_video_path_eq"], filter_encoded_video_path_eq
+        )
+    if filter_encoded_video_path_in_ is not None:
+        set_nested(
+            json_data, ["filter_encoded_video_path_in_"], filter_encoded_video_path_in_
+        )
+    if filter_encoded_video_path_ne is not None:
+        set_nested(
+            json_data, ["filter_encoded_video_path_ne"], filter_encoded_video_path_ne
+        )
+    if filter_encoded_video_path_not_in is not None:
+        set_nested(
+            json_data,
+            ["filter_encoded_video_path_not_in"],
+            filter_encoded_video_path_not_in,
+        )
+    if filter_file_size_in_bytes_eq is not None:
+        set_nested(
+            json_data, ["filter_file_size_in_bytes_eq"], filter_file_size_in_bytes_eq
+        )
+    if filter_file_size_in_bytes_gt is not None:
+        set_nested(
+            json_data, ["filter_file_size_in_bytes_gt"], filter_file_size_in_bytes_gt
+        )
+    if filter_file_size_in_bytes_gte is not None:
+        set_nested(
+            json_data, ["filter_file_size_in_bytes_gte"], filter_file_size_in_bytes_gte
+        )
+    if filter_file_size_in_bytes_in_ is not None:
+        set_nested(
+            json_data, ["filter_file_size_in_bytes_in_"], filter_file_size_in_bytes_in_
+        )
+    if filter_file_size_in_bytes_lt is not None:
+        set_nested(
+            json_data, ["filter_file_size_in_bytes_lt"], filter_file_size_in_bytes_lt
+        )
+    if filter_file_size_in_bytes_lte is not None:
+        set_nested(
+            json_data, ["filter_file_size_in_bytes_lte"], filter_file_size_in_bytes_lte
+        )
+    if filter_file_size_in_bytes_ne is not None:
+        set_nested(
+            json_data, ["filter_file_size_in_bytes_ne"], filter_file_size_in_bytes_ne
+        )
+    if filter_file_size_in_bytes_not_in is not None:
+        set_nested(
+            json_data,
+            ["filter_file_size_in_bytes_not_in"],
+            filter_file_size_in_bytes_not_in,
+        )
+    if filter_has_albums_eq is not None:
+        set_nested(
+            json_data, ["filter_has_albums_eq"], filter_has_albums_eq.lower() == "true"
+        )
+    if filter_has_people_eq is not None:
+        set_nested(
+            json_data, ["filter_has_people_eq"], filter_has_people_eq.lower() == "true"
+        )
+    if filter_has_tags_eq is not None:
+        set_nested(
+            json_data, ["filter_has_tags_eq"], filter_has_tags_eq.lower() == "true"
+        )
+    if filter_id_eq is not None:
+        set_nested(json_data, ["filter_id_eq"], filter_id_eq)
+    if filter_id_ne is not None:
+        set_nested(json_data, ["filter_id_ne"], filter_id_ne)
+    if filter_is_encoded_eq is not None:
+        set_nested(
+            json_data, ["filter_is_encoded_eq"], filter_is_encoded_eq.lower() == "true"
+        )
+    if filter_is_favorite_eq is not None:
+        set_nested(
+            json_data,
+            ["filter_is_favorite_eq"],
+            filter_is_favorite_eq.lower() == "true",
+        )
+    if filter_is_motion_eq is not None:
+        set_nested(
+            json_data, ["filter_is_motion_eq"], filter_is_motion_eq.lower() == "true"
+        )
+    if filter_is_offline_eq is not None:
+        set_nested(
+            json_data, ["filter_is_offline_eq"], filter_is_offline_eq.lower() == "true"
+        )
+    if filter_lens_model_eq is not None:
+        set_nested(json_data, ["filter_lens_model_eq"], filter_lens_model_eq)
+    if filter_lens_model_in_ is not None:
+        set_nested(json_data, ["filter_lens_model_in_"], filter_lens_model_in_)
+    if filter_lens_model_ne is not None:
+        set_nested(json_data, ["filter_lens_model_ne"], filter_lens_model_ne)
+    if filter_lens_model_not_in is not None:
+        set_nested(json_data, ["filter_lens_model_not_in"], filter_lens_model_not_in)
+    if filter_library_id_eq is not None:
+        set_nested(json_data, ["filter_library_id_eq"], filter_library_id_eq)
+    if filter_library_id_ne is not None:
+        set_nested(json_data, ["filter_library_id_ne"], filter_library_id_ne)
+    if filter_make_eq is not None:
+        set_nested(json_data, ["filter_make_eq"], filter_make_eq)
+    if filter_make_in_ is not None:
+        set_nested(json_data, ["filter_make_in_"], filter_make_in_)
+    if filter_make_ne is not None:
+        set_nested(json_data, ["filter_make_ne"], filter_make_ne)
+    if filter_make_not_in is not None:
+        set_nested(json_data, ["filter_make_not_in"], filter_make_not_in)
+    if filter_model_eq is not None:
+        set_nested(json_data, ["filter_model_eq"], filter_model_eq)
+    if filter_model_in_ is not None:
+        set_nested(json_data, ["filter_model_in_"], filter_model_in_)
+    if filter_model_ne is not None:
+        set_nested(json_data, ["filter_model_ne"], filter_model_ne)
+    if filter_model_not_in is not None:
+        set_nested(json_data, ["filter_model_not_in"], filter_model_not_in)
+    if filter_ocr_matches is not None:
+        set_nested(json_data, ["filter_ocr_matches"], filter_ocr_matches)
+    if filter_or_ is not None:
+        value_filter_or_ = parse_json_options(filter_or_, "--filter-or", ctx=ctx)
+        set_nested(json_data, ["filter_or_"], value_filter_or_)
+    if filter_original_file_name_ends_with is not None:
+        set_nested(
+            json_data,
+            ["filter_original_file_name_ends_with"],
+            filter_original_file_name_ends_with,
+        )
+    if filter_original_file_name_eq is not None:
+        set_nested(
+            json_data, ["filter_original_file_name_eq"], filter_original_file_name_eq
+        )
+    if filter_original_file_name_in_ is not None:
+        set_nested(
+            json_data, ["filter_original_file_name_in_"], filter_original_file_name_in_
+        )
+    if filter_original_file_name_like is not None:
+        set_nested(
+            json_data,
+            ["filter_original_file_name_like"],
+            filter_original_file_name_like,
+        )
+    if filter_original_file_name_ne is not None:
+        set_nested(
+            json_data, ["filter_original_file_name_ne"], filter_original_file_name_ne
+        )
+    if filter_original_file_name_not_in is not None:
+        set_nested(
+            json_data,
+            ["filter_original_file_name_not_in"],
+            filter_original_file_name_not_in,
+        )
+    if filter_original_file_name_not_like is not None:
+        set_nested(
+            json_data,
+            ["filter_original_file_name_not_like"],
+            filter_original_file_name_not_like,
+        )
+    if filter_original_file_name_starts_with is not None:
+        set_nested(
+            json_data,
+            ["filter_original_file_name_starts_with"],
+            filter_original_file_name_starts_with,
+        )
+    if filter_original_path_ends_with is not None:
+        set_nested(
+            json_data,
+            ["filter_original_path_ends_with"],
+            filter_original_path_ends_with,
+        )
+    if filter_original_path_eq is not None:
+        set_nested(json_data, ["filter_original_path_eq"], filter_original_path_eq)
+    if filter_original_path_in_ is not None:
+        set_nested(json_data, ["filter_original_path_in_"], filter_original_path_in_)
+    if filter_original_path_like is not None:
+        set_nested(json_data, ["filter_original_path_like"], filter_original_path_like)
+    if filter_original_path_ne is not None:
+        set_nested(json_data, ["filter_original_path_ne"], filter_original_path_ne)
+    if filter_original_path_not_in is not None:
+        set_nested(
+            json_data, ["filter_original_path_not_in"], filter_original_path_not_in
+        )
+    if filter_original_path_not_like is not None:
+        set_nested(
+            json_data, ["filter_original_path_not_like"], filter_original_path_not_like
+        )
+    if filter_original_path_starts_with is not None:
+        set_nested(
+            json_data,
+            ["filter_original_path_starts_with"],
+            filter_original_path_starts_with,
+        )
+    if filter_person_ids_all is not None:
+        set_nested(json_data, ["filter_person_ids_all"], filter_person_ids_all)
+    if filter_person_ids_any is not None:
+        set_nested(json_data, ["filter_person_ids_any"], filter_person_ids_any)
+    if filter_person_ids_none is not None:
+        set_nested(json_data, ["filter_person_ids_none"], filter_person_ids_none)
+    if filter_rating_eq is not None:
+        set_nested(json_data, ["filter_rating_eq"], filter_rating_eq)
+    if filter_rating_gt is not None:
+        set_nested(json_data, ["filter_rating_gt"], filter_rating_gt)
+    if filter_rating_gte is not None:
+        set_nested(json_data, ["filter_rating_gte"], filter_rating_gte)
+    if filter_rating_in_ is not None:
+        set_nested(json_data, ["filter_rating_in_"], filter_rating_in_)
+    if filter_rating_lt is not None:
+        set_nested(json_data, ["filter_rating_lt"], filter_rating_lt)
+    if filter_rating_lte is not None:
+        set_nested(json_data, ["filter_rating_lte"], filter_rating_lte)
+    if filter_rating_ne is not None:
+        set_nested(json_data, ["filter_rating_ne"], filter_rating_ne)
+    if filter_rating_not_in is not None:
+        set_nested(json_data, ["filter_rating_not_in"], filter_rating_not_in)
+    if filter_state_eq is not None:
+        set_nested(json_data, ["filter_state_eq"], filter_state_eq)
+    if filter_state_in_ is not None:
+        set_nested(json_data, ["filter_state_in_"], filter_state_in_)
+    if filter_state_ne is not None:
+        set_nested(json_data, ["filter_state_ne"], filter_state_ne)
+    if filter_state_not_in is not None:
+        set_nested(json_data, ["filter_state_not_in"], filter_state_not_in)
+    if filter_tag_ids_all is not None:
+        set_nested(json_data, ["filter_tag_ids_all"], filter_tag_ids_all)
+    if filter_tag_ids_any is not None:
+        set_nested(json_data, ["filter_tag_ids_any"], filter_tag_ids_any)
+    if filter_tag_ids_none is not None:
+        set_nested(json_data, ["filter_tag_ids_none"], filter_tag_ids_none)
+    if filter_taken_at_eq is not None:
+        set_nested(json_data, ["filter_taken_at_eq"], filter_taken_at_eq)
+    if filter_taken_at_gt is not None:
+        set_nested(json_data, ["filter_taken_at_gt"], filter_taken_at_gt)
+    if filter_taken_at_gte is not None:
+        set_nested(json_data, ["filter_taken_at_gte"], filter_taken_at_gte)
+    if filter_taken_at_lt is not None:
+        set_nested(json_data, ["filter_taken_at_lt"], filter_taken_at_lt)
+    if filter_taken_at_lte is not None:
+        set_nested(json_data, ["filter_taken_at_lte"], filter_taken_at_lte)
+    if filter_taken_at_ne is not None:
+        set_nested(json_data, ["filter_taken_at_ne"], filter_taken_at_ne)
+    if filter_trashed_at_eq is not None:
+        set_nested(json_data, ["filter_trashed_at_eq"], filter_trashed_at_eq)
+    if filter_trashed_at_gt is not None:
+        set_nested(json_data, ["filter_trashed_at_gt"], filter_trashed_at_gt)
+    if filter_trashed_at_gte is not None:
+        set_nested(json_data, ["filter_trashed_at_gte"], filter_trashed_at_gte)
+    if filter_trashed_at_lt is not None:
+        set_nested(json_data, ["filter_trashed_at_lt"], filter_trashed_at_lt)
+    if filter_trashed_at_lte is not None:
+        set_nested(json_data, ["filter_trashed_at_lte"], filter_trashed_at_lte)
+    if filter_trashed_at_ne is not None:
+        set_nested(json_data, ["filter_trashed_at_ne"], filter_trashed_at_ne)
+    if filter_type_eq is not None:
+        set_nested(json_data, ["filter_type_eq"], filter_type_eq)
+    if filter_type_in_ is not None:
+        set_nested(json_data, ["filter_type_in_"], filter_type_in_)
+    if filter_type_ne is not None:
+        set_nested(json_data, ["filter_type_ne"], filter_type_ne)
+    if filter_type_not_in is not None:
+        set_nested(json_data, ["filter_type_not_in"], filter_type_not_in)
+    if filter_updated_at_eq is not None:
+        set_nested(json_data, ["filter_updated_at_eq"], filter_updated_at_eq)
+    if filter_updated_at_gt is not None:
+        set_nested(json_data, ["filter_updated_at_gt"], filter_updated_at_gt)
+    if filter_updated_at_gte is not None:
+        set_nested(json_data, ["filter_updated_at_gte"], filter_updated_at_gte)
+    if filter_updated_at_lt is not None:
+        set_nested(json_data, ["filter_updated_at_lt"], filter_updated_at_lt)
+    if filter_updated_at_lte is not None:
+        set_nested(json_data, ["filter_updated_at_lte"], filter_updated_at_lte)
+    if filter_updated_at_ne is not None:
+        set_nested(json_data, ["filter_updated_at_ne"], filter_updated_at_ne)
+    if filter_visibility_eq is not None:
+        set_nested(json_data, ["filter_visibility_eq"], filter_visibility_eq)
+    if filter_visibility_in_ is not None:
+        set_nested(json_data, ["filter_visibility_in_"], filter_visibility_in_)
+    if filter_visibility_ne is not None:
+        set_nested(json_data, ["filter_visibility_ne"], filter_visibility_ne)
+    if filter_visibility_not_in is not None:
+        set_nested(json_data, ["filter_visibility_not_in"], filter_visibility_not_in)
     if is_encoded is not None:
         set_nested(json_data, ["is_encoded"], is_encoded.lower() == "true")
     if is_favorite is not None:
@@ -1009,6 +3136,366 @@ Example: 2024-01-01T00:00:00.000Z""",
         help=r"""Filter by creation date (before)
 
 Example: 2024-01-01T00:00:00.000Z""",
+    ),
+    filter_album_ids_all: list[UUID] | None = typer.Option(
+        None, "--filter-album-ids-all", help=r""""""
+    ),
+    filter_album_ids_any: list[UUID] | None = typer.Option(
+        None, "--filter-album-ids-any", help=r""""""
+    ),
+    filter_album_ids_none: list[UUID] | None = typer.Option(
+        None, "--filter-album-ids-none", help=r""""""
+    ),
+    filter_checksum_eq: str | None = typer.Option(
+        None, "--filter-checksum-eq", help=r""""""
+    ),
+    filter_checksum_in_: list[str] | None = typer.Option(
+        None, "--filter-checksum-in", help=r""""""
+    ),
+    filter_checksum_ne: str | None = typer.Option(
+        None, "--filter-checksum-ne", help=r""""""
+    ),
+    filter_checksum_not_in: list[str] | None = typer.Option(
+        None, "--filter-checksum-not-in", help=r""""""
+    ),
+    filter_city_eq: str | None = typer.Option(None, "--filter-city-eq", help=r""""""),
+    filter_city_in_: list[str] | None = typer.Option(
+        None, "--filter-city-in", help=r""""""
+    ),
+    filter_city_ne: str | None = typer.Option(None, "--filter-city-ne", help=r""""""),
+    filter_city_not_in: list[str] | None = typer.Option(
+        None, "--filter-city-not-in", help=r""""""
+    ),
+    filter_country_eq: str | None = typer.Option(
+        None, "--filter-country-eq", help=r""""""
+    ),
+    filter_country_in_: list[str] | None = typer.Option(
+        None, "--filter-country-in", help=r""""""
+    ),
+    filter_country_ne: str | None = typer.Option(
+        None, "--filter-country-ne", help=r""""""
+    ),
+    filter_country_not_in: list[str] | None = typer.Option(
+        None, "--filter-country-not-in", help=r""""""
+    ),
+    filter_created_at_eq: datetime | None = typer.Option(
+        None, "--filter-created-at-eq", help=r"""Example: 2024-01-01T00:00:00.000Z"""
+    ),
+    filter_created_at_gt: datetime | None = typer.Option(
+        None, "--filter-created-at-gt", help=r"""Example: 2024-01-01T00:00:00.000Z"""
+    ),
+    filter_created_at_gte: datetime | None = typer.Option(
+        None, "--filter-created-at-gte", help=r"""Example: 2024-01-01T00:00:00.000Z"""
+    ),
+    filter_created_at_lt: datetime | None = typer.Option(
+        None, "--filter-created-at-lt", help=r"""Example: 2024-01-01T00:00:00.000Z"""
+    ),
+    filter_created_at_lte: datetime | None = typer.Option(
+        None, "--filter-created-at-lte", help=r"""Example: 2024-01-01T00:00:00.000Z"""
+    ),
+    filter_created_at_ne: datetime | None = typer.Option(
+        None, "--filter-created-at-ne", help=r"""Example: 2024-01-01T00:00:00.000Z"""
+    ),
+    filter_description_ends_with: str | None = typer.Option(
+        None, "--filter-description-ends-with", help=r""""""
+    ),
+    filter_description_eq: str | None = typer.Option(
+        None, "--filter-description-eq", help=r""""""
+    ),
+    filter_description_in_: list[str] | None = typer.Option(
+        None, "--filter-description-in", help=r""""""
+    ),
+    filter_description_like: str | None = typer.Option(
+        None, "--filter-description-like", help=r""""""
+    ),
+    filter_description_ne: str | None = typer.Option(
+        None, "--filter-description-ne", help=r""""""
+    ),
+    filter_description_not_in: list[str] | None = typer.Option(
+        None, "--filter-description-not-in", help=r""""""
+    ),
+    filter_description_not_like: str | None = typer.Option(
+        None, "--filter-description-not-like", help=r""""""
+    ),
+    filter_description_starts_with: str | None = typer.Option(
+        None, "--filter-description-starts-with", help=r""""""
+    ),
+    filter_encoded_video_path_eq: str | None = typer.Option(
+        None, "--filter-encoded-video-path-eq", help=r""""""
+    ),
+    filter_encoded_video_path_in_: list[str] | None = typer.Option(
+        None, "--filter-encoded-video-path-in", help=r""""""
+    ),
+    filter_encoded_video_path_ne: str | None = typer.Option(
+        None, "--filter-encoded-video-path-ne", help=r""""""
+    ),
+    filter_encoded_video_path_not_in: list[str] | None = typer.Option(
+        None, "--filter-encoded-video-path-not-in", help=r""""""
+    ),
+    filter_file_size_in_bytes_eq: float | None = typer.Option(
+        None, "--filter-file-size-in-bytes-eq", help=r""""""
+    ),
+    filter_file_size_in_bytes_gt: float | None = typer.Option(
+        None, "--filter-file-size-in-bytes-gt", help=r""""""
+    ),
+    filter_file_size_in_bytes_gte: float | None = typer.Option(
+        None, "--filter-file-size-in-bytes-gte", help=r""""""
+    ),
+    filter_file_size_in_bytes_in_: list[float] | None = typer.Option(
+        None, "--filter-file-size-in-bytes-in", help=r""""""
+    ),
+    filter_file_size_in_bytes_lt: float | None = typer.Option(
+        None, "--filter-file-size-in-bytes-lt", help=r""""""
+    ),
+    filter_file_size_in_bytes_lte: float | None = typer.Option(
+        None, "--filter-file-size-in-bytes-lte", help=r""""""
+    ),
+    filter_file_size_in_bytes_ne: float | None = typer.Option(
+        None, "--filter-file-size-in-bytes-ne", help=r""""""
+    ),
+    filter_file_size_in_bytes_not_in: list[float] | None = typer.Option(
+        None, "--filter-file-size-in-bytes-not-in", help=r""""""
+    ),
+    filter_has_albums_eq: Literal["true", "false"] | None = typer.Option(
+        None, "--filter-has-albums-eq", help=r""""""
+    ),
+    filter_has_people_eq: Literal["true", "false"] | None = typer.Option(
+        None, "--filter-has-people-eq", help=r""""""
+    ),
+    filter_has_tags_eq: Literal["true", "false"] | None = typer.Option(
+        None, "--filter-has-tags-eq", help=r""""""
+    ),
+    filter_id_eq: UUID | None = typer.Option(None, "--filter-id-eq", help=r""""""),
+    filter_id_ne: UUID | None = typer.Option(None, "--filter-id-ne", help=r""""""),
+    filter_is_encoded_eq: Literal["true", "false"] | None = typer.Option(
+        None, "--filter-is-encoded-eq", help=r""""""
+    ),
+    filter_is_favorite_eq: Literal["true", "false"] | None = typer.Option(
+        None, "--filter-is-favorite-eq", help=r""""""
+    ),
+    filter_is_motion_eq: Literal["true", "false"] | None = typer.Option(
+        None, "--filter-is-motion-eq", help=r""""""
+    ),
+    filter_is_offline_eq: Literal["true", "false"] | None = typer.Option(
+        None, "--filter-is-offline-eq", help=r""""""
+    ),
+    filter_lens_model_eq: str | None = typer.Option(
+        None, "--filter-lens-model-eq", help=r""""""
+    ),
+    filter_lens_model_in_: list[str] | None = typer.Option(
+        None, "--filter-lens-model-in", help=r""""""
+    ),
+    filter_lens_model_ne: str | None = typer.Option(
+        None, "--filter-lens-model-ne", help=r""""""
+    ),
+    filter_lens_model_not_in: list[str] | None = typer.Option(
+        None, "--filter-lens-model-not-in", help=r""""""
+    ),
+    filter_library_id_eq: UUID | None = typer.Option(
+        None, "--filter-library-id-eq", help=r""""""
+    ),
+    filter_library_id_ne: UUID | None = typer.Option(
+        None, "--filter-library-id-ne", help=r""""""
+    ),
+    filter_make_eq: str | None = typer.Option(None, "--filter-make-eq", help=r""""""),
+    filter_make_in_: list[str] | None = typer.Option(
+        None, "--filter-make-in", help=r""""""
+    ),
+    filter_make_ne: str | None = typer.Option(None, "--filter-make-ne", help=r""""""),
+    filter_make_not_in: list[str] | None = typer.Option(
+        None, "--filter-make-not-in", help=r""""""
+    ),
+    filter_model_eq: str | None = typer.Option(None, "--filter-model-eq", help=r""""""),
+    filter_model_in_: list[str] | None = typer.Option(
+        None, "--filter-model-in", help=r""""""
+    ),
+    filter_model_ne: str | None = typer.Option(None, "--filter-model-ne", help=r""""""),
+    filter_model_not_in: list[str] | None = typer.Option(
+        None, "--filter-model-not-in", help=r""""""
+    ),
+    filter_ocr_matches: str | None = typer.Option(
+        None, "--filter-ocr-matches", help=r""""""
+    ),
+    filter_or_: list[str] | None = typer.Option(
+        None,
+        "--filter-or",
+        help=r"""As a JSON string with keys: albumIds (object), checksum (object), city (object), country (object), createdAt (object), description (object), encodedVideoPath (object), fileSizeInBytes (object), hasAlbums (object), hasPeople (object), hasTags (object), id (object), isEncoded (object), isFavorite (object), isMotion (object), isOffline (object), lensModel (object), libraryId (object), make (object), model (object), ocr (object), originalFileName (object), originalPath (object), personIds (object), rating (object), state (object), tagIds (object), takenAt (object), trashedAt (object), type (object), updatedAt (object), visibility (object)""",
+    ),
+    filter_original_file_name_ends_with: str | None = typer.Option(
+        None, "--filter-original-file-name-ends-with", help=r""""""
+    ),
+    filter_original_file_name_eq: str | None = typer.Option(
+        None, "--filter-original-file-name-eq", help=r""""""
+    ),
+    filter_original_file_name_in_: list[str] | None = typer.Option(
+        None, "--filter-original-file-name-in", help=r""""""
+    ),
+    filter_original_file_name_like: str | None = typer.Option(
+        None, "--filter-original-file-name-like", help=r""""""
+    ),
+    filter_original_file_name_ne: str | None = typer.Option(
+        None, "--filter-original-file-name-ne", help=r""""""
+    ),
+    filter_original_file_name_not_in: list[str] | None = typer.Option(
+        None, "--filter-original-file-name-not-in", help=r""""""
+    ),
+    filter_original_file_name_not_like: str | None = typer.Option(
+        None, "--filter-original-file-name-not-like", help=r""""""
+    ),
+    filter_original_file_name_starts_with: str | None = typer.Option(
+        None, "--filter-original-file-name-starts-with", help=r""""""
+    ),
+    filter_original_path_ends_with: str | None = typer.Option(
+        None, "--filter-original-path-ends-with", help=r""""""
+    ),
+    filter_original_path_eq: str | None = typer.Option(
+        None, "--filter-original-path-eq", help=r""""""
+    ),
+    filter_original_path_in_: list[str] | None = typer.Option(
+        None, "--filter-original-path-in", help=r""""""
+    ),
+    filter_original_path_like: str | None = typer.Option(
+        None, "--filter-original-path-like", help=r""""""
+    ),
+    filter_original_path_ne: str | None = typer.Option(
+        None, "--filter-original-path-ne", help=r""""""
+    ),
+    filter_original_path_not_in: list[str] | None = typer.Option(
+        None, "--filter-original-path-not-in", help=r""""""
+    ),
+    filter_original_path_not_like: str | None = typer.Option(
+        None, "--filter-original-path-not-like", help=r""""""
+    ),
+    filter_original_path_starts_with: str | None = typer.Option(
+        None, "--filter-original-path-starts-with", help=r""""""
+    ),
+    filter_person_ids_all: list[UUID] | None = typer.Option(
+        None, "--filter-person-ids-all", help=r""""""
+    ),
+    filter_person_ids_any: list[UUID] | None = typer.Option(
+        None, "--filter-person-ids-any", help=r""""""
+    ),
+    filter_person_ids_none: list[UUID] | None = typer.Option(
+        None, "--filter-person-ids-none", help=r""""""
+    ),
+    filter_rating_eq: float | None = typer.Option(
+        None, "--filter-rating-eq", help=r""""""
+    ),
+    filter_rating_gt: float | None = typer.Option(
+        None, "--filter-rating-gt", help=r""""""
+    ),
+    filter_rating_gte: float | None = typer.Option(
+        None, "--filter-rating-gte", help=r""""""
+    ),
+    filter_rating_in_: list[float] | None = typer.Option(
+        None, "--filter-rating-in", help=r""""""
+    ),
+    filter_rating_lt: float | None = typer.Option(
+        None, "--filter-rating-lt", help=r""""""
+    ),
+    filter_rating_lte: float | None = typer.Option(
+        None, "--filter-rating-lte", help=r""""""
+    ),
+    filter_rating_ne: float | None = typer.Option(
+        None, "--filter-rating-ne", help=r""""""
+    ),
+    filter_rating_not_in: list[float] | None = typer.Option(
+        None, "--filter-rating-not-in", help=r""""""
+    ),
+    filter_state_eq: str | None = typer.Option(None, "--filter-state-eq", help=r""""""),
+    filter_state_in_: list[str] | None = typer.Option(
+        None, "--filter-state-in", help=r""""""
+    ),
+    filter_state_ne: str | None = typer.Option(None, "--filter-state-ne", help=r""""""),
+    filter_state_not_in: list[str] | None = typer.Option(
+        None, "--filter-state-not-in", help=r""""""
+    ),
+    filter_tag_ids_all: list[UUID] | None = typer.Option(
+        None, "--filter-tag-ids-all", help=r""""""
+    ),
+    filter_tag_ids_any: list[UUID] | None = typer.Option(
+        None, "--filter-tag-ids-any", help=r""""""
+    ),
+    filter_tag_ids_none: list[UUID] | None = typer.Option(
+        None, "--filter-tag-ids-none", help=r""""""
+    ),
+    filter_taken_at_eq: datetime | None = typer.Option(
+        None, "--filter-taken-at-eq", help=r"""Example: 2024-01-01T00:00:00.000Z"""
+    ),
+    filter_taken_at_gt: datetime | None = typer.Option(
+        None, "--filter-taken-at-gt", help=r"""Example: 2024-01-01T00:00:00.000Z"""
+    ),
+    filter_taken_at_gte: datetime | None = typer.Option(
+        None, "--filter-taken-at-gte", help=r"""Example: 2024-01-01T00:00:00.000Z"""
+    ),
+    filter_taken_at_lt: datetime | None = typer.Option(
+        None, "--filter-taken-at-lt", help=r"""Example: 2024-01-01T00:00:00.000Z"""
+    ),
+    filter_taken_at_lte: datetime | None = typer.Option(
+        None, "--filter-taken-at-lte", help=r"""Example: 2024-01-01T00:00:00.000Z"""
+    ),
+    filter_taken_at_ne: datetime | None = typer.Option(
+        None, "--filter-taken-at-ne", help=r"""Example: 2024-01-01T00:00:00.000Z"""
+    ),
+    filter_trashed_at_eq: datetime | None = typer.Option(
+        None, "--filter-trashed-at-eq", help=r"""Example: 2024-01-01T00:00:00.000Z"""
+    ),
+    filter_trashed_at_gt: datetime | None = typer.Option(
+        None, "--filter-trashed-at-gt", help=r"""Example: 2024-01-01T00:00:00.000Z"""
+    ),
+    filter_trashed_at_gte: datetime | None = typer.Option(
+        None, "--filter-trashed-at-gte", help=r"""Example: 2024-01-01T00:00:00.000Z"""
+    ),
+    filter_trashed_at_lt: datetime | None = typer.Option(
+        None, "--filter-trashed-at-lt", help=r"""Example: 2024-01-01T00:00:00.000Z"""
+    ),
+    filter_trashed_at_lte: datetime | None = typer.Option(
+        None, "--filter-trashed-at-lte", help=r"""Example: 2024-01-01T00:00:00.000Z"""
+    ),
+    filter_trashed_at_ne: datetime | None = typer.Option(
+        None, "--filter-trashed-at-ne", help=r"""Example: 2024-01-01T00:00:00.000Z"""
+    ),
+    filter_type_eq: str | None = typer.Option(
+        None, "--filter-type-eq", help=r"""Asset type"""
+    ),
+    filter_type_in_: list[AssetTypeEnum] | None = typer.Option(
+        None, "--filter-type-in", help=r""""""
+    ),
+    filter_type_ne: str | None = typer.Option(
+        None, "--filter-type-ne", help=r"""Asset type"""
+    ),
+    filter_type_not_in: list[AssetTypeEnum] | None = typer.Option(
+        None, "--filter-type-not-in", help=r""""""
+    ),
+    filter_updated_at_eq: datetime | None = typer.Option(
+        None, "--filter-updated-at-eq", help=r"""Example: 2024-01-01T00:00:00.000Z"""
+    ),
+    filter_updated_at_gt: datetime | None = typer.Option(
+        None, "--filter-updated-at-gt", help=r"""Example: 2024-01-01T00:00:00.000Z"""
+    ),
+    filter_updated_at_gte: datetime | None = typer.Option(
+        None, "--filter-updated-at-gte", help=r"""Example: 2024-01-01T00:00:00.000Z"""
+    ),
+    filter_updated_at_lt: datetime | None = typer.Option(
+        None, "--filter-updated-at-lt", help=r"""Example: 2024-01-01T00:00:00.000Z"""
+    ),
+    filter_updated_at_lte: datetime | None = typer.Option(
+        None, "--filter-updated-at-lte", help=r"""Example: 2024-01-01T00:00:00.000Z"""
+    ),
+    filter_updated_at_ne: datetime | None = typer.Option(
+        None, "--filter-updated-at-ne", help=r"""Example: 2024-01-01T00:00:00.000Z"""
+    ),
+    filter_visibility_eq: str | None = typer.Option(
+        None, "--filter-visibility-eq", help=r"""Asset visibility"""
+    ),
+    filter_visibility_in_: list[AssetVisibility] | None = typer.Option(
+        None, "--filter-visibility-in", help=r""""""
+    ),
+    filter_visibility_ne: str | None = typer.Option(
+        None, "--filter-visibility-ne", help=r"""Asset visibility"""
+    ),
+    filter_visibility_not_in: list[AssetVisibility] | None = typer.Option(
+        None, "--filter-visibility-not-in", help=r""""""
     ),
     is_encoded: Literal["true", "false"] | None = typer.Option(
         None, "--is-encoded", help=r"""Filter by encoded status"""
@@ -1138,6 +3625,349 @@ Example: 2024-01-01T00:00:00.000Z""",
         set_nested(json_data, ["created_after"], created_after)
     if created_before is not None:
         set_nested(json_data, ["created_before"], created_before)
+    if filter_album_ids_all is not None:
+        set_nested(json_data, ["filter_album_ids_all"], filter_album_ids_all)
+    if filter_album_ids_any is not None:
+        set_nested(json_data, ["filter_album_ids_any"], filter_album_ids_any)
+    if filter_album_ids_none is not None:
+        set_nested(json_data, ["filter_album_ids_none"], filter_album_ids_none)
+    if filter_checksum_eq is not None:
+        set_nested(json_data, ["filter_checksum_eq"], filter_checksum_eq)
+    if filter_checksum_in_ is not None:
+        set_nested(json_data, ["filter_checksum_in_"], filter_checksum_in_)
+    if filter_checksum_ne is not None:
+        set_nested(json_data, ["filter_checksum_ne"], filter_checksum_ne)
+    if filter_checksum_not_in is not None:
+        set_nested(json_data, ["filter_checksum_not_in"], filter_checksum_not_in)
+    if filter_city_eq is not None:
+        set_nested(json_data, ["filter_city_eq"], filter_city_eq)
+    if filter_city_in_ is not None:
+        set_nested(json_data, ["filter_city_in_"], filter_city_in_)
+    if filter_city_ne is not None:
+        set_nested(json_data, ["filter_city_ne"], filter_city_ne)
+    if filter_city_not_in is not None:
+        set_nested(json_data, ["filter_city_not_in"], filter_city_not_in)
+    if filter_country_eq is not None:
+        set_nested(json_data, ["filter_country_eq"], filter_country_eq)
+    if filter_country_in_ is not None:
+        set_nested(json_data, ["filter_country_in_"], filter_country_in_)
+    if filter_country_ne is not None:
+        set_nested(json_data, ["filter_country_ne"], filter_country_ne)
+    if filter_country_not_in is not None:
+        set_nested(json_data, ["filter_country_not_in"], filter_country_not_in)
+    if filter_created_at_eq is not None:
+        set_nested(json_data, ["filter_created_at_eq"], filter_created_at_eq)
+    if filter_created_at_gt is not None:
+        set_nested(json_data, ["filter_created_at_gt"], filter_created_at_gt)
+    if filter_created_at_gte is not None:
+        set_nested(json_data, ["filter_created_at_gte"], filter_created_at_gte)
+    if filter_created_at_lt is not None:
+        set_nested(json_data, ["filter_created_at_lt"], filter_created_at_lt)
+    if filter_created_at_lte is not None:
+        set_nested(json_data, ["filter_created_at_lte"], filter_created_at_lte)
+    if filter_created_at_ne is not None:
+        set_nested(json_data, ["filter_created_at_ne"], filter_created_at_ne)
+    if filter_description_ends_with is not None:
+        set_nested(
+            json_data, ["filter_description_ends_with"], filter_description_ends_with
+        )
+    if filter_description_eq is not None:
+        set_nested(json_data, ["filter_description_eq"], filter_description_eq)
+    if filter_description_in_ is not None:
+        set_nested(json_data, ["filter_description_in_"], filter_description_in_)
+    if filter_description_like is not None:
+        set_nested(json_data, ["filter_description_like"], filter_description_like)
+    if filter_description_ne is not None:
+        set_nested(json_data, ["filter_description_ne"], filter_description_ne)
+    if filter_description_not_in is not None:
+        set_nested(json_data, ["filter_description_not_in"], filter_description_not_in)
+    if filter_description_not_like is not None:
+        set_nested(
+            json_data, ["filter_description_not_like"], filter_description_not_like
+        )
+    if filter_description_starts_with is not None:
+        set_nested(
+            json_data,
+            ["filter_description_starts_with"],
+            filter_description_starts_with,
+        )
+    if filter_encoded_video_path_eq is not None:
+        set_nested(
+            json_data, ["filter_encoded_video_path_eq"], filter_encoded_video_path_eq
+        )
+    if filter_encoded_video_path_in_ is not None:
+        set_nested(
+            json_data, ["filter_encoded_video_path_in_"], filter_encoded_video_path_in_
+        )
+    if filter_encoded_video_path_ne is not None:
+        set_nested(
+            json_data, ["filter_encoded_video_path_ne"], filter_encoded_video_path_ne
+        )
+    if filter_encoded_video_path_not_in is not None:
+        set_nested(
+            json_data,
+            ["filter_encoded_video_path_not_in"],
+            filter_encoded_video_path_not_in,
+        )
+    if filter_file_size_in_bytes_eq is not None:
+        set_nested(
+            json_data, ["filter_file_size_in_bytes_eq"], filter_file_size_in_bytes_eq
+        )
+    if filter_file_size_in_bytes_gt is not None:
+        set_nested(
+            json_data, ["filter_file_size_in_bytes_gt"], filter_file_size_in_bytes_gt
+        )
+    if filter_file_size_in_bytes_gte is not None:
+        set_nested(
+            json_data, ["filter_file_size_in_bytes_gte"], filter_file_size_in_bytes_gte
+        )
+    if filter_file_size_in_bytes_in_ is not None:
+        set_nested(
+            json_data, ["filter_file_size_in_bytes_in_"], filter_file_size_in_bytes_in_
+        )
+    if filter_file_size_in_bytes_lt is not None:
+        set_nested(
+            json_data, ["filter_file_size_in_bytes_lt"], filter_file_size_in_bytes_lt
+        )
+    if filter_file_size_in_bytes_lte is not None:
+        set_nested(
+            json_data, ["filter_file_size_in_bytes_lte"], filter_file_size_in_bytes_lte
+        )
+    if filter_file_size_in_bytes_ne is not None:
+        set_nested(
+            json_data, ["filter_file_size_in_bytes_ne"], filter_file_size_in_bytes_ne
+        )
+    if filter_file_size_in_bytes_not_in is not None:
+        set_nested(
+            json_data,
+            ["filter_file_size_in_bytes_not_in"],
+            filter_file_size_in_bytes_not_in,
+        )
+    if filter_has_albums_eq is not None:
+        set_nested(
+            json_data, ["filter_has_albums_eq"], filter_has_albums_eq.lower() == "true"
+        )
+    if filter_has_people_eq is not None:
+        set_nested(
+            json_data, ["filter_has_people_eq"], filter_has_people_eq.lower() == "true"
+        )
+    if filter_has_tags_eq is not None:
+        set_nested(
+            json_data, ["filter_has_tags_eq"], filter_has_tags_eq.lower() == "true"
+        )
+    if filter_id_eq is not None:
+        set_nested(json_data, ["filter_id_eq"], filter_id_eq)
+    if filter_id_ne is not None:
+        set_nested(json_data, ["filter_id_ne"], filter_id_ne)
+    if filter_is_encoded_eq is not None:
+        set_nested(
+            json_data, ["filter_is_encoded_eq"], filter_is_encoded_eq.lower() == "true"
+        )
+    if filter_is_favorite_eq is not None:
+        set_nested(
+            json_data,
+            ["filter_is_favorite_eq"],
+            filter_is_favorite_eq.lower() == "true",
+        )
+    if filter_is_motion_eq is not None:
+        set_nested(
+            json_data, ["filter_is_motion_eq"], filter_is_motion_eq.lower() == "true"
+        )
+    if filter_is_offline_eq is not None:
+        set_nested(
+            json_data, ["filter_is_offline_eq"], filter_is_offline_eq.lower() == "true"
+        )
+    if filter_lens_model_eq is not None:
+        set_nested(json_data, ["filter_lens_model_eq"], filter_lens_model_eq)
+    if filter_lens_model_in_ is not None:
+        set_nested(json_data, ["filter_lens_model_in_"], filter_lens_model_in_)
+    if filter_lens_model_ne is not None:
+        set_nested(json_data, ["filter_lens_model_ne"], filter_lens_model_ne)
+    if filter_lens_model_not_in is not None:
+        set_nested(json_data, ["filter_lens_model_not_in"], filter_lens_model_not_in)
+    if filter_library_id_eq is not None:
+        set_nested(json_data, ["filter_library_id_eq"], filter_library_id_eq)
+    if filter_library_id_ne is not None:
+        set_nested(json_data, ["filter_library_id_ne"], filter_library_id_ne)
+    if filter_make_eq is not None:
+        set_nested(json_data, ["filter_make_eq"], filter_make_eq)
+    if filter_make_in_ is not None:
+        set_nested(json_data, ["filter_make_in_"], filter_make_in_)
+    if filter_make_ne is not None:
+        set_nested(json_data, ["filter_make_ne"], filter_make_ne)
+    if filter_make_not_in is not None:
+        set_nested(json_data, ["filter_make_not_in"], filter_make_not_in)
+    if filter_model_eq is not None:
+        set_nested(json_data, ["filter_model_eq"], filter_model_eq)
+    if filter_model_in_ is not None:
+        set_nested(json_data, ["filter_model_in_"], filter_model_in_)
+    if filter_model_ne is not None:
+        set_nested(json_data, ["filter_model_ne"], filter_model_ne)
+    if filter_model_not_in is not None:
+        set_nested(json_data, ["filter_model_not_in"], filter_model_not_in)
+    if filter_ocr_matches is not None:
+        set_nested(json_data, ["filter_ocr_matches"], filter_ocr_matches)
+    if filter_or_ is not None:
+        value_filter_or_ = parse_json_options(filter_or_, "--filter-or", ctx=ctx)
+        set_nested(json_data, ["filter_or_"], value_filter_or_)
+    if filter_original_file_name_ends_with is not None:
+        set_nested(
+            json_data,
+            ["filter_original_file_name_ends_with"],
+            filter_original_file_name_ends_with,
+        )
+    if filter_original_file_name_eq is not None:
+        set_nested(
+            json_data, ["filter_original_file_name_eq"], filter_original_file_name_eq
+        )
+    if filter_original_file_name_in_ is not None:
+        set_nested(
+            json_data, ["filter_original_file_name_in_"], filter_original_file_name_in_
+        )
+    if filter_original_file_name_like is not None:
+        set_nested(
+            json_data,
+            ["filter_original_file_name_like"],
+            filter_original_file_name_like,
+        )
+    if filter_original_file_name_ne is not None:
+        set_nested(
+            json_data, ["filter_original_file_name_ne"], filter_original_file_name_ne
+        )
+    if filter_original_file_name_not_in is not None:
+        set_nested(
+            json_data,
+            ["filter_original_file_name_not_in"],
+            filter_original_file_name_not_in,
+        )
+    if filter_original_file_name_not_like is not None:
+        set_nested(
+            json_data,
+            ["filter_original_file_name_not_like"],
+            filter_original_file_name_not_like,
+        )
+    if filter_original_file_name_starts_with is not None:
+        set_nested(
+            json_data,
+            ["filter_original_file_name_starts_with"],
+            filter_original_file_name_starts_with,
+        )
+    if filter_original_path_ends_with is not None:
+        set_nested(
+            json_data,
+            ["filter_original_path_ends_with"],
+            filter_original_path_ends_with,
+        )
+    if filter_original_path_eq is not None:
+        set_nested(json_data, ["filter_original_path_eq"], filter_original_path_eq)
+    if filter_original_path_in_ is not None:
+        set_nested(json_data, ["filter_original_path_in_"], filter_original_path_in_)
+    if filter_original_path_like is not None:
+        set_nested(json_data, ["filter_original_path_like"], filter_original_path_like)
+    if filter_original_path_ne is not None:
+        set_nested(json_data, ["filter_original_path_ne"], filter_original_path_ne)
+    if filter_original_path_not_in is not None:
+        set_nested(
+            json_data, ["filter_original_path_not_in"], filter_original_path_not_in
+        )
+    if filter_original_path_not_like is not None:
+        set_nested(
+            json_data, ["filter_original_path_not_like"], filter_original_path_not_like
+        )
+    if filter_original_path_starts_with is not None:
+        set_nested(
+            json_data,
+            ["filter_original_path_starts_with"],
+            filter_original_path_starts_with,
+        )
+    if filter_person_ids_all is not None:
+        set_nested(json_data, ["filter_person_ids_all"], filter_person_ids_all)
+    if filter_person_ids_any is not None:
+        set_nested(json_data, ["filter_person_ids_any"], filter_person_ids_any)
+    if filter_person_ids_none is not None:
+        set_nested(json_data, ["filter_person_ids_none"], filter_person_ids_none)
+    if filter_rating_eq is not None:
+        set_nested(json_data, ["filter_rating_eq"], filter_rating_eq)
+    if filter_rating_gt is not None:
+        set_nested(json_data, ["filter_rating_gt"], filter_rating_gt)
+    if filter_rating_gte is not None:
+        set_nested(json_data, ["filter_rating_gte"], filter_rating_gte)
+    if filter_rating_in_ is not None:
+        set_nested(json_data, ["filter_rating_in_"], filter_rating_in_)
+    if filter_rating_lt is not None:
+        set_nested(json_data, ["filter_rating_lt"], filter_rating_lt)
+    if filter_rating_lte is not None:
+        set_nested(json_data, ["filter_rating_lte"], filter_rating_lte)
+    if filter_rating_ne is not None:
+        set_nested(json_data, ["filter_rating_ne"], filter_rating_ne)
+    if filter_rating_not_in is not None:
+        set_nested(json_data, ["filter_rating_not_in"], filter_rating_not_in)
+    if filter_state_eq is not None:
+        set_nested(json_data, ["filter_state_eq"], filter_state_eq)
+    if filter_state_in_ is not None:
+        set_nested(json_data, ["filter_state_in_"], filter_state_in_)
+    if filter_state_ne is not None:
+        set_nested(json_data, ["filter_state_ne"], filter_state_ne)
+    if filter_state_not_in is not None:
+        set_nested(json_data, ["filter_state_not_in"], filter_state_not_in)
+    if filter_tag_ids_all is not None:
+        set_nested(json_data, ["filter_tag_ids_all"], filter_tag_ids_all)
+    if filter_tag_ids_any is not None:
+        set_nested(json_data, ["filter_tag_ids_any"], filter_tag_ids_any)
+    if filter_tag_ids_none is not None:
+        set_nested(json_data, ["filter_tag_ids_none"], filter_tag_ids_none)
+    if filter_taken_at_eq is not None:
+        set_nested(json_data, ["filter_taken_at_eq"], filter_taken_at_eq)
+    if filter_taken_at_gt is not None:
+        set_nested(json_data, ["filter_taken_at_gt"], filter_taken_at_gt)
+    if filter_taken_at_gte is not None:
+        set_nested(json_data, ["filter_taken_at_gte"], filter_taken_at_gte)
+    if filter_taken_at_lt is not None:
+        set_nested(json_data, ["filter_taken_at_lt"], filter_taken_at_lt)
+    if filter_taken_at_lte is not None:
+        set_nested(json_data, ["filter_taken_at_lte"], filter_taken_at_lte)
+    if filter_taken_at_ne is not None:
+        set_nested(json_data, ["filter_taken_at_ne"], filter_taken_at_ne)
+    if filter_trashed_at_eq is not None:
+        set_nested(json_data, ["filter_trashed_at_eq"], filter_trashed_at_eq)
+    if filter_trashed_at_gt is not None:
+        set_nested(json_data, ["filter_trashed_at_gt"], filter_trashed_at_gt)
+    if filter_trashed_at_gte is not None:
+        set_nested(json_data, ["filter_trashed_at_gte"], filter_trashed_at_gte)
+    if filter_trashed_at_lt is not None:
+        set_nested(json_data, ["filter_trashed_at_lt"], filter_trashed_at_lt)
+    if filter_trashed_at_lte is not None:
+        set_nested(json_data, ["filter_trashed_at_lte"], filter_trashed_at_lte)
+    if filter_trashed_at_ne is not None:
+        set_nested(json_data, ["filter_trashed_at_ne"], filter_trashed_at_ne)
+    if filter_type_eq is not None:
+        set_nested(json_data, ["filter_type_eq"], filter_type_eq)
+    if filter_type_in_ is not None:
+        set_nested(json_data, ["filter_type_in_"], filter_type_in_)
+    if filter_type_ne is not None:
+        set_nested(json_data, ["filter_type_ne"], filter_type_ne)
+    if filter_type_not_in is not None:
+        set_nested(json_data, ["filter_type_not_in"], filter_type_not_in)
+    if filter_updated_at_eq is not None:
+        set_nested(json_data, ["filter_updated_at_eq"], filter_updated_at_eq)
+    if filter_updated_at_gt is not None:
+        set_nested(json_data, ["filter_updated_at_gt"], filter_updated_at_gt)
+    if filter_updated_at_gte is not None:
+        set_nested(json_data, ["filter_updated_at_gte"], filter_updated_at_gte)
+    if filter_updated_at_lt is not None:
+        set_nested(json_data, ["filter_updated_at_lt"], filter_updated_at_lt)
+    if filter_updated_at_lte is not None:
+        set_nested(json_data, ["filter_updated_at_lte"], filter_updated_at_lte)
+    if filter_updated_at_ne is not None:
+        set_nested(json_data, ["filter_updated_at_ne"], filter_updated_at_ne)
+    if filter_visibility_eq is not None:
+        set_nested(json_data, ["filter_visibility_eq"], filter_visibility_eq)
+    if filter_visibility_in_ is not None:
+        set_nested(json_data, ["filter_visibility_in_"], filter_visibility_in_)
+    if filter_visibility_ne is not None:
+        set_nested(json_data, ["filter_visibility_ne"], filter_visibility_ne)
+    if filter_visibility_not_in is not None:
+        set_nested(json_data, ["filter_visibility_not_in"], filter_visibility_not_in)
     if is_encoded is not None:
         set_nested(json_data, ["is_encoded"], is_encoded.lower() == "true")
     if is_favorite is not None:

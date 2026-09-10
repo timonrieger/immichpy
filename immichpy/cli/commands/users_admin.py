@@ -412,6 +412,11 @@ def update_user_preferences_admin(
     memories_enabled: Literal["true", "false"] | None = typer.Option(
         None, "--memories-enabled", help=r"""Whether memories are enabled"""
     ),
+    memories_sidebar_web: Literal["true", "false"] | None = typer.Option(
+        None,
+        "--memories-sidebar-web",
+        help=r"""Whether memories appear in web sidebar""",
+    ),
     people_enabled: Literal["true", "false"] | None = typer.Option(
         None, "--people-enabled", help=r"""Whether people are enabled"""
     ),
@@ -509,6 +514,10 @@ def update_user_preferences_admin(
         set_nested(json_data, ["memories_duration"], memories_duration)
     if memories_enabled is not None:
         set_nested(json_data, ["memories_enabled"], memories_enabled.lower() == "true")
+    if memories_sidebar_web is not None:
+        set_nested(
+            json_data, ["memories_sidebar_web"], memories_sidebar_web.lower() == "true"
+        )
     if people_enabled is not None:
         set_nested(json_data, ["people_enabled"], people_enabled.lower() == "true")
     if people_minimum_faces is not None:

@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from datetime import datetime
 from typing import TYPE_CHECKING, Literal
 from uuid import UUID
 
@@ -32,6 +33,9 @@ def create_workflow(
     enabled: Literal["true", "false"] | None = typer.Option(
         None, "--enabled", help=r"""Workflow enabled"""
     ),
+    logging: Literal["true", "false"] | None = typer.Option(
+        None, "--logging", help=r"""Workflow logs run results"""
+    ),
     name: str | None = typer.Option(None, "--name", help=r"""Workflow name"""),
     steps: list[str] | None = typer.Option(
         None,
@@ -50,6 +54,8 @@ def create_workflow(
         set_nested(json_data, ["description"], description)
     if enabled is not None:
         set_nested(json_data, ["enabled"], enabled.lower() == "true")
+    if logging is not None:
+        set_nested(json_data, ["logging"], logging.lower() == "true")
     if name is not None:
         set_nested(json_data, ["name"], name)
     if steps is not None:
@@ -111,6 +117,41 @@ def get_workflow_for_share(
     print_response(result, ctx=ctx)
 
 
+@app.command("get-workflow-logs", deprecated=False, rich_help_panel="API commands")
+def get_workflow_logs(
+    ctx: typer.Context,
+    id: UUID = typer.Argument(..., help=r""""""),
+    before: datetime | None = typer.Option(
+        None,
+        "--before",
+        help=r"""Filter by runs before a date/time
+
+Example: 2024-01-01T00:00:00.000Z""",
+    ),
+    limit: int | None = typer.Option(
+        None, "--limit", help=r"""Maximum number of logs""", min=0, max=9007199254740991
+    ),
+    result: WorkflowResult | None = typer.Option(
+        None, "--result", help=r"""Filter by run result"""
+    ),
+) -> None:
+    """Retrieve workflow logs
+
+    [link=https://api.immich.app/endpoints/workflows/getWorkflowLogs]Immich API documentation[/link]
+    """
+    kwargs = {}
+    if before is not None:
+        kwargs["before"] = before
+    kwargs["id"] = id
+    if limit is not None:
+        kwargs["limit"] = limit
+    if result is not None:
+        kwargs["result"] = result
+    client: AsyncClient = ctx.obj["client"]
+    result = run_command(client.workflows.get_workflow_logs, ctx=ctx, **kwargs)
+    print_response(result, ctx=ctx)
+
+
 @app.command("get-workflow-triggers", deprecated=False, rich_help_panel="API commands")
 def get_workflow_triggers(
     ctx: typer.Context,
@@ -135,6 +176,9 @@ def search_workflows(
         None, "--enabled", help=r"""Workflow enabled"""
     ),
     id: UUID | None = typer.Option(None, "--id", help=r"""Workflow ID"""),
+    logging: Literal["true", "false"] | None = typer.Option(
+        None, "--logging", help=r"""Workflow logs run results"""
+    ),
     name: str | None = typer.Option(None, "--name", help=r"""Workflow name"""),
     trigger: WorkflowTrigger | None = typer.Option(
         None, "--trigger", help=r"""Workflow trigger type"""
@@ -151,6 +195,8 @@ def search_workflows(
         kwargs["enabled"] = enabled.lower() == "true"
     if id is not None:
         kwargs["id"] = id
+    if logging is not None:
+        kwargs["logging"] = logging.lower() == "true"
     if name is not None:
         kwargs["name"] = name
     if trigger is not None:
@@ -169,6 +215,9 @@ def update_workflow(
     ),
     enabled: Literal["true", "false"] | None = typer.Option(
         None, "--enabled", help=r"""Workflow enabled"""
+    ),
+    logging: Literal["true", "false"] | None = typer.Option(
+        None, "--logging", help=r"""Workflow logs run results"""
     ),
     name: str | None = typer.Option(None, "--name", help=r"""Workflow name"""),
     steps: list[str] | None = typer.Option(
@@ -191,6 +240,8 @@ def update_workflow(
         set_nested(json_data, ["description"], description)
     if enabled is not None:
         set_nested(json_data, ["enabled"], enabled.lower() == "true")
+    if logging is not None:
+        set_nested(json_data, ["logging"], logging.lower() == "true")
     if name is not None:
         set_nested(json_data, ["name"], name)
     if steps is not None:

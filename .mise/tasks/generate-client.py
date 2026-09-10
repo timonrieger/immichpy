@@ -34,6 +34,9 @@ def rewrite_imports_in_tree(root: Path) -> int:
     Rewrite OpenAPI generator absolute imports:
       from generated...  -> from immichpy.client.generated...
       import generated... -> import immichpy.client.generated...
+
+    Also swap `re` for the `regex` package, since spec patterns use `\\p{...}`
+    Unicode property escapes, which Python's `re` cannot compile.
     """
     replacements: list[tuple[str, str]] = [
         ("from generated.", "from immichpy.client.generated."),
@@ -41,6 +44,7 @@ def rewrite_imports_in_tree(root: Path) -> int:
         ("import generated.", "import immichpy.client.generated."),
         ("import generated", "import immichpy.client.generated"),
         ("klass = getattr(generated", "klass = getattr(immichpy.client.generated"),
+        ("import re  # noqa: F401", "import regex as re  # noqa: F401"),
     ]
 
     changed = 0
