@@ -11,6 +11,7 @@
 
 from __future__ import annotations
 
+import ast
 import os
 import shutil
 import subprocess  # nosec: B404
@@ -59,6 +60,68 @@ def rewrite_imports_in_tree(root: Path) -> int:
     return changed
 
 
+LAZY_INIT_TEMPLATE = """
+
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+{type_checking_imports}
+
+_LAZY_IMPORTS: dict[str, tuple[str, str]] = {{
+{mapping}
+}}
+
+
+def __getattr__(name: str) -> object:
+    try:
+        module, attr = _LAZY_IMPORTS[name]
+    except KeyError:
+        raise AttributeError(
+            f"module {{__name__!r}} has no attribute {{name!r}}"
+        ) from None
+    from importlib import import_module
+
+    value = getattr(import_module(module), attr)
+    globals()[name] = value
+    return value
+"""
+
+
+def make_init_lazy(path: Path) -> None:
+    """
+    Rewrite a generated __init__.py so its re-exports resolve lazily (PEP 562):
+    the eager `from immichpy.client.generated... import X` block moves under
+    TYPE_CHECKING and a module __getattr__ imports each name on first access.
+    """
+    source = path.read_text(encoding="utf-8")
+    lines = source.splitlines()
+    lazy: dict[str, tuple[str, str]] = {}
+    drop: set[int] = set()
+    import_lines: list[str] = []
+    for node in ast.parse(source).body:
+        if not (
+            isinstance(node, ast.ImportFrom)
+            and node.module is not None
+            and node.module.startswith("immichpy.client.generated")
+        ):
+            continue
+        for alias in node.names:
+            lazy[alias.asname or alias.name] = (node.module, alias.name)
+        end_lineno = node.end_lineno or node.lineno
+        import_lines.extend(lines[node.lineno - 1 : end_lineno])
+        drop.update(range(node.lineno - 1, end_lineno))
+
+    kept = "\n".join(line for i, line in enumerate(lines) if i not in drop)
+    lazy_block = LAZY_INIT_TEMPLATE.format(
+        type_checking_imports="\n".join(f"    {line}" for line in import_lines),
+        mapping="\n".join(
+            f'    "{name}": ("{module}", "{attr}"),'
+            for name, (module, attr) in sorted(lazy.items())
+        ),
+    )
+    path.write_text(kept.rstrip() + "\n" + lazy_block.lstrip("\n"), encoding="utf-8")
+
+
 def main() -> int:
     root = project_root()
     out_dir = root / "immichpy" / "client"
@@ -100,6 +163,14 @@ def main() -> int:
 
     changed = rewrite_imports_in_tree(client_dir)
     print(f"Rewrote imports in {changed} files under {client_dir}")
+
+    for init in (
+        client_dir / "__init__.py",
+        client_dir / "api" / "__init__.py",
+        client_dir / "models" / "__init__.py",
+    ):
+        make_init_lazy(init)
+        print(f"Made re-exports lazy in {init}")
     print("Done.")
     return 0
 

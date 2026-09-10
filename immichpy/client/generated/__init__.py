@@ -491,1226 +491,2909 @@ __all__ = [
 ]
 
 # import apis into sdk package
-from immichpy.client.generated.api.api_keys_api import APIKeysApi as APIKeysApi
-from immichpy.client.generated.api.activities_api import ActivitiesApi as ActivitiesApi
-from immichpy.client.generated.api.albums_api import AlbumsApi as AlbumsApi
-from immichpy.client.generated.api.asset_files_api import AssetFilesApi as AssetFilesApi
-from immichpy.client.generated.api.assets_api import AssetsApi as AssetsApi
-from immichpy.client.generated.api.authentication_api import (
-    AuthenticationApi as AuthenticationApi,
-)
-from immichpy.client.generated.api.authentication_admin_api import (
-    AuthenticationAdminApi as AuthenticationAdminApi,
-)
-from immichpy.client.generated.api.cluster_groups_api import (
-    ClusterGroupsApi as ClusterGroupsApi,
-)
-from immichpy.client.generated.api.config_admin_api import (
-    ConfigAdminApi as ConfigAdminApi,
-)
-from immichpy.client.generated.api.config_public_api import (
-    ConfigPublicApi as ConfigPublicApi,
-)
-from immichpy.client.generated.api.config_user_api import ConfigUserApi as ConfigUserApi
-from immichpy.client.generated.api.database_backups_admin_api import (
-    DatabaseBackupsAdminApi as DatabaseBackupsAdminApi,
-)
-from immichpy.client.generated.api.deprecated_api import DeprecatedApi as DeprecatedApi
-from immichpy.client.generated.api.download_api import DownloadApi as DownloadApi
-from immichpy.client.generated.api.duplicates_api import DuplicatesApi as DuplicatesApi
-from immichpy.client.generated.api.faces_api import FacesApi as FacesApi
-from immichpy.client.generated.api.jobs_api import JobsApi as JobsApi
-from immichpy.client.generated.api.libraries_api import LibrariesApi as LibrariesApi
-from immichpy.client.generated.api.maintenance_admin_api import (
-    MaintenanceAdminApi as MaintenanceAdminApi,
-)
-from immichpy.client.generated.api.map_api import MapApi as MapApi
-from immichpy.client.generated.api.memories_api import MemoriesApi as MemoriesApi
-from immichpy.client.generated.api.notifications_api import (
-    NotificationsApi as NotificationsApi,
-)
-from immichpy.client.generated.api.notifications_admin_api import (
-    NotificationsAdminApi as NotificationsAdminApi,
-)
-from immichpy.client.generated.api.partners_api import PartnersApi as PartnersApi
-from immichpy.client.generated.api.people_api import PeopleApi as PeopleApi
-from immichpy.client.generated.api.plugins_api import PluginsApi as PluginsApi
-from immichpy.client.generated.api.queues_api import QueuesApi as QueuesApi
-from immichpy.client.generated.api.search_api import SearchApi as SearchApi
-from immichpy.client.generated.api.server_api import ServerApi as ServerApi
-from immichpy.client.generated.api.sessions_api import SessionsApi as SessionsApi
-from immichpy.client.generated.api.shared_links_api import (
-    SharedLinksApi as SharedLinksApi,
-)
-from immichpy.client.generated.api.stacks_api import StacksApi as StacksApi
-from immichpy.client.generated.api.sync_api import SyncApi as SyncApi
-from immichpy.client.generated.api.system_config_api import (
-    SystemConfigApi as SystemConfigApi,
-)
-from immichpy.client.generated.api.system_metadata_api import (
-    SystemMetadataApi as SystemMetadataApi,
-)
-from immichpy.client.generated.api.tags_api import TagsApi as TagsApi
-from immichpy.client.generated.api.timeline_api import TimelineApi as TimelineApi
-from immichpy.client.generated.api.trash_api import TrashApi as TrashApi
-from immichpy.client.generated.api.users_api import UsersApi as UsersApi
-from immichpy.client.generated.api.users_admin_api import UsersAdminApi as UsersAdminApi
-from immichpy.client.generated.api.views_api import ViewsApi as ViewsApi
-from immichpy.client.generated.api.workflows_api import WorkflowsApi as WorkflowsApi
 
 # import ApiClient
-from immichpy.client.generated.api_response import ApiResponse as ApiResponse
-from immichpy.client.generated.api_client import ApiClient as ApiClient
-from immichpy.client.generated.configuration import Configuration as Configuration
-from immichpy.client.generated.exceptions import OpenApiException as OpenApiException
-from immichpy.client.generated.exceptions import ApiTypeError as ApiTypeError
-from immichpy.client.generated.exceptions import ApiValueError as ApiValueError
-from immichpy.client.generated.exceptions import ApiKeyError as ApiKeyError
-from immichpy.client.generated.exceptions import ApiAttributeError as ApiAttributeError
-from immichpy.client.generated.exceptions import ApiException as ApiException
 
 # import models into sdk package
-from immichpy.client.generated.models.activity_create_dto import (
-    ActivityCreateDto as ActivityCreateDto,
-)
-from immichpy.client.generated.models.activity_response_dto import (
-    ActivityResponseDto as ActivityResponseDto,
-)
-from immichpy.client.generated.models.activity_statistics_response_dto import (
-    ActivityStatisticsResponseDto as ActivityStatisticsResponseDto,
-)
-from immichpy.client.generated.models.add_users_dto import AddUsersDto as AddUsersDto
-from immichpy.client.generated.models.admin_config_backups_dto import (
-    AdminConfigBackupsDto as AdminConfigBackupsDto,
-)
-from immichpy.client.generated.models.admin_config_clip_dto import (
-    AdminConfigClipDto as AdminConfigClipDto,
-)
-from immichpy.client.generated.models.admin_config_database_backup_dto import (
-    AdminConfigDatabaseBackupDto as AdminConfigDatabaseBackupDto,
-)
-from immichpy.client.generated.models.admin_config_dto import (
-    AdminConfigDto as AdminConfigDto,
-)
-from immichpy.client.generated.models.admin_config_duplicate_detection_dto import (
-    AdminConfigDuplicateDetectionDto as AdminConfigDuplicateDetectionDto,
-)
-from immichpy.client.generated.models.admin_config_f_fmpeg_dto import (
-    AdminConfigFFmpegDto as AdminConfigFFmpegDto,
-)
-from immichpy.client.generated.models.admin_config_f_fmpeg_realtime_dto import (
-    AdminConfigFFmpegRealtimeDto as AdminConfigFFmpegRealtimeDto,
-)
-from immichpy.client.generated.models.admin_config_faces_dto import (
-    AdminConfigFacesDto as AdminConfigFacesDto,
-)
-from immichpy.client.generated.models.admin_config_facial_recognition_dto import (
-    AdminConfigFacialRecognitionDto as AdminConfigFacialRecognitionDto,
-)
-from immichpy.client.generated.models.admin_config_generated_fullsize_image_dto import (
-    AdminConfigGeneratedFullsizeImageDto as AdminConfigGeneratedFullsizeImageDto,
-)
-from immichpy.client.generated.models.admin_config_generated_image_dto import (
-    AdminConfigGeneratedImageDto as AdminConfigGeneratedImageDto,
-)
-from immichpy.client.generated.models.admin_config_image_dto import (
-    AdminConfigImageDto as AdminConfigImageDto,
-)
-from immichpy.client.generated.models.admin_config_integrity_checks_dto import (
-    AdminConfigIntegrityChecksDto as AdminConfigIntegrityChecksDto,
-)
-from immichpy.client.generated.models.admin_config_integrity_checksum_job_dto import (
-    AdminConfigIntegrityChecksumJobDto as AdminConfigIntegrityChecksumJobDto,
-)
-from immichpy.client.generated.models.admin_config_integrity_job_dto import (
-    AdminConfigIntegrityJobDto as AdminConfigIntegrityJobDto,
-)
-from immichpy.client.generated.models.admin_config_job_dto import (
-    AdminConfigJobDto as AdminConfigJobDto,
-)
-from immichpy.client.generated.models.admin_config_job_settings_dto import (
-    AdminConfigJobSettingsDto as AdminConfigJobSettingsDto,
-)
-from immichpy.client.generated.models.admin_config_library_dto import (
-    AdminConfigLibraryDto as AdminConfigLibraryDto,
-)
-from immichpy.client.generated.models.admin_config_library_scan_dto import (
-    AdminConfigLibraryScanDto as AdminConfigLibraryScanDto,
-)
-from immichpy.client.generated.models.admin_config_library_watch_dto import (
-    AdminConfigLibraryWatchDto as AdminConfigLibraryWatchDto,
-)
-from immichpy.client.generated.models.admin_config_logging_dto import (
-    AdminConfigLoggingDto as AdminConfigLoggingDto,
-)
-from immichpy.client.generated.models.admin_config_machine_learning_availability_checks_dto import (
-    AdminConfigMachineLearningAvailabilityChecksDto as AdminConfigMachineLearningAvailabilityChecksDto,
-)
-from immichpy.client.generated.models.admin_config_machine_learning_dto import (
-    AdminConfigMachineLearningDto as AdminConfigMachineLearningDto,
-)
-from immichpy.client.generated.models.admin_config_map_dto import (
-    AdminConfigMapDto as AdminConfigMapDto,
-)
-from immichpy.client.generated.models.admin_config_metadata_dto import (
-    AdminConfigMetadataDto as AdminConfigMetadataDto,
-)
-from immichpy.client.generated.models.admin_config_new_version_check_dto import (
-    AdminConfigNewVersionCheckDto as AdminConfigNewVersionCheckDto,
-)
-from immichpy.client.generated.models.admin_config_nightly_tasks_dto import (
-    AdminConfigNightlyTasksDto as AdminConfigNightlyTasksDto,
-)
-from immichpy.client.generated.models.admin_config_notifications_dto import (
-    AdminConfigNotificationsDto as AdminConfigNotificationsDto,
-)
-from immichpy.client.generated.models.admin_config_o_auth_dto import (
-    AdminConfigOAuthDto as AdminConfigOAuthDto,
-)
-from immichpy.client.generated.models.admin_config_ocr_dto import (
-    AdminConfigOcrDto as AdminConfigOcrDto,
-)
-from immichpy.client.generated.models.admin_config_password_login_dto import (
-    AdminConfigPasswordLoginDto as AdminConfigPasswordLoginDto,
-)
-from immichpy.client.generated.models.admin_config_reverse_geocoding_dto import (
-    AdminConfigReverseGeocodingDto as AdminConfigReverseGeocodingDto,
-)
-from immichpy.client.generated.models.admin_config_server_dto import (
-    AdminConfigServerDto as AdminConfigServerDto,
-)
-from immichpy.client.generated.models.admin_config_smtp_dto import (
-    AdminConfigSmtpDto as AdminConfigSmtpDto,
-)
-from immichpy.client.generated.models.admin_config_smtp_transport_dto import (
-    AdminConfigSmtpTransportDto as AdminConfigSmtpTransportDto,
-)
-from immichpy.client.generated.models.admin_config_storage_template_dto import (
-    AdminConfigStorageTemplateDto as AdminConfigStorageTemplateDto,
-)
-from immichpy.client.generated.models.admin_config_template_emails_dto import (
-    AdminConfigTemplateEmailsDto as AdminConfigTemplateEmailsDto,
-)
-from immichpy.client.generated.models.admin_config_templates_dto import (
-    AdminConfigTemplatesDto as AdminConfigTemplatesDto,
-)
-from immichpy.client.generated.models.admin_config_theme_dto import (
-    AdminConfigThemeDto as AdminConfigThemeDto,
-)
-from immichpy.client.generated.models.admin_config_trash_dto import (
-    AdminConfigTrashDto as AdminConfigTrashDto,
-)
-from immichpy.client.generated.models.admin_config_user_dto import (
-    AdminConfigUserDto as AdminConfigUserDto,
-)
-from immichpy.client.generated.models.admin_onboarding_update_dto import (
-    AdminOnboardingUpdateDto as AdminOnboardingUpdateDto,
-)
-from immichpy.client.generated.models.album_response_dto import (
-    AlbumResponseDto as AlbumResponseDto,
-)
-from immichpy.client.generated.models.album_statistics_response_dto import (
-    AlbumStatisticsResponseDto as AlbumStatisticsResponseDto,
-)
-from immichpy.client.generated.models.album_user_add_dto import (
-    AlbumUserAddDto as AlbumUserAddDto,
-)
-from immichpy.client.generated.models.album_user_create_dto import (
-    AlbumUserCreateDto as AlbumUserCreateDto,
-)
-from immichpy.client.generated.models.album_user_response_dto import (
-    AlbumUserResponseDto as AlbumUserResponseDto,
-)
-from immichpy.client.generated.models.album_user_role import (
-    AlbumUserRole as AlbumUserRole,
-)
-from immichpy.client.generated.models.albums_add_assets_dto import (
-    AlbumsAddAssetsDto as AlbumsAddAssetsDto,
-)
-from immichpy.client.generated.models.albums_add_assets_response_dto import (
-    AlbumsAddAssetsResponseDto as AlbumsAddAssetsResponseDto,
-)
-from immichpy.client.generated.models.albums_response import (
-    AlbumsResponse as AlbumsResponse,
-)
-from immichpy.client.generated.models.albums_update import AlbumsUpdate as AlbumsUpdate
-from immichpy.client.generated.models.api_key_create_dto import (
-    ApiKeyCreateDto as ApiKeyCreateDto,
-)
-from immichpy.client.generated.models.api_key_create_response_dto import (
-    ApiKeyCreateResponseDto as ApiKeyCreateResponseDto,
-)
-from immichpy.client.generated.models.api_key_response_dto import (
-    ApiKeyResponseDto as ApiKeyResponseDto,
-)
-from immichpy.client.generated.models.api_key_update_dto import (
-    ApiKeyUpdateDto as ApiKeyUpdateDto,
-)
-from immichpy.client.generated.models.asset_bulk_delete_dto import (
-    AssetBulkDeleteDto as AssetBulkDeleteDto,
-)
-from immichpy.client.generated.models.asset_bulk_update_dto import (
-    AssetBulkUpdateDto as AssetBulkUpdateDto,
-)
-from immichpy.client.generated.models.asset_bulk_upload_check_dto import (
-    AssetBulkUploadCheckDto as AssetBulkUploadCheckDto,
-)
-from immichpy.client.generated.models.asset_bulk_upload_check_item import (
-    AssetBulkUploadCheckItem as AssetBulkUploadCheckItem,
-)
-from immichpy.client.generated.models.asset_bulk_upload_check_response_dto import (
-    AssetBulkUploadCheckResponseDto as AssetBulkUploadCheckResponseDto,
-)
-from immichpy.client.generated.models.asset_bulk_upload_check_result import (
-    AssetBulkUploadCheckResult as AssetBulkUploadCheckResult,
-)
-from immichpy.client.generated.models.asset_copy_dto import AssetCopyDto as AssetCopyDto
-from immichpy.client.generated.models.asset_edit_action import (
-    AssetEditAction as AssetEditAction,
-)
-from immichpy.client.generated.models.asset_edit_action_item_dto import (
-    AssetEditActionItemDto as AssetEditActionItemDto,
-)
-from immichpy.client.generated.models.asset_edit_action_item_dto_parameters import (
-    AssetEditActionItemDtoParameters as AssetEditActionItemDtoParameters,
-)
-from immichpy.client.generated.models.asset_edit_action_item_response_dto import (
-    AssetEditActionItemResponseDto as AssetEditActionItemResponseDto,
-)
-from immichpy.client.generated.models.asset_edits_create_dto import (
-    AssetEditsCreateDto as AssetEditsCreateDto,
-)
-from immichpy.client.generated.models.asset_edits_response_dto import (
-    AssetEditsResponseDto as AssetEditsResponseDto,
-)
-from immichpy.client.generated.models.asset_face_create_dto import (
-    AssetFaceCreateDto as AssetFaceCreateDto,
-)
-from immichpy.client.generated.models.asset_face_delete_dto import (
-    AssetFaceDeleteDto as AssetFaceDeleteDto,
-)
-from immichpy.client.generated.models.asset_face_response_dto import (
-    AssetFaceResponseDto as AssetFaceResponseDto,
-)
-from immichpy.client.generated.models.asset_face_update_dto import (
-    AssetFaceUpdateDto as AssetFaceUpdateDto,
-)
-from immichpy.client.generated.models.asset_face_update_item import (
-    AssetFaceUpdateItem as AssetFaceUpdateItem,
-)
-from immichpy.client.generated.models.asset_file_response_dto import (
-    AssetFileResponseDto as AssetFileResponseDto,
-)
-from immichpy.client.generated.models.asset_file_type import (
-    AssetFileType as AssetFileType,
-)
-from immichpy.client.generated.models.asset_id_error_reason import (
-    AssetIdErrorReason as AssetIdErrorReason,
-)
-from immichpy.client.generated.models.asset_ids_dto import AssetIdsDto as AssetIdsDto
-from immichpy.client.generated.models.asset_ids_response_dto import (
-    AssetIdsResponseDto as AssetIdsResponseDto,
-)
-from immichpy.client.generated.models.asset_job_name import AssetJobName as AssetJobName
-from immichpy.client.generated.models.asset_jobs_dto import AssetJobsDto as AssetJobsDto
-from immichpy.client.generated.models.asset_media_response_dto import (
-    AssetMediaResponseDto as AssetMediaResponseDto,
-)
-from immichpy.client.generated.models.asset_media_size import (
-    AssetMediaSize as AssetMediaSize,
-)
-from immichpy.client.generated.models.asset_media_status import (
-    AssetMediaStatus as AssetMediaStatus,
-)
-from immichpy.client.generated.models.asset_metadata_bulk_delete_dto import (
-    AssetMetadataBulkDeleteDto as AssetMetadataBulkDeleteDto,
-)
-from immichpy.client.generated.models.asset_metadata_bulk_delete_item_dto import (
-    AssetMetadataBulkDeleteItemDto as AssetMetadataBulkDeleteItemDto,
-)
-from immichpy.client.generated.models.asset_metadata_bulk_response_dto import (
-    AssetMetadataBulkResponseDto as AssetMetadataBulkResponseDto,
-)
-from immichpy.client.generated.models.asset_metadata_bulk_upsert_dto import (
-    AssetMetadataBulkUpsertDto as AssetMetadataBulkUpsertDto,
-)
-from immichpy.client.generated.models.asset_metadata_bulk_upsert_item_dto import (
-    AssetMetadataBulkUpsertItemDto as AssetMetadataBulkUpsertItemDto,
-)
-from immichpy.client.generated.models.asset_metadata_response_dto import (
-    AssetMetadataResponseDto as AssetMetadataResponseDto,
-)
-from immichpy.client.generated.models.asset_metadata_upsert_dto import (
-    AssetMetadataUpsertDto as AssetMetadataUpsertDto,
-)
-from immichpy.client.generated.models.asset_metadata_upsert_item_dto import (
-    AssetMetadataUpsertItemDto as AssetMetadataUpsertItemDto,
-)
-from immichpy.client.generated.models.asset_ocr_response_dto import (
-    AssetOcrResponseDto as AssetOcrResponseDto,
-)
-from immichpy.client.generated.models.asset_order import AssetOrder as AssetOrder
-from immichpy.client.generated.models.asset_order_by import AssetOrderBy as AssetOrderBy
-from immichpy.client.generated.models.asset_reject_reason import (
-    AssetRejectReason as AssetRejectReason,
-)
-from immichpy.client.generated.models.asset_response_dto import (
-    AssetResponseDto as AssetResponseDto,
-)
-from immichpy.client.generated.models.asset_stack_response_dto import (
-    AssetStackResponseDto as AssetStackResponseDto,
-)
-from immichpy.client.generated.models.asset_stats_response_dto import (
-    AssetStatsResponseDto as AssetStatsResponseDto,
-)
-from immichpy.client.generated.models.asset_type_enum import (
-    AssetTypeEnum as AssetTypeEnum,
-)
-from immichpy.client.generated.models.asset_upload_action import (
-    AssetUploadAction as AssetUploadAction,
-)
-from immichpy.client.generated.models.asset_visibility import (
-    AssetVisibility as AssetVisibility,
-)
-from immichpy.client.generated.models.audio_codec import AudioCodec as AudioCodec
-from immichpy.client.generated.models.auth_status_response_dto import (
-    AuthStatusResponseDto as AuthStatusResponseDto,
-)
-from immichpy.client.generated.models.avatar_update import AvatarUpdate as AvatarUpdate
-from immichpy.client.generated.models.bool_filter import BoolFilter as BoolFilter
-from immichpy.client.generated.models.bulk_id_error_reason import (
-    BulkIdErrorReason as BulkIdErrorReason,
-)
-from immichpy.client.generated.models.bulk_id_response_dto import (
-    BulkIdResponseDto as BulkIdResponseDto,
-)
-from immichpy.client.generated.models.bulk_ids_dto import BulkIdsDto as BulkIdsDto
-from immichpy.client.generated.models.cq_mode import CQMode as CQMode
-from immichpy.client.generated.models.calendar_heatmap_response_dto import (
-    CalendarHeatmapResponseDto as CalendarHeatmapResponseDto,
-)
-from immichpy.client.generated.models.calendar_heatmap_response_dto_series_inner import (
-    CalendarHeatmapResponseDtoSeriesInner as CalendarHeatmapResponseDtoSeriesInner,
-)
-from immichpy.client.generated.models.calendar_heatmap_type import (
-    CalendarHeatmapType as CalendarHeatmapType,
-)
-from immichpy.client.generated.models.cast_response import CastResponse as CastResponse
-from immichpy.client.generated.models.cast_update import CastUpdate as CastUpdate
-from immichpy.client.generated.models.change_password_dto import (
-    ChangePasswordDto as ChangePasswordDto,
-)
-from immichpy.client.generated.models.cluster_group_request_create_dto import (
-    ClusterGroupRequestCreateDto as ClusterGroupRequestCreateDto,
-)
-from immichpy.client.generated.models.cluster_group_request_response_dto import (
-    ClusterGroupRequestResponseDto as ClusterGroupRequestResponseDto,
-)
-from immichpy.client.generated.models.colorspace import Colorspace as Colorspace
-from immichpy.client.generated.models.contributor_count_response_dto import (
-    ContributorCountResponseDto as ContributorCountResponseDto,
-)
-from immichpy.client.generated.models.create_album_dto import (
-    CreateAlbumDto as CreateAlbumDto,
-)
-from immichpy.client.generated.models.create_library_dto import (
-    CreateLibraryDto as CreateLibraryDto,
-)
-from immichpy.client.generated.models.create_profile_image_response_dto import (
-    CreateProfileImageResponseDto as CreateProfileImageResponseDto,
-)
-from immichpy.client.generated.models.crop_parameters import (
-    CropParameters as CropParameters,
-)
-from immichpy.client.generated.models.database_backup_delete_dto import (
-    DatabaseBackupDeleteDto as DatabaseBackupDeleteDto,
-)
-from immichpy.client.generated.models.database_backup_dto import (
-    DatabaseBackupDto as DatabaseBackupDto,
-)
-from immichpy.client.generated.models.database_backup_list_response_dto import (
-    DatabaseBackupListResponseDto as DatabaseBackupListResponseDto,
-)
-from immichpy.client.generated.models.date_filter import DateFilter as DateFilter
-from immichpy.client.generated.models.date_filter_nullable import (
-    DateFilterNullable as DateFilterNullable,
-)
-from immichpy.client.generated.models.download_archive_dto import (
-    DownloadArchiveDto as DownloadArchiveDto,
-)
-from immichpy.client.generated.models.download_archive_info import (
-    DownloadArchiveInfo as DownloadArchiveInfo,
-)
-from immichpy.client.generated.models.download_info_dto import (
-    DownloadInfoDto as DownloadInfoDto,
-)
-from immichpy.client.generated.models.download_response import (
-    DownloadResponse as DownloadResponse,
-)
-from immichpy.client.generated.models.download_response_dto import (
-    DownloadResponseDto as DownloadResponseDto,
-)
-from immichpy.client.generated.models.download_update import (
-    DownloadUpdate as DownloadUpdate,
-)
-from immichpy.client.generated.models.duplicate_resolve_dto import (
-    DuplicateResolveDto as DuplicateResolveDto,
-)
-from immichpy.client.generated.models.duplicate_resolve_group_dto import (
-    DuplicateResolveGroupDto as DuplicateResolveGroupDto,
-)
-from immichpy.client.generated.models.duplicate_response_dto import (
-    DuplicateResponseDto as DuplicateResponseDto,
-)
-from immichpy.client.generated.models.email_notifications_response import (
-    EmailNotificationsResponse as EmailNotificationsResponse,
-)
-from immichpy.client.generated.models.email_notifications_update import (
-    EmailNotificationsUpdate as EmailNotificationsUpdate,
-)
-from immichpy.client.generated.models.enum_filter_asset_type import (
-    EnumFilterAssetType as EnumFilterAssetType,
-)
-from immichpy.client.generated.models.enum_filter_asset_visibility import (
-    EnumFilterAssetVisibility as EnumFilterAssetVisibility,
-)
-from immichpy.client.generated.models.exif_response_dto import (
-    ExifResponseDto as ExifResponseDto,
-)
-from immichpy.client.generated.models.face_dto import FaceDto as FaceDto
-from immichpy.client.generated.models.folders_response import (
-    FoldersResponse as FoldersResponse,
-)
-from immichpy.client.generated.models.folders_update import (
-    FoldersUpdate as FoldersUpdate,
-)
-from immichpy.client.generated.models.hls_video_resolution import (
-    HlsVideoResolution as HlsVideoResolution,
-)
-from immichpy.client.generated.models.id_filter import IdFilter as IdFilter
-from immichpy.client.generated.models.id_filter_nullable import (
-    IdFilterNullable as IdFilterNullable,
-)
-from immichpy.client.generated.models.ids_filter import IdsFilter as IdsFilter
-from immichpy.client.generated.models.image_format import ImageFormat as ImageFormat
-from immichpy.client.generated.models.integrity_report import (
-    IntegrityReport as IntegrityReport,
-)
-from immichpy.client.generated.models.integrity_report_response_dto import (
-    IntegrityReportResponseDto as IntegrityReportResponseDto,
-)
-from immichpy.client.generated.models.integrity_report_response_dto_items_inner import (
-    IntegrityReportResponseDtoItemsInner as IntegrityReportResponseDtoItemsInner,
-)
-from immichpy.client.generated.models.integrity_report_summary_response_dto import (
-    IntegrityReportSummaryResponseDto as IntegrityReportSummaryResponseDto,
-)
-from immichpy.client.generated.models.job_create_dto import JobCreateDto as JobCreateDto
-from immichpy.client.generated.models.job_name import JobName as JobName
-from immichpy.client.generated.models.library_response_dto import (
-    LibraryResponseDto as LibraryResponseDto,
-)
-from immichpy.client.generated.models.library_stats_response_dto import (
-    LibraryStatsResponseDto as LibraryStatsResponseDto,
-)
-from immichpy.client.generated.models.license_key_dto import (
-    LicenseKeyDto as LicenseKeyDto,
-)
-from immichpy.client.generated.models.log_level import LogLevel as LogLevel
-from immichpy.client.generated.models.login_credential_dto import (
-    LoginCredentialDto as LoginCredentialDto,
-)
-from immichpy.client.generated.models.login_response_dto import (
-    LoginResponseDto as LoginResponseDto,
-)
-from immichpy.client.generated.models.logout_response_dto import (
-    LogoutResponseDto as LogoutResponseDto,
-)
-from immichpy.client.generated.models.maintenance_action import (
-    MaintenanceAction as MaintenanceAction,
-)
-from immichpy.client.generated.models.maintenance_auth_dto import (
-    MaintenanceAuthDto as MaintenanceAuthDto,
-)
-from immichpy.client.generated.models.maintenance_detect_install_response_dto import (
-    MaintenanceDetectInstallResponseDto as MaintenanceDetectInstallResponseDto,
-)
-from immichpy.client.generated.models.maintenance_detect_install_storage_folder_dto import (
-    MaintenanceDetectInstallStorageFolderDto as MaintenanceDetectInstallStorageFolderDto,
-)
-from immichpy.client.generated.models.maintenance_login_dto import (
-    MaintenanceLoginDto as MaintenanceLoginDto,
-)
-from immichpy.client.generated.models.maintenance_status_response_dto import (
-    MaintenanceStatusResponseDto as MaintenanceStatusResponseDto,
-)
-from immichpy.client.generated.models.manual_job_name import (
-    ManualJobName as ManualJobName,
-)
-from immichpy.client.generated.models.map_marker_response_dto import (
-    MapMarkerResponseDto as MapMarkerResponseDto,
-)
-from immichpy.client.generated.models.map_reverse_geocode_response_dto import (
-    MapReverseGeocodeResponseDto as MapReverseGeocodeResponseDto,
-)
-from immichpy.client.generated.models.memories_response import (
-    MemoriesResponse as MemoriesResponse,
-)
-from immichpy.client.generated.models.memories_update import (
-    MemoriesUpdate as MemoriesUpdate,
-)
-from immichpy.client.generated.models.memory_create_dto import (
-    MemoryCreateDto as MemoryCreateDto,
-)
-from immichpy.client.generated.models.memory_response_dto import (
-    MemoryResponseDto as MemoryResponseDto,
-)
-from immichpy.client.generated.models.memory_search_order import (
-    MemorySearchOrder as MemorySearchOrder,
-)
-from immichpy.client.generated.models.memory_statistics_response_dto import (
-    MemoryStatisticsResponseDto as MemoryStatisticsResponseDto,
-)
-from immichpy.client.generated.models.memory_type import MemoryType as MemoryType
-from immichpy.client.generated.models.memory_update_dto import (
-    MemoryUpdateDto as MemoryUpdateDto,
-)
-from immichpy.client.generated.models.merge_person_dto import (
-    MergePersonDto as MergePersonDto,
-)
-from immichpy.client.generated.models.metadata_search_dto import (
-    MetadataSearchDto as MetadataSearchDto,
-)
-from immichpy.client.generated.models.mirror_axis import MirrorAxis as MirrorAxis
-from immichpy.client.generated.models.mirror_parameters import (
-    MirrorParameters as MirrorParameters,
-)
-from immichpy.client.generated.models.notification_create_dto import (
-    NotificationCreateDto as NotificationCreateDto,
-)
-from immichpy.client.generated.models.notification_delete_all_dto import (
-    NotificationDeleteAllDto as NotificationDeleteAllDto,
-)
-from immichpy.client.generated.models.notification_dto import (
-    NotificationDto as NotificationDto,
-)
-from immichpy.client.generated.models.notification_level import (
-    NotificationLevel as NotificationLevel,
-)
-from immichpy.client.generated.models.notification_type import (
-    NotificationType as NotificationType,
-)
-from immichpy.client.generated.models.notification_update_all_dto import (
-    NotificationUpdateAllDto as NotificationUpdateAllDto,
-)
-from immichpy.client.generated.models.notification_update_dto import (
-    NotificationUpdateDto as NotificationUpdateDto,
-)
-from immichpy.client.generated.models.number_filter import NumberFilter as NumberFilter
-from immichpy.client.generated.models.number_filter_nullable import (
-    NumberFilterNullable as NumberFilterNullable,
-)
-from immichpy.client.generated.models.o_auth_authorize_response_dto import (
-    OAuthAuthorizeResponseDto as OAuthAuthorizeResponseDto,
-)
-from immichpy.client.generated.models.o_auth_callback_dto import (
-    OAuthCallbackDto as OAuthCallbackDto,
-)
-from immichpy.client.generated.models.o_auth_config_dto import (
-    OAuthConfigDto as OAuthConfigDto,
-)
-from immichpy.client.generated.models.o_auth_token_endpoint_auth_method import (
-    OAuthTokenEndpointAuthMethod as OAuthTokenEndpointAuthMethod,
-)
-from immichpy.client.generated.models.on_this_day_dto import (
-    OnThisDayDto as OnThisDayDto,
-)
-from immichpy.client.generated.models.onboarding_dto import (
-    OnboardingDto as OnboardingDto,
-)
-from immichpy.client.generated.models.onboarding_response_dto import (
-    OnboardingResponseDto as OnboardingResponseDto,
-)
-from immichpy.client.generated.models.partner_create_dto import (
-    PartnerCreateDto as PartnerCreateDto,
-)
-from immichpy.client.generated.models.partner_direction import (
-    PartnerDirection as PartnerDirection,
-)
-from immichpy.client.generated.models.partner_response_dto import (
-    PartnerResponseDto as PartnerResponseDto,
-)
-from immichpy.client.generated.models.partner_update_dto import (
-    PartnerUpdateDto as PartnerUpdateDto,
-)
-from immichpy.client.generated.models.people_response import (
-    PeopleResponse as PeopleResponse,
-)
-from immichpy.client.generated.models.people_response_dto import (
-    PeopleResponseDto as PeopleResponseDto,
-)
-from immichpy.client.generated.models.people_update import PeopleUpdate as PeopleUpdate
-from immichpy.client.generated.models.people_update_dto import (
-    PeopleUpdateDto as PeopleUpdateDto,
-)
-from immichpy.client.generated.models.people_update_item import (
-    PeopleUpdateItem as PeopleUpdateItem,
-)
-from immichpy.client.generated.models.permission import Permission as Permission
-from immichpy.client.generated.models.person_create_dto import (
-    PersonCreateDto as PersonCreateDto,
-)
-from immichpy.client.generated.models.person_response_dto import (
-    PersonResponseDto as PersonResponseDto,
-)
-from immichpy.client.generated.models.person_statistics_response_dto import (
-    PersonStatisticsResponseDto as PersonStatisticsResponseDto,
-)
-from immichpy.client.generated.models.person_update_dto import (
-    PersonUpdateDto as PersonUpdateDto,
-)
-from immichpy.client.generated.models.pin_code_change_dto import (
-    PinCodeChangeDto as PinCodeChangeDto,
-)
-from immichpy.client.generated.models.pin_code_reset_dto import (
-    PinCodeResetDto as PinCodeResetDto,
-)
-from immichpy.client.generated.models.pin_code_setup_dto import (
-    PinCodeSetupDto as PinCodeSetupDto,
-)
-from immichpy.client.generated.models.places_response_dto import (
-    PlacesResponseDto as PlacesResponseDto,
-)
-from immichpy.client.generated.models.plugin_method_response_dto import (
-    PluginMethodResponseDto as PluginMethodResponseDto,
-)
-from immichpy.client.generated.models.plugin_response_dto import (
-    PluginResponseDto as PluginResponseDto,
-)
-from immichpy.client.generated.models.plugin_template_response_dto import (
-    PluginTemplateResponseDto as PluginTemplateResponseDto,
-)
-from immichpy.client.generated.models.plugin_template_step_response_dto import (
-    PluginTemplateStepResponseDto as PluginTemplateStepResponseDto,
-)
-from immichpy.client.generated.models.public_config_dto import (
-    PublicConfigDto as PublicConfigDto,
-)
-from immichpy.client.generated.models.public_config_o_auth_dto import (
-    PublicConfigOAuthDto as PublicConfigOAuthDto,
-)
-from immichpy.client.generated.models.public_config_password_login_dto import (
-    PublicConfigPasswordLoginDto as PublicConfigPasswordLoginDto,
-)
-from immichpy.client.generated.models.public_config_server_dto import (
-    PublicConfigServerDto as PublicConfigServerDto,
-)
-from immichpy.client.generated.models.public_config_theme_dto import (
-    PublicConfigThemeDto as PublicConfigThemeDto,
-)
-from immichpy.client.generated.models.purchase_response import (
-    PurchaseResponse as PurchaseResponse,
-)
-from immichpy.client.generated.models.purchase_update import (
-    PurchaseUpdate as PurchaseUpdate,
-)
-from immichpy.client.generated.models.queue_command import QueueCommand as QueueCommand
-from immichpy.client.generated.models.queue_command_dto import (
-    QueueCommandDto as QueueCommandDto,
-)
-from immichpy.client.generated.models.queue_delete_dto import (
-    QueueDeleteDto as QueueDeleteDto,
-)
-from immichpy.client.generated.models.queue_job_response_dto import (
-    QueueJobResponseDto as QueueJobResponseDto,
-)
-from immichpy.client.generated.models.queue_job_status import (
-    QueueJobStatus as QueueJobStatus,
-)
-from immichpy.client.generated.models.queue_name import QueueName as QueueName
-from immichpy.client.generated.models.queue_response_dto import (
-    QueueResponseDto as QueueResponseDto,
-)
-from immichpy.client.generated.models.queue_response_legacy_dto import (
-    QueueResponseLegacyDto as QueueResponseLegacyDto,
-)
-from immichpy.client.generated.models.queue_statistics_dto import (
-    QueueStatisticsDto as QueueStatisticsDto,
-)
-from immichpy.client.generated.models.queue_status_legacy_dto import (
-    QueueStatusLegacyDto as QueueStatusLegacyDto,
-)
-from immichpy.client.generated.models.queue_update_dto import (
-    QueueUpdateDto as QueueUpdateDto,
-)
-from immichpy.client.generated.models.queues_response_legacy_dto import (
-    QueuesResponseLegacyDto as QueuesResponseLegacyDto,
-)
-from immichpy.client.generated.models.random_search_dto import (
-    RandomSearchDto as RandomSearchDto,
-)
-from immichpy.client.generated.models.ratings_response import (
-    RatingsResponse as RatingsResponse,
-)
-from immichpy.client.generated.models.ratings_update import (
-    RatingsUpdate as RatingsUpdate,
-)
-from immichpy.client.generated.models.reaction_level import (
-    ReactionLevel as ReactionLevel,
-)
-from immichpy.client.generated.models.reaction_type import ReactionType as ReactionType
-from immichpy.client.generated.models.recently_added_response import (
-    RecentlyAddedResponse as RecentlyAddedResponse,
-)
-from immichpy.client.generated.models.recently_added_update import (
-    RecentlyAddedUpdate as RecentlyAddedUpdate,
-)
-from immichpy.client.generated.models.release_channel import (
-    ReleaseChannel as ReleaseChannel,
-)
-from immichpy.client.generated.models.release_event_v1 import (
-    ReleaseEventV1 as ReleaseEventV1,
-)
-from immichpy.client.generated.models.release_type import ReleaseType as ReleaseType
-from immichpy.client.generated.models.reverse_geocoding_state_response_dto import (
-    ReverseGeocodingStateResponseDto as ReverseGeocodingStateResponseDto,
-)
-from immichpy.client.generated.models.rotate_parameters import (
-    RotateParameters as RotateParameters,
-)
-from immichpy.client.generated.models.search_album_response_dto import (
-    SearchAlbumResponseDto as SearchAlbumResponseDto,
-)
-from immichpy.client.generated.models.search_asset_response_dto import (
-    SearchAssetResponseDto as SearchAssetResponseDto,
-)
-from immichpy.client.generated.models.search_explore_item import (
-    SearchExploreItem as SearchExploreItem,
-)
-from immichpy.client.generated.models.search_explore_response_dto import (
-    SearchExploreResponseDto as SearchExploreResponseDto,
-)
-from immichpy.client.generated.models.search_facet_count_response_dto import (
-    SearchFacetCountResponseDto as SearchFacetCountResponseDto,
-)
-from immichpy.client.generated.models.search_facet_response_dto import (
-    SearchFacetResponseDto as SearchFacetResponseDto,
-)
-from immichpy.client.generated.models.search_filter import SearchFilter as SearchFilter
-from immichpy.client.generated.models.search_filter_branch import (
-    SearchFilterBranch as SearchFilterBranch,
-)
-from immichpy.client.generated.models.search_order import SearchOrder as SearchOrder
-from immichpy.client.generated.models.search_order_field import (
-    SearchOrderField as SearchOrderField,
-)
-from immichpy.client.generated.models.search_response_dto import (
-    SearchResponseDto as SearchResponseDto,
-)
-from immichpy.client.generated.models.search_statistics_response_dto import (
-    SearchStatisticsResponseDto as SearchStatisticsResponseDto,
-)
-from immichpy.client.generated.models.search_suggestion_type import (
-    SearchSuggestionType as SearchSuggestionType,
-)
-from immichpy.client.generated.models.server_about_response_dto import (
-    ServerAboutResponseDto as ServerAboutResponseDto,
-)
-from immichpy.client.generated.models.server_apk_links_dto import (
-    ServerApkLinksDto as ServerApkLinksDto,
-)
-from immichpy.client.generated.models.server_config_dto import (
-    ServerConfigDto as ServerConfigDto,
-)
-from immichpy.client.generated.models.server_features_dto import (
-    ServerFeaturesDto as ServerFeaturesDto,
-)
-from immichpy.client.generated.models.server_media_types_response_dto import (
-    ServerMediaTypesResponseDto as ServerMediaTypesResponseDto,
-)
-from immichpy.client.generated.models.server_ping_response import (
-    ServerPingResponse as ServerPingResponse,
-)
-from immichpy.client.generated.models.server_stats_response_dto import (
-    ServerStatsResponseDto as ServerStatsResponseDto,
-)
-from immichpy.client.generated.models.server_storage_response_dto import (
-    ServerStorageResponseDto as ServerStorageResponseDto,
-)
-from immichpy.client.generated.models.server_version_history_response_dto import (
-    ServerVersionHistoryResponseDto as ServerVersionHistoryResponseDto,
-)
-from immichpy.client.generated.models.server_version_response_dto import (
-    ServerVersionResponseDto as ServerVersionResponseDto,
-)
-from immichpy.client.generated.models.session_create_dto import (
-    SessionCreateDto as SessionCreateDto,
-)
-from immichpy.client.generated.models.session_create_response_dto import (
-    SessionCreateResponseDto as SessionCreateResponseDto,
-)
-from immichpy.client.generated.models.session_response_dto import (
-    SessionResponseDto as SessionResponseDto,
-)
-from immichpy.client.generated.models.session_unlock_dto import (
-    SessionUnlockDto as SessionUnlockDto,
-)
-from immichpy.client.generated.models.session_update_dto import (
-    SessionUpdateDto as SessionUpdateDto,
-)
-from immichpy.client.generated.models.set_maintenance_mode_dto import (
-    SetMaintenanceModeDto as SetMaintenanceModeDto,
-)
-from immichpy.client.generated.models.shared_link_create_dto import (
-    SharedLinkCreateDto as SharedLinkCreateDto,
-)
-from immichpy.client.generated.models.shared_link_edit_dto import (
-    SharedLinkEditDto as SharedLinkEditDto,
-)
-from immichpy.client.generated.models.shared_link_login_dto import (
-    SharedLinkLoginDto as SharedLinkLoginDto,
-)
-from immichpy.client.generated.models.shared_link_response_dto import (
-    SharedLinkResponseDto as SharedLinkResponseDto,
-)
-from immichpy.client.generated.models.shared_link_type import (
-    SharedLinkType as SharedLinkType,
-)
-from immichpy.client.generated.models.shared_links_response import (
-    SharedLinksResponse as SharedLinksResponse,
-)
-from immichpy.client.generated.models.shared_links_update import (
-    SharedLinksUpdate as SharedLinksUpdate,
-)
-from immichpy.client.generated.models.sign_up_dto import SignUpDto as SignUpDto
-from immichpy.client.generated.models.smart_search_dto import (
-    SmartSearchDto as SmartSearchDto,
-)
-from immichpy.client.generated.models.source_type import SourceType as SourceType
-from immichpy.client.generated.models.stack_create_dto import (
-    StackCreateDto as StackCreateDto,
-)
-from immichpy.client.generated.models.stack_response_dto import (
-    StackResponseDto as StackResponseDto,
-)
-from immichpy.client.generated.models.stack_update_dto import (
-    StackUpdateDto as StackUpdateDto,
-)
-from immichpy.client.generated.models.statistics_search_dto import (
-    StatisticsSearchDto as StatisticsSearchDto,
-)
-from immichpy.client.generated.models.storage_folder import (
-    StorageFolder as StorageFolder,
-)
-from immichpy.client.generated.models.string_filter import StringFilter as StringFilter
-from immichpy.client.generated.models.string_filter_nullable import (
-    StringFilterNullable as StringFilterNullable,
-)
-from immichpy.client.generated.models.string_pattern_filter import (
-    StringPatternFilter as StringPatternFilter,
-)
-from immichpy.client.generated.models.string_similarity_filter import (
-    StringSimilarityFilter as StringSimilarityFilter,
-)
-from immichpy.client.generated.models.sync_ack_delete_dto import (
-    SyncAckDeleteDto as SyncAckDeleteDto,
-)
-from immichpy.client.generated.models.sync_ack_dto import SyncAckDto as SyncAckDto
-from immichpy.client.generated.models.sync_ack_set_dto import (
-    SyncAckSetDto as SyncAckSetDto,
-)
-from immichpy.client.generated.models.sync_album_delete_v1 import (
-    SyncAlbumDeleteV1 as SyncAlbumDeleteV1,
-)
-from immichpy.client.generated.models.sync_album_to_asset_delete_v1 import (
-    SyncAlbumToAssetDeleteV1 as SyncAlbumToAssetDeleteV1,
-)
-from immichpy.client.generated.models.sync_album_to_asset_v1 import (
-    SyncAlbumToAssetV1 as SyncAlbumToAssetV1,
-)
-from immichpy.client.generated.models.sync_album_user_delete_v1 import (
-    SyncAlbumUserDeleteV1 as SyncAlbumUserDeleteV1,
-)
-from immichpy.client.generated.models.sync_album_user_v1 import (
-    SyncAlbumUserV1 as SyncAlbumUserV1,
-)
-from immichpy.client.generated.models.sync_album_v1 import SyncAlbumV1 as SyncAlbumV1
-from immichpy.client.generated.models.sync_album_v2 import SyncAlbumV2 as SyncAlbumV2
-from immichpy.client.generated.models.sync_asset_delete_v1 import (
-    SyncAssetDeleteV1 as SyncAssetDeleteV1,
-)
-from immichpy.client.generated.models.sync_asset_edit_delete_v1 import (
-    SyncAssetEditDeleteV1 as SyncAssetEditDeleteV1,
-)
-from immichpy.client.generated.models.sync_asset_edit_v1 import (
-    SyncAssetEditV1 as SyncAssetEditV1,
-)
-from immichpy.client.generated.models.sync_asset_exif_v1 import (
-    SyncAssetExifV1 as SyncAssetExifV1,
-)
-from immichpy.client.generated.models.sync_asset_face_delete_v1 import (
-    SyncAssetFaceDeleteV1 as SyncAssetFaceDeleteV1,
-)
-from immichpy.client.generated.models.sync_asset_face_v1 import (
-    SyncAssetFaceV1 as SyncAssetFaceV1,
-)
-from immichpy.client.generated.models.sync_asset_face_v2 import (
-    SyncAssetFaceV2 as SyncAssetFaceV2,
-)
-from immichpy.client.generated.models.sync_asset_metadata_delete_v1 import (
-    SyncAssetMetadataDeleteV1 as SyncAssetMetadataDeleteV1,
-)
-from immichpy.client.generated.models.sync_asset_metadata_v1 import (
-    SyncAssetMetadataV1 as SyncAssetMetadataV1,
-)
-from immichpy.client.generated.models.sync_asset_ocr_delete_v1 import (
-    SyncAssetOcrDeleteV1 as SyncAssetOcrDeleteV1,
-)
-from immichpy.client.generated.models.sync_asset_ocr_v1 import (
-    SyncAssetOcrV1 as SyncAssetOcrV1,
-)
-from immichpy.client.generated.models.sync_asset_v1 import SyncAssetV1 as SyncAssetV1
-from immichpy.client.generated.models.sync_asset_v2 import SyncAssetV2 as SyncAssetV2
-from immichpy.client.generated.models.sync_auth_user_v1 import (
-    SyncAuthUserV1 as SyncAuthUserV1,
-)
-from immichpy.client.generated.models.sync_entity_type import (
-    SyncEntityType as SyncEntityType,
-)
-from immichpy.client.generated.models.sync_memory_asset_delete_v1 import (
-    SyncMemoryAssetDeleteV1 as SyncMemoryAssetDeleteV1,
-)
-from immichpy.client.generated.models.sync_memory_asset_v1 import (
-    SyncMemoryAssetV1 as SyncMemoryAssetV1,
-)
-from immichpy.client.generated.models.sync_memory_delete_v1 import (
-    SyncMemoryDeleteV1 as SyncMemoryDeleteV1,
-)
-from immichpy.client.generated.models.sync_memory_v1 import SyncMemoryV1 as SyncMemoryV1
-from immichpy.client.generated.models.sync_partner_delete_v1 import (
-    SyncPartnerDeleteV1 as SyncPartnerDeleteV1,
-)
-from immichpy.client.generated.models.sync_partner_v1 import (
-    SyncPartnerV1 as SyncPartnerV1,
-)
-from immichpy.client.generated.models.sync_person_delete_v1 import (
-    SyncPersonDeleteV1 as SyncPersonDeleteV1,
-)
-from immichpy.client.generated.models.sync_person_v1 import SyncPersonV1 as SyncPersonV1
-from immichpy.client.generated.models.sync_request_type import (
-    SyncRequestType as SyncRequestType,
-)
-from immichpy.client.generated.models.sync_stack_delete_v1 import (
-    SyncStackDeleteV1 as SyncStackDeleteV1,
-)
-from immichpy.client.generated.models.sync_stack_v1 import SyncStackV1 as SyncStackV1
-from immichpy.client.generated.models.sync_stream_dto import (
-    SyncStreamDto as SyncStreamDto,
-)
-from immichpy.client.generated.models.sync_user_delete_v1 import (
-    SyncUserDeleteV1 as SyncUserDeleteV1,
-)
-from immichpy.client.generated.models.sync_user_metadata_delete_v1 import (
-    SyncUserMetadataDeleteV1 as SyncUserMetadataDeleteV1,
-)
-from immichpy.client.generated.models.sync_user_metadata_v1 import (
-    SyncUserMetadataV1 as SyncUserMetadataV1,
-)
-from immichpy.client.generated.models.sync_user_v1 import SyncUserV1 as SyncUserV1
-from immichpy.client.generated.models.system_config_template_storage_option_dto import (
-    SystemConfigTemplateStorageOptionDto as SystemConfigTemplateStorageOptionDto,
-)
-from immichpy.client.generated.models.tag_bulk_assets_dto import (
-    TagBulkAssetsDto as TagBulkAssetsDto,
-)
-from immichpy.client.generated.models.tag_bulk_assets_response_dto import (
-    TagBulkAssetsResponseDto as TagBulkAssetsResponseDto,
-)
-from immichpy.client.generated.models.tag_create_dto import TagCreateDto as TagCreateDto
-from immichpy.client.generated.models.tag_response_dto import (
-    TagResponseDto as TagResponseDto,
-)
-from immichpy.client.generated.models.tag_update_dto import TagUpdateDto as TagUpdateDto
-from immichpy.client.generated.models.tag_upsert_dto import TagUpsertDto as TagUpsertDto
-from immichpy.client.generated.models.tags_response import TagsResponse as TagsResponse
-from immichpy.client.generated.models.tags_update import TagsUpdate as TagsUpdate
-from immichpy.client.generated.models.template_dto import TemplateDto as TemplateDto
-from immichpy.client.generated.models.template_response_dto import (
-    TemplateResponseDto as TemplateResponseDto,
-)
-from immichpy.client.generated.models.test_email_response_dto import (
-    TestEmailResponseDto as TestEmailResponseDto,
-)
-from immichpy.client.generated.models.time_bucket_asset_response_dto import (
-    TimeBucketAssetResponseDto as TimeBucketAssetResponseDto,
-)
-from immichpy.client.generated.models.time_buckets_response_dto import (
-    TimeBucketsResponseDto as TimeBucketsResponseDto,
-)
-from immichpy.client.generated.models.tone_mapping import ToneMapping as ToneMapping
-from immichpy.client.generated.models.transcode_hw_accel import (
-    TranscodeHWAccel as TranscodeHWAccel,
-)
-from immichpy.client.generated.models.transcode_policy import (
-    TranscodePolicy as TranscodePolicy,
-)
-from immichpy.client.generated.models.trash_response_dto import (
-    TrashResponseDto as TrashResponseDto,
-)
-from immichpy.client.generated.models.update_album_dto import (
-    UpdateAlbumDto as UpdateAlbumDto,
-)
-from immichpy.client.generated.models.update_album_user_dto import (
-    UpdateAlbumUserDto as UpdateAlbumUserDto,
-)
-from immichpy.client.generated.models.update_asset_dto import (
-    UpdateAssetDto as UpdateAssetDto,
-)
-from immichpy.client.generated.models.update_library_dto import (
-    UpdateLibraryDto as UpdateLibraryDto,
-)
-from immichpy.client.generated.models.usage_by_user_dto import (
-    UsageByUserDto as UsageByUserDto,
-)
-from immichpy.client.generated.models.user_admin_create_dto import (
-    UserAdminCreateDto as UserAdminCreateDto,
-)
-from immichpy.client.generated.models.user_admin_delete_dto import (
-    UserAdminDeleteDto as UserAdminDeleteDto,
-)
-from immichpy.client.generated.models.user_admin_response_dto import (
-    UserAdminResponseDto as UserAdminResponseDto,
-)
-from immichpy.client.generated.models.user_admin_update_dto import (
-    UserAdminUpdateDto as UserAdminUpdateDto,
-)
-from immichpy.client.generated.models.user_avatar_color import (
-    UserAvatarColor as UserAvatarColor,
-)
-from immichpy.client.generated.models.user_config_clip_dto import (
-    UserConfigClipDto as UserConfigClipDto,
-)
-from immichpy.client.generated.models.user_config_dto import (
-    UserConfigDto as UserConfigDto,
-)
-from immichpy.client.generated.models.user_config_duplicate_detection_dto import (
-    UserConfigDuplicateDetectionDto as UserConfigDuplicateDetectionDto,
-)
-from immichpy.client.generated.models.user_config_f_fmpeg_dto import (
-    UserConfigFFmpegDto as UserConfigFFmpegDto,
-)
-from immichpy.client.generated.models.user_config_f_fmpeg_realtime_dto import (
-    UserConfigFFmpegRealtimeDto as UserConfigFFmpegRealtimeDto,
-)
-from immichpy.client.generated.models.user_config_facial_recognition_dto import (
-    UserConfigFacialRecognitionDto as UserConfigFacialRecognitionDto,
-)
-from immichpy.client.generated.models.user_config_generated_fullsize_image_dto import (
-    UserConfigGeneratedFullsizeImageDto as UserConfigGeneratedFullsizeImageDto,
-)
-from immichpy.client.generated.models.user_config_generated_image_dto import (
-    UserConfigGeneratedImageDto as UserConfigGeneratedImageDto,
-)
-from immichpy.client.generated.models.user_config_image_dto import (
-    UserConfigImageDto as UserConfigImageDto,
-)
-from immichpy.client.generated.models.user_config_machine_learning_dto import (
-    UserConfigMachineLearningDto as UserConfigMachineLearningDto,
-)
-from immichpy.client.generated.models.user_config_map_dto import (
-    UserConfigMapDto as UserConfigMapDto,
-)
-from immichpy.client.generated.models.user_config_o_auth_dto import (
-    UserConfigOAuthDto as UserConfigOAuthDto,
-)
-from immichpy.client.generated.models.user_config_ocr_dto import (
-    UserConfigOcrDto as UserConfigOcrDto,
-)
-from immichpy.client.generated.models.user_config_password_login_dto import (
-    UserConfigPasswordLoginDto as UserConfigPasswordLoginDto,
-)
-from immichpy.client.generated.models.user_config_reverse_geocoding_dto import (
-    UserConfigReverseGeocodingDto as UserConfigReverseGeocodingDto,
-)
-from immichpy.client.generated.models.user_config_server_dto import (
-    UserConfigServerDto as UserConfigServerDto,
-)
-from immichpy.client.generated.models.user_config_theme_dto import (
-    UserConfigThemeDto as UserConfigThemeDto,
-)
-from immichpy.client.generated.models.user_config_trash_dto import (
-    UserConfigTrashDto as UserConfigTrashDto,
-)
-from immichpy.client.generated.models.user_config_user_dto import (
-    UserConfigUserDto as UserConfigUserDto,
-)
-from immichpy.client.generated.models.user_license import UserLicense as UserLicense
-from immichpy.client.generated.models.user_metadata_key import (
-    UserMetadataKey as UserMetadataKey,
-)
-from immichpy.client.generated.models.user_preferences_response_dto import (
-    UserPreferencesResponseDto as UserPreferencesResponseDto,
-)
-from immichpy.client.generated.models.user_preferences_update_dto import (
-    UserPreferencesUpdateDto as UserPreferencesUpdateDto,
-)
-from immichpy.client.generated.models.user_response_dto import (
-    UserResponseDto as UserResponseDto,
-)
-from immichpy.client.generated.models.user_status import UserStatus as UserStatus
-from immichpy.client.generated.models.user_update_me_dto import (
-    UserUpdateMeDto as UserUpdateMeDto,
-)
-from immichpy.client.generated.models.validate_access_token_response_dto import (
-    ValidateAccessTokenResponseDto as ValidateAccessTokenResponseDto,
-)
-from immichpy.client.generated.models.validate_library_dto import (
-    ValidateLibraryDto as ValidateLibraryDto,
-)
-from immichpy.client.generated.models.validate_library_import_path_response_dto import (
-    ValidateLibraryImportPathResponseDto as ValidateLibraryImportPathResponseDto,
-)
-from immichpy.client.generated.models.validate_library_response_dto import (
-    ValidateLibraryResponseDto as ValidateLibraryResponseDto,
-)
-from immichpy.client.generated.models.version_check_state_response_dto import (
-    VersionCheckStateResponseDto as VersionCheckStateResponseDto,
-)
-from immichpy.client.generated.models.video_codec import VideoCodec as VideoCodec
-from immichpy.client.generated.models.video_container import (
-    VideoContainer as VideoContainer,
-)
-from immichpy.client.generated.models.workflow_create_dto import (
-    WorkflowCreateDto as WorkflowCreateDto,
-)
-from immichpy.client.generated.models.workflow_log_entry_dto import (
-    WorkflowLogEntryDto as WorkflowLogEntryDto,
-)
-from immichpy.client.generated.models.workflow_log_entry_dto_last_step import (
-    WorkflowLogEntryDtoLastStep as WorkflowLogEntryDtoLastStep,
-)
-from immichpy.client.generated.models.workflow_response_dto import (
-    WorkflowResponseDto as WorkflowResponseDto,
-)
-from immichpy.client.generated.models.workflow_result import (
-    WorkflowResult as WorkflowResult,
-)
-from immichpy.client.generated.models.workflow_share_response_dto import (
-    WorkflowShareResponseDto as WorkflowShareResponseDto,
-)
-from immichpy.client.generated.models.workflow_share_step_dto import (
-    WorkflowShareStepDto as WorkflowShareStepDto,
-)
-from immichpy.client.generated.models.workflow_step_dto import (
-    WorkflowStepDto as WorkflowStepDto,
-)
-from immichpy.client.generated.models.workflow_trigger import (
-    WorkflowTrigger as WorkflowTrigger,
-)
-from immichpy.client.generated.models.workflow_trigger_response_dto import (
-    WorkflowTriggerResponseDto as WorkflowTriggerResponseDto,
-)
-from immichpy.client.generated.models.workflow_type import WorkflowType as WorkflowType
-from immichpy.client.generated.models.workflow_update_dto import (
-    WorkflowUpdateDto as WorkflowUpdateDto,
-)
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from immichpy.client.generated.api.api_keys_api import APIKeysApi as APIKeysApi
+    from immichpy.client.generated.api.activities_api import (
+        ActivitiesApi as ActivitiesApi,
+    )
+    from immichpy.client.generated.api.albums_api import AlbumsApi as AlbumsApi
+    from immichpy.client.generated.api.asset_files_api import (
+        AssetFilesApi as AssetFilesApi,
+    )
+    from immichpy.client.generated.api.assets_api import AssetsApi as AssetsApi
+    from immichpy.client.generated.api.authentication_api import (
+        AuthenticationApi as AuthenticationApi,
+    )
+    from immichpy.client.generated.api.authentication_admin_api import (
+        AuthenticationAdminApi as AuthenticationAdminApi,
+    )
+    from immichpy.client.generated.api.cluster_groups_api import (
+        ClusterGroupsApi as ClusterGroupsApi,
+    )
+    from immichpy.client.generated.api.config_admin_api import (
+        ConfigAdminApi as ConfigAdminApi,
+    )
+    from immichpy.client.generated.api.config_public_api import (
+        ConfigPublicApi as ConfigPublicApi,
+    )
+    from immichpy.client.generated.api.config_user_api import (
+        ConfigUserApi as ConfigUserApi,
+    )
+    from immichpy.client.generated.api.database_backups_admin_api import (
+        DatabaseBackupsAdminApi as DatabaseBackupsAdminApi,
+    )
+    from immichpy.client.generated.api.deprecated_api import (
+        DeprecatedApi as DeprecatedApi,
+    )
+    from immichpy.client.generated.api.download_api import DownloadApi as DownloadApi
+    from immichpy.client.generated.api.duplicates_api import (
+        DuplicatesApi as DuplicatesApi,
+    )
+    from immichpy.client.generated.api.faces_api import FacesApi as FacesApi
+    from immichpy.client.generated.api.jobs_api import JobsApi as JobsApi
+    from immichpy.client.generated.api.libraries_api import LibrariesApi as LibrariesApi
+    from immichpy.client.generated.api.maintenance_admin_api import (
+        MaintenanceAdminApi as MaintenanceAdminApi,
+    )
+    from immichpy.client.generated.api.map_api import MapApi as MapApi
+    from immichpy.client.generated.api.memories_api import MemoriesApi as MemoriesApi
+    from immichpy.client.generated.api.notifications_api import (
+        NotificationsApi as NotificationsApi,
+    )
+    from immichpy.client.generated.api.notifications_admin_api import (
+        NotificationsAdminApi as NotificationsAdminApi,
+    )
+    from immichpy.client.generated.api.partners_api import PartnersApi as PartnersApi
+    from immichpy.client.generated.api.people_api import PeopleApi as PeopleApi
+    from immichpy.client.generated.api.plugins_api import PluginsApi as PluginsApi
+    from immichpy.client.generated.api.queues_api import QueuesApi as QueuesApi
+    from immichpy.client.generated.api.search_api import SearchApi as SearchApi
+    from immichpy.client.generated.api.server_api import ServerApi as ServerApi
+    from immichpy.client.generated.api.sessions_api import SessionsApi as SessionsApi
+    from immichpy.client.generated.api.shared_links_api import (
+        SharedLinksApi as SharedLinksApi,
+    )
+    from immichpy.client.generated.api.stacks_api import StacksApi as StacksApi
+    from immichpy.client.generated.api.sync_api import SyncApi as SyncApi
+    from immichpy.client.generated.api.system_config_api import (
+        SystemConfigApi as SystemConfigApi,
+    )
+    from immichpy.client.generated.api.system_metadata_api import (
+        SystemMetadataApi as SystemMetadataApi,
+    )
+    from immichpy.client.generated.api.tags_api import TagsApi as TagsApi
+    from immichpy.client.generated.api.timeline_api import TimelineApi as TimelineApi
+    from immichpy.client.generated.api.trash_api import TrashApi as TrashApi
+    from immichpy.client.generated.api.users_api import UsersApi as UsersApi
+    from immichpy.client.generated.api.users_admin_api import (
+        UsersAdminApi as UsersAdminApi,
+    )
+    from immichpy.client.generated.api.views_api import ViewsApi as ViewsApi
+    from immichpy.client.generated.api.workflows_api import WorkflowsApi as WorkflowsApi
+    from immichpy.client.generated.api_response import ApiResponse as ApiResponse
+    from immichpy.client.generated.api_client import ApiClient as ApiClient
+    from immichpy.client.generated.configuration import Configuration as Configuration
+    from immichpy.client.generated.exceptions import (
+        OpenApiException as OpenApiException,
+    )
+    from immichpy.client.generated.exceptions import ApiTypeError as ApiTypeError
+    from immichpy.client.generated.exceptions import ApiValueError as ApiValueError
+    from immichpy.client.generated.exceptions import ApiKeyError as ApiKeyError
+    from immichpy.client.generated.exceptions import (
+        ApiAttributeError as ApiAttributeError,
+    )
+    from immichpy.client.generated.exceptions import ApiException as ApiException
+    from immichpy.client.generated.models.activity_create_dto import (
+        ActivityCreateDto as ActivityCreateDto,
+    )
+    from immichpy.client.generated.models.activity_response_dto import (
+        ActivityResponseDto as ActivityResponseDto,
+    )
+    from immichpy.client.generated.models.activity_statistics_response_dto import (
+        ActivityStatisticsResponseDto as ActivityStatisticsResponseDto,
+    )
+    from immichpy.client.generated.models.add_users_dto import (
+        AddUsersDto as AddUsersDto,
+    )
+    from immichpy.client.generated.models.admin_config_backups_dto import (
+        AdminConfigBackupsDto as AdminConfigBackupsDto,
+    )
+    from immichpy.client.generated.models.admin_config_clip_dto import (
+        AdminConfigClipDto as AdminConfigClipDto,
+    )
+    from immichpy.client.generated.models.admin_config_database_backup_dto import (
+        AdminConfigDatabaseBackupDto as AdminConfigDatabaseBackupDto,
+    )
+    from immichpy.client.generated.models.admin_config_dto import (
+        AdminConfigDto as AdminConfigDto,
+    )
+    from immichpy.client.generated.models.admin_config_duplicate_detection_dto import (
+        AdminConfigDuplicateDetectionDto as AdminConfigDuplicateDetectionDto,
+    )
+    from immichpy.client.generated.models.admin_config_f_fmpeg_dto import (
+        AdminConfigFFmpegDto as AdminConfigFFmpegDto,
+    )
+    from immichpy.client.generated.models.admin_config_f_fmpeg_realtime_dto import (
+        AdminConfigFFmpegRealtimeDto as AdminConfigFFmpegRealtimeDto,
+    )
+    from immichpy.client.generated.models.admin_config_faces_dto import (
+        AdminConfigFacesDto as AdminConfigFacesDto,
+    )
+    from immichpy.client.generated.models.admin_config_facial_recognition_dto import (
+        AdminConfigFacialRecognitionDto as AdminConfigFacialRecognitionDto,
+    )
+    from immichpy.client.generated.models.admin_config_generated_fullsize_image_dto import (
+        AdminConfigGeneratedFullsizeImageDto as AdminConfigGeneratedFullsizeImageDto,
+    )
+    from immichpy.client.generated.models.admin_config_generated_image_dto import (
+        AdminConfigGeneratedImageDto as AdminConfigGeneratedImageDto,
+    )
+    from immichpy.client.generated.models.admin_config_image_dto import (
+        AdminConfigImageDto as AdminConfigImageDto,
+    )
+    from immichpy.client.generated.models.admin_config_integrity_checks_dto import (
+        AdminConfigIntegrityChecksDto as AdminConfigIntegrityChecksDto,
+    )
+    from immichpy.client.generated.models.admin_config_integrity_checksum_job_dto import (
+        AdminConfigIntegrityChecksumJobDto as AdminConfigIntegrityChecksumJobDto,
+    )
+    from immichpy.client.generated.models.admin_config_integrity_job_dto import (
+        AdminConfigIntegrityJobDto as AdminConfigIntegrityJobDto,
+    )
+    from immichpy.client.generated.models.admin_config_job_dto import (
+        AdminConfigJobDto as AdminConfigJobDto,
+    )
+    from immichpy.client.generated.models.admin_config_job_settings_dto import (
+        AdminConfigJobSettingsDto as AdminConfigJobSettingsDto,
+    )
+    from immichpy.client.generated.models.admin_config_library_dto import (
+        AdminConfigLibraryDto as AdminConfigLibraryDto,
+    )
+    from immichpy.client.generated.models.admin_config_library_scan_dto import (
+        AdminConfigLibraryScanDto as AdminConfigLibraryScanDto,
+    )
+    from immichpy.client.generated.models.admin_config_library_watch_dto import (
+        AdminConfigLibraryWatchDto as AdminConfigLibraryWatchDto,
+    )
+    from immichpy.client.generated.models.admin_config_logging_dto import (
+        AdminConfigLoggingDto as AdminConfigLoggingDto,
+    )
+    from immichpy.client.generated.models.admin_config_machine_learning_availability_checks_dto import (
+        AdminConfigMachineLearningAvailabilityChecksDto as AdminConfigMachineLearningAvailabilityChecksDto,
+    )
+    from immichpy.client.generated.models.admin_config_machine_learning_dto import (
+        AdminConfigMachineLearningDto as AdminConfigMachineLearningDto,
+    )
+    from immichpy.client.generated.models.admin_config_map_dto import (
+        AdminConfigMapDto as AdminConfigMapDto,
+    )
+    from immichpy.client.generated.models.admin_config_metadata_dto import (
+        AdminConfigMetadataDto as AdminConfigMetadataDto,
+    )
+    from immichpy.client.generated.models.admin_config_new_version_check_dto import (
+        AdminConfigNewVersionCheckDto as AdminConfigNewVersionCheckDto,
+    )
+    from immichpy.client.generated.models.admin_config_nightly_tasks_dto import (
+        AdminConfigNightlyTasksDto as AdminConfigNightlyTasksDto,
+    )
+    from immichpy.client.generated.models.admin_config_notifications_dto import (
+        AdminConfigNotificationsDto as AdminConfigNotificationsDto,
+    )
+    from immichpy.client.generated.models.admin_config_o_auth_dto import (
+        AdminConfigOAuthDto as AdminConfigOAuthDto,
+    )
+    from immichpy.client.generated.models.admin_config_ocr_dto import (
+        AdminConfigOcrDto as AdminConfigOcrDto,
+    )
+    from immichpy.client.generated.models.admin_config_password_login_dto import (
+        AdminConfigPasswordLoginDto as AdminConfigPasswordLoginDto,
+    )
+    from immichpy.client.generated.models.admin_config_reverse_geocoding_dto import (
+        AdminConfigReverseGeocodingDto as AdminConfigReverseGeocodingDto,
+    )
+    from immichpy.client.generated.models.admin_config_server_dto import (
+        AdminConfigServerDto as AdminConfigServerDto,
+    )
+    from immichpy.client.generated.models.admin_config_smtp_dto import (
+        AdminConfigSmtpDto as AdminConfigSmtpDto,
+    )
+    from immichpy.client.generated.models.admin_config_smtp_transport_dto import (
+        AdminConfigSmtpTransportDto as AdminConfigSmtpTransportDto,
+    )
+    from immichpy.client.generated.models.admin_config_storage_template_dto import (
+        AdminConfigStorageTemplateDto as AdminConfigStorageTemplateDto,
+    )
+    from immichpy.client.generated.models.admin_config_template_emails_dto import (
+        AdminConfigTemplateEmailsDto as AdminConfigTemplateEmailsDto,
+    )
+    from immichpy.client.generated.models.admin_config_templates_dto import (
+        AdminConfigTemplatesDto as AdminConfigTemplatesDto,
+    )
+    from immichpy.client.generated.models.admin_config_theme_dto import (
+        AdminConfigThemeDto as AdminConfigThemeDto,
+    )
+    from immichpy.client.generated.models.admin_config_trash_dto import (
+        AdminConfigTrashDto as AdminConfigTrashDto,
+    )
+    from immichpy.client.generated.models.admin_config_user_dto import (
+        AdminConfigUserDto as AdminConfigUserDto,
+    )
+    from immichpy.client.generated.models.admin_onboarding_update_dto import (
+        AdminOnboardingUpdateDto as AdminOnboardingUpdateDto,
+    )
+    from immichpy.client.generated.models.album_response_dto import (
+        AlbumResponseDto as AlbumResponseDto,
+    )
+    from immichpy.client.generated.models.album_statistics_response_dto import (
+        AlbumStatisticsResponseDto as AlbumStatisticsResponseDto,
+    )
+    from immichpy.client.generated.models.album_user_add_dto import (
+        AlbumUserAddDto as AlbumUserAddDto,
+    )
+    from immichpy.client.generated.models.album_user_create_dto import (
+        AlbumUserCreateDto as AlbumUserCreateDto,
+    )
+    from immichpy.client.generated.models.album_user_response_dto import (
+        AlbumUserResponseDto as AlbumUserResponseDto,
+    )
+    from immichpy.client.generated.models.album_user_role import (
+        AlbumUserRole as AlbumUserRole,
+    )
+    from immichpy.client.generated.models.albums_add_assets_dto import (
+        AlbumsAddAssetsDto as AlbumsAddAssetsDto,
+    )
+    from immichpy.client.generated.models.albums_add_assets_response_dto import (
+        AlbumsAddAssetsResponseDto as AlbumsAddAssetsResponseDto,
+    )
+    from immichpy.client.generated.models.albums_response import (
+        AlbumsResponse as AlbumsResponse,
+    )
+    from immichpy.client.generated.models.albums_update import (
+        AlbumsUpdate as AlbumsUpdate,
+    )
+    from immichpy.client.generated.models.api_key_create_dto import (
+        ApiKeyCreateDto as ApiKeyCreateDto,
+    )
+    from immichpy.client.generated.models.api_key_create_response_dto import (
+        ApiKeyCreateResponseDto as ApiKeyCreateResponseDto,
+    )
+    from immichpy.client.generated.models.api_key_response_dto import (
+        ApiKeyResponseDto as ApiKeyResponseDto,
+    )
+    from immichpy.client.generated.models.api_key_update_dto import (
+        ApiKeyUpdateDto as ApiKeyUpdateDto,
+    )
+    from immichpy.client.generated.models.asset_bulk_delete_dto import (
+        AssetBulkDeleteDto as AssetBulkDeleteDto,
+    )
+    from immichpy.client.generated.models.asset_bulk_update_dto import (
+        AssetBulkUpdateDto as AssetBulkUpdateDto,
+    )
+    from immichpy.client.generated.models.asset_bulk_upload_check_dto import (
+        AssetBulkUploadCheckDto as AssetBulkUploadCheckDto,
+    )
+    from immichpy.client.generated.models.asset_bulk_upload_check_item import (
+        AssetBulkUploadCheckItem as AssetBulkUploadCheckItem,
+    )
+    from immichpy.client.generated.models.asset_bulk_upload_check_response_dto import (
+        AssetBulkUploadCheckResponseDto as AssetBulkUploadCheckResponseDto,
+    )
+    from immichpy.client.generated.models.asset_bulk_upload_check_result import (
+        AssetBulkUploadCheckResult as AssetBulkUploadCheckResult,
+    )
+    from immichpy.client.generated.models.asset_copy_dto import (
+        AssetCopyDto as AssetCopyDto,
+    )
+    from immichpy.client.generated.models.asset_edit_action import (
+        AssetEditAction as AssetEditAction,
+    )
+    from immichpy.client.generated.models.asset_edit_action_item_dto import (
+        AssetEditActionItemDto as AssetEditActionItemDto,
+    )
+    from immichpy.client.generated.models.asset_edit_action_item_dto_parameters import (
+        AssetEditActionItemDtoParameters as AssetEditActionItemDtoParameters,
+    )
+    from immichpy.client.generated.models.asset_edit_action_item_response_dto import (
+        AssetEditActionItemResponseDto as AssetEditActionItemResponseDto,
+    )
+    from immichpy.client.generated.models.asset_edits_create_dto import (
+        AssetEditsCreateDto as AssetEditsCreateDto,
+    )
+    from immichpy.client.generated.models.asset_edits_response_dto import (
+        AssetEditsResponseDto as AssetEditsResponseDto,
+    )
+    from immichpy.client.generated.models.asset_face_create_dto import (
+        AssetFaceCreateDto as AssetFaceCreateDto,
+    )
+    from immichpy.client.generated.models.asset_face_delete_dto import (
+        AssetFaceDeleteDto as AssetFaceDeleteDto,
+    )
+    from immichpy.client.generated.models.asset_face_response_dto import (
+        AssetFaceResponseDto as AssetFaceResponseDto,
+    )
+    from immichpy.client.generated.models.asset_face_update_dto import (
+        AssetFaceUpdateDto as AssetFaceUpdateDto,
+    )
+    from immichpy.client.generated.models.asset_face_update_item import (
+        AssetFaceUpdateItem as AssetFaceUpdateItem,
+    )
+    from immichpy.client.generated.models.asset_file_response_dto import (
+        AssetFileResponseDto as AssetFileResponseDto,
+    )
+    from immichpy.client.generated.models.asset_file_type import (
+        AssetFileType as AssetFileType,
+    )
+    from immichpy.client.generated.models.asset_id_error_reason import (
+        AssetIdErrorReason as AssetIdErrorReason,
+    )
+    from immichpy.client.generated.models.asset_ids_dto import (
+        AssetIdsDto as AssetIdsDto,
+    )
+    from immichpy.client.generated.models.asset_ids_response_dto import (
+        AssetIdsResponseDto as AssetIdsResponseDto,
+    )
+    from immichpy.client.generated.models.asset_job_name import (
+        AssetJobName as AssetJobName,
+    )
+    from immichpy.client.generated.models.asset_jobs_dto import (
+        AssetJobsDto as AssetJobsDto,
+    )
+    from immichpy.client.generated.models.asset_media_response_dto import (
+        AssetMediaResponseDto as AssetMediaResponseDto,
+    )
+    from immichpy.client.generated.models.asset_media_size import (
+        AssetMediaSize as AssetMediaSize,
+    )
+    from immichpy.client.generated.models.asset_media_status import (
+        AssetMediaStatus as AssetMediaStatus,
+    )
+    from immichpy.client.generated.models.asset_metadata_bulk_delete_dto import (
+        AssetMetadataBulkDeleteDto as AssetMetadataBulkDeleteDto,
+    )
+    from immichpy.client.generated.models.asset_metadata_bulk_delete_item_dto import (
+        AssetMetadataBulkDeleteItemDto as AssetMetadataBulkDeleteItemDto,
+    )
+    from immichpy.client.generated.models.asset_metadata_bulk_response_dto import (
+        AssetMetadataBulkResponseDto as AssetMetadataBulkResponseDto,
+    )
+    from immichpy.client.generated.models.asset_metadata_bulk_upsert_dto import (
+        AssetMetadataBulkUpsertDto as AssetMetadataBulkUpsertDto,
+    )
+    from immichpy.client.generated.models.asset_metadata_bulk_upsert_item_dto import (
+        AssetMetadataBulkUpsertItemDto as AssetMetadataBulkUpsertItemDto,
+    )
+    from immichpy.client.generated.models.asset_metadata_response_dto import (
+        AssetMetadataResponseDto as AssetMetadataResponseDto,
+    )
+    from immichpy.client.generated.models.asset_metadata_upsert_dto import (
+        AssetMetadataUpsertDto as AssetMetadataUpsertDto,
+    )
+    from immichpy.client.generated.models.asset_metadata_upsert_item_dto import (
+        AssetMetadataUpsertItemDto as AssetMetadataUpsertItemDto,
+    )
+    from immichpy.client.generated.models.asset_ocr_response_dto import (
+        AssetOcrResponseDto as AssetOcrResponseDto,
+    )
+    from immichpy.client.generated.models.asset_order import AssetOrder as AssetOrder
+    from immichpy.client.generated.models.asset_order_by import (
+        AssetOrderBy as AssetOrderBy,
+    )
+    from immichpy.client.generated.models.asset_reject_reason import (
+        AssetRejectReason as AssetRejectReason,
+    )
+    from immichpy.client.generated.models.asset_response_dto import (
+        AssetResponseDto as AssetResponseDto,
+    )
+    from immichpy.client.generated.models.asset_stack_response_dto import (
+        AssetStackResponseDto as AssetStackResponseDto,
+    )
+    from immichpy.client.generated.models.asset_stats_response_dto import (
+        AssetStatsResponseDto as AssetStatsResponseDto,
+    )
+    from immichpy.client.generated.models.asset_type_enum import (
+        AssetTypeEnum as AssetTypeEnum,
+    )
+    from immichpy.client.generated.models.asset_upload_action import (
+        AssetUploadAction as AssetUploadAction,
+    )
+    from immichpy.client.generated.models.asset_visibility import (
+        AssetVisibility as AssetVisibility,
+    )
+    from immichpy.client.generated.models.audio_codec import AudioCodec as AudioCodec
+    from immichpy.client.generated.models.auth_status_response_dto import (
+        AuthStatusResponseDto as AuthStatusResponseDto,
+    )
+    from immichpy.client.generated.models.avatar_update import (
+        AvatarUpdate as AvatarUpdate,
+    )
+    from immichpy.client.generated.models.bool_filter import BoolFilter as BoolFilter
+    from immichpy.client.generated.models.bulk_id_error_reason import (
+        BulkIdErrorReason as BulkIdErrorReason,
+    )
+    from immichpy.client.generated.models.bulk_id_response_dto import (
+        BulkIdResponseDto as BulkIdResponseDto,
+    )
+    from immichpy.client.generated.models.bulk_ids_dto import BulkIdsDto as BulkIdsDto
+    from immichpy.client.generated.models.cq_mode import CQMode as CQMode
+    from immichpy.client.generated.models.calendar_heatmap_response_dto import (
+        CalendarHeatmapResponseDto as CalendarHeatmapResponseDto,
+    )
+    from immichpy.client.generated.models.calendar_heatmap_response_dto_series_inner import (
+        CalendarHeatmapResponseDtoSeriesInner as CalendarHeatmapResponseDtoSeriesInner,
+    )
+    from immichpy.client.generated.models.calendar_heatmap_type import (
+        CalendarHeatmapType as CalendarHeatmapType,
+    )
+    from immichpy.client.generated.models.cast_response import (
+        CastResponse as CastResponse,
+    )
+    from immichpy.client.generated.models.cast_update import CastUpdate as CastUpdate
+    from immichpy.client.generated.models.change_password_dto import (
+        ChangePasswordDto as ChangePasswordDto,
+    )
+    from immichpy.client.generated.models.cluster_group_request_create_dto import (
+        ClusterGroupRequestCreateDto as ClusterGroupRequestCreateDto,
+    )
+    from immichpy.client.generated.models.cluster_group_request_response_dto import (
+        ClusterGroupRequestResponseDto as ClusterGroupRequestResponseDto,
+    )
+    from immichpy.client.generated.models.colorspace import Colorspace as Colorspace
+    from immichpy.client.generated.models.contributor_count_response_dto import (
+        ContributorCountResponseDto as ContributorCountResponseDto,
+    )
+    from immichpy.client.generated.models.create_album_dto import (
+        CreateAlbumDto as CreateAlbumDto,
+    )
+    from immichpy.client.generated.models.create_library_dto import (
+        CreateLibraryDto as CreateLibraryDto,
+    )
+    from immichpy.client.generated.models.create_profile_image_response_dto import (
+        CreateProfileImageResponseDto as CreateProfileImageResponseDto,
+    )
+    from immichpy.client.generated.models.crop_parameters import (
+        CropParameters as CropParameters,
+    )
+    from immichpy.client.generated.models.database_backup_delete_dto import (
+        DatabaseBackupDeleteDto as DatabaseBackupDeleteDto,
+    )
+    from immichpy.client.generated.models.database_backup_dto import (
+        DatabaseBackupDto as DatabaseBackupDto,
+    )
+    from immichpy.client.generated.models.database_backup_list_response_dto import (
+        DatabaseBackupListResponseDto as DatabaseBackupListResponseDto,
+    )
+    from immichpy.client.generated.models.date_filter import DateFilter as DateFilter
+    from immichpy.client.generated.models.date_filter_nullable import (
+        DateFilterNullable as DateFilterNullable,
+    )
+    from immichpy.client.generated.models.download_archive_dto import (
+        DownloadArchiveDto as DownloadArchiveDto,
+    )
+    from immichpy.client.generated.models.download_archive_info import (
+        DownloadArchiveInfo as DownloadArchiveInfo,
+    )
+    from immichpy.client.generated.models.download_info_dto import (
+        DownloadInfoDto as DownloadInfoDto,
+    )
+    from immichpy.client.generated.models.download_response import (
+        DownloadResponse as DownloadResponse,
+    )
+    from immichpy.client.generated.models.download_response_dto import (
+        DownloadResponseDto as DownloadResponseDto,
+    )
+    from immichpy.client.generated.models.download_update import (
+        DownloadUpdate as DownloadUpdate,
+    )
+    from immichpy.client.generated.models.duplicate_resolve_dto import (
+        DuplicateResolveDto as DuplicateResolveDto,
+    )
+    from immichpy.client.generated.models.duplicate_resolve_group_dto import (
+        DuplicateResolveGroupDto as DuplicateResolveGroupDto,
+    )
+    from immichpy.client.generated.models.duplicate_response_dto import (
+        DuplicateResponseDto as DuplicateResponseDto,
+    )
+    from immichpy.client.generated.models.email_notifications_response import (
+        EmailNotificationsResponse as EmailNotificationsResponse,
+    )
+    from immichpy.client.generated.models.email_notifications_update import (
+        EmailNotificationsUpdate as EmailNotificationsUpdate,
+    )
+    from immichpy.client.generated.models.enum_filter_asset_type import (
+        EnumFilterAssetType as EnumFilterAssetType,
+    )
+    from immichpy.client.generated.models.enum_filter_asset_visibility import (
+        EnumFilterAssetVisibility as EnumFilterAssetVisibility,
+    )
+    from immichpy.client.generated.models.exif_response_dto import (
+        ExifResponseDto as ExifResponseDto,
+    )
+    from immichpy.client.generated.models.face_dto import FaceDto as FaceDto
+    from immichpy.client.generated.models.folders_response import (
+        FoldersResponse as FoldersResponse,
+    )
+    from immichpy.client.generated.models.folders_update import (
+        FoldersUpdate as FoldersUpdate,
+    )
+    from immichpy.client.generated.models.hls_video_resolution import (
+        HlsVideoResolution as HlsVideoResolution,
+    )
+    from immichpy.client.generated.models.id_filter import IdFilter as IdFilter
+    from immichpy.client.generated.models.id_filter_nullable import (
+        IdFilterNullable as IdFilterNullable,
+    )
+    from immichpy.client.generated.models.ids_filter import IdsFilter as IdsFilter
+    from immichpy.client.generated.models.image_format import ImageFormat as ImageFormat
+    from immichpy.client.generated.models.integrity_report import (
+        IntegrityReport as IntegrityReport,
+    )
+    from immichpy.client.generated.models.integrity_report_response_dto import (
+        IntegrityReportResponseDto as IntegrityReportResponseDto,
+    )
+    from immichpy.client.generated.models.integrity_report_response_dto_items_inner import (
+        IntegrityReportResponseDtoItemsInner as IntegrityReportResponseDtoItemsInner,
+    )
+    from immichpy.client.generated.models.integrity_report_summary_response_dto import (
+        IntegrityReportSummaryResponseDto as IntegrityReportSummaryResponseDto,
+    )
+    from immichpy.client.generated.models.job_create_dto import (
+        JobCreateDto as JobCreateDto,
+    )
+    from immichpy.client.generated.models.job_name import JobName as JobName
+    from immichpy.client.generated.models.library_response_dto import (
+        LibraryResponseDto as LibraryResponseDto,
+    )
+    from immichpy.client.generated.models.library_stats_response_dto import (
+        LibraryStatsResponseDto as LibraryStatsResponseDto,
+    )
+    from immichpy.client.generated.models.license_key_dto import (
+        LicenseKeyDto as LicenseKeyDto,
+    )
+    from immichpy.client.generated.models.log_level import LogLevel as LogLevel
+    from immichpy.client.generated.models.login_credential_dto import (
+        LoginCredentialDto as LoginCredentialDto,
+    )
+    from immichpy.client.generated.models.login_response_dto import (
+        LoginResponseDto as LoginResponseDto,
+    )
+    from immichpy.client.generated.models.logout_response_dto import (
+        LogoutResponseDto as LogoutResponseDto,
+    )
+    from immichpy.client.generated.models.maintenance_action import (
+        MaintenanceAction as MaintenanceAction,
+    )
+    from immichpy.client.generated.models.maintenance_auth_dto import (
+        MaintenanceAuthDto as MaintenanceAuthDto,
+    )
+    from immichpy.client.generated.models.maintenance_detect_install_response_dto import (
+        MaintenanceDetectInstallResponseDto as MaintenanceDetectInstallResponseDto,
+    )
+    from immichpy.client.generated.models.maintenance_detect_install_storage_folder_dto import (
+        MaintenanceDetectInstallStorageFolderDto as MaintenanceDetectInstallStorageFolderDto,
+    )
+    from immichpy.client.generated.models.maintenance_login_dto import (
+        MaintenanceLoginDto as MaintenanceLoginDto,
+    )
+    from immichpy.client.generated.models.maintenance_status_response_dto import (
+        MaintenanceStatusResponseDto as MaintenanceStatusResponseDto,
+    )
+    from immichpy.client.generated.models.manual_job_name import (
+        ManualJobName as ManualJobName,
+    )
+    from immichpy.client.generated.models.map_marker_response_dto import (
+        MapMarkerResponseDto as MapMarkerResponseDto,
+    )
+    from immichpy.client.generated.models.map_reverse_geocode_response_dto import (
+        MapReverseGeocodeResponseDto as MapReverseGeocodeResponseDto,
+    )
+    from immichpy.client.generated.models.memories_response import (
+        MemoriesResponse as MemoriesResponse,
+    )
+    from immichpy.client.generated.models.memories_update import (
+        MemoriesUpdate as MemoriesUpdate,
+    )
+    from immichpy.client.generated.models.memory_create_dto import (
+        MemoryCreateDto as MemoryCreateDto,
+    )
+    from immichpy.client.generated.models.memory_response_dto import (
+        MemoryResponseDto as MemoryResponseDto,
+    )
+    from immichpy.client.generated.models.memory_search_order import (
+        MemorySearchOrder as MemorySearchOrder,
+    )
+    from immichpy.client.generated.models.memory_statistics_response_dto import (
+        MemoryStatisticsResponseDto as MemoryStatisticsResponseDto,
+    )
+    from immichpy.client.generated.models.memory_type import MemoryType as MemoryType
+    from immichpy.client.generated.models.memory_update_dto import (
+        MemoryUpdateDto as MemoryUpdateDto,
+    )
+    from immichpy.client.generated.models.merge_person_dto import (
+        MergePersonDto as MergePersonDto,
+    )
+    from immichpy.client.generated.models.metadata_search_dto import (
+        MetadataSearchDto as MetadataSearchDto,
+    )
+    from immichpy.client.generated.models.mirror_axis import MirrorAxis as MirrorAxis
+    from immichpy.client.generated.models.mirror_parameters import (
+        MirrorParameters as MirrorParameters,
+    )
+    from immichpy.client.generated.models.notification_create_dto import (
+        NotificationCreateDto as NotificationCreateDto,
+    )
+    from immichpy.client.generated.models.notification_delete_all_dto import (
+        NotificationDeleteAllDto as NotificationDeleteAllDto,
+    )
+    from immichpy.client.generated.models.notification_dto import (
+        NotificationDto as NotificationDto,
+    )
+    from immichpy.client.generated.models.notification_level import (
+        NotificationLevel as NotificationLevel,
+    )
+    from immichpy.client.generated.models.notification_type import (
+        NotificationType as NotificationType,
+    )
+    from immichpy.client.generated.models.notification_update_all_dto import (
+        NotificationUpdateAllDto as NotificationUpdateAllDto,
+    )
+    from immichpy.client.generated.models.notification_update_dto import (
+        NotificationUpdateDto as NotificationUpdateDto,
+    )
+    from immichpy.client.generated.models.number_filter import (
+        NumberFilter as NumberFilter,
+    )
+    from immichpy.client.generated.models.number_filter_nullable import (
+        NumberFilterNullable as NumberFilterNullable,
+    )
+    from immichpy.client.generated.models.o_auth_authorize_response_dto import (
+        OAuthAuthorizeResponseDto as OAuthAuthorizeResponseDto,
+    )
+    from immichpy.client.generated.models.o_auth_callback_dto import (
+        OAuthCallbackDto as OAuthCallbackDto,
+    )
+    from immichpy.client.generated.models.o_auth_config_dto import (
+        OAuthConfigDto as OAuthConfigDto,
+    )
+    from immichpy.client.generated.models.o_auth_token_endpoint_auth_method import (
+        OAuthTokenEndpointAuthMethod as OAuthTokenEndpointAuthMethod,
+    )
+    from immichpy.client.generated.models.on_this_day_dto import (
+        OnThisDayDto as OnThisDayDto,
+    )
+    from immichpy.client.generated.models.onboarding_dto import (
+        OnboardingDto as OnboardingDto,
+    )
+    from immichpy.client.generated.models.onboarding_response_dto import (
+        OnboardingResponseDto as OnboardingResponseDto,
+    )
+    from immichpy.client.generated.models.partner_create_dto import (
+        PartnerCreateDto as PartnerCreateDto,
+    )
+    from immichpy.client.generated.models.partner_direction import (
+        PartnerDirection as PartnerDirection,
+    )
+    from immichpy.client.generated.models.partner_response_dto import (
+        PartnerResponseDto as PartnerResponseDto,
+    )
+    from immichpy.client.generated.models.partner_update_dto import (
+        PartnerUpdateDto as PartnerUpdateDto,
+    )
+    from immichpy.client.generated.models.people_response import (
+        PeopleResponse as PeopleResponse,
+    )
+    from immichpy.client.generated.models.people_response_dto import (
+        PeopleResponseDto as PeopleResponseDto,
+    )
+    from immichpy.client.generated.models.people_update import (
+        PeopleUpdate as PeopleUpdate,
+    )
+    from immichpy.client.generated.models.people_update_dto import (
+        PeopleUpdateDto as PeopleUpdateDto,
+    )
+    from immichpy.client.generated.models.people_update_item import (
+        PeopleUpdateItem as PeopleUpdateItem,
+    )
+    from immichpy.client.generated.models.permission import Permission as Permission
+    from immichpy.client.generated.models.person_create_dto import (
+        PersonCreateDto as PersonCreateDto,
+    )
+    from immichpy.client.generated.models.person_response_dto import (
+        PersonResponseDto as PersonResponseDto,
+    )
+    from immichpy.client.generated.models.person_statistics_response_dto import (
+        PersonStatisticsResponseDto as PersonStatisticsResponseDto,
+    )
+    from immichpy.client.generated.models.person_update_dto import (
+        PersonUpdateDto as PersonUpdateDto,
+    )
+    from immichpy.client.generated.models.pin_code_change_dto import (
+        PinCodeChangeDto as PinCodeChangeDto,
+    )
+    from immichpy.client.generated.models.pin_code_reset_dto import (
+        PinCodeResetDto as PinCodeResetDto,
+    )
+    from immichpy.client.generated.models.pin_code_setup_dto import (
+        PinCodeSetupDto as PinCodeSetupDto,
+    )
+    from immichpy.client.generated.models.places_response_dto import (
+        PlacesResponseDto as PlacesResponseDto,
+    )
+    from immichpy.client.generated.models.plugin_method_response_dto import (
+        PluginMethodResponseDto as PluginMethodResponseDto,
+    )
+    from immichpy.client.generated.models.plugin_response_dto import (
+        PluginResponseDto as PluginResponseDto,
+    )
+    from immichpy.client.generated.models.plugin_template_response_dto import (
+        PluginTemplateResponseDto as PluginTemplateResponseDto,
+    )
+    from immichpy.client.generated.models.plugin_template_step_response_dto import (
+        PluginTemplateStepResponseDto as PluginTemplateStepResponseDto,
+    )
+    from immichpy.client.generated.models.public_config_dto import (
+        PublicConfigDto as PublicConfigDto,
+    )
+    from immichpy.client.generated.models.public_config_o_auth_dto import (
+        PublicConfigOAuthDto as PublicConfigOAuthDto,
+    )
+    from immichpy.client.generated.models.public_config_password_login_dto import (
+        PublicConfigPasswordLoginDto as PublicConfigPasswordLoginDto,
+    )
+    from immichpy.client.generated.models.public_config_server_dto import (
+        PublicConfigServerDto as PublicConfigServerDto,
+    )
+    from immichpy.client.generated.models.public_config_theme_dto import (
+        PublicConfigThemeDto as PublicConfigThemeDto,
+    )
+    from immichpy.client.generated.models.purchase_response import (
+        PurchaseResponse as PurchaseResponse,
+    )
+    from immichpy.client.generated.models.purchase_update import (
+        PurchaseUpdate as PurchaseUpdate,
+    )
+    from immichpy.client.generated.models.queue_command import (
+        QueueCommand as QueueCommand,
+    )
+    from immichpy.client.generated.models.queue_command_dto import (
+        QueueCommandDto as QueueCommandDto,
+    )
+    from immichpy.client.generated.models.queue_delete_dto import (
+        QueueDeleteDto as QueueDeleteDto,
+    )
+    from immichpy.client.generated.models.queue_job_response_dto import (
+        QueueJobResponseDto as QueueJobResponseDto,
+    )
+    from immichpy.client.generated.models.queue_job_status import (
+        QueueJobStatus as QueueJobStatus,
+    )
+    from immichpy.client.generated.models.queue_name import QueueName as QueueName
+    from immichpy.client.generated.models.queue_response_dto import (
+        QueueResponseDto as QueueResponseDto,
+    )
+    from immichpy.client.generated.models.queue_response_legacy_dto import (
+        QueueResponseLegacyDto as QueueResponseLegacyDto,
+    )
+    from immichpy.client.generated.models.queue_statistics_dto import (
+        QueueStatisticsDto as QueueStatisticsDto,
+    )
+    from immichpy.client.generated.models.queue_status_legacy_dto import (
+        QueueStatusLegacyDto as QueueStatusLegacyDto,
+    )
+    from immichpy.client.generated.models.queue_update_dto import (
+        QueueUpdateDto as QueueUpdateDto,
+    )
+    from immichpy.client.generated.models.queues_response_legacy_dto import (
+        QueuesResponseLegacyDto as QueuesResponseLegacyDto,
+    )
+    from immichpy.client.generated.models.random_search_dto import (
+        RandomSearchDto as RandomSearchDto,
+    )
+    from immichpy.client.generated.models.ratings_response import (
+        RatingsResponse as RatingsResponse,
+    )
+    from immichpy.client.generated.models.ratings_update import (
+        RatingsUpdate as RatingsUpdate,
+    )
+    from immichpy.client.generated.models.reaction_level import (
+        ReactionLevel as ReactionLevel,
+    )
+    from immichpy.client.generated.models.reaction_type import (
+        ReactionType as ReactionType,
+    )
+    from immichpy.client.generated.models.recently_added_response import (
+        RecentlyAddedResponse as RecentlyAddedResponse,
+    )
+    from immichpy.client.generated.models.recently_added_update import (
+        RecentlyAddedUpdate as RecentlyAddedUpdate,
+    )
+    from immichpy.client.generated.models.release_channel import (
+        ReleaseChannel as ReleaseChannel,
+    )
+    from immichpy.client.generated.models.release_event_v1 import (
+        ReleaseEventV1 as ReleaseEventV1,
+    )
+    from immichpy.client.generated.models.release_type import ReleaseType as ReleaseType
+    from immichpy.client.generated.models.reverse_geocoding_state_response_dto import (
+        ReverseGeocodingStateResponseDto as ReverseGeocodingStateResponseDto,
+    )
+    from immichpy.client.generated.models.rotate_parameters import (
+        RotateParameters as RotateParameters,
+    )
+    from immichpy.client.generated.models.search_album_response_dto import (
+        SearchAlbumResponseDto as SearchAlbumResponseDto,
+    )
+    from immichpy.client.generated.models.search_asset_response_dto import (
+        SearchAssetResponseDto as SearchAssetResponseDto,
+    )
+    from immichpy.client.generated.models.search_explore_item import (
+        SearchExploreItem as SearchExploreItem,
+    )
+    from immichpy.client.generated.models.search_explore_response_dto import (
+        SearchExploreResponseDto as SearchExploreResponseDto,
+    )
+    from immichpy.client.generated.models.search_facet_count_response_dto import (
+        SearchFacetCountResponseDto as SearchFacetCountResponseDto,
+    )
+    from immichpy.client.generated.models.search_facet_response_dto import (
+        SearchFacetResponseDto as SearchFacetResponseDto,
+    )
+    from immichpy.client.generated.models.search_filter import (
+        SearchFilter as SearchFilter,
+    )
+    from immichpy.client.generated.models.search_filter_branch import (
+        SearchFilterBranch as SearchFilterBranch,
+    )
+    from immichpy.client.generated.models.search_order import SearchOrder as SearchOrder
+    from immichpy.client.generated.models.search_order_field import (
+        SearchOrderField as SearchOrderField,
+    )
+    from immichpy.client.generated.models.search_response_dto import (
+        SearchResponseDto as SearchResponseDto,
+    )
+    from immichpy.client.generated.models.search_statistics_response_dto import (
+        SearchStatisticsResponseDto as SearchStatisticsResponseDto,
+    )
+    from immichpy.client.generated.models.search_suggestion_type import (
+        SearchSuggestionType as SearchSuggestionType,
+    )
+    from immichpy.client.generated.models.server_about_response_dto import (
+        ServerAboutResponseDto as ServerAboutResponseDto,
+    )
+    from immichpy.client.generated.models.server_apk_links_dto import (
+        ServerApkLinksDto as ServerApkLinksDto,
+    )
+    from immichpy.client.generated.models.server_config_dto import (
+        ServerConfigDto as ServerConfigDto,
+    )
+    from immichpy.client.generated.models.server_features_dto import (
+        ServerFeaturesDto as ServerFeaturesDto,
+    )
+    from immichpy.client.generated.models.server_media_types_response_dto import (
+        ServerMediaTypesResponseDto as ServerMediaTypesResponseDto,
+    )
+    from immichpy.client.generated.models.server_ping_response import (
+        ServerPingResponse as ServerPingResponse,
+    )
+    from immichpy.client.generated.models.server_stats_response_dto import (
+        ServerStatsResponseDto as ServerStatsResponseDto,
+    )
+    from immichpy.client.generated.models.server_storage_response_dto import (
+        ServerStorageResponseDto as ServerStorageResponseDto,
+    )
+    from immichpy.client.generated.models.server_version_history_response_dto import (
+        ServerVersionHistoryResponseDto as ServerVersionHistoryResponseDto,
+    )
+    from immichpy.client.generated.models.server_version_response_dto import (
+        ServerVersionResponseDto as ServerVersionResponseDto,
+    )
+    from immichpy.client.generated.models.session_create_dto import (
+        SessionCreateDto as SessionCreateDto,
+    )
+    from immichpy.client.generated.models.session_create_response_dto import (
+        SessionCreateResponseDto as SessionCreateResponseDto,
+    )
+    from immichpy.client.generated.models.session_response_dto import (
+        SessionResponseDto as SessionResponseDto,
+    )
+    from immichpy.client.generated.models.session_unlock_dto import (
+        SessionUnlockDto as SessionUnlockDto,
+    )
+    from immichpy.client.generated.models.session_update_dto import (
+        SessionUpdateDto as SessionUpdateDto,
+    )
+    from immichpy.client.generated.models.set_maintenance_mode_dto import (
+        SetMaintenanceModeDto as SetMaintenanceModeDto,
+    )
+    from immichpy.client.generated.models.shared_link_create_dto import (
+        SharedLinkCreateDto as SharedLinkCreateDto,
+    )
+    from immichpy.client.generated.models.shared_link_edit_dto import (
+        SharedLinkEditDto as SharedLinkEditDto,
+    )
+    from immichpy.client.generated.models.shared_link_login_dto import (
+        SharedLinkLoginDto as SharedLinkLoginDto,
+    )
+    from immichpy.client.generated.models.shared_link_response_dto import (
+        SharedLinkResponseDto as SharedLinkResponseDto,
+    )
+    from immichpy.client.generated.models.shared_link_type import (
+        SharedLinkType as SharedLinkType,
+    )
+    from immichpy.client.generated.models.shared_links_response import (
+        SharedLinksResponse as SharedLinksResponse,
+    )
+    from immichpy.client.generated.models.shared_links_update import (
+        SharedLinksUpdate as SharedLinksUpdate,
+    )
+    from immichpy.client.generated.models.sign_up_dto import SignUpDto as SignUpDto
+    from immichpy.client.generated.models.smart_search_dto import (
+        SmartSearchDto as SmartSearchDto,
+    )
+    from immichpy.client.generated.models.source_type import SourceType as SourceType
+    from immichpy.client.generated.models.stack_create_dto import (
+        StackCreateDto as StackCreateDto,
+    )
+    from immichpy.client.generated.models.stack_response_dto import (
+        StackResponseDto as StackResponseDto,
+    )
+    from immichpy.client.generated.models.stack_update_dto import (
+        StackUpdateDto as StackUpdateDto,
+    )
+    from immichpy.client.generated.models.statistics_search_dto import (
+        StatisticsSearchDto as StatisticsSearchDto,
+    )
+    from immichpy.client.generated.models.storage_folder import (
+        StorageFolder as StorageFolder,
+    )
+    from immichpy.client.generated.models.string_filter import (
+        StringFilter as StringFilter,
+    )
+    from immichpy.client.generated.models.string_filter_nullable import (
+        StringFilterNullable as StringFilterNullable,
+    )
+    from immichpy.client.generated.models.string_pattern_filter import (
+        StringPatternFilter as StringPatternFilter,
+    )
+    from immichpy.client.generated.models.string_similarity_filter import (
+        StringSimilarityFilter as StringSimilarityFilter,
+    )
+    from immichpy.client.generated.models.sync_ack_delete_dto import (
+        SyncAckDeleteDto as SyncAckDeleteDto,
+    )
+    from immichpy.client.generated.models.sync_ack_dto import SyncAckDto as SyncAckDto
+    from immichpy.client.generated.models.sync_ack_set_dto import (
+        SyncAckSetDto as SyncAckSetDto,
+    )
+    from immichpy.client.generated.models.sync_album_delete_v1 import (
+        SyncAlbumDeleteV1 as SyncAlbumDeleteV1,
+    )
+    from immichpy.client.generated.models.sync_album_to_asset_delete_v1 import (
+        SyncAlbumToAssetDeleteV1 as SyncAlbumToAssetDeleteV1,
+    )
+    from immichpy.client.generated.models.sync_album_to_asset_v1 import (
+        SyncAlbumToAssetV1 as SyncAlbumToAssetV1,
+    )
+    from immichpy.client.generated.models.sync_album_user_delete_v1 import (
+        SyncAlbumUserDeleteV1 as SyncAlbumUserDeleteV1,
+    )
+    from immichpy.client.generated.models.sync_album_user_v1 import (
+        SyncAlbumUserV1 as SyncAlbumUserV1,
+    )
+    from immichpy.client.generated.models.sync_album_v1 import (
+        SyncAlbumV1 as SyncAlbumV1,
+    )
+    from immichpy.client.generated.models.sync_album_v2 import (
+        SyncAlbumV2 as SyncAlbumV2,
+    )
+    from immichpy.client.generated.models.sync_asset_delete_v1 import (
+        SyncAssetDeleteV1 as SyncAssetDeleteV1,
+    )
+    from immichpy.client.generated.models.sync_asset_edit_delete_v1 import (
+        SyncAssetEditDeleteV1 as SyncAssetEditDeleteV1,
+    )
+    from immichpy.client.generated.models.sync_asset_edit_v1 import (
+        SyncAssetEditV1 as SyncAssetEditV1,
+    )
+    from immichpy.client.generated.models.sync_asset_exif_v1 import (
+        SyncAssetExifV1 as SyncAssetExifV1,
+    )
+    from immichpy.client.generated.models.sync_asset_face_delete_v1 import (
+        SyncAssetFaceDeleteV1 as SyncAssetFaceDeleteV1,
+    )
+    from immichpy.client.generated.models.sync_asset_face_v1 import (
+        SyncAssetFaceV1 as SyncAssetFaceV1,
+    )
+    from immichpy.client.generated.models.sync_asset_face_v2 import (
+        SyncAssetFaceV2 as SyncAssetFaceV2,
+    )
+    from immichpy.client.generated.models.sync_asset_metadata_delete_v1 import (
+        SyncAssetMetadataDeleteV1 as SyncAssetMetadataDeleteV1,
+    )
+    from immichpy.client.generated.models.sync_asset_metadata_v1 import (
+        SyncAssetMetadataV1 as SyncAssetMetadataV1,
+    )
+    from immichpy.client.generated.models.sync_asset_ocr_delete_v1 import (
+        SyncAssetOcrDeleteV1 as SyncAssetOcrDeleteV1,
+    )
+    from immichpy.client.generated.models.sync_asset_ocr_v1 import (
+        SyncAssetOcrV1 as SyncAssetOcrV1,
+    )
+    from immichpy.client.generated.models.sync_asset_v1 import (
+        SyncAssetV1 as SyncAssetV1,
+    )
+    from immichpy.client.generated.models.sync_asset_v2 import (
+        SyncAssetV2 as SyncAssetV2,
+    )
+    from immichpy.client.generated.models.sync_auth_user_v1 import (
+        SyncAuthUserV1 as SyncAuthUserV1,
+    )
+    from immichpy.client.generated.models.sync_entity_type import (
+        SyncEntityType as SyncEntityType,
+    )
+    from immichpy.client.generated.models.sync_memory_asset_delete_v1 import (
+        SyncMemoryAssetDeleteV1 as SyncMemoryAssetDeleteV1,
+    )
+    from immichpy.client.generated.models.sync_memory_asset_v1 import (
+        SyncMemoryAssetV1 as SyncMemoryAssetV1,
+    )
+    from immichpy.client.generated.models.sync_memory_delete_v1 import (
+        SyncMemoryDeleteV1 as SyncMemoryDeleteV1,
+    )
+    from immichpy.client.generated.models.sync_memory_v1 import (
+        SyncMemoryV1 as SyncMemoryV1,
+    )
+    from immichpy.client.generated.models.sync_partner_delete_v1 import (
+        SyncPartnerDeleteV1 as SyncPartnerDeleteV1,
+    )
+    from immichpy.client.generated.models.sync_partner_v1 import (
+        SyncPartnerV1 as SyncPartnerV1,
+    )
+    from immichpy.client.generated.models.sync_person_delete_v1 import (
+        SyncPersonDeleteV1 as SyncPersonDeleteV1,
+    )
+    from immichpy.client.generated.models.sync_person_v1 import (
+        SyncPersonV1 as SyncPersonV1,
+    )
+    from immichpy.client.generated.models.sync_request_type import (
+        SyncRequestType as SyncRequestType,
+    )
+    from immichpy.client.generated.models.sync_stack_delete_v1 import (
+        SyncStackDeleteV1 as SyncStackDeleteV1,
+    )
+    from immichpy.client.generated.models.sync_stack_v1 import (
+        SyncStackV1 as SyncStackV1,
+    )
+    from immichpy.client.generated.models.sync_stream_dto import (
+        SyncStreamDto as SyncStreamDto,
+    )
+    from immichpy.client.generated.models.sync_user_delete_v1 import (
+        SyncUserDeleteV1 as SyncUserDeleteV1,
+    )
+    from immichpy.client.generated.models.sync_user_metadata_delete_v1 import (
+        SyncUserMetadataDeleteV1 as SyncUserMetadataDeleteV1,
+    )
+    from immichpy.client.generated.models.sync_user_metadata_v1 import (
+        SyncUserMetadataV1 as SyncUserMetadataV1,
+    )
+    from immichpy.client.generated.models.sync_user_v1 import SyncUserV1 as SyncUserV1
+    from immichpy.client.generated.models.system_config_template_storage_option_dto import (
+        SystemConfigTemplateStorageOptionDto as SystemConfigTemplateStorageOptionDto,
+    )
+    from immichpy.client.generated.models.tag_bulk_assets_dto import (
+        TagBulkAssetsDto as TagBulkAssetsDto,
+    )
+    from immichpy.client.generated.models.tag_bulk_assets_response_dto import (
+        TagBulkAssetsResponseDto as TagBulkAssetsResponseDto,
+    )
+    from immichpy.client.generated.models.tag_create_dto import (
+        TagCreateDto as TagCreateDto,
+    )
+    from immichpy.client.generated.models.tag_response_dto import (
+        TagResponseDto as TagResponseDto,
+    )
+    from immichpy.client.generated.models.tag_update_dto import (
+        TagUpdateDto as TagUpdateDto,
+    )
+    from immichpy.client.generated.models.tag_upsert_dto import (
+        TagUpsertDto as TagUpsertDto,
+    )
+    from immichpy.client.generated.models.tags_response import (
+        TagsResponse as TagsResponse,
+    )
+    from immichpy.client.generated.models.tags_update import TagsUpdate as TagsUpdate
+    from immichpy.client.generated.models.template_dto import TemplateDto as TemplateDto
+    from immichpy.client.generated.models.template_response_dto import (
+        TemplateResponseDto as TemplateResponseDto,
+    )
+    from immichpy.client.generated.models.test_email_response_dto import (
+        TestEmailResponseDto as TestEmailResponseDto,
+    )
+    from immichpy.client.generated.models.time_bucket_asset_response_dto import (
+        TimeBucketAssetResponseDto as TimeBucketAssetResponseDto,
+    )
+    from immichpy.client.generated.models.time_buckets_response_dto import (
+        TimeBucketsResponseDto as TimeBucketsResponseDto,
+    )
+    from immichpy.client.generated.models.tone_mapping import ToneMapping as ToneMapping
+    from immichpy.client.generated.models.transcode_hw_accel import (
+        TranscodeHWAccel as TranscodeHWAccel,
+    )
+    from immichpy.client.generated.models.transcode_policy import (
+        TranscodePolicy as TranscodePolicy,
+    )
+    from immichpy.client.generated.models.trash_response_dto import (
+        TrashResponseDto as TrashResponseDto,
+    )
+    from immichpy.client.generated.models.update_album_dto import (
+        UpdateAlbumDto as UpdateAlbumDto,
+    )
+    from immichpy.client.generated.models.update_album_user_dto import (
+        UpdateAlbumUserDto as UpdateAlbumUserDto,
+    )
+    from immichpy.client.generated.models.update_asset_dto import (
+        UpdateAssetDto as UpdateAssetDto,
+    )
+    from immichpy.client.generated.models.update_library_dto import (
+        UpdateLibraryDto as UpdateLibraryDto,
+    )
+    from immichpy.client.generated.models.usage_by_user_dto import (
+        UsageByUserDto as UsageByUserDto,
+    )
+    from immichpy.client.generated.models.user_admin_create_dto import (
+        UserAdminCreateDto as UserAdminCreateDto,
+    )
+    from immichpy.client.generated.models.user_admin_delete_dto import (
+        UserAdminDeleteDto as UserAdminDeleteDto,
+    )
+    from immichpy.client.generated.models.user_admin_response_dto import (
+        UserAdminResponseDto as UserAdminResponseDto,
+    )
+    from immichpy.client.generated.models.user_admin_update_dto import (
+        UserAdminUpdateDto as UserAdminUpdateDto,
+    )
+    from immichpy.client.generated.models.user_avatar_color import (
+        UserAvatarColor as UserAvatarColor,
+    )
+    from immichpy.client.generated.models.user_config_clip_dto import (
+        UserConfigClipDto as UserConfigClipDto,
+    )
+    from immichpy.client.generated.models.user_config_dto import (
+        UserConfigDto as UserConfigDto,
+    )
+    from immichpy.client.generated.models.user_config_duplicate_detection_dto import (
+        UserConfigDuplicateDetectionDto as UserConfigDuplicateDetectionDto,
+    )
+    from immichpy.client.generated.models.user_config_f_fmpeg_dto import (
+        UserConfigFFmpegDto as UserConfigFFmpegDto,
+    )
+    from immichpy.client.generated.models.user_config_f_fmpeg_realtime_dto import (
+        UserConfigFFmpegRealtimeDto as UserConfigFFmpegRealtimeDto,
+    )
+    from immichpy.client.generated.models.user_config_facial_recognition_dto import (
+        UserConfigFacialRecognitionDto as UserConfigFacialRecognitionDto,
+    )
+    from immichpy.client.generated.models.user_config_generated_fullsize_image_dto import (
+        UserConfigGeneratedFullsizeImageDto as UserConfigGeneratedFullsizeImageDto,
+    )
+    from immichpy.client.generated.models.user_config_generated_image_dto import (
+        UserConfigGeneratedImageDto as UserConfigGeneratedImageDto,
+    )
+    from immichpy.client.generated.models.user_config_image_dto import (
+        UserConfigImageDto as UserConfigImageDto,
+    )
+    from immichpy.client.generated.models.user_config_machine_learning_dto import (
+        UserConfigMachineLearningDto as UserConfigMachineLearningDto,
+    )
+    from immichpy.client.generated.models.user_config_map_dto import (
+        UserConfigMapDto as UserConfigMapDto,
+    )
+    from immichpy.client.generated.models.user_config_o_auth_dto import (
+        UserConfigOAuthDto as UserConfigOAuthDto,
+    )
+    from immichpy.client.generated.models.user_config_ocr_dto import (
+        UserConfigOcrDto as UserConfigOcrDto,
+    )
+    from immichpy.client.generated.models.user_config_password_login_dto import (
+        UserConfigPasswordLoginDto as UserConfigPasswordLoginDto,
+    )
+    from immichpy.client.generated.models.user_config_reverse_geocoding_dto import (
+        UserConfigReverseGeocodingDto as UserConfigReverseGeocodingDto,
+    )
+    from immichpy.client.generated.models.user_config_server_dto import (
+        UserConfigServerDto as UserConfigServerDto,
+    )
+    from immichpy.client.generated.models.user_config_theme_dto import (
+        UserConfigThemeDto as UserConfigThemeDto,
+    )
+    from immichpy.client.generated.models.user_config_trash_dto import (
+        UserConfigTrashDto as UserConfigTrashDto,
+    )
+    from immichpy.client.generated.models.user_config_user_dto import (
+        UserConfigUserDto as UserConfigUserDto,
+    )
+    from immichpy.client.generated.models.user_license import UserLicense as UserLicense
+    from immichpy.client.generated.models.user_metadata_key import (
+        UserMetadataKey as UserMetadataKey,
+    )
+    from immichpy.client.generated.models.user_preferences_response_dto import (
+        UserPreferencesResponseDto as UserPreferencesResponseDto,
+    )
+    from immichpy.client.generated.models.user_preferences_update_dto import (
+        UserPreferencesUpdateDto as UserPreferencesUpdateDto,
+    )
+    from immichpy.client.generated.models.user_response_dto import (
+        UserResponseDto as UserResponseDto,
+    )
+    from immichpy.client.generated.models.user_status import UserStatus as UserStatus
+    from immichpy.client.generated.models.user_update_me_dto import (
+        UserUpdateMeDto as UserUpdateMeDto,
+    )
+    from immichpy.client.generated.models.validate_access_token_response_dto import (
+        ValidateAccessTokenResponseDto as ValidateAccessTokenResponseDto,
+    )
+    from immichpy.client.generated.models.validate_library_dto import (
+        ValidateLibraryDto as ValidateLibraryDto,
+    )
+    from immichpy.client.generated.models.validate_library_import_path_response_dto import (
+        ValidateLibraryImportPathResponseDto as ValidateLibraryImportPathResponseDto,
+    )
+    from immichpy.client.generated.models.validate_library_response_dto import (
+        ValidateLibraryResponseDto as ValidateLibraryResponseDto,
+    )
+    from immichpy.client.generated.models.version_check_state_response_dto import (
+        VersionCheckStateResponseDto as VersionCheckStateResponseDto,
+    )
+    from immichpy.client.generated.models.video_codec import VideoCodec as VideoCodec
+    from immichpy.client.generated.models.video_container import (
+        VideoContainer as VideoContainer,
+    )
+    from immichpy.client.generated.models.workflow_create_dto import (
+        WorkflowCreateDto as WorkflowCreateDto,
+    )
+    from immichpy.client.generated.models.workflow_log_entry_dto import (
+        WorkflowLogEntryDto as WorkflowLogEntryDto,
+    )
+    from immichpy.client.generated.models.workflow_log_entry_dto_last_step import (
+        WorkflowLogEntryDtoLastStep as WorkflowLogEntryDtoLastStep,
+    )
+    from immichpy.client.generated.models.workflow_response_dto import (
+        WorkflowResponseDto as WorkflowResponseDto,
+    )
+    from immichpy.client.generated.models.workflow_result import (
+        WorkflowResult as WorkflowResult,
+    )
+    from immichpy.client.generated.models.workflow_share_response_dto import (
+        WorkflowShareResponseDto as WorkflowShareResponseDto,
+    )
+    from immichpy.client.generated.models.workflow_share_step_dto import (
+        WorkflowShareStepDto as WorkflowShareStepDto,
+    )
+    from immichpy.client.generated.models.workflow_step_dto import (
+        WorkflowStepDto as WorkflowStepDto,
+    )
+    from immichpy.client.generated.models.workflow_trigger import (
+        WorkflowTrigger as WorkflowTrigger,
+    )
+    from immichpy.client.generated.models.workflow_trigger_response_dto import (
+        WorkflowTriggerResponseDto as WorkflowTriggerResponseDto,
+    )
+    from immichpy.client.generated.models.workflow_type import (
+        WorkflowType as WorkflowType,
+    )
+    from immichpy.client.generated.models.workflow_update_dto import (
+        WorkflowUpdateDto as WorkflowUpdateDto,
+    )
+
+_LAZY_IMPORTS: dict[str, tuple[str, str]] = {
+    "APIKeysApi": ("immichpy.client.generated.api.api_keys_api", "APIKeysApi"),
+    "ActivitiesApi": ("immichpy.client.generated.api.activities_api", "ActivitiesApi"),
+    "ActivityCreateDto": (
+        "immichpy.client.generated.models.activity_create_dto",
+        "ActivityCreateDto",
+    ),
+    "ActivityResponseDto": (
+        "immichpy.client.generated.models.activity_response_dto",
+        "ActivityResponseDto",
+    ),
+    "ActivityStatisticsResponseDto": (
+        "immichpy.client.generated.models.activity_statistics_response_dto",
+        "ActivityStatisticsResponseDto",
+    ),
+    "AddUsersDto": ("immichpy.client.generated.models.add_users_dto", "AddUsersDto"),
+    "AdminConfigBackupsDto": (
+        "immichpy.client.generated.models.admin_config_backups_dto",
+        "AdminConfigBackupsDto",
+    ),
+    "AdminConfigClipDto": (
+        "immichpy.client.generated.models.admin_config_clip_dto",
+        "AdminConfigClipDto",
+    ),
+    "AdminConfigDatabaseBackupDto": (
+        "immichpy.client.generated.models.admin_config_database_backup_dto",
+        "AdminConfigDatabaseBackupDto",
+    ),
+    "AdminConfigDto": (
+        "immichpy.client.generated.models.admin_config_dto",
+        "AdminConfigDto",
+    ),
+    "AdminConfigDuplicateDetectionDto": (
+        "immichpy.client.generated.models.admin_config_duplicate_detection_dto",
+        "AdminConfigDuplicateDetectionDto",
+    ),
+    "AdminConfigFFmpegDto": (
+        "immichpy.client.generated.models.admin_config_f_fmpeg_dto",
+        "AdminConfigFFmpegDto",
+    ),
+    "AdminConfigFFmpegRealtimeDto": (
+        "immichpy.client.generated.models.admin_config_f_fmpeg_realtime_dto",
+        "AdminConfigFFmpegRealtimeDto",
+    ),
+    "AdminConfigFacesDto": (
+        "immichpy.client.generated.models.admin_config_faces_dto",
+        "AdminConfigFacesDto",
+    ),
+    "AdminConfigFacialRecognitionDto": (
+        "immichpy.client.generated.models.admin_config_facial_recognition_dto",
+        "AdminConfigFacialRecognitionDto",
+    ),
+    "AdminConfigGeneratedFullsizeImageDto": (
+        "immichpy.client.generated.models.admin_config_generated_fullsize_image_dto",
+        "AdminConfigGeneratedFullsizeImageDto",
+    ),
+    "AdminConfigGeneratedImageDto": (
+        "immichpy.client.generated.models.admin_config_generated_image_dto",
+        "AdminConfigGeneratedImageDto",
+    ),
+    "AdminConfigImageDto": (
+        "immichpy.client.generated.models.admin_config_image_dto",
+        "AdminConfigImageDto",
+    ),
+    "AdminConfigIntegrityChecksDto": (
+        "immichpy.client.generated.models.admin_config_integrity_checks_dto",
+        "AdminConfigIntegrityChecksDto",
+    ),
+    "AdminConfigIntegrityChecksumJobDto": (
+        "immichpy.client.generated.models.admin_config_integrity_checksum_job_dto",
+        "AdminConfigIntegrityChecksumJobDto",
+    ),
+    "AdminConfigIntegrityJobDto": (
+        "immichpy.client.generated.models.admin_config_integrity_job_dto",
+        "AdminConfigIntegrityJobDto",
+    ),
+    "AdminConfigJobDto": (
+        "immichpy.client.generated.models.admin_config_job_dto",
+        "AdminConfigJobDto",
+    ),
+    "AdminConfigJobSettingsDto": (
+        "immichpy.client.generated.models.admin_config_job_settings_dto",
+        "AdminConfigJobSettingsDto",
+    ),
+    "AdminConfigLibraryDto": (
+        "immichpy.client.generated.models.admin_config_library_dto",
+        "AdminConfigLibraryDto",
+    ),
+    "AdminConfigLibraryScanDto": (
+        "immichpy.client.generated.models.admin_config_library_scan_dto",
+        "AdminConfigLibraryScanDto",
+    ),
+    "AdminConfigLibraryWatchDto": (
+        "immichpy.client.generated.models.admin_config_library_watch_dto",
+        "AdminConfigLibraryWatchDto",
+    ),
+    "AdminConfigLoggingDto": (
+        "immichpy.client.generated.models.admin_config_logging_dto",
+        "AdminConfigLoggingDto",
+    ),
+    "AdminConfigMachineLearningAvailabilityChecksDto": (
+        "immichpy.client.generated.models.admin_config_machine_learning_availability_checks_dto",
+        "AdminConfigMachineLearningAvailabilityChecksDto",
+    ),
+    "AdminConfigMachineLearningDto": (
+        "immichpy.client.generated.models.admin_config_machine_learning_dto",
+        "AdminConfigMachineLearningDto",
+    ),
+    "AdminConfigMapDto": (
+        "immichpy.client.generated.models.admin_config_map_dto",
+        "AdminConfigMapDto",
+    ),
+    "AdminConfigMetadataDto": (
+        "immichpy.client.generated.models.admin_config_metadata_dto",
+        "AdminConfigMetadataDto",
+    ),
+    "AdminConfigNewVersionCheckDto": (
+        "immichpy.client.generated.models.admin_config_new_version_check_dto",
+        "AdminConfigNewVersionCheckDto",
+    ),
+    "AdminConfigNightlyTasksDto": (
+        "immichpy.client.generated.models.admin_config_nightly_tasks_dto",
+        "AdminConfigNightlyTasksDto",
+    ),
+    "AdminConfigNotificationsDto": (
+        "immichpy.client.generated.models.admin_config_notifications_dto",
+        "AdminConfigNotificationsDto",
+    ),
+    "AdminConfigOAuthDto": (
+        "immichpy.client.generated.models.admin_config_o_auth_dto",
+        "AdminConfigOAuthDto",
+    ),
+    "AdminConfigOcrDto": (
+        "immichpy.client.generated.models.admin_config_ocr_dto",
+        "AdminConfigOcrDto",
+    ),
+    "AdminConfigPasswordLoginDto": (
+        "immichpy.client.generated.models.admin_config_password_login_dto",
+        "AdminConfigPasswordLoginDto",
+    ),
+    "AdminConfigReverseGeocodingDto": (
+        "immichpy.client.generated.models.admin_config_reverse_geocoding_dto",
+        "AdminConfigReverseGeocodingDto",
+    ),
+    "AdminConfigServerDto": (
+        "immichpy.client.generated.models.admin_config_server_dto",
+        "AdminConfigServerDto",
+    ),
+    "AdminConfigSmtpDto": (
+        "immichpy.client.generated.models.admin_config_smtp_dto",
+        "AdminConfigSmtpDto",
+    ),
+    "AdminConfigSmtpTransportDto": (
+        "immichpy.client.generated.models.admin_config_smtp_transport_dto",
+        "AdminConfigSmtpTransportDto",
+    ),
+    "AdminConfigStorageTemplateDto": (
+        "immichpy.client.generated.models.admin_config_storage_template_dto",
+        "AdminConfigStorageTemplateDto",
+    ),
+    "AdminConfigTemplateEmailsDto": (
+        "immichpy.client.generated.models.admin_config_template_emails_dto",
+        "AdminConfigTemplateEmailsDto",
+    ),
+    "AdminConfigTemplatesDto": (
+        "immichpy.client.generated.models.admin_config_templates_dto",
+        "AdminConfigTemplatesDto",
+    ),
+    "AdminConfigThemeDto": (
+        "immichpy.client.generated.models.admin_config_theme_dto",
+        "AdminConfigThemeDto",
+    ),
+    "AdminConfigTrashDto": (
+        "immichpy.client.generated.models.admin_config_trash_dto",
+        "AdminConfigTrashDto",
+    ),
+    "AdminConfigUserDto": (
+        "immichpy.client.generated.models.admin_config_user_dto",
+        "AdminConfigUserDto",
+    ),
+    "AdminOnboardingUpdateDto": (
+        "immichpy.client.generated.models.admin_onboarding_update_dto",
+        "AdminOnboardingUpdateDto",
+    ),
+    "AlbumResponseDto": (
+        "immichpy.client.generated.models.album_response_dto",
+        "AlbumResponseDto",
+    ),
+    "AlbumStatisticsResponseDto": (
+        "immichpy.client.generated.models.album_statistics_response_dto",
+        "AlbumStatisticsResponseDto",
+    ),
+    "AlbumUserAddDto": (
+        "immichpy.client.generated.models.album_user_add_dto",
+        "AlbumUserAddDto",
+    ),
+    "AlbumUserCreateDto": (
+        "immichpy.client.generated.models.album_user_create_dto",
+        "AlbumUserCreateDto",
+    ),
+    "AlbumUserResponseDto": (
+        "immichpy.client.generated.models.album_user_response_dto",
+        "AlbumUserResponseDto",
+    ),
+    "AlbumUserRole": (
+        "immichpy.client.generated.models.album_user_role",
+        "AlbumUserRole",
+    ),
+    "AlbumsAddAssetsDto": (
+        "immichpy.client.generated.models.albums_add_assets_dto",
+        "AlbumsAddAssetsDto",
+    ),
+    "AlbumsAddAssetsResponseDto": (
+        "immichpy.client.generated.models.albums_add_assets_response_dto",
+        "AlbumsAddAssetsResponseDto",
+    ),
+    "AlbumsApi": ("immichpy.client.generated.api.albums_api", "AlbumsApi"),
+    "AlbumsResponse": (
+        "immichpy.client.generated.models.albums_response",
+        "AlbumsResponse",
+    ),
+    "AlbumsUpdate": ("immichpy.client.generated.models.albums_update", "AlbumsUpdate"),
+    "ApiAttributeError": ("immichpy.client.generated.exceptions", "ApiAttributeError"),
+    "ApiClient": ("immichpy.client.generated.api_client", "ApiClient"),
+    "ApiException": ("immichpy.client.generated.exceptions", "ApiException"),
+    "ApiKeyCreateDto": (
+        "immichpy.client.generated.models.api_key_create_dto",
+        "ApiKeyCreateDto",
+    ),
+    "ApiKeyCreateResponseDto": (
+        "immichpy.client.generated.models.api_key_create_response_dto",
+        "ApiKeyCreateResponseDto",
+    ),
+    "ApiKeyError": ("immichpy.client.generated.exceptions", "ApiKeyError"),
+    "ApiKeyResponseDto": (
+        "immichpy.client.generated.models.api_key_response_dto",
+        "ApiKeyResponseDto",
+    ),
+    "ApiKeyUpdateDto": (
+        "immichpy.client.generated.models.api_key_update_dto",
+        "ApiKeyUpdateDto",
+    ),
+    "ApiResponse": ("immichpy.client.generated.api_response", "ApiResponse"),
+    "ApiTypeError": ("immichpy.client.generated.exceptions", "ApiTypeError"),
+    "ApiValueError": ("immichpy.client.generated.exceptions", "ApiValueError"),
+    "AssetBulkDeleteDto": (
+        "immichpy.client.generated.models.asset_bulk_delete_dto",
+        "AssetBulkDeleteDto",
+    ),
+    "AssetBulkUpdateDto": (
+        "immichpy.client.generated.models.asset_bulk_update_dto",
+        "AssetBulkUpdateDto",
+    ),
+    "AssetBulkUploadCheckDto": (
+        "immichpy.client.generated.models.asset_bulk_upload_check_dto",
+        "AssetBulkUploadCheckDto",
+    ),
+    "AssetBulkUploadCheckItem": (
+        "immichpy.client.generated.models.asset_bulk_upload_check_item",
+        "AssetBulkUploadCheckItem",
+    ),
+    "AssetBulkUploadCheckResponseDto": (
+        "immichpy.client.generated.models.asset_bulk_upload_check_response_dto",
+        "AssetBulkUploadCheckResponseDto",
+    ),
+    "AssetBulkUploadCheckResult": (
+        "immichpy.client.generated.models.asset_bulk_upload_check_result",
+        "AssetBulkUploadCheckResult",
+    ),
+    "AssetCopyDto": ("immichpy.client.generated.models.asset_copy_dto", "AssetCopyDto"),
+    "AssetEditAction": (
+        "immichpy.client.generated.models.asset_edit_action",
+        "AssetEditAction",
+    ),
+    "AssetEditActionItemDto": (
+        "immichpy.client.generated.models.asset_edit_action_item_dto",
+        "AssetEditActionItemDto",
+    ),
+    "AssetEditActionItemDtoParameters": (
+        "immichpy.client.generated.models.asset_edit_action_item_dto_parameters",
+        "AssetEditActionItemDtoParameters",
+    ),
+    "AssetEditActionItemResponseDto": (
+        "immichpy.client.generated.models.asset_edit_action_item_response_dto",
+        "AssetEditActionItemResponseDto",
+    ),
+    "AssetEditsCreateDto": (
+        "immichpy.client.generated.models.asset_edits_create_dto",
+        "AssetEditsCreateDto",
+    ),
+    "AssetEditsResponseDto": (
+        "immichpy.client.generated.models.asset_edits_response_dto",
+        "AssetEditsResponseDto",
+    ),
+    "AssetFaceCreateDto": (
+        "immichpy.client.generated.models.asset_face_create_dto",
+        "AssetFaceCreateDto",
+    ),
+    "AssetFaceDeleteDto": (
+        "immichpy.client.generated.models.asset_face_delete_dto",
+        "AssetFaceDeleteDto",
+    ),
+    "AssetFaceResponseDto": (
+        "immichpy.client.generated.models.asset_face_response_dto",
+        "AssetFaceResponseDto",
+    ),
+    "AssetFaceUpdateDto": (
+        "immichpy.client.generated.models.asset_face_update_dto",
+        "AssetFaceUpdateDto",
+    ),
+    "AssetFaceUpdateItem": (
+        "immichpy.client.generated.models.asset_face_update_item",
+        "AssetFaceUpdateItem",
+    ),
+    "AssetFileResponseDto": (
+        "immichpy.client.generated.models.asset_file_response_dto",
+        "AssetFileResponseDto",
+    ),
+    "AssetFileType": (
+        "immichpy.client.generated.models.asset_file_type",
+        "AssetFileType",
+    ),
+    "AssetFilesApi": ("immichpy.client.generated.api.asset_files_api", "AssetFilesApi"),
+    "AssetIdErrorReason": (
+        "immichpy.client.generated.models.asset_id_error_reason",
+        "AssetIdErrorReason",
+    ),
+    "AssetIdsDto": ("immichpy.client.generated.models.asset_ids_dto", "AssetIdsDto"),
+    "AssetIdsResponseDto": (
+        "immichpy.client.generated.models.asset_ids_response_dto",
+        "AssetIdsResponseDto",
+    ),
+    "AssetJobName": ("immichpy.client.generated.models.asset_job_name", "AssetJobName"),
+    "AssetJobsDto": ("immichpy.client.generated.models.asset_jobs_dto", "AssetJobsDto"),
+    "AssetMediaResponseDto": (
+        "immichpy.client.generated.models.asset_media_response_dto",
+        "AssetMediaResponseDto",
+    ),
+    "AssetMediaSize": (
+        "immichpy.client.generated.models.asset_media_size",
+        "AssetMediaSize",
+    ),
+    "AssetMediaStatus": (
+        "immichpy.client.generated.models.asset_media_status",
+        "AssetMediaStatus",
+    ),
+    "AssetMetadataBulkDeleteDto": (
+        "immichpy.client.generated.models.asset_metadata_bulk_delete_dto",
+        "AssetMetadataBulkDeleteDto",
+    ),
+    "AssetMetadataBulkDeleteItemDto": (
+        "immichpy.client.generated.models.asset_metadata_bulk_delete_item_dto",
+        "AssetMetadataBulkDeleteItemDto",
+    ),
+    "AssetMetadataBulkResponseDto": (
+        "immichpy.client.generated.models.asset_metadata_bulk_response_dto",
+        "AssetMetadataBulkResponseDto",
+    ),
+    "AssetMetadataBulkUpsertDto": (
+        "immichpy.client.generated.models.asset_metadata_bulk_upsert_dto",
+        "AssetMetadataBulkUpsertDto",
+    ),
+    "AssetMetadataBulkUpsertItemDto": (
+        "immichpy.client.generated.models.asset_metadata_bulk_upsert_item_dto",
+        "AssetMetadataBulkUpsertItemDto",
+    ),
+    "AssetMetadataResponseDto": (
+        "immichpy.client.generated.models.asset_metadata_response_dto",
+        "AssetMetadataResponseDto",
+    ),
+    "AssetMetadataUpsertDto": (
+        "immichpy.client.generated.models.asset_metadata_upsert_dto",
+        "AssetMetadataUpsertDto",
+    ),
+    "AssetMetadataUpsertItemDto": (
+        "immichpy.client.generated.models.asset_metadata_upsert_item_dto",
+        "AssetMetadataUpsertItemDto",
+    ),
+    "AssetOcrResponseDto": (
+        "immichpy.client.generated.models.asset_ocr_response_dto",
+        "AssetOcrResponseDto",
+    ),
+    "AssetOrder": ("immichpy.client.generated.models.asset_order", "AssetOrder"),
+    "AssetOrderBy": ("immichpy.client.generated.models.asset_order_by", "AssetOrderBy"),
+    "AssetRejectReason": (
+        "immichpy.client.generated.models.asset_reject_reason",
+        "AssetRejectReason",
+    ),
+    "AssetResponseDto": (
+        "immichpy.client.generated.models.asset_response_dto",
+        "AssetResponseDto",
+    ),
+    "AssetStackResponseDto": (
+        "immichpy.client.generated.models.asset_stack_response_dto",
+        "AssetStackResponseDto",
+    ),
+    "AssetStatsResponseDto": (
+        "immichpy.client.generated.models.asset_stats_response_dto",
+        "AssetStatsResponseDto",
+    ),
+    "AssetTypeEnum": (
+        "immichpy.client.generated.models.asset_type_enum",
+        "AssetTypeEnum",
+    ),
+    "AssetUploadAction": (
+        "immichpy.client.generated.models.asset_upload_action",
+        "AssetUploadAction",
+    ),
+    "AssetVisibility": (
+        "immichpy.client.generated.models.asset_visibility",
+        "AssetVisibility",
+    ),
+    "AssetsApi": ("immichpy.client.generated.api.assets_api", "AssetsApi"),
+    "AudioCodec": ("immichpy.client.generated.models.audio_codec", "AudioCodec"),
+    "AuthStatusResponseDto": (
+        "immichpy.client.generated.models.auth_status_response_dto",
+        "AuthStatusResponseDto",
+    ),
+    "AuthenticationAdminApi": (
+        "immichpy.client.generated.api.authentication_admin_api",
+        "AuthenticationAdminApi",
+    ),
+    "AuthenticationApi": (
+        "immichpy.client.generated.api.authentication_api",
+        "AuthenticationApi",
+    ),
+    "AvatarUpdate": ("immichpy.client.generated.models.avatar_update", "AvatarUpdate"),
+    "BoolFilter": ("immichpy.client.generated.models.bool_filter", "BoolFilter"),
+    "BulkIdErrorReason": (
+        "immichpy.client.generated.models.bulk_id_error_reason",
+        "BulkIdErrorReason",
+    ),
+    "BulkIdResponseDto": (
+        "immichpy.client.generated.models.bulk_id_response_dto",
+        "BulkIdResponseDto",
+    ),
+    "BulkIdsDto": ("immichpy.client.generated.models.bulk_ids_dto", "BulkIdsDto"),
+    "CQMode": ("immichpy.client.generated.models.cq_mode", "CQMode"),
+    "CalendarHeatmapResponseDto": (
+        "immichpy.client.generated.models.calendar_heatmap_response_dto",
+        "CalendarHeatmapResponseDto",
+    ),
+    "CalendarHeatmapResponseDtoSeriesInner": (
+        "immichpy.client.generated.models.calendar_heatmap_response_dto_series_inner",
+        "CalendarHeatmapResponseDtoSeriesInner",
+    ),
+    "CalendarHeatmapType": (
+        "immichpy.client.generated.models.calendar_heatmap_type",
+        "CalendarHeatmapType",
+    ),
+    "CastResponse": ("immichpy.client.generated.models.cast_response", "CastResponse"),
+    "CastUpdate": ("immichpy.client.generated.models.cast_update", "CastUpdate"),
+    "ChangePasswordDto": (
+        "immichpy.client.generated.models.change_password_dto",
+        "ChangePasswordDto",
+    ),
+    "ClusterGroupRequestCreateDto": (
+        "immichpy.client.generated.models.cluster_group_request_create_dto",
+        "ClusterGroupRequestCreateDto",
+    ),
+    "ClusterGroupRequestResponseDto": (
+        "immichpy.client.generated.models.cluster_group_request_response_dto",
+        "ClusterGroupRequestResponseDto",
+    ),
+    "ClusterGroupsApi": (
+        "immichpy.client.generated.api.cluster_groups_api",
+        "ClusterGroupsApi",
+    ),
+    "Colorspace": ("immichpy.client.generated.models.colorspace", "Colorspace"),
+    "ConfigAdminApi": (
+        "immichpy.client.generated.api.config_admin_api",
+        "ConfigAdminApi",
+    ),
+    "ConfigPublicApi": (
+        "immichpy.client.generated.api.config_public_api",
+        "ConfigPublicApi",
+    ),
+    "ConfigUserApi": ("immichpy.client.generated.api.config_user_api", "ConfigUserApi"),
+    "Configuration": ("immichpy.client.generated.configuration", "Configuration"),
+    "ContributorCountResponseDto": (
+        "immichpy.client.generated.models.contributor_count_response_dto",
+        "ContributorCountResponseDto",
+    ),
+    "CreateAlbumDto": (
+        "immichpy.client.generated.models.create_album_dto",
+        "CreateAlbumDto",
+    ),
+    "CreateLibraryDto": (
+        "immichpy.client.generated.models.create_library_dto",
+        "CreateLibraryDto",
+    ),
+    "CreateProfileImageResponseDto": (
+        "immichpy.client.generated.models.create_profile_image_response_dto",
+        "CreateProfileImageResponseDto",
+    ),
+    "CropParameters": (
+        "immichpy.client.generated.models.crop_parameters",
+        "CropParameters",
+    ),
+    "DatabaseBackupDeleteDto": (
+        "immichpy.client.generated.models.database_backup_delete_dto",
+        "DatabaseBackupDeleteDto",
+    ),
+    "DatabaseBackupDto": (
+        "immichpy.client.generated.models.database_backup_dto",
+        "DatabaseBackupDto",
+    ),
+    "DatabaseBackupListResponseDto": (
+        "immichpy.client.generated.models.database_backup_list_response_dto",
+        "DatabaseBackupListResponseDto",
+    ),
+    "DatabaseBackupsAdminApi": (
+        "immichpy.client.generated.api.database_backups_admin_api",
+        "DatabaseBackupsAdminApi",
+    ),
+    "DateFilter": ("immichpy.client.generated.models.date_filter", "DateFilter"),
+    "DateFilterNullable": (
+        "immichpy.client.generated.models.date_filter_nullable",
+        "DateFilterNullable",
+    ),
+    "DeprecatedApi": ("immichpy.client.generated.api.deprecated_api", "DeprecatedApi"),
+    "DownloadApi": ("immichpy.client.generated.api.download_api", "DownloadApi"),
+    "DownloadArchiveDto": (
+        "immichpy.client.generated.models.download_archive_dto",
+        "DownloadArchiveDto",
+    ),
+    "DownloadArchiveInfo": (
+        "immichpy.client.generated.models.download_archive_info",
+        "DownloadArchiveInfo",
+    ),
+    "DownloadInfoDto": (
+        "immichpy.client.generated.models.download_info_dto",
+        "DownloadInfoDto",
+    ),
+    "DownloadResponse": (
+        "immichpy.client.generated.models.download_response",
+        "DownloadResponse",
+    ),
+    "DownloadResponseDto": (
+        "immichpy.client.generated.models.download_response_dto",
+        "DownloadResponseDto",
+    ),
+    "DownloadUpdate": (
+        "immichpy.client.generated.models.download_update",
+        "DownloadUpdate",
+    ),
+    "DuplicateResolveDto": (
+        "immichpy.client.generated.models.duplicate_resolve_dto",
+        "DuplicateResolveDto",
+    ),
+    "DuplicateResolveGroupDto": (
+        "immichpy.client.generated.models.duplicate_resolve_group_dto",
+        "DuplicateResolveGroupDto",
+    ),
+    "DuplicateResponseDto": (
+        "immichpy.client.generated.models.duplicate_response_dto",
+        "DuplicateResponseDto",
+    ),
+    "DuplicatesApi": ("immichpy.client.generated.api.duplicates_api", "DuplicatesApi"),
+    "EmailNotificationsResponse": (
+        "immichpy.client.generated.models.email_notifications_response",
+        "EmailNotificationsResponse",
+    ),
+    "EmailNotificationsUpdate": (
+        "immichpy.client.generated.models.email_notifications_update",
+        "EmailNotificationsUpdate",
+    ),
+    "EnumFilterAssetType": (
+        "immichpy.client.generated.models.enum_filter_asset_type",
+        "EnumFilterAssetType",
+    ),
+    "EnumFilterAssetVisibility": (
+        "immichpy.client.generated.models.enum_filter_asset_visibility",
+        "EnumFilterAssetVisibility",
+    ),
+    "ExifResponseDto": (
+        "immichpy.client.generated.models.exif_response_dto",
+        "ExifResponseDto",
+    ),
+    "FaceDto": ("immichpy.client.generated.models.face_dto", "FaceDto"),
+    "FacesApi": ("immichpy.client.generated.api.faces_api", "FacesApi"),
+    "FoldersResponse": (
+        "immichpy.client.generated.models.folders_response",
+        "FoldersResponse",
+    ),
+    "FoldersUpdate": (
+        "immichpy.client.generated.models.folders_update",
+        "FoldersUpdate",
+    ),
+    "HlsVideoResolution": (
+        "immichpy.client.generated.models.hls_video_resolution",
+        "HlsVideoResolution",
+    ),
+    "IdFilter": ("immichpy.client.generated.models.id_filter", "IdFilter"),
+    "IdFilterNullable": (
+        "immichpy.client.generated.models.id_filter_nullable",
+        "IdFilterNullable",
+    ),
+    "IdsFilter": ("immichpy.client.generated.models.ids_filter", "IdsFilter"),
+    "ImageFormat": ("immichpy.client.generated.models.image_format", "ImageFormat"),
+    "IntegrityReport": (
+        "immichpy.client.generated.models.integrity_report",
+        "IntegrityReport",
+    ),
+    "IntegrityReportResponseDto": (
+        "immichpy.client.generated.models.integrity_report_response_dto",
+        "IntegrityReportResponseDto",
+    ),
+    "IntegrityReportResponseDtoItemsInner": (
+        "immichpy.client.generated.models.integrity_report_response_dto_items_inner",
+        "IntegrityReportResponseDtoItemsInner",
+    ),
+    "IntegrityReportSummaryResponseDto": (
+        "immichpy.client.generated.models.integrity_report_summary_response_dto",
+        "IntegrityReportSummaryResponseDto",
+    ),
+    "JobCreateDto": ("immichpy.client.generated.models.job_create_dto", "JobCreateDto"),
+    "JobName": ("immichpy.client.generated.models.job_name", "JobName"),
+    "JobsApi": ("immichpy.client.generated.api.jobs_api", "JobsApi"),
+    "LibrariesApi": ("immichpy.client.generated.api.libraries_api", "LibrariesApi"),
+    "LibraryResponseDto": (
+        "immichpy.client.generated.models.library_response_dto",
+        "LibraryResponseDto",
+    ),
+    "LibraryStatsResponseDto": (
+        "immichpy.client.generated.models.library_stats_response_dto",
+        "LibraryStatsResponseDto",
+    ),
+    "LicenseKeyDto": (
+        "immichpy.client.generated.models.license_key_dto",
+        "LicenseKeyDto",
+    ),
+    "LogLevel": ("immichpy.client.generated.models.log_level", "LogLevel"),
+    "LoginCredentialDto": (
+        "immichpy.client.generated.models.login_credential_dto",
+        "LoginCredentialDto",
+    ),
+    "LoginResponseDto": (
+        "immichpy.client.generated.models.login_response_dto",
+        "LoginResponseDto",
+    ),
+    "LogoutResponseDto": (
+        "immichpy.client.generated.models.logout_response_dto",
+        "LogoutResponseDto",
+    ),
+    "MaintenanceAction": (
+        "immichpy.client.generated.models.maintenance_action",
+        "MaintenanceAction",
+    ),
+    "MaintenanceAdminApi": (
+        "immichpy.client.generated.api.maintenance_admin_api",
+        "MaintenanceAdminApi",
+    ),
+    "MaintenanceAuthDto": (
+        "immichpy.client.generated.models.maintenance_auth_dto",
+        "MaintenanceAuthDto",
+    ),
+    "MaintenanceDetectInstallResponseDto": (
+        "immichpy.client.generated.models.maintenance_detect_install_response_dto",
+        "MaintenanceDetectInstallResponseDto",
+    ),
+    "MaintenanceDetectInstallStorageFolderDto": (
+        "immichpy.client.generated.models.maintenance_detect_install_storage_folder_dto",
+        "MaintenanceDetectInstallStorageFolderDto",
+    ),
+    "MaintenanceLoginDto": (
+        "immichpy.client.generated.models.maintenance_login_dto",
+        "MaintenanceLoginDto",
+    ),
+    "MaintenanceStatusResponseDto": (
+        "immichpy.client.generated.models.maintenance_status_response_dto",
+        "MaintenanceStatusResponseDto",
+    ),
+    "ManualJobName": (
+        "immichpy.client.generated.models.manual_job_name",
+        "ManualJobName",
+    ),
+    "MapApi": ("immichpy.client.generated.api.map_api", "MapApi"),
+    "MapMarkerResponseDto": (
+        "immichpy.client.generated.models.map_marker_response_dto",
+        "MapMarkerResponseDto",
+    ),
+    "MapReverseGeocodeResponseDto": (
+        "immichpy.client.generated.models.map_reverse_geocode_response_dto",
+        "MapReverseGeocodeResponseDto",
+    ),
+    "MemoriesApi": ("immichpy.client.generated.api.memories_api", "MemoriesApi"),
+    "MemoriesResponse": (
+        "immichpy.client.generated.models.memories_response",
+        "MemoriesResponse",
+    ),
+    "MemoriesUpdate": (
+        "immichpy.client.generated.models.memories_update",
+        "MemoriesUpdate",
+    ),
+    "MemoryCreateDto": (
+        "immichpy.client.generated.models.memory_create_dto",
+        "MemoryCreateDto",
+    ),
+    "MemoryResponseDto": (
+        "immichpy.client.generated.models.memory_response_dto",
+        "MemoryResponseDto",
+    ),
+    "MemorySearchOrder": (
+        "immichpy.client.generated.models.memory_search_order",
+        "MemorySearchOrder",
+    ),
+    "MemoryStatisticsResponseDto": (
+        "immichpy.client.generated.models.memory_statistics_response_dto",
+        "MemoryStatisticsResponseDto",
+    ),
+    "MemoryType": ("immichpy.client.generated.models.memory_type", "MemoryType"),
+    "MemoryUpdateDto": (
+        "immichpy.client.generated.models.memory_update_dto",
+        "MemoryUpdateDto",
+    ),
+    "MergePersonDto": (
+        "immichpy.client.generated.models.merge_person_dto",
+        "MergePersonDto",
+    ),
+    "MetadataSearchDto": (
+        "immichpy.client.generated.models.metadata_search_dto",
+        "MetadataSearchDto",
+    ),
+    "MirrorAxis": ("immichpy.client.generated.models.mirror_axis", "MirrorAxis"),
+    "MirrorParameters": (
+        "immichpy.client.generated.models.mirror_parameters",
+        "MirrorParameters",
+    ),
+    "NotificationCreateDto": (
+        "immichpy.client.generated.models.notification_create_dto",
+        "NotificationCreateDto",
+    ),
+    "NotificationDeleteAllDto": (
+        "immichpy.client.generated.models.notification_delete_all_dto",
+        "NotificationDeleteAllDto",
+    ),
+    "NotificationDto": (
+        "immichpy.client.generated.models.notification_dto",
+        "NotificationDto",
+    ),
+    "NotificationLevel": (
+        "immichpy.client.generated.models.notification_level",
+        "NotificationLevel",
+    ),
+    "NotificationType": (
+        "immichpy.client.generated.models.notification_type",
+        "NotificationType",
+    ),
+    "NotificationUpdateAllDto": (
+        "immichpy.client.generated.models.notification_update_all_dto",
+        "NotificationUpdateAllDto",
+    ),
+    "NotificationUpdateDto": (
+        "immichpy.client.generated.models.notification_update_dto",
+        "NotificationUpdateDto",
+    ),
+    "NotificationsAdminApi": (
+        "immichpy.client.generated.api.notifications_admin_api",
+        "NotificationsAdminApi",
+    ),
+    "NotificationsApi": (
+        "immichpy.client.generated.api.notifications_api",
+        "NotificationsApi",
+    ),
+    "NumberFilter": ("immichpy.client.generated.models.number_filter", "NumberFilter"),
+    "NumberFilterNullable": (
+        "immichpy.client.generated.models.number_filter_nullable",
+        "NumberFilterNullable",
+    ),
+    "OAuthAuthorizeResponseDto": (
+        "immichpy.client.generated.models.o_auth_authorize_response_dto",
+        "OAuthAuthorizeResponseDto",
+    ),
+    "OAuthCallbackDto": (
+        "immichpy.client.generated.models.o_auth_callback_dto",
+        "OAuthCallbackDto",
+    ),
+    "OAuthConfigDto": (
+        "immichpy.client.generated.models.o_auth_config_dto",
+        "OAuthConfigDto",
+    ),
+    "OAuthTokenEndpointAuthMethod": (
+        "immichpy.client.generated.models.o_auth_token_endpoint_auth_method",
+        "OAuthTokenEndpointAuthMethod",
+    ),
+    "OnThisDayDto": (
+        "immichpy.client.generated.models.on_this_day_dto",
+        "OnThisDayDto",
+    ),
+    "OnboardingDto": (
+        "immichpy.client.generated.models.onboarding_dto",
+        "OnboardingDto",
+    ),
+    "OnboardingResponseDto": (
+        "immichpy.client.generated.models.onboarding_response_dto",
+        "OnboardingResponseDto",
+    ),
+    "OpenApiException": ("immichpy.client.generated.exceptions", "OpenApiException"),
+    "PartnerCreateDto": (
+        "immichpy.client.generated.models.partner_create_dto",
+        "PartnerCreateDto",
+    ),
+    "PartnerDirection": (
+        "immichpy.client.generated.models.partner_direction",
+        "PartnerDirection",
+    ),
+    "PartnerResponseDto": (
+        "immichpy.client.generated.models.partner_response_dto",
+        "PartnerResponseDto",
+    ),
+    "PartnerUpdateDto": (
+        "immichpy.client.generated.models.partner_update_dto",
+        "PartnerUpdateDto",
+    ),
+    "PartnersApi": ("immichpy.client.generated.api.partners_api", "PartnersApi"),
+    "PeopleApi": ("immichpy.client.generated.api.people_api", "PeopleApi"),
+    "PeopleResponse": (
+        "immichpy.client.generated.models.people_response",
+        "PeopleResponse",
+    ),
+    "PeopleResponseDto": (
+        "immichpy.client.generated.models.people_response_dto",
+        "PeopleResponseDto",
+    ),
+    "PeopleUpdate": ("immichpy.client.generated.models.people_update", "PeopleUpdate"),
+    "PeopleUpdateDto": (
+        "immichpy.client.generated.models.people_update_dto",
+        "PeopleUpdateDto",
+    ),
+    "PeopleUpdateItem": (
+        "immichpy.client.generated.models.people_update_item",
+        "PeopleUpdateItem",
+    ),
+    "Permission": ("immichpy.client.generated.models.permission", "Permission"),
+    "PersonCreateDto": (
+        "immichpy.client.generated.models.person_create_dto",
+        "PersonCreateDto",
+    ),
+    "PersonResponseDto": (
+        "immichpy.client.generated.models.person_response_dto",
+        "PersonResponseDto",
+    ),
+    "PersonStatisticsResponseDto": (
+        "immichpy.client.generated.models.person_statistics_response_dto",
+        "PersonStatisticsResponseDto",
+    ),
+    "PersonUpdateDto": (
+        "immichpy.client.generated.models.person_update_dto",
+        "PersonUpdateDto",
+    ),
+    "PinCodeChangeDto": (
+        "immichpy.client.generated.models.pin_code_change_dto",
+        "PinCodeChangeDto",
+    ),
+    "PinCodeResetDto": (
+        "immichpy.client.generated.models.pin_code_reset_dto",
+        "PinCodeResetDto",
+    ),
+    "PinCodeSetupDto": (
+        "immichpy.client.generated.models.pin_code_setup_dto",
+        "PinCodeSetupDto",
+    ),
+    "PlacesResponseDto": (
+        "immichpy.client.generated.models.places_response_dto",
+        "PlacesResponseDto",
+    ),
+    "PluginMethodResponseDto": (
+        "immichpy.client.generated.models.plugin_method_response_dto",
+        "PluginMethodResponseDto",
+    ),
+    "PluginResponseDto": (
+        "immichpy.client.generated.models.plugin_response_dto",
+        "PluginResponseDto",
+    ),
+    "PluginTemplateResponseDto": (
+        "immichpy.client.generated.models.plugin_template_response_dto",
+        "PluginTemplateResponseDto",
+    ),
+    "PluginTemplateStepResponseDto": (
+        "immichpy.client.generated.models.plugin_template_step_response_dto",
+        "PluginTemplateStepResponseDto",
+    ),
+    "PluginsApi": ("immichpy.client.generated.api.plugins_api", "PluginsApi"),
+    "PublicConfigDto": (
+        "immichpy.client.generated.models.public_config_dto",
+        "PublicConfigDto",
+    ),
+    "PublicConfigOAuthDto": (
+        "immichpy.client.generated.models.public_config_o_auth_dto",
+        "PublicConfigOAuthDto",
+    ),
+    "PublicConfigPasswordLoginDto": (
+        "immichpy.client.generated.models.public_config_password_login_dto",
+        "PublicConfigPasswordLoginDto",
+    ),
+    "PublicConfigServerDto": (
+        "immichpy.client.generated.models.public_config_server_dto",
+        "PublicConfigServerDto",
+    ),
+    "PublicConfigThemeDto": (
+        "immichpy.client.generated.models.public_config_theme_dto",
+        "PublicConfigThemeDto",
+    ),
+    "PurchaseResponse": (
+        "immichpy.client.generated.models.purchase_response",
+        "PurchaseResponse",
+    ),
+    "PurchaseUpdate": (
+        "immichpy.client.generated.models.purchase_update",
+        "PurchaseUpdate",
+    ),
+    "QueueCommand": ("immichpy.client.generated.models.queue_command", "QueueCommand"),
+    "QueueCommandDto": (
+        "immichpy.client.generated.models.queue_command_dto",
+        "QueueCommandDto",
+    ),
+    "QueueDeleteDto": (
+        "immichpy.client.generated.models.queue_delete_dto",
+        "QueueDeleteDto",
+    ),
+    "QueueJobResponseDto": (
+        "immichpy.client.generated.models.queue_job_response_dto",
+        "QueueJobResponseDto",
+    ),
+    "QueueJobStatus": (
+        "immichpy.client.generated.models.queue_job_status",
+        "QueueJobStatus",
+    ),
+    "QueueName": ("immichpy.client.generated.models.queue_name", "QueueName"),
+    "QueueResponseDto": (
+        "immichpy.client.generated.models.queue_response_dto",
+        "QueueResponseDto",
+    ),
+    "QueueResponseLegacyDto": (
+        "immichpy.client.generated.models.queue_response_legacy_dto",
+        "QueueResponseLegacyDto",
+    ),
+    "QueueStatisticsDto": (
+        "immichpy.client.generated.models.queue_statistics_dto",
+        "QueueStatisticsDto",
+    ),
+    "QueueStatusLegacyDto": (
+        "immichpy.client.generated.models.queue_status_legacy_dto",
+        "QueueStatusLegacyDto",
+    ),
+    "QueueUpdateDto": (
+        "immichpy.client.generated.models.queue_update_dto",
+        "QueueUpdateDto",
+    ),
+    "QueuesApi": ("immichpy.client.generated.api.queues_api", "QueuesApi"),
+    "QueuesResponseLegacyDto": (
+        "immichpy.client.generated.models.queues_response_legacy_dto",
+        "QueuesResponseLegacyDto",
+    ),
+    "RandomSearchDto": (
+        "immichpy.client.generated.models.random_search_dto",
+        "RandomSearchDto",
+    ),
+    "RatingsResponse": (
+        "immichpy.client.generated.models.ratings_response",
+        "RatingsResponse",
+    ),
+    "RatingsUpdate": (
+        "immichpy.client.generated.models.ratings_update",
+        "RatingsUpdate",
+    ),
+    "ReactionLevel": (
+        "immichpy.client.generated.models.reaction_level",
+        "ReactionLevel",
+    ),
+    "ReactionType": ("immichpy.client.generated.models.reaction_type", "ReactionType"),
+    "RecentlyAddedResponse": (
+        "immichpy.client.generated.models.recently_added_response",
+        "RecentlyAddedResponse",
+    ),
+    "RecentlyAddedUpdate": (
+        "immichpy.client.generated.models.recently_added_update",
+        "RecentlyAddedUpdate",
+    ),
+    "ReleaseChannel": (
+        "immichpy.client.generated.models.release_channel",
+        "ReleaseChannel",
+    ),
+    "ReleaseEventV1": (
+        "immichpy.client.generated.models.release_event_v1",
+        "ReleaseEventV1",
+    ),
+    "ReleaseType": ("immichpy.client.generated.models.release_type", "ReleaseType"),
+    "ReverseGeocodingStateResponseDto": (
+        "immichpy.client.generated.models.reverse_geocoding_state_response_dto",
+        "ReverseGeocodingStateResponseDto",
+    ),
+    "RotateParameters": (
+        "immichpy.client.generated.models.rotate_parameters",
+        "RotateParameters",
+    ),
+    "SearchAlbumResponseDto": (
+        "immichpy.client.generated.models.search_album_response_dto",
+        "SearchAlbumResponseDto",
+    ),
+    "SearchApi": ("immichpy.client.generated.api.search_api", "SearchApi"),
+    "SearchAssetResponseDto": (
+        "immichpy.client.generated.models.search_asset_response_dto",
+        "SearchAssetResponseDto",
+    ),
+    "SearchExploreItem": (
+        "immichpy.client.generated.models.search_explore_item",
+        "SearchExploreItem",
+    ),
+    "SearchExploreResponseDto": (
+        "immichpy.client.generated.models.search_explore_response_dto",
+        "SearchExploreResponseDto",
+    ),
+    "SearchFacetCountResponseDto": (
+        "immichpy.client.generated.models.search_facet_count_response_dto",
+        "SearchFacetCountResponseDto",
+    ),
+    "SearchFacetResponseDto": (
+        "immichpy.client.generated.models.search_facet_response_dto",
+        "SearchFacetResponseDto",
+    ),
+    "SearchFilter": ("immichpy.client.generated.models.search_filter", "SearchFilter"),
+    "SearchFilterBranch": (
+        "immichpy.client.generated.models.search_filter_branch",
+        "SearchFilterBranch",
+    ),
+    "SearchOrder": ("immichpy.client.generated.models.search_order", "SearchOrder"),
+    "SearchOrderField": (
+        "immichpy.client.generated.models.search_order_field",
+        "SearchOrderField",
+    ),
+    "SearchResponseDto": (
+        "immichpy.client.generated.models.search_response_dto",
+        "SearchResponseDto",
+    ),
+    "SearchStatisticsResponseDto": (
+        "immichpy.client.generated.models.search_statistics_response_dto",
+        "SearchStatisticsResponseDto",
+    ),
+    "SearchSuggestionType": (
+        "immichpy.client.generated.models.search_suggestion_type",
+        "SearchSuggestionType",
+    ),
+    "ServerAboutResponseDto": (
+        "immichpy.client.generated.models.server_about_response_dto",
+        "ServerAboutResponseDto",
+    ),
+    "ServerApi": ("immichpy.client.generated.api.server_api", "ServerApi"),
+    "ServerApkLinksDto": (
+        "immichpy.client.generated.models.server_apk_links_dto",
+        "ServerApkLinksDto",
+    ),
+    "ServerConfigDto": (
+        "immichpy.client.generated.models.server_config_dto",
+        "ServerConfigDto",
+    ),
+    "ServerFeaturesDto": (
+        "immichpy.client.generated.models.server_features_dto",
+        "ServerFeaturesDto",
+    ),
+    "ServerMediaTypesResponseDto": (
+        "immichpy.client.generated.models.server_media_types_response_dto",
+        "ServerMediaTypesResponseDto",
+    ),
+    "ServerPingResponse": (
+        "immichpy.client.generated.models.server_ping_response",
+        "ServerPingResponse",
+    ),
+    "ServerStatsResponseDto": (
+        "immichpy.client.generated.models.server_stats_response_dto",
+        "ServerStatsResponseDto",
+    ),
+    "ServerStorageResponseDto": (
+        "immichpy.client.generated.models.server_storage_response_dto",
+        "ServerStorageResponseDto",
+    ),
+    "ServerVersionHistoryResponseDto": (
+        "immichpy.client.generated.models.server_version_history_response_dto",
+        "ServerVersionHistoryResponseDto",
+    ),
+    "ServerVersionResponseDto": (
+        "immichpy.client.generated.models.server_version_response_dto",
+        "ServerVersionResponseDto",
+    ),
+    "SessionCreateDto": (
+        "immichpy.client.generated.models.session_create_dto",
+        "SessionCreateDto",
+    ),
+    "SessionCreateResponseDto": (
+        "immichpy.client.generated.models.session_create_response_dto",
+        "SessionCreateResponseDto",
+    ),
+    "SessionResponseDto": (
+        "immichpy.client.generated.models.session_response_dto",
+        "SessionResponseDto",
+    ),
+    "SessionUnlockDto": (
+        "immichpy.client.generated.models.session_unlock_dto",
+        "SessionUnlockDto",
+    ),
+    "SessionUpdateDto": (
+        "immichpy.client.generated.models.session_update_dto",
+        "SessionUpdateDto",
+    ),
+    "SessionsApi": ("immichpy.client.generated.api.sessions_api", "SessionsApi"),
+    "SetMaintenanceModeDto": (
+        "immichpy.client.generated.models.set_maintenance_mode_dto",
+        "SetMaintenanceModeDto",
+    ),
+    "SharedLinkCreateDto": (
+        "immichpy.client.generated.models.shared_link_create_dto",
+        "SharedLinkCreateDto",
+    ),
+    "SharedLinkEditDto": (
+        "immichpy.client.generated.models.shared_link_edit_dto",
+        "SharedLinkEditDto",
+    ),
+    "SharedLinkLoginDto": (
+        "immichpy.client.generated.models.shared_link_login_dto",
+        "SharedLinkLoginDto",
+    ),
+    "SharedLinkResponseDto": (
+        "immichpy.client.generated.models.shared_link_response_dto",
+        "SharedLinkResponseDto",
+    ),
+    "SharedLinkType": (
+        "immichpy.client.generated.models.shared_link_type",
+        "SharedLinkType",
+    ),
+    "SharedLinksApi": (
+        "immichpy.client.generated.api.shared_links_api",
+        "SharedLinksApi",
+    ),
+    "SharedLinksResponse": (
+        "immichpy.client.generated.models.shared_links_response",
+        "SharedLinksResponse",
+    ),
+    "SharedLinksUpdate": (
+        "immichpy.client.generated.models.shared_links_update",
+        "SharedLinksUpdate",
+    ),
+    "SignUpDto": ("immichpy.client.generated.models.sign_up_dto", "SignUpDto"),
+    "SmartSearchDto": (
+        "immichpy.client.generated.models.smart_search_dto",
+        "SmartSearchDto",
+    ),
+    "SourceType": ("immichpy.client.generated.models.source_type", "SourceType"),
+    "StackCreateDto": (
+        "immichpy.client.generated.models.stack_create_dto",
+        "StackCreateDto",
+    ),
+    "StackResponseDto": (
+        "immichpy.client.generated.models.stack_response_dto",
+        "StackResponseDto",
+    ),
+    "StackUpdateDto": (
+        "immichpy.client.generated.models.stack_update_dto",
+        "StackUpdateDto",
+    ),
+    "StacksApi": ("immichpy.client.generated.api.stacks_api", "StacksApi"),
+    "StatisticsSearchDto": (
+        "immichpy.client.generated.models.statistics_search_dto",
+        "StatisticsSearchDto",
+    ),
+    "StorageFolder": (
+        "immichpy.client.generated.models.storage_folder",
+        "StorageFolder",
+    ),
+    "StringFilter": ("immichpy.client.generated.models.string_filter", "StringFilter"),
+    "StringFilterNullable": (
+        "immichpy.client.generated.models.string_filter_nullable",
+        "StringFilterNullable",
+    ),
+    "StringPatternFilter": (
+        "immichpy.client.generated.models.string_pattern_filter",
+        "StringPatternFilter",
+    ),
+    "StringSimilarityFilter": (
+        "immichpy.client.generated.models.string_similarity_filter",
+        "StringSimilarityFilter",
+    ),
+    "SyncAckDeleteDto": (
+        "immichpy.client.generated.models.sync_ack_delete_dto",
+        "SyncAckDeleteDto",
+    ),
+    "SyncAckDto": ("immichpy.client.generated.models.sync_ack_dto", "SyncAckDto"),
+    "SyncAckSetDto": (
+        "immichpy.client.generated.models.sync_ack_set_dto",
+        "SyncAckSetDto",
+    ),
+    "SyncAlbumDeleteV1": (
+        "immichpy.client.generated.models.sync_album_delete_v1",
+        "SyncAlbumDeleteV1",
+    ),
+    "SyncAlbumToAssetDeleteV1": (
+        "immichpy.client.generated.models.sync_album_to_asset_delete_v1",
+        "SyncAlbumToAssetDeleteV1",
+    ),
+    "SyncAlbumToAssetV1": (
+        "immichpy.client.generated.models.sync_album_to_asset_v1",
+        "SyncAlbumToAssetV1",
+    ),
+    "SyncAlbumUserDeleteV1": (
+        "immichpy.client.generated.models.sync_album_user_delete_v1",
+        "SyncAlbumUserDeleteV1",
+    ),
+    "SyncAlbumUserV1": (
+        "immichpy.client.generated.models.sync_album_user_v1",
+        "SyncAlbumUserV1",
+    ),
+    "SyncAlbumV1": ("immichpy.client.generated.models.sync_album_v1", "SyncAlbumV1"),
+    "SyncAlbumV2": ("immichpy.client.generated.models.sync_album_v2", "SyncAlbumV2"),
+    "SyncApi": ("immichpy.client.generated.api.sync_api", "SyncApi"),
+    "SyncAssetDeleteV1": (
+        "immichpy.client.generated.models.sync_asset_delete_v1",
+        "SyncAssetDeleteV1",
+    ),
+    "SyncAssetEditDeleteV1": (
+        "immichpy.client.generated.models.sync_asset_edit_delete_v1",
+        "SyncAssetEditDeleteV1",
+    ),
+    "SyncAssetEditV1": (
+        "immichpy.client.generated.models.sync_asset_edit_v1",
+        "SyncAssetEditV1",
+    ),
+    "SyncAssetExifV1": (
+        "immichpy.client.generated.models.sync_asset_exif_v1",
+        "SyncAssetExifV1",
+    ),
+    "SyncAssetFaceDeleteV1": (
+        "immichpy.client.generated.models.sync_asset_face_delete_v1",
+        "SyncAssetFaceDeleteV1",
+    ),
+    "SyncAssetFaceV1": (
+        "immichpy.client.generated.models.sync_asset_face_v1",
+        "SyncAssetFaceV1",
+    ),
+    "SyncAssetFaceV2": (
+        "immichpy.client.generated.models.sync_asset_face_v2",
+        "SyncAssetFaceV2",
+    ),
+    "SyncAssetMetadataDeleteV1": (
+        "immichpy.client.generated.models.sync_asset_metadata_delete_v1",
+        "SyncAssetMetadataDeleteV1",
+    ),
+    "SyncAssetMetadataV1": (
+        "immichpy.client.generated.models.sync_asset_metadata_v1",
+        "SyncAssetMetadataV1",
+    ),
+    "SyncAssetOcrDeleteV1": (
+        "immichpy.client.generated.models.sync_asset_ocr_delete_v1",
+        "SyncAssetOcrDeleteV1",
+    ),
+    "SyncAssetOcrV1": (
+        "immichpy.client.generated.models.sync_asset_ocr_v1",
+        "SyncAssetOcrV1",
+    ),
+    "SyncAssetV1": ("immichpy.client.generated.models.sync_asset_v1", "SyncAssetV1"),
+    "SyncAssetV2": ("immichpy.client.generated.models.sync_asset_v2", "SyncAssetV2"),
+    "SyncAuthUserV1": (
+        "immichpy.client.generated.models.sync_auth_user_v1",
+        "SyncAuthUserV1",
+    ),
+    "SyncEntityType": (
+        "immichpy.client.generated.models.sync_entity_type",
+        "SyncEntityType",
+    ),
+    "SyncMemoryAssetDeleteV1": (
+        "immichpy.client.generated.models.sync_memory_asset_delete_v1",
+        "SyncMemoryAssetDeleteV1",
+    ),
+    "SyncMemoryAssetV1": (
+        "immichpy.client.generated.models.sync_memory_asset_v1",
+        "SyncMemoryAssetV1",
+    ),
+    "SyncMemoryDeleteV1": (
+        "immichpy.client.generated.models.sync_memory_delete_v1",
+        "SyncMemoryDeleteV1",
+    ),
+    "SyncMemoryV1": ("immichpy.client.generated.models.sync_memory_v1", "SyncMemoryV1"),
+    "SyncPartnerDeleteV1": (
+        "immichpy.client.generated.models.sync_partner_delete_v1",
+        "SyncPartnerDeleteV1",
+    ),
+    "SyncPartnerV1": (
+        "immichpy.client.generated.models.sync_partner_v1",
+        "SyncPartnerV1",
+    ),
+    "SyncPersonDeleteV1": (
+        "immichpy.client.generated.models.sync_person_delete_v1",
+        "SyncPersonDeleteV1",
+    ),
+    "SyncPersonV1": ("immichpy.client.generated.models.sync_person_v1", "SyncPersonV1"),
+    "SyncRequestType": (
+        "immichpy.client.generated.models.sync_request_type",
+        "SyncRequestType",
+    ),
+    "SyncStackDeleteV1": (
+        "immichpy.client.generated.models.sync_stack_delete_v1",
+        "SyncStackDeleteV1",
+    ),
+    "SyncStackV1": ("immichpy.client.generated.models.sync_stack_v1", "SyncStackV1"),
+    "SyncStreamDto": (
+        "immichpy.client.generated.models.sync_stream_dto",
+        "SyncStreamDto",
+    ),
+    "SyncUserDeleteV1": (
+        "immichpy.client.generated.models.sync_user_delete_v1",
+        "SyncUserDeleteV1",
+    ),
+    "SyncUserMetadataDeleteV1": (
+        "immichpy.client.generated.models.sync_user_metadata_delete_v1",
+        "SyncUserMetadataDeleteV1",
+    ),
+    "SyncUserMetadataV1": (
+        "immichpy.client.generated.models.sync_user_metadata_v1",
+        "SyncUserMetadataV1",
+    ),
+    "SyncUserV1": ("immichpy.client.generated.models.sync_user_v1", "SyncUserV1"),
+    "SystemConfigApi": (
+        "immichpy.client.generated.api.system_config_api",
+        "SystemConfigApi",
+    ),
+    "SystemConfigTemplateStorageOptionDto": (
+        "immichpy.client.generated.models.system_config_template_storage_option_dto",
+        "SystemConfigTemplateStorageOptionDto",
+    ),
+    "SystemMetadataApi": (
+        "immichpy.client.generated.api.system_metadata_api",
+        "SystemMetadataApi",
+    ),
+    "TagBulkAssetsDto": (
+        "immichpy.client.generated.models.tag_bulk_assets_dto",
+        "TagBulkAssetsDto",
+    ),
+    "TagBulkAssetsResponseDto": (
+        "immichpy.client.generated.models.tag_bulk_assets_response_dto",
+        "TagBulkAssetsResponseDto",
+    ),
+    "TagCreateDto": ("immichpy.client.generated.models.tag_create_dto", "TagCreateDto"),
+    "TagResponseDto": (
+        "immichpy.client.generated.models.tag_response_dto",
+        "TagResponseDto",
+    ),
+    "TagUpdateDto": ("immichpy.client.generated.models.tag_update_dto", "TagUpdateDto"),
+    "TagUpsertDto": ("immichpy.client.generated.models.tag_upsert_dto", "TagUpsertDto"),
+    "TagsApi": ("immichpy.client.generated.api.tags_api", "TagsApi"),
+    "TagsResponse": ("immichpy.client.generated.models.tags_response", "TagsResponse"),
+    "TagsUpdate": ("immichpy.client.generated.models.tags_update", "TagsUpdate"),
+    "TemplateDto": ("immichpy.client.generated.models.template_dto", "TemplateDto"),
+    "TemplateResponseDto": (
+        "immichpy.client.generated.models.template_response_dto",
+        "TemplateResponseDto",
+    ),
+    "TestEmailResponseDto": (
+        "immichpy.client.generated.models.test_email_response_dto",
+        "TestEmailResponseDto",
+    ),
+    "TimeBucketAssetResponseDto": (
+        "immichpy.client.generated.models.time_bucket_asset_response_dto",
+        "TimeBucketAssetResponseDto",
+    ),
+    "TimeBucketsResponseDto": (
+        "immichpy.client.generated.models.time_buckets_response_dto",
+        "TimeBucketsResponseDto",
+    ),
+    "TimelineApi": ("immichpy.client.generated.api.timeline_api", "TimelineApi"),
+    "ToneMapping": ("immichpy.client.generated.models.tone_mapping", "ToneMapping"),
+    "TranscodeHWAccel": (
+        "immichpy.client.generated.models.transcode_hw_accel",
+        "TranscodeHWAccel",
+    ),
+    "TranscodePolicy": (
+        "immichpy.client.generated.models.transcode_policy",
+        "TranscodePolicy",
+    ),
+    "TrashApi": ("immichpy.client.generated.api.trash_api", "TrashApi"),
+    "TrashResponseDto": (
+        "immichpy.client.generated.models.trash_response_dto",
+        "TrashResponseDto",
+    ),
+    "UpdateAlbumDto": (
+        "immichpy.client.generated.models.update_album_dto",
+        "UpdateAlbumDto",
+    ),
+    "UpdateAlbumUserDto": (
+        "immichpy.client.generated.models.update_album_user_dto",
+        "UpdateAlbumUserDto",
+    ),
+    "UpdateAssetDto": (
+        "immichpy.client.generated.models.update_asset_dto",
+        "UpdateAssetDto",
+    ),
+    "UpdateLibraryDto": (
+        "immichpy.client.generated.models.update_library_dto",
+        "UpdateLibraryDto",
+    ),
+    "UsageByUserDto": (
+        "immichpy.client.generated.models.usage_by_user_dto",
+        "UsageByUserDto",
+    ),
+    "UserAdminCreateDto": (
+        "immichpy.client.generated.models.user_admin_create_dto",
+        "UserAdminCreateDto",
+    ),
+    "UserAdminDeleteDto": (
+        "immichpy.client.generated.models.user_admin_delete_dto",
+        "UserAdminDeleteDto",
+    ),
+    "UserAdminResponseDto": (
+        "immichpy.client.generated.models.user_admin_response_dto",
+        "UserAdminResponseDto",
+    ),
+    "UserAdminUpdateDto": (
+        "immichpy.client.generated.models.user_admin_update_dto",
+        "UserAdminUpdateDto",
+    ),
+    "UserAvatarColor": (
+        "immichpy.client.generated.models.user_avatar_color",
+        "UserAvatarColor",
+    ),
+    "UserConfigClipDto": (
+        "immichpy.client.generated.models.user_config_clip_dto",
+        "UserConfigClipDto",
+    ),
+    "UserConfigDto": (
+        "immichpy.client.generated.models.user_config_dto",
+        "UserConfigDto",
+    ),
+    "UserConfigDuplicateDetectionDto": (
+        "immichpy.client.generated.models.user_config_duplicate_detection_dto",
+        "UserConfigDuplicateDetectionDto",
+    ),
+    "UserConfigFFmpegDto": (
+        "immichpy.client.generated.models.user_config_f_fmpeg_dto",
+        "UserConfigFFmpegDto",
+    ),
+    "UserConfigFFmpegRealtimeDto": (
+        "immichpy.client.generated.models.user_config_f_fmpeg_realtime_dto",
+        "UserConfigFFmpegRealtimeDto",
+    ),
+    "UserConfigFacialRecognitionDto": (
+        "immichpy.client.generated.models.user_config_facial_recognition_dto",
+        "UserConfigFacialRecognitionDto",
+    ),
+    "UserConfigGeneratedFullsizeImageDto": (
+        "immichpy.client.generated.models.user_config_generated_fullsize_image_dto",
+        "UserConfigGeneratedFullsizeImageDto",
+    ),
+    "UserConfigGeneratedImageDto": (
+        "immichpy.client.generated.models.user_config_generated_image_dto",
+        "UserConfigGeneratedImageDto",
+    ),
+    "UserConfigImageDto": (
+        "immichpy.client.generated.models.user_config_image_dto",
+        "UserConfigImageDto",
+    ),
+    "UserConfigMachineLearningDto": (
+        "immichpy.client.generated.models.user_config_machine_learning_dto",
+        "UserConfigMachineLearningDto",
+    ),
+    "UserConfigMapDto": (
+        "immichpy.client.generated.models.user_config_map_dto",
+        "UserConfigMapDto",
+    ),
+    "UserConfigOAuthDto": (
+        "immichpy.client.generated.models.user_config_o_auth_dto",
+        "UserConfigOAuthDto",
+    ),
+    "UserConfigOcrDto": (
+        "immichpy.client.generated.models.user_config_ocr_dto",
+        "UserConfigOcrDto",
+    ),
+    "UserConfigPasswordLoginDto": (
+        "immichpy.client.generated.models.user_config_password_login_dto",
+        "UserConfigPasswordLoginDto",
+    ),
+    "UserConfigReverseGeocodingDto": (
+        "immichpy.client.generated.models.user_config_reverse_geocoding_dto",
+        "UserConfigReverseGeocodingDto",
+    ),
+    "UserConfigServerDto": (
+        "immichpy.client.generated.models.user_config_server_dto",
+        "UserConfigServerDto",
+    ),
+    "UserConfigThemeDto": (
+        "immichpy.client.generated.models.user_config_theme_dto",
+        "UserConfigThemeDto",
+    ),
+    "UserConfigTrashDto": (
+        "immichpy.client.generated.models.user_config_trash_dto",
+        "UserConfigTrashDto",
+    ),
+    "UserConfigUserDto": (
+        "immichpy.client.generated.models.user_config_user_dto",
+        "UserConfigUserDto",
+    ),
+    "UserLicense": ("immichpy.client.generated.models.user_license", "UserLicense"),
+    "UserMetadataKey": (
+        "immichpy.client.generated.models.user_metadata_key",
+        "UserMetadataKey",
+    ),
+    "UserPreferencesResponseDto": (
+        "immichpy.client.generated.models.user_preferences_response_dto",
+        "UserPreferencesResponseDto",
+    ),
+    "UserPreferencesUpdateDto": (
+        "immichpy.client.generated.models.user_preferences_update_dto",
+        "UserPreferencesUpdateDto",
+    ),
+    "UserResponseDto": (
+        "immichpy.client.generated.models.user_response_dto",
+        "UserResponseDto",
+    ),
+    "UserStatus": ("immichpy.client.generated.models.user_status", "UserStatus"),
+    "UserUpdateMeDto": (
+        "immichpy.client.generated.models.user_update_me_dto",
+        "UserUpdateMeDto",
+    ),
+    "UsersAdminApi": ("immichpy.client.generated.api.users_admin_api", "UsersAdminApi"),
+    "UsersApi": ("immichpy.client.generated.api.users_api", "UsersApi"),
+    "ValidateAccessTokenResponseDto": (
+        "immichpy.client.generated.models.validate_access_token_response_dto",
+        "ValidateAccessTokenResponseDto",
+    ),
+    "ValidateLibraryDto": (
+        "immichpy.client.generated.models.validate_library_dto",
+        "ValidateLibraryDto",
+    ),
+    "ValidateLibraryImportPathResponseDto": (
+        "immichpy.client.generated.models.validate_library_import_path_response_dto",
+        "ValidateLibraryImportPathResponseDto",
+    ),
+    "ValidateLibraryResponseDto": (
+        "immichpy.client.generated.models.validate_library_response_dto",
+        "ValidateLibraryResponseDto",
+    ),
+    "VersionCheckStateResponseDto": (
+        "immichpy.client.generated.models.version_check_state_response_dto",
+        "VersionCheckStateResponseDto",
+    ),
+    "VideoCodec": ("immichpy.client.generated.models.video_codec", "VideoCodec"),
+    "VideoContainer": (
+        "immichpy.client.generated.models.video_container",
+        "VideoContainer",
+    ),
+    "ViewsApi": ("immichpy.client.generated.api.views_api", "ViewsApi"),
+    "WorkflowCreateDto": (
+        "immichpy.client.generated.models.workflow_create_dto",
+        "WorkflowCreateDto",
+    ),
+    "WorkflowLogEntryDto": (
+        "immichpy.client.generated.models.workflow_log_entry_dto",
+        "WorkflowLogEntryDto",
+    ),
+    "WorkflowLogEntryDtoLastStep": (
+        "immichpy.client.generated.models.workflow_log_entry_dto_last_step",
+        "WorkflowLogEntryDtoLastStep",
+    ),
+    "WorkflowResponseDto": (
+        "immichpy.client.generated.models.workflow_response_dto",
+        "WorkflowResponseDto",
+    ),
+    "WorkflowResult": (
+        "immichpy.client.generated.models.workflow_result",
+        "WorkflowResult",
+    ),
+    "WorkflowShareResponseDto": (
+        "immichpy.client.generated.models.workflow_share_response_dto",
+        "WorkflowShareResponseDto",
+    ),
+    "WorkflowShareStepDto": (
+        "immichpy.client.generated.models.workflow_share_step_dto",
+        "WorkflowShareStepDto",
+    ),
+    "WorkflowStepDto": (
+        "immichpy.client.generated.models.workflow_step_dto",
+        "WorkflowStepDto",
+    ),
+    "WorkflowTrigger": (
+        "immichpy.client.generated.models.workflow_trigger",
+        "WorkflowTrigger",
+    ),
+    "WorkflowTriggerResponseDto": (
+        "immichpy.client.generated.models.workflow_trigger_response_dto",
+        "WorkflowTriggerResponseDto",
+    ),
+    "WorkflowType": ("immichpy.client.generated.models.workflow_type", "WorkflowType"),
+    "WorkflowUpdateDto": (
+        "immichpy.client.generated.models.workflow_update_dto",
+        "WorkflowUpdateDto",
+    ),
+    "WorkflowsApi": ("immichpy.client.generated.api.workflows_api", "WorkflowsApi"),
+}
+
+
+def __getattr__(name: str) -> object:
+    try:
+        module, attr = _LAZY_IMPORTS[name]
+    except KeyError:
+        raise AttributeError(f"module {__name__!r} has no attribute {name!r}") from None
+    from importlib import import_module
+
+    value = getattr(import_module(module), attr)
+    globals()[name] = value
+    return value
