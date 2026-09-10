@@ -10,7 +10,6 @@ from rich.console import Console
 from typer._click.core import Context, ParameterSource
 from typer.core import TyperGroup
 
-from immichpy import AsyncClient
 from immichpy.cli.commands import activities as activities_commands
 from immichpy.cli.commands import albums as albums_commands
 
@@ -272,6 +271,8 @@ def callback(
                 type="debug",
                 ctx=ctx,
             )
+        from immichpy import AsyncClient
+
         ctx.obj["client"] = AsyncClient(
             api_key=config.api_key,
             access_token=None if omit_access_token else config.access_token,
