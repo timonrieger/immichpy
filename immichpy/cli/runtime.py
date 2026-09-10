@@ -6,15 +6,17 @@ import asyncio
 import json
 import traceback
 from collections.abc import Awaitable, Callable
-from typing import Any, Protocol, cast
+from typing import TYPE_CHECKING, Any, Protocol, cast
 
 from pydantic import BaseModel
 from typer import Context, Exit
 
 from immichpy.cli.types import MaybeBaseModel
 from immichpy.cli.utils import print_
-from immichpy.client.generated.api_client import ApiClient
 from immichpy.client.generated.exceptions import ApiException
+
+if TYPE_CHECKING:
+    from immichpy.client.generated.api_client import ApiClient
 
 
 class _ApiGroup(Protocol):

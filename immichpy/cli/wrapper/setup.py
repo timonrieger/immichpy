@@ -2,7 +2,6 @@ import os
 
 import typer
 
-from immichpy import AsyncClient
 from immichpy.cli.consts import (
     CONFIG_FILE,
     DEFAULT_PROFILE,
@@ -53,7 +52,8 @@ def setup(
     data = load_config()
 
     if not skip_validation:
-        # Validate the server is reachable
+        from immichpy import AsyncClient
+
         client = AsyncClient(
             base_url=base_url, api_key=api_key, access_token=access_token
         )
