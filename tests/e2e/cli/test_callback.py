@@ -15,7 +15,7 @@ def mock_server_api():
         return {}
 
     with (
-        patch("immichpy.cli.main.AsyncClient") as mock_client,
+        patch("immichpy.AsyncClient") as mock_client,
         patch("immichpy.cli.runtime.run_command", side_effect=mock_run_command),
     ):
         mock_client_instance = MagicMock()
