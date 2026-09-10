@@ -8,10 +8,15 @@ from typing_extensions import Self
 from immichpy.client.generated.api.activities_api import ActivitiesApi
 from immichpy.client.generated.api.albums_api import AlbumsApi
 from immichpy.client.generated.api.api_keys_api import APIKeysApi
+from immichpy.client.generated.api.asset_files_api import AssetFilesApi
 from immichpy.client.generated.api.authentication_admin_api import (
     AuthenticationAdminApi,
 )
 from immichpy.client.generated.api.authentication_api import AuthenticationApi
+from immichpy.client.generated.api.cluster_groups_api import ClusterGroupsApi
+from immichpy.client.generated.api.config_admin_api import ConfigAdminApi
+from immichpy.client.generated.api.config_public_api import ConfigPublicApi
+from immichpy.client.generated.api.config_user_api import ConfigUserApi
 from immichpy.client.generated.api.database_backups_admin_api import (
     DatabaseBackupsAdminApi,
 )
@@ -94,6 +99,12 @@ class AsyncClient:
     See [APIKeysApi][immichpy.client.generated.api.api_keys_api.APIKeysApi] for available methods and [Immich API Documentation](https://api.immich.app/endpoints/api-keys) for more information.
     """
 
+    asset_files: AssetFilesApi
+    """An asset file is a file associated with an asset, including edited versions, thumbnails, etc.
+
+    See [AssetFilesApi][immichpy.client.generated.api.asset_files_api.AssetFilesApi] for available methods and [Immich API Documentation](https://api.immich.app/endpoints/asset-files) for more information.
+    """
+
     assets: AssetsApiWrapped
     """An asset is an image or video that has been uploaded to Immich.
 
@@ -110,6 +121,36 @@ class AsyncClient:
     """Administrative endpoints related to authentication.
 
     See [AuthenticationAdminApi][immichpy.client.generated.api.authentication_admin_api.AuthenticationAdminApi] for available methods and [Immich API Documentation](https://api.immich.app/endpoints/authentication-(admin)) for more information.
+    """
+
+    backups: DatabaseBackupsAdminApi
+    """Manage backups of the Immich database.
+
+    See [DatabaseBackupsAdminApi][immichpy.client.generated.api.database_backups_admin_api.DatabaseBackupsAdminApi] for available methods and [Immich API Documentation](https://api.immich.app/endpoints/database-backups-(admin)) for more information.
+    """
+
+    cluster_groups: ClusterGroupsApi
+    """A cluster group is a set of users whose faces are clustered together, so that a person can be shared between them.
+
+    See [ClusterGroupsApi][immichpy.client.generated.api.cluster_groups_api.ClusterGroupsApi] for available methods and [Immich API Documentation](https://api.immich.app/endpoints/cluster-groups) for more information.
+    """
+
+    config_admin: ConfigAdminApi
+    """Endpoints to view and modify the full system configuration.
+
+    See [ConfigAdminApi][immichpy.client.generated.api.config_admin_api.ConfigAdminApi] for available methods and [Immich API Documentation](https://api.immich.app/endpoints/config-(admin)) for more information.
+    """
+
+    config_public: ConfigPublicApi
+    """The system configuration properties that are visible to everyone.
+
+    See [ConfigPublicApi][immichpy.client.generated.api.config_public_api.ConfigPublicApi] for available methods and [Immich API Documentation](https://api.immich.app/endpoints/config-(public)) for more information.
+    """
+
+    config_user: ConfigUserApi
+    """The system configuration properties that are visible to logged in users.
+
+    See [ConfigUserApi][immichpy.client.generated.api.config_user_api.ConfigUserApi] for available methods and [Immich API Documentation](https://api.immich.app/endpoints/config-(user)) for more information.
     """
 
     deprecated: DeprecatedApi
@@ -324,10 +365,15 @@ class AsyncClient:
         self.activities = ActivitiesApi(self.base_client)
         self.albums = AlbumsApi(self.base_client)
         self.api_keys = APIKeysApi(self.base_client)
+        self.asset_files = AssetFilesApi(self.base_client)
         self.assets = AssetsApiWrapped(self.base_client)
         self.auth = AuthenticationApi(self.base_client)
         self.auth_admin = AuthenticationAdminApi(self.base_client)
         self.backups = DatabaseBackupsAdminApi(self.base_client)
+        self.cluster_groups = ClusterGroupsApi(self.base_client)
+        self.config_admin = ConfigAdminApi(self.base_client)
+        self.config_public = ConfigPublicApi(self.base_client)
+        self.config_user = ConfigUserApi(self.base_client)
         self.deprecated = DeprecatedApi(self.base_client)
         self.download = DownloadApiWrapped(self.base_client)
         self.duplicates = DuplicatesApi(self.base_client)
