@@ -71,7 +71,7 @@ Profile 'default' created successfully!
 ```
 
 !!! note "Validation"
-    The server is validated when you run `immichpy setup`. The CLI will fail if the server is not reachable by default.
+    The server is validated when you run `immichpy setup`. The validation will fail by default if the server is not reachable.
 
 See [`immichpy setup`](reference.md#immichpy-setup) for the full command reference.
 
