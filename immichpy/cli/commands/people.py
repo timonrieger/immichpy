@@ -16,7 +16,14 @@ from immichpy.cli.runtime import (
     run_command,
     set_nested,
 )
-from immichpy.client.generated.models import *
+from immichpy.client.generated.models import (
+    AssetFaceUpdateDto,
+    BulkIdsDto,
+    MergePersonDto,
+    PeopleUpdateDto,
+    PersonCreateDto,
+    PersonUpdateDto,
+)
 
 app = typer.Typer(
     help="""A person is a collection of faces, which can be favorited and named. A person can also be merged into another person. People are automatically created via the face recognition job.\n\n[link=https://api.immich.app/endpoints/people]Immich API documentation[/link]"""

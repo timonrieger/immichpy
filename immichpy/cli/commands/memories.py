@@ -12,7 +12,13 @@ if TYPE_CHECKING:
     from immichpy import AsyncClient
 
 from immichpy.cli.runtime import print_response, run_command, set_nested
-from immichpy.client.generated.models import *
+from immichpy.client.generated.models import (
+    BulkIdsDto,
+    MemoryCreateDto,
+    MemorySearchOrder,
+    MemoryType,
+    MemoryUpdateDto,
+)
 
 app = typer.Typer(
     help="""A memory is a specialized collection of assets with dedicated viewing implementations in the web and mobile clients. A memory includes fields related to visibility and are automatically generated per user via a background job.\n\n[link=https://api.immich.app/endpoints/memories]Immich API documentation[/link]"""

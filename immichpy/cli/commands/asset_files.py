@@ -11,7 +11,7 @@ if TYPE_CHECKING:
     from immichpy import AsyncClient
 
 from immichpy.cli.runtime import print_response, run_command
-from immichpy.client.generated.models import *
+from immichpy.client.generated.models import AssetFileType
 
 app = typer.Typer(
     help="""An asset file is a file associated with an asset, including edited versions, thumbnails, etc.\n\n[link=https://api.immich.app/endpoints/asset-files]Immich API documentation[/link]"""

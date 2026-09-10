@@ -12,7 +12,13 @@ if TYPE_CHECKING:
     from immichpy import AsyncClient
 
 from immichpy.cli.runtime import print_response, run_command, set_nested
-from immichpy.client.generated.models import *
+from immichpy.client.generated.models import (
+    NotificationDeleteAllDto,
+    NotificationLevel,
+    NotificationType,
+    NotificationUpdateAllDto,
+    NotificationUpdateDto,
+)
 
 app = typer.Typer(
     help="""A notification is a specialized message sent to users to inform them of important events. Currently, these notifications are only shown in the Immich web application.\n\n[link=https://api.immich.app/endpoints/notifications]Immich API documentation[/link]"""

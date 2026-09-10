@@ -11,7 +11,11 @@ if TYPE_CHECKING:
     from immichpy import AsyncClient
 
 from immichpy.cli.runtime import print_response, run_command, set_nested
-from immichpy.client.generated.models import *
+from immichpy.client.generated.models import (
+    PartnerCreateDto,
+    PartnerDirection,
+    PartnerUpdateDto,
+)
 
 app = typer.Typer(
     help="""A partner is a link with another user that allows sharing of assets between two users.\n\n[link=https://api.immich.app/endpoints/partners]Immich API documentation[/link]"""

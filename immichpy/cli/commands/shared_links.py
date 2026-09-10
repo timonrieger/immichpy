@@ -12,7 +12,12 @@ if TYPE_CHECKING:
     from immichpy import AsyncClient
 
 from immichpy.cli.runtime import print_response, run_command, set_nested
-from immichpy.client.generated.models import *
+from immichpy.client.generated.models import (
+    AssetIdsDto,
+    SharedLinkCreateDto,
+    SharedLinkEditDto,
+    SharedLinkLoginDto,
+)
 
 app = typer.Typer(
     help="""A shared link is a public url that provides access to a specific album, asset, or collection of assets. A shared link can be protected with a password, include a specific slug, allow or disallow downloads, and optionally include an expiration date.\n\n[link=https://api.immich.app/endpoints/shared-links]Immich API documentation[/link]"""

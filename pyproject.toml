@@ -105,12 +105,6 @@ module-root = ""
 fix = true
 lint.exclude = ["immichpy/client/generated/**"] # generated code is only formatted, not linted
 
-[tool.ruff.lint.per-file-ignores]
-"immichpy/cli/commands/**" = [
-    "F403", # star imports in generated CLI commands
-    "F405", # same
-    ]
-
 [tool.ruff.lint.flake8-bugbear]
 extend-immutable-calls = ["typer.Option", "typer.Argument"]
 

@@ -11,7 +11,7 @@ if TYPE_CHECKING:
     from immichpy import AsyncClient
 
 from immichpy.cli.runtime import print_response, run_command, set_nested
-from immichpy.client.generated.models import *
+from immichpy.client.generated.models import ClusterGroupRequestCreateDto
 
 app = typer.Typer(
     help="""A cluster group is a set of users whose faces are clustered together, so that a person can be shared between them.\n\n[link=https://api.immich.app/endpoints/cluster-groups]Immich API documentation[/link]"""

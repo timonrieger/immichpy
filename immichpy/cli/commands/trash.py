@@ -11,7 +11,7 @@ if TYPE_CHECKING:
     from immichpy import AsyncClient
 
 from immichpy.cli.runtime import print_response, run_command, set_nested
-from immichpy.client.generated.models import *
+from immichpy.client.generated.models import BulkIdsDto
 
 app = typer.Typer(
     help="""Endpoints for managing the trash can, which includes assets that have been discarded. Items in the trash are automatically deleted after a configured amount of time.\n\n[link=https://api.immich.app/endpoints/trash]Immich API documentation[/link]"""

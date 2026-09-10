@@ -10,7 +10,7 @@ if TYPE_CHECKING:
     from immichpy import AsyncClient
 
 from immichpy.cli.runtime import print_response, run_command, set_nested
-from immichpy.client.generated.models import *
+from immichpy.client.generated.models import LicenseKeyDto
 
 app = typer.Typer(
     help="""Information about the current server deployment, including version and build information, available features, supported media types, and more.\n\n[link=https://api.immich.app/endpoints/server]Immich API documentation[/link]"""

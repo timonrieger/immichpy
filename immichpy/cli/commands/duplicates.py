@@ -16,7 +16,7 @@ from immichpy.cli.runtime import (
     run_command,
     set_nested,
 )
-from immichpy.client.generated.models import *
+from immichpy.client.generated.models import BulkIdsDto, DuplicateResolveDto
 
 app = typer.Typer(
     help="""Endpoints for managing and identifying duplicate assets.\n\n[link=https://api.immich.app/endpoints/duplicates]Immich API documentation[/link]"""

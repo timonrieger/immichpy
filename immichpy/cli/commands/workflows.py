@@ -17,7 +17,12 @@ from immichpy.cli.runtime import (
     run_command,
     set_nested,
 )
-from immichpy.client.generated.models import *
+from immichpy.client.generated.models import (
+    WorkflowCreateDto,
+    WorkflowResult,
+    WorkflowTrigger,
+    WorkflowUpdateDto,
+)
 
 app = typer.Typer(
     help="""A workflow is a set of actions that run whenever a triggering event occurs. Workflows also can include filters to further limit execution.\n\n[link=https://api.immich.app/endpoints/workflows]Immich API documentation[/link]"""

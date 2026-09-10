@@ -17,7 +17,11 @@ from immichpy.cli.runtime import (
     run_command,
     set_nested,
 )
-from immichpy.client.generated.models import *
+from immichpy.client.generated.models import (
+    AdminConfigSmtpDto,
+    NotificationCreateDto,
+    TemplateDto,
+)
 
 app = typer.Typer(
     help="""Notification administrative endpoints.\n\n[link=https://api.immich.app/endpoints/notifications-admin]Immich API documentation[/link]"""

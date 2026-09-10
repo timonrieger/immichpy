@@ -17,7 +17,15 @@ from immichpy.cli.runtime import (
     run_command,
     set_nested,
 )
-from immichpy.client.generated.models import *
+from immichpy.client.generated.models import (
+    AssetTypeEnum,
+    AssetVisibility,
+    MetadataSearchDto,
+    RandomSearchDto,
+    SearchSuggestionType,
+    SmartSearchDto,
+    StatisticsSearchDto,
+)
 
 app = typer.Typer(
     help="""Endpoints related to searching assets via text, smart search, optical character recognition (OCR), and other filters like person, album, and other metadata. Search endpoints usually support pagination and sorting.\n\n[link=https://api.immich.app/endpoints/search]Immich API documentation[/link]"""

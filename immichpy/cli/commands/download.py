@@ -11,7 +11,7 @@ if TYPE_CHECKING:
     from immichpy import AsyncClient
 
 from immichpy.cli.runtime import print_response, run_command, set_nested
-from immichpy.client.generated.models import *
+from immichpy.client.generated.models import DownloadArchiveDto, DownloadInfoDto
 
 app = typer.Typer(
     help="""Endpoints for downloading assets or collections of assets.\n\n[link=https://api.immich.app/endpoints/download]Immich API documentation[/link]"""

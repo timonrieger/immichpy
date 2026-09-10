@@ -10,7 +10,6 @@ if TYPE_CHECKING:
     from immichpy import AsyncClient
 
 from immichpy.cli.runtime import print_response, run_command
-from immichpy.client.generated.models import *
 
 app = typer.Typer(
     help="""The system configuration properties that are visible to everyone.\n\n[link=https://api.immich.app/endpoints/config-public]Immich API documentation[/link]"""
