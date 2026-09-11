@@ -86,7 +86,7 @@ Example: 2024-01-01T00:00:00.000Z""",
 
 Example: 2024-01-01T00:00:00.000Z""",
     ),
-    type: str = typer.Option(..., "--type", help=r"""Memory type"""),
+    type: MemoryType = typer.Option(..., "--type", help=r"""Memory type"""),
 ) -> None:
     """Create a memory
 

@@ -12,11 +12,13 @@ if TYPE_CHECKING:
 
 from immichpy.cli.runtime import print_response, run_command, set_nested
 from immichpy.client.generated.models import (
+    AssetOrder,
     AssetVisibility,
     CalendarHeatmapType,
     UserAdminCreateDto,
     UserAdminDeleteDto,
     UserAdminUpdateDto,
+    UserAvatarColor,
     UserPreferencesUpdateDto,
 )
 
@@ -367,10 +369,10 @@ Example: 123456""",
 def update_user_preferences_admin(
     ctx: typer.Context,
     id: UUID = typer.Argument(..., help=r""""""),
-    albums_default_asset_order: str | None = typer.Option(
+    albums_default_asset_order: AssetOrder | None = typer.Option(
         None, "--albums-default-asset-order", help=r"""Asset sort order"""
     ),
-    avatar_color: str | None = typer.Option(
+    avatar_color: UserAvatarColor | None = typer.Option(
         None, "--avatar-color", help=r"""User avatar color"""
     ),
     cast_g_cast_enabled: Literal["true", "false"] | None = typer.Option(

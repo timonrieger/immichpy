@@ -13,6 +13,7 @@ if TYPE_CHECKING:
 from immichpy.cli.runtime import print_response, run_command, set_nested
 from immichpy.client.generated.models import (
     IntegrityReport,
+    MaintenanceAction,
     MaintenanceLoginDto,
     SetMaintenanceModeDto,
 )
@@ -187,7 +188,9 @@ def maintenance_login(
 @app.command("set-maintenance-mode", deprecated=False, rich_help_panel="API commands")
 def set_maintenance_mode(
     ctx: typer.Context,
-    action: str = typer.Option(..., "--action", help=r"""Maintenance action"""),
+    action: MaintenanceAction = typer.Option(
+        ..., "--action", help=r"""Maintenance action"""
+    ),
     restore_backup_filename: str | None = typer.Option(
         None, "--restore-backup-filename", help=r"""Restore backup filename"""
     ),

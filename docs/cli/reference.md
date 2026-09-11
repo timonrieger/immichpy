@@ -277,7 +277,7 @@ immichpy activities create-activity [OPTIONS]
 * `--album-id <uuid>`: Album ID  [required]
 * `--asset-id <uuid>`: Asset ID (if activity is for an asset)
 * `--comment <str>`: Comment text (required if type is comment)
-* `--type <str>`: Reaction type  [required]
+* `--type <comment|like>`: Reaction type  [required]
 * `--help`: Show this message and exit.
 
 ### `immichpy activities delete-activity`
@@ -622,7 +622,7 @@ immichpy albums update-album-info [OPTIONS] {id}
 * `--album-thumbnail-asset-id <uuid>`: Album thumbnail asset ID
 * `--description <str>`: Album description
 * `--is-activity-enabled <true|false>`: Enable activity feed
-* `--order <str>`: Asset sort order
+* `--order <asc|desc>`: Asset sort order
 * `--help`: Show this message and exit.
 
 ### `immichpy albums update-album-user`
@@ -644,7 +644,7 @@ immichpy albums update-album-user [OPTIONS] {id} {user_id}
 
 **Options**:
 
-* `--role <str>`: Album user role  [required]
+* `--role <editor|owner|viewer>`: Album user role  [required]
 * `--help`: Show this message and exit.
 
 ## `immichpy assets`
@@ -1120,7 +1120,7 @@ immichpy assets run-asset-jobs [OPTIONS]
 **Options**:
 
 * `--asset-ids <uuid>`: Asset IDs  [required]
-* `--name <str>`: Job name  [required]
+* `--name <refresh-faces|refresh-metadata|regenerate-thumbnail|transcode-video>`: Job name  [required]
 * `--help`: Show this message and exit.
 
 ### `immichpy assets update-asset`
@@ -1148,7 +1148,7 @@ immichpy assets update-asset [OPTIONS] {id}
 * `--live-photo-video-id <uuid>`: Live photo video ID
 * `--longitude <float range>`: Longitude coordinate  [-180&lt;=x&lt;=180]
 * `--rating <int range>`: Rating in range [1-5] (starred), -1 (rejected), or null (unrated)  [-1&lt;=x&lt;=5]
-* `--visibility <str>`: Asset visibility
+* `--visibility <archive|timeline|hidden|locked>`: Asset visibility
 * `--help`: Show this message and exit.
 
 ### `immichpy assets update-asset-metadata`
@@ -1199,7 +1199,7 @@ immichpy assets update-assets [OPTIONS]
 * `--longitude <float range>`: Longitude coordinate  [-180&lt;=x&lt;=180]
 * `--rating <int range>`: Rating in range [1-5] (starred), -1 (rejected), or null (unrated)  [-1&lt;=x&lt;=5]
 * `--time-zone <str>`: Time zone (IANA timezone)
-* `--visibility <str>`: Asset visibility
+* `--visibility <archive|timeline|hidden|locked>`: Asset visibility
 * `--help`: Show this message and exit.
 
 ### `immichpy assets update-bulk-asset-metadata`
@@ -1256,7 +1256,7 @@ As a JSON string with keys: key (string), value (object)
 
 * `--sidecar-data <path>`: Sidecar file data
 * `--slug <str>`
-* `--visibility <str>`: Asset visibility
+* `--visibility <archive|timeline|hidden|locked>`: Asset visibility
 * `--x-immich-checksum <str>`: sha1 checksum that can be used for duplicate detection before the file is uploaded
 * `--help`: Show this message and exit.
 
@@ -2225,7 +2225,7 @@ immichpy jobs create-job [OPTIONS]
 
 **Options**:
 
-* `--name <str>`: Manual job name  [required]
+* `--name <person-cleanup|tag-cleanup|user-cleanup|memory-cleanup|memory-create|backup-database|integrity-missing-files|integrity-untracked-files|integrity-checksum-mismatch|integrity-missing-files-refresh|integrity-untracked-files-refresh|integrity-checksum-mismatch-refresh|integrity-missing-files-delete-all|integrity-untracked-files-delete-all|integrity-checksum-mismatch-delete-all>`: Manual job name  [required]
 * `--help`: Show this message and exit.
 
 ### `immichpy jobs get-queues-legacy`
@@ -2262,7 +2262,7 @@ immichpy jobs run-queue-command-legacy [OPTIONS] {name}:<thumbnailGeneration|met
 
 **Options**:
 
-* `--command <str>`: Queue command to execute  [required]
+* `--command <start|pause|resume|empty|clear-failed>`: Queue command to execute  [required]
 * `--force <true|false>`: Force the command execution (if applicable)
 * `--help`: Show this message and exit.
 
@@ -2640,7 +2640,7 @@ immichpy maintenance-admin set-maintenance-mode [OPTIONS]
 
 **Options**:
 
-* `--action <str>`: Maintenance action  [required]
+* `--action <start|end|select_database_restore|restore_database>`: Maintenance action  [required]
 * `--restore-backup-filename <str>`: Restore backup filename
 * `--help`: Show this message and exit.
 
@@ -2792,7 +2792,7 @@ Example: 2024-01-01T00:00:00.000Z
 
 Example: 2024-01-01T00:00:00.000Z
 
-* `--type <str>`: Memory type  [required]
+* `--type <on_this_day>`: Memory type  [required]
 * `--help`: Show this message and exit.
 
 ### `immichpy memories delete-memory`
@@ -3129,13 +3129,13 @@ immichpy notifications-admin create-notification [OPTIONS]
 As a JSON string
 
 * `--description <str>`: Notification description
-* `--level <str>`: Notification level
+* `--level <success|error|warning|info>`: Notification level
 * `--read-at <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Date when notification was read
 
 Example: 2024-01-01T00:00:00.000Z
 
 * `--title <str>`: Notification title  [required]
-* `--type <str>`: Notification type
+* `--type <JobFailed|BackupFailed|SystemMessage|AlbumInvite|AlbumUpdate|ClusterGroupRequest|Custom>`: Notification type
 * `--user-id <uuid>`: User ID to send notification to  [required]
 * `--help`: Show this message and exit.
 
@@ -4015,9 +4015,9 @@ Example: 2024-01-01T00:00:00.000Z
 * `--filter-trashed-at-lt <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
 * `--filter-trashed-at-lte <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
 * `--filter-trashed-at-ne <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
-* `--filter-type-eq <str>`: Asset type
+* `--filter-type-eq <IMAGE|VIDEO|AUDIO|OTHER>`: Asset type
 * `--filter-type-in <IMAGE|VIDEO|AUDIO|OTHER>`
-* `--filter-type-ne <str>`: Asset type
+* `--filter-type-ne <IMAGE|VIDEO|AUDIO|OTHER>`: Asset type
 * `--filter-type-not-in <IMAGE|VIDEO|AUDIO|OTHER>`
 * `--filter-updated-at-eq <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
 * `--filter-updated-at-gt <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
@@ -4025,9 +4025,9 @@ Example: 2024-01-01T00:00:00.000Z
 * `--filter-updated-at-lt <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
 * `--filter-updated-at-lte <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
 * `--filter-updated-at-ne <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
-* `--filter-visibility-eq <str>`: Asset visibility
+* `--filter-visibility-eq <archive|timeline|hidden|locked>`: Asset visibility
 * `--filter-visibility-in <archive|timeline|hidden|locked>`
-* `--filter-visibility-ne <str>`: Asset visibility
+* `--filter-visibility-ne <archive|timeline|hidden|locked>`: Asset visibility
 * `--filter-visibility-not-in <archive|timeline|hidden|locked>`
 * `--is-encoded <true|false>`: Filter by encoded status
 * `--is-favorite <true|false>`: Filter by favorite status
@@ -4059,7 +4059,7 @@ Example: 2024-01-01T00:00:00.000Z
 
 Example: 2024-01-01T00:00:00.000Z
 
-* `--type <str>`: Asset type
+* `--type <IMAGE|VIDEO|AUDIO|OTHER>`: Asset type
 * `--updated-after <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Filter by update date (after)
 
 Example: 2024-01-01T00:00:00.000Z
@@ -4068,7 +4068,7 @@ Example: 2024-01-01T00:00:00.000Z
 
 Example: 2024-01-01T00:00:00.000Z
 
-* `--visibility <str>`: Asset visibility
+* `--visibility <archive|timeline|hidden|locked>`: Asset visibility
 * `--help`: Show this message and exit.
 
 ### `immichpy search search-assets`
@@ -4212,9 +4212,9 @@ Example: 2024-01-01T00:00:00.000Z
 * `--filter-trashed-at-lt <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
 * `--filter-trashed-at-lte <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
 * `--filter-trashed-at-ne <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
-* `--filter-type-eq <str>`: Asset type
+* `--filter-type-eq <IMAGE|VIDEO|AUDIO|OTHER>`: Asset type
 * `--filter-type-in <IMAGE|VIDEO|AUDIO|OTHER>`
-* `--filter-type-ne <str>`: Asset type
+* `--filter-type-ne <IMAGE|VIDEO|AUDIO|OTHER>`: Asset type
 * `--filter-type-not-in <IMAGE|VIDEO|AUDIO|OTHER>`
 * `--filter-updated-at-eq <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
 * `--filter-updated-at-gt <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
@@ -4222,9 +4222,9 @@ Example: 2024-01-01T00:00:00.000Z
 * `--filter-updated-at-lt <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
 * `--filter-updated-at-lte <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
 * `--filter-updated-at-ne <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
-* `--filter-visibility-eq <str>`: Asset visibility
+* `--filter-visibility-eq <archive|timeline|hidden|locked>`: Asset visibility
 * `--filter-visibility-in <archive|timeline|hidden|locked>`
-* `--filter-visibility-ne <str>`: Asset visibility
+* `--filter-visibility-ne <archive|timeline|hidden|locked>`: Asset visibility
 * `--filter-visibility-not-in <archive|timeline|hidden|locked>`
 * `--id <uuid>`: Filter by asset ID
 * `--is-encoded <true|false>`: Filter by encoded status
@@ -4238,9 +4238,9 @@ Example: 2024-01-01T00:00:00.000Z
 * `--make <str>`: Filter by camera make
 * `--model <str>`: Filter by camera model
 * `--ocr <str>`: Filter by OCR text content
-* `--order <str>`: Asset sort order
-* `--order-by-direction <str>`: Asset sort order
-* `--order-by-field <str>`
+* `--order <asc|desc>`: Asset sort order
+* `--order-by-direction <asc|desc>`: Asset sort order
+* `--order-by-field <fileCreatedAt|localDateTime|fileSizeInBytes|rating>`
 * `--original-file-name <str>`: Filter by original file name
 * `--original-path <str>`: Filter by original file path
 * `--page <int range>`: Page number  [1&lt;=x&lt;=9007199254740991]
@@ -4268,7 +4268,7 @@ Example: 2024-01-01T00:00:00.000Z
 
 Example: 2024-01-01T00:00:00.000Z
 
-* `--type <str>`: Asset type
+* `--type <IMAGE|VIDEO|AUDIO|OTHER>`: Asset type
 * `--updated-after <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Filter by update date (after)
 
 Example: 2024-01-01T00:00:00.000Z
@@ -4277,7 +4277,7 @@ Example: 2024-01-01T00:00:00.000Z
 
 Example: 2024-01-01T00:00:00.000Z
 
-* `--visibility <str>`: Asset visibility
+* `--visibility <archive|timeline|hidden|locked>`: Asset visibility
 * `--with-deleted <true|false>`: Include deleted assets
 * `--with-exif <true|false>`: Include EXIF data in response
 * `--with-people <true|false>`: Include people data in response
@@ -4527,9 +4527,9 @@ Example: 2024-01-01T00:00:00.000Z
 * `--filter-trashed-at-lt <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
 * `--filter-trashed-at-lte <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
 * `--filter-trashed-at-ne <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
-* `--filter-type-eq <str>`: Asset type
+* `--filter-type-eq <IMAGE|VIDEO|AUDIO|OTHER>`: Asset type
 * `--filter-type-in <IMAGE|VIDEO|AUDIO|OTHER>`
-* `--filter-type-ne <str>`: Asset type
+* `--filter-type-ne <IMAGE|VIDEO|AUDIO|OTHER>`: Asset type
 * `--filter-type-not-in <IMAGE|VIDEO|AUDIO|OTHER>`
 * `--filter-updated-at-eq <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
 * `--filter-updated-at-gt <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
@@ -4537,9 +4537,9 @@ Example: 2024-01-01T00:00:00.000Z
 * `--filter-updated-at-lt <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
 * `--filter-updated-at-lte <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
 * `--filter-updated-at-ne <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
-* `--filter-visibility-eq <str>`: Asset visibility
+* `--filter-visibility-eq <archive|timeline|hidden|locked>`: Asset visibility
 * `--filter-visibility-in <archive|timeline|hidden|locked>`
-* `--filter-visibility-ne <str>`: Asset visibility
+* `--filter-visibility-ne <archive|timeline|hidden|locked>`: Asset visibility
 * `--filter-visibility-not-in <archive|timeline|hidden|locked>`
 * `--is-encoded <true|false>`: Filter by encoded status
 * `--is-favorite <true|false>`: Filter by favorite status
@@ -4572,7 +4572,7 @@ Example: 2024-01-01T00:00:00.000Z
 
 Example: 2024-01-01T00:00:00.000Z
 
-* `--type <str>`: Asset type
+* `--type <IMAGE|VIDEO|AUDIO|OTHER>`: Asset type
 * `--updated-after <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Filter by update date (after)
 
 Example: 2024-01-01T00:00:00.000Z
@@ -4581,7 +4581,7 @@ Example: 2024-01-01T00:00:00.000Z
 
 Example: 2024-01-01T00:00:00.000Z
 
-* `--visibility <str>`: Asset visibility
+* `--visibility <archive|timeline|hidden|locked>`: Asset visibility
 * `--with-deleted <true|false>`: Include deleted assets
 * `--with-exif <true|false>`: Include EXIF data in response
 * `--with-people <true|false>`: Include people data in response
@@ -4725,9 +4725,9 @@ Example: 2024-01-01T00:00:00.000Z
 * `--filter-trashed-at-lt <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
 * `--filter-trashed-at-lte <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
 * `--filter-trashed-at-ne <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
-* `--filter-type-eq <str>`: Asset type
+* `--filter-type-eq <IMAGE|VIDEO|AUDIO|OTHER>`: Asset type
 * `--filter-type-in <IMAGE|VIDEO|AUDIO|OTHER>`
-* `--filter-type-ne <str>`: Asset type
+* `--filter-type-ne <IMAGE|VIDEO|AUDIO|OTHER>`: Asset type
 * `--filter-type-not-in <IMAGE|VIDEO|AUDIO|OTHER>`
 * `--filter-updated-at-eq <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
 * `--filter-updated-at-gt <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
@@ -4735,9 +4735,9 @@ Example: 2024-01-01T00:00:00.000Z
 * `--filter-updated-at-lt <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
 * `--filter-updated-at-lte <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
 * `--filter-updated-at-ne <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
-* `--filter-visibility-eq <str>`: Asset visibility
+* `--filter-visibility-eq <archive|timeline|hidden|locked>`: Asset visibility
 * `--filter-visibility-in <archive|timeline|hidden|locked>`
-* `--filter-visibility-ne <str>`: Asset visibility
+* `--filter-visibility-ne <archive|timeline|hidden|locked>`: Asset visibility
 * `--filter-visibility-not-in <archive|timeline|hidden|locked>`
 * `--is-encoded <true|false>`: Filter by encoded status
 * `--is-favorite <true|false>`: Filter by favorite status
@@ -4774,7 +4774,7 @@ Example: 2024-01-01T00:00:00.000Z
 
 Example: 2024-01-01T00:00:00.000Z
 
-* `--type <str>`: Asset type
+* `--type <IMAGE|VIDEO|AUDIO|OTHER>`: Asset type
 * `--updated-after <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Filter by update date (after)
 
 Example: 2024-01-01T00:00:00.000Z
@@ -4783,7 +4783,7 @@ Example: 2024-01-01T00:00:00.000Z
 
 Example: 2024-01-01T00:00:00.000Z
 
-* `--visibility <str>`: Asset visibility
+* `--visibility <archive|timeline|hidden|locked>`: Asset visibility
 * `--with-deleted <true|false>`: Include deleted assets
 * `--with-exif <true|false>`: Include EXIF data in response
 * `--help`: Show this message and exit.
@@ -5259,7 +5259,7 @@ Example: 2024-01-01T00:00:00.000Z
 * `--password <str>`: Link password
 * `--show-metadata <true|false>`: Show metadata
 * `--slug <str>`: Custom URL slug
-* `--type <str>`: Shared link type  [required]
+* `--type <ALBUM|INDIVIDUAL>`: Shared link type  [required]
 * `--help`: Show this message and exit.
 
 ### `immichpy shared-links get-all-shared-links`
@@ -5749,13 +5749,13 @@ immichpy system-config update-config [OPTIONS]
 * `--backup-database-cron-expression <str>`: Cron expression  [required]
 * `--backup-database-enabled`: Enabled  [required]
 * `--backup-database-keep-last-amount <int range>`: Keep last amount  [1&lt;=x&lt;=9007199254740991; required]
-* `--ffmpeg-accel <str>`: Transcode hardware acceleration  [required]
+* `--ffmpeg-accel <nvenc|qsv|vaapi|rkmpp|disabled>`: Transcode hardware acceleration  [required]
 * `--ffmpeg-accel-decode`: Accelerated decode  [required]
 * `--ffmpeg-accepted-audio-codecs <mp3|aac|opus|pcm_s16le>`: Accepted audio codecs  [required]
 * `--ffmpeg-accepted-containers <mov|mp4|ogg|webm>`: Accepted containers  [required]
 * `--ffmpeg-accepted-video-codecs <h264|hevc|vp9|av1>`: Accepted video codecs  [required]
 * `--ffmpeg-bframes <int range>`: B-frames  [-1&lt;=x&lt;=16; required]
-* `--ffmpeg-cq-mode <str>`: CQ mode  [required]
+* `--ffmpeg-cq-mode <auto|cqp|icq>`: CQ mode  [required]
 * `--ffmpeg-crf <int range>`: CRF  [0&lt;=x&lt;=51; required]
 * `--ffmpeg-gop-size <int range>`: GOP size  [0&lt;=x&lt;=9007199254740991; required]
 * `--ffmpeg-max-bitrate <str>`: Max bitrate  [required]
@@ -5765,25 +5765,25 @@ immichpy system-config update-config [OPTIONS]
 * `--ffmpeg-realtime-resolutions <480|720|1080|1440|2160>`: Resolutions to use for real-time HLS transcoding  [required]
 * `--ffmpeg-realtime-video-codecs <h264|hevc|vp9|av1>`: Video codecs to use for real-time HLS transcoding  [required]
 * `--ffmpeg-refs <int range>`: References  [0&lt;=x&lt;=6; required]
-* `--ffmpeg-target-audio-codec <str>`: Target audio codec  [required]
+* `--ffmpeg-target-audio-codec <mp3|aac|opus|pcm_s16le>`: Target audio codec  [required]
 * `--ffmpeg-target-resolution <str>`: Target resolution  [required]
-* `--ffmpeg-target-video-codec <str>`: Target video codec  [required]
+* `--ffmpeg-target-video-codec <h264|hevc|vp9|av1>`: Target video codec  [required]
 * `--ffmpeg-temporal-aq`: Temporal AQ  [required]
 * `--ffmpeg-threads <int range>`: Threads  [0&lt;=x&lt;=9007199254740991; required]
-* `--ffmpeg-tonemap <str>`: Tone mapping  [required]
-* `--ffmpeg-transcode <str>`: Transcode policy  [required]
+* `--ffmpeg-tonemap <hable|mobius|reinhard|disabled>`: Tone mapping  [required]
+* `--ffmpeg-transcode <all|optimal|bitrate|required|disabled>`: Transcode policy  [required]
 * `--ffmpeg-two-pass`: Two pass  [required]
-* `--image-colorspace <str>`: Colorspace  [required]
+* `--image-colorspace <srgb|p3>`: Colorspace  [required]
 * `--image-extract-embedded`: Extract embedded  [required]
 * `--image-fullsize-enabled`: Enabled  [required]
-* `--image-fullsize-format <str>`: Image format  [required]
+* `--image-fullsize-format <jpeg|webp>`: Image format  [required]
 * `--image-fullsize-progressive <true|false>`: Progressive
 * `--image-fullsize-quality <int range>`: Quality  [1&lt;=x&lt;=100; required]
-* `--image-preview-format <str>`: Image format  [required]
+* `--image-preview-format <jpeg|webp>`: Image format  [required]
 * `--image-preview-progressive <true|false>`: Progressive
 * `--image-preview-quality <int range>`: Quality  [1&lt;=x&lt;=100; required]
 * `--image-preview-size <int range>`: Size  [1&lt;=x&lt;=9007199254740991; required]
-* `--image-thumbnail-format <str>`: Image format  [required]
+* `--image-thumbnail-format <jpeg|webp>`: Image format  [required]
 * `--image-thumbnail-progressive <true|false>`: Progressive
 * `--image-thumbnail-quality <int range>`: Quality  [1&lt;=x&lt;=100; required]
 * `--image-thumbnail-size <int range>`: Size  [1&lt;=x&lt;=9007199254740991; required]
@@ -5814,7 +5814,7 @@ immichpy system-config update-config [OPTIONS]
 * `--library-scan-enabled`: Enabled  [required]
 * `--library-watch-enabled`: Enabled  [required]
 * `--logging-enabled`: Enabled  [required]
-* `--logging-level <str>`: Log level  [required]
+* `--logging-level <verbose|debug|log|warn|error|fatal>`: Log level  [required]
 * `--machine-learning-availability-checks-enabled`: Enabled  [required]
 * `--machine-learning-availability-checks-interval <int range>`: [-9007199254740991&lt;=x&lt;=9007199254740991; required]
 * `--machine-learning-availability-checks-timeout <int range>`: [-9007199254740991&lt;=x&lt;=9007199254740991; required]
@@ -5838,7 +5838,7 @@ immichpy system-config update-config [OPTIONS]
 * `--map-enabled`: Enabled  [required]
 * `--map-light-style <str>`: Light map style URL  [required]
 * `--metadata-faces-import`: Import  [required]
-* `--new-version-check-channel <str>`: Release channel  [required]
+* `--new-version-check-channel <stable|releaseCandidate>`: Release channel  [required]
 * `--new-version-check-enabled`: Enabled  [required]
 * `--nightly-tasks-cluster-new-faces`: Cluster new faces  [required]
 * `--nightly-tasks-database-cleanup`: Database cleanup  [required]
@@ -5876,7 +5876,7 @@ immichpy system-config update-config [OPTIONS]
 * `--oauth-storage-label-claim <str>`: Storage label claim  [required]
 * `--oauth-storage-quota-claim <str>`: Storage quota claim  [required]
 * `--oauth-timeout <int range>`: Timeout  [1&lt;=x&lt;=9007199254740991; required]
-* `--oauth-token-endpoint-auth-method <str>`: OAuth token endpoint auth method  [required]
+* `--oauth-token-endpoint-auth-method <client_secret_post|client_secret_basic>`: OAuth token endpoint auth method  [required]
 * `--password-login-enabled`: Enabled  [required]
 * `--reverse-geocoding-enabled`: Enabled  [required]
 * `--server-external-domain <str>`: External domain  [required]
@@ -6643,8 +6643,8 @@ immichpy users update-my-preferences [OPTIONS]
 
 **Options**:
 
-* `--albums-default-asset-order <str>`: Asset sort order
-* `--avatar-color <str>`: User avatar color
+* `--albums-default-asset-order <asc|desc>`: Asset sort order
+* `--avatar-color <primary|pink|red|yellow|blue|green|purple|orange|gray|amber>`: User avatar color
 * `--cast-g-cast-enabled <true|false>`: Whether Google Cast is enabled
 * `--download-archive-size <int range>`: Maximum archive size in bytes  [1&lt;=x&lt;=9007199254740991]
 * `--download-include-embedded-videos <true|false>`: Whether to include embedded videos in downloads
@@ -6993,8 +6993,8 @@ immichpy users-admin update-user-preferences-admin [OPTIONS] {id}
 
 **Options**:
 
-* `--albums-default-asset-order <str>`: Asset sort order
-* `--avatar-color <str>`: User avatar color
+* `--albums-default-asset-order <asc|desc>`: Asset sort order
+* `--avatar-color <primary|pink|red|yellow|blue|green|purple|orange|gray|amber>`: User avatar color
 * `--cast-g-cast-enabled <true|false>`: Whether Google Cast is enabled
 * `--download-archive-size <int range>`: Maximum archive size in bytes  [1&lt;=x&lt;=9007199254740991]
 * `--download-include-embedded-videos <true|false>`: Whether to include embedded videos in downloads
@@ -7119,7 +7119,7 @@ immichpy workflows create-workflow [OPTIONS]
 * `--logging <true|false>`: Workflow logs run results
 * `--name <str>`: Workflow name
 * `--steps <str>`: As a JSON string with keys: config (object), enabled (boolean), method (string)
-* `--trigger <str>`: Plugin trigger type  [required]
+* `--trigger <AssetCreate|AssetMetadataExtraction|AssetTagged>`: Plugin trigger type  [required]
 * `--help`: Show this message and exit.
 
 ### `immichpy workflows delete-workflow`
@@ -7269,7 +7269,7 @@ immichpy workflows update-workflow [OPTIONS] {id}
 * `--logging <true|false>`: Workflow logs run results
 * `--name <str>`: Workflow name
 * `--steps <str>`: As a JSON string with keys: config (object), enabled (boolean), method (string)
-* `--trigger <str>`: Plugin trigger type
+* `--trigger <AssetCreate|AssetMetadataExtraction|AssetTagged>`: Plugin trigger type
 * `--help`: Show this message and exit.
 
 ## `immichpy backups`

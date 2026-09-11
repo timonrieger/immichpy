@@ -47,7 +47,9 @@ def create_workflow(
         "--steps",
         help=r"""As a JSON string with keys: config (object), enabled (boolean), method (string)""",
     ),
-    trigger: str = typer.Option(..., "--trigger", help=r"""Plugin trigger type"""),
+    trigger: WorkflowTrigger = typer.Option(
+        ..., "--trigger", help=r"""Plugin trigger type"""
+    ),
 ) -> None:
     """Create a workflow
 
@@ -230,7 +232,7 @@ def update_workflow(
         "--steps",
         help=r"""As a JSON string with keys: config (object), enabled (boolean), method (string)""",
     ),
-    trigger: str | None = typer.Option(
+    trigger: WorkflowTrigger | None = typer.Option(
         None, "--trigger", help=r"""Plugin trigger type"""
     ),
 ) -> None:

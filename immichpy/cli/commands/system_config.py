@@ -13,7 +13,16 @@ from immichpy.cli.runtime import print_response, run_command, set_nested
 from immichpy.client.generated.models import (
     AdminConfigDto,
     AudioCodec,
+    Colorspace,
+    CQMode,
     HlsVideoResolution,
+    ImageFormat,
+    LogLevel,
+    OAuthTokenEndpointAuthMethod,
+    ReleaseChannel,
+    ToneMapping,
+    TranscodeHWAccel,
+    TranscodePolicy,
     VideoCodec,
     VideoContainer,
 )
@@ -85,7 +94,7 @@ def update_config(
         min=1,
         max=9007199254740991,
     ),
-    ffmpeg_accel: str = typer.Option(
+    ffmpeg_accel: TranscodeHWAccel = typer.Option(
         ..., "--ffmpeg-accel", help=r"""Transcode hardware acceleration"""
     ),
     ffmpeg_accel_decode: bool = typer.Option(
@@ -103,7 +112,7 @@ def update_config(
     ffmpeg_bframes: int = typer.Option(
         ..., "--ffmpeg-bframes", help=r"""B-frames""", min=-1, max=16
     ),
-    ffmpeg_cq_mode: str = typer.Option(..., "--ffmpeg-cq-mode", help=r"""CQ mode"""),
+    ffmpeg_cq_mode: CQMode = typer.Option(..., "--ffmpeg-cq-mode", help=r"""CQ mode"""),
     ffmpeg_crf: int = typer.Option(..., "--ffmpeg-crf", help=r"""CRF""", min=0, max=51),
     ffmpeg_gop_size: int = typer.Option(
         ..., "--ffmpeg-gop-size", help=r"""GOP size""", min=0, max=9007199254740991
@@ -133,13 +142,13 @@ def update_config(
     ffmpeg_refs: int = typer.Option(
         ..., "--ffmpeg-refs", help=r"""References""", min=0, max=6
     ),
-    ffmpeg_target_audio_codec: str = typer.Option(
+    ffmpeg_target_audio_codec: AudioCodec = typer.Option(
         ..., "--ffmpeg-target-audio-codec", help=r"""Target audio codec"""
     ),
     ffmpeg_target_resolution: str = typer.Option(
         ..., "--ffmpeg-target-resolution", help=r"""Target resolution"""
     ),
-    ffmpeg_target_video_codec: str = typer.Option(
+    ffmpeg_target_video_codec: VideoCodec = typer.Option(
         ..., "--ffmpeg-target-video-codec", help=r"""Target video codec"""
     ),
     ffmpeg_temporal_aq: bool = typer.Option(
@@ -148,16 +157,16 @@ def update_config(
     ffmpeg_threads: int = typer.Option(
         ..., "--ffmpeg-threads", help=r"""Threads""", min=0, max=9007199254740991
     ),
-    ffmpeg_tonemap: str = typer.Option(
+    ffmpeg_tonemap: ToneMapping = typer.Option(
         ..., "--ffmpeg-tonemap", help=r"""Tone mapping"""
     ),
-    ffmpeg_transcode: str = typer.Option(
+    ffmpeg_transcode: TranscodePolicy = typer.Option(
         ..., "--ffmpeg-transcode", help=r"""Transcode policy"""
     ),
     ffmpeg_two_pass: bool = typer.Option(
         ..., "--ffmpeg-two-pass", help=r"""Two pass"""
     ),
-    image_colorspace: str = typer.Option(
+    image_colorspace: Colorspace = typer.Option(
         ..., "--image-colorspace", help=r"""Colorspace"""
     ),
     image_extract_embedded: bool = typer.Option(
@@ -166,7 +175,7 @@ def update_config(
     image_fullsize_enabled: bool = typer.Option(
         ..., "--image-fullsize-enabled", help=r"""Enabled"""
     ),
-    image_fullsize_format: str = typer.Option(
+    image_fullsize_format: ImageFormat = typer.Option(
         ..., "--image-fullsize-format", help=r"""Image format"""
     ),
     image_fullsize_progressive: Literal["true", "false"] | None = typer.Option(
@@ -175,7 +184,7 @@ def update_config(
     image_fullsize_quality: int = typer.Option(
         ..., "--image-fullsize-quality", help=r"""Quality""", min=1, max=100
     ),
-    image_preview_format: str = typer.Option(
+    image_preview_format: ImageFormat = typer.Option(
         ..., "--image-preview-format", help=r"""Image format"""
     ),
     image_preview_progressive: Literal["true", "false"] | None = typer.Option(
@@ -187,7 +196,7 @@ def update_config(
     image_preview_size: int = typer.Option(
         ..., "--image-preview-size", help=r"""Size""", min=1, max=9007199254740991
     ),
-    image_thumbnail_format: str = typer.Option(
+    image_thumbnail_format: ImageFormat = typer.Option(
         ..., "--image-thumbnail-format", help=r"""Image format"""
     ),
     image_thumbnail_progressive: Literal["true", "false"] | None = typer.Option(
@@ -352,7 +361,9 @@ def update_config(
         ..., "--library-watch-enabled", help=r"""Enabled"""
     ),
     logging_enabled: bool = typer.Option(..., "--logging-enabled", help=r"""Enabled"""),
-    logging_level: str = typer.Option(..., "--logging-level", help=r"""Log level"""),
+    logging_level: LogLevel = typer.Option(
+        ..., "--logging-level", help=r"""Log level"""
+    ),
     machine_learning_availability_checks_enabled: bool = typer.Option(
         ..., "--machine-learning-availability-checks-enabled", help=r"""Enabled"""
     ),
@@ -462,7 +473,7 @@ def update_config(
     metadata_faces_import_: bool = typer.Option(
         ..., "--metadata-faces-import", help=r"""Import"""
     ),
-    new_version_check_channel: str = typer.Option(
+    new_version_check_channel: ReleaseChannel = typer.Option(
         ..., "--new-version-check-channel", help=r"""Release channel"""
     ),
     new_version_check_enabled: bool = typer.Option(
@@ -590,7 +601,7 @@ def update_config(
     oauth_timeout: int = typer.Option(
         ..., "--oauth-timeout", help=r"""Timeout""", min=1, max=9007199254740991
     ),
-    oauth_token_endpoint_auth_method: str = typer.Option(
+    oauth_token_endpoint_auth_method: OAuthTokenEndpointAuthMethod = typer.Option(
         ...,
         "--oauth-token-endpoint-auth-method",
         help=r"""OAuth token endpoint auth method""",

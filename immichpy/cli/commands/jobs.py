@@ -10,7 +10,13 @@ if TYPE_CHECKING:
     from immichpy import AsyncClient
 
 from immichpy.cli.runtime import print_response, run_command, set_nested
-from immichpy.client.generated.models import JobCreateDto, QueueCommandDto, QueueName
+from immichpy.client.generated.models import (
+    JobCreateDto,
+    ManualJobName,
+    QueueCommand,
+    QueueCommandDto,
+    QueueName,
+)
 
 app = typer.Typer(
     help="""Queues and background jobs are used for processing tasks asynchronously. Queues can be paused and resumed as needed.\n\n[link=https://api.immich.app/endpoints/jobs]Immich API documentation[/link]"""
@@ -20,7 +26,7 @@ app = typer.Typer(
 @app.command("create-job", deprecated=False, rich_help_panel="API commands")
 def create_job(
     ctx: typer.Context,
-    name: str = typer.Option(..., "--name", help=r"""Manual job name"""),
+    name: ManualJobName = typer.Option(..., "--name", help=r"""Manual job name"""),
 ) -> None:
     """Create a manual job
 
@@ -56,7 +62,9 @@ def get_queues_legacy(
 def run_queue_command_legacy(
     ctx: typer.Context,
     name: QueueName = typer.Argument(..., help=r""""""),
-    command: str = typer.Option(..., "--command", help=r"""Queue command to execute"""),
+    command: QueueCommand = typer.Option(
+        ..., "--command", help=r"""Queue command to execute"""
+    ),
     force: Literal["true", "false"] | None = typer.Option(
         None, "--force", help=r"""Force the command execution (if applicable)"""
     ),

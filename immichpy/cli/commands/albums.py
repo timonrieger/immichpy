@@ -19,6 +19,8 @@ from immichpy.cli.runtime import (
 from immichpy.client.generated.models import (
     AddUsersDto,
     AlbumsAddAssetsDto,
+    AlbumUserRole,
+    AssetOrder,
     BulkIdsDto,
     CreateAlbumDto,
     UpdateAlbumDto,
@@ -313,7 +315,9 @@ def update_album_info(
     is_activity_enabled: Literal["true", "false"] | None = typer.Option(
         None, "--is-activity-enabled", help=r"""Enable activity feed"""
     ),
-    order: str | None = typer.Option(None, "--order", help=r"""Asset sort order"""),
+    order: AssetOrder | None = typer.Option(
+        None, "--order", help=r"""Asset sort order"""
+    ),
 ) -> None:
     """Update an album
 
@@ -348,7 +352,7 @@ def update_album_user(
     user_id: str = typer.Argument(
         ..., help=r"""Album user ID, or "me" to reference the current user."""
     ),
-    role: str = typer.Option(..., "--role", help=r"""Album user role"""),
+    role: AlbumUserRole = typer.Option(..., "--role", help=r"""Album user role"""),
 ) -> None:
     """Update user role
 

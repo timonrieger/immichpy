@@ -248,6 +248,7 @@ def flatten_schema(
     if path is None:
         path = []
 
+    ref = schema.get("$ref")
     schema = normalize_schema(schema, spec)
 
     schema_type = schema.get("type")
@@ -257,6 +258,9 @@ def flatten_schema(
         schema_type in ("string", "integer", "number", "boolean", "array")
         or "enum" in schema
     ):
+        # recover the enum name that normalization resolved away.
+        if ref is not None and "enum" in schema:
+            schema = schema | {"$ref": ref}
         return [(path, schema, required_path)]
 
     # Object - recurse into properties

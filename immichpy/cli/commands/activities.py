@@ -32,7 +32,7 @@ def create_activity(
     comment: str | None = typer.Option(
         None, "--comment", help=r"""Comment text (required if type is comment)"""
     ),
-    type: str = typer.Option(..., "--type", help=r"""Reaction type"""),
+    type: ReactionType = typer.Option(..., "--type", help=r"""Reaction type"""),
 ) -> None:
     """Create an activity
 

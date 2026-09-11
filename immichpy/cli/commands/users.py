@@ -13,9 +13,11 @@ if TYPE_CHECKING:
 
 from immichpy.cli.runtime import print_response, run_command, set_nested
 from immichpy.client.generated.models import (
+    AssetOrder,
     CalendarHeatmapType,
     LicenseKeyDto,
     OnboardingDto,
+    UserAvatarColor,
     UserPreferencesUpdateDto,
     UserUpdateMeDto,
 )
@@ -277,10 +279,10 @@ def set_user_onboarding(
 @app.command("update-my-preferences", deprecated=True, rich_help_panel="API commands")
 def update_my_preferences(
     ctx: typer.Context,
-    albums_default_asset_order: str | None = typer.Option(
+    albums_default_asset_order: AssetOrder | None = typer.Option(
         None, "--albums-default-asset-order", help=r"""Asset sort order"""
     ),
-    avatar_color: str | None = typer.Option(
+    avatar_color: UserAvatarColor | None = typer.Option(
         None, "--avatar-color", help=r"""User avatar color"""
     ),
     cast_g_cast_enabled: Literal["true", "false"] | None = typer.Option(

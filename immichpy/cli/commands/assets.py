@@ -24,6 +24,7 @@ from immichpy.client.generated.models import (
     AssetBulkUploadCheckDto,
     AssetCopyDto,
     AssetEditsCreateDto,
+    AssetJobName,
     AssetJobsDto,
     AssetMediaSize,
     AssetMetadataBulkDeleteDto,
@@ -508,7 +509,7 @@ def remove_asset_edits(
 def run_asset_jobs(
     ctx: typer.Context,
     asset_ids: list[UUID] = typer.Option(..., "--asset-ids", help=r"""Asset IDs"""),
-    name: str = typer.Option(..., "--name", help=r"""Job name"""),
+    name: AssetJobName = typer.Option(..., "--name", help=r"""Job name"""),
 ) -> None:
     """Run an asset job
 
@@ -554,7 +555,7 @@ def update_asset(
         min=-1,
         max=5,
     ),
-    visibility: str | None = typer.Option(
+    visibility: AssetVisibility | None = typer.Option(
         None, "--visibility", help=r"""Asset visibility"""
     ),
 ) -> None:
@@ -655,7 +656,7 @@ def update_assets(
     time_zone: str | None = typer.Option(
         None, "--time-zone", help=r"""Time zone (IANA timezone)"""
     ),
-    visibility: str | None = typer.Option(
+    visibility: AssetVisibility | None = typer.Option(
         None, "--visibility", help=r"""Asset visibility"""
     ),
 ) -> None:
@@ -769,7 +770,7 @@ As a JSON string with keys: key (string), value (object)""",
         None, "--sidecar-data", help=r"""Sidecar file data""", exists=True
     ),
     slug: str | None = typer.Option(None, "--slug", help=r""""""),
-    visibility: str | None = typer.Option(
+    visibility: AssetVisibility | None = typer.Option(
         None, "--visibility", help=r"""Asset visibility"""
     ),
     x_immich_checksum: str | None = typer.Option(

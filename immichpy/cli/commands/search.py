@@ -18,10 +18,12 @@ from immichpy.cli.runtime import (
     set_nested,
 )
 from immichpy.client.generated.models import (
+    AssetOrder,
     AssetTypeEnum,
     AssetVisibility,
     MetadataSearchDto,
     RandomSearchDto,
+    SearchOrderField,
     SearchSuggestionType,
     SmartSearchDto,
     StatisticsSearchDto,
@@ -451,13 +453,13 @@ Example: 2024-01-01T00:00:00.000Z""",
     filter_trashed_at_ne: datetime | None = typer.Option(
         None, "--filter-trashed-at-ne", help=r"""Example: 2024-01-01T00:00:00.000Z"""
     ),
-    filter_type_eq: str | None = typer.Option(
+    filter_type_eq: AssetTypeEnum | None = typer.Option(
         None, "--filter-type-eq", help=r"""Asset type"""
     ),
     filter_type_in_: list[AssetTypeEnum] | None = typer.Option(
         None, "--filter-type-in", help=r""""""
     ),
-    filter_type_ne: str | None = typer.Option(
+    filter_type_ne: AssetTypeEnum | None = typer.Option(
         None, "--filter-type-ne", help=r"""Asset type"""
     ),
     filter_type_not_in: list[AssetTypeEnum] | None = typer.Option(
@@ -481,13 +483,13 @@ Example: 2024-01-01T00:00:00.000Z""",
     filter_updated_at_ne: datetime | None = typer.Option(
         None, "--filter-updated-at-ne", help=r"""Example: 2024-01-01T00:00:00.000Z"""
     ),
-    filter_visibility_eq: str | None = typer.Option(
+    filter_visibility_eq: AssetVisibility | None = typer.Option(
         None, "--filter-visibility-eq", help=r"""Asset visibility"""
     ),
     filter_visibility_in_: list[AssetVisibility] | None = typer.Option(
         None, "--filter-visibility-in", help=r""""""
     ),
-    filter_visibility_ne: str | None = typer.Option(
+    filter_visibility_ne: AssetVisibility | None = typer.Option(
         None, "--filter-visibility-ne", help=r"""Asset visibility"""
     ),
     filter_visibility_not_in: list[AssetVisibility] | None = typer.Option(
@@ -565,7 +567,7 @@ Example: 2024-01-01T00:00:00.000Z""",
 
 Example: 2024-01-01T00:00:00.000Z""",
     ),
-    type: str | None = typer.Option(None, "--type", help=r"""Asset type"""),
+    type: AssetTypeEnum | None = typer.Option(None, "--type", help=r"""Asset type"""),
     updated_after: datetime | None = typer.Option(
         None,
         "--updated-after",
@@ -580,7 +582,7 @@ Example: 2024-01-01T00:00:00.000Z""",
 
 Example: 2024-01-01T00:00:00.000Z""",
     ),
-    visibility: str | None = typer.Option(
+    visibility: AssetVisibility | None = typer.Option(
         None, "--visibility", help=r"""Asset visibility"""
     ),
 ) -> None:
@@ -1350,13 +1352,13 @@ Example: 2024-01-01T00:00:00.000Z""",
     filter_trashed_at_ne: datetime | None = typer.Option(
         None, "--filter-trashed-at-ne", help=r"""Example: 2024-01-01T00:00:00.000Z"""
     ),
-    filter_type_eq: str | None = typer.Option(
+    filter_type_eq: AssetTypeEnum | None = typer.Option(
         None, "--filter-type-eq", help=r"""Asset type"""
     ),
     filter_type_in_: list[AssetTypeEnum] | None = typer.Option(
         None, "--filter-type-in", help=r""""""
     ),
-    filter_type_ne: str | None = typer.Option(
+    filter_type_ne: AssetTypeEnum | None = typer.Option(
         None, "--filter-type-ne", help=r"""Asset type"""
     ),
     filter_type_not_in: list[AssetTypeEnum] | None = typer.Option(
@@ -1380,13 +1382,13 @@ Example: 2024-01-01T00:00:00.000Z""",
     filter_updated_at_ne: datetime | None = typer.Option(
         None, "--filter-updated-at-ne", help=r"""Example: 2024-01-01T00:00:00.000Z"""
     ),
-    filter_visibility_eq: str | None = typer.Option(
+    filter_visibility_eq: AssetVisibility | None = typer.Option(
         None, "--filter-visibility-eq", help=r"""Asset visibility"""
     ),
     filter_visibility_in_: list[AssetVisibility] | None = typer.Option(
         None, "--filter-visibility-in", help=r""""""
     ),
-    filter_visibility_ne: str | None = typer.Option(
+    filter_visibility_ne: AssetVisibility | None = typer.Option(
         None, "--filter-visibility-ne", help=r"""Asset visibility"""
     ),
     filter_visibility_not_in: list[AssetVisibility] | None = typer.Option(
@@ -1422,11 +1424,15 @@ Example: 2024-01-01T00:00:00.000Z""",
     ocr: str | None = typer.Option(
         None, "--ocr", help=r"""Filter by OCR text content"""
     ),
-    order: str | None = typer.Option(None, "--order", help=r"""Asset sort order"""),
-    order_by_direction: str | None = typer.Option(
+    order: AssetOrder | None = typer.Option(
+        None, "--order", help=r"""Asset sort order"""
+    ),
+    order_by_direction: AssetOrder | None = typer.Option(
         None, "--order-by-direction", help=r"""Asset sort order"""
     ),
-    order_by_field: str | None = typer.Option(None, "--order-by-field", help=r""""""),
+    order_by_field: SearchOrderField | None = typer.Option(
+        None, "--order-by-field", help=r""""""
+    ),
     original_file_name: str | None = typer.Option(
         None, "--original-file-name", help=r"""Filter by original file name"""
     ),
@@ -1490,7 +1496,7 @@ Example: 2024-01-01T00:00:00.000Z""",
 
 Example: 2024-01-01T00:00:00.000Z""",
     ),
-    type: str | None = typer.Option(None, "--type", help=r"""Asset type"""),
+    type: AssetTypeEnum | None = typer.Option(None, "--type", help=r"""Asset type"""),
     updated_after: datetime | None = typer.Option(
         None,
         "--updated-after",
@@ -1505,7 +1511,7 @@ Example: 2024-01-01T00:00:00.000Z""",
 
 Example: 2024-01-01T00:00:00.000Z""",
     ),
-    visibility: str | None = typer.Option(
+    visibility: AssetVisibility | None = typer.Option(
         None, "--visibility", help=r"""Asset visibility"""
     ),
     with_deleted: Literal["true", "false"] | None = typer.Option(
@@ -2553,13 +2559,13 @@ Example: 2024-01-01T00:00:00.000Z""",
     filter_trashed_at_ne: datetime | None = typer.Option(
         None, "--filter-trashed-at-ne", help=r"""Example: 2024-01-01T00:00:00.000Z"""
     ),
-    filter_type_eq: str | None = typer.Option(
+    filter_type_eq: AssetTypeEnum | None = typer.Option(
         None, "--filter-type-eq", help=r"""Asset type"""
     ),
     filter_type_in_: list[AssetTypeEnum] | None = typer.Option(
         None, "--filter-type-in", help=r""""""
     ),
-    filter_type_ne: str | None = typer.Option(
+    filter_type_ne: AssetTypeEnum | None = typer.Option(
         None, "--filter-type-ne", help=r"""Asset type"""
     ),
     filter_type_not_in: list[AssetTypeEnum] | None = typer.Option(
@@ -2583,13 +2589,13 @@ Example: 2024-01-01T00:00:00.000Z""",
     filter_updated_at_ne: datetime | None = typer.Option(
         None, "--filter-updated-at-ne", help=r"""Example: 2024-01-01T00:00:00.000Z"""
     ),
-    filter_visibility_eq: str | None = typer.Option(
+    filter_visibility_eq: AssetVisibility | None = typer.Option(
         None, "--filter-visibility-eq", help=r"""Asset visibility"""
     ),
     filter_visibility_in_: list[AssetVisibility] | None = typer.Option(
         None, "--filter-visibility-in", help=r""""""
     ),
-    filter_visibility_ne: str | None = typer.Option(
+    filter_visibility_ne: AssetVisibility | None = typer.Option(
         None, "--filter-visibility-ne", help=r"""Asset visibility"""
     ),
     filter_visibility_not_in: list[AssetVisibility] | None = typer.Option(
@@ -2670,7 +2676,7 @@ Example: 2024-01-01T00:00:00.000Z""",
 
 Example: 2024-01-01T00:00:00.000Z""",
     ),
-    type: str | None = typer.Option(None, "--type", help=r"""Asset type"""),
+    type: AssetTypeEnum | None = typer.Option(None, "--type", help=r"""Asset type"""),
     updated_after: datetime | None = typer.Option(
         None,
         "--updated-after",
@@ -2685,7 +2691,7 @@ Example: 2024-01-01T00:00:00.000Z""",
 
 Example: 2024-01-01T00:00:00.000Z""",
     ),
-    visibility: str | None = typer.Option(
+    visibility: AssetVisibility | None = typer.Option(
         None, "--visibility", help=r"""Asset visibility"""
     ),
     with_deleted: Literal["true", "false"] | None = typer.Option(
@@ -3463,13 +3469,13 @@ Example: 2024-01-01T00:00:00.000Z""",
     filter_trashed_at_ne: datetime | None = typer.Option(
         None, "--filter-trashed-at-ne", help=r"""Example: 2024-01-01T00:00:00.000Z"""
     ),
-    filter_type_eq: str | None = typer.Option(
+    filter_type_eq: AssetTypeEnum | None = typer.Option(
         None, "--filter-type-eq", help=r"""Asset type"""
     ),
     filter_type_in_: list[AssetTypeEnum] | None = typer.Option(
         None, "--filter-type-in", help=r""""""
     ),
-    filter_type_ne: str | None = typer.Option(
+    filter_type_ne: AssetTypeEnum | None = typer.Option(
         None, "--filter-type-ne", help=r"""Asset type"""
     ),
     filter_type_not_in: list[AssetTypeEnum] | None = typer.Option(
@@ -3493,13 +3499,13 @@ Example: 2024-01-01T00:00:00.000Z""",
     filter_updated_at_ne: datetime | None = typer.Option(
         None, "--filter-updated-at-ne", help=r"""Example: 2024-01-01T00:00:00.000Z"""
     ),
-    filter_visibility_eq: str | None = typer.Option(
+    filter_visibility_eq: AssetVisibility | None = typer.Option(
         None, "--filter-visibility-eq", help=r"""Asset visibility"""
     ),
     filter_visibility_in_: list[AssetVisibility] | None = typer.Option(
         None, "--filter-visibility-in", help=r""""""
     ),
-    filter_visibility_ne: str | None = typer.Option(
+    filter_visibility_ne: AssetVisibility | None = typer.Option(
         None, "--filter-visibility-ne", help=r"""Asset visibility"""
     ),
     filter_visibility_not_in: list[AssetVisibility] | None = typer.Option(
@@ -3592,7 +3598,7 @@ Example: 2024-01-01T00:00:00.000Z""",
 
 Example: 2024-01-01T00:00:00.000Z""",
     ),
-    type: str | None = typer.Option(None, "--type", help=r"""Asset type"""),
+    type: AssetTypeEnum | None = typer.Option(None, "--type", help=r"""Asset type"""),
     updated_after: datetime | None = typer.Option(
         None,
         "--updated-after",
@@ -3607,7 +3613,7 @@ Example: 2024-01-01T00:00:00.000Z""",
 
 Example: 2024-01-01T00:00:00.000Z""",
     ),
-    visibility: str | None = typer.Option(
+    visibility: AssetVisibility | None = typer.Option(
         None, "--visibility", help=r"""Asset visibility"""
     ),
     with_deleted: Literal["true", "false"] | None = typer.Option(

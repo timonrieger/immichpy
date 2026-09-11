@@ -17,6 +17,7 @@ from immichpy.client.generated.models import (
     SharedLinkCreateDto,
     SharedLinkEditDto,
     SharedLinkLoginDto,
+    SharedLinkType,
 )
 
 app = typer.Typer(
@@ -75,7 +76,7 @@ Example: 2024-01-01T00:00:00.000Z""",
         None, "--show-metadata", help=r"""Show metadata"""
     ),
     slug: str | None = typer.Option(None, "--slug", help=r"""Custom URL slug"""),
-    type: str = typer.Option(..., "--type", help=r"""Shared link type"""),
+    type: SharedLinkType = typer.Option(..., "--type", help=r"""Shared link type"""),
 ) -> None:
     """Create a shared link
 

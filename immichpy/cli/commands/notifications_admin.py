@@ -20,6 +20,8 @@ from immichpy.cli.runtime import (
 from immichpy.client.generated.models import (
     AdminConfigSmtpDto,
     NotificationCreateDto,
+    NotificationLevel,
+    NotificationType,
     TemplateDto,
 )
 
@@ -41,7 +43,9 @@ As a JSON string""",
     description: str | None = typer.Option(
         None, "--description", help=r"""Notification description"""
     ),
-    level: str | None = typer.Option(None, "--level", help=r"""Notification level"""),
+    level: NotificationLevel | None = typer.Option(
+        None, "--level", help=r"""Notification level"""
+    ),
     read_at: datetime | None = typer.Option(
         None,
         "--read-at",
@@ -50,7 +54,9 @@ As a JSON string""",
 Example: 2024-01-01T00:00:00.000Z""",
     ),
     title: str = typer.Option(..., "--title", help=r"""Notification title"""),
-    type: str | None = typer.Option(None, "--type", help=r"""Notification type"""),
+    type: NotificationType | None = typer.Option(
+        None, "--type", help=r"""Notification type"""
+    ),
     user_id: UUID = typer.Option(
         ..., "--user-id", help=r"""User ID to send notification to"""
     ),
