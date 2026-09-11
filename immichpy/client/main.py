@@ -1,9 +1,8 @@
 from __future__ import annotations
 
-from typing import Final
+from typing import Final, Self
 
 from aiohttp import ClientSession
-from typing_extensions import Self
 
 from immichpy.client.generated.api.activities_api import ActivitiesApi
 from immichpy.client.generated.api.albums_api import AlbumsApi
