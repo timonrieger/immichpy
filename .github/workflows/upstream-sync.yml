@@ -183,5 +183,3 @@ jobs:
             ${{ steps.oasdiff_changelog.outputs.changelog }}
 
             </details>
-
-            @coderabbitai ignore
