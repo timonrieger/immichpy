@@ -1,19 +1,55 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": [
-    "config:best-practices",
-    "schedule:monthly"
-  ],
+  "extends": ["config:best-practices", "schedule:monthly"],
+  "timezone": "Europe/Berlin",
+  "labels": ["dependencies"],
+  "configMigration": true,
   "minimumReleaseAge": "3 days",
+  "lockFileMaintenance": {
+    "enabled": true,
+    "extends": ["schedule:monthly"]
+  },
+  "vulnerabilityAlerts": {
+    "labels": ["dependencies", "security"]
+  },
+  "osvVulnerabilityAlerts": true,
+  "pre-commit": {
+    "enabled": true
+  },
   "packageRules": [
     {
-      "groupName": "uv toolchain",
-      "groupSlug": "uv",
+      "description": "All GitHub Actions updates in one PR",
+      "matchManagers": ["github-actions"],
+      "groupName": "github actions"
+    },
+    {
+      "description": "Production Python dependencies",
+      "matchManagers": ["pep621"],
+      "matchDepTypes": ["project.dependencies", "project.optional-dependencies"],
+      "rangeStrategy": "widen",
+      "groupName": "python prod dependencies"
+    },
+    {
+      "description": "Development Python dependencies",
+      "matchManagers": ["pep621"],
+      "matchDepTypes": ["dependency-groups"],
+      "rangeStrategy": "widen",
+      "groupName": "dev tooling"
+    },
+    {
+      "description": "pre-commit hooks and mise tools",
+      "matchManagers": ["pre-commit", "mise"],
+      "groupName": "dev tooling"
+    },
+    {
+      "description": "Keep uv pins in sync",
       "matchPackageNames": [
         "uv",
         "uv_build",
-        "astral-sh/uv"
-      ]
+        "astral-sh/uv",
+        "astral-sh/uv-pre-commit"
+      ],
+      "groupName": "uv toolchain"
     }
   ]
 }
