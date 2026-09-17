@@ -33,7 +33,7 @@ site_author = "Timon Rieger"
 #
 # Read more: https://zensical.org/docs/setup/basics/#copyright
 copyright = """
-Copyright &copy; 2026 Timon Rieger
+Copyright &copy; 2026-2027 Timon Rieger
 """
 
 docs_dir = "docs"
