@@ -5,7 +5,7 @@
 
 ## Installation
 
-You need Python 3.10–3.14 installed to be able to use this library.
+You need Python 3.10–3.15 installed to be able to use this library.
 
 === "uv"
 
