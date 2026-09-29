@@ -3329,7 +3329,8 @@ immichpy people [OPTIONS] COMMAND [ARGS]...
 * `get-person`: Get a person
 * `get-person-statistics`: Get person statistics
 * `get-person-thumbnail`: Get person thumbnail
-* `merge-person`: Merge people
+* `merge-people`: Merge people
+* `merge-person-legacy`: Merge people (DEPRECATED)
 * `reassign-faces`: Reassign faces
 * `update-people`: Update people
 * `update-person`: Update person (DEPRECATED)
@@ -3473,16 +3474,33 @@ immichpy people get-person-thumbnail [OPTIONS] {id}
 
 * `--help`: Show this message and exit.
 
-### `immichpy people merge-person`
+### `immichpy people merge-people`
 
 Merge people
 
-<a href="https://api.immich.app/endpoints/people/mergePerson">Immich API documentation</a>
+<a href="https://api.immich.app/endpoints/people/mergePeople">Immich API documentation</a>
 
 **Usage**:
 
 ```console
-immichpy people merge-person [OPTIONS] {id}
+immichpy people merge-people [OPTIONS]
+```
+
+**Options**:
+
+* `--ids <uuid>`: Person IDs to merge  [required]
+* `--help`: Show this message and exit.
+
+### `immichpy people merge-person-legacy`
+
+Merge people
+
+<a href="https://api.immich.app/endpoints/people/mergePersonLegacy">Immich API documentation</a>
+
+**Usage**:
+
+```console
+immichpy people merge-person-legacy [OPTIONS] {id}
 ```
 
 **Arguments**:

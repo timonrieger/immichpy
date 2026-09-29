@@ -194,15 +194,34 @@ def get_person_thumbnail(
     print_response(result, ctx=ctx)
 
 
-@app.command("merge-person", deprecated=False, rich_help_panel="API commands")
-def merge_person(
+@app.command("merge-people", deprecated=False, rich_help_panel="API commands")
+def merge_people(
+    ctx: typer.Context,
+    ids: list[UUID] = typer.Option(..., "--ids", help=r"""Person IDs to merge"""),
+) -> None:
+    """Merge people
+
+    [link=https://api.immich.app/endpoints/people/mergePeople]Immich API documentation[/link]
+    """
+    kwargs = {}
+    json_data = {}
+    set_nested(json_data, ["ids"], ids)
+    merge_person_dto = MergePersonDto.model_validate(json_data)
+    kwargs["merge_person_dto"] = merge_person_dto
+    client: AsyncClient = ctx.obj["client"]
+    result = run_command(client.people.merge_people, ctx=ctx, **kwargs)
+    print_response(result, ctx=ctx)
+
+
+@app.command("merge-person-legacy", deprecated=True, rich_help_panel="API commands")
+def merge_person_legacy(
     ctx: typer.Context,
     id: UUID = typer.Argument(..., help=r""""""),
     ids: list[UUID] = typer.Option(..., "--ids", help=r"""Person IDs to merge"""),
 ) -> None:
     """Merge people
 
-    [link=https://api.immich.app/endpoints/people/mergePerson]Immich API documentation[/link]
+    [link=https://api.immich.app/endpoints/people/mergePersonLegacy]Immich API documentation[/link]
     """
     kwargs = {}
     json_data = {}
@@ -211,7 +230,7 @@ def merge_person(
     merge_person_dto = MergePersonDto.model_validate(json_data)
     kwargs["merge_person_dto"] = merge_person_dto
     client: AsyncClient = ctx.obj["client"]
-    result = run_command(client.people.merge_person, ctx=ctx, **kwargs)
+    result = run_command(client.people.merge_person_legacy, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)
 
 
