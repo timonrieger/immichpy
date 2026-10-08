@@ -15,6 +15,7 @@ from immichpy.client.generated.models import (
     AssetOrder,
     AssetVisibility,
     CalendarHeatmapType,
+    PersonUpdateStrategy,
     UserAdminCreateDto,
     UserAdminDeleteDto,
     UserAdminUpdateDto,
@@ -439,6 +440,11 @@ def update_user_preferences_admin(
     people_sidebar_web: Literal["true", "false"] | None = typer.Option(
         None, "--people-sidebar-web", help=r"""Whether people appear in web sidebar"""
     ),
+    people_update_strategy: PersonUpdateStrategy | None = typer.Option(
+        None,
+        "--people-update-strategy",
+        help=r"""Which person records to update when editing a person""",
+    ),
     purchase_hide_buy_button_until: str | None = typer.Option(
         None,
         "--purchase-hide-buy-button-until",
@@ -535,6 +541,8 @@ def update_user_preferences_admin(
         set_nested(
             json_data, ["people_sidebar_web"], people_sidebar_web.lower() == "true"
         )
+    if people_update_strategy is not None:
+        set_nested(json_data, ["people_update_strategy"], people_update_strategy)
     if purchase_hide_buy_button_until is not None:
         set_nested(
             json_data,

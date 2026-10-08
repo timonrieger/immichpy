@@ -52,8 +52,16 @@ def create_memory(
     asset_ids: list[UUID] | None = typer.Option(
         None, "--asset-ids", help=r"""Asset IDs to associate with memory"""
     ),
+    data_person_id: UUID | None = typer.Option(
+        None, "--data-person-id", help=r"""Person ID (birthday memories)"""
+    ),
+    data_person_name: str | None = typer.Option(
+        None,
+        "--data-person-name",
+        help=r"""Name of the person when the memory was created (birthday memories)""",
+    ),
     data_year: int = typer.Option(
-        ..., "--data-year", help=r"""Year for on this day memory""", min=1000, max=9999
+        ..., "--data-year", help=r"""Year of the memory""", min=1000, max=9999
     ),
     hide_at: datetime | None = typer.Option(
         None,
@@ -96,6 +104,10 @@ Example: 2024-01-01T00:00:00.000Z""",
     json_data = {}
     if asset_ids is not None:
         set_nested(json_data, ["asset_ids"], asset_ids)
+    if data_person_id is not None:
+        set_nested(json_data, ["data_person_id"], data_person_id)
+    if data_person_name is not None:
+        set_nested(json_data, ["data_person_name"], data_person_name)
     set_nested(json_data, ["data_year"], data_year)
     if hide_at is not None:
         set_nested(json_data, ["hide_at"], hide_at)
