@@ -58,7 +58,7 @@ dev = [
     "pytest>=9.0.0,<10.0.0",
     "pytest-asyncio>=1.2.0,<2.0.0",
     "pytest-cov>=7.0.0,<8.0.0",
-    "ty>=0.0.78,<0.0.79",
+    "ty>=0.0.78,<0.0.85",
 ]
 docs = [
     "griffe-pydantic>=1.2.0,<2.0.0",
@@ -66,7 +66,7 @@ docs = [
     "pymdown-extensions>=11,<11.1",
     "termynal>=0.14.0,<0.15.0",
     "typer>=0.27.2,<0.28.0",
-    "zensical>=0.0.59,<0.0.60",
+    "zensical>=0.0.59,<0.0.69",
 ]
 
 [tool.semantic_release]
