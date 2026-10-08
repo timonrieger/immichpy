@@ -2125,6 +2125,7 @@ immichpy faces create-face [OPTIONS]
 * `--image-height <int range>`: Image height in pixels  [-9007199254740991&lt;=x&lt;=9007199254740991; required]
 * `--image-width <int range>`: Image width in pixels  [-9007199254740991&lt;=x&lt;=9007199254740991; required]
 * `--person-id <uuid>`: Person ID  [required]
+* `--user-id <uuid>`: User ID
 * `--width <int range>`: Face bounding box width  [-9007199254740991&lt;=x&lt;=9007199254740991; required]
 * `--x <int range>`: Face bounding box X coordinate  [-9007199254740991&lt;=x&lt;=9007199254740991; required]
 * `--y <int range>`: Face bounding box Y coordinate  [-9007199254740991&lt;=x&lt;=9007199254740991; required]
@@ -2774,7 +2775,9 @@ immichpy memories create-memory [OPTIONS]
 **Options**:
 
 * `--asset-ids <uuid>`: Asset IDs to associate with memory
-* `--data-year <int range>`: Year for on this day memory  [1000&lt;=x&lt;=9999; required]
+* `--data-person-id <uuid>`: Person ID (birthday memories)
+* `--data-person-name <str>`: Name of the person when the memory was created (birthday memories)
+* `--data-year <int range>`: Year of the memory  [1000&lt;=x&lt;=9999; required]
 * `--hide-at <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Date when memory should be hidden
 
 Example: 2024-01-01T00:00:00.000Z
@@ -2792,7 +2795,7 @@ Example: 2024-01-01T00:00:00.000Z
 
 Example: 2024-01-01T00:00:00.000Z
 
-* `--type <on_this_day>`: Memory type  [required]
+* `--type <on_this_day|birthday>`: Memory type  [required]
 * `--help`: Show this message and exit.
 
 ### `immichpy memories delete-memory`
@@ -2860,7 +2863,7 @@ Example: 2024-01-01
 * `--order <asc|desc|random>`
 * `--page <int range>`: Page number  [1&lt;=x&lt;=9007199254740991]
 * `--size <int range>`: Number of memories to return  [1&lt;=x&lt;=9007199254740991]
-* `--type <on_this_day>`
+* `--type <on_this_day|birthday>`
 * `--help`: Show this message and exit.
 
 ### `immichpy memories remove-memory-assets`
@@ -2909,7 +2912,7 @@ Example: 2024-01-01
 * `--order <asc|desc|random>`
 * `--page <int range>`: Page number  [1&lt;=x&lt;=9007199254740991]
 * `--size <int range>`: Number of memories to return  [1&lt;=x&lt;=9007199254740991]
-* `--type <on_this_day>`
+* `--type <on_this_day|birthday>`
 * `--help`: Show this message and exit.
 
 ### `immichpy memories update-memory`
@@ -3329,11 +3332,14 @@ immichpy people [OPTIONS] COMMAND [ARGS]...
 * `get-person`: Get a person
 * `get-person-statistics`: Get person statistics
 * `get-person-thumbnail`: Get person thumbnail
+* `get-users-for-people`: Get people access
 * `merge-people`: Merge people
 * `merge-person-legacy`: Merge people (DEPRECATED)
 * `reassign-faces`: Reassign faces
+* `remove-users-from-people`: Remove users from people
 * `update-people`: Update people
 * `update-person`: Update person (DEPRECATED)
+* `upsert-people-users`: Upsert user access
 
 ### `immichpy people create-person`
 
@@ -3371,6 +3377,7 @@ immichpy people delete-people [OPTIONS]
 **Options**:
 
 * `--ids <uuid>`: IDs to process  [required]
+* `--user-id <str>`
 * `--help`: Show this message and exit.
 
 ### `immichpy people delete-person`
@@ -3391,6 +3398,7 @@ immichpy people delete-person [OPTIONS] {id}
 
 **Options**:
 
+* `--user-id <str>`
 * `--help`: Show this message and exit.
 
 ### `immichpy people get-all-people`
@@ -3409,7 +3417,12 @@ immichpy people get-all-people [OPTIONS]
 
 * `--closest-asset-id <uuid>`: Closest asset ID for similarity search
 * `--closest-person-id <uuid>`: Closest person ID for similarity search
+* `--is-favorite <true|false>`: Filter by favorite status
+* `--is-hidden <true|false>`: Filter by hidden status
+* `--name <str>`: Filter by person name
 * `--page <int range>`: Page number for pagination  [1&lt;=x&lt;=9007199254740991]
+* `--shared-by-id <uuid>`: Only include people to which the user gave access
+* `--shared-with-id <uuid>`: Only include people to which the user was given access
 * `--size <int range>`: Number of items per page  [1&lt;=x&lt;=1000]
 * `--with-hidden <true|false>`: Include hidden people
 * `--help`: Show this message and exit.
@@ -3474,6 +3487,27 @@ immichpy people get-person-thumbnail [OPTIONS] {id}
 
 * `--help`: Show this message and exit.
 
+### `immichpy people get-users-for-people`
+
+Get people access
+
+<a href="https://api.immich.app/endpoints/people/getUsersForPeople">Immich API documentation</a>
+
+**Usage**:
+
+```console
+immichpy people get-users-for-people [OPTIONS]
+```
+
+**Options**:
+
+* `--direction <shared-by|shared-with>`
+* `--person-id <uuid>`: Person ID
+* `--role <read|write|admin>`: Role of user
+* `--shared-by-id <uuid>`: User ID of the user that gave access
+* `--shared-with-id <uuid>`: User ID of the user that was given access
+* `--help`: Show this message and exit.
+
 ### `immichpy people merge-people`
 
 Merge people
@@ -3532,8 +3566,25 @@ immichpy people reassign-faces [OPTIONS] {id}
 
 * `--data <str>`: Face update items
 
-As a JSON string with keys: assetId (string), personId (string)  [required]
+As a JSON string with keys: assetId (string), personId (string), userId (string)  [required]
 
+* `--help`: Show this message and exit.
+
+### `immichpy people remove-users-from-people`
+
+Remove users from people
+
+<a href="https://api.immich.app/endpoints/people/removeUsersFromPeople">Immich API documentation</a>
+
+**Usage**:
+
+```console
+immichpy people remove-users-from-people [OPTIONS]
+```
+
+**Options**:
+
+* `--items <str>`: As a JSON string with keys: personId (string), sharedById (string), sharedWithId (string)  [required]
 * `--help`: Show this message and exit.
 
 ### `immichpy people update-people`
@@ -3552,7 +3603,7 @@ immichpy people update-people [OPTIONS]
 
 * `--people <str>`: People to update
 
-As a JSON string with keys: birthDate (string), color (string), featureFaceAssetId (string), id (string), isFavorite (boolean), isHidden (boolean), name (string)  [required]
+As a JSON string with keys: birthDate (string), color (string), featureFaceAssetId (string), id (string), isFavorite (boolean), isHidden (boolean), name (string), userId (string)  [required]
 
 * `--help`: Show this message and exit.
 
@@ -3580,6 +3631,27 @@ immichpy people update-person [OPTIONS] {id}
 * `--is-favorite <true|false>`: Mark as favorite
 * `--is-hidden <true|false>`: Person visibility (hidden)
 * `--name <str>`: Person name
+* `--user-id <uuid>`: Restrict the update to the person record of this User ID
+* `--help`: Show this message and exit.
+
+### `immichpy people upsert-people-users`
+
+Upsert user access
+
+<a href="https://api.immich.app/endpoints/people/upsertPeopleUsers">Immich API documentation</a>
+
+**Usage**:
+
+```console
+immichpy people upsert-people-users [OPTIONS]
+```
+
+**Options**:
+
+* `--person-ids <uuid>`: Person IDs, required when type is omitted
+* `--role <read|write|admin>`: Levels of access for managing people resources on behalf of another user.  [required]
+* `--shared-with-ids <uuid>`: User IDs that should be given access to the person  [required]
+* `--type <everyone>`: Which people to update when personIds is omitted
 * `--help`: Show this message and exit.
 
 ## `immichpy plugins`
@@ -5625,7 +5697,7 @@ immichpy sync delete-sync-ack [OPTIONS]
 
 **Options**:
 
-* `--types <AuthUserV1|UserV1|UserDeleteV1|AssetV1|AssetV2|AssetDeleteV1|AssetExifV1|AssetEditV1|AssetEditDeleteV1|AssetMetadataV1|AssetMetadataDeleteV1|AssetOcrV1|AssetOcrDeleteV1|PartnerV1|PartnerDeleteV1|PartnerAssetV1|PartnerAssetV2|PartnerAssetBackfillV1|PartnerAssetBackfillV2|PartnerAssetDeleteV1|PartnerAssetExifV1|PartnerAssetExifBackfillV1|PartnerStackBackfillV1|PartnerStackDeleteV1|PartnerStackV1|AlbumV1|AlbumV2|AlbumDeleteV1|AlbumUserV1|AlbumUserBackfillV1|AlbumUserDeleteV1|AlbumAssetCreateV1|AlbumAssetCreateV2|AlbumAssetUpdateV1|AlbumAssetUpdateV2|AlbumAssetBackfillV1|AlbumAssetBackfillV2|AlbumAssetExifCreateV1|AlbumAssetExifUpdateV1|AlbumAssetExifBackfillV1|AlbumToAssetV1|AlbumToAssetDeleteV1|AlbumToAssetBackfillV1|MemoryV1|MemoryDeleteV1|MemoryToAssetV1|MemoryToAssetDeleteV1|StackV1|StackDeleteV1|PersonV1|PersonDeleteV1|AssetFaceV1|AssetFaceV2|AssetFaceDeleteV1|UserMetadataV1|UserMetadataDeleteV1|SyncAckV1|SyncResetV1|SyncCompleteV1>`: Sync entity types to delete acks for
+* `--types <AuthUserV1|AuthUserV2|UserV1|UserDeleteV1|AssetV1|AssetV2|AssetDeleteV1|AssetExifV1|AssetEditV1|AssetEditDeleteV1|AssetMetadataV1|AssetMetadataDeleteV1|AssetOcrV1|AssetOcrDeleteV1|PartnerV1|PartnerDeleteV1|PartnerAssetV1|PartnerAssetV2|PartnerAssetBackfillV1|PartnerAssetBackfillV2|PartnerAssetDeleteV1|PartnerAssetExifV1|PartnerAssetExifBackfillV1|PartnerStackBackfillV1|PartnerStackDeleteV1|PartnerStackV1|AlbumV1|AlbumV2|AlbumDeleteV1|AlbumUserV1|AlbumUserBackfillV1|AlbumUserDeleteV1|AlbumAssetCreateV1|AlbumAssetCreateV2|AlbumAssetUpdateV1|AlbumAssetUpdateV2|AlbumAssetBackfillV1|AlbumAssetBackfillV2|AlbumAssetExifCreateV1|AlbumAssetExifUpdateV1|AlbumAssetExifBackfillV1|AlbumToAssetV1|AlbumToAssetDeleteV1|AlbumToAssetBackfillV1|MemoryV1|MemoryV2|MemoryDeleteV1|MemoryToAssetV1|MemoryToAssetV2|MemoryToAssetDeleteV1|StackV1|StackDeleteV1|PersonV1|PersonDeleteV1|AssetFaceV1|AssetFaceV2|AssetFaceV3|AssetFaceDeleteV1|UserMetadataV1|UserMetadataDeleteV1|SyncAckV1|SyncResetV1|SyncCompleteV1>`: Sync entity types to delete acks for
 * `--help`: Show this message and exit.
 
 ### `immichpy sync get-sync-ack`
@@ -5659,7 +5731,7 @@ immichpy sync get-sync-stream [OPTIONS]
 **Options**:
 
 * `--reset <true|false>`: Reset sync state
-* `--types <AlbumsV1|AlbumsV2|AlbumUsersV1|AlbumToAssetsV1|AlbumAssetsV1|AlbumAssetsV2|AlbumAssetExifsV1|AssetsV1|AssetsV2|AssetExifsV1|AssetEditsV1|AssetMetadataV1|AssetOcrV1|AuthUsersV1|MemoriesV1|MemoryToAssetsV1|PartnersV1|PartnerAssetsV1|PartnerAssetsV2|PartnerAssetExifsV1|PartnerStacksV1|StacksV1|UsersV1|PeopleV1|AssetFacesV1|AssetFacesV2|UserMetadataV1>`: Sync request types  [required]
+* `--types <AlbumsV1|AlbumsV2|AlbumUsersV1|AlbumToAssetsV1|AlbumAssetsV1|AlbumAssetsV2|AlbumAssetExifsV1|AssetsV1|AssetsV2|AssetExifsV1|AssetEditsV1|AssetMetadataV1|AssetOcrV1|AuthUsersV1|AuthUsersV2|MemoriesV1|MemoriesV2|MemoryToAssetsV1|MemoryToAssetsV2|PartnersV1|PartnerAssetsV1|PartnerAssetsV2|PartnerAssetExifsV1|PartnerStacksV1|StacksV1|UsersV1|PeopleV1|AssetFacesV1|AssetFacesV2|AssetFacesV3|UserMetadataV1>`: Sync request types  [required]
 * `--help`: Show this message and exit.
 
 ### `immichpy sync send-sync-ack`
@@ -6250,9 +6322,9 @@ Example: 11.075683,49.416711,11.117589,49.454875
 * `--person-id <uuid>`: Filter assets containing a specific person (face recognition)
 * `--slug <str>`
 * `--tag-id <uuid>`: Filter assets with a specific tag
-* `--time-bucket <str>`: Time bucket identifier in YYYY-MM-DD format
+* `--time-bucket <str>`: Time bucket identifier in YYYY-MM-DDT00:00:00.000Z format
 
-Example: 2024-01-01  [required]
+Example: 2024-01-01T00:00:00.000Z  [required]
 
 * `--user-id <uuid>`: Filter assets by specific user ID
 * `--visibility <archive|timeline|hidden|locked>`: Filter by asset visibility status (ARCHIVE, TIMELINE, HIDDEN, LOCKED)
@@ -6677,6 +6749,7 @@ immichpy users update-my-preferences [OPTIONS]
 * `--people-enabled <true|false>`: Whether people are enabled
 * `--people-minimum-faces <int range>`: People face threshold  [1&lt;=x&lt;=9007199254740991]
 * `--people-sidebar-web <true|false>`: Whether people appear in web sidebar
+* `--people-update-strategy <self|everyone>`: Which person records to update when editing a person
 * `--purchase-hide-buy-button-until <str>`: Date until which to hide buy button
 * `--purchase-show-support-badge <true|false>`: Whether to show support badge
 * `--ratings-enabled <true|false>`: Whether ratings are enabled
@@ -7027,6 +7100,7 @@ immichpy users-admin update-user-preferences-admin [OPTIONS] {id}
 * `--people-enabled <true|false>`: Whether people are enabled
 * `--people-minimum-faces <int range>`: People face threshold  [1&lt;=x&lt;=9007199254740991]
 * `--people-sidebar-web <true|false>`: Whether people appear in web sidebar
+* `--people-update-strategy <self|everyone>`: Which person records to update when editing a person
 * `--purchase-hide-buy-button-until <str>`: Date until which to hide buy button
 * `--purchase-show-support-badge <true|false>`: Whether to show support badge
 * `--ratings-enabled <true|false>`: Whether ratings are enabled

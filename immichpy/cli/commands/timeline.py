@@ -64,9 +64,9 @@ Example: 11.075683,49.416711,11.117589,49.454875""",
     time_bucket: str = typer.Option(
         ...,
         "--time-bucket",
-        help=r"""Time bucket identifier in YYYY-MM-DD format
+        help=r"""Time bucket identifier in YYYY-MM-DDT00:00:00.000Z format
 
-Example: 2024-01-01""",
+Example: 2024-01-01T00:00:00.000Z""",
     ),
     user_id: UUID | None = typer.Option(
         None, "--user-id", help=r"""Filter assets by specific user ID"""

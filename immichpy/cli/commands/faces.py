@@ -48,6 +48,7 @@ def create_face(
         max=9007199254740991,
     ),
     person_id: UUID = typer.Option(..., "--person-id", help=r"""Person ID"""),
+    user_id: UUID | None = typer.Option(None, "--user-id", help=r"""User ID"""),
     width: int = typer.Option(
         ...,
         "--width",
@@ -81,6 +82,8 @@ def create_face(
     set_nested(json_data, ["image_height"], image_height)
     set_nested(json_data, ["image_width"], image_width)
     set_nested(json_data, ["person_id"], person_id)
+    if user_id is not None:
+        set_nested(json_data, ["user_id"], user_id)
     set_nested(json_data, ["width"], width)
     set_nested(json_data, ["x"], x)
     set_nested(json_data, ["y"], y)
