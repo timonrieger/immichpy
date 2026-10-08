@@ -15,7 +15,7 @@ repos:
       - id: ruff-format
 
   - repo: https://github.com/astral-sh/uv-pre-commit
-    rev: b84c4a0a90bd58c7d82ae8f0d4d5e77b1ddd3ce6  # frozen: 0.12.5
+    rev: a1785f8e81fe9936d828bef574e6db07e8c8c374  # frozen: 0.12.23
     hooks:
       - id: uv-lock
 
