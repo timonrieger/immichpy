@@ -313,7 +313,7 @@ def get_request_body_info(
     params: list[RequestParam] = []
     for path_parts, leaf_schema, is_required in flattened:
         # Generate Python parameter name from path
-        param_name = "_".join(to_python_ident(part) for part in path_parts)
+        param_name = "_".join(to_python_ident(part) for part in path_parts) or "items"
 
         description_parts = []
         description = leaf_schema.get("description")
@@ -524,7 +524,21 @@ def generate_command_function(
                         )
             if idx == len(param_data) - 1:
                 media_type = _get_media_type(operation)
-                if media_type == "application/json":
+                if media_type == "application/json" and (
+                    resolve_schema_ref(
+                        spec, f"#/components/schemas/{param.model_name}"
+                    )["type"]
+                    == "array"
+                ):
+                    # openapi-generator only emits the `<Model>Inner` item model for array bodies
+                    inner_model = f"{param.model_name}Inner"
+                    used_models.add(inner_model)
+                    model_instance = to_snake_case(inner_model)
+                    lines.append(
+                        f"    {model_instance} = [{inner_model}.model_validate(item) for item in json_data[{param.name!r}]]"
+                    )
+                    lines.append(f"    kwargs['{model_instance}'] = {model_instance}")
+                elif media_type == "application/json":
                     # Validate and create model
                     used_models.add(param.model_name)  # ty: ignore[invalid-argument-type]
                     model_instance = to_snake_case(param.model_name)  # ty: ignore[invalid-argument-type]
