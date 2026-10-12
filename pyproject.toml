@@ -25,13 +25,13 @@ classifiers = [
 dependencies = [
     "aiohttp>=3.8.4,<4.0.0",
     "aiohttp-retry>=2.8.3,<3.0.0",
-    "pydantic>=2.0.0,<3.0.0",
+    "pydantic>=2.10.0,<3.0.0",
     "pystatx>=0.1,<1",
     "python-dateutil>=2.8.2,<3.0.0",
     "regex>=2024.11.6",
-    "rich>=13.0.0,<16.0.0",
+    "rich>=13.8.0,<16.0.0",
     "tenacity>=9.0.0,<10.0.0",
-    "typing-extensions>=4.0.0,<5.0.0",
+    "typing-extensions>=4.12.2,<5.0.0",
 ]
 
 [project.optional-dependencies]
