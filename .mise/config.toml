@@ -49,6 +49,15 @@ description = "Run client unit tests"
 run = [{ task = "test-unit-cli" }, { task = "test-unit-client" }]
 description = "Run all unit tests"
 
+[tasks.test-unit-lowest]
+tools = { python = "3.10" }
+run = [
+    "uv venv .venv-lowest --clear --python 3.10 --python-preference only-system",
+    "uv pip install --python .venv-lowest --resolution lowest-direct -e '.[cli]' --group dev",
+    ".venv-lowest/bin/pytest tests/unit",
+]
+description = "Run unit tests against the lowest allowed direct dependency versions"
+
 [tasks.test-e2e-cli]
 run = "uv run pytest tests/e2e/cli"
 description = "Run e2e CLI tests"
