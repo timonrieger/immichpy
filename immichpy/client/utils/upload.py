@@ -68,7 +68,7 @@ def _is_retryable_upload_error(exc: BaseException) -> bool:
     """
     if isinstance(exc, ApiException):
         return exc.status in RETRY_STATUSES
-    return isinstance(exc, (ClientConnectionError, asyncio.TimeoutError))
+    return isinstance(exc, (ClientConnectionError, TimeoutError))
 
 
 async def scan_files(
