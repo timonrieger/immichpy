@@ -37,7 +37,7 @@ dependencies = [
 [project.optional-dependencies]
 build = ["uv==0.12.23"]
 cli = [
-    "rtoml>=0.13.0,<0.14.0",
+    "rtoml>=0.13.0,<0.15.0",
     "typer>=0.27.2,<0.28.0",
 ]
 
