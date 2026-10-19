@@ -8,7 +8,7 @@ import logging
 import os
 import sys
 import uuid
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
 from typing import cast
 from uuid import UUID
@@ -68,7 +68,7 @@ def _is_retryable_upload_error(exc: BaseException) -> bool:
     """
     if isinstance(exc, ApiException):
         return exc.status in RETRY_STATUSES
-    return isinstance(exc, (ClientConnectionError, asyncio.TimeoutError))
+    return isinstance(exc, (ClientConnectionError, TimeoutError))
 
 
 async def scan_files(
@@ -247,9 +247,9 @@ def get_file_times(
         else:
             ctime = statx(os.fspath(path)).btime
 
-    return datetime.fromtimestamp(
-        ctime or mtime, tz=timezone.utc
-    ), datetime.fromtimestamp(mtime, tz=timezone.utc)
+    return datetime.fromtimestamp(ctime or mtime, tz=UTC), datetime.fromtimestamp(
+        mtime, tz=UTC
+    )
 
 
 async def upload_file(

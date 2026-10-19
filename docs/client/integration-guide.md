@@ -221,7 +221,7 @@ Each library raises different exceptions for connection failures, timeouts, and 
         msg = str(e.body) if e.body else "API error"
         logging.error("%s (status %s)", msg, e.status)
         raise
-    except asyncio.TimeoutError as e:  # (1)!
+    except TimeoutError as e:  # (1)!
         # Timeout error
         raise
     ```

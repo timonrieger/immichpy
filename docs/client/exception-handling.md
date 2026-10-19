@@ -47,10 +47,9 @@ async def get_server_version(base_url: str, api_key: str) -> None:
 
 ### Timeout
 
-When you set a timeout on the request, you can catch it with `asyncio.TimeoutError`:
+When you set a timeout on the request, you can catch it with `TimeoutError`:
 
 ```python
-import asyncio
 import aiohttp
 from immichpy import AsyncClient
 from immichpy.client.generated.exceptions import ApiException
@@ -71,7 +70,7 @@ async def get_server_version_with_timeout(base_url: str, api_key: str) -> None:
         except ApiException as e:
             print(f"API error: status={e.status}, body={e.body}")
             raise
-        except asyncio.TimeoutError as e:
+        except TimeoutError as e:
             print("Request timed out")
             raise
 ```
