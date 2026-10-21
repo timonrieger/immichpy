@@ -577,7 +577,7 @@ provides-extras = ["build", "cli"]
 
 [package.metadata.requires-dev]
 dev = [
-    { name = "pillow", specifier = ">=13.0.0,<13.1.0" },
+    { name = "pillow", specifier = ">=13.0.0,<14.0.0" },
     { name = "pytest", specifier = ">=9.0.0,<10.0.0" },
     { name = "pytest-asyncio", specifier = ">=1.2.0,<2.0.0" },
     { name = "pytest-cov", specifier = ">=7.0.0,<8.0.0" },
