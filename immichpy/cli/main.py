@@ -15,6 +15,7 @@ from immichpy.cli.commands import albums as albums_commands
 
 # Import command modules
 from immichpy.cli.commands import api_keys as api_keys_commands
+from immichpy.cli.commands import asset_files as asset_files_commands
 from immichpy.cli.commands import authentication as authentication_commands
 from immichpy.cli.commands import authentication_admin as authentication_admin_commands
 from immichpy.cli.commands import cluster_groups as cluster_groups_commands
@@ -110,6 +111,9 @@ app.add_typer(
 )
 app.add_typer(albums_commands.app, name="albums", rich_help_panel="API commands")
 app.add_typer(assets_wrapper.app, name="assets", rich_help_panel="API commands")
+app.add_typer(
+    asset_files_commands.app, name="asset-files", rich_help_panel="API commands"
+)
 app.add_typer(authentication_commands.app, name="auth", rich_help_panel="API commands")
 app.add_typer(
     authentication_admin_commands.app,
