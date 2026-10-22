@@ -21,6 +21,7 @@ from immichpy.cli.commands import authentication_admin as authentication_admin_c
 from immichpy.cli.commands import cluster_groups as cluster_groups_commands
 from immichpy.cli.commands import config_admin as config_admin_commands
 from immichpy.cli.commands import config_public as config_public_commands
+from immichpy.cli.commands import config_user as config_user_commands
 from immichpy.cli.commands import (
     database_backups_admin as database_backups_admin_commands,
 )
@@ -130,6 +131,9 @@ app.add_typer(
 )
 app.add_typer(
     config_public_commands.app, name="config-public", rich_help_panel="API commands"
+)
+app.add_typer(
+    config_user_commands.app, name="config-user", rich_help_panel="API commands"
 )
 app.add_typer(download_wrapper.app, name="download", rich_help_panel="API commands")
 app.add_typer(config_commands.app, name="config", rich_help_panel="Custom commands")
