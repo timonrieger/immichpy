@@ -26,8 +26,13 @@ immichpy [OPTIONS] COMMAND [ARGS]...
 * `activities`: An activity is a like or a comment made by...
 * `albums`: An album is a collection of assets that...
 * `assets`: An asset is an image or video that has...
+* `asset-files`: An asset file is a file associated with an...
 * `auth`: Endpoints related to user authentication,...
 * `auth-admin`: Administrative endpoints related to...
+* `cluster-groups`: A cluster group is a set of users whose...
+* `config-admin`: Endpoints to view and modify the full...
+* `config-public`: The system configuration properties that...
+* `config-user`: The system configuration properties that...
 * `download`: Endpoints for downloading assets or...
 * `config`: Configure the CLI with server details,...
 * `duplicates`: Endpoints for managing and identifying...
@@ -1394,6 +1399,110 @@ immichpy assets upload [OPTIONS] {paths}...
 * `--dry-run`: Simulate uploads without actually uploading
 * `--help`: Show this message and exit.
 
+## `immichpy asset-files`
+
+An asset file is a file associated with an asset, including edited versions, thumbnails, etc.
+
+<a href="https://api.immich.app/endpoints/asset-files">Immich API documentation</a>
+
+**Usage**:
+
+```console
+immichpy asset-files [OPTIONS] COMMAND [ARGS]...
+```
+
+**Options**:
+
+* `--help`: Show this message and exit.
+
+**Commands**:
+
+* `delete-asset-file`: Delete an asset file
+* `download-asset-file`: Download an asset file
+* `get-asset-file`: Retrieve an asset file
+* `search-asset-files`: Search asset files
+
+### `immichpy asset-files delete-asset-file`
+
+Delete an asset file
+
+<a href="https://api.immich.app/endpoints/asset-files/deleteAssetFile">Immich API documentation</a>
+
+**Usage**:
+
+```console
+immichpy asset-files delete-asset-file [OPTIONS] {id}
+```
+
+**Arguments**:
+
+* `id`: [required]
+
+**Options**:
+
+* `--help`: Show this message and exit.
+
+### `immichpy asset-files download-asset-file`
+
+Download an asset file
+
+<a href="https://api.immich.app/endpoints/asset-files/downloadAssetFile">Immich API documentation</a>
+
+**Usage**:
+
+```console
+immichpy asset-files download-asset-file [OPTIONS] {id}
+```
+
+**Arguments**:
+
+* `id`: [required]
+
+**Options**:
+
+* `--help`: Show this message and exit.
+
+### `immichpy asset-files get-asset-file`
+
+Retrieve an asset file
+
+<a href="https://api.immich.app/endpoints/asset-files/getAssetFile">Immich API documentation</a>
+
+**Usage**:
+
+```console
+immichpy asset-files get-asset-file [OPTIONS] {id}
+```
+
+**Arguments**:
+
+* `id`: [required]
+
+**Options**:
+
+* `--help`: Show this message and exit.
+
+### `immichpy asset-files search-asset-files`
+
+Search asset files
+
+<a href="https://api.immich.app/endpoints/asset-files/searchAssetFiles">Immich API documentation</a>
+
+**Usage**:
+
+```console
+immichpy asset-files search-asset-files [OPTIONS]
+```
+
+**Options**:
+
+* `--asset-id <uuid>`: Asset ID to filter files by  [required]
+* `--is-edited <true|false>`: The file was generated from an edit
+* `--is-progressive <true|false>`: The file is a progressively encoded JPEG
+* `--is-transparent <true|false>`: The file is transparent
+* `--type <fullsize|preview|thumbnail|sidecar|encoded_video>`: Filter by type of file
+* `--help`: Show this message and exit.
+
 ## `immichpy auth`
 
 Endpoints related to user authentication, including OAuth.
@@ -1800,6 +1909,512 @@ Unlink all OAuth accounts
 
 ```console
 immichpy auth-admin unlink-all-o-auth-accounts-admin [OPTIONS]
+```
+
+**Options**:
+
+* `--help`: Show this message and exit.
+
+## `immichpy cluster-groups`
+
+A cluster group is a set of users whose faces are clustered together, so that a person can be shared between them.
+
+<a href="https://api.immich.app/endpoints/cluster-groups">Immich API documentation</a>
+
+**Usage**:
+
+```console
+immichpy cluster-groups [OPTIONS] COMMAND [ARGS]...
+```
+
+**Options**:
+
+* `--help`: Show this message and exit.
+
+**Commands**:
+
+* `accept-cluster-group-request`: Accept a cluster group request
+* `cluster-group-regenerate-people`: Regenerate people of users in cluster group
+* `create-cluster-group-request`: Create a cluster group request
+* `delete-cluster-group-request`: Decline a cluster group request
+* `get-cluster-group-requests`: Retrieve cluster group requests
+* `get-cluster-group-requests-for-group`: Retrieve the requests sent by a cluster group
+* `get-cluster-group-users`: Retrieve the users of a cluster group
+* `leave-cluster-group`: Leave a cluster group
+
+### `immichpy cluster-groups accept-cluster-group-request`
+
+Accept a cluster group request
+
+<a href="https://api.immich.app/endpoints/cluster-groups/acceptClusterGroupRequest">Immich API documentation</a>
+
+**Usage**:
+
+```console
+immichpy cluster-groups accept-cluster-group-request [OPTIONS] {id}
+```
+
+**Arguments**:
+
+* `id`: [required]
+
+**Options**:
+
+* `--help`: Show this message and exit.
+
+### `immichpy cluster-groups cluster-group-regenerate-people`
+
+Regenerate people of users in cluster group
+
+<a href="https://api.immich.app/endpoints/cluster-groups/clusterGroupRegeneratePeople">Immich API documentation</a>
+
+**Usage**:
+
+```console
+immichpy cluster-groups cluster-group-regenerate-people [OPTIONS] {id}
+```
+
+**Arguments**:
+
+* `id`: [required]
+
+**Options**:
+
+* `--help`: Show this message and exit.
+
+### `immichpy cluster-groups create-cluster-group-request`
+
+Create a cluster group request
+
+<a href="https://api.immich.app/endpoints/cluster-groups/createClusterGroupRequest">Immich API documentation</a>
+
+**Usage**:
+
+```console
+immichpy cluster-groups create-cluster-group-request [OPTIONS] {id}
+```
+
+**Arguments**:
+
+* `id`: [required]
+
+**Options**:
+
+* `--user-id <uuid>`: User to invite into the cluster group  [required]
+* `--help`: Show this message and exit.
+
+### `immichpy cluster-groups delete-cluster-group-request`
+
+Decline a cluster group request
+
+<a href="https://api.immich.app/endpoints/cluster-groups/deleteClusterGroupRequest">Immich API documentation</a>
+
+**Usage**:
+
+```console
+immichpy cluster-groups delete-cluster-group-request [OPTIONS] {id}
+```
+
+**Arguments**:
+
+* `id`: [required]
+
+**Options**:
+
+* `--help`: Show this message and exit.
+
+### `immichpy cluster-groups get-cluster-group-requests`
+
+Retrieve cluster group requests
+
+<a href="https://api.immich.app/endpoints/cluster-groups/getClusterGroupRequests">Immich API documentation</a>
+
+**Usage**:
+
+```console
+immichpy cluster-groups get-cluster-group-requests [OPTIONS]
+```
+
+**Options**:
+
+* `--help`: Show this message and exit.
+
+### `immichpy cluster-groups get-cluster-group-requests-for-group`
+
+Retrieve the requests sent by a cluster group
+
+<a href="https://api.immich.app/endpoints/cluster-groups/getClusterGroupRequestsForGroup">Immich API documentation</a>
+
+**Usage**:
+
+```console
+immichpy cluster-groups get-cluster-group-requests-for-group [OPTIONS] {id}
+```
+
+**Arguments**:
+
+* `id`: [required]
+
+**Options**:
+
+* `--help`: Show this message and exit.
+
+### `immichpy cluster-groups get-cluster-group-users`
+
+Retrieve the users of a cluster group
+
+<a href="https://api.immich.app/endpoints/cluster-groups/getClusterGroupUsers">Immich API documentation</a>
+
+**Usage**:
+
+```console
+immichpy cluster-groups get-cluster-group-users [OPTIONS] {id}
+```
+
+**Arguments**:
+
+* `id`: [required]
+
+**Options**:
+
+* `--help`: Show this message and exit.
+
+### `immichpy cluster-groups leave-cluster-group`
+
+Leave a cluster group
+
+<a href="https://api.immich.app/endpoints/cluster-groups/leaveClusterGroup">Immich API documentation</a>
+
+**Usage**:
+
+```console
+immichpy cluster-groups leave-cluster-group [OPTIONS] {id}
+```
+
+**Arguments**:
+
+* `id`: [required]
+
+**Options**:
+
+* `--help`: Show this message and exit.
+
+## `immichpy config-admin`
+
+Endpoints to view and modify the full system configuration.
+
+<a href="https://api.immich.app/endpoints/config-admin">Immich API documentation</a>
+
+**Usage**:
+
+```console
+immichpy config-admin [OPTIONS] COMMAND [ARGS]...
+```
+
+**Options**:
+
+* `--help`: Show this message and exit.
+
+**Commands**:
+
+* `get-admin-config`: Get the admin configuration
+* `get-admin-config-defaults`: Get the system configuration defaults
+* `update-admin-config`: Update the system configuration
+
+### `immichpy config-admin get-admin-config`
+
+Get the admin configuration
+
+<a href="https://api.immich.app/endpoints/config-admin/getAdminConfig">Immich API documentation</a>
+
+**Usage**:
+
+```console
+immichpy config-admin get-admin-config [OPTIONS]
+```
+
+**Options**:
+
+* `--help`: Show this message and exit.
+
+### `immichpy config-admin get-admin-config-defaults`
+
+Get the system configuration defaults
+
+<a href="https://api.immich.app/endpoints/config-admin/getAdminConfigDefaults">Immich API documentation</a>
+
+**Usage**:
+
+```console
+immichpy config-admin get-admin-config-defaults [OPTIONS]
+```
+
+**Options**:
+
+* `--help`: Show this message and exit.
+
+### `immichpy config-admin update-admin-config`
+
+Update the system configuration
+
+<a href="https://api.immich.app/endpoints/config-admin/updateAdminConfig">Immich API documentation</a>
+
+**Usage**:
+
+```console
+immichpy config-admin update-admin-config [OPTIONS]
+```
+
+**Options**:
+
+* `--backup-database-cron-expression <str>`: Cron expression  [required]
+* `--backup-database-enabled`: Enabled  [required]
+* `--backup-database-keep-last-amount <int range>`: Keep last amount  [1&lt;=x&lt;=9007199254740991; required]
+* `--ffmpeg-accel <nvenc|qsv|vaapi|rkmpp|disabled>`: Transcode hardware acceleration  [required]
+* `--ffmpeg-accel-decode`: Accelerated decode  [required]
+* `--ffmpeg-accepted-audio-codecs <mp3|aac|opus|pcm_s16le>`: Accepted audio codecs  [required]
+* `--ffmpeg-accepted-containers <mov|mp4|ogg|webm>`: Accepted containers  [required]
+* `--ffmpeg-accepted-video-codecs <h264|hevc|vp9|av1>`: Accepted video codecs  [required]
+* `--ffmpeg-bframes <int range>`: B-frames  [-1&lt;=x&lt;=16; required]
+* `--ffmpeg-cq-mode <auto|cqp|icq>`: CQ mode  [required]
+* `--ffmpeg-crf <int range>`: CRF  [0&lt;=x&lt;=51; required]
+* `--ffmpeg-gop-size <int range>`: GOP size  [0&lt;=x&lt;=9007199254740991; required]
+* `--ffmpeg-max-bitrate <str>`: Max bitrate  [required]
+* `--ffmpeg-preferred-hw-device <str>`: Preferred hardware device  [required]
+* `--ffmpeg-preset <str>`: Preset  [required]
+* `--ffmpeg-realtime-enabled`: Enable real-time HLS transcoding (alpha)  [required]
+* `--ffmpeg-realtime-resolutions <480|720|1080|1440|2160>`: Resolutions to use for real-time HLS transcoding  [required]
+* `--ffmpeg-realtime-video-codecs <h264|hevc|vp9|av1>`: Video codecs to use for real-time HLS transcoding  [required]
+* `--ffmpeg-refs <int range>`: References  [0&lt;=x&lt;=6; required]
+* `--ffmpeg-target-audio-codec <mp3|aac|opus|pcm_s16le>`: Target audio codec  [required]
+* `--ffmpeg-target-resolution <str>`: Target resolution  [required]
+* `--ffmpeg-target-video-codec <h264|hevc|vp9|av1>`: Target video codec  [required]
+* `--ffmpeg-temporal-aq`: Temporal AQ  [required]
+* `--ffmpeg-threads <int range>`: Threads  [0&lt;=x&lt;=9007199254740991; required]
+* `--ffmpeg-tonemap <hable|mobius|reinhard|disabled>`: Tone mapping  [required]
+* `--ffmpeg-transcode <all|optimal|bitrate|required|disabled>`: Transcode policy  [required]
+* `--ffmpeg-two-pass`: Two pass  [required]
+* `--image-colorspace <srgb|p3>`: Colorspace  [required]
+* `--image-extract-embedded`: Extract embedded  [required]
+* `--image-fullsize-enabled`: Enabled  [required]
+* `--image-fullsize-format <jpeg|webp>`: Image format  [required]
+* `--image-fullsize-progressive <true|false>`: Progressive
+* `--image-fullsize-quality <int range>`: Quality  [1&lt;=x&lt;=100; required]
+* `--image-preview-format <jpeg|webp>`: Image format  [required]
+* `--image-preview-progressive <true|false>`: Progressive
+* `--image-preview-quality <int range>`: Quality  [1&lt;=x&lt;=100; required]
+* `--image-preview-size <int range>`: Size  [1&lt;=x&lt;=9007199254740991; required]
+* `--image-thumbnail-format <jpeg|webp>`: Image format  [required]
+* `--image-thumbnail-progressive <true|false>`: Progressive
+* `--image-thumbnail-quality <int range>`: Quality  [1&lt;=x&lt;=100; required]
+* `--image-thumbnail-size <int range>`: Size  [1&lt;=x&lt;=9007199254740991; required]
+* `--integrity-checks-checksum-files-cron-expression <str>`: Cron expression for when the integrity check should run  [required]
+* `--integrity-checks-checksum-files-enabled`: Enabled  [required]
+* `--integrity-checks-checksum-files-percentage-limit <float range>`: Percentage limit of the integrity checksum job  [0&lt;=x&lt;=1; required]
+* `--integrity-checks-checksum-files-time-limit <int range>`: How long the integrity checksum job may run for  [0&lt;=x&lt;=9007199254740991; required]
+* `--integrity-checks-missing-files-cron-expression <str>`: Cron expression for when the integrity check should run  [required]
+* `--integrity-checks-missing-files-enabled`: Enabled  [required]
+* `--integrity-checks-untracked-files-cron-expression <str>`: Cron expression for when the integrity check should run  [required]
+* `--integrity-checks-untracked-files-enabled`: Enabled  [required]
+* `--job-background-task-concurrency <int range>`: Concurrency  [1&lt;=x&lt;=9007199254740991; required]
+* `--job-editor-concurrency <int range>`: Concurrency  [1&lt;=x&lt;=9007199254740991; required]
+* `--job-face-detection-concurrency <int range>`: Concurrency  [1&lt;=x&lt;=9007199254740991; required]
+* `--job-integrity-check-concurrency <int range>`: Concurrency  [1&lt;=x&lt;=9007199254740991; required]
+* `--job-library-concurrency <int range>`: Concurrency  [1&lt;=x&lt;=9007199254740991; required]
+* `--job-metadata-extraction-concurrency <int range>`: Concurrency  [1&lt;=x&lt;=9007199254740991; required]
+* `--job-migration-concurrency <int range>`: Concurrency  [1&lt;=x&lt;=9007199254740991; required]
+* `--job-notifications-concurrency <int range>`: Concurrency  [1&lt;=x&lt;=9007199254740991; required]
+* `--job-ocr-concurrency <int range>`: Concurrency  [1&lt;=x&lt;=9007199254740991; required]
+* `--job-search-concurrency <int range>`: Concurrency  [1&lt;=x&lt;=9007199254740991; required]
+* `--job-sidecar-concurrency <int range>`: Concurrency  [1&lt;=x&lt;=9007199254740991; required]
+* `--job-smart-search-concurrency <int range>`: Concurrency  [1&lt;=x&lt;=9007199254740991; required]
+* `--job-thumbnail-generation-concurrency <int range>`: Concurrency  [1&lt;=x&lt;=9007199254740991; required]
+* `--job-video-conversion-concurrency <int range>`: Concurrency  [1&lt;=x&lt;=9007199254740991; required]
+* `--job-workflow-concurrency <int range>`: Concurrency  [1&lt;=x&lt;=9007199254740991; required]
+* `--library-scan-cron-expression <str>`: Cron expression  [required]
+* `--library-scan-enabled`: Enabled  [required]
+* `--library-watch-enabled`: Enabled  [required]
+* `--logging-enabled`: Enabled  [required]
+* `--logging-level <verbose|debug|log|warn|error|fatal>`: Log level  [required]
+* `--machine-learning-availability-checks-enabled`: Enabled  [required]
+* `--machine-learning-availability-checks-interval <int range>`: [-9007199254740991&lt;=x&lt;=9007199254740991; required]
+* `--machine-learning-availability-checks-timeout <int range>`: [-9007199254740991&lt;=x&lt;=9007199254740991; required]
+* `--machine-learning-clip-enabled`: Whether the task is enabled  [required]
+* `--machine-learning-clip-model-name <str>`: Name of the model to use  [required]
+* `--machine-learning-duplicate-detection-enabled`: Whether the task is enabled  [required]
+* `--machine-learning-duplicate-detection-max-distance <float range>`: Maximum distance threshold for duplicate detection  [0.001&lt;=x&lt;=0.1; required]
+* `--machine-learning-enabled`: Enabled  [required]
+* `--machine-learning-facial-recognition-enabled`: Whether the task is enabled  [required]
+* `--machine-learning-facial-recognition-max-distance <float range>`: Maximum distance threshold for face recognition  [0.1&lt;=x&lt;=2; required]
+* `--machine-learning-facial-recognition-min-faces <int range>`: Minimum number of faces required for recognition  [1&lt;=x&lt;=9007199254740991; required]
+* `--machine-learning-facial-recognition-min-score <float range>`: Minimum confidence score for face detection  [0.1&lt;=x&lt;=1; required]
+* `--machine-learning-facial-recognition-model-name <str>`: Name of the model to use  [required]
+* `--machine-learning-ocr-enabled`: Whether the task is enabled  [required]
+* `--machine-learning-ocr-max-resolution <int range>`: Maximum resolution for OCR processing  [1&lt;=x&lt;=9007199254740991; required]
+* `--machine-learning-ocr-min-detection-score <float range>`: Minimum confidence score for text detection  [0.1&lt;=x&lt;=1; required]
+* `--machine-learning-ocr-min-recognition-score <float range>`: Minimum confidence score for text recognition  [0.1&lt;=x&lt;=1; required]
+* `--machine-learning-ocr-model-name <str>`: Name of the model to use  [required]
+* `--machine-learning-urls <str>`: ML service URLs  [required]
+* `--map-dark-style <str>`: Dark map style URL  [required]
+* `--map-enabled`: Enabled  [required]
+* `--map-light-style <str>`: Light map style URL  [required]
+* `--metadata-faces-import`: Import  [required]
+* `--new-version-check-channel <stable|releaseCandidate>`: Release channel  [required]
+* `--new-version-check-enabled`: Enabled  [required]
+* `--nightly-tasks-cluster-new-faces`: Cluster new faces  [required]
+* `--nightly-tasks-database-cleanup`: Database cleanup  [required]
+* `--nightly-tasks-generate-memories`: Generate memories  [required]
+* `--nightly-tasks-missing-thumbnails`: Missing thumbnails  [required]
+* `--nightly-tasks-start-time <str>`: Start time (HH:MM)  [required]
+* `--nightly-tasks-sync-quota-usage`: Sync quota usage  [required]
+* `--notifications-smtp-enabled`: Whether SMTP email notifications are enabled  [required]
+* `--notifications-smtp-from <str>`: Email address to send from  [required]
+* `--notifications-smtp-reply-to <str>`: Email address for replies  [required]
+* `--notifications-smtp-transport-host <str>`: SMTP server hostname  [required]
+* `--notifications-smtp-transport-ignore-cert`: Whether to ignore SSL certificate errors  [required]
+* `--notifications-smtp-transport-password <str>`: SMTP password  [required]
+* `--notifications-smtp-transport-port <int range>`: SMTP server port  [0&lt;=x&lt;=65535; required]
+* `--notifications-smtp-transport-secure`: Whether to use secure connection (TLS/SSL)  [required]
+* `--notifications-smtp-transport-username <str>`: SMTP username  [required]
+* `--oauth-account-management-url <str>`: Account management URL
+* `--oauth-allow-insecure-requests`: Allow insecure requests  [required]
+* `--oauth-auto-launch`: Auto launch  [required]
+* `--oauth-auto-register`: Auto register  [required]
+* `--oauth-button-text <str>`: Button text  [required]
+* `--oauth-client-id <str>`: Client ID  [required]
+* `--oauth-client-secret <str>`: Client secret  [required]
+* `--oauth-default-storage-quota <int range>`: Default storage quota  [0&lt;=x&lt;=9007199254740991; required]
+* `--oauth-enabled`: Enabled  [required]
+* `--oauth-end-session-endpoint <str>`: End session endpoint  [required]
+* `--oauth-issuer-url <str>`: Issuer URL  [required]
+* `--oauth-mobile-override-enabled`: Mobile override enabled  [required]
+* `--oauth-mobile-redirect-uri <str>`: Mobile redirect URI (set to empty string to disable)  [required]
+* `--oauth-profile-signing-algorithm <str>`: Profile signing algorithm  [required]
+* `--oauth-prompt <str>`: OAuth prompt parameter (e.g. select_account, login, consent)  [required]
+* `--oauth-role-claim <str>`: Role claim  [required]
+* `--oauth-scope <str>`: Scope  [required]
+* `--oauth-signing-algorithm <str>`: Signing algorithm  [required]
+* `--oauth-storage-label-claim <str>`: Storage label claim  [required]
+* `--oauth-storage-quota-claim <str>`: Storage quota claim  [required]
+* `--oauth-timeout <int range>`: Timeout  [1&lt;=x&lt;=9007199254740991; required]
+* `--oauth-token-endpoint-auth-method <client_secret_post|client_secret_basic>`: OAuth token endpoint auth method  [required]
+* `--password-login-enabled`: Enabled  [required]
+* `--reverse-geocoding-enabled`: Enabled  [required]
+* `--server-external-domain <str>`: External domain  [required]
+* `--server-login-page-message <str>`: Login page message  [required]
+* `--server-public-users`: Public users  [required]
+* `--storage-template-enabled`: Enabled  [required]
+* `--storage-template-hash-verification-enabled`: Hash verification enabled  [required]
+* `--storage-template-template <str>`: Template  [required]
+* `--templates-email-album-invite-template <str>`: Album invite template  [required]
+* `--templates-email-album-update-template <str>`: Album update template  [required]
+* `--templates-email-welcome-template <str>`: Welcome template  [required]
+* `--theme-custom-css <str>`: Custom CSS for theming  [required]
+* `--trash-days <int range>`: Days  [0&lt;=x&lt;=9007199254740991; required]
+* `--trash-enabled`: Enabled  [required]
+* `--user-delete-delay <int range>`: Delete delay  [1&lt;=x&lt;=9007199254740991; required]
+* `--help`: Show this message and exit.
+
+## `immichpy config-public`
+
+The system configuration properties that are visible to everyone.
+
+<a href="https://api.immich.app/endpoints/config-public">Immich API documentation</a>
+
+**Usage**:
+
+```console
+immichpy config-public [OPTIONS] COMMAND [ARGS]...
+```
+
+**Options**:
+
+* `--help`: Show this message and exit.
+
+**Commands**:
+
+* `get-public-config`: Get the public configuration
+* `get-public-config-defaults`: Get the public configuration defaults
+
+### `immichpy config-public get-public-config`
+
+Get the public configuration
+
+<a href="https://api.immich.app/endpoints/config-public/getPublicConfig">Immich API documentation</a>
+
+**Usage**:
+
+```console
+immichpy config-public get-public-config [OPTIONS]
+```
+
+**Options**:
+
+* `--help`: Show this message and exit.
+
+### `immichpy config-public get-public-config-defaults`
+
+Get the public configuration defaults
+
+<a href="https://api.immich.app/endpoints/config-public/getPublicConfigDefaults">Immich API documentation</a>
+
+**Usage**:
+
+```console
+immichpy config-public get-public-config-defaults [OPTIONS]
+```
+
+**Options**:
+
+* `--help`: Show this message and exit.
+
+## `immichpy config-user`
+
+The system configuration properties that are visible to logged in users.
+
+<a href="https://api.immich.app/endpoints/config-user">Immich API documentation</a>
+
+**Usage**:
+
+```console
+immichpy config-user [OPTIONS] COMMAND [ARGS]...
+```
+
+**Options**:
+
+* `--help`: Show this message and exit.
+
+**Commands**:
+
+* `get-user-config`: Get the configuration with user visibility
+* `get-user-config-defaults`: Get the default configuration with user...
+
+### `immichpy config-user get-user-config`
+
+Get the configuration with user visibility
+
+<a href="https://api.immich.app/endpoints/config-user/getUserConfig">Immich API documentation</a>
+
+**Usage**:
+
+```console
+immichpy config-user get-user-config [OPTIONS]
+```
+
+**Options**:
+
+* `--help`: Show this message and exit.
+
+### `immichpy config-user get-user-config-defaults`
+
+Get the default configuration with user visibility
+
+<a href="https://api.immich.app/endpoints/config-user/getUserConfigDefaults">Immich API documentation</a>
+
+**Usage**:
+
+```console
+immichpy config-user get-user-config-defaults [OPTIONS]
 ```
 
 **Options**:
