@@ -2,8 +2,12 @@
 
 from __future__ import annotations
 
+import pkgutil
+from importlib import import_module
+
 from typer.main import get_command
 
+from immichpy.cli import commands
 from immichpy.cli.consts import SKIP_CLIENT_SETUP_KEY
 from immichpy.cli.main import app
 
@@ -42,3 +46,14 @@ class TestSkipClientSetup:
     def test_leaf_command_with_options_does_not_skip(self) -> None:
         """A leaf command with trailing option tokens still requires a client."""
         assert skip_for(["server", "set-server-license", "--license-key", "X"]) is False
+
+
+def test_all_command_modules_registered() -> None:
+    """Every generated command module is mounted on the main app."""
+    registered = {group.typer_instance for group in app.registered_groups}
+    unregistered = [
+        module.name
+        for module in pkgutil.iter_modules(commands.__path__)
+        if import_module(f"{commands.__name__}.{module.name}").app not in registered
+    ]
+    assert unregistered == []
