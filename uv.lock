@@ -562,7 +562,7 @@ docs = [
 requires-dist = [
     { name = "aiohttp", specifier = ">=3.8.4,<4.0.0" },
     { name = "aiohttp-retry", specifier = ">=2.8.3,<3.0.0" },
-    { name = "pydantic", specifier = ">=2.10.0,<3.0.0" },
+    { name = "pydantic", specifier = ">=2.12.0,<3.0.0" },
     { name = "pystatx", specifier = ">=0.1,<1" },
     { name = "python-dateutil", specifier = ">=2.8.2,<3.0.0" },
     { name = "regex", specifier = ">=2024.11.6" },

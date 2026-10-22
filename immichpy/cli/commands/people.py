@@ -361,7 +361,8 @@ def remove_users_from_people(
     value_items = parse_json_options(items, "--items", ctx=ctx)
     set_nested(json_data, ["items"], value_items)
     person_users_delete_dto_inner = [
-        PersonUsersDeleteDtoInner.model_validate(item) for item in json_data["items"]
+        PersonUsersDeleteDtoInner.model_validate(item, extra="forbid")
+        for item in json_data["items"]
     ]
     kwargs["person_users_delete_dto_inner"] = person_users_delete_dto_inner
     client: AsyncClient = ctx.obj["client"]

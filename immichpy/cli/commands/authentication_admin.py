@@ -9,10 +9,7 @@ import typer
 if TYPE_CHECKING:
     from immichpy import AsyncClient
 
-from immichpy.cli.runtime import (
-    print_response,
-    run_command,
-)
+from immichpy.cli.runtime import print_response, run_command
 
 app = typer.Typer(
     help="""Administrative endpoints related to authentication.\n\n[link=https://api.immich.app/endpoints/authentication-admin]Immich API documentation[/link]"""

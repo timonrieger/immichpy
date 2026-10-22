@@ -542,7 +542,7 @@ def generate_command_function(
                     used_models.add(inner_model)
                     model_instance = to_snake_case(inner_model)
                     lines.append(
-                        f"    {model_instance} = [{inner_model}.model_validate(item) for item in json_data[{param.body_path[0]!r}]]"
+                        f"    {model_instance} = [{inner_model}.model_validate(item, extra='forbid') for item in json_data[{param.body_path[0]!r}]]"
                     )
                     lines.append(f"    kwargs['{model_instance}'] = {model_instance}")
                 elif media_type == "application/json":
