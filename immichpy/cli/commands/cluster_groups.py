@@ -10,7 +10,11 @@ import typer
 if TYPE_CHECKING:
     from immichpy import AsyncClient
 
-from immichpy.cli.runtime import print_response, run_command, set_nested
+from immichpy.cli.runtime import (
+    print_response,
+    run_command,
+    set_nested,
+)
 from immichpy.client.generated.models import ClusterGroupRequestCreateDto
 
 app = typer.Typer(
@@ -75,7 +79,7 @@ def create_cluster_group_request(
     kwargs = {}
     json_data = {}
     kwargs["id"] = id
-    set_nested(json_data, ["user_id"], user_id)
+    set_nested(json_data, ["userId"], user_id)
     cluster_group_request_create_dto = ClusterGroupRequestCreateDto.model_validate(
         json_data
     )

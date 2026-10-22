@@ -75,11 +75,11 @@ Example: 2024-01-01T00:00:00.000Z""",
     if level is not None:
         set_nested(json_data, ["level"], level)
     if read_at is not None:
-        set_nested(json_data, ["read_at"], read_at)
+        set_nested(json_data, ["readAt"], read_at)
     set_nested(json_data, ["title"], title)
     if type is not None:
         set_nested(json_data, ["type"], type)
-    set_nested(json_data, ["user_id"], user_id)
+    set_nested(json_data, ["userId"], user_id)
     notification_create_dto = NotificationCreateDto.model_validate(json_data)
     kwargs["notification_create_dto"] = notification_create_dto
     client: AsyncClient = ctx.obj["client"]
@@ -154,14 +154,14 @@ def send_test_email_admin(
     kwargs = {}
     json_data = {}
     set_nested(json_data, ["enabled"], enabled)
-    set_nested(json_data, ["from_"], from_)
-    set_nested(json_data, ["reply_to"], reply_to)
-    set_nested(json_data, ["transport_host"], transport_host)
-    set_nested(json_data, ["transport_ignore_cert"], transport_ignore_cert)
-    set_nested(json_data, ["transport_password"], transport_password)
-    set_nested(json_data, ["transport_port"], transport_port)
-    set_nested(json_data, ["transport_secure"], transport_secure)
-    set_nested(json_data, ["transport_username"], transport_username)
+    set_nested(json_data, ["from"], from_)
+    set_nested(json_data, ["replyTo"], reply_to)
+    set_nested(json_data, ["transport", "host"], transport_host)
+    set_nested(json_data, ["transport", "ignoreCert"], transport_ignore_cert)
+    set_nested(json_data, ["transport", "password"], transport_password)
+    set_nested(json_data, ["transport", "port"], transport_port)
+    set_nested(json_data, ["transport", "secure"], transport_secure)
+    set_nested(json_data, ["transport", "username"], transport_username)
     admin_config_smtp_dto = AdminConfigSmtpDto.model_validate(json_data)
     kwargs["admin_config_smtp_dto"] = admin_config_smtp_dto
     client: AsyncClient = ctx.obj["client"]

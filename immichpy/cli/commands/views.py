@@ -9,7 +9,10 @@ import typer
 if TYPE_CHECKING:
     from immichpy import AsyncClient
 
-from immichpy.cli.runtime import print_response, run_command
+from immichpy.cli.runtime import (
+    print_response,
+    run_command,
+)
 
 app = typer.Typer(
     help="""Endpoints for specialized views, such as the folder view.\n\n[link=https://api.immich.app/endpoints/views]Immich API documentation[/link]"""

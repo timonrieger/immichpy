@@ -66,6 +66,8 @@ class RequestParam(BaseModel):
     """The operation ID."""
     model_name: str | None = None
     """The name of the model."""
+    body_path: list[str] | None = None
+    """The key path of a body parameter in the request body."""
 
     @property
     def flag_name(self) -> str:
@@ -306,7 +308,8 @@ def get_request_body_info(
         return []
 
     request_body = operation["requestBody"]
-    ref: str = request_body["content"][_get_media_type(operation)]["schema"]["$ref"]
+    media_type = _get_media_type(operation)
+    ref: str = request_body["content"][media_type]["schema"]["$ref"]
     model_name: str = ref.split("/")[-1]
     resolved_schema = resolve_schema_ref(spec, ref)
     flattened = flatten_schema(resolved_schema, spec)
@@ -342,6 +345,10 @@ def get_request_body_info(
             description=description,
             model_name=model_name,
             operation_id=operation["operationId"],
+            # JSON bodies nest by wire name, form bodies are flat kwargs of the API method
+            body_path=list(path_parts) or [param_name]
+            if media_type == "application/json"
+            else [param_name],
         )
         params.append(param)
     return params
@@ -480,12 +487,12 @@ def generate_command_function(
                             f'    value_{param.name} = parse_json_option({param.name}, "--{param.flag_name}", ctx=ctx)'
                         )
                     lines.append(
-                        f"    set_nested(json_data, [{param.name!r}], value_{param.name})"
+                        f"    set_nested(json_data, {param.body_path!r}, value_{param.name})"
                     )
                 else:
                     if param.type == "bool" and not param.required:
                         lines.append(
-                            f"    set_nested(json_data, [{param.name!r}], {param.name}.lower() == 'true')"
+                            f"    set_nested(json_data, {param.body_path!r}, {param.name}.lower() == 'true')"
                         )
                     elif param.type == "Path":
                         lines.append(
@@ -493,7 +500,7 @@ def generate_command_function(
                         )
                     else:
                         lines.append(
-                            f"    set_nested(json_data, [{param.name!r}], {param.name})"
+                            f"    set_nested(json_data, {param.body_path!r}, {param.name})"
                         )
             else:
                 lines.append(f"    if {param.name} is not None:")
@@ -507,20 +514,20 @@ def generate_command_function(
                             f'        value_{param.name} = parse_json_option({param.name}, "--{param.flag_name}", ctx=ctx)'
                         )
                     lines.append(
-                        f"        set_nested(json_data, [{param.name!r}], value_{param.name})"
+                        f"        set_nested(json_data, {param.body_path!r}, value_{param.name})"
                     )
                 else:
                     if param.type == "bool" and not param.required:
                         lines.append(
-                            f"        set_nested(json_data, [{param.name!r}], {param.name}.lower() == 'true')"
+                            f"        set_nested(json_data, {param.body_path!r}, {param.name}.lower() == 'true')"
                         )
                     elif param.type == "Path":
                         lines.append(
-                            f"        set_nested(json_data, [{param.name!r}], ({param.name}.name, {param.name}.read_bytes()))"
+                            f"        set_nested(json_data, {param.body_path!r}, ({param.name}.name, {param.name}.read_bytes()))"
                         )
                     else:
                         lines.append(
-                            f"        set_nested(json_data, [{param.name!r}], {param.name})"
+                            f"        set_nested(json_data, {param.body_path!r}, {param.name})"
                         )
             if idx == len(param_data) - 1:
                 media_type = _get_media_type(operation)
@@ -535,7 +542,7 @@ def generate_command_function(
                     used_models.add(inner_model)
                     model_instance = to_snake_case(inner_model)
                     lines.append(
-                        f"    {model_instance} = [{inner_model}.model_validate(item) for item in json_data[{param.name!r}]]"
+                        f"    {model_instance} = [{inner_model}.model_validate(item) for item in json_data[{param.body_path[0]!r}]]"
                     )
                     lines.append(f"    kwargs['{model_instance}'] = {model_instance}")
                 elif media_type == "application/json":

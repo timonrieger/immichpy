@@ -9,7 +9,11 @@ import typer
 if TYPE_CHECKING:
     from immichpy import AsyncClient
 
-from immichpy.cli.runtime import print_response, run_command, set_nested
+from immichpy.cli.runtime import (
+    print_response,
+    run_command,
+    set_nested,
+)
 from immichpy.client.generated.models import AdminOnboardingUpdateDto
 
 app = typer.Typer(
@@ -82,7 +86,7 @@ def update_admin_onboarding(
     """
     kwargs = {}
     json_data = {}
-    set_nested(json_data, ["is_onboarded"], is_onboarded)
+    set_nested(json_data, ["isOnboarded"], is_onboarded)
     admin_onboarding_update_dto = AdminOnboardingUpdateDto.model_validate(json_data)
     kwargs["admin_onboarding_update_dto"] = admin_onboarding_update_dto
     client: AsyncClient = ctx.obj["client"]

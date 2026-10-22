@@ -10,7 +10,11 @@ import typer
 if TYPE_CHECKING:
     from immichpy import AsyncClient
 
-from immichpy.cli.runtime import print_response, run_command, set_nested
+from immichpy.cli.runtime import (
+    print_response,
+    run_command,
+    set_nested,
+)
 from immichpy.client.generated.models import BulkIdsDto, StackCreateDto, StackUpdateDto
 
 app = typer.Typer(
@@ -31,7 +35,7 @@ def create_stack(
     """
     kwargs = {}
     json_data = {}
-    set_nested(json_data, ["asset_ids"], asset_ids)
+    set_nested(json_data, ["assetIds"], asset_ids)
     stack_create_dto = StackCreateDto.model_validate(json_data)
     kwargs["stack_create_dto"] = stack_create_dto
     client: AsyncClient = ctx.obj["client"]
@@ -145,7 +149,7 @@ def update_stack(
     json_data = {}
     kwargs["id"] = id
     if primary_asset_id is not None:
-        set_nested(json_data, ["primary_asset_id"], primary_asset_id)
+        set_nested(json_data, ["primaryAssetId"], primary_asset_id)
     stack_update_dto = StackUpdateDto.model_validate(json_data)
     kwargs["stack_update_dto"] = stack_update_dto
     client: AsyncClient = ctx.obj["client"]

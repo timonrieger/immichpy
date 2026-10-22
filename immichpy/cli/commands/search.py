@@ -593,374 +593,418 @@ Example: 2024-01-01T00:00:00.000Z""",
     kwargs = {}
     json_data = {}
     if album_ids is not None:
-        set_nested(json_data, ["album_ids"], album_ids)
+        set_nested(json_data, ["albumIds"], album_ids)
     if city is not None:
         set_nested(json_data, ["city"], city)
     if country is not None:
         set_nested(json_data, ["country"], country)
     if created_after is not None:
-        set_nested(json_data, ["created_after"], created_after)
+        set_nested(json_data, ["createdAfter"], created_after)
     if created_before is not None:
-        set_nested(json_data, ["created_before"], created_before)
+        set_nested(json_data, ["createdBefore"], created_before)
     if description is not None:
         set_nested(json_data, ["description"], description)
     if filter_album_ids_all is not None:
-        set_nested(json_data, ["filter_album_ids_all"], filter_album_ids_all)
+        set_nested(json_data, ["filter", "albumIds", "all"], filter_album_ids_all)
     if filter_album_ids_any is not None:
-        set_nested(json_data, ["filter_album_ids_any"], filter_album_ids_any)
+        set_nested(json_data, ["filter", "albumIds", "any"], filter_album_ids_any)
     if filter_album_ids_none is not None:
-        set_nested(json_data, ["filter_album_ids_none"], filter_album_ids_none)
+        set_nested(json_data, ["filter", "albumIds", "none"], filter_album_ids_none)
     if filter_checksum_eq is not None:
-        set_nested(json_data, ["filter_checksum_eq"], filter_checksum_eq)
+        set_nested(json_data, ["filter", "checksum", "eq"], filter_checksum_eq)
     if filter_checksum_in_ is not None:
-        set_nested(json_data, ["filter_checksum_in_"], filter_checksum_in_)
+        set_nested(json_data, ["filter", "checksum", "in"], filter_checksum_in_)
     if filter_checksum_ne is not None:
-        set_nested(json_data, ["filter_checksum_ne"], filter_checksum_ne)
+        set_nested(json_data, ["filter", "checksum", "ne"], filter_checksum_ne)
     if filter_checksum_not_in is not None:
-        set_nested(json_data, ["filter_checksum_not_in"], filter_checksum_not_in)
+        set_nested(json_data, ["filter", "checksum", "notIn"], filter_checksum_not_in)
     if filter_city_eq is not None:
-        set_nested(json_data, ["filter_city_eq"], filter_city_eq)
+        set_nested(json_data, ["filter", "city", "eq"], filter_city_eq)
     if filter_city_in_ is not None:
-        set_nested(json_data, ["filter_city_in_"], filter_city_in_)
+        set_nested(json_data, ["filter", "city", "in"], filter_city_in_)
     if filter_city_ne is not None:
-        set_nested(json_data, ["filter_city_ne"], filter_city_ne)
+        set_nested(json_data, ["filter", "city", "ne"], filter_city_ne)
     if filter_city_not_in is not None:
-        set_nested(json_data, ["filter_city_not_in"], filter_city_not_in)
+        set_nested(json_data, ["filter", "city", "notIn"], filter_city_not_in)
     if filter_country_eq is not None:
-        set_nested(json_data, ["filter_country_eq"], filter_country_eq)
+        set_nested(json_data, ["filter", "country", "eq"], filter_country_eq)
     if filter_country_in_ is not None:
-        set_nested(json_data, ["filter_country_in_"], filter_country_in_)
+        set_nested(json_data, ["filter", "country", "in"], filter_country_in_)
     if filter_country_ne is not None:
-        set_nested(json_data, ["filter_country_ne"], filter_country_ne)
+        set_nested(json_data, ["filter", "country", "ne"], filter_country_ne)
     if filter_country_not_in is not None:
-        set_nested(json_data, ["filter_country_not_in"], filter_country_not_in)
+        set_nested(json_data, ["filter", "country", "notIn"], filter_country_not_in)
     if filter_created_at_eq is not None:
-        set_nested(json_data, ["filter_created_at_eq"], filter_created_at_eq)
+        set_nested(json_data, ["filter", "createdAt", "eq"], filter_created_at_eq)
     if filter_created_at_gt is not None:
-        set_nested(json_data, ["filter_created_at_gt"], filter_created_at_gt)
+        set_nested(json_data, ["filter", "createdAt", "gt"], filter_created_at_gt)
     if filter_created_at_gte is not None:
-        set_nested(json_data, ["filter_created_at_gte"], filter_created_at_gte)
+        set_nested(json_data, ["filter", "createdAt", "gte"], filter_created_at_gte)
     if filter_created_at_lt is not None:
-        set_nested(json_data, ["filter_created_at_lt"], filter_created_at_lt)
+        set_nested(json_data, ["filter", "createdAt", "lt"], filter_created_at_lt)
     if filter_created_at_lte is not None:
-        set_nested(json_data, ["filter_created_at_lte"], filter_created_at_lte)
+        set_nested(json_data, ["filter", "createdAt", "lte"], filter_created_at_lte)
     if filter_created_at_ne is not None:
-        set_nested(json_data, ["filter_created_at_ne"], filter_created_at_ne)
+        set_nested(json_data, ["filter", "createdAt", "ne"], filter_created_at_ne)
     if filter_description_ends_with is not None:
         set_nested(
-            json_data, ["filter_description_ends_with"], filter_description_ends_with
+            json_data,
+            ["filter", "description", "endsWith"],
+            filter_description_ends_with,
         )
     if filter_description_eq is not None:
-        set_nested(json_data, ["filter_description_eq"], filter_description_eq)
+        set_nested(json_data, ["filter", "description", "eq"], filter_description_eq)
     if filter_description_in_ is not None:
-        set_nested(json_data, ["filter_description_in_"], filter_description_in_)
+        set_nested(json_data, ["filter", "description", "in"], filter_description_in_)
     if filter_description_like is not None:
-        set_nested(json_data, ["filter_description_like"], filter_description_like)
+        set_nested(
+            json_data, ["filter", "description", "like"], filter_description_like
+        )
     if filter_description_ne is not None:
-        set_nested(json_data, ["filter_description_ne"], filter_description_ne)
+        set_nested(json_data, ["filter", "description", "ne"], filter_description_ne)
     if filter_description_not_in is not None:
-        set_nested(json_data, ["filter_description_not_in"], filter_description_not_in)
+        set_nested(
+            json_data, ["filter", "description", "notIn"], filter_description_not_in
+        )
     if filter_description_not_like is not None:
         set_nested(
-            json_data, ["filter_description_not_like"], filter_description_not_like
+            json_data, ["filter", "description", "notLike"], filter_description_not_like
         )
     if filter_description_starts_with is not None:
         set_nested(
             json_data,
-            ["filter_description_starts_with"],
+            ["filter", "description", "startsWith"],
             filter_description_starts_with,
         )
     if filter_encoded_video_path_eq is not None:
         set_nested(
-            json_data, ["filter_encoded_video_path_eq"], filter_encoded_video_path_eq
+            json_data,
+            ["filter", "encodedVideoPath", "eq"],
+            filter_encoded_video_path_eq,
         )
     if filter_encoded_video_path_in_ is not None:
         set_nested(
-            json_data, ["filter_encoded_video_path_in_"], filter_encoded_video_path_in_
+            json_data,
+            ["filter", "encodedVideoPath", "in"],
+            filter_encoded_video_path_in_,
         )
     if filter_encoded_video_path_ne is not None:
         set_nested(
-            json_data, ["filter_encoded_video_path_ne"], filter_encoded_video_path_ne
+            json_data,
+            ["filter", "encodedVideoPath", "ne"],
+            filter_encoded_video_path_ne,
         )
     if filter_encoded_video_path_not_in is not None:
         set_nested(
             json_data,
-            ["filter_encoded_video_path_not_in"],
+            ["filter", "encodedVideoPath", "notIn"],
             filter_encoded_video_path_not_in,
         )
     if filter_file_size_in_bytes_eq is not None:
         set_nested(
-            json_data, ["filter_file_size_in_bytes_eq"], filter_file_size_in_bytes_eq
+            json_data, ["filter", "fileSizeInBytes", "eq"], filter_file_size_in_bytes_eq
         )
     if filter_file_size_in_bytes_gt is not None:
         set_nested(
-            json_data, ["filter_file_size_in_bytes_gt"], filter_file_size_in_bytes_gt
+            json_data, ["filter", "fileSizeInBytes", "gt"], filter_file_size_in_bytes_gt
         )
     if filter_file_size_in_bytes_gte is not None:
         set_nested(
-            json_data, ["filter_file_size_in_bytes_gte"], filter_file_size_in_bytes_gte
+            json_data,
+            ["filter", "fileSizeInBytes", "gte"],
+            filter_file_size_in_bytes_gte,
         )
     if filter_file_size_in_bytes_in_ is not None:
         set_nested(
-            json_data, ["filter_file_size_in_bytes_in_"], filter_file_size_in_bytes_in_
+            json_data,
+            ["filter", "fileSizeInBytes", "in"],
+            filter_file_size_in_bytes_in_,
         )
     if filter_file_size_in_bytes_lt is not None:
         set_nested(
-            json_data, ["filter_file_size_in_bytes_lt"], filter_file_size_in_bytes_lt
+            json_data, ["filter", "fileSizeInBytes", "lt"], filter_file_size_in_bytes_lt
         )
     if filter_file_size_in_bytes_lte is not None:
         set_nested(
-            json_data, ["filter_file_size_in_bytes_lte"], filter_file_size_in_bytes_lte
+            json_data,
+            ["filter", "fileSizeInBytes", "lte"],
+            filter_file_size_in_bytes_lte,
         )
     if filter_file_size_in_bytes_ne is not None:
         set_nested(
-            json_data, ["filter_file_size_in_bytes_ne"], filter_file_size_in_bytes_ne
+            json_data, ["filter", "fileSizeInBytes", "ne"], filter_file_size_in_bytes_ne
         )
     if filter_file_size_in_bytes_not_in is not None:
         set_nested(
             json_data,
-            ["filter_file_size_in_bytes_not_in"],
+            ["filter", "fileSizeInBytes", "notIn"],
             filter_file_size_in_bytes_not_in,
         )
     if filter_has_albums_eq is not None:
         set_nested(
-            json_data, ["filter_has_albums_eq"], filter_has_albums_eq.lower() == "true"
+            json_data,
+            ["filter", "hasAlbums", "eq"],
+            filter_has_albums_eq.lower() == "true",
         )
     if filter_has_people_eq is not None:
         set_nested(
-            json_data, ["filter_has_people_eq"], filter_has_people_eq.lower() == "true"
+            json_data,
+            ["filter", "hasPeople", "eq"],
+            filter_has_people_eq.lower() == "true",
         )
     if filter_has_tags_eq is not None:
         set_nested(
-            json_data, ["filter_has_tags_eq"], filter_has_tags_eq.lower() == "true"
+            json_data, ["filter", "hasTags", "eq"], filter_has_tags_eq.lower() == "true"
         )
     if filter_id_eq is not None:
-        set_nested(json_data, ["filter_id_eq"], filter_id_eq)
+        set_nested(json_data, ["filter", "id", "eq"], filter_id_eq)
     if filter_id_ne is not None:
-        set_nested(json_data, ["filter_id_ne"], filter_id_ne)
+        set_nested(json_data, ["filter", "id", "ne"], filter_id_ne)
     if filter_is_encoded_eq is not None:
         set_nested(
-            json_data, ["filter_is_encoded_eq"], filter_is_encoded_eq.lower() == "true"
+            json_data,
+            ["filter", "isEncoded", "eq"],
+            filter_is_encoded_eq.lower() == "true",
         )
     if filter_is_favorite_eq is not None:
         set_nested(
             json_data,
-            ["filter_is_favorite_eq"],
+            ["filter", "isFavorite", "eq"],
             filter_is_favorite_eq.lower() == "true",
         )
     if filter_is_motion_eq is not None:
         set_nested(
-            json_data, ["filter_is_motion_eq"], filter_is_motion_eq.lower() == "true"
+            json_data,
+            ["filter", "isMotion", "eq"],
+            filter_is_motion_eq.lower() == "true",
         )
     if filter_is_offline_eq is not None:
         set_nested(
-            json_data, ["filter_is_offline_eq"], filter_is_offline_eq.lower() == "true"
+            json_data,
+            ["filter", "isOffline", "eq"],
+            filter_is_offline_eq.lower() == "true",
         )
     if filter_lens_model_eq is not None:
-        set_nested(json_data, ["filter_lens_model_eq"], filter_lens_model_eq)
+        set_nested(json_data, ["filter", "lensModel", "eq"], filter_lens_model_eq)
     if filter_lens_model_in_ is not None:
-        set_nested(json_data, ["filter_lens_model_in_"], filter_lens_model_in_)
+        set_nested(json_data, ["filter", "lensModel", "in"], filter_lens_model_in_)
     if filter_lens_model_ne is not None:
-        set_nested(json_data, ["filter_lens_model_ne"], filter_lens_model_ne)
+        set_nested(json_data, ["filter", "lensModel", "ne"], filter_lens_model_ne)
     if filter_lens_model_not_in is not None:
-        set_nested(json_data, ["filter_lens_model_not_in"], filter_lens_model_not_in)
+        set_nested(
+            json_data, ["filter", "lensModel", "notIn"], filter_lens_model_not_in
+        )
     if filter_library_id_eq is not None:
-        set_nested(json_data, ["filter_library_id_eq"], filter_library_id_eq)
+        set_nested(json_data, ["filter", "libraryId", "eq"], filter_library_id_eq)
     if filter_library_id_ne is not None:
-        set_nested(json_data, ["filter_library_id_ne"], filter_library_id_ne)
+        set_nested(json_data, ["filter", "libraryId", "ne"], filter_library_id_ne)
     if filter_make_eq is not None:
-        set_nested(json_data, ["filter_make_eq"], filter_make_eq)
+        set_nested(json_data, ["filter", "make", "eq"], filter_make_eq)
     if filter_make_in_ is not None:
-        set_nested(json_data, ["filter_make_in_"], filter_make_in_)
+        set_nested(json_data, ["filter", "make", "in"], filter_make_in_)
     if filter_make_ne is not None:
-        set_nested(json_data, ["filter_make_ne"], filter_make_ne)
+        set_nested(json_data, ["filter", "make", "ne"], filter_make_ne)
     if filter_make_not_in is not None:
-        set_nested(json_data, ["filter_make_not_in"], filter_make_not_in)
+        set_nested(json_data, ["filter", "make", "notIn"], filter_make_not_in)
     if filter_model_eq is not None:
-        set_nested(json_data, ["filter_model_eq"], filter_model_eq)
+        set_nested(json_data, ["filter", "model", "eq"], filter_model_eq)
     if filter_model_in_ is not None:
-        set_nested(json_data, ["filter_model_in_"], filter_model_in_)
+        set_nested(json_data, ["filter", "model", "in"], filter_model_in_)
     if filter_model_ne is not None:
-        set_nested(json_data, ["filter_model_ne"], filter_model_ne)
+        set_nested(json_data, ["filter", "model", "ne"], filter_model_ne)
     if filter_model_not_in is not None:
-        set_nested(json_data, ["filter_model_not_in"], filter_model_not_in)
+        set_nested(json_data, ["filter", "model", "notIn"], filter_model_not_in)
     if filter_ocr_matches is not None:
-        set_nested(json_data, ["filter_ocr_matches"], filter_ocr_matches)
+        set_nested(json_data, ["filter", "ocr", "matches"], filter_ocr_matches)
     if filter_or_ is not None:
         value_filter_or_ = parse_json_options(filter_or_, "--filter-or", ctx=ctx)
-        set_nested(json_data, ["filter_or_"], value_filter_or_)
+        set_nested(json_data, ["filter", "or"], value_filter_or_)
     if filter_original_file_name_ends_with is not None:
         set_nested(
             json_data,
-            ["filter_original_file_name_ends_with"],
+            ["filter", "originalFileName", "endsWith"],
             filter_original_file_name_ends_with,
         )
     if filter_original_file_name_eq is not None:
         set_nested(
-            json_data, ["filter_original_file_name_eq"], filter_original_file_name_eq
+            json_data,
+            ["filter", "originalFileName", "eq"],
+            filter_original_file_name_eq,
         )
     if filter_original_file_name_in_ is not None:
         set_nested(
-            json_data, ["filter_original_file_name_in_"], filter_original_file_name_in_
+            json_data,
+            ["filter", "originalFileName", "in"],
+            filter_original_file_name_in_,
         )
     if filter_original_file_name_like is not None:
         set_nested(
             json_data,
-            ["filter_original_file_name_like"],
+            ["filter", "originalFileName", "like"],
             filter_original_file_name_like,
         )
     if filter_original_file_name_ne is not None:
         set_nested(
-            json_data, ["filter_original_file_name_ne"], filter_original_file_name_ne
+            json_data,
+            ["filter", "originalFileName", "ne"],
+            filter_original_file_name_ne,
         )
     if filter_original_file_name_not_in is not None:
         set_nested(
             json_data,
-            ["filter_original_file_name_not_in"],
+            ["filter", "originalFileName", "notIn"],
             filter_original_file_name_not_in,
         )
     if filter_original_file_name_not_like is not None:
         set_nested(
             json_data,
-            ["filter_original_file_name_not_like"],
+            ["filter", "originalFileName", "notLike"],
             filter_original_file_name_not_like,
         )
     if filter_original_file_name_starts_with is not None:
         set_nested(
             json_data,
-            ["filter_original_file_name_starts_with"],
+            ["filter", "originalFileName", "startsWith"],
             filter_original_file_name_starts_with,
         )
     if filter_original_path_ends_with is not None:
         set_nested(
             json_data,
-            ["filter_original_path_ends_with"],
+            ["filter", "originalPath", "endsWith"],
             filter_original_path_ends_with,
         )
     if filter_original_path_eq is not None:
-        set_nested(json_data, ["filter_original_path_eq"], filter_original_path_eq)
+        set_nested(json_data, ["filter", "originalPath", "eq"], filter_original_path_eq)
     if filter_original_path_in_ is not None:
-        set_nested(json_data, ["filter_original_path_in_"], filter_original_path_in_)
+        set_nested(
+            json_data, ["filter", "originalPath", "in"], filter_original_path_in_
+        )
     if filter_original_path_like is not None:
-        set_nested(json_data, ["filter_original_path_like"], filter_original_path_like)
+        set_nested(
+            json_data, ["filter", "originalPath", "like"], filter_original_path_like
+        )
     if filter_original_path_ne is not None:
-        set_nested(json_data, ["filter_original_path_ne"], filter_original_path_ne)
+        set_nested(json_data, ["filter", "originalPath", "ne"], filter_original_path_ne)
     if filter_original_path_not_in is not None:
         set_nested(
-            json_data, ["filter_original_path_not_in"], filter_original_path_not_in
+            json_data, ["filter", "originalPath", "notIn"], filter_original_path_not_in
         )
     if filter_original_path_not_like is not None:
         set_nested(
-            json_data, ["filter_original_path_not_like"], filter_original_path_not_like
+            json_data,
+            ["filter", "originalPath", "notLike"],
+            filter_original_path_not_like,
         )
     if filter_original_path_starts_with is not None:
         set_nested(
             json_data,
-            ["filter_original_path_starts_with"],
+            ["filter", "originalPath", "startsWith"],
             filter_original_path_starts_with,
         )
     if filter_person_ids_all is not None:
-        set_nested(json_data, ["filter_person_ids_all"], filter_person_ids_all)
+        set_nested(json_data, ["filter", "personIds", "all"], filter_person_ids_all)
     if filter_person_ids_any is not None:
-        set_nested(json_data, ["filter_person_ids_any"], filter_person_ids_any)
+        set_nested(json_data, ["filter", "personIds", "any"], filter_person_ids_any)
     if filter_person_ids_none is not None:
-        set_nested(json_data, ["filter_person_ids_none"], filter_person_ids_none)
+        set_nested(json_data, ["filter", "personIds", "none"], filter_person_ids_none)
     if filter_rating_eq is not None:
-        set_nested(json_data, ["filter_rating_eq"], filter_rating_eq)
+        set_nested(json_data, ["filter", "rating", "eq"], filter_rating_eq)
     if filter_rating_gt is not None:
-        set_nested(json_data, ["filter_rating_gt"], filter_rating_gt)
+        set_nested(json_data, ["filter", "rating", "gt"], filter_rating_gt)
     if filter_rating_gte is not None:
-        set_nested(json_data, ["filter_rating_gte"], filter_rating_gte)
+        set_nested(json_data, ["filter", "rating", "gte"], filter_rating_gte)
     if filter_rating_in_ is not None:
-        set_nested(json_data, ["filter_rating_in_"], filter_rating_in_)
+        set_nested(json_data, ["filter", "rating", "in"], filter_rating_in_)
     if filter_rating_lt is not None:
-        set_nested(json_data, ["filter_rating_lt"], filter_rating_lt)
+        set_nested(json_data, ["filter", "rating", "lt"], filter_rating_lt)
     if filter_rating_lte is not None:
-        set_nested(json_data, ["filter_rating_lte"], filter_rating_lte)
+        set_nested(json_data, ["filter", "rating", "lte"], filter_rating_lte)
     if filter_rating_ne is not None:
-        set_nested(json_data, ["filter_rating_ne"], filter_rating_ne)
+        set_nested(json_data, ["filter", "rating", "ne"], filter_rating_ne)
     if filter_rating_not_in is not None:
-        set_nested(json_data, ["filter_rating_not_in"], filter_rating_not_in)
+        set_nested(json_data, ["filter", "rating", "notIn"], filter_rating_not_in)
     if filter_state_eq is not None:
-        set_nested(json_data, ["filter_state_eq"], filter_state_eq)
+        set_nested(json_data, ["filter", "state", "eq"], filter_state_eq)
     if filter_state_in_ is not None:
-        set_nested(json_data, ["filter_state_in_"], filter_state_in_)
+        set_nested(json_data, ["filter", "state", "in"], filter_state_in_)
     if filter_state_ne is not None:
-        set_nested(json_data, ["filter_state_ne"], filter_state_ne)
+        set_nested(json_data, ["filter", "state", "ne"], filter_state_ne)
     if filter_state_not_in is not None:
-        set_nested(json_data, ["filter_state_not_in"], filter_state_not_in)
+        set_nested(json_data, ["filter", "state", "notIn"], filter_state_not_in)
     if filter_tag_ids_all is not None:
-        set_nested(json_data, ["filter_tag_ids_all"], filter_tag_ids_all)
+        set_nested(json_data, ["filter", "tagIds", "all"], filter_tag_ids_all)
     if filter_tag_ids_any is not None:
-        set_nested(json_data, ["filter_tag_ids_any"], filter_tag_ids_any)
+        set_nested(json_data, ["filter", "tagIds", "any"], filter_tag_ids_any)
     if filter_tag_ids_none is not None:
-        set_nested(json_data, ["filter_tag_ids_none"], filter_tag_ids_none)
+        set_nested(json_data, ["filter", "tagIds", "none"], filter_tag_ids_none)
     if filter_taken_at_eq is not None:
-        set_nested(json_data, ["filter_taken_at_eq"], filter_taken_at_eq)
+        set_nested(json_data, ["filter", "takenAt", "eq"], filter_taken_at_eq)
     if filter_taken_at_gt is not None:
-        set_nested(json_data, ["filter_taken_at_gt"], filter_taken_at_gt)
+        set_nested(json_data, ["filter", "takenAt", "gt"], filter_taken_at_gt)
     if filter_taken_at_gte is not None:
-        set_nested(json_data, ["filter_taken_at_gte"], filter_taken_at_gte)
+        set_nested(json_data, ["filter", "takenAt", "gte"], filter_taken_at_gte)
     if filter_taken_at_lt is not None:
-        set_nested(json_data, ["filter_taken_at_lt"], filter_taken_at_lt)
+        set_nested(json_data, ["filter", "takenAt", "lt"], filter_taken_at_lt)
     if filter_taken_at_lte is not None:
-        set_nested(json_data, ["filter_taken_at_lte"], filter_taken_at_lte)
+        set_nested(json_data, ["filter", "takenAt", "lte"], filter_taken_at_lte)
     if filter_taken_at_ne is not None:
-        set_nested(json_data, ["filter_taken_at_ne"], filter_taken_at_ne)
+        set_nested(json_data, ["filter", "takenAt", "ne"], filter_taken_at_ne)
     if filter_trashed_at_eq is not None:
-        set_nested(json_data, ["filter_trashed_at_eq"], filter_trashed_at_eq)
+        set_nested(json_data, ["filter", "trashedAt", "eq"], filter_trashed_at_eq)
     if filter_trashed_at_gt is not None:
-        set_nested(json_data, ["filter_trashed_at_gt"], filter_trashed_at_gt)
+        set_nested(json_data, ["filter", "trashedAt", "gt"], filter_trashed_at_gt)
     if filter_trashed_at_gte is not None:
-        set_nested(json_data, ["filter_trashed_at_gte"], filter_trashed_at_gte)
+        set_nested(json_data, ["filter", "trashedAt", "gte"], filter_trashed_at_gte)
     if filter_trashed_at_lt is not None:
-        set_nested(json_data, ["filter_trashed_at_lt"], filter_trashed_at_lt)
+        set_nested(json_data, ["filter", "trashedAt", "lt"], filter_trashed_at_lt)
     if filter_trashed_at_lte is not None:
-        set_nested(json_data, ["filter_trashed_at_lte"], filter_trashed_at_lte)
+        set_nested(json_data, ["filter", "trashedAt", "lte"], filter_trashed_at_lte)
     if filter_trashed_at_ne is not None:
-        set_nested(json_data, ["filter_trashed_at_ne"], filter_trashed_at_ne)
+        set_nested(json_data, ["filter", "trashedAt", "ne"], filter_trashed_at_ne)
     if filter_type_eq is not None:
-        set_nested(json_data, ["filter_type_eq"], filter_type_eq)
+        set_nested(json_data, ["filter", "type", "eq"], filter_type_eq)
     if filter_type_in_ is not None:
-        set_nested(json_data, ["filter_type_in_"], filter_type_in_)
+        set_nested(json_data, ["filter", "type", "in"], filter_type_in_)
     if filter_type_ne is not None:
-        set_nested(json_data, ["filter_type_ne"], filter_type_ne)
+        set_nested(json_data, ["filter", "type", "ne"], filter_type_ne)
     if filter_type_not_in is not None:
-        set_nested(json_data, ["filter_type_not_in"], filter_type_not_in)
+        set_nested(json_data, ["filter", "type", "notIn"], filter_type_not_in)
     if filter_updated_at_eq is not None:
-        set_nested(json_data, ["filter_updated_at_eq"], filter_updated_at_eq)
+        set_nested(json_data, ["filter", "updatedAt", "eq"], filter_updated_at_eq)
     if filter_updated_at_gt is not None:
-        set_nested(json_data, ["filter_updated_at_gt"], filter_updated_at_gt)
+        set_nested(json_data, ["filter", "updatedAt", "gt"], filter_updated_at_gt)
     if filter_updated_at_gte is not None:
-        set_nested(json_data, ["filter_updated_at_gte"], filter_updated_at_gte)
+        set_nested(json_data, ["filter", "updatedAt", "gte"], filter_updated_at_gte)
     if filter_updated_at_lt is not None:
-        set_nested(json_data, ["filter_updated_at_lt"], filter_updated_at_lt)
+        set_nested(json_data, ["filter", "updatedAt", "lt"], filter_updated_at_lt)
     if filter_updated_at_lte is not None:
-        set_nested(json_data, ["filter_updated_at_lte"], filter_updated_at_lte)
+        set_nested(json_data, ["filter", "updatedAt", "lte"], filter_updated_at_lte)
     if filter_updated_at_ne is not None:
-        set_nested(json_data, ["filter_updated_at_ne"], filter_updated_at_ne)
+        set_nested(json_data, ["filter", "updatedAt", "ne"], filter_updated_at_ne)
     if filter_visibility_eq is not None:
-        set_nested(json_data, ["filter_visibility_eq"], filter_visibility_eq)
+        set_nested(json_data, ["filter", "visibility", "eq"], filter_visibility_eq)
     if filter_visibility_in_ is not None:
-        set_nested(json_data, ["filter_visibility_in_"], filter_visibility_in_)
+        set_nested(json_data, ["filter", "visibility", "in"], filter_visibility_in_)
     if filter_visibility_ne is not None:
-        set_nested(json_data, ["filter_visibility_ne"], filter_visibility_ne)
+        set_nested(json_data, ["filter", "visibility", "ne"], filter_visibility_ne)
     if filter_visibility_not_in is not None:
-        set_nested(json_data, ["filter_visibility_not_in"], filter_visibility_not_in)
+        set_nested(
+            json_data, ["filter", "visibility", "notIn"], filter_visibility_not_in
+        )
     if is_encoded is not None:
-        set_nested(json_data, ["is_encoded"], is_encoded.lower() == "true")
+        set_nested(json_data, ["isEncoded"], is_encoded.lower() == "true")
     if is_favorite is not None:
-        set_nested(json_data, ["is_favorite"], is_favorite.lower() == "true")
+        set_nested(json_data, ["isFavorite"], is_favorite.lower() == "true")
     if is_motion is not None:
-        set_nested(json_data, ["is_motion"], is_motion.lower() == "true")
+        set_nested(json_data, ["isMotion"], is_motion.lower() == "true")
     if is_not_in_album is not None:
-        set_nested(json_data, ["is_not_in_album"], is_not_in_album.lower() == "true")
+        set_nested(json_data, ["isNotInAlbum"], is_not_in_album.lower() == "true")
     if is_offline is not None:
-        set_nested(json_data, ["is_offline"], is_offline.lower() == "true")
+        set_nested(json_data, ["isOffline"], is_offline.lower() == "true")
     if lens_model is not None:
-        set_nested(json_data, ["lens_model"], lens_model)
+        set_nested(json_data, ["lensModel"], lens_model)
     if library_id is not None:
-        set_nested(json_data, ["library_id"], library_id)
+        set_nested(json_data, ["libraryId"], library_id)
     if make is not None:
         set_nested(json_data, ["make"], make)
     if model is not None:
@@ -968,27 +1012,27 @@ Example: 2024-01-01T00:00:00.000Z""",
     if ocr is not None:
         set_nested(json_data, ["ocr"], ocr)
     if person_ids is not None:
-        set_nested(json_data, ["person_ids"], person_ids)
+        set_nested(json_data, ["personIds"], person_ids)
     if rating is not None:
         set_nested(json_data, ["rating"], rating)
     if state is not None:
         set_nested(json_data, ["state"], state)
     if tag_ids is not None:
-        set_nested(json_data, ["tag_ids"], tag_ids)
+        set_nested(json_data, ["tagIds"], tag_ids)
     if taken_after is not None:
-        set_nested(json_data, ["taken_after"], taken_after)
+        set_nested(json_data, ["takenAfter"], taken_after)
     if taken_before is not None:
-        set_nested(json_data, ["taken_before"], taken_before)
+        set_nested(json_data, ["takenBefore"], taken_before)
     if trashed_after is not None:
-        set_nested(json_data, ["trashed_after"], trashed_after)
+        set_nested(json_data, ["trashedAfter"], trashed_after)
     if trashed_before is not None:
-        set_nested(json_data, ["trashed_before"], trashed_before)
+        set_nested(json_data, ["trashedBefore"], trashed_before)
     if type is not None:
         set_nested(json_data, ["type"], type)
     if updated_after is not None:
-        set_nested(json_data, ["updated_after"], updated_after)
+        set_nested(json_data, ["updatedAfter"], updated_after)
     if updated_before is not None:
-        set_nested(json_data, ["updated_before"], updated_before)
+        set_nested(json_data, ["updatedBefore"], updated_before)
     if visibility is not None:
         set_nested(json_data, ["visibility"], visibility)
     statistics_search_dto = StatisticsSearchDto.model_validate(json_data)
@@ -1538,7 +1582,7 @@ Example: 2024-01-01T00:00:00.000Z""",
     if slug is not None:
         kwargs["slug"] = slug
     if album_ids is not None:
-        set_nested(json_data, ["album_ids"], album_ids)
+        set_nested(json_data, ["albumIds"], album_ids)
     if checksum is not None:
         set_nested(json_data, ["checksum"], checksum)
     if city is not None:
@@ -1546,374 +1590,418 @@ Example: 2024-01-01T00:00:00.000Z""",
     if country is not None:
         set_nested(json_data, ["country"], country)
     if created_after is not None:
-        set_nested(json_data, ["created_after"], created_after)
+        set_nested(json_data, ["createdAfter"], created_after)
     if created_before is not None:
-        set_nested(json_data, ["created_before"], created_before)
+        set_nested(json_data, ["createdBefore"], created_before)
     if cursor is not None:
         set_nested(json_data, ["cursor"], cursor)
     if description is not None:
         set_nested(json_data, ["description"], description)
     if encoded_video_path is not None:
-        set_nested(json_data, ["encoded_video_path"], encoded_video_path)
+        set_nested(json_data, ["encodedVideoPath"], encoded_video_path)
     if filter_album_ids_all is not None:
-        set_nested(json_data, ["filter_album_ids_all"], filter_album_ids_all)
+        set_nested(json_data, ["filter", "albumIds", "all"], filter_album_ids_all)
     if filter_album_ids_any is not None:
-        set_nested(json_data, ["filter_album_ids_any"], filter_album_ids_any)
+        set_nested(json_data, ["filter", "albumIds", "any"], filter_album_ids_any)
     if filter_album_ids_none is not None:
-        set_nested(json_data, ["filter_album_ids_none"], filter_album_ids_none)
+        set_nested(json_data, ["filter", "albumIds", "none"], filter_album_ids_none)
     if filter_checksum_eq is not None:
-        set_nested(json_data, ["filter_checksum_eq"], filter_checksum_eq)
+        set_nested(json_data, ["filter", "checksum", "eq"], filter_checksum_eq)
     if filter_checksum_in_ is not None:
-        set_nested(json_data, ["filter_checksum_in_"], filter_checksum_in_)
+        set_nested(json_data, ["filter", "checksum", "in"], filter_checksum_in_)
     if filter_checksum_ne is not None:
-        set_nested(json_data, ["filter_checksum_ne"], filter_checksum_ne)
+        set_nested(json_data, ["filter", "checksum", "ne"], filter_checksum_ne)
     if filter_checksum_not_in is not None:
-        set_nested(json_data, ["filter_checksum_not_in"], filter_checksum_not_in)
+        set_nested(json_data, ["filter", "checksum", "notIn"], filter_checksum_not_in)
     if filter_city_eq is not None:
-        set_nested(json_data, ["filter_city_eq"], filter_city_eq)
+        set_nested(json_data, ["filter", "city", "eq"], filter_city_eq)
     if filter_city_in_ is not None:
-        set_nested(json_data, ["filter_city_in_"], filter_city_in_)
+        set_nested(json_data, ["filter", "city", "in"], filter_city_in_)
     if filter_city_ne is not None:
-        set_nested(json_data, ["filter_city_ne"], filter_city_ne)
+        set_nested(json_data, ["filter", "city", "ne"], filter_city_ne)
     if filter_city_not_in is not None:
-        set_nested(json_data, ["filter_city_not_in"], filter_city_not_in)
+        set_nested(json_data, ["filter", "city", "notIn"], filter_city_not_in)
     if filter_country_eq is not None:
-        set_nested(json_data, ["filter_country_eq"], filter_country_eq)
+        set_nested(json_data, ["filter", "country", "eq"], filter_country_eq)
     if filter_country_in_ is not None:
-        set_nested(json_data, ["filter_country_in_"], filter_country_in_)
+        set_nested(json_data, ["filter", "country", "in"], filter_country_in_)
     if filter_country_ne is not None:
-        set_nested(json_data, ["filter_country_ne"], filter_country_ne)
+        set_nested(json_data, ["filter", "country", "ne"], filter_country_ne)
     if filter_country_not_in is not None:
-        set_nested(json_data, ["filter_country_not_in"], filter_country_not_in)
+        set_nested(json_data, ["filter", "country", "notIn"], filter_country_not_in)
     if filter_created_at_eq is not None:
-        set_nested(json_data, ["filter_created_at_eq"], filter_created_at_eq)
+        set_nested(json_data, ["filter", "createdAt", "eq"], filter_created_at_eq)
     if filter_created_at_gt is not None:
-        set_nested(json_data, ["filter_created_at_gt"], filter_created_at_gt)
+        set_nested(json_data, ["filter", "createdAt", "gt"], filter_created_at_gt)
     if filter_created_at_gte is not None:
-        set_nested(json_data, ["filter_created_at_gte"], filter_created_at_gte)
+        set_nested(json_data, ["filter", "createdAt", "gte"], filter_created_at_gte)
     if filter_created_at_lt is not None:
-        set_nested(json_data, ["filter_created_at_lt"], filter_created_at_lt)
+        set_nested(json_data, ["filter", "createdAt", "lt"], filter_created_at_lt)
     if filter_created_at_lte is not None:
-        set_nested(json_data, ["filter_created_at_lte"], filter_created_at_lte)
+        set_nested(json_data, ["filter", "createdAt", "lte"], filter_created_at_lte)
     if filter_created_at_ne is not None:
-        set_nested(json_data, ["filter_created_at_ne"], filter_created_at_ne)
+        set_nested(json_data, ["filter", "createdAt", "ne"], filter_created_at_ne)
     if filter_description_ends_with is not None:
         set_nested(
-            json_data, ["filter_description_ends_with"], filter_description_ends_with
+            json_data,
+            ["filter", "description", "endsWith"],
+            filter_description_ends_with,
         )
     if filter_description_eq is not None:
-        set_nested(json_data, ["filter_description_eq"], filter_description_eq)
+        set_nested(json_data, ["filter", "description", "eq"], filter_description_eq)
     if filter_description_in_ is not None:
-        set_nested(json_data, ["filter_description_in_"], filter_description_in_)
+        set_nested(json_data, ["filter", "description", "in"], filter_description_in_)
     if filter_description_like is not None:
-        set_nested(json_data, ["filter_description_like"], filter_description_like)
+        set_nested(
+            json_data, ["filter", "description", "like"], filter_description_like
+        )
     if filter_description_ne is not None:
-        set_nested(json_data, ["filter_description_ne"], filter_description_ne)
+        set_nested(json_data, ["filter", "description", "ne"], filter_description_ne)
     if filter_description_not_in is not None:
-        set_nested(json_data, ["filter_description_not_in"], filter_description_not_in)
+        set_nested(
+            json_data, ["filter", "description", "notIn"], filter_description_not_in
+        )
     if filter_description_not_like is not None:
         set_nested(
-            json_data, ["filter_description_not_like"], filter_description_not_like
+            json_data, ["filter", "description", "notLike"], filter_description_not_like
         )
     if filter_description_starts_with is not None:
         set_nested(
             json_data,
-            ["filter_description_starts_with"],
+            ["filter", "description", "startsWith"],
             filter_description_starts_with,
         )
     if filter_encoded_video_path_eq is not None:
         set_nested(
-            json_data, ["filter_encoded_video_path_eq"], filter_encoded_video_path_eq
+            json_data,
+            ["filter", "encodedVideoPath", "eq"],
+            filter_encoded_video_path_eq,
         )
     if filter_encoded_video_path_in_ is not None:
         set_nested(
-            json_data, ["filter_encoded_video_path_in_"], filter_encoded_video_path_in_
+            json_data,
+            ["filter", "encodedVideoPath", "in"],
+            filter_encoded_video_path_in_,
         )
     if filter_encoded_video_path_ne is not None:
         set_nested(
-            json_data, ["filter_encoded_video_path_ne"], filter_encoded_video_path_ne
+            json_data,
+            ["filter", "encodedVideoPath", "ne"],
+            filter_encoded_video_path_ne,
         )
     if filter_encoded_video_path_not_in is not None:
         set_nested(
             json_data,
-            ["filter_encoded_video_path_not_in"],
+            ["filter", "encodedVideoPath", "notIn"],
             filter_encoded_video_path_not_in,
         )
     if filter_file_size_in_bytes_eq is not None:
         set_nested(
-            json_data, ["filter_file_size_in_bytes_eq"], filter_file_size_in_bytes_eq
+            json_data, ["filter", "fileSizeInBytes", "eq"], filter_file_size_in_bytes_eq
         )
     if filter_file_size_in_bytes_gt is not None:
         set_nested(
-            json_data, ["filter_file_size_in_bytes_gt"], filter_file_size_in_bytes_gt
+            json_data, ["filter", "fileSizeInBytes", "gt"], filter_file_size_in_bytes_gt
         )
     if filter_file_size_in_bytes_gte is not None:
         set_nested(
-            json_data, ["filter_file_size_in_bytes_gte"], filter_file_size_in_bytes_gte
+            json_data,
+            ["filter", "fileSizeInBytes", "gte"],
+            filter_file_size_in_bytes_gte,
         )
     if filter_file_size_in_bytes_in_ is not None:
         set_nested(
-            json_data, ["filter_file_size_in_bytes_in_"], filter_file_size_in_bytes_in_
+            json_data,
+            ["filter", "fileSizeInBytes", "in"],
+            filter_file_size_in_bytes_in_,
         )
     if filter_file_size_in_bytes_lt is not None:
         set_nested(
-            json_data, ["filter_file_size_in_bytes_lt"], filter_file_size_in_bytes_lt
+            json_data, ["filter", "fileSizeInBytes", "lt"], filter_file_size_in_bytes_lt
         )
     if filter_file_size_in_bytes_lte is not None:
         set_nested(
-            json_data, ["filter_file_size_in_bytes_lte"], filter_file_size_in_bytes_lte
+            json_data,
+            ["filter", "fileSizeInBytes", "lte"],
+            filter_file_size_in_bytes_lte,
         )
     if filter_file_size_in_bytes_ne is not None:
         set_nested(
-            json_data, ["filter_file_size_in_bytes_ne"], filter_file_size_in_bytes_ne
+            json_data, ["filter", "fileSizeInBytes", "ne"], filter_file_size_in_bytes_ne
         )
     if filter_file_size_in_bytes_not_in is not None:
         set_nested(
             json_data,
-            ["filter_file_size_in_bytes_not_in"],
+            ["filter", "fileSizeInBytes", "notIn"],
             filter_file_size_in_bytes_not_in,
         )
     if filter_has_albums_eq is not None:
         set_nested(
-            json_data, ["filter_has_albums_eq"], filter_has_albums_eq.lower() == "true"
+            json_data,
+            ["filter", "hasAlbums", "eq"],
+            filter_has_albums_eq.lower() == "true",
         )
     if filter_has_people_eq is not None:
         set_nested(
-            json_data, ["filter_has_people_eq"], filter_has_people_eq.lower() == "true"
+            json_data,
+            ["filter", "hasPeople", "eq"],
+            filter_has_people_eq.lower() == "true",
         )
     if filter_has_tags_eq is not None:
         set_nested(
-            json_data, ["filter_has_tags_eq"], filter_has_tags_eq.lower() == "true"
+            json_data, ["filter", "hasTags", "eq"], filter_has_tags_eq.lower() == "true"
         )
     if filter_id_eq is not None:
-        set_nested(json_data, ["filter_id_eq"], filter_id_eq)
+        set_nested(json_data, ["filter", "id", "eq"], filter_id_eq)
     if filter_id_ne is not None:
-        set_nested(json_data, ["filter_id_ne"], filter_id_ne)
+        set_nested(json_data, ["filter", "id", "ne"], filter_id_ne)
     if filter_is_encoded_eq is not None:
         set_nested(
-            json_data, ["filter_is_encoded_eq"], filter_is_encoded_eq.lower() == "true"
+            json_data,
+            ["filter", "isEncoded", "eq"],
+            filter_is_encoded_eq.lower() == "true",
         )
     if filter_is_favorite_eq is not None:
         set_nested(
             json_data,
-            ["filter_is_favorite_eq"],
+            ["filter", "isFavorite", "eq"],
             filter_is_favorite_eq.lower() == "true",
         )
     if filter_is_motion_eq is not None:
         set_nested(
-            json_data, ["filter_is_motion_eq"], filter_is_motion_eq.lower() == "true"
+            json_data,
+            ["filter", "isMotion", "eq"],
+            filter_is_motion_eq.lower() == "true",
         )
     if filter_is_offline_eq is not None:
         set_nested(
-            json_data, ["filter_is_offline_eq"], filter_is_offline_eq.lower() == "true"
+            json_data,
+            ["filter", "isOffline", "eq"],
+            filter_is_offline_eq.lower() == "true",
         )
     if filter_lens_model_eq is not None:
-        set_nested(json_data, ["filter_lens_model_eq"], filter_lens_model_eq)
+        set_nested(json_data, ["filter", "lensModel", "eq"], filter_lens_model_eq)
     if filter_lens_model_in_ is not None:
-        set_nested(json_data, ["filter_lens_model_in_"], filter_lens_model_in_)
+        set_nested(json_data, ["filter", "lensModel", "in"], filter_lens_model_in_)
     if filter_lens_model_ne is not None:
-        set_nested(json_data, ["filter_lens_model_ne"], filter_lens_model_ne)
+        set_nested(json_data, ["filter", "lensModel", "ne"], filter_lens_model_ne)
     if filter_lens_model_not_in is not None:
-        set_nested(json_data, ["filter_lens_model_not_in"], filter_lens_model_not_in)
+        set_nested(
+            json_data, ["filter", "lensModel", "notIn"], filter_lens_model_not_in
+        )
     if filter_library_id_eq is not None:
-        set_nested(json_data, ["filter_library_id_eq"], filter_library_id_eq)
+        set_nested(json_data, ["filter", "libraryId", "eq"], filter_library_id_eq)
     if filter_library_id_ne is not None:
-        set_nested(json_data, ["filter_library_id_ne"], filter_library_id_ne)
+        set_nested(json_data, ["filter", "libraryId", "ne"], filter_library_id_ne)
     if filter_make_eq is not None:
-        set_nested(json_data, ["filter_make_eq"], filter_make_eq)
+        set_nested(json_data, ["filter", "make", "eq"], filter_make_eq)
     if filter_make_in_ is not None:
-        set_nested(json_data, ["filter_make_in_"], filter_make_in_)
+        set_nested(json_data, ["filter", "make", "in"], filter_make_in_)
     if filter_make_ne is not None:
-        set_nested(json_data, ["filter_make_ne"], filter_make_ne)
+        set_nested(json_data, ["filter", "make", "ne"], filter_make_ne)
     if filter_make_not_in is not None:
-        set_nested(json_data, ["filter_make_not_in"], filter_make_not_in)
+        set_nested(json_data, ["filter", "make", "notIn"], filter_make_not_in)
     if filter_model_eq is not None:
-        set_nested(json_data, ["filter_model_eq"], filter_model_eq)
+        set_nested(json_data, ["filter", "model", "eq"], filter_model_eq)
     if filter_model_in_ is not None:
-        set_nested(json_data, ["filter_model_in_"], filter_model_in_)
+        set_nested(json_data, ["filter", "model", "in"], filter_model_in_)
     if filter_model_ne is not None:
-        set_nested(json_data, ["filter_model_ne"], filter_model_ne)
+        set_nested(json_data, ["filter", "model", "ne"], filter_model_ne)
     if filter_model_not_in is not None:
-        set_nested(json_data, ["filter_model_not_in"], filter_model_not_in)
+        set_nested(json_data, ["filter", "model", "notIn"], filter_model_not_in)
     if filter_ocr_matches is not None:
-        set_nested(json_data, ["filter_ocr_matches"], filter_ocr_matches)
+        set_nested(json_data, ["filter", "ocr", "matches"], filter_ocr_matches)
     if filter_or_ is not None:
         value_filter_or_ = parse_json_options(filter_or_, "--filter-or", ctx=ctx)
-        set_nested(json_data, ["filter_or_"], value_filter_or_)
+        set_nested(json_data, ["filter", "or"], value_filter_or_)
     if filter_original_file_name_ends_with is not None:
         set_nested(
             json_data,
-            ["filter_original_file_name_ends_with"],
+            ["filter", "originalFileName", "endsWith"],
             filter_original_file_name_ends_with,
         )
     if filter_original_file_name_eq is not None:
         set_nested(
-            json_data, ["filter_original_file_name_eq"], filter_original_file_name_eq
+            json_data,
+            ["filter", "originalFileName", "eq"],
+            filter_original_file_name_eq,
         )
     if filter_original_file_name_in_ is not None:
         set_nested(
-            json_data, ["filter_original_file_name_in_"], filter_original_file_name_in_
+            json_data,
+            ["filter", "originalFileName", "in"],
+            filter_original_file_name_in_,
         )
     if filter_original_file_name_like is not None:
         set_nested(
             json_data,
-            ["filter_original_file_name_like"],
+            ["filter", "originalFileName", "like"],
             filter_original_file_name_like,
         )
     if filter_original_file_name_ne is not None:
         set_nested(
-            json_data, ["filter_original_file_name_ne"], filter_original_file_name_ne
+            json_data,
+            ["filter", "originalFileName", "ne"],
+            filter_original_file_name_ne,
         )
     if filter_original_file_name_not_in is not None:
         set_nested(
             json_data,
-            ["filter_original_file_name_not_in"],
+            ["filter", "originalFileName", "notIn"],
             filter_original_file_name_not_in,
         )
     if filter_original_file_name_not_like is not None:
         set_nested(
             json_data,
-            ["filter_original_file_name_not_like"],
+            ["filter", "originalFileName", "notLike"],
             filter_original_file_name_not_like,
         )
     if filter_original_file_name_starts_with is not None:
         set_nested(
             json_data,
-            ["filter_original_file_name_starts_with"],
+            ["filter", "originalFileName", "startsWith"],
             filter_original_file_name_starts_with,
         )
     if filter_original_path_ends_with is not None:
         set_nested(
             json_data,
-            ["filter_original_path_ends_with"],
+            ["filter", "originalPath", "endsWith"],
             filter_original_path_ends_with,
         )
     if filter_original_path_eq is not None:
-        set_nested(json_data, ["filter_original_path_eq"], filter_original_path_eq)
+        set_nested(json_data, ["filter", "originalPath", "eq"], filter_original_path_eq)
     if filter_original_path_in_ is not None:
-        set_nested(json_data, ["filter_original_path_in_"], filter_original_path_in_)
+        set_nested(
+            json_data, ["filter", "originalPath", "in"], filter_original_path_in_
+        )
     if filter_original_path_like is not None:
-        set_nested(json_data, ["filter_original_path_like"], filter_original_path_like)
+        set_nested(
+            json_data, ["filter", "originalPath", "like"], filter_original_path_like
+        )
     if filter_original_path_ne is not None:
-        set_nested(json_data, ["filter_original_path_ne"], filter_original_path_ne)
+        set_nested(json_data, ["filter", "originalPath", "ne"], filter_original_path_ne)
     if filter_original_path_not_in is not None:
         set_nested(
-            json_data, ["filter_original_path_not_in"], filter_original_path_not_in
+            json_data, ["filter", "originalPath", "notIn"], filter_original_path_not_in
         )
     if filter_original_path_not_like is not None:
         set_nested(
-            json_data, ["filter_original_path_not_like"], filter_original_path_not_like
+            json_data,
+            ["filter", "originalPath", "notLike"],
+            filter_original_path_not_like,
         )
     if filter_original_path_starts_with is not None:
         set_nested(
             json_data,
-            ["filter_original_path_starts_with"],
+            ["filter", "originalPath", "startsWith"],
             filter_original_path_starts_with,
         )
     if filter_person_ids_all is not None:
-        set_nested(json_data, ["filter_person_ids_all"], filter_person_ids_all)
+        set_nested(json_data, ["filter", "personIds", "all"], filter_person_ids_all)
     if filter_person_ids_any is not None:
-        set_nested(json_data, ["filter_person_ids_any"], filter_person_ids_any)
+        set_nested(json_data, ["filter", "personIds", "any"], filter_person_ids_any)
     if filter_person_ids_none is not None:
-        set_nested(json_data, ["filter_person_ids_none"], filter_person_ids_none)
+        set_nested(json_data, ["filter", "personIds", "none"], filter_person_ids_none)
     if filter_rating_eq is not None:
-        set_nested(json_data, ["filter_rating_eq"], filter_rating_eq)
+        set_nested(json_data, ["filter", "rating", "eq"], filter_rating_eq)
     if filter_rating_gt is not None:
-        set_nested(json_data, ["filter_rating_gt"], filter_rating_gt)
+        set_nested(json_data, ["filter", "rating", "gt"], filter_rating_gt)
     if filter_rating_gte is not None:
-        set_nested(json_data, ["filter_rating_gte"], filter_rating_gte)
+        set_nested(json_data, ["filter", "rating", "gte"], filter_rating_gte)
     if filter_rating_in_ is not None:
-        set_nested(json_data, ["filter_rating_in_"], filter_rating_in_)
+        set_nested(json_data, ["filter", "rating", "in"], filter_rating_in_)
     if filter_rating_lt is not None:
-        set_nested(json_data, ["filter_rating_lt"], filter_rating_lt)
+        set_nested(json_data, ["filter", "rating", "lt"], filter_rating_lt)
     if filter_rating_lte is not None:
-        set_nested(json_data, ["filter_rating_lte"], filter_rating_lte)
+        set_nested(json_data, ["filter", "rating", "lte"], filter_rating_lte)
     if filter_rating_ne is not None:
-        set_nested(json_data, ["filter_rating_ne"], filter_rating_ne)
+        set_nested(json_data, ["filter", "rating", "ne"], filter_rating_ne)
     if filter_rating_not_in is not None:
-        set_nested(json_data, ["filter_rating_not_in"], filter_rating_not_in)
+        set_nested(json_data, ["filter", "rating", "notIn"], filter_rating_not_in)
     if filter_state_eq is not None:
-        set_nested(json_data, ["filter_state_eq"], filter_state_eq)
+        set_nested(json_data, ["filter", "state", "eq"], filter_state_eq)
     if filter_state_in_ is not None:
-        set_nested(json_data, ["filter_state_in_"], filter_state_in_)
+        set_nested(json_data, ["filter", "state", "in"], filter_state_in_)
     if filter_state_ne is not None:
-        set_nested(json_data, ["filter_state_ne"], filter_state_ne)
+        set_nested(json_data, ["filter", "state", "ne"], filter_state_ne)
     if filter_state_not_in is not None:
-        set_nested(json_data, ["filter_state_not_in"], filter_state_not_in)
+        set_nested(json_data, ["filter", "state", "notIn"], filter_state_not_in)
     if filter_tag_ids_all is not None:
-        set_nested(json_data, ["filter_tag_ids_all"], filter_tag_ids_all)
+        set_nested(json_data, ["filter", "tagIds", "all"], filter_tag_ids_all)
     if filter_tag_ids_any is not None:
-        set_nested(json_data, ["filter_tag_ids_any"], filter_tag_ids_any)
+        set_nested(json_data, ["filter", "tagIds", "any"], filter_tag_ids_any)
     if filter_tag_ids_none is not None:
-        set_nested(json_data, ["filter_tag_ids_none"], filter_tag_ids_none)
+        set_nested(json_data, ["filter", "tagIds", "none"], filter_tag_ids_none)
     if filter_taken_at_eq is not None:
-        set_nested(json_data, ["filter_taken_at_eq"], filter_taken_at_eq)
+        set_nested(json_data, ["filter", "takenAt", "eq"], filter_taken_at_eq)
     if filter_taken_at_gt is not None:
-        set_nested(json_data, ["filter_taken_at_gt"], filter_taken_at_gt)
+        set_nested(json_data, ["filter", "takenAt", "gt"], filter_taken_at_gt)
     if filter_taken_at_gte is not None:
-        set_nested(json_data, ["filter_taken_at_gte"], filter_taken_at_gte)
+        set_nested(json_data, ["filter", "takenAt", "gte"], filter_taken_at_gte)
     if filter_taken_at_lt is not None:
-        set_nested(json_data, ["filter_taken_at_lt"], filter_taken_at_lt)
+        set_nested(json_data, ["filter", "takenAt", "lt"], filter_taken_at_lt)
     if filter_taken_at_lte is not None:
-        set_nested(json_data, ["filter_taken_at_lte"], filter_taken_at_lte)
+        set_nested(json_data, ["filter", "takenAt", "lte"], filter_taken_at_lte)
     if filter_taken_at_ne is not None:
-        set_nested(json_data, ["filter_taken_at_ne"], filter_taken_at_ne)
+        set_nested(json_data, ["filter", "takenAt", "ne"], filter_taken_at_ne)
     if filter_trashed_at_eq is not None:
-        set_nested(json_data, ["filter_trashed_at_eq"], filter_trashed_at_eq)
+        set_nested(json_data, ["filter", "trashedAt", "eq"], filter_trashed_at_eq)
     if filter_trashed_at_gt is not None:
-        set_nested(json_data, ["filter_trashed_at_gt"], filter_trashed_at_gt)
+        set_nested(json_data, ["filter", "trashedAt", "gt"], filter_trashed_at_gt)
     if filter_trashed_at_gte is not None:
-        set_nested(json_data, ["filter_trashed_at_gte"], filter_trashed_at_gte)
+        set_nested(json_data, ["filter", "trashedAt", "gte"], filter_trashed_at_gte)
     if filter_trashed_at_lt is not None:
-        set_nested(json_data, ["filter_trashed_at_lt"], filter_trashed_at_lt)
+        set_nested(json_data, ["filter", "trashedAt", "lt"], filter_trashed_at_lt)
     if filter_trashed_at_lte is not None:
-        set_nested(json_data, ["filter_trashed_at_lte"], filter_trashed_at_lte)
+        set_nested(json_data, ["filter", "trashedAt", "lte"], filter_trashed_at_lte)
     if filter_trashed_at_ne is not None:
-        set_nested(json_data, ["filter_trashed_at_ne"], filter_trashed_at_ne)
+        set_nested(json_data, ["filter", "trashedAt", "ne"], filter_trashed_at_ne)
     if filter_type_eq is not None:
-        set_nested(json_data, ["filter_type_eq"], filter_type_eq)
+        set_nested(json_data, ["filter", "type", "eq"], filter_type_eq)
     if filter_type_in_ is not None:
-        set_nested(json_data, ["filter_type_in_"], filter_type_in_)
+        set_nested(json_data, ["filter", "type", "in"], filter_type_in_)
     if filter_type_ne is not None:
-        set_nested(json_data, ["filter_type_ne"], filter_type_ne)
+        set_nested(json_data, ["filter", "type", "ne"], filter_type_ne)
     if filter_type_not_in is not None:
-        set_nested(json_data, ["filter_type_not_in"], filter_type_not_in)
+        set_nested(json_data, ["filter", "type", "notIn"], filter_type_not_in)
     if filter_updated_at_eq is not None:
-        set_nested(json_data, ["filter_updated_at_eq"], filter_updated_at_eq)
+        set_nested(json_data, ["filter", "updatedAt", "eq"], filter_updated_at_eq)
     if filter_updated_at_gt is not None:
-        set_nested(json_data, ["filter_updated_at_gt"], filter_updated_at_gt)
+        set_nested(json_data, ["filter", "updatedAt", "gt"], filter_updated_at_gt)
     if filter_updated_at_gte is not None:
-        set_nested(json_data, ["filter_updated_at_gte"], filter_updated_at_gte)
+        set_nested(json_data, ["filter", "updatedAt", "gte"], filter_updated_at_gte)
     if filter_updated_at_lt is not None:
-        set_nested(json_data, ["filter_updated_at_lt"], filter_updated_at_lt)
+        set_nested(json_data, ["filter", "updatedAt", "lt"], filter_updated_at_lt)
     if filter_updated_at_lte is not None:
-        set_nested(json_data, ["filter_updated_at_lte"], filter_updated_at_lte)
+        set_nested(json_data, ["filter", "updatedAt", "lte"], filter_updated_at_lte)
     if filter_updated_at_ne is not None:
-        set_nested(json_data, ["filter_updated_at_ne"], filter_updated_at_ne)
+        set_nested(json_data, ["filter", "updatedAt", "ne"], filter_updated_at_ne)
     if filter_visibility_eq is not None:
-        set_nested(json_data, ["filter_visibility_eq"], filter_visibility_eq)
+        set_nested(json_data, ["filter", "visibility", "eq"], filter_visibility_eq)
     if filter_visibility_in_ is not None:
-        set_nested(json_data, ["filter_visibility_in_"], filter_visibility_in_)
+        set_nested(json_data, ["filter", "visibility", "in"], filter_visibility_in_)
     if filter_visibility_ne is not None:
-        set_nested(json_data, ["filter_visibility_ne"], filter_visibility_ne)
+        set_nested(json_data, ["filter", "visibility", "ne"], filter_visibility_ne)
     if filter_visibility_not_in is not None:
-        set_nested(json_data, ["filter_visibility_not_in"], filter_visibility_not_in)
+        set_nested(
+            json_data, ["filter", "visibility", "notIn"], filter_visibility_not_in
+        )
     if id is not None:
         set_nested(json_data, ["id"], id)
     if is_encoded is not None:
-        set_nested(json_data, ["is_encoded"], is_encoded.lower() == "true")
+        set_nested(json_data, ["isEncoded"], is_encoded.lower() == "true")
     if is_favorite is not None:
-        set_nested(json_data, ["is_favorite"], is_favorite.lower() == "true")
+        set_nested(json_data, ["isFavorite"], is_favorite.lower() == "true")
     if is_motion is not None:
-        set_nested(json_data, ["is_motion"], is_motion.lower() == "true")
+        set_nested(json_data, ["isMotion"], is_motion.lower() == "true")
     if is_not_in_album is not None:
-        set_nested(json_data, ["is_not_in_album"], is_not_in_album.lower() == "true")
+        set_nested(json_data, ["isNotInAlbum"], is_not_in_album.lower() == "true")
     if is_offline is not None:
-        set_nested(json_data, ["is_offline"], is_offline.lower() == "true")
+        set_nested(json_data, ["isOffline"], is_offline.lower() == "true")
     if lens_model is not None:
-        set_nested(json_data, ["lens_model"], lens_model)
+        set_nested(json_data, ["lensModel"], lens_model)
     if library_id is not None:
-        set_nested(json_data, ["library_id"], library_id)
+        set_nested(json_data, ["libraryId"], library_id)
     if make is not None:
         set_nested(json_data, ["make"], make)
     if model is not None:
@@ -1923,19 +2011,19 @@ Example: 2024-01-01T00:00:00.000Z""",
     if order is not None:
         set_nested(json_data, ["order"], order)
     if order_by_direction is not None:
-        set_nested(json_data, ["order_by_direction"], order_by_direction)
+        set_nested(json_data, ["orderBy", "direction"], order_by_direction)
     if order_by_field is not None:
-        set_nested(json_data, ["order_by_field"], order_by_field)
+        set_nested(json_data, ["orderBy", "field"], order_by_field)
     if original_file_name is not None:
-        set_nested(json_data, ["original_file_name"], original_file_name)
+        set_nested(json_data, ["originalFileName"], original_file_name)
     if original_path is not None:
-        set_nested(json_data, ["original_path"], original_path)
+        set_nested(json_data, ["originalPath"], original_path)
     if page is not None:
         set_nested(json_data, ["page"], page)
     if person_ids is not None:
-        set_nested(json_data, ["person_ids"], person_ids)
+        set_nested(json_data, ["personIds"], person_ids)
     if preview_path is not None:
-        set_nested(json_data, ["preview_path"], preview_path)
+        set_nested(json_data, ["previewPath"], preview_path)
     if rating is not None:
         set_nested(json_data, ["rating"], rating)
     if size is not None:
@@ -1943,33 +2031,33 @@ Example: 2024-01-01T00:00:00.000Z""",
     if state is not None:
         set_nested(json_data, ["state"], state)
     if tag_ids is not None:
-        set_nested(json_data, ["tag_ids"], tag_ids)
+        set_nested(json_data, ["tagIds"], tag_ids)
     if taken_after is not None:
-        set_nested(json_data, ["taken_after"], taken_after)
+        set_nested(json_data, ["takenAfter"], taken_after)
     if taken_before is not None:
-        set_nested(json_data, ["taken_before"], taken_before)
+        set_nested(json_data, ["takenBefore"], taken_before)
     if thumbnail_path is not None:
-        set_nested(json_data, ["thumbnail_path"], thumbnail_path)
+        set_nested(json_data, ["thumbnailPath"], thumbnail_path)
     if trashed_after is not None:
-        set_nested(json_data, ["trashed_after"], trashed_after)
+        set_nested(json_data, ["trashedAfter"], trashed_after)
     if trashed_before is not None:
-        set_nested(json_data, ["trashed_before"], trashed_before)
+        set_nested(json_data, ["trashedBefore"], trashed_before)
     if type is not None:
         set_nested(json_data, ["type"], type)
     if updated_after is not None:
-        set_nested(json_data, ["updated_after"], updated_after)
+        set_nested(json_data, ["updatedAfter"], updated_after)
     if updated_before is not None:
-        set_nested(json_data, ["updated_before"], updated_before)
+        set_nested(json_data, ["updatedBefore"], updated_before)
     if visibility is not None:
         set_nested(json_data, ["visibility"], visibility)
     if with_deleted is not None:
-        set_nested(json_data, ["with_deleted"], with_deleted.lower() == "true")
+        set_nested(json_data, ["withDeleted"], with_deleted.lower() == "true")
     if with_exif is not None:
-        set_nested(json_data, ["with_exif"], with_exif.lower() == "true")
+        set_nested(json_data, ["withExif"], with_exif.lower() == "true")
     if with_people is not None:
-        set_nested(json_data, ["with_people"], with_people.lower() == "true")
+        set_nested(json_data, ["withPeople"], with_people.lower() == "true")
     if with_stacked is not None:
-        set_nested(json_data, ["with_stacked"], with_stacked.lower() == "true")
+        set_nested(json_data, ["withStacked"], with_stacked.lower() == "true")
     metadata_search_dto = MetadataSearchDto.model_validate(json_data)
     kwargs["metadata_search_dto"] = metadata_search_dto
     client: AsyncClient = ctx.obj["client"]
@@ -2714,372 +2802,416 @@ Example: 2024-01-01T00:00:00.000Z""",
     kwargs = {}
     json_data = {}
     if album_ids is not None:
-        set_nested(json_data, ["album_ids"], album_ids)
+        set_nested(json_data, ["albumIds"], album_ids)
     if city is not None:
         set_nested(json_data, ["city"], city)
     if country is not None:
         set_nested(json_data, ["country"], country)
     if created_after is not None:
-        set_nested(json_data, ["created_after"], created_after)
+        set_nested(json_data, ["createdAfter"], created_after)
     if created_before is not None:
-        set_nested(json_data, ["created_before"], created_before)
+        set_nested(json_data, ["createdBefore"], created_before)
     if filter_album_ids_all is not None:
-        set_nested(json_data, ["filter_album_ids_all"], filter_album_ids_all)
+        set_nested(json_data, ["filter", "albumIds", "all"], filter_album_ids_all)
     if filter_album_ids_any is not None:
-        set_nested(json_data, ["filter_album_ids_any"], filter_album_ids_any)
+        set_nested(json_data, ["filter", "albumIds", "any"], filter_album_ids_any)
     if filter_album_ids_none is not None:
-        set_nested(json_data, ["filter_album_ids_none"], filter_album_ids_none)
+        set_nested(json_data, ["filter", "albumIds", "none"], filter_album_ids_none)
     if filter_checksum_eq is not None:
-        set_nested(json_data, ["filter_checksum_eq"], filter_checksum_eq)
+        set_nested(json_data, ["filter", "checksum", "eq"], filter_checksum_eq)
     if filter_checksum_in_ is not None:
-        set_nested(json_data, ["filter_checksum_in_"], filter_checksum_in_)
+        set_nested(json_data, ["filter", "checksum", "in"], filter_checksum_in_)
     if filter_checksum_ne is not None:
-        set_nested(json_data, ["filter_checksum_ne"], filter_checksum_ne)
+        set_nested(json_data, ["filter", "checksum", "ne"], filter_checksum_ne)
     if filter_checksum_not_in is not None:
-        set_nested(json_data, ["filter_checksum_not_in"], filter_checksum_not_in)
+        set_nested(json_data, ["filter", "checksum", "notIn"], filter_checksum_not_in)
     if filter_city_eq is not None:
-        set_nested(json_data, ["filter_city_eq"], filter_city_eq)
+        set_nested(json_data, ["filter", "city", "eq"], filter_city_eq)
     if filter_city_in_ is not None:
-        set_nested(json_data, ["filter_city_in_"], filter_city_in_)
+        set_nested(json_data, ["filter", "city", "in"], filter_city_in_)
     if filter_city_ne is not None:
-        set_nested(json_data, ["filter_city_ne"], filter_city_ne)
+        set_nested(json_data, ["filter", "city", "ne"], filter_city_ne)
     if filter_city_not_in is not None:
-        set_nested(json_data, ["filter_city_not_in"], filter_city_not_in)
+        set_nested(json_data, ["filter", "city", "notIn"], filter_city_not_in)
     if filter_country_eq is not None:
-        set_nested(json_data, ["filter_country_eq"], filter_country_eq)
+        set_nested(json_data, ["filter", "country", "eq"], filter_country_eq)
     if filter_country_in_ is not None:
-        set_nested(json_data, ["filter_country_in_"], filter_country_in_)
+        set_nested(json_data, ["filter", "country", "in"], filter_country_in_)
     if filter_country_ne is not None:
-        set_nested(json_data, ["filter_country_ne"], filter_country_ne)
+        set_nested(json_data, ["filter", "country", "ne"], filter_country_ne)
     if filter_country_not_in is not None:
-        set_nested(json_data, ["filter_country_not_in"], filter_country_not_in)
+        set_nested(json_data, ["filter", "country", "notIn"], filter_country_not_in)
     if filter_created_at_eq is not None:
-        set_nested(json_data, ["filter_created_at_eq"], filter_created_at_eq)
+        set_nested(json_data, ["filter", "createdAt", "eq"], filter_created_at_eq)
     if filter_created_at_gt is not None:
-        set_nested(json_data, ["filter_created_at_gt"], filter_created_at_gt)
+        set_nested(json_data, ["filter", "createdAt", "gt"], filter_created_at_gt)
     if filter_created_at_gte is not None:
-        set_nested(json_data, ["filter_created_at_gte"], filter_created_at_gte)
+        set_nested(json_data, ["filter", "createdAt", "gte"], filter_created_at_gte)
     if filter_created_at_lt is not None:
-        set_nested(json_data, ["filter_created_at_lt"], filter_created_at_lt)
+        set_nested(json_data, ["filter", "createdAt", "lt"], filter_created_at_lt)
     if filter_created_at_lte is not None:
-        set_nested(json_data, ["filter_created_at_lte"], filter_created_at_lte)
+        set_nested(json_data, ["filter", "createdAt", "lte"], filter_created_at_lte)
     if filter_created_at_ne is not None:
-        set_nested(json_data, ["filter_created_at_ne"], filter_created_at_ne)
+        set_nested(json_data, ["filter", "createdAt", "ne"], filter_created_at_ne)
     if filter_description_ends_with is not None:
         set_nested(
-            json_data, ["filter_description_ends_with"], filter_description_ends_with
+            json_data,
+            ["filter", "description", "endsWith"],
+            filter_description_ends_with,
         )
     if filter_description_eq is not None:
-        set_nested(json_data, ["filter_description_eq"], filter_description_eq)
+        set_nested(json_data, ["filter", "description", "eq"], filter_description_eq)
     if filter_description_in_ is not None:
-        set_nested(json_data, ["filter_description_in_"], filter_description_in_)
+        set_nested(json_data, ["filter", "description", "in"], filter_description_in_)
     if filter_description_like is not None:
-        set_nested(json_data, ["filter_description_like"], filter_description_like)
+        set_nested(
+            json_data, ["filter", "description", "like"], filter_description_like
+        )
     if filter_description_ne is not None:
-        set_nested(json_data, ["filter_description_ne"], filter_description_ne)
+        set_nested(json_data, ["filter", "description", "ne"], filter_description_ne)
     if filter_description_not_in is not None:
-        set_nested(json_data, ["filter_description_not_in"], filter_description_not_in)
+        set_nested(
+            json_data, ["filter", "description", "notIn"], filter_description_not_in
+        )
     if filter_description_not_like is not None:
         set_nested(
-            json_data, ["filter_description_not_like"], filter_description_not_like
+            json_data, ["filter", "description", "notLike"], filter_description_not_like
         )
     if filter_description_starts_with is not None:
         set_nested(
             json_data,
-            ["filter_description_starts_with"],
+            ["filter", "description", "startsWith"],
             filter_description_starts_with,
         )
     if filter_encoded_video_path_eq is not None:
         set_nested(
-            json_data, ["filter_encoded_video_path_eq"], filter_encoded_video_path_eq
+            json_data,
+            ["filter", "encodedVideoPath", "eq"],
+            filter_encoded_video_path_eq,
         )
     if filter_encoded_video_path_in_ is not None:
         set_nested(
-            json_data, ["filter_encoded_video_path_in_"], filter_encoded_video_path_in_
+            json_data,
+            ["filter", "encodedVideoPath", "in"],
+            filter_encoded_video_path_in_,
         )
     if filter_encoded_video_path_ne is not None:
         set_nested(
-            json_data, ["filter_encoded_video_path_ne"], filter_encoded_video_path_ne
+            json_data,
+            ["filter", "encodedVideoPath", "ne"],
+            filter_encoded_video_path_ne,
         )
     if filter_encoded_video_path_not_in is not None:
         set_nested(
             json_data,
-            ["filter_encoded_video_path_not_in"],
+            ["filter", "encodedVideoPath", "notIn"],
             filter_encoded_video_path_not_in,
         )
     if filter_file_size_in_bytes_eq is not None:
         set_nested(
-            json_data, ["filter_file_size_in_bytes_eq"], filter_file_size_in_bytes_eq
+            json_data, ["filter", "fileSizeInBytes", "eq"], filter_file_size_in_bytes_eq
         )
     if filter_file_size_in_bytes_gt is not None:
         set_nested(
-            json_data, ["filter_file_size_in_bytes_gt"], filter_file_size_in_bytes_gt
+            json_data, ["filter", "fileSizeInBytes", "gt"], filter_file_size_in_bytes_gt
         )
     if filter_file_size_in_bytes_gte is not None:
         set_nested(
-            json_data, ["filter_file_size_in_bytes_gte"], filter_file_size_in_bytes_gte
+            json_data,
+            ["filter", "fileSizeInBytes", "gte"],
+            filter_file_size_in_bytes_gte,
         )
     if filter_file_size_in_bytes_in_ is not None:
         set_nested(
-            json_data, ["filter_file_size_in_bytes_in_"], filter_file_size_in_bytes_in_
+            json_data,
+            ["filter", "fileSizeInBytes", "in"],
+            filter_file_size_in_bytes_in_,
         )
     if filter_file_size_in_bytes_lt is not None:
         set_nested(
-            json_data, ["filter_file_size_in_bytes_lt"], filter_file_size_in_bytes_lt
+            json_data, ["filter", "fileSizeInBytes", "lt"], filter_file_size_in_bytes_lt
         )
     if filter_file_size_in_bytes_lte is not None:
         set_nested(
-            json_data, ["filter_file_size_in_bytes_lte"], filter_file_size_in_bytes_lte
+            json_data,
+            ["filter", "fileSizeInBytes", "lte"],
+            filter_file_size_in_bytes_lte,
         )
     if filter_file_size_in_bytes_ne is not None:
         set_nested(
-            json_data, ["filter_file_size_in_bytes_ne"], filter_file_size_in_bytes_ne
+            json_data, ["filter", "fileSizeInBytes", "ne"], filter_file_size_in_bytes_ne
         )
     if filter_file_size_in_bytes_not_in is not None:
         set_nested(
             json_data,
-            ["filter_file_size_in_bytes_not_in"],
+            ["filter", "fileSizeInBytes", "notIn"],
             filter_file_size_in_bytes_not_in,
         )
     if filter_has_albums_eq is not None:
         set_nested(
-            json_data, ["filter_has_albums_eq"], filter_has_albums_eq.lower() == "true"
+            json_data,
+            ["filter", "hasAlbums", "eq"],
+            filter_has_albums_eq.lower() == "true",
         )
     if filter_has_people_eq is not None:
         set_nested(
-            json_data, ["filter_has_people_eq"], filter_has_people_eq.lower() == "true"
+            json_data,
+            ["filter", "hasPeople", "eq"],
+            filter_has_people_eq.lower() == "true",
         )
     if filter_has_tags_eq is not None:
         set_nested(
-            json_data, ["filter_has_tags_eq"], filter_has_tags_eq.lower() == "true"
+            json_data, ["filter", "hasTags", "eq"], filter_has_tags_eq.lower() == "true"
         )
     if filter_id_eq is not None:
-        set_nested(json_data, ["filter_id_eq"], filter_id_eq)
+        set_nested(json_data, ["filter", "id", "eq"], filter_id_eq)
     if filter_id_ne is not None:
-        set_nested(json_data, ["filter_id_ne"], filter_id_ne)
+        set_nested(json_data, ["filter", "id", "ne"], filter_id_ne)
     if filter_is_encoded_eq is not None:
         set_nested(
-            json_data, ["filter_is_encoded_eq"], filter_is_encoded_eq.lower() == "true"
+            json_data,
+            ["filter", "isEncoded", "eq"],
+            filter_is_encoded_eq.lower() == "true",
         )
     if filter_is_favorite_eq is not None:
         set_nested(
             json_data,
-            ["filter_is_favorite_eq"],
+            ["filter", "isFavorite", "eq"],
             filter_is_favorite_eq.lower() == "true",
         )
     if filter_is_motion_eq is not None:
         set_nested(
-            json_data, ["filter_is_motion_eq"], filter_is_motion_eq.lower() == "true"
+            json_data,
+            ["filter", "isMotion", "eq"],
+            filter_is_motion_eq.lower() == "true",
         )
     if filter_is_offline_eq is not None:
         set_nested(
-            json_data, ["filter_is_offline_eq"], filter_is_offline_eq.lower() == "true"
+            json_data,
+            ["filter", "isOffline", "eq"],
+            filter_is_offline_eq.lower() == "true",
         )
     if filter_lens_model_eq is not None:
-        set_nested(json_data, ["filter_lens_model_eq"], filter_lens_model_eq)
+        set_nested(json_data, ["filter", "lensModel", "eq"], filter_lens_model_eq)
     if filter_lens_model_in_ is not None:
-        set_nested(json_data, ["filter_lens_model_in_"], filter_lens_model_in_)
+        set_nested(json_data, ["filter", "lensModel", "in"], filter_lens_model_in_)
     if filter_lens_model_ne is not None:
-        set_nested(json_data, ["filter_lens_model_ne"], filter_lens_model_ne)
+        set_nested(json_data, ["filter", "lensModel", "ne"], filter_lens_model_ne)
     if filter_lens_model_not_in is not None:
-        set_nested(json_data, ["filter_lens_model_not_in"], filter_lens_model_not_in)
+        set_nested(
+            json_data, ["filter", "lensModel", "notIn"], filter_lens_model_not_in
+        )
     if filter_library_id_eq is not None:
-        set_nested(json_data, ["filter_library_id_eq"], filter_library_id_eq)
+        set_nested(json_data, ["filter", "libraryId", "eq"], filter_library_id_eq)
     if filter_library_id_ne is not None:
-        set_nested(json_data, ["filter_library_id_ne"], filter_library_id_ne)
+        set_nested(json_data, ["filter", "libraryId", "ne"], filter_library_id_ne)
     if filter_make_eq is not None:
-        set_nested(json_data, ["filter_make_eq"], filter_make_eq)
+        set_nested(json_data, ["filter", "make", "eq"], filter_make_eq)
     if filter_make_in_ is not None:
-        set_nested(json_data, ["filter_make_in_"], filter_make_in_)
+        set_nested(json_data, ["filter", "make", "in"], filter_make_in_)
     if filter_make_ne is not None:
-        set_nested(json_data, ["filter_make_ne"], filter_make_ne)
+        set_nested(json_data, ["filter", "make", "ne"], filter_make_ne)
     if filter_make_not_in is not None:
-        set_nested(json_data, ["filter_make_not_in"], filter_make_not_in)
+        set_nested(json_data, ["filter", "make", "notIn"], filter_make_not_in)
     if filter_model_eq is not None:
-        set_nested(json_data, ["filter_model_eq"], filter_model_eq)
+        set_nested(json_data, ["filter", "model", "eq"], filter_model_eq)
     if filter_model_in_ is not None:
-        set_nested(json_data, ["filter_model_in_"], filter_model_in_)
+        set_nested(json_data, ["filter", "model", "in"], filter_model_in_)
     if filter_model_ne is not None:
-        set_nested(json_data, ["filter_model_ne"], filter_model_ne)
+        set_nested(json_data, ["filter", "model", "ne"], filter_model_ne)
     if filter_model_not_in is not None:
-        set_nested(json_data, ["filter_model_not_in"], filter_model_not_in)
+        set_nested(json_data, ["filter", "model", "notIn"], filter_model_not_in)
     if filter_ocr_matches is not None:
-        set_nested(json_data, ["filter_ocr_matches"], filter_ocr_matches)
+        set_nested(json_data, ["filter", "ocr", "matches"], filter_ocr_matches)
     if filter_or_ is not None:
         value_filter_or_ = parse_json_options(filter_or_, "--filter-or", ctx=ctx)
-        set_nested(json_data, ["filter_or_"], value_filter_or_)
+        set_nested(json_data, ["filter", "or"], value_filter_or_)
     if filter_original_file_name_ends_with is not None:
         set_nested(
             json_data,
-            ["filter_original_file_name_ends_with"],
+            ["filter", "originalFileName", "endsWith"],
             filter_original_file_name_ends_with,
         )
     if filter_original_file_name_eq is not None:
         set_nested(
-            json_data, ["filter_original_file_name_eq"], filter_original_file_name_eq
+            json_data,
+            ["filter", "originalFileName", "eq"],
+            filter_original_file_name_eq,
         )
     if filter_original_file_name_in_ is not None:
         set_nested(
-            json_data, ["filter_original_file_name_in_"], filter_original_file_name_in_
+            json_data,
+            ["filter", "originalFileName", "in"],
+            filter_original_file_name_in_,
         )
     if filter_original_file_name_like is not None:
         set_nested(
             json_data,
-            ["filter_original_file_name_like"],
+            ["filter", "originalFileName", "like"],
             filter_original_file_name_like,
         )
     if filter_original_file_name_ne is not None:
         set_nested(
-            json_data, ["filter_original_file_name_ne"], filter_original_file_name_ne
+            json_data,
+            ["filter", "originalFileName", "ne"],
+            filter_original_file_name_ne,
         )
     if filter_original_file_name_not_in is not None:
         set_nested(
             json_data,
-            ["filter_original_file_name_not_in"],
+            ["filter", "originalFileName", "notIn"],
             filter_original_file_name_not_in,
         )
     if filter_original_file_name_not_like is not None:
         set_nested(
             json_data,
-            ["filter_original_file_name_not_like"],
+            ["filter", "originalFileName", "notLike"],
             filter_original_file_name_not_like,
         )
     if filter_original_file_name_starts_with is not None:
         set_nested(
             json_data,
-            ["filter_original_file_name_starts_with"],
+            ["filter", "originalFileName", "startsWith"],
             filter_original_file_name_starts_with,
         )
     if filter_original_path_ends_with is not None:
         set_nested(
             json_data,
-            ["filter_original_path_ends_with"],
+            ["filter", "originalPath", "endsWith"],
             filter_original_path_ends_with,
         )
     if filter_original_path_eq is not None:
-        set_nested(json_data, ["filter_original_path_eq"], filter_original_path_eq)
+        set_nested(json_data, ["filter", "originalPath", "eq"], filter_original_path_eq)
     if filter_original_path_in_ is not None:
-        set_nested(json_data, ["filter_original_path_in_"], filter_original_path_in_)
+        set_nested(
+            json_data, ["filter", "originalPath", "in"], filter_original_path_in_
+        )
     if filter_original_path_like is not None:
-        set_nested(json_data, ["filter_original_path_like"], filter_original_path_like)
+        set_nested(
+            json_data, ["filter", "originalPath", "like"], filter_original_path_like
+        )
     if filter_original_path_ne is not None:
-        set_nested(json_data, ["filter_original_path_ne"], filter_original_path_ne)
+        set_nested(json_data, ["filter", "originalPath", "ne"], filter_original_path_ne)
     if filter_original_path_not_in is not None:
         set_nested(
-            json_data, ["filter_original_path_not_in"], filter_original_path_not_in
+            json_data, ["filter", "originalPath", "notIn"], filter_original_path_not_in
         )
     if filter_original_path_not_like is not None:
         set_nested(
-            json_data, ["filter_original_path_not_like"], filter_original_path_not_like
+            json_data,
+            ["filter", "originalPath", "notLike"],
+            filter_original_path_not_like,
         )
     if filter_original_path_starts_with is not None:
         set_nested(
             json_data,
-            ["filter_original_path_starts_with"],
+            ["filter", "originalPath", "startsWith"],
             filter_original_path_starts_with,
         )
     if filter_person_ids_all is not None:
-        set_nested(json_data, ["filter_person_ids_all"], filter_person_ids_all)
+        set_nested(json_data, ["filter", "personIds", "all"], filter_person_ids_all)
     if filter_person_ids_any is not None:
-        set_nested(json_data, ["filter_person_ids_any"], filter_person_ids_any)
+        set_nested(json_data, ["filter", "personIds", "any"], filter_person_ids_any)
     if filter_person_ids_none is not None:
-        set_nested(json_data, ["filter_person_ids_none"], filter_person_ids_none)
+        set_nested(json_data, ["filter", "personIds", "none"], filter_person_ids_none)
     if filter_rating_eq is not None:
-        set_nested(json_data, ["filter_rating_eq"], filter_rating_eq)
+        set_nested(json_data, ["filter", "rating", "eq"], filter_rating_eq)
     if filter_rating_gt is not None:
-        set_nested(json_data, ["filter_rating_gt"], filter_rating_gt)
+        set_nested(json_data, ["filter", "rating", "gt"], filter_rating_gt)
     if filter_rating_gte is not None:
-        set_nested(json_data, ["filter_rating_gte"], filter_rating_gte)
+        set_nested(json_data, ["filter", "rating", "gte"], filter_rating_gte)
     if filter_rating_in_ is not None:
-        set_nested(json_data, ["filter_rating_in_"], filter_rating_in_)
+        set_nested(json_data, ["filter", "rating", "in"], filter_rating_in_)
     if filter_rating_lt is not None:
-        set_nested(json_data, ["filter_rating_lt"], filter_rating_lt)
+        set_nested(json_data, ["filter", "rating", "lt"], filter_rating_lt)
     if filter_rating_lte is not None:
-        set_nested(json_data, ["filter_rating_lte"], filter_rating_lte)
+        set_nested(json_data, ["filter", "rating", "lte"], filter_rating_lte)
     if filter_rating_ne is not None:
-        set_nested(json_data, ["filter_rating_ne"], filter_rating_ne)
+        set_nested(json_data, ["filter", "rating", "ne"], filter_rating_ne)
     if filter_rating_not_in is not None:
-        set_nested(json_data, ["filter_rating_not_in"], filter_rating_not_in)
+        set_nested(json_data, ["filter", "rating", "notIn"], filter_rating_not_in)
     if filter_state_eq is not None:
-        set_nested(json_data, ["filter_state_eq"], filter_state_eq)
+        set_nested(json_data, ["filter", "state", "eq"], filter_state_eq)
     if filter_state_in_ is not None:
-        set_nested(json_data, ["filter_state_in_"], filter_state_in_)
+        set_nested(json_data, ["filter", "state", "in"], filter_state_in_)
     if filter_state_ne is not None:
-        set_nested(json_data, ["filter_state_ne"], filter_state_ne)
+        set_nested(json_data, ["filter", "state", "ne"], filter_state_ne)
     if filter_state_not_in is not None:
-        set_nested(json_data, ["filter_state_not_in"], filter_state_not_in)
+        set_nested(json_data, ["filter", "state", "notIn"], filter_state_not_in)
     if filter_tag_ids_all is not None:
-        set_nested(json_data, ["filter_tag_ids_all"], filter_tag_ids_all)
+        set_nested(json_data, ["filter", "tagIds", "all"], filter_tag_ids_all)
     if filter_tag_ids_any is not None:
-        set_nested(json_data, ["filter_tag_ids_any"], filter_tag_ids_any)
+        set_nested(json_data, ["filter", "tagIds", "any"], filter_tag_ids_any)
     if filter_tag_ids_none is not None:
-        set_nested(json_data, ["filter_tag_ids_none"], filter_tag_ids_none)
+        set_nested(json_data, ["filter", "tagIds", "none"], filter_tag_ids_none)
     if filter_taken_at_eq is not None:
-        set_nested(json_data, ["filter_taken_at_eq"], filter_taken_at_eq)
+        set_nested(json_data, ["filter", "takenAt", "eq"], filter_taken_at_eq)
     if filter_taken_at_gt is not None:
-        set_nested(json_data, ["filter_taken_at_gt"], filter_taken_at_gt)
+        set_nested(json_data, ["filter", "takenAt", "gt"], filter_taken_at_gt)
     if filter_taken_at_gte is not None:
-        set_nested(json_data, ["filter_taken_at_gte"], filter_taken_at_gte)
+        set_nested(json_data, ["filter", "takenAt", "gte"], filter_taken_at_gte)
     if filter_taken_at_lt is not None:
-        set_nested(json_data, ["filter_taken_at_lt"], filter_taken_at_lt)
+        set_nested(json_data, ["filter", "takenAt", "lt"], filter_taken_at_lt)
     if filter_taken_at_lte is not None:
-        set_nested(json_data, ["filter_taken_at_lte"], filter_taken_at_lte)
+        set_nested(json_data, ["filter", "takenAt", "lte"], filter_taken_at_lte)
     if filter_taken_at_ne is not None:
-        set_nested(json_data, ["filter_taken_at_ne"], filter_taken_at_ne)
+        set_nested(json_data, ["filter", "takenAt", "ne"], filter_taken_at_ne)
     if filter_trashed_at_eq is not None:
-        set_nested(json_data, ["filter_trashed_at_eq"], filter_trashed_at_eq)
+        set_nested(json_data, ["filter", "trashedAt", "eq"], filter_trashed_at_eq)
     if filter_trashed_at_gt is not None:
-        set_nested(json_data, ["filter_trashed_at_gt"], filter_trashed_at_gt)
+        set_nested(json_data, ["filter", "trashedAt", "gt"], filter_trashed_at_gt)
     if filter_trashed_at_gte is not None:
-        set_nested(json_data, ["filter_trashed_at_gte"], filter_trashed_at_gte)
+        set_nested(json_data, ["filter", "trashedAt", "gte"], filter_trashed_at_gte)
     if filter_trashed_at_lt is not None:
-        set_nested(json_data, ["filter_trashed_at_lt"], filter_trashed_at_lt)
+        set_nested(json_data, ["filter", "trashedAt", "lt"], filter_trashed_at_lt)
     if filter_trashed_at_lte is not None:
-        set_nested(json_data, ["filter_trashed_at_lte"], filter_trashed_at_lte)
+        set_nested(json_data, ["filter", "trashedAt", "lte"], filter_trashed_at_lte)
     if filter_trashed_at_ne is not None:
-        set_nested(json_data, ["filter_trashed_at_ne"], filter_trashed_at_ne)
+        set_nested(json_data, ["filter", "trashedAt", "ne"], filter_trashed_at_ne)
     if filter_type_eq is not None:
-        set_nested(json_data, ["filter_type_eq"], filter_type_eq)
+        set_nested(json_data, ["filter", "type", "eq"], filter_type_eq)
     if filter_type_in_ is not None:
-        set_nested(json_data, ["filter_type_in_"], filter_type_in_)
+        set_nested(json_data, ["filter", "type", "in"], filter_type_in_)
     if filter_type_ne is not None:
-        set_nested(json_data, ["filter_type_ne"], filter_type_ne)
+        set_nested(json_data, ["filter", "type", "ne"], filter_type_ne)
     if filter_type_not_in is not None:
-        set_nested(json_data, ["filter_type_not_in"], filter_type_not_in)
+        set_nested(json_data, ["filter", "type", "notIn"], filter_type_not_in)
     if filter_updated_at_eq is not None:
-        set_nested(json_data, ["filter_updated_at_eq"], filter_updated_at_eq)
+        set_nested(json_data, ["filter", "updatedAt", "eq"], filter_updated_at_eq)
     if filter_updated_at_gt is not None:
-        set_nested(json_data, ["filter_updated_at_gt"], filter_updated_at_gt)
+        set_nested(json_data, ["filter", "updatedAt", "gt"], filter_updated_at_gt)
     if filter_updated_at_gte is not None:
-        set_nested(json_data, ["filter_updated_at_gte"], filter_updated_at_gte)
+        set_nested(json_data, ["filter", "updatedAt", "gte"], filter_updated_at_gte)
     if filter_updated_at_lt is not None:
-        set_nested(json_data, ["filter_updated_at_lt"], filter_updated_at_lt)
+        set_nested(json_data, ["filter", "updatedAt", "lt"], filter_updated_at_lt)
     if filter_updated_at_lte is not None:
-        set_nested(json_data, ["filter_updated_at_lte"], filter_updated_at_lte)
+        set_nested(json_data, ["filter", "updatedAt", "lte"], filter_updated_at_lte)
     if filter_updated_at_ne is not None:
-        set_nested(json_data, ["filter_updated_at_ne"], filter_updated_at_ne)
+        set_nested(json_data, ["filter", "updatedAt", "ne"], filter_updated_at_ne)
     if filter_visibility_eq is not None:
-        set_nested(json_data, ["filter_visibility_eq"], filter_visibility_eq)
+        set_nested(json_data, ["filter", "visibility", "eq"], filter_visibility_eq)
     if filter_visibility_in_ is not None:
-        set_nested(json_data, ["filter_visibility_in_"], filter_visibility_in_)
+        set_nested(json_data, ["filter", "visibility", "in"], filter_visibility_in_)
     if filter_visibility_ne is not None:
-        set_nested(json_data, ["filter_visibility_ne"], filter_visibility_ne)
+        set_nested(json_data, ["filter", "visibility", "ne"], filter_visibility_ne)
     if filter_visibility_not_in is not None:
-        set_nested(json_data, ["filter_visibility_not_in"], filter_visibility_not_in)
+        set_nested(
+            json_data, ["filter", "visibility", "notIn"], filter_visibility_not_in
+        )
     if is_encoded is not None:
-        set_nested(json_data, ["is_encoded"], is_encoded.lower() == "true")
+        set_nested(json_data, ["isEncoded"], is_encoded.lower() == "true")
     if is_favorite is not None:
-        set_nested(json_data, ["is_favorite"], is_favorite.lower() == "true")
+        set_nested(json_data, ["isFavorite"], is_favorite.lower() == "true")
     if is_motion is not None:
-        set_nested(json_data, ["is_motion"], is_motion.lower() == "true")
+        set_nested(json_data, ["isMotion"], is_motion.lower() == "true")
     if is_not_in_album is not None:
-        set_nested(json_data, ["is_not_in_album"], is_not_in_album.lower() == "true")
+        set_nested(json_data, ["isNotInAlbum"], is_not_in_album.lower() == "true")
     if is_offline is not None:
-        set_nested(json_data, ["is_offline"], is_offline.lower() == "true")
+        set_nested(json_data, ["isOffline"], is_offline.lower() == "true")
     if lens_model is not None:
-        set_nested(json_data, ["lens_model"], lens_model)
+        set_nested(json_data, ["lensModel"], lens_model)
     if library_id is not None:
-        set_nested(json_data, ["library_id"], library_id)
+        set_nested(json_data, ["libraryId"], library_id)
     if make is not None:
         set_nested(json_data, ["make"], make)
     if model is not None:
@@ -3087,7 +3219,7 @@ Example: 2024-01-01T00:00:00.000Z""",
     if ocr is not None:
         set_nested(json_data, ["ocr"], ocr)
     if person_ids is not None:
-        set_nested(json_data, ["person_ids"], person_ids)
+        set_nested(json_data, ["personIds"], person_ids)
     if rating is not None:
         set_nested(json_data, ["rating"], rating)
     if size is not None:
@@ -3095,31 +3227,31 @@ Example: 2024-01-01T00:00:00.000Z""",
     if state is not None:
         set_nested(json_data, ["state"], state)
     if tag_ids is not None:
-        set_nested(json_data, ["tag_ids"], tag_ids)
+        set_nested(json_data, ["tagIds"], tag_ids)
     if taken_after is not None:
-        set_nested(json_data, ["taken_after"], taken_after)
+        set_nested(json_data, ["takenAfter"], taken_after)
     if taken_before is not None:
-        set_nested(json_data, ["taken_before"], taken_before)
+        set_nested(json_data, ["takenBefore"], taken_before)
     if trashed_after is not None:
-        set_nested(json_data, ["trashed_after"], trashed_after)
+        set_nested(json_data, ["trashedAfter"], trashed_after)
     if trashed_before is not None:
-        set_nested(json_data, ["trashed_before"], trashed_before)
+        set_nested(json_data, ["trashedBefore"], trashed_before)
     if type is not None:
         set_nested(json_data, ["type"], type)
     if updated_after is not None:
-        set_nested(json_data, ["updated_after"], updated_after)
+        set_nested(json_data, ["updatedAfter"], updated_after)
     if updated_before is not None:
-        set_nested(json_data, ["updated_before"], updated_before)
+        set_nested(json_data, ["updatedBefore"], updated_before)
     if visibility is not None:
         set_nested(json_data, ["visibility"], visibility)
     if with_deleted is not None:
-        set_nested(json_data, ["with_deleted"], with_deleted.lower() == "true")
+        set_nested(json_data, ["withDeleted"], with_deleted.lower() == "true")
     if with_exif is not None:
-        set_nested(json_data, ["with_exif"], with_exif.lower() == "true")
+        set_nested(json_data, ["withExif"], with_exif.lower() == "true")
     if with_people is not None:
-        set_nested(json_data, ["with_people"], with_people.lower() == "true")
+        set_nested(json_data, ["withPeople"], with_people.lower() == "true")
     if with_stacked is not None:
-        set_nested(json_data, ["with_stacked"], with_stacked.lower() == "true")
+        set_nested(json_data, ["withStacked"], with_stacked.lower() == "true")
     random_search_dto = RandomSearchDto.model_validate(json_data)
     kwargs["random_search_dto"] = random_search_dto
     client: AsyncClient = ctx.obj["client"]
@@ -3630,374 +3762,418 @@ Example: 2024-01-01T00:00:00.000Z""",
     kwargs = {}
     json_data = {}
     if album_ids is not None:
-        set_nested(json_data, ["album_ids"], album_ids)
+        set_nested(json_data, ["albumIds"], album_ids)
     if city is not None:
         set_nested(json_data, ["city"], city)
     if country is not None:
         set_nested(json_data, ["country"], country)
     if created_after is not None:
-        set_nested(json_data, ["created_after"], created_after)
+        set_nested(json_data, ["createdAfter"], created_after)
     if created_before is not None:
-        set_nested(json_data, ["created_before"], created_before)
+        set_nested(json_data, ["createdBefore"], created_before)
     if filter_album_ids_all is not None:
-        set_nested(json_data, ["filter_album_ids_all"], filter_album_ids_all)
+        set_nested(json_data, ["filter", "albumIds", "all"], filter_album_ids_all)
     if filter_album_ids_any is not None:
-        set_nested(json_data, ["filter_album_ids_any"], filter_album_ids_any)
+        set_nested(json_data, ["filter", "albumIds", "any"], filter_album_ids_any)
     if filter_album_ids_none is not None:
-        set_nested(json_data, ["filter_album_ids_none"], filter_album_ids_none)
+        set_nested(json_data, ["filter", "albumIds", "none"], filter_album_ids_none)
     if filter_checksum_eq is not None:
-        set_nested(json_data, ["filter_checksum_eq"], filter_checksum_eq)
+        set_nested(json_data, ["filter", "checksum", "eq"], filter_checksum_eq)
     if filter_checksum_in_ is not None:
-        set_nested(json_data, ["filter_checksum_in_"], filter_checksum_in_)
+        set_nested(json_data, ["filter", "checksum", "in"], filter_checksum_in_)
     if filter_checksum_ne is not None:
-        set_nested(json_data, ["filter_checksum_ne"], filter_checksum_ne)
+        set_nested(json_data, ["filter", "checksum", "ne"], filter_checksum_ne)
     if filter_checksum_not_in is not None:
-        set_nested(json_data, ["filter_checksum_not_in"], filter_checksum_not_in)
+        set_nested(json_data, ["filter", "checksum", "notIn"], filter_checksum_not_in)
     if filter_city_eq is not None:
-        set_nested(json_data, ["filter_city_eq"], filter_city_eq)
+        set_nested(json_data, ["filter", "city", "eq"], filter_city_eq)
     if filter_city_in_ is not None:
-        set_nested(json_data, ["filter_city_in_"], filter_city_in_)
+        set_nested(json_data, ["filter", "city", "in"], filter_city_in_)
     if filter_city_ne is not None:
-        set_nested(json_data, ["filter_city_ne"], filter_city_ne)
+        set_nested(json_data, ["filter", "city", "ne"], filter_city_ne)
     if filter_city_not_in is not None:
-        set_nested(json_data, ["filter_city_not_in"], filter_city_not_in)
+        set_nested(json_data, ["filter", "city", "notIn"], filter_city_not_in)
     if filter_country_eq is not None:
-        set_nested(json_data, ["filter_country_eq"], filter_country_eq)
+        set_nested(json_data, ["filter", "country", "eq"], filter_country_eq)
     if filter_country_in_ is not None:
-        set_nested(json_data, ["filter_country_in_"], filter_country_in_)
+        set_nested(json_data, ["filter", "country", "in"], filter_country_in_)
     if filter_country_ne is not None:
-        set_nested(json_data, ["filter_country_ne"], filter_country_ne)
+        set_nested(json_data, ["filter", "country", "ne"], filter_country_ne)
     if filter_country_not_in is not None:
-        set_nested(json_data, ["filter_country_not_in"], filter_country_not_in)
+        set_nested(json_data, ["filter", "country", "notIn"], filter_country_not_in)
     if filter_created_at_eq is not None:
-        set_nested(json_data, ["filter_created_at_eq"], filter_created_at_eq)
+        set_nested(json_data, ["filter", "createdAt", "eq"], filter_created_at_eq)
     if filter_created_at_gt is not None:
-        set_nested(json_data, ["filter_created_at_gt"], filter_created_at_gt)
+        set_nested(json_data, ["filter", "createdAt", "gt"], filter_created_at_gt)
     if filter_created_at_gte is not None:
-        set_nested(json_data, ["filter_created_at_gte"], filter_created_at_gte)
+        set_nested(json_data, ["filter", "createdAt", "gte"], filter_created_at_gte)
     if filter_created_at_lt is not None:
-        set_nested(json_data, ["filter_created_at_lt"], filter_created_at_lt)
+        set_nested(json_data, ["filter", "createdAt", "lt"], filter_created_at_lt)
     if filter_created_at_lte is not None:
-        set_nested(json_data, ["filter_created_at_lte"], filter_created_at_lte)
+        set_nested(json_data, ["filter", "createdAt", "lte"], filter_created_at_lte)
     if filter_created_at_ne is not None:
-        set_nested(json_data, ["filter_created_at_ne"], filter_created_at_ne)
+        set_nested(json_data, ["filter", "createdAt", "ne"], filter_created_at_ne)
     if filter_description_ends_with is not None:
         set_nested(
-            json_data, ["filter_description_ends_with"], filter_description_ends_with
+            json_data,
+            ["filter", "description", "endsWith"],
+            filter_description_ends_with,
         )
     if filter_description_eq is not None:
-        set_nested(json_data, ["filter_description_eq"], filter_description_eq)
+        set_nested(json_data, ["filter", "description", "eq"], filter_description_eq)
     if filter_description_in_ is not None:
-        set_nested(json_data, ["filter_description_in_"], filter_description_in_)
+        set_nested(json_data, ["filter", "description", "in"], filter_description_in_)
     if filter_description_like is not None:
-        set_nested(json_data, ["filter_description_like"], filter_description_like)
+        set_nested(
+            json_data, ["filter", "description", "like"], filter_description_like
+        )
     if filter_description_ne is not None:
-        set_nested(json_data, ["filter_description_ne"], filter_description_ne)
+        set_nested(json_data, ["filter", "description", "ne"], filter_description_ne)
     if filter_description_not_in is not None:
-        set_nested(json_data, ["filter_description_not_in"], filter_description_not_in)
+        set_nested(
+            json_data, ["filter", "description", "notIn"], filter_description_not_in
+        )
     if filter_description_not_like is not None:
         set_nested(
-            json_data, ["filter_description_not_like"], filter_description_not_like
+            json_data, ["filter", "description", "notLike"], filter_description_not_like
         )
     if filter_description_starts_with is not None:
         set_nested(
             json_data,
-            ["filter_description_starts_with"],
+            ["filter", "description", "startsWith"],
             filter_description_starts_with,
         )
     if filter_encoded_video_path_eq is not None:
         set_nested(
-            json_data, ["filter_encoded_video_path_eq"], filter_encoded_video_path_eq
+            json_data,
+            ["filter", "encodedVideoPath", "eq"],
+            filter_encoded_video_path_eq,
         )
     if filter_encoded_video_path_in_ is not None:
         set_nested(
-            json_data, ["filter_encoded_video_path_in_"], filter_encoded_video_path_in_
+            json_data,
+            ["filter", "encodedVideoPath", "in"],
+            filter_encoded_video_path_in_,
         )
     if filter_encoded_video_path_ne is not None:
         set_nested(
-            json_data, ["filter_encoded_video_path_ne"], filter_encoded_video_path_ne
+            json_data,
+            ["filter", "encodedVideoPath", "ne"],
+            filter_encoded_video_path_ne,
         )
     if filter_encoded_video_path_not_in is not None:
         set_nested(
             json_data,
-            ["filter_encoded_video_path_not_in"],
+            ["filter", "encodedVideoPath", "notIn"],
             filter_encoded_video_path_not_in,
         )
     if filter_file_size_in_bytes_eq is not None:
         set_nested(
-            json_data, ["filter_file_size_in_bytes_eq"], filter_file_size_in_bytes_eq
+            json_data, ["filter", "fileSizeInBytes", "eq"], filter_file_size_in_bytes_eq
         )
     if filter_file_size_in_bytes_gt is not None:
         set_nested(
-            json_data, ["filter_file_size_in_bytes_gt"], filter_file_size_in_bytes_gt
+            json_data, ["filter", "fileSizeInBytes", "gt"], filter_file_size_in_bytes_gt
         )
     if filter_file_size_in_bytes_gte is not None:
         set_nested(
-            json_data, ["filter_file_size_in_bytes_gte"], filter_file_size_in_bytes_gte
+            json_data,
+            ["filter", "fileSizeInBytes", "gte"],
+            filter_file_size_in_bytes_gte,
         )
     if filter_file_size_in_bytes_in_ is not None:
         set_nested(
-            json_data, ["filter_file_size_in_bytes_in_"], filter_file_size_in_bytes_in_
+            json_data,
+            ["filter", "fileSizeInBytes", "in"],
+            filter_file_size_in_bytes_in_,
         )
     if filter_file_size_in_bytes_lt is not None:
         set_nested(
-            json_data, ["filter_file_size_in_bytes_lt"], filter_file_size_in_bytes_lt
+            json_data, ["filter", "fileSizeInBytes", "lt"], filter_file_size_in_bytes_lt
         )
     if filter_file_size_in_bytes_lte is not None:
         set_nested(
-            json_data, ["filter_file_size_in_bytes_lte"], filter_file_size_in_bytes_lte
+            json_data,
+            ["filter", "fileSizeInBytes", "lte"],
+            filter_file_size_in_bytes_lte,
         )
     if filter_file_size_in_bytes_ne is not None:
         set_nested(
-            json_data, ["filter_file_size_in_bytes_ne"], filter_file_size_in_bytes_ne
+            json_data, ["filter", "fileSizeInBytes", "ne"], filter_file_size_in_bytes_ne
         )
     if filter_file_size_in_bytes_not_in is not None:
         set_nested(
             json_data,
-            ["filter_file_size_in_bytes_not_in"],
+            ["filter", "fileSizeInBytes", "notIn"],
             filter_file_size_in_bytes_not_in,
         )
     if filter_has_albums_eq is not None:
         set_nested(
-            json_data, ["filter_has_albums_eq"], filter_has_albums_eq.lower() == "true"
+            json_data,
+            ["filter", "hasAlbums", "eq"],
+            filter_has_albums_eq.lower() == "true",
         )
     if filter_has_people_eq is not None:
         set_nested(
-            json_data, ["filter_has_people_eq"], filter_has_people_eq.lower() == "true"
+            json_data,
+            ["filter", "hasPeople", "eq"],
+            filter_has_people_eq.lower() == "true",
         )
     if filter_has_tags_eq is not None:
         set_nested(
-            json_data, ["filter_has_tags_eq"], filter_has_tags_eq.lower() == "true"
+            json_data, ["filter", "hasTags", "eq"], filter_has_tags_eq.lower() == "true"
         )
     if filter_id_eq is not None:
-        set_nested(json_data, ["filter_id_eq"], filter_id_eq)
+        set_nested(json_data, ["filter", "id", "eq"], filter_id_eq)
     if filter_id_ne is not None:
-        set_nested(json_data, ["filter_id_ne"], filter_id_ne)
+        set_nested(json_data, ["filter", "id", "ne"], filter_id_ne)
     if filter_is_encoded_eq is not None:
         set_nested(
-            json_data, ["filter_is_encoded_eq"], filter_is_encoded_eq.lower() == "true"
+            json_data,
+            ["filter", "isEncoded", "eq"],
+            filter_is_encoded_eq.lower() == "true",
         )
     if filter_is_favorite_eq is not None:
         set_nested(
             json_data,
-            ["filter_is_favorite_eq"],
+            ["filter", "isFavorite", "eq"],
             filter_is_favorite_eq.lower() == "true",
         )
     if filter_is_motion_eq is not None:
         set_nested(
-            json_data, ["filter_is_motion_eq"], filter_is_motion_eq.lower() == "true"
+            json_data,
+            ["filter", "isMotion", "eq"],
+            filter_is_motion_eq.lower() == "true",
         )
     if filter_is_offline_eq is not None:
         set_nested(
-            json_data, ["filter_is_offline_eq"], filter_is_offline_eq.lower() == "true"
+            json_data,
+            ["filter", "isOffline", "eq"],
+            filter_is_offline_eq.lower() == "true",
         )
     if filter_lens_model_eq is not None:
-        set_nested(json_data, ["filter_lens_model_eq"], filter_lens_model_eq)
+        set_nested(json_data, ["filter", "lensModel", "eq"], filter_lens_model_eq)
     if filter_lens_model_in_ is not None:
-        set_nested(json_data, ["filter_lens_model_in_"], filter_lens_model_in_)
+        set_nested(json_data, ["filter", "lensModel", "in"], filter_lens_model_in_)
     if filter_lens_model_ne is not None:
-        set_nested(json_data, ["filter_lens_model_ne"], filter_lens_model_ne)
+        set_nested(json_data, ["filter", "lensModel", "ne"], filter_lens_model_ne)
     if filter_lens_model_not_in is not None:
-        set_nested(json_data, ["filter_lens_model_not_in"], filter_lens_model_not_in)
+        set_nested(
+            json_data, ["filter", "lensModel", "notIn"], filter_lens_model_not_in
+        )
     if filter_library_id_eq is not None:
-        set_nested(json_data, ["filter_library_id_eq"], filter_library_id_eq)
+        set_nested(json_data, ["filter", "libraryId", "eq"], filter_library_id_eq)
     if filter_library_id_ne is not None:
-        set_nested(json_data, ["filter_library_id_ne"], filter_library_id_ne)
+        set_nested(json_data, ["filter", "libraryId", "ne"], filter_library_id_ne)
     if filter_make_eq is not None:
-        set_nested(json_data, ["filter_make_eq"], filter_make_eq)
+        set_nested(json_data, ["filter", "make", "eq"], filter_make_eq)
     if filter_make_in_ is not None:
-        set_nested(json_data, ["filter_make_in_"], filter_make_in_)
+        set_nested(json_data, ["filter", "make", "in"], filter_make_in_)
     if filter_make_ne is not None:
-        set_nested(json_data, ["filter_make_ne"], filter_make_ne)
+        set_nested(json_data, ["filter", "make", "ne"], filter_make_ne)
     if filter_make_not_in is not None:
-        set_nested(json_data, ["filter_make_not_in"], filter_make_not_in)
+        set_nested(json_data, ["filter", "make", "notIn"], filter_make_not_in)
     if filter_model_eq is not None:
-        set_nested(json_data, ["filter_model_eq"], filter_model_eq)
+        set_nested(json_data, ["filter", "model", "eq"], filter_model_eq)
     if filter_model_in_ is not None:
-        set_nested(json_data, ["filter_model_in_"], filter_model_in_)
+        set_nested(json_data, ["filter", "model", "in"], filter_model_in_)
     if filter_model_ne is not None:
-        set_nested(json_data, ["filter_model_ne"], filter_model_ne)
+        set_nested(json_data, ["filter", "model", "ne"], filter_model_ne)
     if filter_model_not_in is not None:
-        set_nested(json_data, ["filter_model_not_in"], filter_model_not_in)
+        set_nested(json_data, ["filter", "model", "notIn"], filter_model_not_in)
     if filter_ocr_matches is not None:
-        set_nested(json_data, ["filter_ocr_matches"], filter_ocr_matches)
+        set_nested(json_data, ["filter", "ocr", "matches"], filter_ocr_matches)
     if filter_or_ is not None:
         value_filter_or_ = parse_json_options(filter_or_, "--filter-or", ctx=ctx)
-        set_nested(json_data, ["filter_or_"], value_filter_or_)
+        set_nested(json_data, ["filter", "or"], value_filter_or_)
     if filter_original_file_name_ends_with is not None:
         set_nested(
             json_data,
-            ["filter_original_file_name_ends_with"],
+            ["filter", "originalFileName", "endsWith"],
             filter_original_file_name_ends_with,
         )
     if filter_original_file_name_eq is not None:
         set_nested(
-            json_data, ["filter_original_file_name_eq"], filter_original_file_name_eq
+            json_data,
+            ["filter", "originalFileName", "eq"],
+            filter_original_file_name_eq,
         )
     if filter_original_file_name_in_ is not None:
         set_nested(
-            json_data, ["filter_original_file_name_in_"], filter_original_file_name_in_
+            json_data,
+            ["filter", "originalFileName", "in"],
+            filter_original_file_name_in_,
         )
     if filter_original_file_name_like is not None:
         set_nested(
             json_data,
-            ["filter_original_file_name_like"],
+            ["filter", "originalFileName", "like"],
             filter_original_file_name_like,
         )
     if filter_original_file_name_ne is not None:
         set_nested(
-            json_data, ["filter_original_file_name_ne"], filter_original_file_name_ne
+            json_data,
+            ["filter", "originalFileName", "ne"],
+            filter_original_file_name_ne,
         )
     if filter_original_file_name_not_in is not None:
         set_nested(
             json_data,
-            ["filter_original_file_name_not_in"],
+            ["filter", "originalFileName", "notIn"],
             filter_original_file_name_not_in,
         )
     if filter_original_file_name_not_like is not None:
         set_nested(
             json_data,
-            ["filter_original_file_name_not_like"],
+            ["filter", "originalFileName", "notLike"],
             filter_original_file_name_not_like,
         )
     if filter_original_file_name_starts_with is not None:
         set_nested(
             json_data,
-            ["filter_original_file_name_starts_with"],
+            ["filter", "originalFileName", "startsWith"],
             filter_original_file_name_starts_with,
         )
     if filter_original_path_ends_with is not None:
         set_nested(
             json_data,
-            ["filter_original_path_ends_with"],
+            ["filter", "originalPath", "endsWith"],
             filter_original_path_ends_with,
         )
     if filter_original_path_eq is not None:
-        set_nested(json_data, ["filter_original_path_eq"], filter_original_path_eq)
+        set_nested(json_data, ["filter", "originalPath", "eq"], filter_original_path_eq)
     if filter_original_path_in_ is not None:
-        set_nested(json_data, ["filter_original_path_in_"], filter_original_path_in_)
+        set_nested(
+            json_data, ["filter", "originalPath", "in"], filter_original_path_in_
+        )
     if filter_original_path_like is not None:
-        set_nested(json_data, ["filter_original_path_like"], filter_original_path_like)
+        set_nested(
+            json_data, ["filter", "originalPath", "like"], filter_original_path_like
+        )
     if filter_original_path_ne is not None:
-        set_nested(json_data, ["filter_original_path_ne"], filter_original_path_ne)
+        set_nested(json_data, ["filter", "originalPath", "ne"], filter_original_path_ne)
     if filter_original_path_not_in is not None:
         set_nested(
-            json_data, ["filter_original_path_not_in"], filter_original_path_not_in
+            json_data, ["filter", "originalPath", "notIn"], filter_original_path_not_in
         )
     if filter_original_path_not_like is not None:
         set_nested(
-            json_data, ["filter_original_path_not_like"], filter_original_path_not_like
+            json_data,
+            ["filter", "originalPath", "notLike"],
+            filter_original_path_not_like,
         )
     if filter_original_path_starts_with is not None:
         set_nested(
             json_data,
-            ["filter_original_path_starts_with"],
+            ["filter", "originalPath", "startsWith"],
             filter_original_path_starts_with,
         )
     if filter_person_ids_all is not None:
-        set_nested(json_data, ["filter_person_ids_all"], filter_person_ids_all)
+        set_nested(json_data, ["filter", "personIds", "all"], filter_person_ids_all)
     if filter_person_ids_any is not None:
-        set_nested(json_data, ["filter_person_ids_any"], filter_person_ids_any)
+        set_nested(json_data, ["filter", "personIds", "any"], filter_person_ids_any)
     if filter_person_ids_none is not None:
-        set_nested(json_data, ["filter_person_ids_none"], filter_person_ids_none)
+        set_nested(json_data, ["filter", "personIds", "none"], filter_person_ids_none)
     if filter_rating_eq is not None:
-        set_nested(json_data, ["filter_rating_eq"], filter_rating_eq)
+        set_nested(json_data, ["filter", "rating", "eq"], filter_rating_eq)
     if filter_rating_gt is not None:
-        set_nested(json_data, ["filter_rating_gt"], filter_rating_gt)
+        set_nested(json_data, ["filter", "rating", "gt"], filter_rating_gt)
     if filter_rating_gte is not None:
-        set_nested(json_data, ["filter_rating_gte"], filter_rating_gte)
+        set_nested(json_data, ["filter", "rating", "gte"], filter_rating_gte)
     if filter_rating_in_ is not None:
-        set_nested(json_data, ["filter_rating_in_"], filter_rating_in_)
+        set_nested(json_data, ["filter", "rating", "in"], filter_rating_in_)
     if filter_rating_lt is not None:
-        set_nested(json_data, ["filter_rating_lt"], filter_rating_lt)
+        set_nested(json_data, ["filter", "rating", "lt"], filter_rating_lt)
     if filter_rating_lte is not None:
-        set_nested(json_data, ["filter_rating_lte"], filter_rating_lte)
+        set_nested(json_data, ["filter", "rating", "lte"], filter_rating_lte)
     if filter_rating_ne is not None:
-        set_nested(json_data, ["filter_rating_ne"], filter_rating_ne)
+        set_nested(json_data, ["filter", "rating", "ne"], filter_rating_ne)
     if filter_rating_not_in is not None:
-        set_nested(json_data, ["filter_rating_not_in"], filter_rating_not_in)
+        set_nested(json_data, ["filter", "rating", "notIn"], filter_rating_not_in)
     if filter_state_eq is not None:
-        set_nested(json_data, ["filter_state_eq"], filter_state_eq)
+        set_nested(json_data, ["filter", "state", "eq"], filter_state_eq)
     if filter_state_in_ is not None:
-        set_nested(json_data, ["filter_state_in_"], filter_state_in_)
+        set_nested(json_data, ["filter", "state", "in"], filter_state_in_)
     if filter_state_ne is not None:
-        set_nested(json_data, ["filter_state_ne"], filter_state_ne)
+        set_nested(json_data, ["filter", "state", "ne"], filter_state_ne)
     if filter_state_not_in is not None:
-        set_nested(json_data, ["filter_state_not_in"], filter_state_not_in)
+        set_nested(json_data, ["filter", "state", "notIn"], filter_state_not_in)
     if filter_tag_ids_all is not None:
-        set_nested(json_data, ["filter_tag_ids_all"], filter_tag_ids_all)
+        set_nested(json_data, ["filter", "tagIds", "all"], filter_tag_ids_all)
     if filter_tag_ids_any is not None:
-        set_nested(json_data, ["filter_tag_ids_any"], filter_tag_ids_any)
+        set_nested(json_data, ["filter", "tagIds", "any"], filter_tag_ids_any)
     if filter_tag_ids_none is not None:
-        set_nested(json_data, ["filter_tag_ids_none"], filter_tag_ids_none)
+        set_nested(json_data, ["filter", "tagIds", "none"], filter_tag_ids_none)
     if filter_taken_at_eq is not None:
-        set_nested(json_data, ["filter_taken_at_eq"], filter_taken_at_eq)
+        set_nested(json_data, ["filter", "takenAt", "eq"], filter_taken_at_eq)
     if filter_taken_at_gt is not None:
-        set_nested(json_data, ["filter_taken_at_gt"], filter_taken_at_gt)
+        set_nested(json_data, ["filter", "takenAt", "gt"], filter_taken_at_gt)
     if filter_taken_at_gte is not None:
-        set_nested(json_data, ["filter_taken_at_gte"], filter_taken_at_gte)
+        set_nested(json_data, ["filter", "takenAt", "gte"], filter_taken_at_gte)
     if filter_taken_at_lt is not None:
-        set_nested(json_data, ["filter_taken_at_lt"], filter_taken_at_lt)
+        set_nested(json_data, ["filter", "takenAt", "lt"], filter_taken_at_lt)
     if filter_taken_at_lte is not None:
-        set_nested(json_data, ["filter_taken_at_lte"], filter_taken_at_lte)
+        set_nested(json_data, ["filter", "takenAt", "lte"], filter_taken_at_lte)
     if filter_taken_at_ne is not None:
-        set_nested(json_data, ["filter_taken_at_ne"], filter_taken_at_ne)
+        set_nested(json_data, ["filter", "takenAt", "ne"], filter_taken_at_ne)
     if filter_trashed_at_eq is not None:
-        set_nested(json_data, ["filter_trashed_at_eq"], filter_trashed_at_eq)
+        set_nested(json_data, ["filter", "trashedAt", "eq"], filter_trashed_at_eq)
     if filter_trashed_at_gt is not None:
-        set_nested(json_data, ["filter_trashed_at_gt"], filter_trashed_at_gt)
+        set_nested(json_data, ["filter", "trashedAt", "gt"], filter_trashed_at_gt)
     if filter_trashed_at_gte is not None:
-        set_nested(json_data, ["filter_trashed_at_gte"], filter_trashed_at_gte)
+        set_nested(json_data, ["filter", "trashedAt", "gte"], filter_trashed_at_gte)
     if filter_trashed_at_lt is not None:
-        set_nested(json_data, ["filter_trashed_at_lt"], filter_trashed_at_lt)
+        set_nested(json_data, ["filter", "trashedAt", "lt"], filter_trashed_at_lt)
     if filter_trashed_at_lte is not None:
-        set_nested(json_data, ["filter_trashed_at_lte"], filter_trashed_at_lte)
+        set_nested(json_data, ["filter", "trashedAt", "lte"], filter_trashed_at_lte)
     if filter_trashed_at_ne is not None:
-        set_nested(json_data, ["filter_trashed_at_ne"], filter_trashed_at_ne)
+        set_nested(json_data, ["filter", "trashedAt", "ne"], filter_trashed_at_ne)
     if filter_type_eq is not None:
-        set_nested(json_data, ["filter_type_eq"], filter_type_eq)
+        set_nested(json_data, ["filter", "type", "eq"], filter_type_eq)
     if filter_type_in_ is not None:
-        set_nested(json_data, ["filter_type_in_"], filter_type_in_)
+        set_nested(json_data, ["filter", "type", "in"], filter_type_in_)
     if filter_type_ne is not None:
-        set_nested(json_data, ["filter_type_ne"], filter_type_ne)
+        set_nested(json_data, ["filter", "type", "ne"], filter_type_ne)
     if filter_type_not_in is not None:
-        set_nested(json_data, ["filter_type_not_in"], filter_type_not_in)
+        set_nested(json_data, ["filter", "type", "notIn"], filter_type_not_in)
     if filter_updated_at_eq is not None:
-        set_nested(json_data, ["filter_updated_at_eq"], filter_updated_at_eq)
+        set_nested(json_data, ["filter", "updatedAt", "eq"], filter_updated_at_eq)
     if filter_updated_at_gt is not None:
-        set_nested(json_data, ["filter_updated_at_gt"], filter_updated_at_gt)
+        set_nested(json_data, ["filter", "updatedAt", "gt"], filter_updated_at_gt)
     if filter_updated_at_gte is not None:
-        set_nested(json_data, ["filter_updated_at_gte"], filter_updated_at_gte)
+        set_nested(json_data, ["filter", "updatedAt", "gte"], filter_updated_at_gte)
     if filter_updated_at_lt is not None:
-        set_nested(json_data, ["filter_updated_at_lt"], filter_updated_at_lt)
+        set_nested(json_data, ["filter", "updatedAt", "lt"], filter_updated_at_lt)
     if filter_updated_at_lte is not None:
-        set_nested(json_data, ["filter_updated_at_lte"], filter_updated_at_lte)
+        set_nested(json_data, ["filter", "updatedAt", "lte"], filter_updated_at_lte)
     if filter_updated_at_ne is not None:
-        set_nested(json_data, ["filter_updated_at_ne"], filter_updated_at_ne)
+        set_nested(json_data, ["filter", "updatedAt", "ne"], filter_updated_at_ne)
     if filter_visibility_eq is not None:
-        set_nested(json_data, ["filter_visibility_eq"], filter_visibility_eq)
+        set_nested(json_data, ["filter", "visibility", "eq"], filter_visibility_eq)
     if filter_visibility_in_ is not None:
-        set_nested(json_data, ["filter_visibility_in_"], filter_visibility_in_)
+        set_nested(json_data, ["filter", "visibility", "in"], filter_visibility_in_)
     if filter_visibility_ne is not None:
-        set_nested(json_data, ["filter_visibility_ne"], filter_visibility_ne)
+        set_nested(json_data, ["filter", "visibility", "ne"], filter_visibility_ne)
     if filter_visibility_not_in is not None:
-        set_nested(json_data, ["filter_visibility_not_in"], filter_visibility_not_in)
+        set_nested(
+            json_data, ["filter", "visibility", "notIn"], filter_visibility_not_in
+        )
     if is_encoded is not None:
-        set_nested(json_data, ["is_encoded"], is_encoded.lower() == "true")
+        set_nested(json_data, ["isEncoded"], is_encoded.lower() == "true")
     if is_favorite is not None:
-        set_nested(json_data, ["is_favorite"], is_favorite.lower() == "true")
+        set_nested(json_data, ["isFavorite"], is_favorite.lower() == "true")
     if is_motion is not None:
-        set_nested(json_data, ["is_motion"], is_motion.lower() == "true")
+        set_nested(json_data, ["isMotion"], is_motion.lower() == "true")
     if is_not_in_album is not None:
-        set_nested(json_data, ["is_not_in_album"], is_not_in_album.lower() == "true")
+        set_nested(json_data, ["isNotInAlbum"], is_not_in_album.lower() == "true")
     if is_offline is not None:
-        set_nested(json_data, ["is_offline"], is_offline.lower() == "true")
+        set_nested(json_data, ["isOffline"], is_offline.lower() == "true")
     if language is not None:
         set_nested(json_data, ["language"], language)
     if lens_model is not None:
-        set_nested(json_data, ["lens_model"], lens_model)
+        set_nested(json_data, ["lensModel"], lens_model)
     if library_id is not None:
-        set_nested(json_data, ["library_id"], library_id)
+        set_nested(json_data, ["libraryId"], library_id)
     if make is not None:
         set_nested(json_data, ["make"], make)
     if model is not None:
@@ -4007,11 +4183,11 @@ Example: 2024-01-01T00:00:00.000Z""",
     if page is not None:
         set_nested(json_data, ["page"], page)
     if person_ids is not None:
-        set_nested(json_data, ["person_ids"], person_ids)
+        set_nested(json_data, ["personIds"], person_ids)
     if query is not None:
         set_nested(json_data, ["query"], query)
     if query_asset_id is not None:
-        set_nested(json_data, ["query_asset_id"], query_asset_id)
+        set_nested(json_data, ["queryAssetId"], query_asset_id)
     if rating is not None:
         set_nested(json_data, ["rating"], rating)
     if size is not None:
@@ -4019,27 +4195,27 @@ Example: 2024-01-01T00:00:00.000Z""",
     if state is not None:
         set_nested(json_data, ["state"], state)
     if tag_ids is not None:
-        set_nested(json_data, ["tag_ids"], tag_ids)
+        set_nested(json_data, ["tagIds"], tag_ids)
     if taken_after is not None:
-        set_nested(json_data, ["taken_after"], taken_after)
+        set_nested(json_data, ["takenAfter"], taken_after)
     if taken_before is not None:
-        set_nested(json_data, ["taken_before"], taken_before)
+        set_nested(json_data, ["takenBefore"], taken_before)
     if trashed_after is not None:
-        set_nested(json_data, ["trashed_after"], trashed_after)
+        set_nested(json_data, ["trashedAfter"], trashed_after)
     if trashed_before is not None:
-        set_nested(json_data, ["trashed_before"], trashed_before)
+        set_nested(json_data, ["trashedBefore"], trashed_before)
     if type is not None:
         set_nested(json_data, ["type"], type)
     if updated_after is not None:
-        set_nested(json_data, ["updated_after"], updated_after)
+        set_nested(json_data, ["updatedAfter"], updated_after)
     if updated_before is not None:
-        set_nested(json_data, ["updated_before"], updated_before)
+        set_nested(json_data, ["updatedBefore"], updated_before)
     if visibility is not None:
         set_nested(json_data, ["visibility"], visibility)
     if with_deleted is not None:
-        set_nested(json_data, ["with_deleted"], with_deleted.lower() == "true")
+        set_nested(json_data, ["withDeleted"], with_deleted.lower() == "true")
     if with_exif is not None:
-        set_nested(json_data, ["with_exif"], with_exif.lower() == "true")
+        set_nested(json_data, ["withExif"], with_exif.lower() == "true")
     smart_search_dto = SmartSearchDto.model_validate(json_data)
     kwargs["smart_search_dto"] = smart_search_dto
     client: AsyncClient = ctx.obj["client"]

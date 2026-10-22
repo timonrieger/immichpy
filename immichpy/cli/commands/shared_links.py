@@ -11,7 +11,11 @@ import typer
 if TYPE_CHECKING:
     from immichpy import AsyncClient
 
-from immichpy.cli.runtime import print_response, run_command, set_nested
+from immichpy.cli.runtime import (
+    print_response,
+    run_command,
+    set_nested,
+)
 from immichpy.client.generated.models import (
     AssetIdsDto,
     SharedLinkCreateDto,
@@ -38,7 +42,7 @@ def add_shared_link_assets(
     kwargs = {}
     json_data = {}
     kwargs["id"] = id
-    set_nested(json_data, ["asset_ids"], asset_ids)
+    set_nested(json_data, ["assetIds"], asset_ids)
     asset_ids_dto = AssetIdsDto.model_validate(json_data)
     kwargs["asset_ids_dto"] = asset_ids_dto
     client: AsyncClient = ctx.obj["client"]
@@ -85,21 +89,21 @@ Example: 2024-01-01T00:00:00.000Z""",
     kwargs = {}
     json_data = {}
     if album_id is not None:
-        set_nested(json_data, ["album_id"], album_id)
+        set_nested(json_data, ["albumId"], album_id)
     if allow_download is not None:
-        set_nested(json_data, ["allow_download"], allow_download.lower() == "true")
+        set_nested(json_data, ["allowDownload"], allow_download.lower() == "true")
     if allow_upload is not None:
-        set_nested(json_data, ["allow_upload"], allow_upload.lower() == "true")
+        set_nested(json_data, ["allowUpload"], allow_upload.lower() == "true")
     if asset_ids is not None:
-        set_nested(json_data, ["asset_ids"], asset_ids)
+        set_nested(json_data, ["assetIds"], asset_ids)
     if description is not None:
         set_nested(json_data, ["description"], description)
     if expires_at is not None:
-        set_nested(json_data, ["expires_at"], expires_at)
+        set_nested(json_data, ["expiresAt"], expires_at)
     if password is not None:
         set_nested(json_data, ["password"], password)
     if show_metadata is not None:
-        set_nested(json_data, ["show_metadata"], show_metadata.lower() == "true")
+        set_nested(json_data, ["showMetadata"], show_metadata.lower() == "true")
     if slug is not None:
         set_nested(json_data, ["slug"], slug)
     set_nested(json_data, ["type"], type)
@@ -199,7 +203,7 @@ def remove_shared_link_assets(
     kwargs = {}
     json_data = {}
     kwargs["id"] = id
-    set_nested(json_data, ["asset_ids"], asset_ids)
+    set_nested(json_data, ["assetIds"], asset_ids)
     asset_ids_dto = AssetIdsDto.model_validate(json_data)
     kwargs["asset_ids_dto"] = asset_ids_dto
     client: AsyncClient = ctx.obj["client"]
@@ -274,17 +278,17 @@ Example: 2024-01-01T00:00:00.000Z""",
     json_data = {}
     kwargs["id"] = id
     if allow_download is not None:
-        set_nested(json_data, ["allow_download"], allow_download.lower() == "true")
+        set_nested(json_data, ["allowDownload"], allow_download.lower() == "true")
     if allow_upload is not None:
-        set_nested(json_data, ["allow_upload"], allow_upload.lower() == "true")
+        set_nested(json_data, ["allowUpload"], allow_upload.lower() == "true")
     if description is not None:
         set_nested(json_data, ["description"], description)
     if expires_at is not None:
-        set_nested(json_data, ["expires_at"], expires_at)
+        set_nested(json_data, ["expiresAt"], expires_at)
     if password is not None:
         set_nested(json_data, ["password"], password)
     if show_metadata is not None:
-        set_nested(json_data, ["show_metadata"], show_metadata.lower() == "true")
+        set_nested(json_data, ["showMetadata"], show_metadata.lower() == "true")
     if slug is not None:
         set_nested(json_data, ["slug"], slug)
     shared_link_edit_dto = SharedLinkEditDto.model_validate(json_data)

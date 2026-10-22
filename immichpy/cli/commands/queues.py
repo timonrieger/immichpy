@@ -9,7 +9,11 @@ import typer
 if TYPE_CHECKING:
     from immichpy import AsyncClient
 
-from immichpy.cli.runtime import print_response, run_command, set_nested
+from immichpy.cli.runtime import (
+    print_response,
+    run_command,
+    set_nested,
+)
 from immichpy.client.generated.models import (
     QueueDeleteDto,
     QueueJobStatus,
@@ -115,7 +119,7 @@ def update_queue(
     json_data = {}
     kwargs["name"] = name
     if is_paused is not None:
-        set_nested(json_data, ["is_paused"], is_paused.lower() == "true")
+        set_nested(json_data, ["isPaused"], is_paused.lower() == "true")
     queue_update_dto = QueueUpdateDto.model_validate(json_data)
     kwargs["queue_update_dto"] = queue_update_dto
     client: AsyncClient = ctx.obj["client"]

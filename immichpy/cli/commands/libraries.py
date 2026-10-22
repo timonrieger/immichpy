@@ -10,7 +10,11 @@ import typer
 if TYPE_CHECKING:
     from immichpy import AsyncClient
 
-from immichpy.cli.runtime import print_response, run_command, set_nested
+from immichpy.cli.runtime import (
+    print_response,
+    run_command,
+    set_nested,
+)
 from immichpy.client.generated.models import (
     CreateLibraryDto,
     UpdateLibraryDto,
@@ -41,12 +45,12 @@ def create_library(
     kwargs = {}
     json_data = {}
     if exclusion_patterns is not None:
-        set_nested(json_data, ["exclusion_patterns"], exclusion_patterns)
+        set_nested(json_data, ["exclusionPatterns"], exclusion_patterns)
     if import_paths is not None:
-        set_nested(json_data, ["import_paths"], import_paths)
+        set_nested(json_data, ["importPaths"], import_paths)
     if name is not None:
         set_nested(json_data, ["name"], name)
-    set_nested(json_data, ["owner_id"], owner_id)
+    set_nested(json_data, ["ownerId"], owner_id)
     create_library_dto = CreateLibraryDto.model_validate(json_data)
     kwargs["create_library_dto"] = create_library_dto
     client: AsyncClient = ctx.obj["client"]
@@ -152,9 +156,9 @@ def update_library(
     json_data = {}
     kwargs["id"] = id
     if exclusion_patterns is not None:
-        set_nested(json_data, ["exclusion_patterns"], exclusion_patterns)
+        set_nested(json_data, ["exclusionPatterns"], exclusion_patterns)
     if import_paths is not None:
-        set_nested(json_data, ["import_paths"], import_paths)
+        set_nested(json_data, ["importPaths"], import_paths)
     if name is not None:
         set_nested(json_data, ["name"], name)
     update_library_dto = UpdateLibraryDto.model_validate(json_data)
@@ -183,9 +187,9 @@ def validate(
     json_data = {}
     kwargs["id"] = id
     if exclusion_patterns is not None:
-        set_nested(json_data, ["exclusion_patterns"], exclusion_patterns)
+        set_nested(json_data, ["exclusionPatterns"], exclusion_patterns)
     if import_paths is not None:
-        set_nested(json_data, ["import_paths"], import_paths)
+        set_nested(json_data, ["importPaths"], import_paths)
     validate_library_dto = ValidateLibraryDto.model_validate(json_data)
     kwargs["validate_library_dto"] = validate_library_dto
     client: AsyncClient = ctx.obj["client"]

@@ -9,7 +9,11 @@ import typer
 if TYPE_CHECKING:
     from immichpy import AsyncClient
 
-from immichpy.cli.runtime import print_response, run_command, set_nested
+from immichpy.cli.runtime import (
+    print_response,
+    run_command,
+    set_nested,
+)
 from immichpy.client.generated.models import (
     AdminConfigDto,
     AudioCodec,
@@ -653,361 +657,381 @@ def update_admin_config(
     kwargs = {}
     json_data = {}
     set_nested(
-        json_data, ["backup_database_cron_expression"], backup_database_cron_expression
+        json_data,
+        ["backup", "database", "cronExpression"],
+        backup_database_cron_expression,
     )
-    set_nested(json_data, ["backup_database_enabled"], backup_database_enabled)
+    set_nested(json_data, ["backup", "database", "enabled"], backup_database_enabled)
     set_nested(
         json_data,
-        ["backup_database_keep_last_amount"],
+        ["backup", "database", "keepLastAmount"],
         backup_database_keep_last_amount,
     )
-    set_nested(json_data, ["ffmpeg_accel"], ffmpeg_accel)
-    set_nested(json_data, ["ffmpeg_accel_decode"], ffmpeg_accel_decode)
+    set_nested(json_data, ["ffmpeg", "accel"], ffmpeg_accel)
+    set_nested(json_data, ["ffmpeg", "accelDecode"], ffmpeg_accel_decode)
     set_nested(
-        json_data, ["ffmpeg_accepted_audio_codecs"], ffmpeg_accepted_audio_codecs
+        json_data, ["ffmpeg", "acceptedAudioCodecs"], ffmpeg_accepted_audio_codecs
     )
-    set_nested(json_data, ["ffmpeg_accepted_containers"], ffmpeg_accepted_containers)
+    set_nested(json_data, ["ffmpeg", "acceptedContainers"], ffmpeg_accepted_containers)
     set_nested(
-        json_data, ["ffmpeg_accepted_video_codecs"], ffmpeg_accepted_video_codecs
+        json_data, ["ffmpeg", "acceptedVideoCodecs"], ffmpeg_accepted_video_codecs
     )
-    set_nested(json_data, ["ffmpeg_bframes"], ffmpeg_bframes)
-    set_nested(json_data, ["ffmpeg_cq_mode"], ffmpeg_cq_mode)
-    set_nested(json_data, ["ffmpeg_crf"], ffmpeg_crf)
-    set_nested(json_data, ["ffmpeg_gop_size"], ffmpeg_gop_size)
-    set_nested(json_data, ["ffmpeg_max_bitrate"], ffmpeg_max_bitrate)
-    set_nested(json_data, ["ffmpeg_preferred_hw_device"], ffmpeg_preferred_hw_device)
-    set_nested(json_data, ["ffmpeg_preset"], ffmpeg_preset)
-    set_nested(json_data, ["ffmpeg_realtime_enabled"], ffmpeg_realtime_enabled)
-    set_nested(json_data, ["ffmpeg_realtime_resolutions"], ffmpeg_realtime_resolutions)
+    set_nested(json_data, ["ffmpeg", "bframes"], ffmpeg_bframes)
+    set_nested(json_data, ["ffmpeg", "cqMode"], ffmpeg_cq_mode)
+    set_nested(json_data, ["ffmpeg", "crf"], ffmpeg_crf)
+    set_nested(json_data, ["ffmpeg", "gopSize"], ffmpeg_gop_size)
+    set_nested(json_data, ["ffmpeg", "maxBitrate"], ffmpeg_max_bitrate)
+    set_nested(json_data, ["ffmpeg", "preferredHwDevice"], ffmpeg_preferred_hw_device)
+    set_nested(json_data, ["ffmpeg", "preset"], ffmpeg_preset)
+    set_nested(json_data, ["ffmpeg", "realtime", "enabled"], ffmpeg_realtime_enabled)
     set_nested(
-        json_data, ["ffmpeg_realtime_video_codecs"], ffmpeg_realtime_video_codecs
+        json_data, ["ffmpeg", "realtime", "resolutions"], ffmpeg_realtime_resolutions
     )
-    set_nested(json_data, ["ffmpeg_refs"], ffmpeg_refs)
-    set_nested(json_data, ["ffmpeg_target_audio_codec"], ffmpeg_target_audio_codec)
-    set_nested(json_data, ["ffmpeg_target_resolution"], ffmpeg_target_resolution)
-    set_nested(json_data, ["ffmpeg_target_video_codec"], ffmpeg_target_video_codec)
-    set_nested(json_data, ["ffmpeg_temporal_aq"], ffmpeg_temporal_aq)
-    set_nested(json_data, ["ffmpeg_threads"], ffmpeg_threads)
-    set_nested(json_data, ["ffmpeg_tonemap"], ffmpeg_tonemap)
-    set_nested(json_data, ["ffmpeg_transcode"], ffmpeg_transcode)
-    set_nested(json_data, ["ffmpeg_two_pass"], ffmpeg_two_pass)
-    set_nested(json_data, ["image_colorspace"], image_colorspace)
-    set_nested(json_data, ["image_extract_embedded"], image_extract_embedded)
-    set_nested(json_data, ["image_fullsize_enabled"], image_fullsize_enabled)
-    set_nested(json_data, ["image_fullsize_format"], image_fullsize_format)
+    set_nested(
+        json_data, ["ffmpeg", "realtime", "videoCodecs"], ffmpeg_realtime_video_codecs
+    )
+    set_nested(json_data, ["ffmpeg", "refs"], ffmpeg_refs)
+    set_nested(json_data, ["ffmpeg", "targetAudioCodec"], ffmpeg_target_audio_codec)
+    set_nested(json_data, ["ffmpeg", "targetResolution"], ffmpeg_target_resolution)
+    set_nested(json_data, ["ffmpeg", "targetVideoCodec"], ffmpeg_target_video_codec)
+    set_nested(json_data, ["ffmpeg", "temporalAQ"], ffmpeg_temporal_aq)
+    set_nested(json_data, ["ffmpeg", "threads"], ffmpeg_threads)
+    set_nested(json_data, ["ffmpeg", "tonemap"], ffmpeg_tonemap)
+    set_nested(json_data, ["ffmpeg", "transcode"], ffmpeg_transcode)
+    set_nested(json_data, ["ffmpeg", "twoPass"], ffmpeg_two_pass)
+    set_nested(json_data, ["image", "colorspace"], image_colorspace)
+    set_nested(json_data, ["image", "extractEmbedded"], image_extract_embedded)
+    set_nested(json_data, ["image", "fullsize", "enabled"], image_fullsize_enabled)
+    set_nested(json_data, ["image", "fullsize", "format"], image_fullsize_format)
     if image_fullsize_progressive is not None:
         set_nested(
             json_data,
-            ["image_fullsize_progressive"],
+            ["image", "fullsize", "progressive"],
             image_fullsize_progressive.lower() == "true",
         )
-    set_nested(json_data, ["image_fullsize_quality"], image_fullsize_quality)
-    set_nested(json_data, ["image_preview_format"], image_preview_format)
+    set_nested(json_data, ["image", "fullsize", "quality"], image_fullsize_quality)
+    set_nested(json_data, ["image", "preview", "format"], image_preview_format)
     if image_preview_progressive is not None:
         set_nested(
             json_data,
-            ["image_preview_progressive"],
+            ["image", "preview", "progressive"],
             image_preview_progressive.lower() == "true",
         )
-    set_nested(json_data, ["image_preview_quality"], image_preview_quality)
-    set_nested(json_data, ["image_preview_size"], image_preview_size)
-    set_nested(json_data, ["image_thumbnail_format"], image_thumbnail_format)
+    set_nested(json_data, ["image", "preview", "quality"], image_preview_quality)
+    set_nested(json_data, ["image", "preview", "size"], image_preview_size)
+    set_nested(json_data, ["image", "thumbnail", "format"], image_thumbnail_format)
     if image_thumbnail_progressive is not None:
         set_nested(
             json_data,
-            ["image_thumbnail_progressive"],
+            ["image", "thumbnail", "progressive"],
             image_thumbnail_progressive.lower() == "true",
         )
-    set_nested(json_data, ["image_thumbnail_quality"], image_thumbnail_quality)
-    set_nested(json_data, ["image_thumbnail_size"], image_thumbnail_size)
+    set_nested(json_data, ["image", "thumbnail", "quality"], image_thumbnail_quality)
+    set_nested(json_data, ["image", "thumbnail", "size"], image_thumbnail_size)
     set_nested(
         json_data,
-        ["integrity_checks_checksum_files_cron_expression"],
+        ["integrityChecks", "checksumFiles", "cronExpression"],
         integrity_checks_checksum_files_cron_expression,
     )
     set_nested(
         json_data,
-        ["integrity_checks_checksum_files_enabled"],
+        ["integrityChecks", "checksumFiles", "enabled"],
         integrity_checks_checksum_files_enabled,
     )
     set_nested(
         json_data,
-        ["integrity_checks_checksum_files_percentage_limit"],
+        ["integrityChecks", "checksumFiles", "percentageLimit"],
         integrity_checks_checksum_files_percentage_limit,
     )
     set_nested(
         json_data,
-        ["integrity_checks_checksum_files_time_limit"],
+        ["integrityChecks", "checksumFiles", "timeLimit"],
         integrity_checks_checksum_files_time_limit,
     )
     set_nested(
         json_data,
-        ["integrity_checks_missing_files_cron_expression"],
+        ["integrityChecks", "missingFiles", "cronExpression"],
         integrity_checks_missing_files_cron_expression,
     )
     set_nested(
         json_data,
-        ["integrity_checks_missing_files_enabled"],
+        ["integrityChecks", "missingFiles", "enabled"],
         integrity_checks_missing_files_enabled,
     )
     set_nested(
         json_data,
-        ["integrity_checks_untracked_files_cron_expression"],
+        ["integrityChecks", "untrackedFiles", "cronExpression"],
         integrity_checks_untracked_files_cron_expression,
     )
     set_nested(
         json_data,
-        ["integrity_checks_untracked_files_enabled"],
+        ["integrityChecks", "untrackedFiles", "enabled"],
         integrity_checks_untracked_files_enabled,
     )
     set_nested(
-        json_data, ["job_background_task_concurrency"], job_background_task_concurrency
+        json_data,
+        ["job", "backgroundTask", "concurrency"],
+        job_background_task_concurrency,
     )
-    set_nested(json_data, ["job_editor_concurrency"], job_editor_concurrency)
-    set_nested(
-        json_data, ["job_face_detection_concurrency"], job_face_detection_concurrency
-    )
-    set_nested(
-        json_data, ["job_integrity_check_concurrency"], job_integrity_check_concurrency
-    )
-    set_nested(json_data, ["job_library_concurrency"], job_library_concurrency)
+    set_nested(json_data, ["job", "editor", "concurrency"], job_editor_concurrency)
     set_nested(
         json_data,
-        ["job_metadata_extraction_concurrency"],
+        ["job", "faceDetection", "concurrency"],
+        job_face_detection_concurrency,
+    )
+    set_nested(
+        json_data,
+        ["job", "integrityCheck", "concurrency"],
+        job_integrity_check_concurrency,
+    )
+    set_nested(json_data, ["job", "library", "concurrency"], job_library_concurrency)
+    set_nested(
+        json_data,
+        ["job", "metadataExtraction", "concurrency"],
         job_metadata_extraction_concurrency,
     )
-    set_nested(json_data, ["job_migration_concurrency"], job_migration_concurrency)
     set_nested(
-        json_data, ["job_notifications_concurrency"], job_notifications_concurrency
-    )
-    set_nested(json_data, ["job_ocr_concurrency"], job_ocr_concurrency)
-    set_nested(json_data, ["job_search_concurrency"], job_search_concurrency)
-    set_nested(json_data, ["job_sidecar_concurrency"], job_sidecar_concurrency)
-    set_nested(
-        json_data, ["job_smart_search_concurrency"], job_smart_search_concurrency
+        json_data, ["job", "migration", "concurrency"], job_migration_concurrency
     )
     set_nested(
         json_data,
-        ["job_thumbnail_generation_concurrency"],
+        ["job", "notifications", "concurrency"],
+        job_notifications_concurrency,
+    )
+    set_nested(json_data, ["job", "ocr", "concurrency"], job_ocr_concurrency)
+    set_nested(json_data, ["job", "search", "concurrency"], job_search_concurrency)
+    set_nested(json_data, ["job", "sidecar", "concurrency"], job_sidecar_concurrency)
+    set_nested(
+        json_data, ["job", "smartSearch", "concurrency"], job_smart_search_concurrency
+    )
+    set_nested(
+        json_data,
+        ["job", "thumbnailGeneration", "concurrency"],
         job_thumbnail_generation_concurrency,
     )
     set_nested(
         json_data,
-        ["job_video_conversion_concurrency"],
+        ["job", "videoConversion", "concurrency"],
         job_video_conversion_concurrency,
     )
-    set_nested(json_data, ["job_workflow_concurrency"], job_workflow_concurrency)
+    set_nested(json_data, ["job", "workflow", "concurrency"], job_workflow_concurrency)
     set_nested(
-        json_data, ["library_scan_cron_expression"], library_scan_cron_expression
+        json_data, ["library", "scan", "cronExpression"], library_scan_cron_expression
     )
-    set_nested(json_data, ["library_scan_enabled"], library_scan_enabled)
-    set_nested(json_data, ["library_watch_enabled"], library_watch_enabled)
-    set_nested(json_data, ["logging_enabled"], logging_enabled)
-    set_nested(json_data, ["logging_level"], logging_level)
+    set_nested(json_data, ["library", "scan", "enabled"], library_scan_enabled)
+    set_nested(json_data, ["library", "watch", "enabled"], library_watch_enabled)
+    set_nested(json_data, ["logging", "enabled"], logging_enabled)
+    set_nested(json_data, ["logging", "level"], logging_level)
     set_nested(
         json_data,
-        ["machine_learning_availability_checks_enabled"],
+        ["machineLearning", "availabilityChecks", "enabled"],
         machine_learning_availability_checks_enabled,
     )
     set_nested(
         json_data,
-        ["machine_learning_availability_checks_interval"],
+        ["machineLearning", "availabilityChecks", "interval"],
         machine_learning_availability_checks_interval,
     )
     set_nested(
         json_data,
-        ["machine_learning_availability_checks_timeout"],
+        ["machineLearning", "availabilityChecks", "timeout"],
         machine_learning_availability_checks_timeout,
     )
     set_nested(
-        json_data, ["machine_learning_clip_enabled"], machine_learning_clip_enabled
+        json_data, ["machineLearning", "clip", "enabled"], machine_learning_clip_enabled
     )
     set_nested(
         json_data,
-        ["machine_learning_clip_model_name"],
+        ["machineLearning", "clip", "modelName"],
         machine_learning_clip_model_name,
     )
     set_nested(
         json_data,
-        ["machine_learning_duplicate_detection_enabled"],
+        ["machineLearning", "duplicateDetection", "enabled"],
         machine_learning_duplicate_detection_enabled,
     )
     set_nested(
         json_data,
-        ["machine_learning_duplicate_detection_max_distance"],
+        ["machineLearning", "duplicateDetection", "maxDistance"],
         machine_learning_duplicate_detection_max_distance,
     )
-    set_nested(json_data, ["machine_learning_enabled"], machine_learning_enabled)
+    set_nested(json_data, ["machineLearning", "enabled"], machine_learning_enabled)
     set_nested(
         json_data,
-        ["machine_learning_facial_recognition_enabled"],
+        ["machineLearning", "facialRecognition", "enabled"],
         machine_learning_facial_recognition_enabled,
     )
     set_nested(
         json_data,
-        ["machine_learning_facial_recognition_max_distance"],
+        ["machineLearning", "facialRecognition", "maxDistance"],
         machine_learning_facial_recognition_max_distance,
     )
     set_nested(
         json_data,
-        ["machine_learning_facial_recognition_min_faces"],
+        ["machineLearning", "facialRecognition", "minFaces"],
         machine_learning_facial_recognition_min_faces,
     )
     set_nested(
         json_data,
-        ["machine_learning_facial_recognition_min_score"],
+        ["machineLearning", "facialRecognition", "minScore"],
         machine_learning_facial_recognition_min_score,
     )
     set_nested(
         json_data,
-        ["machine_learning_facial_recognition_model_name"],
+        ["machineLearning", "facialRecognition", "modelName"],
         machine_learning_facial_recognition_model_name,
     )
     set_nested(
-        json_data, ["machine_learning_ocr_enabled"], machine_learning_ocr_enabled
+        json_data, ["machineLearning", "ocr", "enabled"], machine_learning_ocr_enabled
     )
     set_nested(
         json_data,
-        ["machine_learning_ocr_max_resolution"],
+        ["machineLearning", "ocr", "maxResolution"],
         machine_learning_ocr_max_resolution,
     )
     set_nested(
         json_data,
-        ["machine_learning_ocr_min_detection_score"],
+        ["machineLearning", "ocr", "minDetectionScore"],
         machine_learning_ocr_min_detection_score,
     )
     set_nested(
         json_data,
-        ["machine_learning_ocr_min_recognition_score"],
+        ["machineLearning", "ocr", "minRecognitionScore"],
         machine_learning_ocr_min_recognition_score,
     )
     set_nested(
-        json_data, ["machine_learning_ocr_model_name"], machine_learning_ocr_model_name
+        json_data,
+        ["machineLearning", "ocr", "modelName"],
+        machine_learning_ocr_model_name,
     )
-    set_nested(json_data, ["machine_learning_urls"], machine_learning_urls)
-    set_nested(json_data, ["map_dark_style"], map_dark_style)
-    set_nested(json_data, ["map_enabled"], map_enabled)
-    set_nested(json_data, ["map_light_style"], map_light_style)
-    set_nested(json_data, ["metadata_faces_import_"], metadata_faces_import_)
-    set_nested(json_data, ["new_version_check_channel"], new_version_check_channel)
-    set_nested(json_data, ["new_version_check_enabled"], new_version_check_enabled)
+    set_nested(json_data, ["machineLearning", "urls"], machine_learning_urls)
+    set_nested(json_data, ["map", "darkStyle"], map_dark_style)
+    set_nested(json_data, ["map", "enabled"], map_enabled)
+    set_nested(json_data, ["map", "lightStyle"], map_light_style)
+    set_nested(json_data, ["metadata", "faces", "import"], metadata_faces_import_)
+    set_nested(json_data, ["newVersionCheck", "channel"], new_version_check_channel)
+    set_nested(json_data, ["newVersionCheck", "enabled"], new_version_check_enabled)
     set_nested(
-        json_data, ["nightly_tasks_cluster_new_faces"], nightly_tasks_cluster_new_faces
+        json_data, ["nightlyTasks", "clusterNewFaces"], nightly_tasks_cluster_new_faces
     )
     set_nested(
-        json_data, ["nightly_tasks_database_cleanup"], nightly_tasks_database_cleanup
+        json_data, ["nightlyTasks", "databaseCleanup"], nightly_tasks_database_cleanup
     )
     set_nested(
-        json_data, ["nightly_tasks_generate_memories"], nightly_tasks_generate_memories
+        json_data, ["nightlyTasks", "generateMemories"], nightly_tasks_generate_memories
     )
     set_nested(
         json_data,
-        ["nightly_tasks_missing_thumbnails"],
+        ["nightlyTasks", "missingThumbnails"],
         nightly_tasks_missing_thumbnails,
     )
-    set_nested(json_data, ["nightly_tasks_start_time"], nightly_tasks_start_time)
+    set_nested(json_data, ["nightlyTasks", "startTime"], nightly_tasks_start_time)
     set_nested(
-        json_data, ["nightly_tasks_sync_quota_usage"], nightly_tasks_sync_quota_usage
+        json_data, ["nightlyTasks", "syncQuotaUsage"], nightly_tasks_sync_quota_usage
     )
-    set_nested(json_data, ["notifications_smtp_enabled"], notifications_smtp_enabled)
-    set_nested(json_data, ["notifications_smtp_from_"], notifications_smtp_from_)
-    set_nested(json_data, ["notifications_smtp_reply_to"], notifications_smtp_reply_to)
+    set_nested(
+        json_data, ["notifications", "smtp", "enabled"], notifications_smtp_enabled
+    )
+    set_nested(json_data, ["notifications", "smtp", "from"], notifications_smtp_from_)
+    set_nested(
+        json_data, ["notifications", "smtp", "replyTo"], notifications_smtp_reply_to
+    )
     set_nested(
         json_data,
-        ["notifications_smtp_transport_host"],
+        ["notifications", "smtp", "transport", "host"],
         notifications_smtp_transport_host,
     )
     set_nested(
         json_data,
-        ["notifications_smtp_transport_ignore_cert"],
+        ["notifications", "smtp", "transport", "ignoreCert"],
         notifications_smtp_transport_ignore_cert,
     )
     set_nested(
         json_data,
-        ["notifications_smtp_transport_password"],
+        ["notifications", "smtp", "transport", "password"],
         notifications_smtp_transport_password,
     )
     set_nested(
         json_data,
-        ["notifications_smtp_transport_port"],
+        ["notifications", "smtp", "transport", "port"],
         notifications_smtp_transport_port,
     )
     set_nested(
         json_data,
-        ["notifications_smtp_transport_secure"],
+        ["notifications", "smtp", "transport", "secure"],
         notifications_smtp_transport_secure,
     )
     set_nested(
         json_data,
-        ["notifications_smtp_transport_username"],
+        ["notifications", "smtp", "transport", "username"],
         notifications_smtp_transport_username,
     )
     if oauth_account_management_url is not None:
         set_nested(
-            json_data, ["oauth_account_management_url"], oauth_account_management_url
+            json_data, ["oauth", "accountManagementUrl"], oauth_account_management_url
         )
     set_nested(
-        json_data, ["oauth_allow_insecure_requests"], oauth_allow_insecure_requests
+        json_data, ["oauth", "allowInsecureRequests"], oauth_allow_insecure_requests
     )
-    set_nested(json_data, ["oauth_auto_launch"], oauth_auto_launch)
-    set_nested(json_data, ["oauth_auto_register"], oauth_auto_register)
-    set_nested(json_data, ["oauth_button_text"], oauth_button_text)
-    set_nested(json_data, ["oauth_client_id"], oauth_client_id)
-    set_nested(json_data, ["oauth_client_secret"], oauth_client_secret)
-    set_nested(json_data, ["oauth_default_storage_quota"], oauth_default_storage_quota)
-    set_nested(json_data, ["oauth_enabled"], oauth_enabled)
-    set_nested(json_data, ["oauth_end_session_endpoint"], oauth_end_session_endpoint)
-    set_nested(json_data, ["oauth_issuer_url"], oauth_issuer_url)
+    set_nested(json_data, ["oauth", "autoLaunch"], oauth_auto_launch)
+    set_nested(json_data, ["oauth", "autoRegister"], oauth_auto_register)
+    set_nested(json_data, ["oauth", "buttonText"], oauth_button_text)
+    set_nested(json_data, ["oauth", "clientId"], oauth_client_id)
+    set_nested(json_data, ["oauth", "clientSecret"], oauth_client_secret)
+    set_nested(json_data, ["oauth", "defaultStorageQuota"], oauth_default_storage_quota)
+    set_nested(json_data, ["oauth", "enabled"], oauth_enabled)
+    set_nested(json_data, ["oauth", "endSessionEndpoint"], oauth_end_session_endpoint)
+    set_nested(json_data, ["oauth", "issuerUrl"], oauth_issuer_url)
     set_nested(
-        json_data, ["oauth_mobile_override_enabled"], oauth_mobile_override_enabled
+        json_data, ["oauth", "mobileOverrideEnabled"], oauth_mobile_override_enabled
     )
-    set_nested(json_data, ["oauth_mobile_redirect_uri"], oauth_mobile_redirect_uri)
+    set_nested(json_data, ["oauth", "mobileRedirectUri"], oauth_mobile_redirect_uri)
     set_nested(
-        json_data, ["oauth_profile_signing_algorithm"], oauth_profile_signing_algorithm
+        json_data, ["oauth", "profileSigningAlgorithm"], oauth_profile_signing_algorithm
     )
-    set_nested(json_data, ["oauth_prompt"], oauth_prompt)
-    set_nested(json_data, ["oauth_role_claim"], oauth_role_claim)
-    set_nested(json_data, ["oauth_scope"], oauth_scope)
-    set_nested(json_data, ["oauth_signing_algorithm"], oauth_signing_algorithm)
-    set_nested(json_data, ["oauth_storage_label_claim"], oauth_storage_label_claim)
-    set_nested(json_data, ["oauth_storage_quota_claim"], oauth_storage_quota_claim)
-    set_nested(json_data, ["oauth_timeout"], oauth_timeout)
+    set_nested(json_data, ["oauth", "prompt"], oauth_prompt)
+    set_nested(json_data, ["oauth", "roleClaim"], oauth_role_claim)
+    set_nested(json_data, ["oauth", "scope"], oauth_scope)
+    set_nested(json_data, ["oauth", "signingAlgorithm"], oauth_signing_algorithm)
+    set_nested(json_data, ["oauth", "storageLabelClaim"], oauth_storage_label_claim)
+    set_nested(json_data, ["oauth", "storageQuotaClaim"], oauth_storage_quota_claim)
+    set_nested(json_data, ["oauth", "timeout"], oauth_timeout)
     set_nested(
         json_data,
-        ["oauth_token_endpoint_auth_method"],
+        ["oauth", "tokenEndpointAuthMethod"],
         oauth_token_endpoint_auth_method,
     )
-    set_nested(json_data, ["password_login_enabled"], password_login_enabled)
-    set_nested(json_data, ["reverse_geocoding_enabled"], reverse_geocoding_enabled)
-    set_nested(json_data, ["server_external_domain"], server_external_domain)
-    set_nested(json_data, ["server_login_page_message"], server_login_page_message)
-    set_nested(json_data, ["server_public_users"], server_public_users)
-    set_nested(json_data, ["storage_template_enabled"], storage_template_enabled)
+    set_nested(json_data, ["passwordLogin", "enabled"], password_login_enabled)
+    set_nested(json_data, ["reverseGeocoding", "enabled"], reverse_geocoding_enabled)
+    set_nested(json_data, ["server", "externalDomain"], server_external_domain)
+    set_nested(json_data, ["server", "loginPageMessage"], server_login_page_message)
+    set_nested(json_data, ["server", "publicUsers"], server_public_users)
+    set_nested(json_data, ["storageTemplate", "enabled"], storage_template_enabled)
     set_nested(
         json_data,
-        ["storage_template_hash_verification_enabled"],
+        ["storageTemplate", "hashVerificationEnabled"],
         storage_template_hash_verification_enabled,
     )
-    set_nested(json_data, ["storage_template_template"], storage_template_template)
+    set_nested(json_data, ["storageTemplate", "template"], storage_template_template)
     set_nested(
         json_data,
-        ["templates_email_album_invite_template"],
+        ["templates", "email", "albumInviteTemplate"],
         templates_email_album_invite_template,
     )
     set_nested(
         json_data,
-        ["templates_email_album_update_template"],
+        ["templates", "email", "albumUpdateTemplate"],
         templates_email_album_update_template,
     )
     set_nested(
         json_data,
-        ["templates_email_welcome_template"],
+        ["templates", "email", "welcomeTemplate"],
         templates_email_welcome_template,
     )
-    set_nested(json_data, ["theme_custom_css"], theme_custom_css)
-    set_nested(json_data, ["trash_days"], trash_days)
-    set_nested(json_data, ["trash_enabled"], trash_enabled)
-    set_nested(json_data, ["user_delete_delay"], user_delete_delay)
+    set_nested(json_data, ["theme", "customCss"], theme_custom_css)
+    set_nested(json_data, ["trash", "days"], trash_days)
+    set_nested(json_data, ["trash", "enabled"], trash_enabled)
+    set_nested(json_data, ["user", "deleteDelay"], user_delete_delay)
     admin_config_dto = AdminConfigDto.model_validate(json_data)
     kwargs["admin_config_dto"] = admin_config_dto
     client: AsyncClient = ctx.obj["client"]

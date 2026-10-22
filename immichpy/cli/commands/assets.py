@@ -97,13 +97,13 @@ def copy_asset(
     if favorite is not None:
         set_nested(json_data, ["favorite"], favorite.lower() == "true")
     if shared_links is not None:
-        set_nested(json_data, ["shared_links"], shared_links.lower() == "true")
+        set_nested(json_data, ["sharedLinks"], shared_links.lower() == "true")
     if sidecar is not None:
         set_nested(json_data, ["sidecar"], sidecar.lower() == "true")
-    set_nested(json_data, ["source_id"], source_id)
+    set_nested(json_data, ["sourceId"], source_id)
     if stack is not None:
         set_nested(json_data, ["stack"], stack.lower() == "true")
-    set_nested(json_data, ["target_id"], target_id)
+    set_nested(json_data, ["targetId"], target_id)
     asset_copy_dto = AssetCopyDto.model_validate(json_data)
     kwargs["asset_copy_dto"] = asset_copy_dto
     client: AsyncClient = ctx.obj["client"]
@@ -517,7 +517,7 @@ def run_asset_jobs(
     """
     kwargs = {}
     json_data = {}
-    set_nested(json_data, ["asset_ids"], asset_ids)
+    set_nested(json_data, ["assetIds"], asset_ids)
     set_nested(json_data, ["name"], name)
     asset_jobs_dto = AssetJobsDto.model_validate(json_data)
     kwargs["asset_jobs_dto"] = asset_jobs_dto
@@ -567,15 +567,15 @@ def update_asset(
     json_data = {}
     kwargs["id"] = id
     if date_time_original is not None:
-        set_nested(json_data, ["date_time_original"], date_time_original)
+        set_nested(json_data, ["dateTimeOriginal"], date_time_original)
     if description is not None:
         set_nested(json_data, ["description"], description)
     if is_favorite is not None:
-        set_nested(json_data, ["is_favorite"], is_favorite.lower() == "true")
+        set_nested(json_data, ["isFavorite"], is_favorite.lower() == "true")
     if latitude is not None:
         set_nested(json_data, ["latitude"], latitude)
     if live_photo_video_id is not None:
-        set_nested(json_data, ["live_photo_video_id"], live_photo_video_id)
+        set_nested(json_data, ["livePhotoVideoId"], live_photo_video_id)
     if longitude is not None:
         set_nested(json_data, ["longitude"], longitude)
     if rating is not None:
@@ -667,16 +667,16 @@ def update_assets(
     kwargs = {}
     json_data = {}
     if date_time_original is not None:
-        set_nested(json_data, ["date_time_original"], date_time_original)
+        set_nested(json_data, ["dateTimeOriginal"], date_time_original)
     if date_time_relative is not None:
-        set_nested(json_data, ["date_time_relative"], date_time_relative)
+        set_nested(json_data, ["dateTimeRelative"], date_time_relative)
     if description is not None:
         set_nested(json_data, ["description"], description)
     if duplicate_id is not None:
-        set_nested(json_data, ["duplicate_id"], duplicate_id)
+        set_nested(json_data, ["duplicateId"], duplicate_id)
     set_nested(json_data, ["ids"], ids)
     if is_favorite is not None:
-        set_nested(json_data, ["is_favorite"], is_favorite.lower() == "true")
+        set_nested(json_data, ["isFavorite"], is_favorite.lower() == "true")
     if latitude is not None:
         set_nested(json_data, ["latitude"], latitude)
     if longitude is not None:
@@ -684,7 +684,7 @@ def update_assets(
     if rating is not None:
         set_nested(json_data, ["rating"], rating)
     if time_zone is not None:
-        set_nested(json_data, ["time_zone"], time_zone)
+        set_nested(json_data, ["timeZone"], time_zone)
     if visibility is not None:
         set_nested(json_data, ["visibility"], visibility)
     asset_bulk_update_dto = AssetBulkUpdateDto.model_validate(json_data)

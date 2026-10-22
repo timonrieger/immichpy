@@ -10,7 +10,10 @@ import typer
 if TYPE_CHECKING:
     from immichpy import AsyncClient
 
-from immichpy.cli.runtime import print_response, run_command
+from immichpy.cli.runtime import (
+    print_response,
+    run_command,
+)
 from immichpy.client.generated.models import AssetFileType
 
 app = typer.Typer(

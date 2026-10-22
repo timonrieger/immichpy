@@ -10,7 +10,11 @@ import typer
 if TYPE_CHECKING:
     from immichpy import AsyncClient
 
-from immichpy.cli.runtime import print_response, run_command, set_nested
+from immichpy.cli.runtime import (
+    print_response,
+    run_command,
+    set_nested,
+)
 from immichpy.client.generated.models import SessionCreateDto, SessionUpdateDto
 
 app = typer.Typer(
@@ -40,9 +44,9 @@ def create_session(
     kwargs = {}
     json_data = {}
     if device_os is not None:
-        set_nested(json_data, ["device_os"], device_os)
+        set_nested(json_data, ["deviceOS"], device_os)
     if device_type is not None:
-        set_nested(json_data, ["device_type"], device_type)
+        set_nested(json_data, ["deviceType"], device_type)
     if duration is not None:
         set_nested(json_data, ["duration"], duration)
     session_create_dto = SessionCreateDto.model_validate(json_data)
@@ -129,9 +133,7 @@ def update_session(
     kwargs["id"] = id
     if is_pending_sync_reset is not None:
         set_nested(
-            json_data,
-            ["is_pending_sync_reset"],
-            is_pending_sync_reset.lower() == "true",
+            json_data, ["isPendingSyncReset"], is_pending_sync_reset.lower() == "true"
         )
     session_update_dto = SessionUpdateDto.model_validate(json_data)
     kwargs["session_update_dto"] = session_update_dto

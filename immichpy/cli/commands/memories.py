@@ -11,7 +11,11 @@ import typer
 if TYPE_CHECKING:
     from immichpy import AsyncClient
 
-from immichpy.cli.runtime import print_response, run_command, set_nested
+from immichpy.cli.runtime import (
+    print_response,
+    run_command,
+    set_nested,
+)
 from immichpy.client.generated.models import (
     BulkIdsDto,
     MemoryCreateDto,
@@ -103,21 +107,21 @@ Example: 2024-01-01T00:00:00.000Z""",
     kwargs = {}
     json_data = {}
     if asset_ids is not None:
-        set_nested(json_data, ["asset_ids"], asset_ids)
+        set_nested(json_data, ["assetIds"], asset_ids)
     if data_person_id is not None:
-        set_nested(json_data, ["data_person_id"], data_person_id)
+        set_nested(json_data, ["data", "personId"], data_person_id)
     if data_person_name is not None:
-        set_nested(json_data, ["data_person_name"], data_person_name)
-    set_nested(json_data, ["data_year"], data_year)
+        set_nested(json_data, ["data", "personName"], data_person_name)
+    set_nested(json_data, ["data", "year"], data_year)
     if hide_at is not None:
-        set_nested(json_data, ["hide_at"], hide_at)
+        set_nested(json_data, ["hideAt"], hide_at)
     if is_saved is not None:
-        set_nested(json_data, ["is_saved"], is_saved.lower() == "true")
-    set_nested(json_data, ["memory_at"], memory_at)
+        set_nested(json_data, ["isSaved"], is_saved.lower() == "true")
+    set_nested(json_data, ["memoryAt"], memory_at)
     if seen_at is not None:
-        set_nested(json_data, ["seen_at"], seen_at)
+        set_nested(json_data, ["seenAt"], seen_at)
     if show_at is not None:
-        set_nested(json_data, ["show_at"], show_at)
+        set_nested(json_data, ["showAt"], show_at)
     set_nested(json_data, ["type"], type)
     memory_create_dto = MemoryCreateDto.model_validate(json_data)
     kwargs["memory_create_dto"] = memory_create_dto
@@ -335,11 +339,11 @@ Example: 2024-01-01T00:00:00.000Z""",
     json_data = {}
     kwargs["id"] = id
     if is_saved is not None:
-        set_nested(json_data, ["is_saved"], is_saved.lower() == "true")
+        set_nested(json_data, ["isSaved"], is_saved.lower() == "true")
     if memory_at is not None:
-        set_nested(json_data, ["memory_at"], memory_at)
+        set_nested(json_data, ["memoryAt"], memory_at)
     if seen_at is not None:
-        set_nested(json_data, ["seen_at"], seen_at)
+        set_nested(json_data, ["seenAt"], seen_at)
     memory_update_dto = MemoryUpdateDto.model_validate(json_data)
     kwargs["memory_update_dto"] = memory_update_dto
     client: AsyncClient = ctx.obj["client"]

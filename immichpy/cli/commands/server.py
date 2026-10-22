@@ -9,7 +9,11 @@ import typer
 if TYPE_CHECKING:
     from immichpy import AsyncClient
 
-from immichpy.cli.runtime import print_response, run_command, set_nested
+from immichpy.cli.runtime import (
+    print_response,
+    run_command,
+    set_nested,
+)
 from immichpy.client.generated.models import LicenseKeyDto
 
 app = typer.Typer(
@@ -219,8 +223,8 @@ def set_server_license(
     """
     kwargs = {}
     json_data = {}
-    set_nested(json_data, ["activation_key"], activation_key)
-    set_nested(json_data, ["license_key"], license_key)
+    set_nested(json_data, ["activationKey"], activation_key)
+    set_nested(json_data, ["licenseKey"], license_key)
     license_key_dto = LicenseKeyDto.model_validate(json_data)
     kwargs["license_key_dto"] = license_key_dto
     client: AsyncClient = ctx.obj["client"]

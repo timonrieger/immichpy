@@ -10,7 +10,11 @@ import typer
 if TYPE_CHECKING:
     from immichpy import AsyncClient
 
-from immichpy.cli.runtime import print_response, run_command, set_nested
+from immichpy.cli.runtime import (
+    print_response,
+    run_command,
+    set_nested,
+)
 from immichpy.client.generated.models import (
     BulkIdsDto,
     TagBulkAssetsDto,
@@ -36,8 +40,8 @@ def bulk_tag_assets(
     """
     kwargs = {}
     json_data = {}
-    set_nested(json_data, ["asset_ids"], asset_ids)
-    set_nested(json_data, ["tag_ids"], tag_ids)
+    set_nested(json_data, ["assetIds"], asset_ids)
+    set_nested(json_data, ["tagIds"], tag_ids)
     tag_bulk_assets_dto = TagBulkAssetsDto.model_validate(json_data)
     kwargs["tag_bulk_assets_dto"] = tag_bulk_assets_dto
     client: AsyncClient = ctx.obj["client"]
@@ -64,7 +68,7 @@ def create_tag(
         set_nested(json_data, ["color"], color)
     set_nested(json_data, ["name"], name)
     if parent_id is not None:
-        set_nested(json_data, ["parent_id"], parent_id)
+        set_nested(json_data, ["parentId"], parent_id)
     tag_create_dto = TagCreateDto.model_validate(json_data)
     kwargs["tag_create_dto"] = tag_create_dto
     client: AsyncClient = ctx.obj["client"]
