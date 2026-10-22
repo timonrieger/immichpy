@@ -219,8 +219,8 @@ def set_server_license(
     """
     kwargs = {}
     json_data = {}
-    set_nested(json_data, ["activation_key"], activation_key)
-    set_nested(json_data, ["license_key"], license_key)
+    set_nested(json_data, ["activationKey"], activation_key)
+    set_nested(json_data, ["licenseKey"], license_key)
     license_key_dto = LicenseKeyDto.model_validate(json_data)
     kwargs["license_key_dto"] = license_key_dto
     client: AsyncClient = ctx.obj["client"]

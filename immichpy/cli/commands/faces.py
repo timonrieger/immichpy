@@ -77,13 +77,13 @@ def create_face(
     """
     kwargs = {}
     json_data = {}
-    set_nested(json_data, ["asset_id"], asset_id)
+    set_nested(json_data, ["assetId"], asset_id)
     set_nested(json_data, ["height"], height)
-    set_nested(json_data, ["image_height"], image_height)
-    set_nested(json_data, ["image_width"], image_width)
-    set_nested(json_data, ["person_id"], person_id)
+    set_nested(json_data, ["imageHeight"], image_height)
+    set_nested(json_data, ["imageWidth"], image_width)
+    set_nested(json_data, ["personId"], person_id)
     if user_id is not None:
-        set_nested(json_data, ["user_id"], user_id)
+        set_nested(json_data, ["userId"], user_id)
     set_nested(json_data, ["width"], width)
     set_nested(json_data, ["x"], x)
     set_nested(json_data, ["y"], y)
@@ -146,7 +146,7 @@ def reassign_faces_by_id(
     kwargs = {}
     json_data = {}
     kwargs["id"] = id
-    set_nested(json_data, ["body_id"], body_id)
+    set_nested(json_data, ["id"], body_id)
     face_dto = FaceDto.model_validate(json_data)
     kwargs["face_dto"] = face_dto
     client: AsyncClient = ctx.obj["client"]

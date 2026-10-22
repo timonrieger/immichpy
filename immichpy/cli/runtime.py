@@ -6,7 +6,7 @@ import asyncio
 import json
 import traceback
 from collections.abc import Awaitable, Callable
-from typing import TYPE_CHECKING, Any, Protocol, cast
+from typing import TYPE_CHECKING, Any, Protocol, TypeVar, cast
 
 from pydantic import BaseModel
 from typer import Context, Exit
@@ -21,6 +21,9 @@ if TYPE_CHECKING:
 
 class _ApiGroup(Protocol):
     api_client: ApiClient
+
+
+ModelT = TypeVar("ModelT", bound=BaseModel)
 
 
 def set_nested(d: dict[str, Any], path: list[str], value: Any) -> None:
@@ -40,6 +43,20 @@ def set_nested(d: dict[str, Any], path: list[str], value: Any) -> None:
             current[part] = {}
         current = current[part]
     current[path[-1]] = value
+
+
+def validate_body(model: type[ModelT], data: Any) -> ModelT:
+    """Validate a request body built from CLI options, rejecting unknown keys.
+
+    The generated models ignore unknown keys so that responses stay forward
+    compatible, which would silently drop a mis-built CLI body instead.
+
+    :param model: The request body model to validate against
+    :param data: The request body data
+    :return: The validated model instance
+    :raises pydantic.ValidationError: If `data` has keys the model does not define
+    """
+    return model.model_validate(data, extra="forbid")
 
 
 def parse_json_option(value: str, option: str, *, ctx: Context | None = None) -> Any:

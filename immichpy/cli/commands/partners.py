@@ -35,7 +35,7 @@ def create_partner(
     """
     kwargs = {}
     json_data = {}
-    set_nested(json_data, ["shared_with_id"], shared_with_id)
+    set_nested(json_data, ["sharedWithId"], shared_with_id)
     partner_create_dto = PartnerCreateDto.model_validate(json_data)
     kwargs["partner_create_dto"] = partner_create_dto
     client: AsyncClient = ctx.obj["client"]
@@ -108,7 +108,7 @@ def update_partner(
     kwargs = {}
     json_data = {}
     kwargs["id"] = id
-    set_nested(json_data, ["in_timeline"], in_timeline)
+    set_nested(json_data, ["inTimeline"], in_timeline)
     partner_update_dto = PartnerUpdateDto.model_validate(json_data)
     kwargs["partner_update_dto"] = partner_update_dto
     client: AsyncClient = ctx.obj["client"]

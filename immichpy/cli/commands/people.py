@@ -58,13 +58,13 @@ def create_person(
     kwargs = {}
     json_data = {}
     if birth_date is not None:
-        set_nested(json_data, ["birth_date"], birth_date)
+        set_nested(json_data, ["birthDate"], birth_date)
     if color is not None:
         set_nested(json_data, ["color"], color)
     if is_favorite is not None:
-        set_nested(json_data, ["is_favorite"], is_favorite.lower() == "true")
+        set_nested(json_data, ["isFavorite"], is_favorite.lower() == "true")
     if is_hidden is not None:
-        set_nested(json_data, ["is_hidden"], is_hidden.lower() == "true")
+        set_nested(json_data, ["isHidden"], is_hidden.lower() == "true")
     if name is not None:
         set_nested(json_data, ["name"], name)
     person_create_dto = PersonCreateDto.model_validate(json_data)
@@ -88,7 +88,7 @@ def delete_people(
     json_data = {}
     set_nested(json_data, ["ids"], ids)
     if user_id is not None:
-        set_nested(json_data, ["user_id"], user_id)
+        set_nested(json_data, ["userId"], user_id)
     people_delete_dto = PeopleDeleteDto.model_validate(json_data)
     kwargs["people_delete_dto"] = people_delete_dto
     client: AsyncClient = ctx.obj["client"]
@@ -110,7 +110,7 @@ def delete_person(
     json_data = {}
     kwargs["id"] = id
     if user_id is not None:
-        set_nested(json_data, ["user_id"], user_id)
+        set_nested(json_data, ["userId"], user_id)
     person_delete_dto = PersonDeleteDto.model_validate(json_data)
     kwargs["person_delete_dto"] = person_delete_dto
     client: AsyncClient = ctx.obj["client"]
@@ -361,7 +361,8 @@ def remove_users_from_people(
     value_items = parse_json_options(items, "--items", ctx=ctx)
     set_nested(json_data, ["items"], value_items)
     person_users_delete_dto_inner = [
-        PersonUsersDeleteDtoInner.model_validate(item) for item in json_data["items"]
+        PersonUsersDeleteDtoInner.model_validate(item, extra="forbid")
+        for item in json_data["items"]
     ]
     kwargs["person_users_delete_dto_inner"] = person_users_delete_dto_inner
     client: AsyncClient = ctx.obj["client"]
@@ -429,19 +430,19 @@ def update_person(
     json_data = {}
     kwargs["id"] = id
     if birth_date is not None:
-        set_nested(json_data, ["birth_date"], birth_date)
+        set_nested(json_data, ["birthDate"], birth_date)
     if color is not None:
         set_nested(json_data, ["color"], color)
     if feature_face_asset_id is not None:
-        set_nested(json_data, ["feature_face_asset_id"], feature_face_asset_id)
+        set_nested(json_data, ["featureFaceAssetId"], feature_face_asset_id)
     if is_favorite is not None:
-        set_nested(json_data, ["is_favorite"], is_favorite.lower() == "true")
+        set_nested(json_data, ["isFavorite"], is_favorite.lower() == "true")
     if is_hidden is not None:
-        set_nested(json_data, ["is_hidden"], is_hidden.lower() == "true")
+        set_nested(json_data, ["isHidden"], is_hidden.lower() == "true")
     if name is not None:
         set_nested(json_data, ["name"], name)
     if user_id is not None:
-        set_nested(json_data, ["user_id"], user_id)
+        set_nested(json_data, ["userId"], user_id)
     person_update_dto = PersonUpdateDto.model_validate(json_data)
     kwargs["person_update_dto"] = person_update_dto
     client: AsyncClient = ctx.obj["client"]
@@ -476,9 +477,9 @@ def upsert_people_users(
     kwargs = {}
     json_data = {}
     if person_ids is not None:
-        set_nested(json_data, ["person_ids"], person_ids)
+        set_nested(json_data, ["personIds"], person_ids)
     set_nested(json_data, ["role"], role)
-    set_nested(json_data, ["shared_with_ids"], shared_with_ids)
+    set_nested(json_data, ["sharedWithIds"], shared_with_ids)
     if type is not None:
         set_nested(json_data, ["type"], type)
     people_users_upsert_dto = PeopleUsersUpsertDto.model_validate(json_data)

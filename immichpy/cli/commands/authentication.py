@@ -56,9 +56,9 @@ Example: password""",
     json_data = {}
     if invalidate_sessions is not None:
         set_nested(
-            json_data, ["invalidate_sessions"], invalidate_sessions.lower() == "true"
+            json_data, ["invalidateSessions"], invalidate_sessions.lower() == "true"
         )
-    set_nested(json_data, ["new_password"], new_password)
+    set_nested(json_data, ["newPassword"], new_password)
     set_nested(json_data, ["password"], password)
     change_password_dto = ChangePasswordDto.model_validate(json_data)
     kwargs["change_password_dto"] = change_password_dto
@@ -94,11 +94,11 @@ Example: 123456""",
     """
     kwargs = {}
     json_data = {}
-    set_nested(json_data, ["new_pin_code"], new_pin_code)
+    set_nested(json_data, ["newPinCode"], new_pin_code)
     if password is not None:
         set_nested(json_data, ["password"], password)
     if pin_code is not None:
-        set_nested(json_data, ["pin_code"], pin_code)
+        set_nested(json_data, ["pinCode"], pin_code)
     pin_code_change_dto = PinCodeChangeDto.model_validate(json_data)
     kwargs["pin_code_change_dto"] = pin_code_change_dto
     client: AsyncClient = ctx.obj["client"]
@@ -124,7 +124,7 @@ def finish_o_auth(
     kwargs = {}
     json_data = {}
     if code_verifier is not None:
-        set_nested(json_data, ["code_verifier"], code_verifier)
+        set_nested(json_data, ["codeVerifier"], code_verifier)
     if state is not None:
         set_nested(json_data, ["state"], state)
     set_nested(json_data, ["url"], url)
@@ -167,7 +167,7 @@ def link_o_auth_account(
     kwargs = {}
     json_data = {}
     if code_verifier is not None:
-        set_nested(json_data, ["code_verifier"], code_verifier)
+        set_nested(json_data, ["codeVerifier"], code_verifier)
     if state is not None:
         set_nested(json_data, ["state"], state)
     set_nested(json_data, ["url"], url)
@@ -302,7 +302,7 @@ Example: 123456""",
     if password is not None:
         set_nested(json_data, ["password"], password)
     if pin_code is not None:
-        set_nested(json_data, ["pin_code"], pin_code)
+        set_nested(json_data, ["pinCode"], pin_code)
     pin_code_reset_dto = PinCodeResetDto.model_validate(json_data)
     kwargs["pin_code_reset_dto"] = pin_code_reset_dto
     client: AsyncClient = ctx.obj["client"]
@@ -327,7 +327,7 @@ Example: 123456""",
     """
     kwargs = {}
     json_data = {}
-    set_nested(json_data, ["pin_code"], pin_code)
+    set_nested(json_data, ["pinCode"], pin_code)
     pin_code_setup_dto = PinCodeSetupDto.model_validate(json_data)
     kwargs["pin_code_setup_dto"] = pin_code_setup_dto
     client: AsyncClient = ctx.obj["client"]
@@ -396,8 +396,8 @@ def start_o_auth(
     kwargs = {}
     json_data = {}
     if code_challenge is not None:
-        set_nested(json_data, ["code_challenge"], code_challenge)
-    set_nested(json_data, ["redirect_uri"], redirect_uri)
+        set_nested(json_data, ["codeChallenge"], code_challenge)
+    set_nested(json_data, ["redirectUri"], redirect_uri)
     if state is not None:
         set_nested(json_data, ["state"], state)
     o_auth_config_dto = OAuthConfigDto.model_validate(json_data)
@@ -448,7 +448,7 @@ Example: 123456""",
     if password is not None:
         set_nested(json_data, ["password"], password)
     if pin_code is not None:
-        set_nested(json_data, ["pin_code"], pin_code)
+        set_nested(json_data, ["pinCode"], pin_code)
     session_unlock_dto = SessionUnlockDto.model_validate(json_data)
     kwargs["session_unlock_dto"] = session_unlock_dto
     client: AsyncClient = ctx.obj["client"]

@@ -82,7 +82,7 @@ def update_admin_onboarding(
     """
     kwargs = {}
     json_data = {}
-    set_nested(json_data, ["is_onboarded"], is_onboarded)
+    set_nested(json_data, ["isOnboarded"], is_onboarded)
     admin_onboarding_update_dto = AdminOnboardingUpdateDto.model_validate(json_data)
     kwargs["admin_onboarding_update_dto"] = admin_onboarding_update_dto
     client: AsyncClient = ctx.obj["client"]

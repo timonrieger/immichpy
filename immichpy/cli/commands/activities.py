@@ -40,9 +40,9 @@ def create_activity(
     """
     kwargs = {}
     json_data = {}
-    set_nested(json_data, ["album_id"], album_id)
+    set_nested(json_data, ["albumId"], album_id)
     if asset_id is not None:
-        set_nested(json_data, ["asset_id"], asset_id)
+        set_nested(json_data, ["assetId"], asset_id)
     if comment is not None:
         set_nested(json_data, ["comment"], comment)
     set_nested(json_data, ["type"], type)

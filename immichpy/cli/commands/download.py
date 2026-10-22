@@ -44,8 +44,8 @@ def download_archive(
     if slug is not None:
         kwargs["slug"] = slug
     if archive_name is not None:
-        set_nested(json_data, ["archive_name"], archive_name)
-    set_nested(json_data, ["asset_ids"], asset_ids)
+        set_nested(json_data, ["archiveName"], archive_name)
+    set_nested(json_data, ["assetIds"], asset_ids)
     if edited is not None:
         set_nested(json_data, ["edited"], edited.lower() == "true")
     download_archive_dto = DownloadArchiveDto.model_validate(json_data)
@@ -88,13 +88,13 @@ def get_download_info(
     if slug is not None:
         kwargs["slug"] = slug
     if album_id is not None:
-        set_nested(json_data, ["album_id"], album_id)
+        set_nested(json_data, ["albumId"], album_id)
     if archive_size is not None:
-        set_nested(json_data, ["archive_size"], archive_size)
+        set_nested(json_data, ["archiveSize"], archive_size)
     if asset_ids is not None:
-        set_nested(json_data, ["asset_ids"], asset_ids)
+        set_nested(json_data, ["assetIds"], asset_ids)
     if user_id is not None:
-        set_nested(json_data, ["user_id"], user_id)
+        set_nested(json_data, ["userId"], user_id)
     download_info_dto = DownloadInfoDto.model_validate(json_data)
     kwargs["download_info_dto"] = download_info_dto
     client: AsyncClient = ctx.obj["client"]

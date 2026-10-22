@@ -75,7 +75,7 @@ def create_cluster_group_request(
     kwargs = {}
     json_data = {}
     kwargs["id"] = id
-    set_nested(json_data, ["user_id"], user_id)
+    set_nested(json_data, ["userId"], user_id)
     cluster_group_request_create_dto = ClusterGroupRequestCreateDto.model_validate(
         json_data
     )

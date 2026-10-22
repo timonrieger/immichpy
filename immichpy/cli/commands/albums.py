@@ -65,8 +65,8 @@ def add_assets_to_albums(
     """
     kwargs = {}
     json_data = {}
-    set_nested(json_data, ["album_ids"], album_ids)
-    set_nested(json_data, ["asset_ids"], asset_ids)
+    set_nested(json_data, ["albumIds"], album_ids)
+    set_nested(json_data, ["assetIds"], asset_ids)
     albums_add_assets_dto = AlbumsAddAssetsDto.model_validate(json_data)
     kwargs["albums_add_assets_dto"] = albums_add_assets_dto
     client: AsyncClient = ctx.obj["client"]
@@ -94,7 +94,7 @@ As a JSON string with keys: role (string), userId (string)""",
     json_data = {}
     kwargs["id"] = id
     value_album_users = parse_json_options(album_users, "--album-users", ctx=ctx)
-    set_nested(json_data, ["album_users"], value_album_users)
+    set_nested(json_data, ["albumUsers"], value_album_users)
     add_users_dto = AddUsersDto.model_validate(json_data)
     kwargs["add_users_dto"] = add_users_dto
     client: AsyncClient = ctx.obj["client"]
@@ -126,12 +126,12 @@ As a JSON string with keys: role (string), userId (string)""",
     """
     kwargs = {}
     json_data = {}
-    set_nested(json_data, ["album_name"], album_name)
+    set_nested(json_data, ["albumName"], album_name)
     if album_users is not None:
         value_album_users = parse_json_options(album_users, "--album-users", ctx=ctx)
-        set_nested(json_data, ["album_users"], value_album_users)
+        set_nested(json_data, ["albumUsers"], value_album_users)
     if asset_ids is not None:
-        set_nested(json_data, ["asset_ids"], asset_ids)
+        set_nested(json_data, ["assetIds"], asset_ids)
     if description is not None:
         set_nested(json_data, ["description"], description)
     create_album_dto = CreateAlbumDto.model_validate(json_data)
@@ -327,14 +327,14 @@ def update_album_info(
     json_data = {}
     kwargs["id"] = id
     if album_name is not None:
-        set_nested(json_data, ["album_name"], album_name)
+        set_nested(json_data, ["albumName"], album_name)
     if album_thumbnail_asset_id is not None:
-        set_nested(json_data, ["album_thumbnail_asset_id"], album_thumbnail_asset_id)
+        set_nested(json_data, ["albumThumbnailAssetId"], album_thumbnail_asset_id)
     if description is not None:
         set_nested(json_data, ["description"], description)
     if is_activity_enabled is not None:
         set_nested(
-            json_data, ["is_activity_enabled"], is_activity_enabled.lower() == "true"
+            json_data, ["isActivityEnabled"], is_activity_enabled.lower() == "true"
         )
     if order is not None:
         set_nested(json_data, ["order"], order)

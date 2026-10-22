@@ -247,8 +247,8 @@ def set_user_license(
     """
     kwargs = {}
     json_data = {}
-    set_nested(json_data, ["activation_key"], activation_key)
-    set_nested(json_data, ["license_key"], license_key)
+    set_nested(json_data, ["activationKey"], activation_key)
+    set_nested(json_data, ["licenseKey"], license_key)
     license_key_dto = LicenseKeyDto.model_validate(json_data)
     kwargs["license_key_dto"] = license_key_dto
     client: AsyncClient = ctx.obj["client"]
@@ -269,7 +269,7 @@ def set_user_onboarding(
     """
     kwargs = {}
     json_data = {}
-    set_nested(json_data, ["is_onboarded"], is_onboarded)
+    set_nested(json_data, ["isOnboarded"], is_onboarded)
     onboarding_dto = OnboardingDto.model_validate(json_data)
     kwargs["onboarding_dto"] = onboarding_dto
     client: AsyncClient = ctx.obj["client"]
@@ -394,98 +394,106 @@ def update_my_preferences(
     json_data = {}
     if albums_default_asset_order is not None:
         set_nested(
-            json_data, ["albums_default_asset_order"], albums_default_asset_order
+            json_data, ["albums", "defaultAssetOrder"], albums_default_asset_order
         )
     if avatar_color is not None:
-        set_nested(json_data, ["avatar_color"], avatar_color)
+        set_nested(json_data, ["avatar", "color"], avatar_color)
     if cast_g_cast_enabled is not None:
         set_nested(
-            json_data, ["cast_g_cast_enabled"], cast_g_cast_enabled.lower() == "true"
+            json_data, ["cast", "gCastEnabled"], cast_g_cast_enabled.lower() == "true"
         )
     if download_archive_size is not None:
-        set_nested(json_data, ["download_archive_size"], download_archive_size)
+        set_nested(json_data, ["download", "archiveSize"], download_archive_size)
     if download_include_embedded_videos is not None:
         set_nested(
             json_data,
-            ["download_include_embedded_videos"],
+            ["download", "includeEmbeddedVideos"],
             download_include_embedded_videos.lower() == "true",
         )
     if email_notifications_album_invite is not None:
         set_nested(
             json_data,
-            ["email_notifications_album_invite"],
+            ["emailNotifications", "albumInvite"],
             email_notifications_album_invite.lower() == "true",
         )
     if email_notifications_album_update is not None:
         set_nested(
             json_data,
-            ["email_notifications_album_update"],
+            ["emailNotifications", "albumUpdate"],
             email_notifications_album_update.lower() == "true",
         )
     if email_notifications_enabled is not None:
         set_nested(
             json_data,
-            ["email_notifications_enabled"],
+            ["emailNotifications", "enabled"],
             email_notifications_enabled.lower() == "true",
         )
     if folders_enabled is not None:
-        set_nested(json_data, ["folders_enabled"], folders_enabled.lower() == "true")
+        set_nested(json_data, ["folders", "enabled"], folders_enabled.lower() == "true")
     if folders_sidebar_web is not None:
         set_nested(
-            json_data, ["folders_sidebar_web"], folders_sidebar_web.lower() == "true"
+            json_data, ["folders", "sidebarWeb"], folders_sidebar_web.lower() == "true"
         )
     if memories_duration is not None:
-        set_nested(json_data, ["memories_duration"], memories_duration)
+        set_nested(json_data, ["memories", "duration"], memories_duration)
     if memories_enabled is not None:
-        set_nested(json_data, ["memories_enabled"], memories_enabled.lower() == "true")
+        set_nested(
+            json_data, ["memories", "enabled"], memories_enabled.lower() == "true"
+        )
     if memories_sidebar_web is not None:
         set_nested(
-            json_data, ["memories_sidebar_web"], memories_sidebar_web.lower() == "true"
+            json_data,
+            ["memories", "sidebarWeb"],
+            memories_sidebar_web.lower() == "true",
         )
     if people_enabled is not None:
-        set_nested(json_data, ["people_enabled"], people_enabled.lower() == "true")
+        set_nested(json_data, ["people", "enabled"], people_enabled.lower() == "true")
     if people_minimum_faces is not None:
-        set_nested(json_data, ["people_minimum_faces"], people_minimum_faces)
+        set_nested(json_data, ["people", "minimumFaces"], people_minimum_faces)
     if people_sidebar_web is not None:
         set_nested(
-            json_data, ["people_sidebar_web"], people_sidebar_web.lower() == "true"
+            json_data, ["people", "sidebarWeb"], people_sidebar_web.lower() == "true"
         )
     if people_update_strategy is not None:
-        set_nested(json_data, ["people_update_strategy"], people_update_strategy)
+        set_nested(json_data, ["people", "updateStrategy"], people_update_strategy)
     if purchase_hide_buy_button_until is not None:
         set_nested(
             json_data,
-            ["purchase_hide_buy_button_until"],
+            ["purchase", "hideBuyButtonUntil"],
             purchase_hide_buy_button_until,
         )
     if purchase_show_support_badge is not None:
         set_nested(
             json_data,
-            ["purchase_show_support_badge"],
+            ["purchase", "showSupportBadge"],
             purchase_show_support_badge.lower() == "true",
         )
     if ratings_enabled is not None:
-        set_nested(json_data, ["ratings_enabled"], ratings_enabled.lower() == "true")
+        set_nested(json_data, ["ratings", "enabled"], ratings_enabled.lower() == "true")
     if recently_added_sidebar_web is not None:
         set_nested(
             json_data,
-            ["recently_added_sidebar_web"],
+            ["recentlyAdded", "sidebarWeb"],
             recently_added_sidebar_web.lower() == "true",
         )
     if shared_links_enabled is not None:
         set_nested(
-            json_data, ["shared_links_enabled"], shared_links_enabled.lower() == "true"
+            json_data,
+            ["sharedLinks", "enabled"],
+            shared_links_enabled.lower() == "true",
         )
     if shared_links_sidebar_web is not None:
         set_nested(
             json_data,
-            ["shared_links_sidebar_web"],
+            ["sharedLinks", "sidebarWeb"],
             shared_links_sidebar_web.lower() == "true",
         )
     if tags_enabled is not None:
-        set_nested(json_data, ["tags_enabled"], tags_enabled.lower() == "true")
+        set_nested(json_data, ["tags", "enabled"], tags_enabled.lower() == "true")
     if tags_sidebar_web is not None:
-        set_nested(json_data, ["tags_sidebar_web"], tags_sidebar_web.lower() == "true")
+        set_nested(
+            json_data, ["tags", "sidebarWeb"], tags_sidebar_web.lower() == "true"
+        )
     user_preferences_update_dto = UserPreferencesUpdateDto.model_validate(json_data)
     kwargs["user_preferences_update_dto"] = user_preferences_update_dto
     client: AsyncClient = ctx.obj["client"]
@@ -514,7 +522,7 @@ def update_my_user(
     kwargs = {}
     json_data = {}
     if avatar_color is not None:
-        set_nested(json_data, ["avatar_color"], avatar_color)
+        set_nested(json_data, ["avatarColor"], avatar_color)
     if email is not None:
         set_nested(json_data, ["email"], email)
     if name is not None:

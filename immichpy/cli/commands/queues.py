@@ -115,7 +115,7 @@ def update_queue(
     json_data = {}
     kwargs["name"] = name
     if is_paused is not None:
-        set_nested(json_data, ["is_paused"], is_paused.lower() == "true")
+        set_nested(json_data, ["isPaused"], is_paused.lower() == "true")
     queue_update_dto = QueueUpdateDto.model_validate(json_data)
     kwargs["queue_update_dto"] = queue_update_dto
     client: AsyncClient = ctx.obj["client"]

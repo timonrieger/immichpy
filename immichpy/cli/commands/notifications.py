@@ -126,7 +126,7 @@ Example: 2024-01-01T00:00:00.000Z""",
     json_data = {}
     kwargs["id"] = id
     if read_at is not None:
-        set_nested(json_data, ["read_at"], read_at)
+        set_nested(json_data, ["readAt"], read_at)
     notification_update_dto = NotificationUpdateDto.model_validate(json_data)
     kwargs["notification_update_dto"] = notification_update_dto
     client: AsyncClient = ctx.obj["client"]
@@ -156,7 +156,7 @@ Example: 2024-01-01T00:00:00.000Z""",
     json_data = {}
     set_nested(json_data, ["ids"], ids)
     if read_at is not None:
-        set_nested(json_data, ["read_at"], read_at)
+        set_nested(json_data, ["readAt"], read_at)
     notification_update_all_dto = NotificationUpdateAllDto.model_validate(json_data)
     kwargs["notification_update_all_dto"] = notification_update_all_dto
     client: AsyncClient = ctx.obj["client"]

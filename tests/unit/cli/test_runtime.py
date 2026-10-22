@@ -8,7 +8,7 @@ from typing import TYPE_CHECKING, Any, cast
 from unittest.mock import AsyncMock, MagicMock, Mock, patch
 
 import pytest
-from pydantic import BaseModel
+from pydantic import BaseModel, ValidationError
 from typer import Context, Exit
 
 if TYPE_CHECKING:
@@ -22,8 +22,10 @@ from immichpy.cli.runtime import (
     run_async,
     run_command,
     set_nested,
+    validate_body,
 )
 from immichpy.client.generated.exceptions import ApiException
+from immichpy.client.generated.models import MetadataSearchDto
 
 
 class TestSetNested:
@@ -39,6 +41,31 @@ class TestSetNested:
         d = {"user": "not-a-dict"}
         set_nested(d, ["user", "name"], "John")
         assert d == {"user": {"name": "John"}}
+
+
+class TestValidateBody:
+    """Tests for validate_body function."""
+
+    def test_validate_body_nested(self) -> None:
+        """Nested wire-name keys validate into nested models."""
+        dto = validate_body(
+            MetadataSearchDto, {"filter": {"description": {"like": "OLYMPUS"}}}
+        )
+        assert dto.filter is not None
+        assert dto.filter.description is not None
+        assert dto.filter.description.like == "OLYMPUS"
+
+    @pytest.mark.parametrize(
+        "data",
+        [
+            {"filter_description_like": "OLYMPUS"},
+            {"filter": {"description": {"unknown": "OLYMPUS"}}},
+        ],
+    )
+    def test_validate_body_unknown_key_raises(self, data: dict[str, Any]) -> None:
+        """Unknown keys fail at any depth instead of being dropped."""
+        with pytest.raises(ValidationError):
+            validate_body(MetadataSearchDto, data)
 
 
 class TestParseJsonOption:
