@@ -4,7 +4,7 @@ python.uv_venv_auto = "create|source"
 
 [tools]
 python = "3.14.8"
-uv = "0.13.4"
+uv = "0.13.6"
 
 [env]
 UV_PYTHON = { value = "{{ tools.python.path }}", tools = true }
