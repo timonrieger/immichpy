@@ -51,7 +51,7 @@ run = [{ task = "test-unit-cli" }, { task = "test-unit-client" }]
 description = "Run all unit tests"
 
 [tasks.test-unit-lowest]
-tools = { python = "3.15.2" }
+tools = { python = "3.11" }
 run = [
     "uv venv .venv-lowest --clear --python 3.11 --python-preference only-system",
     "uv pip install --python .venv-lowest --resolution lowest-direct -e '.[cli]' --group dev",

@@ -27,6 +27,12 @@
         "astral-sh/uv-pre-commit"
       ],
       "groupName": "uv toolchain"
+    },
+    {
+      "description": "test-unit-lowest pins the minimum supported Python",
+      "matchManagers": ["mise"],
+      "matchDepTypes": ["task-test-unit-lowest-tools"],
+      "enabled": false
     }
   ]
 }
