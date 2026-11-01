@@ -1,28 +1,8 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": ["config:best-practices", "schedule:monthly"],
-  "timezone": "Europe/Berlin",
-  "labels": ["dependencies"],
+  "extends": ["github>timonrieger/dotfiles//.github/renovate-base"],
   "semanticCommitType": "chore",
-  "configMigration": true,
-  "minimumReleaseAge": "3 days",
-  "lockFileMaintenance": {
-    "enabled": true,
-    "extends": ["schedule:monthly"]
-  },
-  "vulnerabilityAlerts": {
-    "labels": ["dependencies", "security"]
-  },
-  "osvVulnerabilityAlerts": true,
-  "pre-commit": {
-    "enabled": true
-  },
   "packageRules": [
-    {
-      "description": "All GitHub Actions updates in one PR",
-      "matchManagers": ["github-actions"],
-      "groupName": "github actions"
-    },
     {
       "description": "Production Python dependencies",
       "matchManagers": ["pep621"],
@@ -35,11 +15,6 @@
       "matchManagers": ["pep621"],
       "matchDepTypes": ["dependency-groups"],
       "rangeStrategy": "widen",
-      "groupName": "dev tooling"
-    },
-    {
-      "description": "pre-commit hooks and mise tools",
-      "matchManagers": ["pre-commit", "mise"],
       "groupName": "dev tooling"
     },
     {
