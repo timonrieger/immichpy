@@ -3,7 +3,7 @@ experimental = true # required for [deps]
 python.uv_venv_auto = "create|source"
 
 [tools]
-python = "3.14.8"
+python = "3.15.2"
 uv = "0.13.6"
 
 [env]
@@ -51,7 +51,7 @@ run = [{ task = "test-unit-cli" }, { task = "test-unit-client" }]
 description = "Run all unit tests"
 
 [tasks.test-unit-lowest]
-tools = { python = "3.11" }
+tools = { python = "3.15.2" }
 run = [
     "uv venv .venv-lowest --clear --python 3.11 --python-preference only-system",
     "uv pip install --python .venv-lowest --resolution lowest-direct -e '.[cli]' --group dev",

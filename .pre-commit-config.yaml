@@ -9,7 +9,7 @@ repos:
       - id: end-of-file-fixer
 
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: f12be1ebaa5351c1fc76472de98db2c3446c8253  # frozen: v0.16.10
+    rev: 25bcf95026b96e2dd3c0aec3090c3d6ef6ca2e6c  # frozen: v0.17.3
     hooks:
       - id: ruff-check
       - id: ruff-format
@@ -31,17 +31,17 @@ repos:
       - id: gitleaks
 
   - repo: https://github.com/igorshubovych/markdownlint-cli
-    rev: 5b5dddc4fb0f83c3ea1fc5616fa63e115dce83e0  # frozen: v0.49.1
+    rev: cbcdc463be5464e25e3e955a511599a67b9b987f  # frozen: v0.50.0
     hooks:
       - id: markdownlint
         args: [--fix]
 
   - repo: https://github.com/astral-sh/ty-pre-commit
-    rev: 6972e4c5a7e9f45f05a2f30b668f221f43b770c9  # frozen: v0.0.84
+    rev: 70aae47092a06c153286d0ff6c87b282ed865be8  # frozen: v0.0.94
     hooks:
       - id: ty
 
   - repo: https://github.com/zizmorcore/zizmor-pre-commit
-    rev: fa412071e4f5d44d44f9e365f4676f9df92456a2  # frozen: v1.30.1
+    rev: c92afdf2c6ca336aaa8f39e2bd8d48f62dbd8e1f  # frozen: v1.31.1
     hooks:
       - id: zizmor
