@@ -75,7 +75,7 @@ jobs:
         id: oasdiff_breaking
         if: steps.check_sync.outputs.sync_needed == 'true'
         continue-on-error: true
-        uses: oasdiff/oasdiff-action/breaking@b9325c9e0a27ab65b0da3b766522cedec6be81dc # v0.1.18
+        uses: oasdiff/oasdiff-action/breaking@9e56cf8b3aff7edb326d5767d3d23f96127e20c3 # v0.1.21
         with:
           base: https://raw.githubusercontent.com/immich-app/immich/refs/tags/${{ steps.stored_tag.outputs.stored_tag }}/open-api/immich-openapi-specs.json
           revision: https://raw.githubusercontent.com/immich-app/immich/refs/tags/${{ steps.tag_to_use.outputs.tag }}/open-api/immich-openapi-specs.json
@@ -85,7 +85,7 @@ jobs:
       - name: Generate API changelog
         id: oasdiff_changelog
         if: steps.check_sync.outputs.sync_needed == 'true'
-        uses: oasdiff/oasdiff-action/changelog@b9325c9e0a27ab65b0da3b766522cedec6be81dc # v0.1.18
+        uses: oasdiff/oasdiff-action/changelog@9e56cf8b3aff7edb326d5767d3d23f96127e20c3 # v0.1.21
         with:
           base: https://raw.githubusercontent.com/immich-app/immich/refs/tags/${{ steps.stored_tag.outputs.stored_tag }}/open-api/immich-openapi-specs.json
           revision: https://raw.githubusercontent.com/immich-app/immich/refs/tags/${{ steps.tag_to_use.outputs.tag }}/open-api/immich-openapi-specs.json
@@ -148,7 +148,7 @@ jobs:
           TAG: ${{ steps.tag_to_use.outputs.tag }}
 
       - name: Install mise
-        uses: jdx/mise-action@2d8d4cafcbd33be2ea37d2b6f5ad595363d1f1ca # v5.1.1
+        uses: jdx/mise-action@6be3c7ed4c21d4f76b208d351d95aac273ebb76d # v5.2.4
 
       - name: Generate client code
         if: steps.check_sync.outputs.sync_needed == 'true'
