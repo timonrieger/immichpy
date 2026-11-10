@@ -525,7 +525,7 @@ wheels = [
 
 [[package]]
 name = "immichpy"
-version = "9.2.6"
+version = "10.0.0"
 source = { editable = "." }
 dependencies = [
     { name = "aiohttp" },
