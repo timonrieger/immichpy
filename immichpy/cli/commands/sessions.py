@@ -112,7 +112,7 @@ def lock_session(
     print_response(result, ctx=ctx)
 
 
-@app.command("update-session", deprecated=True, rich_help_panel="API commands")
+@app.command("update-session", deprecated=False, rich_help_panel="API commands")
 def update_session(
     ctx: typer.Context,
     id: UUID = typer.Argument(..., help=r""""""),

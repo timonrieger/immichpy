@@ -108,7 +108,7 @@ immichpy api-keys [OPTIONS] COMMAND [ARGS]...
 * `get-api-keys`: List all API keys
 * `get-my-api-key`: Retrieve the current API key
 * `rotate-api-key`: Rotate an API key
-* `update-api-key`: Update an API key (DEPRECATED)
+* `update-api-key`: Update an API key
 
 ### `immichpy api-keys create-api-key`
 
@@ -125,7 +125,7 @@ immichpy api-keys create-api-key [OPTIONS]
 **Options**:
 
 * `--name <str>`: API key name
-* `--permissions <all|activity.create|activity.read|activity.update|activity.delete|activity.statistics|apiKey.create|apiKey.read|apiKey.update|apiKey.delete|apiKey.rotate|asset.read|asset.update|asset.delete|asset.statistics|asset.share|asset.view|asset.download|asset.upload|asset.copy|asset.derive|assetFile.read|assetFile.delete|assetFile.download|asset.edit.get|asset.edit.create|asset.edit.delete|album.create|album.read|album.update|album.delete|album.statistics|album.share|album.download|albumAsset.create|albumAsset.delete|albumUser.create|albumUser.update|albumUser.delete|auth.changePassword|authDevice.delete|archive.read|backup.list|backup.download|backup.upload|backup.delete|clusterGroup.read|clusterGroup.leave|clusterGroupRequest.create|clusterGroupRequest.read|clusterGroupRequest.delete|adminConfig.read|adminConfig.update|userConfig.read|duplicate.read|duplicate.delete|face.create|face.read|face.update|face.delete|folder.read|job.create|job.read|library.create|library.read|library.update|library.delete|library.statistics|timeline.read|timeline.download|maintenance|map.read|map.search|memory.create|memory.read|memory.update|memory.delete|memory.statistics|memoryAsset.create|memoryAsset.delete|notification.create|notification.read|notification.update|notification.delete|partner.create|partner.read|partner.update|partner.delete|person.create|person.read|person.update|person.delete|person.statistics|person.merge|person.reassign|pinCode.create|pinCode.update|pinCode.delete|plugin.create|plugin.read|plugin.update|plugin.delete|server.about|server.apkLinks|server.storage|server.statistics|server.versionCheck|serverLicense.read|serverLicense.update|serverLicense.delete|session.create|session.read|session.update|session.delete|session.lock|sharedLink.create|sharedLink.read|sharedLink.update|sharedLink.delete|stack.create|stack.read|stack.update|stack.delete|sync.stream|syncCheckpoint.read|syncCheckpoint.update|syncCheckpoint.delete|systemConfig.read|systemConfig.update|systemMetadata.read|systemMetadata.update|tag.create|tag.read|tag.update|tag.delete|tag.asset|user.read|user.update|userLicense.create|userLicense.read|userLicense.update|userLicense.delete|userOnboarding.read|userOnboarding.update|userOnboarding.delete|userPreference.read|userPreference.update|userProfileImage.create|userProfileImage.read|userProfileImage.update|userProfileImage.delete|queue.read|queue.update|queueJob.create|queueJob.read|queueJob.update|queueJob.delete|workflow.create|workflow.read|workflow.update|workflow.delete|workflow.logs|adminUser.create|adminUser.read|adminUser.update|adminUser.delete|adminSession.read|adminAuth.unlinkAll>`: List of permissions  [required]
+* `--permissions <all|activity.create|activity.read|activity.update|activity.delete|activity.statistics|apiKey.create|apiKey.read|apiKey.update|apiKey.delete|apiKey.rotate|asset.read|asset.update|asset.delete|asset.statistics|asset.share|asset.view|asset.download|asset.upload|asset.copy|asset.derive|assetFile.read|assetFile.delete|assetFile.download|asset.edit.get|asset.edit.create|asset.edit.delete|album.create|album.read|album.update|album.delete|album.statistics|album.share|album.download|albumAsset.create|albumAsset.delete|albumUser.create|albumUser.update|albumUser.delete|auth.changePassword|authDevice.delete|archive.read|backup.list|backup.download|backup.upload|backup.delete|clusterGroup.read|clusterGroup.leave|clusterGroup.admin|clusterGroupRequest.create|clusterGroupRequest.read|clusterGroupRequest.delete|adminConfig.read|adminConfig.update|userConfig.read|duplicate.read|duplicate.delete|face.create|face.read|face.update|face.delete|folder.read|job.create|job.read|library.create|library.read|library.update|library.delete|library.statistics|timeline.read|timeline.download|maintenance|map.read|map.search|memory.create|memory.read|memory.update|memory.delete|memory.statistics|memoryAsset.create|memoryAsset.delete|notification.create|notification.read|notification.update|notification.delete|partner.create|partner.read|partner.update|partner.delete|passkey.read|passkey.update|passkey.delete|person.create|person.read|person.update|person.delete|person.statistics|person.merge|person.reassign|pinCode.create|pinCode.update|pinCode.delete|plugin.create|plugin.read|plugin.update|plugin.delete|server.about|server.apkLinks|server.storage|server.statistics|server.versionCheck|serverLicense.read|serverLicense.update|serverLicense.delete|session.create|session.read|session.update|session.delete|session.lock|sharedLink.create|sharedLink.read|sharedLink.update|sharedLink.delete|stack.create|stack.read|stack.update|stack.delete|sync.stream|syncCheckpoint.read|syncCheckpoint.update|syncCheckpoint.delete|systemConfig.read|systemConfig.update|systemMetadata.read|systemMetadata.update|tag.create|tag.read|tag.update|tag.delete|tag.asset|user.read|user.update|userLicense.create|userLicense.read|userLicense.update|userLicense.delete|userOnboarding.read|userOnboarding.update|userOnboarding.delete|userPreference.read|userPreference.update|userProfileImage.create|userProfileImage.read|userProfileImage.update|userProfileImage.delete|queue.read|queue.update|queueJob.create|queueJob.read|queueJob.update|queueJob.delete|workflow.create|workflow.read|workflow.update|workflow.delete|workflow.logs|adminUser.create|adminUser.read|adminUser.update|adminUser.delete|adminSession.read|adminAuth.unlinkAll>`: List of permissions  [required]
 * `--help`: Show this message and exit.
 
 ### `immichpy api-keys delete-api-key`
@@ -239,7 +239,7 @@ immichpy api-keys update-api-key [OPTIONS] {id}
 **Options**:
 
 * `--name <str>`: API key name
-* `--permissions <all|activity.create|activity.read|activity.update|activity.delete|activity.statistics|apiKey.create|apiKey.read|apiKey.update|apiKey.delete|apiKey.rotate|asset.read|asset.update|asset.delete|asset.statistics|asset.share|asset.view|asset.download|asset.upload|asset.copy|asset.derive|assetFile.read|assetFile.delete|assetFile.download|asset.edit.get|asset.edit.create|asset.edit.delete|album.create|album.read|album.update|album.delete|album.statistics|album.share|album.download|albumAsset.create|albumAsset.delete|albumUser.create|albumUser.update|albumUser.delete|auth.changePassword|authDevice.delete|archive.read|backup.list|backup.download|backup.upload|backup.delete|clusterGroup.read|clusterGroup.leave|clusterGroupRequest.create|clusterGroupRequest.read|clusterGroupRequest.delete|adminConfig.read|adminConfig.update|userConfig.read|duplicate.read|duplicate.delete|face.create|face.read|face.update|face.delete|folder.read|job.create|job.read|library.create|library.read|library.update|library.delete|library.statistics|timeline.read|timeline.download|maintenance|map.read|map.search|memory.create|memory.read|memory.update|memory.delete|memory.statistics|memoryAsset.create|memoryAsset.delete|notification.create|notification.read|notification.update|notification.delete|partner.create|partner.read|partner.update|partner.delete|person.create|person.read|person.update|person.delete|person.statistics|person.merge|person.reassign|pinCode.create|pinCode.update|pinCode.delete|plugin.create|plugin.read|plugin.update|plugin.delete|server.about|server.apkLinks|server.storage|server.statistics|server.versionCheck|serverLicense.read|serverLicense.update|serverLicense.delete|session.create|session.read|session.update|session.delete|session.lock|sharedLink.create|sharedLink.read|sharedLink.update|sharedLink.delete|stack.create|stack.read|stack.update|stack.delete|sync.stream|syncCheckpoint.read|syncCheckpoint.update|syncCheckpoint.delete|systemConfig.read|systemConfig.update|systemMetadata.read|systemMetadata.update|tag.create|tag.read|tag.update|tag.delete|tag.asset|user.read|user.update|userLicense.create|userLicense.read|userLicense.update|userLicense.delete|userOnboarding.read|userOnboarding.update|userOnboarding.delete|userPreference.read|userPreference.update|userProfileImage.create|userProfileImage.read|userProfileImage.update|userProfileImage.delete|queue.read|queue.update|queueJob.create|queueJob.read|queueJob.update|queueJob.delete|workflow.create|workflow.read|workflow.update|workflow.delete|workflow.logs|adminUser.create|adminUser.read|adminUser.update|adminUser.delete|adminSession.read|adminAuth.unlinkAll>`: List of permissions
+* `--permissions <all|activity.create|activity.read|activity.update|activity.delete|activity.statistics|apiKey.create|apiKey.read|apiKey.update|apiKey.delete|apiKey.rotate|asset.read|asset.update|asset.delete|asset.statistics|asset.share|asset.view|asset.download|asset.upload|asset.copy|asset.derive|assetFile.read|assetFile.delete|assetFile.download|asset.edit.get|asset.edit.create|asset.edit.delete|album.create|album.read|album.update|album.delete|album.statistics|album.share|album.download|albumAsset.create|albumAsset.delete|albumUser.create|albumUser.update|albumUser.delete|auth.changePassword|authDevice.delete|archive.read|backup.list|backup.download|backup.upload|backup.delete|clusterGroup.read|clusterGroup.leave|clusterGroup.admin|clusterGroupRequest.create|clusterGroupRequest.read|clusterGroupRequest.delete|adminConfig.read|adminConfig.update|userConfig.read|duplicate.read|duplicate.delete|face.create|face.read|face.update|face.delete|folder.read|job.create|job.read|library.create|library.read|library.update|library.delete|library.statistics|timeline.read|timeline.download|maintenance|map.read|map.search|memory.create|memory.read|memory.update|memory.delete|memory.statistics|memoryAsset.create|memoryAsset.delete|notification.create|notification.read|notification.update|notification.delete|partner.create|partner.read|partner.update|partner.delete|passkey.read|passkey.update|passkey.delete|person.create|person.read|person.update|person.delete|person.statistics|person.merge|person.reassign|pinCode.create|pinCode.update|pinCode.delete|plugin.create|plugin.read|plugin.update|plugin.delete|server.about|server.apkLinks|server.storage|server.statistics|server.versionCheck|serverLicense.read|serverLicense.update|serverLicense.delete|session.create|session.read|session.update|session.delete|session.lock|sharedLink.create|sharedLink.read|sharedLink.update|sharedLink.delete|stack.create|stack.read|stack.update|stack.delete|sync.stream|syncCheckpoint.read|syncCheckpoint.update|syncCheckpoint.delete|systemConfig.read|systemConfig.update|systemMetadata.read|systemMetadata.update|tag.create|tag.read|tag.update|tag.delete|tag.asset|user.read|user.update|userLicense.create|userLicense.read|userLicense.update|userLicense.delete|userOnboarding.read|userOnboarding.update|userOnboarding.delete|userPreference.read|userPreference.update|userProfileImage.create|userProfileImage.read|userProfileImage.update|userProfileImage.delete|queue.read|queue.update|queueJob.create|queueJob.read|queueJob.update|queueJob.delete|workflow.create|workflow.read|workflow.update|workflow.delete|workflow.logs|adminUser.create|adminUser.read|adminUser.update|adminUser.delete|adminSession.read|adminAuth.unlinkAll>`: List of permissions
 * `--help`: Show this message and exit.
 
 ## `immichpy activities`
@@ -690,9 +690,9 @@ immichpy assets [OPTIONS] COMMAND [ARGS]...
 * `play-asset-video`: Play asset video
 * `remove-asset-edits`: Remove edits from an existing asset
 * `run-asset-jobs`: Run an asset job
-* `update-asset`: Update an asset (DEPRECATED)
+* `update-asset`: Update an asset
 * `update-asset-metadata`: Update asset metadata
-* `update-assets`: Update assets (DEPRECATED)
+* `update-assets`: Update assets
 * `update-bulk-asset-metadata`: Upsert asset metadata
 * `upload-asset`: Upload asset
 * `view-asset`: View asset thumbnail
@@ -2167,6 +2167,7 @@ immichpy config-admin update-admin-config [OPTIONS]
 
 **Options**:
 
+* `--backup-beta <true|false>`: Whether the backups feature is enabled
 * `--backup-database-cron-expression <str>`: Cron expression  [required]
 * `--backup-database-enabled`: Enabled  [required]
 * `--backup-database-keep-last-amount <int range>`: Keep last amount  [1&lt;=x&lt;=9007199254740991; required]
@@ -2197,14 +2198,14 @@ immichpy config-admin update-admin-config [OPTIONS]
 * `--image-colorspace <srgb|p3>`: Colorspace  [required]
 * `--image-extract-embedded`: Extract embedded  [required]
 * `--image-fullsize-enabled`: Enabled  [required]
-* `--image-fullsize-format <jpeg|webp>`: Image format  [required]
+* `--image-fullsize-format <jpeg|jxl|webp>`: Image format  [required]
 * `--image-fullsize-progressive <true|false>`: Progressive
 * `--image-fullsize-quality <int range>`: Quality  [1&lt;=x&lt;=100; required]
-* `--image-preview-format <jpeg|webp>`: Image format  [required]
+* `--image-preview-format <jpeg|jxl|webp>`: Image format  [required]
 * `--image-preview-progressive <true|false>`: Progressive
 * `--image-preview-quality <int range>`: Quality  [1&lt;=x&lt;=100; required]
 * `--image-preview-size <int range>`: Size  [1&lt;=x&lt;=9007199254740991; required]
-* `--image-thumbnail-format <jpeg|webp>`: Image format  [required]
+* `--image-thumbnail-format <jpeg|jxl|webp>`: Image format  [required]
 * `--image-thumbnail-progressive <true|false>`: Progressive
 * `--image-thumbnail-quality <int range>`: Quality  [1&lt;=x&lt;=100; required]
 * `--image-thumbnail-size <int range>`: Size  [1&lt;=x&lt;=9007199254740991; required]
@@ -2298,6 +2299,9 @@ immichpy config-admin update-admin-config [OPTIONS]
 * `--oauth-storage-quota-claim <str>`: Storage quota claim  [required]
 * `--oauth-timeout <int range>`: Timeout  [1&lt;=x&lt;=9007199254740991; required]
 * `--oauth-token-endpoint-auth-method <client_secret_post|client_secret_basic>`: OAuth token endpoint auth method  [required]
+* `--passkey-additional-domains <str>`: Additional domains  [required]
+* `--passkey-domain <str>`: Passkey domain  [required]
+* `--passkey-enabled`: Enabled  [required]
 * `--password-login-enabled`: Enabled  [required]
 * `--reverse-geocoding-enabled`: Enabled  [required]
 * `--server-external-domain <str>`: External domain  [required]
@@ -2906,7 +2910,7 @@ immichpy libraries [OPTIONS] COMMAND [ARGS]...
 * `get-library`: Retrieve a library
 * `get-library-statistics`: Retrieve library statistics
 * `scan-library`: Scan a library
-* `update-library`: Update a library (DEPRECATED)
+* `update-library`: Update a library
 * `validate`: Validate library settings
 
 ### `immichpy libraries create-library`
@@ -3256,8 +3260,10 @@ immichpy maintenance-admin set-maintenance-mode [OPTIONS]
 
 **Options**:
 
-* `--action <start|end|select_database_restore|restore_database>`: Maintenance action  [required]
+* `--action <start|end|select_database_restore|restore_database|rollback>`: Maintenance action  [required]
 * `--restore-backup-filename <str>`: Restore backup filename
+* `--rollback-repository-id <str>`: Rollback repository ID
+* `--rollback-snapshot-id <str>`: Rollback snapshot ID
 * `--help`: Show this message and exit.
 
 ## `immichpy map`
@@ -3352,7 +3358,7 @@ immichpy memories [OPTIONS] COMMAND [ARGS]...
 * `memories-statistics`: Retrieve memories statistics
 * `remove-memory-assets`: Remove assets from a memory
 * `search-memories`: Retrieve memories
-* `update-memory`: Update a memory (DEPRECATED)
+* `update-memory`: Update a memory
 
 ### `immichpy memories add-memory-assets`
 
@@ -3953,7 +3959,7 @@ immichpy people [OPTIONS] COMMAND [ARGS]...
 * `reassign-faces`: Reassign faces
 * `remove-users-from-people`: Remove users from people
 * `update-people`: Update people
-* `update-person`: Update person (DEPRECATED)
+* `update-person`: Update person
 * `upsert-people-users`: Upsert user access
 
 ### `immichpy people create-person`
@@ -4333,7 +4339,7 @@ immichpy plugins search-plugin-methods [OPTIONS]
 * `--plugin-name <str>`: Plugin name
 * `--plugin-version <str>`: Plugin version
 * `--title <str>`
-* `--trigger <AssetCreate|AssetMetadataExtraction|AssetTagged>`: Workflow trigger
+* `--trigger <AssetCreate|AssetMetadataExtraction|AssetOcrExtraction|AssetTagged>`: Workflow trigger
 * `--type <AssetV1>`: Workflow types
 * `--help`: Show this message and exit.
 
@@ -5775,7 +5781,7 @@ immichpy sessions [OPTIONS] COMMAND [ARGS]...
 * `delete-session`: Delete a session
 * `get-sessions`: Retrieve sessions
 * `lock-session`: Lock a session
-* `update-session`: Update a session (DEPRECATED)
+* `update-session`: Update a session
 
 ### `immichpy sessions create-session`
 
@@ -6140,7 +6146,7 @@ immichpy stacks [OPTIONS] COMMAND [ARGS]...
 * `get-stack`: Retrieve a stack
 * `remove-asset-from-stack`: Remove an asset from a stack
 * `search-stacks`: Retrieve stacks
-* `update-stack`: Update a stack (DEPRECATED)
+* `update-stack`: Update a stack
 
 ### `immichpy stacks create-stack`
 
@@ -6451,6 +6457,7 @@ immichpy system-config update-config [OPTIONS]
 
 **Options**:
 
+* `--backup-beta <true|false>`: Whether the backups feature is enabled
 * `--backup-database-cron-expression <str>`: Cron expression  [required]
 * `--backup-database-enabled`: Enabled  [required]
 * `--backup-database-keep-last-amount <int range>`: Keep last amount  [1&lt;=x&lt;=9007199254740991; required]
@@ -6481,14 +6488,14 @@ immichpy system-config update-config [OPTIONS]
 * `--image-colorspace <srgb|p3>`: Colorspace  [required]
 * `--image-extract-embedded`: Extract embedded  [required]
 * `--image-fullsize-enabled`: Enabled  [required]
-* `--image-fullsize-format <jpeg|webp>`: Image format  [required]
+* `--image-fullsize-format <jpeg|jxl|webp>`: Image format  [required]
 * `--image-fullsize-progressive <true|false>`: Progressive
 * `--image-fullsize-quality <int range>`: Quality  [1&lt;=x&lt;=100; required]
-* `--image-preview-format <jpeg|webp>`: Image format  [required]
+* `--image-preview-format <jpeg|jxl|webp>`: Image format  [required]
 * `--image-preview-progressive <true|false>`: Progressive
 * `--image-preview-quality <int range>`: Quality  [1&lt;=x&lt;=100; required]
 * `--image-preview-size <int range>`: Size  [1&lt;=x&lt;=9007199254740991; required]
-* `--image-thumbnail-format <jpeg|webp>`: Image format  [required]
+* `--image-thumbnail-format <jpeg|jxl|webp>`: Image format  [required]
 * `--image-thumbnail-progressive <true|false>`: Progressive
 * `--image-thumbnail-quality <int range>`: Quality  [1&lt;=x&lt;=100; required]
 * `--image-thumbnail-size <int range>`: Size  [1&lt;=x&lt;=9007199254740991; required]
@@ -6582,6 +6589,9 @@ immichpy system-config update-config [OPTIONS]
 * `--oauth-storage-quota-claim <str>`: Storage quota claim  [required]
 * `--oauth-timeout <int range>`: Timeout  [1&lt;=x&lt;=9007199254740991; required]
 * `--oauth-token-endpoint-auth-method <client_secret_post|client_secret_basic>`: OAuth token endpoint auth method  [required]
+* `--passkey-additional-domains <str>`: Additional domains  [required]
+* `--passkey-domain <str>`: Passkey domain  [required]
+* `--passkey-enabled`: Enabled  [required]
 * `--password-login-enabled`: Enabled  [required]
 * `--reverse-geocoding-enabled`: Enabled  [required]
 * `--server-external-domain <str>`: External domain  [required]
@@ -6712,7 +6722,7 @@ immichpy tags [OPTIONS] COMMAND [ARGS]...
 * `get-tag-by-id`: Retrieve a tag
 * `tag-assets`: Tag assets
 * `untag-assets`: Untag assets
-* `update-tag`: Update a tag (DEPRECATED)
+* `update-tag`: Update a tag
 * `upsert-tags`: Upsert tags
 
 ### `immichpy tags bulk-tag-assets`
@@ -7085,8 +7095,8 @@ immichpy users [OPTIONS] COMMAND [ARGS]...
 * `search-users`: Get all users
 * `set-user-license`: Set user product key
 * `set-user-onboarding`: Update user onboarding
-* `update-my-preferences`: Update my preferences (DEPRECATED)
-* `update-my-user`: Update current user (DEPRECATED)
+* `update-my-preferences`: Update my preferences
+* `update-my-user`: Update current user
 * `get-profile-image-to-file`: Download a user&#x27;s profile image and save...
 
 ### `immichpy users create-profile-image`
@@ -7446,8 +7456,8 @@ immichpy users-admin [OPTIONS] COMMAND [ARGS]...
 * `get-user-statistics-admin`: Retrieve user statistics
 * `restore-user-admin`: Restore a deleted user
 * `search-users-admin`: Search users
-* `update-user-admin`: Update a user (DEPRECATED)
-* `update-user-preferences-admin`: Update user preferences (DEPRECATED)
+* `update-user-admin`: Update a user
+* `update-user-preferences-admin`: Update user preferences
 
 ### `immichpy users-admin create-user-admin`
 
@@ -7805,7 +7815,7 @@ immichpy workflows [OPTIONS] COMMAND [ARGS]...
 * `get-workflow-logs`: Retrieve workflow logs
 * `get-workflow-triggers`: List all workflow triggers
 * `search-workflows`: List all workflows
-* `update-workflow`: Update a workflow (DEPRECATED)
+* `update-workflow`: Update a workflow
 
 ### `immichpy workflows create-workflow`
 
@@ -7826,7 +7836,7 @@ immichpy workflows create-workflow [OPTIONS]
 * `--logging <true|false>`: Workflow logs run results
 * `--name <str>`: Workflow name
 * `--steps <str>`: As a JSON string with keys: config (object), enabled (boolean), method (string)
-* `--trigger <AssetCreate|AssetMetadataExtraction|AssetTagged>`: Plugin trigger type  [required]
+* `--trigger <AssetCreate|AssetMetadataExtraction|AssetOcrExtraction|AssetTagged>`: Plugin trigger type  [required]
 * `--help`: Show this message and exit.
 
 ### `immichpy workflows delete-workflow`
@@ -7950,7 +7960,7 @@ immichpy workflows search-workflows [OPTIONS]
 * `--id <uuid>`: Workflow ID
 * `--logging <true|false>`: Workflow logs run results
 * `--name <str>`: Workflow name
-* `--trigger <AssetCreate|AssetMetadataExtraction|AssetTagged>`: Workflow trigger type
+* `--trigger <AssetCreate|AssetMetadataExtraction|AssetOcrExtraction|AssetTagged>`: Workflow trigger type
 * `--help`: Show this message and exit.
 
 ### `immichpy workflows update-workflow`
@@ -7976,7 +7986,7 @@ immichpy workflows update-workflow [OPTIONS] {id}
 * `--logging <true|false>`: Workflow logs run results
 * `--name <str>`: Workflow name
 * `--steps <str>`: As a JSON string with keys: config (object), enabled (boolean), method (string)
-* `--trigger <AssetCreate|AssetMetadataExtraction|AssetTagged>`: Plugin trigger type
+* `--trigger <AssetCreate|AssetMetadataExtraction|AssetOcrExtraction|AssetTagged>`: Plugin trigger type
 * `--help`: Show this message and exit.
 
 ## `immichpy backups`

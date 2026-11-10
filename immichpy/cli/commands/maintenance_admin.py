@@ -194,6 +194,12 @@ def set_maintenance_mode(
     restore_backup_filename: str | None = typer.Option(
         None, "--restore-backup-filename", help=r"""Restore backup filename"""
     ),
+    rollback_repository_id: str | None = typer.Option(
+        None, "--rollback-repository-id", help=r"""Rollback repository ID"""
+    ),
+    rollback_snapshot_id: str | None = typer.Option(
+        None, "--rollback-snapshot-id", help=r"""Rollback snapshot ID"""
+    ),
 ) -> None:
     """Set maintenance mode
 
@@ -204,6 +210,10 @@ def set_maintenance_mode(
     set_nested(json_data, ["action"], action)
     if restore_backup_filename is not None:
         set_nested(json_data, ["restoreBackupFilename"], restore_backup_filename)
+    if rollback_repository_id is not None:
+        set_nested(json_data, ["rollbackRepositoryId"], rollback_repository_id)
+    if rollback_snapshot_id is not None:
+        set_nested(json_data, ["rollbackSnapshotId"], rollback_snapshot_id)
     set_maintenance_mode_dto = SetMaintenanceModeDto.model_validate(json_data)
     kwargs["set_maintenance_mode_dto"] = set_maintenance_mode_dto
     client: AsyncClient = ctx.obj["client"]

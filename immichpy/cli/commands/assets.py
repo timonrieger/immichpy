@@ -526,7 +526,7 @@ def run_asset_jobs(
     print_response(result, ctx=ctx)
 
 
-@app.command("update-asset", deprecated=True, rich_help_panel="API commands")
+@app.command("update-asset", deprecated=False, rich_help_panel="API commands")
 def update_asset(
     ctx: typer.Context,
     id: UUID = typer.Argument(..., help=r""""""),
@@ -617,7 +617,7 @@ As a JSON string with keys: key (string), value (object)""",
     print_response(result, ctx=ctx)
 
 
-@app.command("update-assets", deprecated=True, rich_help_panel="API commands")
+@app.command("update-assets", deprecated=False, rich_help_panel="API commands")
 def update_assets(
     ctx: typer.Context,
     date_time_original: str | None = typer.Option(
