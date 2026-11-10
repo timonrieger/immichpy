@@ -45,6 +45,7 @@ immichpy [OPTIONS] COMMAND [ARGS]...
 * `notifications`: A notification is a specialized message...
 * `notifications-admin`: Notification administrative endpoints.
 * `partners`: A partner is a link with another user that...
+* `passkeys`: A passkey is a WebAuthn credential that...
 * `people`: A person is a collection of faces, which...
 * `plugins`: A plugin is an installed module that makes...
 * `queues`: Queues and background jobs are used for...
@@ -3926,6 +3927,178 @@ immichpy partners update-partner [OPTIONS] {id}
 **Options**:
 
 * `--in-timeline`: Show partner assets in timeline  [required]
+* `--help`: Show this message and exit.
+
+## `immichpy passkeys`
+
+A passkey is a WebAuthn credential that can be used to login without a password.
+
+<a href="https://api.immich.app/endpoints/passkeys">Immich API documentation</a>
+
+**Usage**:
+
+```console
+immichpy passkeys [OPTIONS] COMMAND [ARGS]...
+```
+
+**Options**:
+
+* `--help`: Show this message and exit.
+
+**Commands**:
+
+* `delete-passkey`: Delete a passkey
+* `finish-authentication`: Finish passkey authentication
+* `finish-registration`: Finish passkey registration
+* `get-passkey`: Retrieve a passkey
+* `search-passkeys`: Search passkeys
+* `start-authentication`: Start passkey authentication
+* `start-registration`: Start passkey registration
+* `update-passkey`: Update a passkey
+
+### `immichpy passkeys delete-passkey`
+
+Delete a passkey
+
+<a href="https://api.immich.app/endpoints/passkeys/deletePasskey">Immich API documentation</a>
+
+**Usage**:
+
+```console
+immichpy passkeys delete-passkey [OPTIONS] {id}
+```
+
+**Arguments**:
+
+* `id`: [required]
+
+**Options**:
+
+* `--help`: Show this message and exit.
+
+### `immichpy passkeys finish-authentication`
+
+Finish passkey authentication
+
+<a href="https://api.immich.app/endpoints/passkeys/finishAuthentication">Immich API documentation</a>
+
+**Usage**:
+
+```console
+immichpy passkeys finish-authentication [OPTIONS]
+```
+
+**Options**:
+
+* `--response-id <str>`: Credential ID  [required]
+* `--response-response-user-handle <str>`: User handle
+* `--help`: Show this message and exit.
+
+### `immichpy passkeys finish-registration`
+
+Finish passkey registration
+
+<a href="https://api.immich.app/endpoints/passkeys/finishRegistration">Immich API documentation</a>
+
+**Usage**:
+
+```console
+immichpy passkeys finish-registration [OPTIONS]
+```
+
+**Options**:
+
+* `--name <str>`: Passkey name
+* `--help`: Show this message and exit.
+
+### `immichpy passkeys get-passkey`
+
+Retrieve a passkey
+
+<a href="https://api.immich.app/endpoints/passkeys/getPasskey">Immich API documentation</a>
+
+**Usage**:
+
+```console
+immichpy passkeys get-passkey [OPTIONS] {id}
+```
+
+**Arguments**:
+
+* `id`: [required]
+
+**Options**:
+
+* `--help`: Show this message and exit.
+
+### `immichpy passkeys search-passkeys`
+
+Search passkeys
+
+<a href="https://api.immich.app/endpoints/passkeys/searchPasskeys">Immich API documentation</a>
+
+**Usage**:
+
+```console
+immichpy passkeys search-passkeys [OPTIONS]
+```
+
+**Options**:
+
+* `--id <uuid>`: Filter by passkey ID
+* `--help`: Show this message and exit.
+
+### `immichpy passkeys start-authentication`
+
+Start passkey authentication
+
+<a href="https://api.immich.app/endpoints/passkeys/startAuthentication">Immich API documentation</a>
+
+**Usage**:
+
+```console
+immichpy passkeys start-authentication [OPTIONS]
+```
+
+**Options**:
+
+* `--help`: Show this message and exit.
+
+### `immichpy passkeys start-registration`
+
+Start passkey registration
+
+<a href="https://api.immich.app/endpoints/passkeys/startRegistration">Immich API documentation</a>
+
+**Usage**:
+
+```console
+immichpy passkeys start-registration [OPTIONS]
+```
+
+**Options**:
+
+* `--help`: Show this message and exit.
+
+### `immichpy passkeys update-passkey`
+
+Update a passkey
+
+<a href="https://api.immich.app/endpoints/passkeys/updatePasskey">Immich API documentation</a>
+
+**Usage**:
+
+```console
+immichpy passkeys update-passkey [OPTIONS] {id}
+```
+
+**Arguments**:
+
+* `id`: [required]
+
+**Options**:
+
+* `--name <str>`: Passkey name  [required]
 * `--help`: Show this message and exit.
 
 ## `immichpy people`
