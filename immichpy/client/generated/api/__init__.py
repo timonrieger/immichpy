@@ -34,6 +34,7 @@ if TYPE_CHECKING:
         NotificationsAdminApi,
     )
     from immichpy.client.generated.api.partners_api import PartnersApi
+    from immichpy.client.generated.api.passkeys_api import PasskeysApi
     from immichpy.client.generated.api.people_api import PeopleApi
     from immichpy.client.generated.api.plugins_api import PluginsApi
     from immichpy.client.generated.api.queues_api import QueuesApi
@@ -105,6 +106,7 @@ _LAZY_IMPORTS: dict[str, tuple[str, str]] = {
         "NotificationsApi",
     ),
     "PartnersApi": ("immichpy.client.generated.api.partners_api", "PartnersApi"),
+    "PasskeysApi": ("immichpy.client.generated.api.passkeys_api", "PasskeysApi"),
     "PeopleApi": ("immichpy.client.generated.api.people_api", "PeopleApi"),
     "PluginsApi": ("immichpy.client.generated.api.plugins_api", "PluginsApi"),
     "QueuesApi": ("immichpy.client.generated.api.queues_api", "QueuesApi"),

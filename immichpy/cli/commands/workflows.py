@@ -213,7 +213,7 @@ def search_workflows(
     print_response(result, ctx=ctx)
 
 
-@app.command("update-workflow", deprecated=True, rich_help_panel="API commands")
+@app.command("update-workflow", deprecated=False, rich_help_panel="API commands")
 def update_workflow(
     ctx: typer.Context,
     id: UUID = typer.Argument(..., help=r""""""),

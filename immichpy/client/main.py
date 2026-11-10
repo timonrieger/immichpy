@@ -30,6 +30,7 @@ from immichpy.client.generated.api.memories_api import MemoriesApi
 from immichpy.client.generated.api.notifications_admin_api import NotificationsAdminApi
 from immichpy.client.generated.api.notifications_api import NotificationsApi
 from immichpy.client.generated.api.partners_api import PartnersApi
+from immichpy.client.generated.api.passkeys_api import PasskeysApi
 from immichpy.client.generated.api.people_api import PeopleApi
 from immichpy.client.generated.api.plugins_api import PluginsApi
 from immichpy.client.generated.api.queues_api import QueuesApi
@@ -224,6 +225,12 @@ class AsyncClient:
     See [PartnersApi][immichpy.client.generated.api.partners_api.PartnersApi] for available methods and [Immich API Documentation](https://api.immich.app/endpoints/partners) for more information.
     """
 
+    passkeys: PasskeysApi
+    """A passkey is a WebAuthn credential that can be used to login without a password.
+
+    See [PasskeysApi][immichpy.client.generated.api.passkeys_api.PasskeysApi] for available methods and [Immich API Documentation](https://api.immich.app/endpoints/passkeys) for more information.
+    """
+
     people: PeopleApi
     """A person is a collection of faces, which can be favorited and named. A person can also be merged into another person. People are automatically created via the face recognition job.
 
@@ -385,6 +392,7 @@ class AsyncClient:
         self.notifications = NotificationsApi(self.base_client)
         self.notifications_admin = NotificationsAdminApi(self.base_client)
         self.partners = PartnersApi(self.base_client)
+        self.passkeys = PasskeysApi(self.base_client)
         self.people = PeopleApi(self.base_client)
         self.plugins = PluginsApi(self.base_client)
         self.queues = QueuesApi(self.base_client)

@@ -305,7 +305,7 @@ Example: 2024-01-01""",
     print_response(result, ctx=ctx)
 
 
-@app.command("update-memory", deprecated=True, rich_help_panel="API commands")
+@app.command("update-memory", deprecated=False, rich_help_panel="API commands")
 def update_memory(
     ctx: typer.Context,
     id: UUID = typer.Argument(..., help=r""""""),

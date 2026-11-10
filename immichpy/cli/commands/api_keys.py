@@ -122,7 +122,7 @@ def rotate_api_key(
     print_response(result, ctx=ctx)
 
 
-@app.command("update-api-key", deprecated=True, rich_help_panel="API commands")
+@app.command("update-api-key", deprecated=False, rich_help_panel="API commands")
 def update_api_key(
     ctx: typer.Context,
     id: UUID = typer.Argument(..., help=r""""""),

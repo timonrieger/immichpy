@@ -277,7 +277,7 @@ def set_user_onboarding(
     print_response(result, ctx=ctx)
 
 
-@app.command("update-my-preferences", deprecated=True, rich_help_panel="API commands")
+@app.command("update-my-preferences", deprecated=False, rich_help_panel="API commands")
 def update_my_preferences(
     ctx: typer.Context,
     albums_default_asset_order: AssetOrder | None = typer.Option(
@@ -501,7 +501,7 @@ def update_my_preferences(
     print_response(result, ctx=ctx)
 
 
-@app.command("update-my-user", deprecated=True, rich_help_panel="API commands")
+@app.command("update-my-user", deprecated=False, rich_help_panel="API commands")
 def update_my_user(
     ctx: typer.Context,
     avatar_color: str | None = typer.Option(

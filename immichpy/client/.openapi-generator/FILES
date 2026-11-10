@@ -24,6 +24,7 @@ generated/api/memories_api.py
 generated/api/notifications_admin_api.py
 generated/api/notifications_api.py
 generated/api/partners_api.py
+generated/api/passkeys_api.py
 generated/api/people_api.py
 generated/api/plugins_api.py
 generated/api/queues_api.py
@@ -81,6 +82,7 @@ generated/models/admin_config_nightly_tasks_dto.py
 generated/models/admin_config_notifications_dto.py
 generated/models/admin_config_o_auth_dto.py
 generated/models/admin_config_ocr_dto.py
+generated/models/admin_config_passkey_dto.py
 generated/models/admin_config_password_login_dto.py
 generated/models/admin_config_reverse_geocoding_dto.py
 generated/models/admin_config_server_dto.py
@@ -257,6 +259,12 @@ generated/models/partner_create_dto.py
 generated/models/partner_direction.py
 generated/models/partner_response_dto.py
 generated/models/partner_update_dto.py
+generated/models/passkey_authentication_finish_dto.py
+generated/models/passkey_authentication_finish_dto_response.py
+generated/models/passkey_authentication_finish_dto_response_response.py
+generated/models/passkey_registration_finish_dto.py
+generated/models/passkey_response_dto.py
+generated/models/passkey_update_dto.py
 generated/models/people_delete_dto.py
 generated/models/people_response.py
 generated/models/people_response_dto.py
@@ -286,10 +294,13 @@ generated/models/plugin_response_dto.py
 generated/models/plugin_template_response_dto.py
 generated/models/plugin_template_step_response_dto.py
 generated/models/public_config_dto.py
+generated/models/public_config_f_fmpeg_dto.py
+generated/models/public_config_f_fmpeg_realtime_dto.py
+generated/models/public_config_map_dto.py
 generated/models/public_config_o_auth_dto.py
+generated/models/public_config_passkey_dto.py
 generated/models/public_config_password_login_dto.py
 generated/models/public_config_server_dto.py
-generated/models/public_config_theme_dto.py
 generated/models/purchase_response.py
 generated/models/purchase_update.py
 generated/models/queue_command.py
@@ -332,6 +343,7 @@ generated/models/search_suggestion_type.py
 generated/models/server_about_response_dto.py
 generated/models/server_apk_links_dto.py
 generated/models/server_config_dto.py
+generated/models/server_feature_level.py
 generated/models/server_features_dto.py
 generated/models/server_media_types_response_dto.py
 generated/models/server_ping_response.py
@@ -447,12 +459,14 @@ generated/models/user_config_generated_image_dto.py
 generated/models/user_config_image_dto.py
 generated/models/user_config_machine_learning_dto.py
 generated/models/user_config_map_dto.py
+generated/models/user_config_notifications_dto.py
 generated/models/user_config_o_auth_dto.py
 generated/models/user_config_ocr_dto.py
+generated/models/user_config_passkey_dto.py
 generated/models/user_config_password_login_dto.py
 generated/models/user_config_reverse_geocoding_dto.py
 generated/models/user_config_server_dto.py
-generated/models/user_config_theme_dto.py
+generated/models/user_config_smtp_dto.py
 generated/models/user_config_trash_dto.py
 generated/models/user_config_user_dto.py
 generated/models/user_license.py

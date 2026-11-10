@@ -35,6 +35,7 @@ from immichpy.cli.commands import memories as memories_commands
 from immichpy.cli.commands import notifications as notifications_commands
 from immichpy.cli.commands import notifications_admin as notifications_admin_commands
 from immichpy.cli.commands import partners as partners_commands
+from immichpy.cli.commands import passkeys as passkeys_commands
 from immichpy.cli.commands import people as people_commands
 from immichpy.cli.commands import plugins as plugins_commands
 from immichpy.cli.commands import queues as queues_commands
@@ -160,6 +161,7 @@ app.add_typer(
     rich_help_panel="API commands",
 )
 app.add_typer(partners_commands.app, name="partners", rich_help_panel="API commands")
+app.add_typer(passkeys_commands.app, name="passkeys", rich_help_panel="API commands")
 app.add_typer(people_commands.app, name="people", rich_help_panel="API commands")
 app.add_typer(plugins_commands.app, name="plugins", rich_help_panel="API commands")
 app.add_typer(queues_commands.app, name="queues", rich_help_panel="API commands")

@@ -292,7 +292,7 @@ def search_users_admin(
     print_response(result, ctx=ctx)
 
 
-@app.command("update-user-admin", deprecated=True, rich_help_panel="API commands")
+@app.command("update-user-admin", deprecated=False, rich_help_panel="API commands")
 def update_user_admin(
     ctx: typer.Context,
     id: UUID = typer.Argument(..., help=r""""""),
@@ -365,7 +365,7 @@ Example: 123456""",
 
 
 @app.command(
-    "update-user-preferences-admin", deprecated=True, rich_help_panel="API commands"
+    "update-user-preferences-admin", deprecated=False, rich_help_panel="API commands"
 )
 def update_user_preferences_admin(
     ctx: typer.Context,

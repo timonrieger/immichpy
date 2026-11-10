@@ -81,6 +81,9 @@ def get_storage_template_options(
 @app.command("update-config", deprecated=True, rich_help_panel="API commands")
 def update_config(
     ctx: typer.Context,
+    backup_beta: Literal["true", "false"] | None = typer.Option(
+        None, "--backup-beta", help=r"""Whether the backups feature is enabled"""
+    ),
     backup_database_cron_expression: str = typer.Option(
         ..., "--backup-database-cron-expression", help=r"""Cron expression"""
     ),
@@ -606,6 +609,13 @@ def update_config(
         "--oauth-token-endpoint-auth-method",
         help=r"""OAuth token endpoint auth method""",
     ),
+    passkey_additional_domains: list[str] = typer.Option(
+        ..., "--passkey-additional-domains", help=r"""Additional domains"""
+    ),
+    passkey_domain: str = typer.Option(
+        ..., "--passkey-domain", help=r"""Passkey domain"""
+    ),
+    passkey_enabled: bool = typer.Option(..., "--passkey-enabled", help=r"""Enabled"""),
     password_login_enabled: bool = typer.Option(
         ..., "--password-login-enabled", help=r"""Enabled"""
     ),
@@ -666,6 +676,8 @@ def update_config(
     """
     kwargs = {}
     json_data = {}
+    if backup_beta is not None:
+        set_nested(json_data, ["backup", "beta"], backup_beta.lower() == "true")
     set_nested(
         json_data,
         ["backup", "database", "cronExpression"],
@@ -1011,6 +1023,9 @@ def update_config(
         ["oauth", "tokenEndpointAuthMethod"],
         oauth_token_endpoint_auth_method,
     )
+    set_nested(json_data, ["passkey", "additionalDomains"], passkey_additional_domains)
+    set_nested(json_data, ["passkey", "domain"], passkey_domain)
+    set_nested(json_data, ["passkey", "enabled"], passkey_enabled)
     set_nested(json_data, ["passwordLogin", "enabled"], password_login_enabled)
     set_nested(json_data, ["reverseGeocoding", "enabled"], reverse_geocoding_enabled)
     set_nested(json_data, ["server", "externalDomain"], server_external_domain)

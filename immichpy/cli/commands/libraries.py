@@ -132,7 +132,7 @@ def scan_library(
     print_response(result, ctx=ctx)
 
 
-@app.command("update-library", deprecated=True, rich_help_panel="API commands")
+@app.command("update-library", deprecated=False, rich_help_panel="API commands")
 def update_library(
     ctx: typer.Context,
     id: UUID = typer.Argument(..., help=r""""""),

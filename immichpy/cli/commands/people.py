@@ -396,7 +396,7 @@ As a JSON string with keys: birthDate (string), color (string), featureFaceAsset
     print_response(result, ctx=ctx)
 
 
-@app.command("update-person", deprecated=True, rich_help_panel="API commands")
+@app.command("update-person", deprecated=False, rich_help_panel="API commands")
 def update_person(
     ctx: typer.Context,
     id: UUID = typer.Argument(..., help=r""""""),
