@@ -282,7 +282,7 @@ async def upload_file(
     retryer = tenacity.AsyncRetrying(
         retry=tenacity.retry_if_exception(_is_retryable_upload_error),
         stop=tenacity.stop_after_attempt(retries),
-        wait=tenacity.wait_exponential_jitter(initial=0.1, max=5.0),
+        wait=tenacity.wait_exponential_jitter(multiplier=0.1, max=5.0),
         reraise=True,
     )
     return await retryer(
