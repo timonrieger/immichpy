@@ -24,7 +24,6 @@ from rich.progress import (
     TimeRemainingColumn,
     TransferSpeedColumn,
 )
-from statx import statx
 
 from immichpy.client.generated.api.albums_api import AlbumsApi
 from immichpy.client.generated.api.assets_api import AssetsApi
@@ -48,6 +47,7 @@ from immichpy.client.types import (
     RejectionReason,
     UploadedEntry,
 )
+from immichpy.client.utils.statx import birthtime
 
 logger = logging.getLogger(__name__)
 
@@ -245,7 +245,7 @@ def get_file_times(
         if sys.platform == "win32":
             ctime = stats.st_ctime
         else:
-            ctime = statx(os.fspath(path)).btime
+            ctime = birthtime(os.fspath(path))
 
     return datetime.fromtimestamp(ctime or mtime, tz=UTC), datetime.fromtimestamp(
         mtime, tz=UTC
