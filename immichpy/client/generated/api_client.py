@@ -10,7 +10,6 @@ Do not edit the class manually.
 """  # noqa: E501
 
 import datetime
-from dateutil.parser import parse
 from enum import Enum
 import decimal
 import json
@@ -787,7 +786,7 @@ class ApiClient:
         :return: date.
         """
         try:
-            return parse(string).date()
+            return datetime.datetime.fromisoformat(string).date()
         except ImportError:
             return string
         except ValueError:
@@ -804,7 +803,7 @@ class ApiClient:
         :return: datetime.
         """
         try:
-            return parse(string)
+            return datetime.datetime.fromisoformat(string)
         except ImportError:
             return string
         except ValueError:

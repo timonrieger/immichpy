@@ -38,6 +38,8 @@ def rewrite_imports_in_tree(root: Path) -> int:
 
     Also swap `re` for the `regex` package, since spec patterns use `\\p{...}`
     Unicode property escapes, which Python's `re` cannot compile.
+
+    Also swap `dateutil` for `fromisoformat`, which parses ISO 8601 since 3.11.
     """
     replacements: list[tuple[str, str]] = [
         ("from generated.", "from immichpy.client.generated."),
@@ -46,6 +48,9 @@ def rewrite_imports_in_tree(root: Path) -> int:
         ("import generated", "import immichpy.client.generated"),
         ("klass = getattr(generated", "klass = getattr(immichpy.client.generated"),
         ("import re  # noqa: F401", "import regex as re  # noqa: F401"),
+        ("from dateutil.parser import parse\n", ""),
+        ("parse(string).date()", "datetime.datetime.fromisoformat(string).date()"),
+        ("parse(string)", "datetime.datetime.fromisoformat(string)"),
     ]
 
     changed = 0
