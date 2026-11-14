@@ -24,19 +24,19 @@ classifiers = [
 ]
 dependencies = [
     "aiohttp>=3.8.4,<4.0.0",
+    # TODO: drop once https://github.com/OpenAPITools/openapi-generator/pull/25677
+    # is released and generate-client uses that openapi-generator-cli version
     "aiohttp-retry>=2.8.3,<3.0.0",
     "pydantic>=2.12.0,<3.0.0",
-    "pystatx>=0.1,<1",
-    "python-dateutil>=2.8.2,<3.1.0",
-    "regex>=2024.11.6",
-    "rich>=13.8.0,<16.0.0",
-    "tenacity>=9.0.0,<10.0.0",
+    # TODO: drop once https://github.com/OpenAPITools/openapi-generator/pull/25678
+    # is released and generate-client uses that openapi-generator-cli version
     "typing-extensions>=4.12.2,<5.0.0",
 ]
 
 [project.optional-dependencies]
 build = ["uv==0.13.6"]
 cli = [
+    "rich>=13.8.0,<16.0.0",
     "rtoml>=0.13.0,<1",
     "typer>=0.27.2,<1",
 ]

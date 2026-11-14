@@ -6,6 +6,7 @@ import hashlib
 import json
 import logging
 import os
+import random
 import sys
 import uuid
 from datetime import UTC, datetime
@@ -13,18 +14,7 @@ from pathlib import Path
 from typing import cast
 from uuid import UUID
 
-import tenacity
 from aiohttp import ClientConnectionError
-from rich.progress import (
-    BarColumn,
-    DownloadColumn,
-    Progress,
-    SpinnerColumn,
-    TextColumn,
-    TimeRemainingColumn,
-    TransferSpeedColumn,
-)
-from statx import statx
 
 from immichpy.client.generated.api.albums_api import AlbumsApi
 from immichpy.client.generated.api.assets_api import AssetsApi
@@ -48,6 +38,8 @@ from immichpy.client.types import (
     RejectionReason,
     UploadedEntry,
 )
+from immichpy.client.utils.progress import create_progress
+from immichpy.client.utils.statx import birthtime
 
 logger = logging.getLogger(__name__)
 
@@ -151,14 +143,7 @@ async def check_duplicates(
     if skip_duplicates or dry_run:
         return files, []
 
-    progress_columns = [
-        SpinnerColumn(),
-        TextColumn("[progress.description]{task.description}"),
-        BarColumn(),
-        TextColumn("[progress.percentage]{task.percentage:>3.0f}%"),
-    ]
-
-    with Progress(*progress_columns, disable=not show_progress) as progress:
+    with create_progress(show_progress, transfer=False) as progress:
         hashing_task = progress.add_task("[cyan]Hashing files", total=len(files))
         checksums: list[tuple[Path, str]] = []
         for filepath in files:
@@ -245,7 +230,7 @@ def get_file_times(
         if sys.platform == "win32":
             ctime = stats.st_ctime
         else:
-            ctime = statx(os.fspath(path)).btime
+            ctime = birthtime(os.fspath(path))
 
     return datetime.fromtimestamp(ctime or mtime, tz=UTC), datetime.fromtimestamp(
         mtime, tz=UTC
@@ -279,19 +264,22 @@ async def upload_file(
 
     file_created_at, file_modified_at = get_file_times(filepath, stats)
 
-    retryer = tenacity.AsyncRetrying(
-        retry=tenacity.retry_if_exception(_is_retryable_upload_error),
-        stop=tenacity.stop_after_attempt(retries),
-        wait=tenacity.wait_exponential_jitter(initial=0.1, max=5.0),
-        reraise=True,
-    )
-    return await retryer(
-        assets_api.upload_asset,
-        asset_data=str(filepath),
-        file_created_at=file_created_at,
-        file_modified_at=file_modified_at,
-        sidecar_data=sidecar_data,
-    )
+    attempt = 1
+    while True:
+        try:
+            return await assets_api.upload_asset(
+                asset_data=str(filepath),
+                file_created_at=file_created_at,
+                file_modified_at=file_modified_at,
+                sidecar_data=sidecar_data,
+            )
+        except Exception as e:
+            if attempt >= retries or not _is_retryable_upload_error(e):
+                raise
+            # Exponential backoff capped at 5s, plus up to 1s of jitter
+            delay = min(0.1 * 2 ** (attempt - 1), 5.0) + random.uniform(0, 1)  # nosec: B311
+            await asyncio.sleep(delay)
+            attempt += 1
 
 
 async def upload_files(
@@ -317,22 +305,12 @@ async def upload_files(
         return [], [], []
 
     total_size = sum(f.stat().st_size for f in files)
-    progress_columns = [
-        SpinnerColumn(),
-        TextColumn("[progress.description]{task.description}"),
-        BarColumn(),
-        TextColumn("[progress.percentage]{task.percentage:>3.0f}%"),
-        DownloadColumn(),
-        TransferSpeedColumn(),
-        TimeRemainingColumn(),
-    ]
-
     semaphore = asyncio.Semaphore(concurrency)
     uploaded: list[UploadedEntry] = []
     rejected: list[RejectedEntry] = []
     failed: list[FailedEntry] = []
 
-    with Progress(*progress_columns, disable=not show_progress) as progress:
+    with create_progress(show_progress) as progress:
         upload_task = progress.add_task("[green]Uploading assets", total=total_size)
 
         async def upload_with_semaphore(filepath: Path) -> None:

@@ -5,20 +5,14 @@ from collections.abc import Awaitable, Callable
 from email.message import Message
 from mimetypes import guess_extension
 from pathlib import Path
-
-from rich.progress import (
-    BarColumn,
-    DownloadColumn,
-    Progress,
-    SpinnerColumn,
-    TaskID,
-    TextColumn,
-    TimeRemainingColumn,
-    TransferSpeedColumn,
-)
+from typing import TYPE_CHECKING
 
 from immichpy.client.generated.rest import RESTResponseType
 from immichpy.client.types import HeadersType
+from immichpy.client.utils.progress import ProgressBar, create_progress
+
+if TYPE_CHECKING:
+    from rich.progress import TaskID
 
 logger = logging.getLogger(__name__)
 
@@ -127,7 +121,7 @@ async def download_file(
     resolve_filename: Callable[[HeadersType], str],
     *,
     show_progress: bool = False,
-    progress: Progress | None = None,
+    progress: ProgressBar | None = None,
     task_id: TaskID | None = None,
     resumeable: bool = True,
 ) -> Path:
@@ -138,7 +132,7 @@ async def download_file(
     :param out_dir: Output directory where the downloaded file will be written.
     :param resolve_filename: Callable that derives the filename. It takes the response headers and returns a string.
     :param show_progress: Whether to show a progress bar.
-    :param progress: A rich Progress instance to use. If not provided, a new one will be created. If provided, show_progress is ignored.
+    :param progress: A progress bar to use. If not provided, a new one will be created. If provided, show_progress is ignored.
     :param task_id: The task ID in the progress instance. If not provided, a new task will be created.
     :param resumeable: Whether the download can be resumed from an existing partial `.temp` file via HTTP Range requests.
     :return: The path to the downloaded file.
@@ -205,16 +199,7 @@ async def download_file(
             logger.info("Starting download")
 
         if not progress:
-            progress = Progress(
-                SpinnerColumn(),
-                TextColumn("[progress.description]{task.description}"),
-                BarColumn(),
-                TextColumn("[progress.percentage]{task.percentage:>3.0f}%"),
-                DownloadColumn(),
-                TransferSpeedColumn(),
-                TimeRemainingColumn(),
-                disable=not show_progress,
-            )
+            progress = create_progress(show_progress)
             progress.start()
             owns_progress = True
 

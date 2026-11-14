@@ -12,9 +12,12 @@
 from __future__ import annotations
 
 import ast
+import json
 import os
 import shutil
 import subprocess  # nosec: B404
+import tempfile
+import urllib.request
 from pathlib import Path
 
 
@@ -30,14 +33,20 @@ def openapi_url(ref: str) -> str:
     )
 
 
+# `re` cannot compile unicode patterns from spec. Drop them, server validates anyways.
+def drop_email_pattern(schema: dict[str, object]) -> dict[str, object]:
+    if schema.get("format") == "email":
+        schema.pop("pattern", None)
+    return schema
+
+
 def rewrite_imports_in_tree(root: Path) -> int:
     """
     Rewrite OpenAPI generator absolute imports:
       from generated...  -> from immichpy.client.generated...
       import generated... -> import immichpy.client.generated...
 
-    Also swap `re` for the `regex` package, since spec patterns use `\\p{...}`
-    Unicode property escapes, which Python's `re` cannot compile.
+    Also swap `dateutil` for `fromisoformat`, which parses ISO 8601 since 3.11.
     """
     replacements: list[tuple[str, str]] = [
         ("from generated.", "from immichpy.client.generated."),
@@ -45,7 +54,9 @@ def rewrite_imports_in_tree(root: Path) -> int:
         ("import generated.", "import immichpy.client.generated."),
         ("import generated", "import immichpy.client.generated"),
         ("klass = getattr(generated", "klass = getattr(immichpy.client.generated"),
-        ("import re  # noqa: F401", "import regex as re  # noqa: F401"),
+        ("from dateutil.parser import parse\n", ""),
+        ("parse(string).date()", "datetime.datetime.fromisoformat(string).date()"),
+        ("parse(string)", "datetime.datetime.fromisoformat(string)"),
     ]
 
     changed = 0
@@ -129,6 +140,10 @@ def main() -> int:
 
     url = openapi_url(os.environ.get("IMMICH_OPENAPI_REF", "main"))
     print(f"Fetching OpenAPI spec from: {url}")
+    with urllib.request.urlopen(url) as response:  # nosec: B310
+        spec = json.load(response, object_hook=drop_email_pattern)
+    spec_file = Path(tempfile.mkdtemp()) / "immich-openapi-specs.json"
+    spec_file.write_text(json.dumps(spec), encoding="utf-8")
 
     if client_dir.exists():
         print("Deleting existing generated client folder:", client_dir)
@@ -138,7 +153,7 @@ def main() -> int:
         "openapi-generator-cli",
         "generate",
         "-i",
-        url,
+        str(spec_file),
         "-g",
         "python",
         "--package-name",

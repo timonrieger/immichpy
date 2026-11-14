@@ -5,21 +5,13 @@ from typing import Any
 from uuid import uuid4
 
 from pydantic import StrictStr
-from rich.progress import (
-    BarColumn,
-    DownloadColumn,
-    Progress,
-    SpinnerColumn,
-    TextColumn,
-    TimeRemainingColumn,
-    TransferSpeedColumn,
-)
 
 from immichpy.client.generated.api.download_api import DownloadApi
 from immichpy.client.generated.models.download_archive_dto import DownloadArchiveDto
 from immichpy.client.generated.models.download_info_dto import DownloadInfoDto
 from immichpy.client.types import HeadersType
 from immichpy.client.utils.download import download_file
+from immichpy.client.utils.progress import create_progress
 
 
 class DownloadApiWrapped(DownloadApi):
@@ -72,17 +64,7 @@ class DownloadApiWrapped(DownloadApi):
 
         out_paths: list[Path] = []
 
-        progress_columns = [
-            SpinnerColumn(),
-            TextColumn("[progress.description]{task.description}"),
-            BarColumn(),
-            TextColumn("[progress.percentage]{task.percentage:>3.0f}%"),
-            DownloadColumn(),
-            TransferSpeedColumn(),
-            TimeRemainingColumn(),
-        ]
-
-        with Progress(*progress_columns, disable=not show_progress) as progress:
+        with create_progress(show_progress) as progress:
             archives_task = progress.add_task(
                 f"[cyan]Downloading {len(archive_requests)} archives",
                 total=len(archive_requests),

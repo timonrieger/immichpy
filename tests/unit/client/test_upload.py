@@ -431,6 +431,19 @@ async def test_upload_file_retries_on_transient_error(
 
 
 @pytest.mark.asyncio
+async def test_upload_file_gives_up_after_retries(mock_assets, tmp_path: Path) -> None:
+    """Test that a persistent transient error is raised after all attempts."""
+    file1 = tmp_path / "test1.jpg"
+    file1.write_bytes(b"test1")
+    mock_assets.upload_asset.side_effect = ApiException(
+        status=503, reason="Service Unavailable"
+    )
+    with pytest.raises(ApiException):
+        await upload_file(file1, mock_assets, retries=2)
+    assert mock_assets.upload_asset.call_count == 2
+
+
+@pytest.mark.asyncio
 async def test_upload_file_no_retry_on_client_error(
     mock_assets, tmp_path: Path
 ) -> None:

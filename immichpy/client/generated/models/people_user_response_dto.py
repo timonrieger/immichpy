@@ -13,13 +13,12 @@ Do not edit the class manually.
 
 from __future__ import annotations
 import pprint
-import regex as re  # noqa: F401
+import re  # noqa: F401
 import json
 
 from datetime import datetime
 from pydantic import BaseModel, ConfigDict, Field, StrictStr, field_validator
 from typing import Any, ClassVar, Dict, List
-from typing_extensions import Annotated
 from uuid import UUID
 from immichpy.client.generated.models.person_user_role import PersonUserRole
 from immichpy.client.generated.models.user_avatar_color import UserAvatarColor
@@ -34,7 +33,7 @@ class PeopleUserResponseDto(BaseModel):
     """  # noqa: E501
 
     avatar_color: UserAvatarColor = Field(alias="avatarColor")
-    email: Annotated[str, Field(strict=True)] = Field(description="User email")
+    email: StrictStr = Field(description="User email")
     id: UUID = Field(description="User ID")
     name: StrictStr = Field(description="User name")
     profile_changed_at: datetime = Field(
@@ -53,18 +52,6 @@ class PeopleUserResponseDto(BaseModel):
         "profileImagePath",
         "role",
     ]
-
-    @field_validator("email", mode="before")
-    def email_validate_regular_expression(cls, value):
-        """Validates the regular expression"""
-        if isinstance(value, str) and not re.match(
-            r"^[\p{L}\p{M}\p{N}.!#$%&\'*+\/=?^_`{|}~-]+@[\p{L}\p{N}](?:[\p{L}\p{M}\p{N}-]{0,61}[\p{L}\p{M}\p{N}])?(?:\.[\p{L}\p{N}](?:[\p{L}\p{M}\p{N}-]{0,61}[\p{L}\p{M}\p{N}])?)*$",
-            value,
-        ):
-            raise ValueError(
-                r"must validate the regular expression /^[\p{L}\p{M}\p{N}.!#$%&'*+\/=?^_`{|}~-]+@[\p{L}\p{N}](?:[\p{L}\p{M}\p{N}-]{0,61}[\p{L}\p{M}\p{N}])?(?:\.[\p{L}\p{N}](?:[\p{L}\p{M}\p{N}-]{0,61}[\p{L}\p{M}\p{N}])?)*$/"
-            )
-        return value
 
     @field_validator("id", mode="before")
     def id_validate_regular_expression(cls, value):

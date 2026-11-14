@@ -13,7 +13,7 @@ Do not edit the class manually.
 
 from __future__ import annotations
 import pprint
-import regex as re  # noqa: F401
+import re  # noqa: F401
 import json
 
 from pydantic import (
@@ -38,9 +38,7 @@ class UserAdminUpdateDto(BaseModel):
     """  # noqa: E501
 
     avatar_color: Optional[UserAvatarColor] = Field(default=None, alias="avatarColor")
-    email: Optional[Annotated[str, Field(strict=True)]] = Field(
-        default=None, description="User email"
-    )
+    email: Optional[StrictStr] = Field(default=None, description="User email")
     is_admin: Optional[StrictBool] = Field(
         default=None, description="Grant admin privileges", alias="isAdmin"
     )
@@ -76,21 +74,6 @@ class UserAdminUpdateDto(BaseModel):
         "shouldChangePassword",
         "storageLabel",
     ]
-
-    @field_validator("email", mode="before")
-    def email_validate_regular_expression(cls, value):
-        """Validates the regular expression"""
-        if value is None:
-            return value
-
-        if isinstance(value, str) and not re.match(
-            r"^[\p{L}\p{M}\p{N}.!#$%&\'*+\/=?^_`{|}~-]+@[\p{L}\p{N}](?:[\p{L}\p{M}\p{N}-]{0,61}[\p{L}\p{M}\p{N}])?(?:\.[\p{L}\p{N}](?:[\p{L}\p{M}\p{N}-]{0,61}[\p{L}\p{M}\p{N}])?)*$",
-            value,
-        ):
-            raise ValueError(
-                r"must validate the regular expression /^[\p{L}\p{M}\p{N}.!#$%&'*+\/=?^_`{|}~-]+@[\p{L}\p{N}](?:[\p{L}\p{M}\p{N}-]{0,61}[\p{L}\p{M}\p{N}])?(?:\.[\p{L}\p{N}](?:[\p{L}\p{M}\p{N}-]{0,61}[\p{L}\p{M}\p{N}])?)*$/"
-            )
-        return value
 
     @field_validator("pin_code", mode="before")
     def pin_code_validate_regular_expression(cls, value):

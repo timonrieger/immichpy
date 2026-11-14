@@ -13,7 +13,7 @@ Do not edit the class manually.
 
 from __future__ import annotations
 import pprint
-import regex as re  # noqa: F401
+import re  # noqa: F401
 import json
 
 from pydantic import (
@@ -25,7 +25,6 @@ from pydantic import (
     field_validator,
 )
 from typing import Any, ClassVar, Dict, List
-from typing_extensions import Annotated
 from uuid import UUID
 from typing import Optional, Set
 from typing_extensions import Self
@@ -47,9 +46,7 @@ class LoginResponseDto(BaseModel):
     should_change_password: StrictBool = Field(
         description="Should change password", alias="shouldChangePassword"
     )
-    user_email: Annotated[str, Field(strict=True)] = Field(
-        description="User email", alias="userEmail"
-    )
+    user_email: StrictStr = Field(description="User email", alias="userEmail")
     user_id: UUID = Field(description="User ID", alias="userId")
     __properties: ClassVar[List[str]] = [
         "accessToken",
@@ -61,18 +58,6 @@ class LoginResponseDto(BaseModel):
         "userEmail",
         "userId",
     ]
-
-    @field_validator("user_email", mode="before")
-    def user_email_validate_regular_expression(cls, value):
-        """Validates the regular expression"""
-        if isinstance(value, str) and not re.match(
-            r"^[\p{L}\p{M}\p{N}.!#$%&\'*+\/=?^_`{|}~-]+@[\p{L}\p{N}](?:[\p{L}\p{M}\p{N}-]{0,61}[\p{L}\p{M}\p{N}])?(?:\.[\p{L}\p{N}](?:[\p{L}\p{M}\p{N}-]{0,61}[\p{L}\p{M}\p{N}])?)*$",
-            value,
-        ):
-            raise ValueError(
-                r"must validate the regular expression /^[\p{L}\p{M}\p{N}.!#$%&'*+\/=?^_`{|}~-]+@[\p{L}\p{N}](?:[\p{L}\p{M}\p{N}-]{0,61}[\p{L}\p{M}\p{N}])?(?:\.[\p{L}\p{N}](?:[\p{L}\p{M}\p{N}-]{0,61}[\p{L}\p{M}\p{N}])?)*$/"
-            )
-        return value
 
     @field_validator("user_id", mode="before")
     def user_id_validate_regular_expression(cls, value):
