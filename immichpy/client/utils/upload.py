@@ -15,15 +15,6 @@ from uuid import UUID
 
 import tenacity
 from aiohttp import ClientConnectionError
-from rich.progress import (
-    BarColumn,
-    DownloadColumn,
-    Progress,
-    SpinnerColumn,
-    TextColumn,
-    TimeRemainingColumn,
-    TransferSpeedColumn,
-)
 
 from immichpy.client.generated.api.albums_api import AlbumsApi
 from immichpy.client.generated.api.assets_api import AssetsApi
@@ -47,6 +38,7 @@ from immichpy.client.types import (
     RejectionReason,
     UploadedEntry,
 )
+from immichpy.client.utils.progress import create_progress
 from immichpy.client.utils.statx import birthtime
 
 logger = logging.getLogger(__name__)
@@ -151,14 +143,7 @@ async def check_duplicates(
     if skip_duplicates or dry_run:
         return files, []
 
-    progress_columns = [
-        SpinnerColumn(),
-        TextColumn("[progress.description]{task.description}"),
-        BarColumn(),
-        TextColumn("[progress.percentage]{task.percentage:>3.0f}%"),
-    ]
-
-    with Progress(*progress_columns, disable=not show_progress) as progress:
+    with create_progress(show_progress, transfer=False) as progress:
         hashing_task = progress.add_task("[cyan]Hashing files", total=len(files))
         checksums: list[tuple[Path, str]] = []
         for filepath in files:
@@ -317,22 +302,12 @@ async def upload_files(
         return [], [], []
 
     total_size = sum(f.stat().st_size for f in files)
-    progress_columns = [
-        SpinnerColumn(),
-        TextColumn("[progress.description]{task.description}"),
-        BarColumn(),
-        TextColumn("[progress.percentage]{task.percentage:>3.0f}%"),
-        DownloadColumn(),
-        TransferSpeedColumn(),
-        TimeRemainingColumn(),
-    ]
-
     semaphore = asyncio.Semaphore(concurrency)
     uploaded: list[UploadedEntry] = []
     rejected: list[RejectedEntry] = []
     failed: list[FailedEntry] = []
 
-    with Progress(*progress_columns, disable=not show_progress) as progress:
+    with create_progress(show_progress) as progress:
         upload_task = progress.add_task("[green]Uploading assets", total=total_size)
 
         async def upload_with_semaphore(filepath: Path) -> None:

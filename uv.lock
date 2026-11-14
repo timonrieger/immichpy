@@ -533,7 +533,6 @@ dependencies = [
     { name = "pydantic" },
     { name = "python-dateutil" },
     { name = "regex" },
-    { name = "rich" },
     { name = "tenacity" },
     { name = "typing-extensions" },
 ]
@@ -543,6 +542,7 @@ build = [
     { name = "uv" },
 ]
 cli = [
+    { name = "rich" },
     { name = "rtoml" },
     { name = "typer" },
 ]
@@ -571,7 +571,7 @@ requires-dist = [
     { name = "pydantic", specifier = ">=2.12.0,<3.0.0" },
     { name = "python-dateutil", specifier = ">=2.8.2,<3.1.0" },
     { name = "regex", specifier = ">=2024.11.6" },
-    { name = "rich", specifier = ">=13.8.0,<16.0.0" },
+    { name = "rich", marker = "extra == 'cli'", specifier = ">=13.8.0,<16.0.0" },
     { name = "rtoml", marker = "extra == 'cli'", specifier = ">=0.13.0,<1" },
     { name = "tenacity", specifier = ">=9.0.0,<10.0.0" },
     { name = "typer", marker = "extra == 'cli'", specifier = ">=0.27.2,<1" },
