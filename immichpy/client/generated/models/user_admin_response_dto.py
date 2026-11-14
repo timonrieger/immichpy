@@ -13,7 +13,7 @@ Do not edit the class manually.
 
 from __future__ import annotations
 import pprint
-import regex as re  # noqa: F401
+import re  # noqa: F401
 import json
 
 from datetime import datetime
@@ -55,7 +55,7 @@ class UserAdminResponseDto(BaseModel):
         alias="deletedAt",
         json_schema_extra={"examples": ["2024-01-01T00:00:00Z"]},
     )
-    email: Annotated[str, Field(strict=True)] = Field(description="User email")
+    email: StrictStr = Field(description="User email")
     id: UUID = Field(description="User ID")
     is_admin: StrictBool = Field(description="Is admin user", alias="isAdmin")
     license: Optional[UserLicense]
@@ -143,18 +143,6 @@ class UserAdminResponseDto(BaseModel):
         ):
             raise ValueError(
                 r"must validate the regular expression /^(?:(?:\d\d[2468][048]|\d\d[13579][26]|\d\d0[48]|[02468][048]00|[13579][26]00)-02-29|\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\d|30)|(?:02)-(?:0[1-9]|1\d|2[0-8])))T(?:(?:[01]\d|2[0-3]):[0-5]\d(?::[0-5]\d(?:\.\d+)?)?(?:Z|([+-](?:[01]\d|2[0-3]):[0-5]\d)))$/"
-            )
-        return value
-
-    @field_validator("email", mode="before")
-    def email_validate_regular_expression(cls, value):
-        """Validates the regular expression"""
-        if isinstance(value, str) and not re.match(
-            r"^[\p{L}\p{M}\p{N}.!#$%&\'*+\/=?^_`{|}~-]+@[\p{L}\p{N}](?:[\p{L}\p{M}\p{N}-]{0,61}[\p{L}\p{M}\p{N}])?(?:\.[\p{L}\p{N}](?:[\p{L}\p{M}\p{N}-]{0,61}[\p{L}\p{M}\p{N}])?)*$",
-            value,
-        ):
-            raise ValueError(
-                r"must validate the regular expression /^[\p{L}\p{M}\p{N}.!#$%&'*+\/=?^_`{|}~-]+@[\p{L}\p{N}](?:[\p{L}\p{M}\p{N}-]{0,61}[\p{L}\p{M}\p{N}])?(?:\.[\p{L}\p{N}](?:[\p{L}\p{M}\p{N}-]{0,61}[\p{L}\p{M}\p{N}])?)*$/"
             )
         return value
 

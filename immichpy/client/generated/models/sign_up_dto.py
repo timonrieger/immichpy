@@ -13,12 +13,11 @@ Do not edit the class manually.
 
 from __future__ import annotations
 import pprint
-import regex as re  # noqa: F401
+import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictStr, field_validator
+from pydantic import BaseModel, ConfigDict, Field, StrictStr
 from typing import Any, ClassVar, Dict, List
-from typing_extensions import Annotated
 from typing import Optional, Set
 from typing_extensions import Self
 from pydantic_core import to_jsonable_python
@@ -29,7 +28,7 @@ class SignUpDto(BaseModel):
     SignUpDto
     """  # noqa: E501
 
-    email: Annotated[str, Field(strict=True)] = Field(
+    email: StrictStr = Field(
         description="User email", json_schema_extra={"examples": ["testuser@email.com"]}
     )
     name: StrictStr = Field(
@@ -39,18 +38,6 @@ class SignUpDto(BaseModel):
         description="User password", json_schema_extra={"examples": ["password"]}
     )
     __properties: ClassVar[List[str]] = ["email", "name", "password"]
-
-    @field_validator("email", mode="before")
-    def email_validate_regular_expression(cls, value):
-        """Validates the regular expression"""
-        if isinstance(value, str) and not re.match(
-            r"^[\p{L}\p{M}\p{N}.!#$%&\'*+\/=?^_`{|}~-]+@[\p{L}\p{N}](?:[\p{L}\p{M}\p{N}-]{0,61}[\p{L}\p{M}\p{N}])?(?:\.[\p{L}\p{N}](?:[\p{L}\p{M}\p{N}-]{0,61}[\p{L}\p{M}\p{N}])?)*$",
-            value,
-        ):
-            raise ValueError(
-                r"must validate the regular expression /^[\p{L}\p{M}\p{N}.!#$%&'*+\/=?^_`{|}~-]+@[\p{L}\p{N}](?:[\p{L}\p{M}\p{N}-]{0,61}[\p{L}\p{M}\p{N}])?(?:\.[\p{L}\p{N}](?:[\p{L}\p{M}\p{N}-]{0,61}[\p{L}\p{M}\p{N}])?)*$/"
-            )
-        return value
 
     model_config = ConfigDict(
         validate_by_name=True,
