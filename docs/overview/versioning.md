@@ -21,14 +21,14 @@ Version bumps reflect changes to:
 
 ## Client–Server Compatibility
 
-This client uses strict Pydantic models generated from a specific Immich server schema.
+This client uses Pydantic models generated from a specific Immich server schema. They tolerate additive server changes: unknown fields are ignored and unknown enum values are kept as-is.
 
 |  | Used with **older** server | Used with **newer** server |
 |-------------------|------------------------|------------------------|
 | **Older client**  | ✅ Works | ⚠️ Works until a breaking server release |
 | **Newer client**  | ❌ May fail (server may not provide required fields) | ✅ Works |
 
-Newer servers usually only add fields, which an older client ignores. A breaking server release, however, removes or changes fields and endpoints an older client still expects. Breaking server releases raise the minimum supported server version and therefore the client's major version. A client major is guaranteed to work up to, but not including, the minimum supported server version of the next major.
+Newer servers usually only add fields or enum values, which an older client tolerates. A breaking server release, however, removes or changes fields and endpoints an older client still expects. Breaking server releases raise the minimum supported server version and therefore the client's major version. A client major is guaranteed to work up to, but not including, the minimum supported server version of the next major.
 
 !!! tip "Rule of thumb"
     Use a client version generated from the **same or an older Immich server version** than the one you are running, within the same client major.
