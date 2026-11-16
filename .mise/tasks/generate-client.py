@@ -40,13 +40,29 @@ def drop_email_pattern(schema: dict[str, object]) -> dict[str, object]:
     return schema
 
 
+# Newer Immich servers add enum values in non-breaking releases; keep them as
+# pseudo-members instead of failing to parse the whole response.
+ENUM_MISSING_METHOD = """
+
+    @classmethod
+    def _missing_(cls, value: object) -> Self | None:
+        if not isinstance(value, cls._member_type_):
+            return None
+        member = cls._member_type_.__new__(cls, value)
+        member._name_ = str(value)
+        member._value_ = value
+        return member
+"""
+
+
 def rewrite_imports_in_tree(root: Path) -> int:
     """
     Rewrite OpenAPI generator absolute imports:
       from generated...  -> from immichpy.client.generated...
       import generated... -> import immichpy.client.generated...
 
-    Also swap `dateutil` for `fromisoformat`, which parses ISO 8601 since 3.11.
+    Also swap `dateutil` for `fromisoformat`, which parses ISO 8601 since 3.11,
+    and make enums accept unknown values.
     """
     replacements: list[tuple[str, str]] = [
         ("from generated.", "from immichpy.client.generated."),
@@ -57,6 +73,10 @@ def rewrite_imports_in_tree(root: Path) -> int:
         ("from dateutil.parser import parse\n", ""),
         ("parse(string).date()", "datetime.datetime.fromisoformat(string).date()"),
         ("parse(string)", "datetime.datetime.fromisoformat(string)"),
+        (
+            "return cls(json.loads(json_str))\n",
+            "return cls(json.loads(json_str))\n" + ENUM_MISSING_METHOD,
+        ),
     ]
 
     changed = 0

@@ -57,3 +57,12 @@ class ManualJobName(str, Enum):
     def from_json(cls, json_str: str) -> Self:
         """Create an instance of ManualJobName from a JSON string"""
         return cls(json.loads(json_str))
+
+    @classmethod
+    def _missing_(cls, value: object) -> Self | None:
+        if not isinstance(value, cls._member_type_):
+            return None
+        member = cls._member_type_.__new__(cls, value)
+        member._name_ = str(value)
+        member._value_ = value
+        return member
