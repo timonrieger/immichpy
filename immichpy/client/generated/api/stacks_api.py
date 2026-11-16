@@ -14,7 +14,7 @@ from pydantic import validate_call, Field, StrictFloat, StrictStr, StrictInt
 from typing import Any, Dict, List, Optional, Tuple, Union
 from typing_extensions import Annotated
 
-from pydantic import Field, field_validator
+from pydantic import Field
 from typing import List, Optional
 from typing_extensions import Annotated
 from uuid import UUID

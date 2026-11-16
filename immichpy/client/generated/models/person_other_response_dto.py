@@ -16,7 +16,7 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, StrictStr, field_validator
+from pydantic import BaseModel, ConfigDict, Field, StrictStr
 from typing import Any, ClassVar, Dict, List, Optional
 from uuid import UUID
 from immichpy.client.generated.models.person_user_role import PersonUserRole
@@ -35,18 +35,6 @@ class PersonOtherResponseDto(BaseModel):
     role: PersonUserRole
     shared_by_id: UUID = Field(alias="sharedById")
     __properties: ClassVar[List[str]] = ["birthDate", "name", "role", "sharedById"]
-
-    @field_validator("shared_by_id", mode="before")
-    def shared_by_id_validate_regular_expression(cls, value):
-        """Validates the regular expression"""
-        if isinstance(value, str) and not re.match(
-            r"^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$",
-            value,
-        ):
-            raise ValueError(
-                r"must validate the regular expression /^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$/"
-            )
-        return value
 
     model_config = ConfigDict(
         validate_by_name=True,
