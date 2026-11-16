@@ -24,7 +24,6 @@ from pydantic import (
     StrictFloat,
     StrictInt,
     StrictStr,
-    field_validator,
 )
 from typing import Any, ClassVar, Dict, List, Union
 from uuid import UUID
@@ -90,30 +89,6 @@ class SyncAssetOcrV1(BaseModel):
         "y3",
         "y4",
     ]
-
-    @field_validator("asset_id", mode="before")
-    def asset_id_validate_regular_expression(cls, value):
-        """Validates the regular expression"""
-        if isinstance(value, str) and not re.match(
-            r"^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12})$",
-            value,
-        ):
-            raise ValueError(
-                r"must validate the regular expression /^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12})$/"
-            )
-        return value
-
-    @field_validator("id", mode="before")
-    def id_validate_regular_expression(cls, value):
-        """Validates the regular expression"""
-        if isinstance(value, str) and not re.match(
-            r"^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12})$",
-            value,
-        ):
-            raise ValueError(
-                r"must validate the regular expression /^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12})$/"
-            )
-        return value
 
     model_config = ConfigDict(
         validate_by_name=True,

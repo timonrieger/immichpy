@@ -15,7 +15,7 @@ from typing import Any, Dict, List, Optional, Tuple, Union
 from typing_extensions import Annotated
 
 from datetime import datetime
-from pydantic import Field, StrictBool, StrictFloat, StrictInt, field_validator
+from pydantic import Field, StrictBool, StrictFloat, StrictInt
 from typing import List, Optional, Union
 from typing_extensions import Annotated
 from immichpy.client.generated.models.map_marker_response_dto import (

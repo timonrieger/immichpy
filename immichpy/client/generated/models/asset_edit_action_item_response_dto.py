@@ -16,7 +16,7 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, field_validator
+from pydantic import BaseModel, ConfigDict, Field
 from typing import Any, ClassVar, Dict, List
 from uuid import UUID
 from immichpy.client.generated.models.asset_edit_action import AssetEditAction
@@ -37,18 +37,6 @@ class AssetEditActionItemResponseDto(BaseModel):
     id: UUID = Field(description="Asset edit ID")
     parameters: AssetEditActionItemDtoParameters
     __properties: ClassVar[List[str]] = ["action", "id", "parameters"]
-
-    @field_validator("id", mode="before")
-    def id_validate_regular_expression(cls, value):
-        """Validates the regular expression"""
-        if isinstance(value, str) and not re.match(
-            r"^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12})$",
-            value,
-        ):
-            raise ValueError(
-                r"must validate the regular expression /^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12})$/"
-            )
-        return value
 
     model_config = ConfigDict(
         validate_by_name=True,

@@ -33,9 +33,16 @@ def openapi_url(ref: str) -> str:
     )
 
 
-# `re` cannot compile unicode patterns from spec. Drop them, server validates anyways.
-def drop_email_pattern(schema: dict[str, object]) -> dict[str, object]:
-    if schema.get("format") == "email":
+# `re` cannot compile the unicode email pattern, and the uuid/date patterns only
+# repeat the field's type (stricter: v4-only UUIDs). Drop them, server validates anyways.
+PATTERN_FREE_FORMATS = {"email", "uuid", "date-time", "date"}
+
+
+def drop_format_patterns(schema: dict[str, object]) -> dict[str, object]:
+    if (
+        isinstance(schema.get("format"), str)
+        and schema["format"] in PATTERN_FREE_FORMATS
+    ):
         schema.pop("pattern", None)
     return schema
 
@@ -161,7 +168,7 @@ def main() -> int:
     url = openapi_url(os.environ.get("IMMICH_OPENAPI_REF", "main"))
     print(f"Fetching OpenAPI spec from: {url}")
     with urllib.request.urlopen(url) as response:  # nosec: B310
-        spec = json.load(response, object_hook=drop_email_pattern)
+        spec = json.load(response, object_hook=drop_format_patterns)
     spec_file = Path(tempfile.mkdtemp()) / "immich-openapi-specs.json"
     spec_file.write_text(json.dumps(spec), encoding="utf-8")
 

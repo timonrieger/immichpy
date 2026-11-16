@@ -16,7 +16,7 @@ import pprint
 import re  # noqa: F401
 import json
 
-from pydantic import BaseModel, ConfigDict, Field, field_validator
+from pydantic import BaseModel, ConfigDict, Field
 from typing import Any, ClassVar, Dict, List
 from uuid import UUID
 from typing import Optional, Set
@@ -31,18 +31,6 @@ class SyncAssetEditDeleteV1(BaseModel):
 
     edit_id: UUID = Field(description="Edit ID", alias="editId")
     __properties: ClassVar[List[str]] = ["editId"]
-
-    @field_validator("edit_id", mode="before")
-    def edit_id_validate_regular_expression(cls, value):
-        """Validates the regular expression"""
-        if isinstance(value, str) and not re.match(
-            r"^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12})$",
-            value,
-        ):
-            raise ValueError(
-                r"must validate the regular expression /^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12})$/"
-            )
-        return value
 
     model_config = ConfigDict(
         validate_by_name=True,

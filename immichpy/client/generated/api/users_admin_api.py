@@ -15,7 +15,7 @@ from typing import Any, Dict, List, Optional, Tuple, Union
 from typing_extensions import Annotated
 
 from datetime import date
-from pydantic import Field, StrictBool, field_validator
+from pydantic import Field, StrictBool
 from typing import List, Optional
 from typing_extensions import Annotated
 from uuid import UUID
