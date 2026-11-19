@@ -175,3 +175,94 @@ $ immichpy libraries scan-library 098adb6d-0a9b-494a-bd66-2ae6c0bf28ff
 
 Success!
 ```
+
+## Upload a folder into an album
+
+Upload a whole folder and add the assets to an album, creating it if it does not exist:
+
+<!-- termynal -->
+
+```console
+$ immichpy assets upload /Volumes/SD/DCIM/101NIKON/ --album-name "Paris 2025" --show-progress
+
+---> 100%
+```
+
+## Find an asset by its file path
+
+Look up an asset ID by the path it has on the server:
+
+<!-- termynal -->
+
+```console
+$ immichpy search search-assets --original-path library/family/2025/09/IMG_9419.jpg \
+  | jq -r '.assets.items[0].id'
+16101f82-1407-4725-ba58-3ffb67a3ef7c
+```
+
+## Read an asset's EXIF data
+
+Get the EXIF data of an asset and extract a single field:
+
+<!-- termynal -->
+
+```console
+$ immichpy assets get-asset-info 16101f82-1407-4725-ba58-3ffb67a3ef7c | jq -r '.exif_info.description'
+OLYMPUS DIGITAL CAMERA
+```
+
+## Count and page through search results
+
+Count the assets matching a filter, then fetch them page by page:
+
+<!-- termynal -->
+
+```console
+$ immichpy search search-asset-statistics --make OLYMPUS
+{
+  "total": 1342
+}
+
+$ immichpy search search-assets --make OLYMPUS --page 2 --size 10 | jq '.assets.next_page'
+"3"
+```
+
+## Delete assets listed in a file
+
+Delete every asset whose server path is listed in `files.txt`, one path per line. Run it with `echo` in front of `immichpy assets delete-assets` first to preview what would be deleted:
+
+```bash
+while read -r path; do
+  id=$(immichpy search search-assets --original-path "$path" | jq -r '.assets.items[0].id')
+  if [ "$id" != null ]; then
+    immichpy assets delete-assets --ids "$id" && echo "Deleted $id $path"
+  else
+    echo "Not found: $path"
+  fi
+done < files.txt
+```
+
+## Run a command against several profiles
+
+Select a profile per command with `--profile` (`-p`) or the `IMMICH_PROFILE` environment variable, or loop over profiles to apply the same change to several accounts:
+
+<!-- termynal -->
+
+```console
+$ IMMICH_PROFILE=family immichpy server get-about-info
+
+$ for p in alice bob; do immichpy -p $p albums get-all-albums | jq length; done
+12
+4
+```
+
+## Rotate an API key
+
+Rotate an API key and store the new secret in your profile. The secret is only shown once:
+
+<!-- termynal -->
+
+```console
+$ immichpy config set profiles.default.api_key \
+  --value "$(immichpy api-keys rotate-api-key 016601fa-3462-4299-8f73-84555c8043a4 | jq -r '.secret')"
+```
