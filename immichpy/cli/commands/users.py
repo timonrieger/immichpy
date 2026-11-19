@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from enum import Enum
 from pathlib import Path
 from typing import TYPE_CHECKING, Literal
 from uuid import UUID
@@ -501,6 +502,10 @@ def update_my_preferences(
     print_response(result, ctx=ctx)
 
 
+class UpdateMyUserUnset(str, Enum):
+    AVATAR_COLOR = "avatar-color"
+
+
 @app.command("update-my-user", deprecated=False, rich_help_panel="API commands")
 def update_my_user(
     ctx: typer.Context,
@@ -513,6 +518,9 @@ def update_my_user(
         None,
         "--password",
         help=r"""User password (deprecated, use change password endpoint)""",
+    ),
+    unset: list[UpdateMyUserUnset] = typer.Option(
+        [], "--unset", help="Set a field to null, repeat for several"
     ),
 ) -> None:
     """Update current user
@@ -529,6 +537,8 @@ def update_my_user(
         set_nested(json_data, ["name"], name)
     if password is not None:
         set_nested(json_data, ["password"], password)
+    for field in unset:
+        set_nested(json_data, {"avatar-color": ["avatarColor"]}[field.value], None)
     user_update_me_dto = UserUpdateMeDto.model_validate(json_data)
     kwargs["user_update_me_dto"] = user_update_me_dto
     client: AsyncClient = ctx.obj["client"]

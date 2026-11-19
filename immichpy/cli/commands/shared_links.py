@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from datetime import datetime
+from enum import Enum
 from typing import TYPE_CHECKING, Literal
 from uuid import UUID
 
@@ -46,6 +47,13 @@ def add_shared_link_assets(
     print_response(result, ctx=ctx)
 
 
+class CreateSharedLinkUnset(str, Enum):
+    DESCRIPTION = "description"
+    EXPIRES_AT = "expires-at"
+    PASSWORD = "password"  # nosec B105
+    SLUG = "slug"
+
+
 @app.command("create-shared-link", deprecated=False, rich_help_panel="API commands")
 def create_shared_link(
     ctx: typer.Context,
@@ -79,6 +87,9 @@ Example: 2024-01-01T00:00:00.000Z""",
     ),
     slug: str | None = typer.Option(None, "--slug", help=r"""Custom URL slug"""),
     type: SharedLinkType = typer.Option(..., "--type", help=r"""Shared link type"""),
+    unset: list[CreateSharedLinkUnset] = typer.Option(
+        [], "--unset", help="Set a field to null, repeat for several"
+    ),
 ) -> None:
     """Create a shared link
 
@@ -105,6 +116,17 @@ Example: 2024-01-01T00:00:00.000Z""",
     if slug is not None:
         set_nested(json_data, ["slug"], slug)
     set_nested(json_data, ["type"], type)
+    for field in unset:
+        set_nested(
+            json_data,
+            {
+                "description": ["description"],
+                "expires-at": ["expiresAt"],
+                "password": ["password"],
+                "slug": ["slug"],
+            }[field.value],
+            None,
+        )
     shared_link_create_dto = SharedLinkCreateDto.model_validate(json_data)
     kwargs["shared_link_create_dto"] = shared_link_create_dto
     client: AsyncClient = ctx.obj["client"]
@@ -242,6 +264,13 @@ Example: password""",
     print_response(result, ctx=ctx)
 
 
+class UpdateSharedLinkUnset(str, Enum):
+    DESCRIPTION = "description"
+    EXPIRES_AT = "expires-at"
+    PASSWORD = "password"  # nosec B105
+    SLUG = "slug"
+
+
 @app.command("update-shared-link", deprecated=False, rich_help_panel="API commands")
 def update_shared_link(
     ctx: typer.Context,
@@ -269,6 +298,9 @@ Example: 2024-01-01T00:00:00.000Z""",
         None, "--show-metadata", help=r"""Show metadata"""
     ),
     slug: str | None = typer.Option(None, "--slug", help=r"""Custom URL slug"""),
+    unset: list[UpdateSharedLinkUnset] = typer.Option(
+        [], "--unset", help="Set a field to null, repeat for several"
+    ),
 ) -> None:
     """Update a shared link
 
@@ -291,6 +323,17 @@ Example: 2024-01-01T00:00:00.000Z""",
         set_nested(json_data, ["showMetadata"], show_metadata.lower() == "true")
     if slug is not None:
         set_nested(json_data, ["slug"], slug)
+    for field in unset:
+        set_nested(
+            json_data,
+            {
+                "description": ["description"],
+                "expires-at": ["expiresAt"],
+                "password": ["password"],
+                "slug": ["slug"],
+            }[field.value],
+            None,
+        )
     shared_link_edit_dto = SharedLinkEditDto.model_validate(json_data)
     kwargs["shared_link_edit_dto"] = shared_link_edit_dto
     client: AsyncClient = ctx.obj["client"]

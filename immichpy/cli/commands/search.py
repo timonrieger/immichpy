@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from datetime import datetime
+from enum import Enum
 from typing import TYPE_CHECKING, Literal
 from uuid import UUID
 
@@ -105,6 +106,42 @@ def get_search_suggestions(
     client: AsyncClient = ctx.obj["client"]
     result = run_command(client.search.get_search_suggestions, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)
+
+
+class SearchAssetStatisticsUnset(str, Enum):
+    CITY = "city"
+    COUNTRY = "country"
+    FILTER_CITY_EQ = "filter-city-eq"
+    FILTER_CITY_NE = "filter-city-ne"
+    FILTER_COUNTRY_EQ = "filter-country-eq"
+    FILTER_COUNTRY_NE = "filter-country-ne"
+    FILTER_DESCRIPTION_EQ = "filter-description-eq"
+    FILTER_DESCRIPTION_NE = "filter-description-ne"
+    FILTER_LENS_MODEL_EQ = "filter-lens-model-eq"
+    FILTER_LENS_MODEL_NE = "filter-lens-model-ne"
+    FILTER_LIBRARY_ID_EQ = "filter-library-id-eq"
+    FILTER_LIBRARY_ID_NE = "filter-library-id-ne"
+    FILTER_MAKE_EQ = "filter-make-eq"
+    FILTER_MAKE_NE = "filter-make-ne"
+    FILTER_MODEL_EQ = "filter-model-eq"
+    FILTER_MODEL_NE = "filter-model-ne"
+    FILTER_ORIGINAL_FILE_NAME_EQ = "filter-original-file-name-eq"
+    FILTER_ORIGINAL_FILE_NAME_NE = "filter-original-file-name-ne"
+    FILTER_ORIGINAL_PATH_EQ = "filter-original-path-eq"
+    FILTER_ORIGINAL_PATH_NE = "filter-original-path-ne"
+    FILTER_RATING_EQ = "filter-rating-eq"
+    FILTER_RATING_NE = "filter-rating-ne"
+    FILTER_STATE_EQ = "filter-state-eq"
+    FILTER_STATE_NE = "filter-state-ne"
+    FILTER_TRASHED_AT_EQ = "filter-trashed-at-eq"
+    FILTER_TRASHED_AT_NE = "filter-trashed-at-ne"
+    LENS_MODEL = "lens-model"
+    LIBRARY_ID = "library-id"
+    MAKE = "make"
+    MODEL = "model"
+    RATING = "rating"
+    STATE = "state"
+    TAG_IDS = "tag-ids"
 
 
 @app.command(
@@ -698,6 +735,9 @@ Example: 2024-01-01T00:00:00.000Z""",
     visibility: AssetVisibility | None = typer.Option(
         None, "--visibility", help=r"""Asset visibility"""
     ),
+    unset: list[SearchAssetStatisticsUnset] = typer.Option(
+        [], "--unset", help="Set a field to null, repeat for several"
+    ),
 ) -> None:
     """Search asset statistics
 
@@ -1148,11 +1188,87 @@ Example: 2024-01-01T00:00:00.000Z""",
         set_nested(json_data, ["updatedBefore"], updated_before)
     if visibility is not None:
         set_nested(json_data, ["visibility"], visibility)
+    for field in unset:
+        set_nested(
+            json_data,
+            {
+                "city": ["city"],
+                "country": ["country"],
+                "filter-city-eq": ["filter", "city", "eq"],
+                "filter-city-ne": ["filter", "city", "ne"],
+                "filter-country-eq": ["filter", "country", "eq"],
+                "filter-country-ne": ["filter", "country", "ne"],
+                "filter-description-eq": ["filter", "description", "eq"],
+                "filter-description-ne": ["filter", "description", "ne"],
+                "filter-lens-model-eq": ["filter", "lensModel", "eq"],
+                "filter-lens-model-ne": ["filter", "lensModel", "ne"],
+                "filter-library-id-eq": ["filter", "libraryId", "eq"],
+                "filter-library-id-ne": ["filter", "libraryId", "ne"],
+                "filter-make-eq": ["filter", "make", "eq"],
+                "filter-make-ne": ["filter", "make", "ne"],
+                "filter-model-eq": ["filter", "model", "eq"],
+                "filter-model-ne": ["filter", "model", "ne"],
+                "filter-original-file-name-eq": ["filter", "originalFileName", "eq"],
+                "filter-original-file-name-ne": ["filter", "originalFileName", "ne"],
+                "filter-original-path-eq": ["filter", "originalPath", "eq"],
+                "filter-original-path-ne": ["filter", "originalPath", "ne"],
+                "filter-rating-eq": ["filter", "rating", "eq"],
+                "filter-rating-ne": ["filter", "rating", "ne"],
+                "filter-state-eq": ["filter", "state", "eq"],
+                "filter-state-ne": ["filter", "state", "ne"],
+                "filter-trashed-at-eq": ["filter", "trashedAt", "eq"],
+                "filter-trashed-at-ne": ["filter", "trashedAt", "ne"],
+                "lens-model": ["lensModel"],
+                "library-id": ["libraryId"],
+                "make": ["make"],
+                "model": ["model"],
+                "rating": ["rating"],
+                "state": ["state"],
+                "tag-ids": ["tagIds"],
+            }[field.value],
+            None,
+        )
     statistics_search_dto = StatisticsSearchDto.model_validate(json_data)
     kwargs["statistics_search_dto"] = statistics_search_dto
     client: AsyncClient = ctx.obj["client"]
     result = run_command(client.search.search_asset_statistics, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)
+
+
+class SearchAssetsUnset(str, Enum):
+    CITY = "city"
+    COUNTRY = "country"
+    FILTER_CITY_EQ = "filter-city-eq"
+    FILTER_CITY_NE = "filter-city-ne"
+    FILTER_COUNTRY_EQ = "filter-country-eq"
+    FILTER_COUNTRY_NE = "filter-country-ne"
+    FILTER_DESCRIPTION_EQ = "filter-description-eq"
+    FILTER_DESCRIPTION_NE = "filter-description-ne"
+    FILTER_LENS_MODEL_EQ = "filter-lens-model-eq"
+    FILTER_LENS_MODEL_NE = "filter-lens-model-ne"
+    FILTER_LIBRARY_ID_EQ = "filter-library-id-eq"
+    FILTER_LIBRARY_ID_NE = "filter-library-id-ne"
+    FILTER_MAKE_EQ = "filter-make-eq"
+    FILTER_MAKE_NE = "filter-make-ne"
+    FILTER_MODEL_EQ = "filter-model-eq"
+    FILTER_MODEL_NE = "filter-model-ne"
+    FILTER_ORIGINAL_FILE_NAME_EQ = "filter-original-file-name-eq"
+    FILTER_ORIGINAL_FILE_NAME_NE = "filter-original-file-name-ne"
+    FILTER_ORIGINAL_PATH_EQ = "filter-original-path-eq"
+    FILTER_ORIGINAL_PATH_NE = "filter-original-path-ne"
+    FILTER_RATING_EQ = "filter-rating-eq"
+    FILTER_RATING_NE = "filter-rating-ne"
+    FILTER_STATE_EQ = "filter-state-eq"
+    FILTER_STATE_NE = "filter-state-ne"
+    FILTER_TRASHED_AT_EQ = "filter-trashed-at-eq"
+    FILTER_TRASHED_AT_NE = "filter-trashed-at-ne"
+    LENS_MODEL = "lens-model"
+    LIBRARY_ID = "library-id"
+    MAKE = "make"
+    MODEL = "model"
+    RATING = "rating"
+    STATE = "state"
+    TAG_IDS = "tag-ids"
 
 
 @app.command("search-assets", deprecated=False, rich_help_panel="API commands")
@@ -1795,6 +1911,9 @@ Example: 2024-01-01T00:00:00.000Z""",
     with_stacked: Literal["true", "false"] | None = typer.Option(
         None, "--with-stacked", help=r"""Include stacked assets"""
     ),
+    unset: list[SearchAssetsUnset] = typer.Option(
+        [], "--unset", help="Set a field to null, repeat for several"
+    ),
 ) -> None:
     """Search assets by metadata
 
@@ -2283,6 +2402,46 @@ Example: 2024-01-01T00:00:00.000Z""",
         set_nested(json_data, ["withPeople"], with_people.lower() == "true")
     if with_stacked is not None:
         set_nested(json_data, ["withStacked"], with_stacked.lower() == "true")
+    for field in unset:
+        set_nested(
+            json_data,
+            {
+                "city": ["city"],
+                "country": ["country"],
+                "filter-city-eq": ["filter", "city", "eq"],
+                "filter-city-ne": ["filter", "city", "ne"],
+                "filter-country-eq": ["filter", "country", "eq"],
+                "filter-country-ne": ["filter", "country", "ne"],
+                "filter-description-eq": ["filter", "description", "eq"],
+                "filter-description-ne": ["filter", "description", "ne"],
+                "filter-lens-model-eq": ["filter", "lensModel", "eq"],
+                "filter-lens-model-ne": ["filter", "lensModel", "ne"],
+                "filter-library-id-eq": ["filter", "libraryId", "eq"],
+                "filter-library-id-ne": ["filter", "libraryId", "ne"],
+                "filter-make-eq": ["filter", "make", "eq"],
+                "filter-make-ne": ["filter", "make", "ne"],
+                "filter-model-eq": ["filter", "model", "eq"],
+                "filter-model-ne": ["filter", "model", "ne"],
+                "filter-original-file-name-eq": ["filter", "originalFileName", "eq"],
+                "filter-original-file-name-ne": ["filter", "originalFileName", "ne"],
+                "filter-original-path-eq": ["filter", "originalPath", "eq"],
+                "filter-original-path-ne": ["filter", "originalPath", "ne"],
+                "filter-rating-eq": ["filter", "rating", "eq"],
+                "filter-rating-ne": ["filter", "rating", "ne"],
+                "filter-state-eq": ["filter", "state", "eq"],
+                "filter-state-ne": ["filter", "state", "ne"],
+                "filter-trashed-at-eq": ["filter", "trashedAt", "eq"],
+                "filter-trashed-at-ne": ["filter", "trashedAt", "ne"],
+                "lens-model": ["lensModel"],
+                "library-id": ["libraryId"],
+                "make": ["make"],
+                "model": ["model"],
+                "rating": ["rating"],
+                "state": ["state"],
+                "tag-ids": ["tagIds"],
+            }[field.value],
+            None,
+        )
     metadata_search_dto = MetadataSearchDto.model_validate(json_data)
     kwargs["metadata_search_dto"] = metadata_search_dto
     client: AsyncClient = ctx.obj["client"]
@@ -2544,6 +2703,42 @@ def search_places(
     client: AsyncClient = ctx.obj["client"]
     result = run_command(client.search.search_places, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)
+
+
+class SearchRandomUnset(str, Enum):
+    CITY = "city"
+    COUNTRY = "country"
+    FILTER_CITY_EQ = "filter-city-eq"
+    FILTER_CITY_NE = "filter-city-ne"
+    FILTER_COUNTRY_EQ = "filter-country-eq"
+    FILTER_COUNTRY_NE = "filter-country-ne"
+    FILTER_DESCRIPTION_EQ = "filter-description-eq"
+    FILTER_DESCRIPTION_NE = "filter-description-ne"
+    FILTER_LENS_MODEL_EQ = "filter-lens-model-eq"
+    FILTER_LENS_MODEL_NE = "filter-lens-model-ne"
+    FILTER_LIBRARY_ID_EQ = "filter-library-id-eq"
+    FILTER_LIBRARY_ID_NE = "filter-library-id-ne"
+    FILTER_MAKE_EQ = "filter-make-eq"
+    FILTER_MAKE_NE = "filter-make-ne"
+    FILTER_MODEL_EQ = "filter-model-eq"
+    FILTER_MODEL_NE = "filter-model-ne"
+    FILTER_ORIGINAL_FILE_NAME_EQ = "filter-original-file-name-eq"
+    FILTER_ORIGINAL_FILE_NAME_NE = "filter-original-file-name-ne"
+    FILTER_ORIGINAL_PATH_EQ = "filter-original-path-eq"
+    FILTER_ORIGINAL_PATH_NE = "filter-original-path-ne"
+    FILTER_RATING_EQ = "filter-rating-eq"
+    FILTER_RATING_NE = "filter-rating-ne"
+    FILTER_STATE_EQ = "filter-state-eq"
+    FILTER_STATE_NE = "filter-state-ne"
+    FILTER_TRASHED_AT_EQ = "filter-trashed-at-eq"
+    FILTER_TRASHED_AT_NE = "filter-trashed-at-ne"
+    LENS_MODEL = "lens-model"
+    LIBRARY_ID = "library-id"
+    MAKE = "make"
+    MODEL = "model"
+    RATING = "rating"
+    STATE = "state"
+    TAG_IDS = "tag-ids"
 
 
 @app.command("search-random", deprecated=False, rich_help_panel="API commands")
@@ -3147,6 +3342,9 @@ Example: 2024-01-01T00:00:00.000Z""",
     with_stacked: Literal["true", "false"] | None = typer.Option(
         None, "--with-stacked", help=r"""Include stacked assets"""
     ),
+    unset: list[SearchRandomUnset] = typer.Option(
+        [], "--unset", help="Set a field to null, repeat for several"
+    ),
 ) -> None:
     """Search random assets
 
@@ -3605,11 +3803,87 @@ Example: 2024-01-01T00:00:00.000Z""",
         set_nested(json_data, ["withPeople"], with_people.lower() == "true")
     if with_stacked is not None:
         set_nested(json_data, ["withStacked"], with_stacked.lower() == "true")
+    for field in unset:
+        set_nested(
+            json_data,
+            {
+                "city": ["city"],
+                "country": ["country"],
+                "filter-city-eq": ["filter", "city", "eq"],
+                "filter-city-ne": ["filter", "city", "ne"],
+                "filter-country-eq": ["filter", "country", "eq"],
+                "filter-country-ne": ["filter", "country", "ne"],
+                "filter-description-eq": ["filter", "description", "eq"],
+                "filter-description-ne": ["filter", "description", "ne"],
+                "filter-lens-model-eq": ["filter", "lensModel", "eq"],
+                "filter-lens-model-ne": ["filter", "lensModel", "ne"],
+                "filter-library-id-eq": ["filter", "libraryId", "eq"],
+                "filter-library-id-ne": ["filter", "libraryId", "ne"],
+                "filter-make-eq": ["filter", "make", "eq"],
+                "filter-make-ne": ["filter", "make", "ne"],
+                "filter-model-eq": ["filter", "model", "eq"],
+                "filter-model-ne": ["filter", "model", "ne"],
+                "filter-original-file-name-eq": ["filter", "originalFileName", "eq"],
+                "filter-original-file-name-ne": ["filter", "originalFileName", "ne"],
+                "filter-original-path-eq": ["filter", "originalPath", "eq"],
+                "filter-original-path-ne": ["filter", "originalPath", "ne"],
+                "filter-rating-eq": ["filter", "rating", "eq"],
+                "filter-rating-ne": ["filter", "rating", "ne"],
+                "filter-state-eq": ["filter", "state", "eq"],
+                "filter-state-ne": ["filter", "state", "ne"],
+                "filter-trashed-at-eq": ["filter", "trashedAt", "eq"],
+                "filter-trashed-at-ne": ["filter", "trashedAt", "ne"],
+                "lens-model": ["lensModel"],
+                "library-id": ["libraryId"],
+                "make": ["make"],
+                "model": ["model"],
+                "rating": ["rating"],
+                "state": ["state"],
+                "tag-ids": ["tagIds"],
+            }[field.value],
+            None,
+        )
     random_search_dto = RandomSearchDto.model_validate(json_data)
     kwargs["random_search_dto"] = random_search_dto
     client: AsyncClient = ctx.obj["client"]
     result = run_command(client.search.search_random, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)
+
+
+class SearchSmartUnset(str, Enum):
+    CITY = "city"
+    COUNTRY = "country"
+    FILTER_CITY_EQ = "filter-city-eq"
+    FILTER_CITY_NE = "filter-city-ne"
+    FILTER_COUNTRY_EQ = "filter-country-eq"
+    FILTER_COUNTRY_NE = "filter-country-ne"
+    FILTER_DESCRIPTION_EQ = "filter-description-eq"
+    FILTER_DESCRIPTION_NE = "filter-description-ne"
+    FILTER_LENS_MODEL_EQ = "filter-lens-model-eq"
+    FILTER_LENS_MODEL_NE = "filter-lens-model-ne"
+    FILTER_LIBRARY_ID_EQ = "filter-library-id-eq"
+    FILTER_LIBRARY_ID_NE = "filter-library-id-ne"
+    FILTER_MAKE_EQ = "filter-make-eq"
+    FILTER_MAKE_NE = "filter-make-ne"
+    FILTER_MODEL_EQ = "filter-model-eq"
+    FILTER_MODEL_NE = "filter-model-ne"
+    FILTER_ORIGINAL_FILE_NAME_EQ = "filter-original-file-name-eq"
+    FILTER_ORIGINAL_FILE_NAME_NE = "filter-original-file-name-ne"
+    FILTER_ORIGINAL_PATH_EQ = "filter-original-path-eq"
+    FILTER_ORIGINAL_PATH_NE = "filter-original-path-ne"
+    FILTER_RATING_EQ = "filter-rating-eq"
+    FILTER_RATING_NE = "filter-rating-ne"
+    FILTER_STATE_EQ = "filter-state-eq"
+    FILTER_STATE_NE = "filter-state-ne"
+    FILTER_TRASHED_AT_EQ = "filter-trashed-at-eq"
+    FILTER_TRASHED_AT_NE = "filter-trashed-at-ne"
+    LENS_MODEL = "lens-model"
+    LIBRARY_ID = "library-id"
+    MAKE = "make"
+    MODEL = "model"
+    RATING = "rating"
+    STATE = "state"
+    TAG_IDS = "tag-ids"
 
 
 @app.command("search-smart", deprecated=False, rich_help_panel="API commands")
@@ -4219,6 +4493,9 @@ Example: 2024-01-01T00:00:00.000Z""",
     with_exif: Literal["true", "false"] | None = typer.Option(
         None, "--with-exif", help=r"""Include EXIF data in response"""
     ),
+    unset: list[SearchSmartUnset] = typer.Option(
+        [], "--unset", help="Set a field to null, repeat for several"
+    ),
 ) -> None:
     """Smart asset search
 
@@ -4681,6 +4958,46 @@ Example: 2024-01-01T00:00:00.000Z""",
         set_nested(json_data, ["withDeleted"], with_deleted.lower() == "true")
     if with_exif is not None:
         set_nested(json_data, ["withExif"], with_exif.lower() == "true")
+    for field in unset:
+        set_nested(
+            json_data,
+            {
+                "city": ["city"],
+                "country": ["country"],
+                "filter-city-eq": ["filter", "city", "eq"],
+                "filter-city-ne": ["filter", "city", "ne"],
+                "filter-country-eq": ["filter", "country", "eq"],
+                "filter-country-ne": ["filter", "country", "ne"],
+                "filter-description-eq": ["filter", "description", "eq"],
+                "filter-description-ne": ["filter", "description", "ne"],
+                "filter-lens-model-eq": ["filter", "lensModel", "eq"],
+                "filter-lens-model-ne": ["filter", "lensModel", "ne"],
+                "filter-library-id-eq": ["filter", "libraryId", "eq"],
+                "filter-library-id-ne": ["filter", "libraryId", "ne"],
+                "filter-make-eq": ["filter", "make", "eq"],
+                "filter-make-ne": ["filter", "make", "ne"],
+                "filter-model-eq": ["filter", "model", "eq"],
+                "filter-model-ne": ["filter", "model", "ne"],
+                "filter-original-file-name-eq": ["filter", "originalFileName", "eq"],
+                "filter-original-file-name-ne": ["filter", "originalFileName", "ne"],
+                "filter-original-path-eq": ["filter", "originalPath", "eq"],
+                "filter-original-path-ne": ["filter", "originalPath", "ne"],
+                "filter-rating-eq": ["filter", "rating", "eq"],
+                "filter-rating-ne": ["filter", "rating", "ne"],
+                "filter-state-eq": ["filter", "state", "eq"],
+                "filter-state-ne": ["filter", "state", "ne"],
+                "filter-trashed-at-eq": ["filter", "trashedAt", "eq"],
+                "filter-trashed-at-ne": ["filter", "trashedAt", "ne"],
+                "lens-model": ["lensModel"],
+                "library-id": ["libraryId"],
+                "make": ["make"],
+                "model": ["model"],
+                "rating": ["rating"],
+                "state": ["state"],
+                "tag-ids": ["tagIds"],
+            }[field.value],
+            None,
+        )
     smart_search_dto = SmartSearchDto.model_validate(json_data)
     kwargs["smart_search_dto"] = smart_search_dto
     client: AsyncClient = ctx.obj["client"]

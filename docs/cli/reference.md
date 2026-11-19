@@ -461,6 +461,7 @@ As a JSON string with keys: role (string), userId (string)
 
 * `--asset-ids <uuid>`: Initial asset IDs
 * `--description <str>`: Album description
+* `--unset <description>`: Set a field to null, repeat for several
 * `--help`: Show this message and exit.
 
 ### `immichpy albums delete-album`
@@ -629,6 +630,7 @@ immichpy albums update-album-info [OPTIONS] {id}
 * `--description <str>`: Album description
 * `--is-activity-enabled <true|false>`: Enable activity feed
 * `--order <asc|desc>`: Asset sort order
+* `--unset <description>`: Set a field to null, repeat for several
 * `--help`: Show this message and exit.
 
 ### `immichpy albums update-album-user`
@@ -1155,6 +1157,7 @@ immichpy assets update-asset [OPTIONS] {id}
 * `--longitude <float range>`: Longitude coordinate  [-180&lt;=x&lt;=180]
 * `--rating <int range>`: Rating in range [1-5] (starred), -1 (rejected), or null (unrated)  [-1&lt;=x&lt;=5]
 * `--visibility <archive|timeline|hidden|locked>`: Asset visibility
+* `--unset <live-photo-video-id|rating>`: Set a field to null, repeat for several
 * `--help`: Show this message and exit.
 
 ### `immichpy assets update-asset-metadata`
@@ -1206,6 +1209,7 @@ immichpy assets update-assets [OPTIONS]
 * `--rating <int range>`: Rating in range [1-5] (starred), -1 (rejected), or null (unrated)  [-1&lt;=x&lt;=5]
 * `--time-zone <str>`: Time zone (IANA timezone)
 * `--visibility <archive|timeline|hidden|locked>`: Asset visibility
+* `--unset <duplicate-id|rating>`: Set a field to null, repeat for several
 * `--help`: Show this message and exit.
 
 ### `immichpy assets update-bulk-asset-metadata`
@@ -2318,6 +2322,7 @@ immichpy config-admin update-admin-config [OPTIONS]
 * `--trash-days <int range>`: Days  [0&lt;=x&lt;=9007199254740991; required]
 * `--trash-enabled`: Enabled  [required]
 * `--user-delete-delay <int range>`: Delete delay  [1&lt;=x&lt;=9007199254740991; required]
+* `--unset <oauth-default-storage-quota|passkey-domain>`: Set a field to null, repeat for several
 * `--help`: Show this message and exit.
 
 ## `immichpy config-public`
@@ -3690,6 +3695,8 @@ immichpy notifications update-notification [OPTIONS] {id}
 
 Example: 2024-01-01T00:00:00.000Z
 
+* `--unset <read-at>`: Set a field to null, repeat for several
+
 * `--help`: Show this message and exit.
 
 ### `immichpy notifications update-notifications`
@@ -3710,6 +3717,8 @@ immichpy notifications update-notifications [OPTIONS]
 * `--read-at <ISO 8601>`: Date when notifications were read
 
 Example: 2024-01-01T00:00:00.000Z
+
+* `--unset <read-at>`: Set a field to null, repeat for several
 
 * `--help`: Show this message and exit.
 
@@ -3762,6 +3771,7 @@ Example: 2024-01-01T00:00:00.000Z
 * `--title <str>`: Notification title  [required]
 * `--type <JobFailed|BackupFailed|SystemMessage|AlbumInvite|AlbumUpdate|ClusterGroupRequest|Custom>`: Notification type
 * `--user-id <uuid>`: User ID to send notification to  [required]
+* `--unset <description|read-at>`: Set a field to null, repeat for several
 * `--help`: Show this message and exit.
 
 ### `immichpy notifications-admin get-notification-template-admin`
@@ -4099,6 +4109,7 @@ immichpy passkeys update-passkey [OPTIONS] {id}
 **Options**:
 
 * `--name <str>`: Passkey name  [required]
+* `--unset <name>`: Set a field to null, repeat for several
 * `--help`: Show this message and exit.
 
 ## `immichpy people`
@@ -4154,6 +4165,7 @@ immichpy people create-person [OPTIONS]
 * `--is-favorite <true|false>`: Mark as favorite
 * `--is-hidden <true|false>`: Person visibility (hidden)
 * `--name <str>`: Person name
+* `--unset <birth-date|color>`: Set a field to null, repeat for several
 * `--help`: Show this message and exit.
 
 ### `immichpy people delete-people`
@@ -4426,6 +4438,7 @@ immichpy people update-person [OPTIONS] {id}
 * `--is-hidden <true|false>`: Person visibility (hidden)
 * `--name <str>`: Person name
 * `--user-id <uuid>`: Restrict the update to the person record of this User ID
+* `--unset <birth-date|color>`: Set a field to null, repeat for several
 * `--help`: Show this message and exit.
 
 ### `immichpy people upsert-people-users`
@@ -4953,6 +4966,7 @@ Example: 2024-01-01T00:00:00.000Z
 Example: 2024-01-01T00:00:00.000Z
 
 * `--visibility <archive|timeline|hidden|locked>`: Asset visibility
+* `--unset <city|country|filter-city-eq|filter-city-ne|filter-country-eq|filter-country-ne|filter-description-eq|filter-description-ne|filter-lens-model-eq|filter-lens-model-ne|filter-library-id-eq|filter-library-id-ne|filter-make-eq|filter-make-ne|filter-model-eq|filter-model-ne|filter-original-file-name-eq|filter-original-file-name-ne|filter-original-path-eq|filter-original-path-ne|filter-rating-eq|filter-rating-ne|filter-state-eq|filter-state-ne|filter-trashed-at-eq|filter-trashed-at-ne|lens-model|library-id|make|model|rating|state|tag-ids>`: Set a field to null, repeat for several
 * `--help`: Show this message and exit.
 
 ### `immichpy search search-assets`
@@ -5166,6 +5180,7 @@ Example: 2024-01-01T00:00:00.000Z
 * `--with-exif <true|false>`: Include EXIF data in response
 * `--with-people <true|false>`: Include people data in response
 * `--with-stacked <true|false>`: Include stacked assets
+* `--unset <city|country|filter-city-eq|filter-city-ne|filter-country-eq|filter-country-ne|filter-description-eq|filter-description-ne|filter-lens-model-eq|filter-lens-model-ne|filter-library-id-eq|filter-library-id-ne|filter-make-eq|filter-make-ne|filter-model-eq|filter-model-ne|filter-original-file-name-eq|filter-original-file-name-ne|filter-original-path-eq|filter-original-path-ne|filter-rating-eq|filter-rating-ne|filter-state-eq|filter-state-ne|filter-trashed-at-eq|filter-trashed-at-ne|lens-model|library-id|make|model|rating|state|tag-ids>`: Set a field to null, repeat for several
 * `--help`: Show this message and exit.
 
 ### `immichpy search search-large-assets`
@@ -5470,6 +5485,7 @@ Example: 2024-01-01T00:00:00.000Z
 * `--with-exif <true|false>`: Include EXIF data in response
 * `--with-people <true|false>`: Include people data in response
 * `--with-stacked <true|false>`: Include stacked assets
+* `--unset <city|country|filter-city-eq|filter-city-ne|filter-country-eq|filter-country-ne|filter-description-eq|filter-description-ne|filter-lens-model-eq|filter-lens-model-ne|filter-library-id-eq|filter-library-id-ne|filter-make-eq|filter-make-ne|filter-model-eq|filter-model-ne|filter-original-file-name-eq|filter-original-file-name-ne|filter-original-path-eq|filter-original-path-ne|filter-rating-eq|filter-rating-ne|filter-state-eq|filter-state-ne|filter-trashed-at-eq|filter-trashed-at-ne|lens-model|library-id|make|model|rating|state|tag-ids>`: Set a field to null, repeat for several
 * `--help`: Show this message and exit.
 
 ### `immichpy search search-smart`
@@ -5670,6 +5686,7 @@ Example: 2024-01-01T00:00:00.000Z
 * `--visibility <archive|timeline|hidden|locked>`: Asset visibility
 * `--with-deleted <true|false>`: Include deleted assets
 * `--with-exif <true|false>`: Include EXIF data in response
+* `--unset <city|country|filter-city-eq|filter-city-ne|filter-country-eq|filter-country-ne|filter-description-eq|filter-description-ne|filter-lens-model-eq|filter-lens-model-ne|filter-library-id-eq|filter-library-id-ne|filter-make-eq|filter-make-ne|filter-model-eq|filter-model-ne|filter-original-file-name-eq|filter-original-file-name-ne|filter-original-path-eq|filter-original-path-ne|filter-rating-eq|filter-rating-ne|filter-state-eq|filter-state-ne|filter-trashed-at-eq|filter-trashed-at-ne|lens-model|library-id|make|model|rating|state|tag-ids>`: Set a field to null, repeat for several
 * `--help`: Show this message and exit.
 
 ## `immichpy server`
@@ -6144,6 +6161,7 @@ Example: 2024-01-01T00:00:00.000Z
 * `--show-metadata <true|false>`: Show metadata
 * `--slug <str>`: Custom URL slug
 * `--type <ALBUM|INDIVIDUAL>`: Shared link type  [required]
+* `--unset <description|expires-at|password|slug>`: Set a field to null, repeat for several
 * `--help`: Show this message and exit.
 
 ### `immichpy shared-links get-all-shared-links`
@@ -6293,6 +6311,7 @@ Example: 2024-01-01T00:00:00.000Z
 * `--password <str>`: Link password
 * `--show-metadata <true|false>`: Show metadata
 * `--slug <str>`: Custom URL slug
+* `--unset <description|expires-at|password|slug>`: Set a field to null, repeat for several
 * `--help`: Show this message and exit.
 
 ## `immichpy stacks`
@@ -6780,6 +6799,7 @@ immichpy system-config update-config [OPTIONS]
 * `--trash-days <int range>`: Days  [0&lt;=x&lt;=9007199254740991; required]
 * `--trash-enabled`: Enabled  [required]
 * `--user-delete-delay <int range>`: Delete delay  [1&lt;=x&lt;=9007199254740991; required]
+* `--unset <oauth-default-storage-quota|passkey-domain>`: Set a field to null, repeat for several
 * `--help`: Show this message and exit.
 
 ## `immichpy system-metadata`
@@ -6933,6 +6953,7 @@ immichpy tags create-tag [OPTIONS]
 * `--color <str>`: Tag color (hex)
 * `--name <str>`: Tag name  [required]
 * `--parent-id <uuid>`: Parent tag ID
+* `--unset <color|parent-id>`: Set a field to null, repeat for several
 * `--help`: Show this message and exit.
 
 ### `immichpy tags delete-tag`
@@ -7053,6 +7074,7 @@ immichpy tags update-tag [OPTIONS] {id}
 
 * `--color <str>`: Tag color (hex)
 * `--name <str>`: Tag name
+* `--unset <color>`: Set a field to null, repeat for several
 * `--help`: Show this message and exit.
 
 ### `immichpy tags upsert-tags`
@@ -7576,6 +7598,7 @@ immichpy users update-my-user [OPTIONS]
 * `--email <str>`: User email
 * `--name <str>`: User name
 * `--password <str>`: User password (deprecated, use change password endpoint)
+* `--unset <avatar-color>`: Set a field to null, repeat for several
 * `--help`: Show this message and exit.
 
 ### `immichpy users get-profile-image-to-file`
@@ -7659,6 +7682,7 @@ Example: 123456
 * `--quota-size-in-bytes <int range>`: Storage quota in bytes  [0&lt;=x&lt;=9007199254740991]
 * `--should-change-password <true|false>`: Require password change on next login
 * `--storage-label <str>`: Storage label
+* `--unset <avatar-color|pin-code|quota-size-in-bytes|storage-label>`: Set a field to null, repeat for several
 * `--help`: Show this message and exit.
 
 ### `immichpy users-admin delete-user-admin`
@@ -7862,6 +7886,7 @@ Example: 123456
 * `--quota-size-in-bytes <int range>`: Storage quota in bytes  [0&lt;=x&lt;=9007199254740991]
 * `--should-change-password <true|false>`: Require password change on next login
 * `--storage-label <str>`: Storage label
+* `--unset <avatar-color|pin-code|quota-size-in-bytes|storage-label>`: Set a field to null, repeat for several
 * `--help`: Show this message and exit.
 
 ### `immichpy users-admin update-user-preferences-admin`
@@ -8010,6 +8035,7 @@ immichpy workflows create-workflow [OPTIONS]
 * `--name <str>`: Workflow name
 * `--steps <str>`: As a JSON string with keys: config (object), enabled (boolean), method (string)
 * `--trigger <AssetCreate|AssetMetadataExtraction|AssetOcrExtraction|AssetTagged>`: Plugin trigger type  [required]
+* `--unset <description|name>`: Set a field to null, repeat for several
 * `--help`: Show this message and exit.
 
 ### `immichpy workflows delete-workflow`
@@ -8160,6 +8186,7 @@ immichpy workflows update-workflow [OPTIONS] {id}
 * `--name <str>`: Workflow name
 * `--steps <str>`: As a JSON string with keys: config (object), enabled (boolean), method (string)
 * `--trigger <AssetCreate|AssetMetadataExtraction|AssetOcrExtraction|AssetTagged>`: Plugin trigger type
+* `--unset <description|name>`: Set a field to null, repeat for several
 * `--help`: Show this message and exit.
 
 ## `immichpy backups`

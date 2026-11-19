@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from enum import Enum
 from typing import TYPE_CHECKING
 from uuid import UUID
 
@@ -45,6 +46,11 @@ def bulk_tag_assets(
     print_response(result, ctx=ctx)
 
 
+class CreateTagUnset(str, Enum):
+    COLOR = "color"
+    PARENT_ID = "parent-id"
+
+
 @app.command("create-tag", deprecated=False, rich_help_panel="API commands")
 def create_tag(
     ctx: typer.Context,
@@ -52,6 +58,9 @@ def create_tag(
     name: str = typer.Option(..., "--name", help=r"""Tag name"""),
     parent_id: UUID | None = typer.Option(
         None, "--parent-id", help=r"""Parent tag ID"""
+    ),
+    unset: list[CreateTagUnset] = typer.Option(
+        [], "--unset", help="Set a field to null, repeat for several"
     ),
 ) -> None:
     """Create a tag
@@ -65,6 +74,12 @@ def create_tag(
     set_nested(json_data, ["name"], name)
     if parent_id is not None:
         set_nested(json_data, ["parentId"], parent_id)
+    for field in unset:
+        set_nested(
+            json_data,
+            {"color": ["color"], "parent-id": ["parentId"]}[field.value],
+            None,
+        )
     tag_create_dto = TagCreateDto.model_validate(json_data)
     kwargs["tag_create_dto"] = tag_create_dto
     client: AsyncClient = ctx.obj["client"]
@@ -160,12 +175,19 @@ def untag_assets(
     print_response(result, ctx=ctx)
 
 
+class UpdateTagUnset(str, Enum):
+    COLOR = "color"
+
+
 @app.command("update-tag", deprecated=False, rich_help_panel="API commands")
 def update_tag(
     ctx: typer.Context,
     id: UUID = typer.Argument(..., help=r""""""),
     color: str | None = typer.Option(None, "--color", help=r"""Tag color (hex)"""),
     name: str | None = typer.Option(None, "--name", help=r"""Tag name"""),
+    unset: list[UpdateTagUnset] = typer.Option(
+        [], "--unset", help="Set a field to null, repeat for several"
+    ),
 ) -> None:
     """Update a tag
 
@@ -178,6 +200,8 @@ def update_tag(
         set_nested(json_data, ["color"], color)
     if name is not None:
         set_nested(json_data, ["name"], name)
+    for field in unset:
+        set_nested(json_data, {"color": ["color"]}[field.value], None)
     tag_update_dto = TagUpdateDto.model_validate(json_data)
     kwargs["tag_update_dto"] = tag_update_dto
     client: AsyncClient = ctx.obj["client"]

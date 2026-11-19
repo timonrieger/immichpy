@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from enum import Enum
 from typing import TYPE_CHECKING
 from uuid import UUID
 
@@ -151,11 +152,18 @@ def start_registration(
     print_response(result, ctx=ctx)
 
 
+class UpdatePasskeyUnset(str, Enum):
+    NAME = "name"
+
+
 @app.command("update-passkey", deprecated=False, rich_help_panel="API commands")
 def update_passkey(
     ctx: typer.Context,
     id: UUID = typer.Argument(..., help=r""""""),
     name: str = typer.Option(..., "--name", help=r"""Passkey name"""),
+    unset: list[UpdatePasskeyUnset] = typer.Option(
+        [], "--unset", help="Set a field to null, repeat for several"
+    ),
 ) -> None:
     """Update a passkey
 
@@ -165,6 +173,8 @@ def update_passkey(
     json_data = {}
     kwargs["id"] = id
     set_nested(json_data, ["name"], name)
+    for field in unset:
+        set_nested(json_data, {"name": ["name"]}[field.value], None)
     passkey_update_dto = PasskeyUpdateDto.model_validate(json_data)
     kwargs["passkey_update_dto"] = passkey_update_dto
     client: AsyncClient = ctx.obj["client"]

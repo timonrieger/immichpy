@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from enum import Enum
 from typing import TYPE_CHECKING, Literal
 from uuid import UUID
 
@@ -36,6 +37,11 @@ app = typer.Typer(
 )
 
 
+class CreatePersonUnset(str, Enum):
+    BIRTH_DATE = "birth-date"
+    COLOR = "color"
+
+
 @app.command("create-person", deprecated=False, rich_help_panel="API commands")
 def create_person(
     ctx: typer.Context,
@@ -50,6 +56,9 @@ def create_person(
         None, "--is-hidden", help=r"""Person visibility (hidden)"""
     ),
     name: str | None = typer.Option(None, "--name", help=r"""Person name"""),
+    unset: list[CreatePersonUnset] = typer.Option(
+        [], "--unset", help="Set a field to null, repeat for several"
+    ),
 ) -> None:
     """Create a person
 
@@ -67,6 +76,12 @@ def create_person(
         set_nested(json_data, ["isHidden"], is_hidden.lower() == "true")
     if name is not None:
         set_nested(json_data, ["name"], name)
+    for field in unset:
+        set_nested(
+            json_data,
+            {"birth-date": ["birthDate"], "color": ["color"]}[field.value],
+            None,
+        )
     person_create_dto = PersonCreateDto.model_validate(json_data)
     kwargs["person_create_dto"] = person_create_dto
     client: AsyncClient = ctx.obj["client"]
@@ -396,6 +411,11 @@ As a JSON string with keys: birthDate (string), color (string), featureFaceAsset
     print_response(result, ctx=ctx)
 
 
+class UpdatePersonUnset(str, Enum):
+    BIRTH_DATE = "birth-date"
+    COLOR = "color"
+
+
 @app.command("update-person", deprecated=False, rich_help_panel="API commands")
 def update_person(
     ctx: typer.Context,
@@ -421,6 +441,9 @@ def update_person(
         "--user-id",
         help=r"""Restrict the update to the person record of this User ID""",
     ),
+    unset: list[UpdatePersonUnset] = typer.Option(
+        [], "--unset", help="Set a field to null, repeat for several"
+    ),
 ) -> None:
     """Update person
 
@@ -443,6 +466,12 @@ def update_person(
         set_nested(json_data, ["name"], name)
     if user_id is not None:
         set_nested(json_data, ["userId"], user_id)
+    for field in unset:
+        set_nested(
+            json_data,
+            {"birth-date": ["birthDate"], "color": ["color"]}[field.value],
+            None,
+        )
     person_update_dto = PersonUpdateDto.model_validate(json_data)
     kwargs["person_update_dto"] = person_update_dto
     client: AsyncClient = ctx.obj["client"]

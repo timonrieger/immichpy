@@ -121,6 +121,12 @@ def to_client_param_name(name: str) -> str:
     return "var_" + ident if keyword.iskeyword(ident) else ident
 
 
+# Bandit's B105 pattern: `--unset` members like `PASSWORD = "password"` are flag names, not secrets.
+BANDIT_PASSWORD_NAME = re.compile(
+    r"(^|_)(pas+wo?r?d|pass(phrase)?|pwd|token|secrete?)(_|$)", re.IGNORECASE
+)
+
+
 def python_type_from_schema(
     schema: dict[str, Any],
     spec: dict[str, Any] | None = None,
@@ -407,6 +413,18 @@ def generate_command_function(
     for param in param_data:
         used_models.update(model_names_in_type(param.type))
 
+    # Nullable fields of a JSON object body can be cleared with `--unset <flag>`
+    media_type = _get_media_type(operation)
+    nullable = [
+        p
+        for p in body_params
+        if p.oaschema.get("nullable")
+        and media_type == "application/json"
+        and resolve_schema_ref(spec, f"#/components/schemas/{p.model_name}")["type"]
+        != "array"
+    ]
+    unset_enum = f"{inflection.camelize(func_name)}Unset"
+
     # Build function signature
     lines = [
         f'@app.command("{cmd_name}", deprecated={operation.get("deprecated", False)}, rich_help_panel="API commands")'
@@ -447,6 +465,18 @@ def generate_command_function(
                 f'    {param.name}: {type_str} = typer.Option({default_value}, "--{param.flag_name}"{help_arg}{min_arg}{max_arg}{exists_arg}{parser_arg}),'
             )
 
+    if nullable:
+        lines.append(
+            f'    unset: list[{unset_enum}] = typer.Option([], "--unset", help="Set a field to null, repeat for several"),'
+        )
+        # After the signature loop, which may rename colliding flags
+        members = [
+            f"    {name} = {p.flag_name!r}"
+            + ("  # nosec B105" if BANDIT_PASSWORD_NAME.search(name) else "")
+            for p in nullable
+            for name in [to_python_ident(p.flag_name).upper()]
+        ]
+        lines[0:0] = [f"class {unset_enum}(str, Enum):", *members, "", ""]
     lines.append(") -> None:")
 
     # Function body
@@ -555,6 +585,12 @@ def generate_command_function(
                     )
                     lines.append(f"    kwargs['{model_instance}'] = {model_instance}")
                 elif media_type == "application/json":
+                    if nullable:
+                        paths = {p.flag_name: p.body_path for p in nullable}
+                        lines.append("    for field in unset:")
+                        lines.append(
+                            f"        set_nested(json_data, {paths!r}[field.value], None)"
+                        )
                     # Validate and create model
                     used_models.add(param.model_name)  # ty: ignore[invalid-argument-type]
                     model_instance = to_snake_case(param.model_name)  # ty: ignore[invalid-argument-type]
@@ -618,6 +654,7 @@ def generate_tag_app(
         "import typer",
         "import json",
         "from datetime import datetime",
+        "from enum import Enum",
         "from pathlib import Path",
         "from uuid import UUID",
         "from typing import Literal, TYPE_CHECKING",
