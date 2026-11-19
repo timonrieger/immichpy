@@ -2,8 +2,8 @@ from typing import Literal
 
 from pydantic import BaseModel
 
-MaybeBaseModel = BaseModel | list[BaseModel] | str | None
-"""A type that represents a Pydantic model, a list of Pydantic models, or a string."""
+MaybeBaseModel = BaseModel | list[BaseModel] | str | bytes | None
+"""A type that represents a Pydantic model, a list of Pydantic models, a string, or binary data."""
 FormatMode = Literal["pretty", "json", "table"]
 """A type that represents a format mode for the CLI."""
 PrintType = Literal["info", "warning", "error", "debug", "success", "json", "text"]
