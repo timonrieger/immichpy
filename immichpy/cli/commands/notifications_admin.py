@@ -12,6 +12,7 @@ if TYPE_CHECKING:
     from immichpy import AsyncClient
 
 from immichpy.cli.runtime import (
+    parse_datetime,
     parse_json_option,
     print_response,
     run_command,
@@ -52,6 +53,8 @@ As a JSON string""",
         help=r"""Date when notification was read
 
 Example: 2024-01-01T00:00:00.000Z""",
+        parser=parse_datetime,
+        metavar="<ISO 8601>",
     ),
     title: str = typer.Option(..., "--title", help=r"""Notification title"""),
     type: NotificationType | None = typer.Option(

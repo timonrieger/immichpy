@@ -11,7 +11,7 @@ import typer
 if TYPE_CHECKING:
     from immichpy import AsyncClient
 
-from immichpy.cli.runtime import print_response, run_command, set_nested
+from immichpy.cli.runtime import parse_datetime, print_response, run_command, set_nested
 from immichpy.client.generated.models import (
     NotificationDeleteAllDto,
     NotificationLevel,
@@ -116,6 +116,8 @@ def update_notification(
         help=r"""Date when notification was read
 
 Example: 2024-01-01T00:00:00.000Z""",
+        parser=parse_datetime,
+        metavar="<ISO 8601>",
     ),
 ) -> None:
     """Update a notification
@@ -146,6 +148,8 @@ def update_notifications(
         help=r"""Date when notifications were read
 
 Example: 2024-01-01T00:00:00.000Z""",
+        parser=parse_datetime,
+        metavar="<ISO 8601>",
     ),
 ) -> None:
     """Update notifications

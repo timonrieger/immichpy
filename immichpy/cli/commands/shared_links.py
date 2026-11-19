@@ -11,7 +11,7 @@ import typer
 if TYPE_CHECKING:
     from immichpy import AsyncClient
 
-from immichpy.cli.runtime import print_response, run_command, set_nested
+from immichpy.cli.runtime import parse_datetime, print_response, run_command, set_nested
 from immichpy.client.generated.models import (
     AssetIdsDto,
     SharedLinkCreateDto,
@@ -70,6 +70,8 @@ def create_shared_link(
         help=r"""Expiration date
 
 Example: 2024-01-01T00:00:00.000Z""",
+        parser=parse_datetime,
+        metavar="<ISO 8601>",
     ),
     password: str | None = typer.Option(None, "--password", help=r"""Link password"""),
     show_metadata: Literal["true", "false"] | None = typer.Option(
@@ -259,6 +261,8 @@ def update_shared_link(
         help=r"""Expiration date
 
 Example: 2024-01-01T00:00:00.000Z""",
+        parser=parse_datetime,
+        metavar="<ISO 8601>",
     ),
     password: str | None = typer.Option(None, "--password", help=r"""Link password"""),
     show_metadata: Literal["true", "false"] | None = typer.Option(

@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import asyncio
 import json
+from datetime import UTC, datetime, timedelta, timezone
 from typing import TYPE_CHECKING, Any, cast
 from unittest.mock import AsyncMock, MagicMock, Mock, patch
 
@@ -16,6 +17,7 @@ if TYPE_CHECKING:
 
 from immichpy.cli.runtime import (
     format_api_error,
+    parse_datetime,
     parse_json_option,
     parse_json_options,
     print_response,
@@ -66,6 +68,38 @@ class TestValidateBody:
         """Unknown keys fail at any depth instead of being dropped."""
         with pytest.raises(ValidationError):
             validate_body(MetadataSearchDto, data)
+
+
+class TestParseDatetime:
+    """Tests for parse_datetime function."""
+
+    @pytest.mark.parametrize(
+        ("value", "expected"),
+        [
+            ("2024-01-01T00:00:00Z", datetime(2024, 1, 1, tzinfo=UTC)),
+            (
+                "2024-01-01T00:00:00.000+02:00",
+                datetime(2024, 1, 1, tzinfo=timezone(timedelta(hours=2))),
+            ),
+        ],
+    )
+    def test_parse_datetime_keeps_timezone(
+        self, value: str, expected: datetime
+    ) -> None:
+        """Explicit timezones are kept as given."""
+        assert parse_datetime(value) == expected
+
+    @pytest.mark.parametrize("value", ["2024-01-01", "2024-01-01T10:30:00"])
+    def test_parse_datetime_naive_is_local(self, value: str) -> None:
+        """Naive input is read as local time."""
+        dt = parse_datetime(value)
+        assert dt.tzinfo is not None
+        assert dt == datetime.fromisoformat(value).astimezone()
+
+    def test_parse_datetime_invalid_raises(self) -> None:
+        """Invalid input raises ValueError, which Typer reports as a bad option value."""
+        with pytest.raises(ValueError):
+            parse_datetime("31.12.2024")
 
 
 class TestParseJsonOption:
