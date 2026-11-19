@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import asyncio
 import json
+import sys
 import traceback
 from collections.abc import Awaitable, Callable
 from datetime import datetime
@@ -105,12 +106,15 @@ def parse_json_options(
 
 
 def print_response(data: MaybeBaseModel, ctx: Context) -> None:
-    """Print response data.
+    """Print response data. Binary data is written raw, so it can be redirected to a file.
 
     :param data: The data to print
     :param ctx: The context to use
     :return: None
     """
+    if isinstance(data, bytes):
+        sys.stdout.buffer.write(data)
+        return
 
     def convert_to_dict(obj: MaybeBaseModel) -> Any:
         """Recursively convert Pydantic models to dictionaries.

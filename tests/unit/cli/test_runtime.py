@@ -198,6 +198,17 @@ class TestPrintResponse:
         output = json.loads(captured.out)
         assert output == "simple string"
 
+    def test_print_response_bytes_raw(
+        self, capsysbinary: CaptureFixture[bytes]
+    ) -> None:
+        """Binary responses are written raw, so they can be redirected to a file."""
+        ctx: Mock = Mock(spec=Context)
+        ctx.obj = {"format": "json"}
+
+        print_response(b"RIFF\x00\x01", ctx=ctx)
+
+        assert capsysbinary.readouterr().out == b"RIFF\x00\x01"
+
 
 class TestFormatApiError:
     """Tests for format_api_error function."""
