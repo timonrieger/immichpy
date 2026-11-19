@@ -364,12 +364,7 @@ class MapApi:
         if file_created_after is not None:
             if isinstance(file_created_after, datetime):
                 _query_params.append(
-                    (
-                        "fileCreatedAfter",
-                        file_created_after.strftime(
-                            self.api_client.configuration.datetime_format
-                        ),
-                    )
+                    ("fileCreatedAfter", file_created_after.isoformat())
                 )
             else:
                 _query_params.append(("fileCreatedAfter", file_created_after))
@@ -377,12 +372,7 @@ class MapApi:
         if file_created_before is not None:
             if isinstance(file_created_before, datetime):
                 _query_params.append(
-                    (
-                        "fileCreatedBefore",
-                        file_created_before.strftime(
-                            self.api_client.configuration.datetime_format
-                        ),
-                    )
+                    ("fileCreatedBefore", file_created_before.isoformat())
                 )
             else:
                 _query_params.append(("fileCreatedBefore", file_created_before))

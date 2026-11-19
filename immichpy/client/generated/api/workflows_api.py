@@ -1297,12 +1297,7 @@ class WorkflowsApi:
         # process the query parameters
         if before is not None:
             if isinstance(before, datetime):
-                _query_params.append(
-                    (
-                        "before",
-                        before.strftime(self.api_client.configuration.datetime_format),
-                    )
-                )
+                _query_params.append(("before", before.isoformat()))
             else:
                 _query_params.append(("before", before))
 

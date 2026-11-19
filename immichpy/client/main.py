@@ -69,6 +69,8 @@ def _build_configuration(
     base_url: str,
 ) -> Configuration:
     config = Configuration(host=_normalize_base_url(base_url))
+    # TODO: if https://github.com/OpenAPITools/openapi-generator/pull/25098 is not
+    # released when Python 3.11 is dropped, set datetime_format with %:z here instead
     if api_key:
         config.api_key["api_key"] = api_key.strip()
     if access_token:
