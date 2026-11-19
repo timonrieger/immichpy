@@ -2,22 +2,6 @@
 
 Every Immich API endpoint is a command, and every command prints JSON. Combine them with [jq](https://jqlang.org/) or a shell script to automate your library.
 
-## Ideas
-
-Not sure where to start? Pick a goal and explore the commands in the [reference](reference.md):
-
-| Goal | Commands to start with |
-|---|---|
-| Upload a folder or SD card into an album | [`assets upload`](reference.md#immichpy-assets-upload) |
-| Share an album with people without an account | [`shared-links create-shared-link`](reference.md#immichpy-shared-links-create-shared-link) |
-| Find assets by camera, place, date or file path | [`search search-assets`](reference.md#immichpy-search-search-assets), [`search search-asset-statistics`](reference.md#immichpy-search-search-asset-statistics) |
-| Fix the date or location of many assets at once | [`assets update-assets`](reference.md#immichpy-assets-update-assets) |
-| Tag or sort assets in bulk | [`tags bulk-tag-assets`](reference.md#immichpy-tags-bulk-tag-assets), [`albums add-assets-to-album`](reference.md#immichpy-albums-add-assets-to-album) |
-| Clean up duplicates | [`duplicates get-asset-duplicates`](reference.md#immichpy-duplicates-get-asset-duplicates), [`duplicates resolve-duplicates`](reference.md#immichpy-duplicates-resolve-duplicates) |
-| Onboard family members | [`users-admin create-user-admin`](reference.md#immichpy-users-admin-create-user-admin), [`partners create-partner`](reference.md#immichpy-partners-create-partner) |
-| Monitor storage per user | [`server get-server-statistics`](reference.md#immichpy-server-get-server-statistics) |
-| Pause machine learning during a large import | [`queues update-queue`](reference.md#immichpy-queues-update-queue), [`libraries scan-library`](reference.md#immichpy-libraries-scan-library) |
-
 ## List all albums
 
 See [`albums get-all-albums`](reference.md#immichpy-albums-get-all-albums).
