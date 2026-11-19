@@ -127,12 +127,14 @@ def restore_keyword_keys(obj: Any) -> Any:
 
 
 def print_response(data: MaybeBaseModel, ctx: Context) -> None:
-    """Print response data. Binary data is written raw, so it can be redirected to a file.
+    """Print response data. Empty responses print nothing, binary data is written raw.
 
     :param data: The data to print
     :param ctx: The context to use
     :return: None
     """
+    if data is None:
+        return
     if isinstance(data, bytes):
         sys.stdout.buffer.write(data)
         return
