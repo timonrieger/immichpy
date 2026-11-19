@@ -1,9 +1,13 @@
 # Examples
 
-This page contains practical examples of using the immichpy CLI for common tasks.
+This page contains practical examples of using the immichpy CLI for common tasks, from first steps to automation.
 > Have an example? You’re welcome to suggest it on [GitHub issues](https://github.com/timonrieger/immichpy/issues).
 
-## List all albums and parse with jq
+Most examples pipe JSON output into [jq](https://jqlang.org/). Commands that take a list repeat their flag (`--ids a --ids b`), so a jq filter like `"--ids \(.id)"` turns search results into arguments for the next command.
+
+## First steps
+
+### List all albums and parse with jq
 
 Get all albums and their name and ID:
 
@@ -16,74 +20,7 @@ Vacation 2023 851c8f67-9bf3-48f5-8130-59da9ab17c06
 Selfies c980670b-69d1-42ee-b4a5-86947f169d99
 ```
 
-## Download an album archive
-
-Download an album archive to a directory with progress bar:
-
-<!-- termynal -->
-
-```console
-$ immichpy download download-archive-to-file out-dir/ \
- --album-id 851c8f67-9bf3-48f5-8130-59da9ab17c06 --show-progress
-
----> 100%
-
-[
-  "out-dir/archive-d73aaebe-f8d2-486d-b0f0-a0a64c75320b.zip"
-]
-```
-
-## Upload assets
-
-Upload assets to your Immich server. Use `--dry-run` to preview what would be uploaded:
-
-<!-- termynal -->
-
-```console
-$ immichpy assets upload ~/timelapse.mp4 --dry-run
-{
-  "uploaded": [
-    {
-      "asset": {
-        "id": "ba199326-210b-492c-b5cb-4fc54e00f032",
-        "status": "created"
-      },
-      "filepath": "~/timelapse.mp4"
-    }
-  ],
-  "rejected": [],
-  "failed": [],
-  "stats": {
-    "total": 1,
-    "uploaded": 1,
-    "rejected": 0,
-    "failed": 0
-  }
-}
-```
-
-## List all people with names
-
-Get all people and filter to only show those with names:
-
-<!-- termynal -->
-
-```console
-$ immichpy people get-all-people | jq '.people[] | select(.name != "")'
-{
-  "birth_date": null,
-  "color": null,
-  "id": "6130d2d5-5f96-4aa0-9725-36929c5c8f19",
-  "is_favorite": false,
-  "is_hidden": false,
-  "name": "Timon",
-  "thumbnail_path": "/data/thumbs/0245136d-b027-4144-a764-81ecca080cf8/
-    61/30/6130d2d5-5f96-4aa0-9725-36929c5c8f19.jpeg",
-  "updated_at": "2026-01-20 22:30:00.771000+00:00"
-}
-```
-
-## List all users
+### List all users
 
 Get all users in a table format:
 
@@ -114,7 +51,63 @@ $ immichpy --format table users search-users
 └────────────────────┴──────────────────────────────────────┘
 ```
 
-## Share an album with multiple users
+### List all people with names
+
+Get all people and filter to only show those with names:
+
+<!-- termynal -->
+
+```console
+$ immichpy people get-all-people | jq '.people[] | select(.name != "")'
+{
+  "birth_date": null,
+  "color": null,
+  "id": "6130d2d5-5f96-4aa0-9725-36929c5c8f19",
+  "is_favorite": false,
+  "is_hidden": false,
+  "name": "Timon",
+  "thumbnail_path": "/data/thumbs/0245136d-b027-4144-a764-81ecca080cf8/
+    61/30/6130d2d5-5f96-4aa0-9725-36929c5c8f19.jpeg",
+  "updated_at": "2026-01-20 22:30:00.771000+00:00"
+}
+```
+
+## Upload and share
+
+### Upload a folder into an album
+
+Upload a folder, such as an SD card, and add the assets to an album, creating it if it does not exist. Use `--dry-run` to preview what would be uploaded and `--show-progress` for progress bars:
+
+<!-- termynal -->
+
+```console
+$ immichpy assets upload /Volumes/SD/DCIM/101NIKON/ --album-name "Paris 2025" --dry-run | jq .stats
+{
+  "total": 3,
+  "uploaded": 3,
+  "rejected": 0,
+  "failed": 0
+}
+
+$ immichpy assets upload /Volumes/SD/DCIM/101NIKON/ --album-name "Paris 2025" --show-progress
+
+---> 100%
+```
+
+### Share an album with a password-protected link
+
+Create a shared link for people without an Immich account. The link is `<your server>/share/<key>`:
+
+<!-- termynal -->
+
+```console
+$ immichpy shared-links create-shared-link --type ALBUM \
+  --album-id cb3071c9-4fb6-49f1-87dd-fa8890b5cc42 \
+  --password s3cret --allow-download true | jq -r '.key'
+5CCZJL7zI2QW6NVCkE6aX1_HRWiX0TGY620sjVFfiZWxpYvYf886SNy6vcwOt2FciBQ
+```
+
+### Share an album with multiple users
 
 Add multiple users to an album by repeating `--album-users`:
 
@@ -156,107 +149,202 @@ $ immichpy albums add-users-to-album cccdd9f7-6a0f-4ed1-9dc0-ad8774ff9798 \
 }
 ```
 
-## Trigger library scan
+### Download an album archive
 
-Trigger an external library scan by using it's ID:
-
-<!-- termynal -->
-
-```console
-$ immichpy libraries get-all-libraries
-[
-  {
-    "id": "098adb6d-0a9b-494a-bd66-2ae6c0bf28ff",
-    …
-  }
-]
-
-$ immichpy libraries scan-library 098adb6d-0a9b-494a-bd66-2ae6c0bf28ff
-
-Success!
-```
-
-## Upload a folder into an album
-
-Upload a whole folder and add the assets to an album, creating it if it does not exist:
+Download an album archive to a directory with progress bar:
 
 <!-- termynal -->
 
 ```console
-$ immichpy assets upload /Volumes/SD/DCIM/101NIKON/ --album-name "Paris 2025" --show-progress
+$ immichpy download download-archive-to-file out-dir/ \
+ --album-id 851c8f67-9bf3-48f5-8130-59da9ab17c06 --show-progress
 
 ---> 100%
+
+[
+  "out-dir/archive-d73aaebe-f8d2-486d-b0f0-a0a64c75320b.zip"
+]
 ```
 
-## Find an asset by its file path
+## Organize your library
 
-Look up an asset ID by the path it has on the server:
+### Fix the date and location of an album
+
+Set the same capture date and location on every asset in an album, for example scans that carry the date they were scanned. Immich reverse-geocodes the coordinates:
 
 <!-- termynal -->
 
 ```console
-$ immichpy search search-assets --original-path library/family/2025/09/IMG_9419.jpg \
-  | jq -r '.assets.items[0].id'
-16101f82-1407-4725-ba58-3ffb67a3ef7c
+$ immichpy assets update-assets \
+  $(immichpy search search-assets --album-ids cb3071c9-4fb6-49f1-87dd-fa8890b5cc42 \
+    | jq -r '.assets.items[] | "--ids \(.id)"') \
+  --date-time-original "2025-05-14T12:00:00+02:00" --latitude 48.8584 --longitude 2.2945
+
+$ immichpy search search-assets --album-ids cb3071c9-4fb6-49f1-87dd-fa8890b5cc42 --with-exif true \
+  | jq -c '.assets.items[].exif_info | {date_time_original, city}'
+{"date_time_original":"2025-05-14T10:00:00Z","city":"Paris 16 Passy"}
+{"date_time_original":"2025-05-14T10:00:00Z","city":"Paris 16 Passy"}
+{"date_time_original":"2025-05-14T10:00:00Z","city":"Paris 16 Passy"}
 ```
 
-## Read an asset's EXIF data
+### Tag all photos taken with a camera
 
-Get the EXIF data of an asset and extract a single field:
+Count the assets from a camera, create a tag and apply it to all of them. `--make` must match exactly; list the values with `immichpy search get-search-suggestions --type camera-make`. A search returns at most 1000 assets per page, use `--page` for more:
 
 <!-- termynal -->
 
 ```console
-$ immichpy assets get-asset-info 16101f82-1407-4725-ba58-3ffb67a3ef7c | jq -r '.exif_info.description'
-OLYMPUS DIGITAL CAMERA
-```
-
-## Count and page through search results
-
-Count the assets matching a filter, then fetch them page by page:
-
-<!-- termynal -->
-
-```console
-$ immichpy search search-asset-statistics --make OLYMPUS
+$ immichpy search search-asset-statistics --make GoPro
 {
-  "total": 1342
+  "total": 15
 }
 
-$ immichpy search search-assets --make OLYMPUS --page 2 --size 10 | jq '.assets.next_page'
-"3"
+$ TAG=$(immichpy tags upsert-tags --tags "Camera/GoPro" | jq -r '.[0].id')
+
+$ immichpy tags bulk-tag-assets --tag-ids $TAG \
+  $(immichpy search search-assets --make GoPro --size 1000 | jq -r '.assets.items[] | "--asset-ids \(.id)"')
+{
+  "count": 15
+}
 ```
 
-## Delete assets listed in a file
+### Create an album for each folder
 
-Delete every asset whose server path is listed in `files.txt`, one path per line. Run it with `echo` in front of `immichpy assets delete-assets` first to preview what would be deleted:
+Create one album per folder, named after the folder. This is useful for external libraries with a meaningful folder structure:
+
+```bash
+immichpy views get-unique-original-paths | jq -r '.[]' | while read -r dir; do
+  immichpy albums create-album --album-name "$(basename "$dir")" \
+    $(immichpy views get-assets-by-original-path --path "$dir" | jq -r '.[] | "--asset-ids \(.id)"') \
+    | jq -c '{album_name, asset_count}'
+done
+```
+
+```console
+{"album_name":"2019-Hiking","asset_count":42}
+{"album_name":"2020-Wedding","asset_count":318}
+```
+
+### Clean up duplicates
+
+Resolve every duplicate group by keeping the largest file and moving the others to the trash:
+
+<!-- termynal -->
+
+```console
+$ immichpy duplicates get-asset-duplicates | jq length
+1182
+
+$ immichpy duplicates get-asset-duplicates \
+  | jq -c '.[] | (.assets | sort_by(.exif_info.file_size_in_byte) | reverse) as $a
+    | {duplicateId: .duplicate_id, keepAssetIds: [$a[0].id], trashAssetIds: [$a[1:][].id]}' \
+  | while read -r group; do immichpy duplicates resolve-duplicates --groups "$group"; done
+[
+  {
+    "error": null,
+    "error_message": null,
+    "id": "009f78bb-67a3-46d5-b03d-8a53ed15c412",
+    "success": true
+  }
+]
+...
+```
+
+### Delete assets listed in a file
+
+Delete every asset whose path is listed in `files.txt`, one path per line. `--original-path` matches any part of the path, so prefer full paths. Deleted assets go to the trash unless you pass `--force true`:
 
 ```bash
 while read -r path; do
   id=$(immichpy search search-assets --original-path "$path" | jq -r '.assets.items[0].id')
   if [ "$id" != null ]; then
-    immichpy assets delete-assets --ids "$id" && echo "Deleted $id $path"
+    immichpy assets delete-assets --ids "$id" > /dev/null && echo "Deleted $id $path"
   else
     echo "Not found: $path"
   fi
 done < files.txt
 ```
 
-## Run a command against several profiles
+```console
+Deleted 81acecd9-ac4e-467d-a007-d83783116997 /data/library/2004/01/IMGP0548.avi
+Not found: /data/library/2004/01/IMGP0549.avi
+```
 
-Select a profile per command with `--profile` (`-p`) or the `IMMICH_PROFILE` environment variable, or loop over profiles to apply the same change to several accounts:
+## Administration
+
+### Onboard a family member
+
+Create an account with a storage quota and a forced password change, then share your library with them as a partner:
 
 <!-- termynal -->
 
 ```console
-$ IMMICH_PROFILE=family immichpy server get-about-info
+$ immichpy users-admin create-user-admin --email alex@example.com --name Alex \
+  --password change-me-123 --should-change-password true \
+  --quota-size-in-bytes $((50 * 1024 ** 3)) | jq -r '.id'
+04f0bbfd-9640-4b07-85c2-7f912cdfb65a
+
+$ immichpy partners create-partner --shared-with-id 04f0bbfd-9640-4b07-85c2-7f912cdfb65a
+{
+  "email": "alex@example.com",
+  "id": "04f0bbfd-9640-4b07-85c2-7f912cdfb65a",
+  "name": "Alex",
+  ...
+}
+```
+
+### Show storage usage per user
+
+Print photos and storage per user, for example for a dashboard or a cron job:
+
+<!-- termynal -->
+
+```console
+$ immichpy server get-server-statistics \
+  | jq -r '.usage_by_user[] | "\(.user_name)\t\(.photos) photos\t\(.usage / 1e9 * 100 | round / 100) GB"'
+Jane Doe 32566 photos 13.43 GB
+Alex 0 photos 0 GB
+Jason 26 photos 0.1 GB
+Mich 8 photos 0.03 GB
+```
+
+### Scan a library with machine learning paused
+
+Pause the machine learning queues during a large import, trigger an external library scan, and resume them afterwards:
+
+<!-- termynal -->
+
+```console
+$ immichpy libraries get-all-libraries | jq -r '.[] | "\(.name) \(.id)"'
+Family Photos 098adb6d-0a9b-494a-bd66-2ae6c0bf28ff
+
+$ for q in smartSearch faceDetection; do immichpy queues update-queue $q --is-paused true | jq -c '{name, is_paused}'; done
+{"name":"smartSearch","is_paused":true}
+{"name":"faceDetection","is_paused":true}
+
+$ immichpy libraries scan-library 098adb6d-0a9b-494a-bd66-2ae6c0bf28ff
+
+$ for q in smartSearch faceDetection; do immichpy queues update-queue $q --is-paused false | jq -c '{name, is_paused}'; done
+{"name":"smartSearch","is_paused":false}
+{"name":"faceDetection","is_paused":false}
+```
+
+### Run a command against several profiles
+
+Select a profile per command with `--profile` (`-p`) or the `IMMICH_PROFILE` environment variable, or loop over profiles to run the same command for several accounts:
+
+<!-- termynal -->
+
+```console
+$ IMMICH_PROFILE=family immichpy server get-about-info | jq -r .version
+v2.4.0
 
 $ for p in alice bob; do immichpy -p $p albums get-all-albums | jq length; done
 12
 4
 ```
 
-## Rotate an API key
+### Rotate an API key
 
 Rotate an API key and store the new secret in your profile. The secret is only shown once:
 
