@@ -1,7 +1,0 @@
-[extend]
-useDefault = true
-
-[[allowlists]]
-description = "Example shared link keys in the CLI docs"
-targetRules = ["generic-api-key"]
-paths = ['''docs/cli/examples\.md''']

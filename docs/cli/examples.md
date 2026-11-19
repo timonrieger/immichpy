@@ -119,17 +119,17 @@ $ immichpy albums add-users-to-album cccdd9f7-6a0f-4ed1-9dc0-ad8774ff9798 \
 
 ## Share an album with a link
 
-Create a password-protected link for people without an Immich account using [`shared-links create-shared-link`](reference.md#immichpy-shared-links-create-shared-link):
+Create a password-protected link with a custom name for people without an Immich account using [`shared-links create-shared-link`](reference.md#immichpy-shared-links-create-shared-link):
 
 <!-- termynal -->
 
 ```console
 $ immichpy shared-links create-shared-link --type ALBUM \
-  --album-id 851c8f67-9bf3-48f5-8130-59da9ab17c06 --password s3cret
+  --album-id 851c8f67-9bf3-48f5-8130-59da9ab17c06 --password s3cret --slug paris-2025
 {
   "allow_download": true,
-  "id": "dbe788c4-3ba9-4195-b835-2b393fb7adcc",
-  "key": "5CCZJL7zI2QW6NVCkE6aX1_HRWiX0TGY620sjVFfiZWxpYvYf886SNy6vcwOt2FciBQ",
+  "id": "3146a36e-abc2-447d-a890-3b26ab08e36f",
+  "slug": "paris-2025",
   "type": "ALBUM",
   …
 }
