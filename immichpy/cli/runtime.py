@@ -6,6 +6,7 @@ import asyncio
 import json
 import traceback
 from collections.abc import Awaitable, Callable
+from datetime import datetime
 from typing import TYPE_CHECKING, Any, Protocol, TypeVar, cast
 
 from pydantic import BaseModel
@@ -57,6 +58,19 @@ def validate_body(model: type[ModelT], data: Any) -> ModelT:
     :raises pydantic.ValidationError: If `data` has keys the model does not define
     """
     return model.model_validate(data, extra="forbid")
+
+
+def parse_datetime(value: str) -> datetime:
+    """Parse an ISO 8601 datetime option value.
+
+    The server rejects datetimes without a timezone, so naive input is read as local time.
+
+    :param value: The raw option string, e.g. `2024-01-01` or `2024-01-01T00:00:00Z`
+    :return: The timezone-aware datetime
+    :raises ValueError: If `value` is not a valid ISO 8601 datetime
+    """
+    dt = datetime.fromisoformat(value)
+    return dt if dt.tzinfo else dt.astimezone()
 
 
 def parse_json_option(value: str, option: str, *, ctx: Context | None = None) -> Any:

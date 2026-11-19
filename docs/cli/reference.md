@@ -1244,11 +1244,11 @@ immichpy assets upload-asset [OPTIONS]
 
 * `--asset-data <path>`: Asset file data  [required]
 * `--duration <int range>`: Duration in milliseconds (for videos)  [0&lt;=x&lt;=9007199254740991]
-* `--file-created-at <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: File creation date
+* `--file-created-at <ISO 8601>`: File creation date
 
 Example: 2024-01-01T00:00:00.000Z  [required]
 
-* `--file-modified-at <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: File modification date
+* `--file-modified-at <ISO 8601>`: File modification date
 
 Example: 2024-01-01T00:00:00.000Z  [required]
 
@@ -3302,11 +3302,11 @@ immichpy map get-map-markers [OPTIONS]
 
 **Options**:
 
-* `--file-created-after <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Filter assets created after this date
+* `--file-created-after <ISO 8601>`: Filter assets created after this date
 
 Example: 2024-01-01T00:00:00.000Z
 
-* `--file-created-before <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Filter assets created before this date
+* `--file-created-before <ISO 8601>`: Filter assets created before this date
 
 Example: 2024-01-01T00:00:00.000Z
 
@@ -3400,20 +3400,20 @@ immichpy memories create-memory [OPTIONS]
 * `--data-person-id <uuid>`: Person ID (birthday memories)
 * `--data-person-name <str>`: Name of the person when the memory was created (birthday memories)
 * `--data-year <int range>`: Year of the memory  [1000&lt;=x&lt;=9999; required]
-* `--hide-at <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Date when memory should be hidden
+* `--hide-at <ISO 8601>`: Date when memory should be hidden
 
 Example: 2024-01-01T00:00:00.000Z
 
 * `--is-saved <true|false>`: Is memory saved
-* `--memory-at <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Memory date
+* `--memory-at <ISO 8601>`: Memory date
 
 Example: 2024-01-01T00:00:00.000Z  [required]
 
-* `--seen-at <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Date when memory was seen
+* `--seen-at <ISO 8601>`: Date when memory was seen
 
 Example: 2024-01-01T00:00:00.000Z
 
-* `--show-at <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Date when memory should be shown
+* `--show-at <ISO 8601>`: Date when memory should be shown
 
 Example: 2024-01-01T00:00:00.000Z
 
@@ -3556,11 +3556,11 @@ immichpy memories update-memory [OPTIONS] {id}
 **Options**:
 
 * `--is-saved <true|false>`: Is memory saved
-* `--memory-at <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Memory date
+* `--memory-at <ISO 8601>`: Memory date
 
 Example: 2024-01-01T00:00:00.000Z
 
-* `--seen-at <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Date when memory was seen
+* `--seen-at <ISO 8601>`: Date when memory was seen
 
 Example: 2024-01-01T00:00:00.000Z
 
@@ -3686,7 +3686,7 @@ immichpy notifications update-notification [OPTIONS] {id}
 
 **Options**:
 
-* `--read-at <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Date when notification was read
+* `--read-at <ISO 8601>`: Date when notification was read
 
 Example: 2024-01-01T00:00:00.000Z
 
@@ -3707,7 +3707,7 @@ immichpy notifications update-notifications [OPTIONS]
 **Options**:
 
 * `--ids <uuid>`: Notification IDs to update  [required]
-* `--read-at <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Date when notifications were read
+* `--read-at <ISO 8601>`: Date when notifications were read
 
 Example: 2024-01-01T00:00:00.000Z
 
@@ -3755,7 +3755,7 @@ As a JSON string
 
 * `--description <str>`: Notification description
 * `--level <success|error|warning|info>`: Notification level
-* `--read-at <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Date when notification was read
+* `--read-at <ISO 8601>`: Date when notification was read
 
 Example: 2024-01-01T00:00:00.000Z
 
@@ -4778,11 +4778,11 @@ immichpy search search-asset-statistics [OPTIONS]
 * `--album-ids <uuid>`: Filter by album IDs
 * `--city <str>`: Filter by city name
 * `--country <str>`: Filter by country name
-* `--created-after <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Filter by creation date (after)
+* `--created-after <ISO 8601>`: Filter by creation date (after)
 
 Example: 2024-01-01T00:00:00.000Z
 
-* `--created-before <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Filter by creation date (before)
+* `--created-before <ISO 8601>`: Filter by creation date (before)
 
 Example: 2024-01-01T00:00:00.000Z
 
@@ -4802,12 +4802,12 @@ Example: 2024-01-01T00:00:00.000Z
 * `--filter-country-in <str>`
 * `--filter-country-ne <str>`
 * `--filter-country-not-in <str>`
-* `--filter-created-at-eq <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
-* `--filter-created-at-gt <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
-* `--filter-created-at-gte <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
-* `--filter-created-at-lt <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
-* `--filter-created-at-lte <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
-* `--filter-created-at-ne <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
+* `--filter-created-at-eq <ISO 8601>`: Example: 2024-01-01T00:00:00.000Z
+* `--filter-created-at-gt <ISO 8601>`: Example: 2024-01-01T00:00:00.000Z
+* `--filter-created-at-gte <ISO 8601>`: Example: 2024-01-01T00:00:00.000Z
+* `--filter-created-at-lt <ISO 8601>`: Example: 2024-01-01T00:00:00.000Z
+* `--filter-created-at-lte <ISO 8601>`: Example: 2024-01-01T00:00:00.000Z
+* `--filter-created-at-ne <ISO 8601>`: Example: 2024-01-01T00:00:00.000Z
 * `--filter-description-ends-with <str>`
 * `--filter-description-eq <str>`
 * `--filter-description-in <str>`
@@ -4887,28 +4887,28 @@ Example: 2024-01-01T00:00:00.000Z
 * `--filter-tag-ids-all <uuid>`
 * `--filter-tag-ids-any <uuid>`
 * `--filter-tag-ids-none <uuid>`
-* `--filter-taken-at-eq <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
-* `--filter-taken-at-gt <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
-* `--filter-taken-at-gte <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
-* `--filter-taken-at-lt <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
-* `--filter-taken-at-lte <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
-* `--filter-taken-at-ne <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
-* `--filter-trashed-at-eq <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
-* `--filter-trashed-at-gt <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
-* `--filter-trashed-at-gte <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
-* `--filter-trashed-at-lt <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
-* `--filter-trashed-at-lte <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
-* `--filter-trashed-at-ne <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
+* `--filter-taken-at-eq <ISO 8601>`: Example: 2024-01-01T00:00:00.000Z
+* `--filter-taken-at-gt <ISO 8601>`: Example: 2024-01-01T00:00:00.000Z
+* `--filter-taken-at-gte <ISO 8601>`: Example: 2024-01-01T00:00:00.000Z
+* `--filter-taken-at-lt <ISO 8601>`: Example: 2024-01-01T00:00:00.000Z
+* `--filter-taken-at-lte <ISO 8601>`: Example: 2024-01-01T00:00:00.000Z
+* `--filter-taken-at-ne <ISO 8601>`: Example: 2024-01-01T00:00:00.000Z
+* `--filter-trashed-at-eq <ISO 8601>`: Example: 2024-01-01T00:00:00.000Z
+* `--filter-trashed-at-gt <ISO 8601>`: Example: 2024-01-01T00:00:00.000Z
+* `--filter-trashed-at-gte <ISO 8601>`: Example: 2024-01-01T00:00:00.000Z
+* `--filter-trashed-at-lt <ISO 8601>`: Example: 2024-01-01T00:00:00.000Z
+* `--filter-trashed-at-lte <ISO 8601>`: Example: 2024-01-01T00:00:00.000Z
+* `--filter-trashed-at-ne <ISO 8601>`: Example: 2024-01-01T00:00:00.000Z
 * `--filter-type-eq <IMAGE|VIDEO|AUDIO|OTHER>`: Asset type
 * `--filter-type-in <IMAGE|VIDEO|AUDIO|OTHER>`
 * `--filter-type-ne <IMAGE|VIDEO|AUDIO|OTHER>`: Asset type
 * `--filter-type-not-in <IMAGE|VIDEO|AUDIO|OTHER>`
-* `--filter-updated-at-eq <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
-* `--filter-updated-at-gt <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
-* `--filter-updated-at-gte <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
-* `--filter-updated-at-lt <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
-* `--filter-updated-at-lte <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
-* `--filter-updated-at-ne <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
+* `--filter-updated-at-eq <ISO 8601>`: Example: 2024-01-01T00:00:00.000Z
+* `--filter-updated-at-gt <ISO 8601>`: Example: 2024-01-01T00:00:00.000Z
+* `--filter-updated-at-gte <ISO 8601>`: Example: 2024-01-01T00:00:00.000Z
+* `--filter-updated-at-lt <ISO 8601>`: Example: 2024-01-01T00:00:00.000Z
+* `--filter-updated-at-lte <ISO 8601>`: Example: 2024-01-01T00:00:00.000Z
+* `--filter-updated-at-ne <ISO 8601>`: Example: 2024-01-01T00:00:00.000Z
 * `--filter-visibility-eq <archive|timeline|hidden|locked>`: Asset visibility
 * `--filter-visibility-in <archive|timeline|hidden|locked>`
 * `--filter-visibility-ne <archive|timeline|hidden|locked>`: Asset visibility
@@ -4927,28 +4927,28 @@ Example: 2024-01-01T00:00:00.000Z
 * `--rating <int range>`: Filter by rating [1-5], or null for unrated  [1&lt;=x&lt;=5]
 * `--state <str>`: Filter by state/province name
 * `--tag-ids <uuid>`: Filter by tag IDs
-* `--taken-after <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Filter by taken date (after)
+* `--taken-after <ISO 8601>`: Filter by taken date (after)
 
 Example: 2024-01-01T00:00:00.000Z
 
-* `--taken-before <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Filter by taken date (before)
+* `--taken-before <ISO 8601>`: Filter by taken date (before)
 
 Example: 2024-01-01T00:00:00.000Z
 
-* `--trashed-after <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Filter by trash date (after)
+* `--trashed-after <ISO 8601>`: Filter by trash date (after)
 
 Example: 2024-01-01T00:00:00.000Z
 
-* `--trashed-before <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Filter by trash date (before)
+* `--trashed-before <ISO 8601>`: Filter by trash date (before)
 
 Example: 2024-01-01T00:00:00.000Z
 
 * `--type <IMAGE|VIDEO|AUDIO|OTHER>`: Asset type
-* `--updated-after <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Filter by update date (after)
+* `--updated-after <ISO 8601>`: Filter by update date (after)
 
 Example: 2024-01-01T00:00:00.000Z
 
-* `--updated-before <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Filter by update date (before)
+* `--updated-before <ISO 8601>`: Filter by update date (before)
 
 Example: 2024-01-01T00:00:00.000Z
 
@@ -4973,11 +4973,11 @@ immichpy search search-assets [OPTIONS]
 * `--checksum <str>`: Filter by file checksum
 * `--city <str>`: Filter by city name
 * `--country <str>`: Filter by country name
-* `--created-after <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Filter by creation date (after)
+* `--created-after <ISO 8601>`: Filter by creation date (after)
 
 Example: 2024-01-01T00:00:00.000Z
 
-* `--created-before <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Filter by creation date (before)
+* `--created-before <ISO 8601>`: Filter by creation date (before)
 
 Example: 2024-01-01T00:00:00.000Z
 
@@ -4999,12 +4999,12 @@ Example: 2024-01-01T00:00:00.000Z
 * `--filter-country-in <str>`
 * `--filter-country-ne <str>`
 * `--filter-country-not-in <str>`
-* `--filter-created-at-eq <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
-* `--filter-created-at-gt <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
-* `--filter-created-at-gte <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
-* `--filter-created-at-lt <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
-* `--filter-created-at-lte <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
-* `--filter-created-at-ne <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
+* `--filter-created-at-eq <ISO 8601>`: Example: 2024-01-01T00:00:00.000Z
+* `--filter-created-at-gt <ISO 8601>`: Example: 2024-01-01T00:00:00.000Z
+* `--filter-created-at-gte <ISO 8601>`: Example: 2024-01-01T00:00:00.000Z
+* `--filter-created-at-lt <ISO 8601>`: Example: 2024-01-01T00:00:00.000Z
+* `--filter-created-at-lte <ISO 8601>`: Example: 2024-01-01T00:00:00.000Z
+* `--filter-created-at-ne <ISO 8601>`: Example: 2024-01-01T00:00:00.000Z
 * `--filter-description-ends-with <str>`
 * `--filter-description-eq <str>`
 * `--filter-description-in <str>`
@@ -5084,28 +5084,28 @@ Example: 2024-01-01T00:00:00.000Z
 * `--filter-tag-ids-all <uuid>`
 * `--filter-tag-ids-any <uuid>`
 * `--filter-tag-ids-none <uuid>`
-* `--filter-taken-at-eq <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
-* `--filter-taken-at-gt <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
-* `--filter-taken-at-gte <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
-* `--filter-taken-at-lt <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
-* `--filter-taken-at-lte <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
-* `--filter-taken-at-ne <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
-* `--filter-trashed-at-eq <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
-* `--filter-trashed-at-gt <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
-* `--filter-trashed-at-gte <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
-* `--filter-trashed-at-lt <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
-* `--filter-trashed-at-lte <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
-* `--filter-trashed-at-ne <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
+* `--filter-taken-at-eq <ISO 8601>`: Example: 2024-01-01T00:00:00.000Z
+* `--filter-taken-at-gt <ISO 8601>`: Example: 2024-01-01T00:00:00.000Z
+* `--filter-taken-at-gte <ISO 8601>`: Example: 2024-01-01T00:00:00.000Z
+* `--filter-taken-at-lt <ISO 8601>`: Example: 2024-01-01T00:00:00.000Z
+* `--filter-taken-at-lte <ISO 8601>`: Example: 2024-01-01T00:00:00.000Z
+* `--filter-taken-at-ne <ISO 8601>`: Example: 2024-01-01T00:00:00.000Z
+* `--filter-trashed-at-eq <ISO 8601>`: Example: 2024-01-01T00:00:00.000Z
+* `--filter-trashed-at-gt <ISO 8601>`: Example: 2024-01-01T00:00:00.000Z
+* `--filter-trashed-at-gte <ISO 8601>`: Example: 2024-01-01T00:00:00.000Z
+* `--filter-trashed-at-lt <ISO 8601>`: Example: 2024-01-01T00:00:00.000Z
+* `--filter-trashed-at-lte <ISO 8601>`: Example: 2024-01-01T00:00:00.000Z
+* `--filter-trashed-at-ne <ISO 8601>`: Example: 2024-01-01T00:00:00.000Z
 * `--filter-type-eq <IMAGE|VIDEO|AUDIO|OTHER>`: Asset type
 * `--filter-type-in <IMAGE|VIDEO|AUDIO|OTHER>`
 * `--filter-type-ne <IMAGE|VIDEO|AUDIO|OTHER>`: Asset type
 * `--filter-type-not-in <IMAGE|VIDEO|AUDIO|OTHER>`
-* `--filter-updated-at-eq <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
-* `--filter-updated-at-gt <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
-* `--filter-updated-at-gte <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
-* `--filter-updated-at-lt <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
-* `--filter-updated-at-lte <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
-* `--filter-updated-at-ne <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
+* `--filter-updated-at-eq <ISO 8601>`: Example: 2024-01-01T00:00:00.000Z
+* `--filter-updated-at-gt <ISO 8601>`: Example: 2024-01-01T00:00:00.000Z
+* `--filter-updated-at-gte <ISO 8601>`: Example: 2024-01-01T00:00:00.000Z
+* `--filter-updated-at-lt <ISO 8601>`: Example: 2024-01-01T00:00:00.000Z
+* `--filter-updated-at-lte <ISO 8601>`: Example: 2024-01-01T00:00:00.000Z
+* `--filter-updated-at-ne <ISO 8601>`: Example: 2024-01-01T00:00:00.000Z
 * `--filter-visibility-eq <archive|timeline|hidden|locked>`: Asset visibility
 * `--filter-visibility-in <archive|timeline|hidden|locked>`
 * `--filter-visibility-ne <archive|timeline|hidden|locked>`: Asset visibility
@@ -5135,29 +5135,29 @@ Example: 2024-01-01T00:00:00.000Z
 * `--slug <str>`
 * `--state <str>`: Filter by state/province name
 * `--tag-ids <uuid>`: Filter by tag IDs
-* `--taken-after <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Filter by taken date (after)
+* `--taken-after <ISO 8601>`: Filter by taken date (after)
 
 Example: 2024-01-01T00:00:00.000Z
 
-* `--taken-before <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Filter by taken date (before)
+* `--taken-before <ISO 8601>`: Filter by taken date (before)
 
 Example: 2024-01-01T00:00:00.000Z
 
 * `--thumbnail-path <str>`: Filter by thumbnail file path
-* `--trashed-after <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Filter by trash date (after)
+* `--trashed-after <ISO 8601>`: Filter by trash date (after)
 
 Example: 2024-01-01T00:00:00.000Z
 
-* `--trashed-before <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Filter by trash date (before)
+* `--trashed-before <ISO 8601>`: Filter by trash date (before)
 
 Example: 2024-01-01T00:00:00.000Z
 
 * `--type <IMAGE|VIDEO|AUDIO|OTHER>`: Asset type
-* `--updated-after <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Filter by update date (after)
+* `--updated-after <ISO 8601>`: Filter by update date (after)
 
 Example: 2024-01-01T00:00:00.000Z
 
-* `--updated-before <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Filter by update date (before)
+* `--updated-before <ISO 8601>`: Filter by update date (before)
 
 Example: 2024-01-01T00:00:00.000Z
 
@@ -5185,11 +5185,11 @@ immichpy search search-large-assets [OPTIONS]
 * `--album-ids <uuid>`: Filter by album IDs
 * `--city <str>`: Filter by city name
 * `--country <str>`: Filter by country name
-* `--created-after <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Filter by creation date (after)
+* `--created-after <ISO 8601>`: Filter by creation date (after)
 
 Example: 2024-01-01T00:00:00.000Z
 
-* `--created-before <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Filter by creation date (before)
+* `--created-before <ISO 8601>`: Filter by creation date (before)
 
 Example: 2024-01-01T00:00:00.000Z
 
@@ -5209,28 +5209,28 @@ Example: 2024-01-01T00:00:00.000Z
 * `--size <int range>`: Number of results to return  [1&lt;=x&lt;=1000]
 * `--state <str>`: Filter by state/province name
 * `--tag-ids <uuid>`: Filter by tag IDs
-* `--taken-after <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Filter by taken date (after)
+* `--taken-after <ISO 8601>`: Filter by taken date (after)
 
 Example: 2024-01-01T00:00:00.000Z
 
-* `--taken-before <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Filter by taken date (before)
+* `--taken-before <ISO 8601>`: Filter by taken date (before)
 
 Example: 2024-01-01T00:00:00.000Z
 
-* `--trashed-after <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Filter by trash date (after)
+* `--trashed-after <ISO 8601>`: Filter by trash date (after)
 
 Example: 2024-01-01T00:00:00.000Z
 
-* `--trashed-before <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Filter by trash date (before)
+* `--trashed-before <ISO 8601>`: Filter by trash date (before)
 
 Example: 2024-01-01T00:00:00.000Z
 
 * `--type <IMAGE|VIDEO|AUDIO|OTHER>`
-* `--updated-after <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Filter by update date (after)
+* `--updated-after <ISO 8601>`: Filter by update date (after)
 
 Example: 2024-01-01T00:00:00.000Z
 
-* `--updated-before <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Filter by update date (before)
+* `--updated-before <ISO 8601>`: Filter by update date (before)
 
 Example: 2024-01-01T00:00:00.000Z
 
@@ -5291,11 +5291,11 @@ immichpy search search-random [OPTIONS]
 * `--album-ids <uuid>`: Filter by album IDs
 * `--city <str>`: Filter by city name
 * `--country <str>`: Filter by country name
-* `--created-after <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Filter by creation date (after)
+* `--created-after <ISO 8601>`: Filter by creation date (after)
 
 Example: 2024-01-01T00:00:00.000Z
 
-* `--created-before <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Filter by creation date (before)
+* `--created-before <ISO 8601>`: Filter by creation date (before)
 
 Example: 2024-01-01T00:00:00.000Z
 
@@ -5314,12 +5314,12 @@ Example: 2024-01-01T00:00:00.000Z
 * `--filter-country-in <str>`
 * `--filter-country-ne <str>`
 * `--filter-country-not-in <str>`
-* `--filter-created-at-eq <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
-* `--filter-created-at-gt <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
-* `--filter-created-at-gte <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
-* `--filter-created-at-lt <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
-* `--filter-created-at-lte <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
-* `--filter-created-at-ne <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
+* `--filter-created-at-eq <ISO 8601>`: Example: 2024-01-01T00:00:00.000Z
+* `--filter-created-at-gt <ISO 8601>`: Example: 2024-01-01T00:00:00.000Z
+* `--filter-created-at-gte <ISO 8601>`: Example: 2024-01-01T00:00:00.000Z
+* `--filter-created-at-lt <ISO 8601>`: Example: 2024-01-01T00:00:00.000Z
+* `--filter-created-at-lte <ISO 8601>`: Example: 2024-01-01T00:00:00.000Z
+* `--filter-created-at-ne <ISO 8601>`: Example: 2024-01-01T00:00:00.000Z
 * `--filter-description-ends-with <str>`
 * `--filter-description-eq <str>`
 * `--filter-description-in <str>`
@@ -5399,28 +5399,28 @@ Example: 2024-01-01T00:00:00.000Z
 * `--filter-tag-ids-all <uuid>`
 * `--filter-tag-ids-any <uuid>`
 * `--filter-tag-ids-none <uuid>`
-* `--filter-taken-at-eq <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
-* `--filter-taken-at-gt <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
-* `--filter-taken-at-gte <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
-* `--filter-taken-at-lt <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
-* `--filter-taken-at-lte <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
-* `--filter-taken-at-ne <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
-* `--filter-trashed-at-eq <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
-* `--filter-trashed-at-gt <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
-* `--filter-trashed-at-gte <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
-* `--filter-trashed-at-lt <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
-* `--filter-trashed-at-lte <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
-* `--filter-trashed-at-ne <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
+* `--filter-taken-at-eq <ISO 8601>`: Example: 2024-01-01T00:00:00.000Z
+* `--filter-taken-at-gt <ISO 8601>`: Example: 2024-01-01T00:00:00.000Z
+* `--filter-taken-at-gte <ISO 8601>`: Example: 2024-01-01T00:00:00.000Z
+* `--filter-taken-at-lt <ISO 8601>`: Example: 2024-01-01T00:00:00.000Z
+* `--filter-taken-at-lte <ISO 8601>`: Example: 2024-01-01T00:00:00.000Z
+* `--filter-taken-at-ne <ISO 8601>`: Example: 2024-01-01T00:00:00.000Z
+* `--filter-trashed-at-eq <ISO 8601>`: Example: 2024-01-01T00:00:00.000Z
+* `--filter-trashed-at-gt <ISO 8601>`: Example: 2024-01-01T00:00:00.000Z
+* `--filter-trashed-at-gte <ISO 8601>`: Example: 2024-01-01T00:00:00.000Z
+* `--filter-trashed-at-lt <ISO 8601>`: Example: 2024-01-01T00:00:00.000Z
+* `--filter-trashed-at-lte <ISO 8601>`: Example: 2024-01-01T00:00:00.000Z
+* `--filter-trashed-at-ne <ISO 8601>`: Example: 2024-01-01T00:00:00.000Z
 * `--filter-type-eq <IMAGE|VIDEO|AUDIO|OTHER>`: Asset type
 * `--filter-type-in <IMAGE|VIDEO|AUDIO|OTHER>`
 * `--filter-type-ne <IMAGE|VIDEO|AUDIO|OTHER>`: Asset type
 * `--filter-type-not-in <IMAGE|VIDEO|AUDIO|OTHER>`
-* `--filter-updated-at-eq <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
-* `--filter-updated-at-gt <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
-* `--filter-updated-at-gte <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
-* `--filter-updated-at-lt <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
-* `--filter-updated-at-lte <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
-* `--filter-updated-at-ne <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
+* `--filter-updated-at-eq <ISO 8601>`: Example: 2024-01-01T00:00:00.000Z
+* `--filter-updated-at-gt <ISO 8601>`: Example: 2024-01-01T00:00:00.000Z
+* `--filter-updated-at-gte <ISO 8601>`: Example: 2024-01-01T00:00:00.000Z
+* `--filter-updated-at-lt <ISO 8601>`: Example: 2024-01-01T00:00:00.000Z
+* `--filter-updated-at-lte <ISO 8601>`: Example: 2024-01-01T00:00:00.000Z
+* `--filter-updated-at-ne <ISO 8601>`: Example: 2024-01-01T00:00:00.000Z
 * `--filter-visibility-eq <archive|timeline|hidden|locked>`: Asset visibility
 * `--filter-visibility-in <archive|timeline|hidden|locked>`
 * `--filter-visibility-ne <archive|timeline|hidden|locked>`: Asset visibility
@@ -5440,28 +5440,28 @@ Example: 2024-01-01T00:00:00.000Z
 * `--size <int range>`: Number of results to return  [1&lt;=x&lt;=1000]
 * `--state <str>`: Filter by state/province name
 * `--tag-ids <uuid>`: Filter by tag IDs
-* `--taken-after <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Filter by taken date (after)
+* `--taken-after <ISO 8601>`: Filter by taken date (after)
 
 Example: 2024-01-01T00:00:00.000Z
 
-* `--taken-before <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Filter by taken date (before)
+* `--taken-before <ISO 8601>`: Filter by taken date (before)
 
 Example: 2024-01-01T00:00:00.000Z
 
-* `--trashed-after <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Filter by trash date (after)
+* `--trashed-after <ISO 8601>`: Filter by trash date (after)
 
 Example: 2024-01-01T00:00:00.000Z
 
-* `--trashed-before <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Filter by trash date (before)
+* `--trashed-before <ISO 8601>`: Filter by trash date (before)
 
 Example: 2024-01-01T00:00:00.000Z
 
 * `--type <IMAGE|VIDEO|AUDIO|OTHER>`: Asset type
-* `--updated-after <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Filter by update date (after)
+* `--updated-after <ISO 8601>`: Filter by update date (after)
 
 Example: 2024-01-01T00:00:00.000Z
 
-* `--updated-before <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Filter by update date (before)
+* `--updated-before <ISO 8601>`: Filter by update date (before)
 
 Example: 2024-01-01T00:00:00.000Z
 
@@ -5489,11 +5489,11 @@ immichpy search search-smart [OPTIONS]
 * `--album-ids <uuid>`: Filter by album IDs
 * `--city <str>`: Filter by city name
 * `--country <str>`: Filter by country name
-* `--created-after <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Filter by creation date (after)
+* `--created-after <ISO 8601>`: Filter by creation date (after)
 
 Example: 2024-01-01T00:00:00.000Z
 
-* `--created-before <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Filter by creation date (before)
+* `--created-before <ISO 8601>`: Filter by creation date (before)
 
 Example: 2024-01-01T00:00:00.000Z
 
@@ -5512,12 +5512,12 @@ Example: 2024-01-01T00:00:00.000Z
 * `--filter-country-in <str>`
 * `--filter-country-ne <str>`
 * `--filter-country-not-in <str>`
-* `--filter-created-at-eq <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
-* `--filter-created-at-gt <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
-* `--filter-created-at-gte <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
-* `--filter-created-at-lt <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
-* `--filter-created-at-lte <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
-* `--filter-created-at-ne <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
+* `--filter-created-at-eq <ISO 8601>`: Example: 2024-01-01T00:00:00.000Z
+* `--filter-created-at-gt <ISO 8601>`: Example: 2024-01-01T00:00:00.000Z
+* `--filter-created-at-gte <ISO 8601>`: Example: 2024-01-01T00:00:00.000Z
+* `--filter-created-at-lt <ISO 8601>`: Example: 2024-01-01T00:00:00.000Z
+* `--filter-created-at-lte <ISO 8601>`: Example: 2024-01-01T00:00:00.000Z
+* `--filter-created-at-ne <ISO 8601>`: Example: 2024-01-01T00:00:00.000Z
 * `--filter-description-ends-with <str>`
 * `--filter-description-eq <str>`
 * `--filter-description-in <str>`
@@ -5597,28 +5597,28 @@ Example: 2024-01-01T00:00:00.000Z
 * `--filter-tag-ids-all <uuid>`
 * `--filter-tag-ids-any <uuid>`
 * `--filter-tag-ids-none <uuid>`
-* `--filter-taken-at-eq <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
-* `--filter-taken-at-gt <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
-* `--filter-taken-at-gte <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
-* `--filter-taken-at-lt <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
-* `--filter-taken-at-lte <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
-* `--filter-taken-at-ne <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
-* `--filter-trashed-at-eq <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
-* `--filter-trashed-at-gt <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
-* `--filter-trashed-at-gte <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
-* `--filter-trashed-at-lt <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
-* `--filter-trashed-at-lte <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
-* `--filter-trashed-at-ne <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
+* `--filter-taken-at-eq <ISO 8601>`: Example: 2024-01-01T00:00:00.000Z
+* `--filter-taken-at-gt <ISO 8601>`: Example: 2024-01-01T00:00:00.000Z
+* `--filter-taken-at-gte <ISO 8601>`: Example: 2024-01-01T00:00:00.000Z
+* `--filter-taken-at-lt <ISO 8601>`: Example: 2024-01-01T00:00:00.000Z
+* `--filter-taken-at-lte <ISO 8601>`: Example: 2024-01-01T00:00:00.000Z
+* `--filter-taken-at-ne <ISO 8601>`: Example: 2024-01-01T00:00:00.000Z
+* `--filter-trashed-at-eq <ISO 8601>`: Example: 2024-01-01T00:00:00.000Z
+* `--filter-trashed-at-gt <ISO 8601>`: Example: 2024-01-01T00:00:00.000Z
+* `--filter-trashed-at-gte <ISO 8601>`: Example: 2024-01-01T00:00:00.000Z
+* `--filter-trashed-at-lt <ISO 8601>`: Example: 2024-01-01T00:00:00.000Z
+* `--filter-trashed-at-lte <ISO 8601>`: Example: 2024-01-01T00:00:00.000Z
+* `--filter-trashed-at-ne <ISO 8601>`: Example: 2024-01-01T00:00:00.000Z
 * `--filter-type-eq <IMAGE|VIDEO|AUDIO|OTHER>`: Asset type
 * `--filter-type-in <IMAGE|VIDEO|AUDIO|OTHER>`
 * `--filter-type-ne <IMAGE|VIDEO|AUDIO|OTHER>`: Asset type
 * `--filter-type-not-in <IMAGE|VIDEO|AUDIO|OTHER>`
-* `--filter-updated-at-eq <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
-* `--filter-updated-at-gt <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
-* `--filter-updated-at-gte <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
-* `--filter-updated-at-lt <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
-* `--filter-updated-at-lte <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
-* `--filter-updated-at-ne <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Example: 2024-01-01T00:00:00.000Z
+* `--filter-updated-at-eq <ISO 8601>`: Example: 2024-01-01T00:00:00.000Z
+* `--filter-updated-at-gt <ISO 8601>`: Example: 2024-01-01T00:00:00.000Z
+* `--filter-updated-at-gte <ISO 8601>`: Example: 2024-01-01T00:00:00.000Z
+* `--filter-updated-at-lt <ISO 8601>`: Example: 2024-01-01T00:00:00.000Z
+* `--filter-updated-at-lte <ISO 8601>`: Example: 2024-01-01T00:00:00.000Z
+* `--filter-updated-at-ne <ISO 8601>`: Example: 2024-01-01T00:00:00.000Z
 * `--filter-visibility-eq <archive|timeline|hidden|locked>`: Asset visibility
 * `--filter-visibility-in <archive|timeline|hidden|locked>`
 * `--filter-visibility-ne <archive|timeline|hidden|locked>`: Asset visibility
@@ -5642,28 +5642,28 @@ Example: 2024-01-01T00:00:00.000Z
 * `--size <int range>`: Number of results to return  [1&lt;=x&lt;=1000]
 * `--state <str>`: Filter by state/province name
 * `--tag-ids <uuid>`: Filter by tag IDs
-* `--taken-after <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Filter by taken date (after)
+* `--taken-after <ISO 8601>`: Filter by taken date (after)
 
 Example: 2024-01-01T00:00:00.000Z
 
-* `--taken-before <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Filter by taken date (before)
+* `--taken-before <ISO 8601>`: Filter by taken date (before)
 
 Example: 2024-01-01T00:00:00.000Z
 
-* `--trashed-after <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Filter by trash date (after)
+* `--trashed-after <ISO 8601>`: Filter by trash date (after)
 
 Example: 2024-01-01T00:00:00.000Z
 
-* `--trashed-before <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Filter by trash date (before)
+* `--trashed-before <ISO 8601>`: Filter by trash date (before)
 
 Example: 2024-01-01T00:00:00.000Z
 
 * `--type <IMAGE|VIDEO|AUDIO|OTHER>`: Asset type
-* `--updated-after <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Filter by update date (after)
+* `--updated-after <ISO 8601>`: Filter by update date (after)
 
 Example: 2024-01-01T00:00:00.000Z
 
-* `--updated-before <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Filter by update date (before)
+* `--updated-before <ISO 8601>`: Filter by update date (before)
 
 Example: 2024-01-01T00:00:00.000Z
 
@@ -6136,7 +6136,7 @@ immichpy shared-links create-shared-link [OPTIONS]
 * `--allow-upload <true|false>`: Allow uploads
 * `--asset-ids <uuid>`: Asset IDs (for individual assets)
 * `--description <str>`: Link description
-* `--expires-at <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Expiration date
+* `--expires-at <ISO 8601>`: Expiration date
 
 Example: 2024-01-01T00:00:00.000Z
 
@@ -6286,7 +6286,7 @@ immichpy shared-links update-shared-link [OPTIONS] {id}
 * `--allow-download <true|false>`: Allow downloads
 * `--allow-upload <true|false>`: Allow uploads
 * `--description <str>`: Link description
-* `--expires-at <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Expiration date
+* `--expires-at <ISO 8601>`: Expiration date
 
 Example: 2024-01-01T00:00:00.000Z
 
@@ -8090,7 +8090,7 @@ immichpy workflows get-workflow-logs [OPTIONS] {id}
 
 **Options**:
 
-* `--before <%Y-%m-%d|%Y-%m-%dT%H:%M:%S|%Y-%m-%d %H:%M:%S>`: Filter by runs before a date/time
+* `--before <ISO 8601>`: Filter by runs before a date/time
 
 Example: 2024-01-01T00:00:00.000Z
 

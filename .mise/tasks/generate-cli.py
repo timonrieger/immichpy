@@ -418,6 +418,12 @@ def generate_command_function(
         min_arg = f", min={minimum}" if minimum is not None else ""
         max_arg = f", max={maximum}" if maximum is not None else ""
         exists_arg = ", exists=True" if param.type == "Path" else ""
+        # Typer's datetime type rejects timezones and yields naive values, which the server rejects.
+        parser_arg = (
+            ', parser=parse_datetime, metavar="<ISO 8601>"'
+            if param.type == "datetime"
+            else ""
+        )
         type_str = param.type if param.required else f"{param.type} | None"
         default_value = "..." if param.required else "None"
         # Only rename non-path params that collide with path params in the same operation
@@ -427,7 +433,7 @@ def generate_command_function(
             param.name = "body_" + param.name
         if param.location == "path":
             lines.append(
-                f"    {param.name}: {param.type} = typer.Argument(...{help_arg}{exists_arg}),"
+                f"    {param.name}: {param.type} = typer.Argument(...{help_arg}{exists_arg}{parser_arg}),"
             )
         else:
             # use tri-state boolean for optional, but regular boolean for required
@@ -435,7 +441,7 @@ def generate_command_function(
             if param.type == "bool" and not param.required:
                 type_str = "Literal['true', 'false'] | None"
             lines.append(
-                f'    {param.name}: {type_str} = typer.Option({default_value}, "--{param.flag_name}"{help_arg}{min_arg}{max_arg}{exists_arg}),'
+                f'    {param.name}: {type_str} = typer.Option({default_value}, "--{param.flag_name}"{help_arg}{min_arg}{max_arg}{exists_arg}{parser_arg}),'
             )
 
     lines.append(") -> None:")
@@ -615,7 +621,7 @@ def generate_tag_app(
         "if TYPE_CHECKING:",
         "    from immichpy import AsyncClient",
         "",
-        "from immichpy.cli.runtime import parse_json_option, parse_json_options, print_response, run_command, set_nested",
+        "from immichpy.cli.runtime import parse_datetime, parse_json_option, parse_json_options, print_response, run_command, set_nested",
     ]
     if used_models:
         lines.append(

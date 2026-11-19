@@ -11,7 +11,7 @@ import typer
 if TYPE_CHECKING:
     from immichpy import AsyncClient
 
-from immichpy.cli.runtime import print_response, run_command, set_nested
+from immichpy.cli.runtime import parse_datetime, print_response, run_command, set_nested
 from immichpy.client.generated.models import (
     BulkIdsDto,
     MemoryCreateDto,
@@ -69,6 +69,8 @@ def create_memory(
         help=r"""Date when memory should be hidden
 
 Example: 2024-01-01T00:00:00.000Z""",
+        parser=parse_datetime,
+        metavar="<ISO 8601>",
     ),
     is_saved: Literal["true", "false"] | None = typer.Option(
         None, "--is-saved", help=r"""Is memory saved"""
@@ -79,6 +81,8 @@ Example: 2024-01-01T00:00:00.000Z""",
         help=r"""Memory date
 
 Example: 2024-01-01T00:00:00.000Z""",
+        parser=parse_datetime,
+        metavar="<ISO 8601>",
     ),
     seen_at: datetime | None = typer.Option(
         None,
@@ -86,6 +90,8 @@ Example: 2024-01-01T00:00:00.000Z""",
         help=r"""Date when memory was seen
 
 Example: 2024-01-01T00:00:00.000Z""",
+        parser=parse_datetime,
+        metavar="<ISO 8601>",
     ),
     show_at: datetime | None = typer.Option(
         None,
@@ -93,6 +99,8 @@ Example: 2024-01-01T00:00:00.000Z""",
         help=r"""Date when memory should be shown
 
 Example: 2024-01-01T00:00:00.000Z""",
+        parser=parse_datetime,
+        metavar="<ISO 8601>",
     ),
     type: MemoryType = typer.Option(..., "--type", help=r"""Memory type"""),
 ) -> None:
@@ -318,6 +326,8 @@ def update_memory(
         help=r"""Memory date
 
 Example: 2024-01-01T00:00:00.000Z""",
+        parser=parse_datetime,
+        metavar="<ISO 8601>",
     ),
     seen_at: datetime | None = typer.Option(
         None,
@@ -325,6 +335,8 @@ Example: 2024-01-01T00:00:00.000Z""",
         help=r"""Date when memory was seen
 
 Example: 2024-01-01T00:00:00.000Z""",
+        parser=parse_datetime,
+        metavar="<ISO 8601>",
     ),
 ) -> None:
     """Update a memory

@@ -12,6 +12,7 @@ if TYPE_CHECKING:
     from immichpy import AsyncClient
 
 from immichpy.cli.runtime import (
+    parse_datetime,
     parse_json_options,
     print_response,
     run_command,
@@ -134,6 +135,8 @@ def get_workflow_logs(
         help=r"""Filter by runs before a date/time
 
 Example: 2024-01-01T00:00:00.000Z""",
+        parser=parse_datetime,
+        metavar="<ISO 8601>",
     ),
     limit: int | None = typer.Option(
         None, "--limit", help=r"""Maximum number of logs""", min=0, max=9007199254740991

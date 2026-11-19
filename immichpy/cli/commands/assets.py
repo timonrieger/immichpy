@@ -13,6 +13,7 @@ if TYPE_CHECKING:
     from immichpy import AsyncClient
 
 from immichpy.cli.runtime import (
+    parse_datetime,
     parse_json_options,
     print_response,
     run_command,
@@ -743,6 +744,8 @@ def upload_asset(
         help=r"""File creation date
 
 Example: 2024-01-01T00:00:00.000Z""",
+        parser=parse_datetime,
+        metavar="<ISO 8601>",
     ),
     file_modified_at: datetime = typer.Option(
         ...,
@@ -750,6 +753,8 @@ Example: 2024-01-01T00:00:00.000Z""",
         help=r"""File modification date
 
 Example: 2024-01-01T00:00:00.000Z""",
+        parser=parse_datetime,
+        metavar="<ISO 8601>",
     ),
     filename: str | None = typer.Option(None, "--filename", help=r"""Filename"""),
     is_favorite: Literal["true", "false"] | None = typer.Option(

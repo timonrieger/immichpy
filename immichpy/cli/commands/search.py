@@ -12,6 +12,7 @@ if TYPE_CHECKING:
     from immichpy import AsyncClient
 
 from immichpy.cli.runtime import (
+    parse_datetime,
     parse_json_options,
     print_response,
     run_command,
@@ -124,6 +125,8 @@ def search_asset_statistics(
         help=r"""Filter by creation date (after)
 
 Example: 2024-01-01T00:00:00.000Z""",
+        parser=parse_datetime,
+        metavar="<ISO 8601>",
     ),
     created_before: datetime | None = typer.Option(
         None,
@@ -131,6 +134,8 @@ Example: 2024-01-01T00:00:00.000Z""",
         help=r"""Filter by creation date (before)
 
 Example: 2024-01-01T00:00:00.000Z""",
+        parser=parse_datetime,
+        metavar="<ISO 8601>",
     ),
     description: str | None = typer.Option(
         None, "--description", help=r"""Filter by description text"""
@@ -177,22 +182,46 @@ Example: 2024-01-01T00:00:00.000Z""",
         None, "--filter-country-not-in", help=r""""""
     ),
     filter_created_at_eq: datetime | None = typer.Option(
-        None, "--filter-created-at-eq", help=r"""Example: 2024-01-01T00:00:00.000Z"""
+        None,
+        "--filter-created-at-eq",
+        help=r"""Example: 2024-01-01T00:00:00.000Z""",
+        parser=parse_datetime,
+        metavar="<ISO 8601>",
     ),
     filter_created_at_gt: datetime | None = typer.Option(
-        None, "--filter-created-at-gt", help=r"""Example: 2024-01-01T00:00:00.000Z"""
+        None,
+        "--filter-created-at-gt",
+        help=r"""Example: 2024-01-01T00:00:00.000Z""",
+        parser=parse_datetime,
+        metavar="<ISO 8601>",
     ),
     filter_created_at_gte: datetime | None = typer.Option(
-        None, "--filter-created-at-gte", help=r"""Example: 2024-01-01T00:00:00.000Z"""
+        None,
+        "--filter-created-at-gte",
+        help=r"""Example: 2024-01-01T00:00:00.000Z""",
+        parser=parse_datetime,
+        metavar="<ISO 8601>",
     ),
     filter_created_at_lt: datetime | None = typer.Option(
-        None, "--filter-created-at-lt", help=r"""Example: 2024-01-01T00:00:00.000Z"""
+        None,
+        "--filter-created-at-lt",
+        help=r"""Example: 2024-01-01T00:00:00.000Z""",
+        parser=parse_datetime,
+        metavar="<ISO 8601>",
     ),
     filter_created_at_lte: datetime | None = typer.Option(
-        None, "--filter-created-at-lte", help=r"""Example: 2024-01-01T00:00:00.000Z"""
+        None,
+        "--filter-created-at-lte",
+        help=r"""Example: 2024-01-01T00:00:00.000Z""",
+        parser=parse_datetime,
+        metavar="<ISO 8601>",
     ),
     filter_created_at_ne: datetime | None = typer.Option(
-        None, "--filter-created-at-ne", help=r"""Example: 2024-01-01T00:00:00.000Z"""
+        None,
+        "--filter-created-at-ne",
+        help=r"""Example: 2024-01-01T00:00:00.000Z""",
+        parser=parse_datetime,
+        metavar="<ISO 8601>",
     ),
     filter_description_ends_with: str | None = typer.Option(
         None, "--filter-description-ends-with", help=r""""""
@@ -418,40 +447,88 @@ Example: 2024-01-01T00:00:00.000Z""",
         None, "--filter-tag-ids-none", help=r""""""
     ),
     filter_taken_at_eq: datetime | None = typer.Option(
-        None, "--filter-taken-at-eq", help=r"""Example: 2024-01-01T00:00:00.000Z"""
+        None,
+        "--filter-taken-at-eq",
+        help=r"""Example: 2024-01-01T00:00:00.000Z""",
+        parser=parse_datetime,
+        metavar="<ISO 8601>",
     ),
     filter_taken_at_gt: datetime | None = typer.Option(
-        None, "--filter-taken-at-gt", help=r"""Example: 2024-01-01T00:00:00.000Z"""
+        None,
+        "--filter-taken-at-gt",
+        help=r"""Example: 2024-01-01T00:00:00.000Z""",
+        parser=parse_datetime,
+        metavar="<ISO 8601>",
     ),
     filter_taken_at_gte: datetime | None = typer.Option(
-        None, "--filter-taken-at-gte", help=r"""Example: 2024-01-01T00:00:00.000Z"""
+        None,
+        "--filter-taken-at-gte",
+        help=r"""Example: 2024-01-01T00:00:00.000Z""",
+        parser=parse_datetime,
+        metavar="<ISO 8601>",
     ),
     filter_taken_at_lt: datetime | None = typer.Option(
-        None, "--filter-taken-at-lt", help=r"""Example: 2024-01-01T00:00:00.000Z"""
+        None,
+        "--filter-taken-at-lt",
+        help=r"""Example: 2024-01-01T00:00:00.000Z""",
+        parser=parse_datetime,
+        metavar="<ISO 8601>",
     ),
     filter_taken_at_lte: datetime | None = typer.Option(
-        None, "--filter-taken-at-lte", help=r"""Example: 2024-01-01T00:00:00.000Z"""
+        None,
+        "--filter-taken-at-lte",
+        help=r"""Example: 2024-01-01T00:00:00.000Z""",
+        parser=parse_datetime,
+        metavar="<ISO 8601>",
     ),
     filter_taken_at_ne: datetime | None = typer.Option(
-        None, "--filter-taken-at-ne", help=r"""Example: 2024-01-01T00:00:00.000Z"""
+        None,
+        "--filter-taken-at-ne",
+        help=r"""Example: 2024-01-01T00:00:00.000Z""",
+        parser=parse_datetime,
+        metavar="<ISO 8601>",
     ),
     filter_trashed_at_eq: datetime | None = typer.Option(
-        None, "--filter-trashed-at-eq", help=r"""Example: 2024-01-01T00:00:00.000Z"""
+        None,
+        "--filter-trashed-at-eq",
+        help=r"""Example: 2024-01-01T00:00:00.000Z""",
+        parser=parse_datetime,
+        metavar="<ISO 8601>",
     ),
     filter_trashed_at_gt: datetime | None = typer.Option(
-        None, "--filter-trashed-at-gt", help=r"""Example: 2024-01-01T00:00:00.000Z"""
+        None,
+        "--filter-trashed-at-gt",
+        help=r"""Example: 2024-01-01T00:00:00.000Z""",
+        parser=parse_datetime,
+        metavar="<ISO 8601>",
     ),
     filter_trashed_at_gte: datetime | None = typer.Option(
-        None, "--filter-trashed-at-gte", help=r"""Example: 2024-01-01T00:00:00.000Z"""
+        None,
+        "--filter-trashed-at-gte",
+        help=r"""Example: 2024-01-01T00:00:00.000Z""",
+        parser=parse_datetime,
+        metavar="<ISO 8601>",
     ),
     filter_trashed_at_lt: datetime | None = typer.Option(
-        None, "--filter-trashed-at-lt", help=r"""Example: 2024-01-01T00:00:00.000Z"""
+        None,
+        "--filter-trashed-at-lt",
+        help=r"""Example: 2024-01-01T00:00:00.000Z""",
+        parser=parse_datetime,
+        metavar="<ISO 8601>",
     ),
     filter_trashed_at_lte: datetime | None = typer.Option(
-        None, "--filter-trashed-at-lte", help=r"""Example: 2024-01-01T00:00:00.000Z"""
+        None,
+        "--filter-trashed-at-lte",
+        help=r"""Example: 2024-01-01T00:00:00.000Z""",
+        parser=parse_datetime,
+        metavar="<ISO 8601>",
     ),
     filter_trashed_at_ne: datetime | None = typer.Option(
-        None, "--filter-trashed-at-ne", help=r"""Example: 2024-01-01T00:00:00.000Z"""
+        None,
+        "--filter-trashed-at-ne",
+        help=r"""Example: 2024-01-01T00:00:00.000Z""",
+        parser=parse_datetime,
+        metavar="<ISO 8601>",
     ),
     filter_type_eq: AssetTypeEnum | None = typer.Option(
         None, "--filter-type-eq", help=r"""Asset type"""
@@ -466,22 +543,46 @@ Example: 2024-01-01T00:00:00.000Z""",
         None, "--filter-type-not-in", help=r""""""
     ),
     filter_updated_at_eq: datetime | None = typer.Option(
-        None, "--filter-updated-at-eq", help=r"""Example: 2024-01-01T00:00:00.000Z"""
+        None,
+        "--filter-updated-at-eq",
+        help=r"""Example: 2024-01-01T00:00:00.000Z""",
+        parser=parse_datetime,
+        metavar="<ISO 8601>",
     ),
     filter_updated_at_gt: datetime | None = typer.Option(
-        None, "--filter-updated-at-gt", help=r"""Example: 2024-01-01T00:00:00.000Z"""
+        None,
+        "--filter-updated-at-gt",
+        help=r"""Example: 2024-01-01T00:00:00.000Z""",
+        parser=parse_datetime,
+        metavar="<ISO 8601>",
     ),
     filter_updated_at_gte: datetime | None = typer.Option(
-        None, "--filter-updated-at-gte", help=r"""Example: 2024-01-01T00:00:00.000Z"""
+        None,
+        "--filter-updated-at-gte",
+        help=r"""Example: 2024-01-01T00:00:00.000Z""",
+        parser=parse_datetime,
+        metavar="<ISO 8601>",
     ),
     filter_updated_at_lt: datetime | None = typer.Option(
-        None, "--filter-updated-at-lt", help=r"""Example: 2024-01-01T00:00:00.000Z"""
+        None,
+        "--filter-updated-at-lt",
+        help=r"""Example: 2024-01-01T00:00:00.000Z""",
+        parser=parse_datetime,
+        metavar="<ISO 8601>",
     ),
     filter_updated_at_lte: datetime | None = typer.Option(
-        None, "--filter-updated-at-lte", help=r"""Example: 2024-01-01T00:00:00.000Z"""
+        None,
+        "--filter-updated-at-lte",
+        help=r"""Example: 2024-01-01T00:00:00.000Z""",
+        parser=parse_datetime,
+        metavar="<ISO 8601>",
     ),
     filter_updated_at_ne: datetime | None = typer.Option(
-        None, "--filter-updated-at-ne", help=r"""Example: 2024-01-01T00:00:00.000Z"""
+        None,
+        "--filter-updated-at-ne",
+        help=r"""Example: 2024-01-01T00:00:00.000Z""",
+        parser=parse_datetime,
+        metavar="<ISO 8601>",
     ),
     filter_visibility_eq: AssetVisibility | None = typer.Option(
         None, "--filter-visibility-eq", help=r"""Asset visibility"""
@@ -545,6 +646,8 @@ Example: 2024-01-01T00:00:00.000Z""",
         help=r"""Filter by taken date (after)
 
 Example: 2024-01-01T00:00:00.000Z""",
+        parser=parse_datetime,
+        metavar="<ISO 8601>",
     ),
     taken_before: datetime | None = typer.Option(
         None,
@@ -552,6 +655,8 @@ Example: 2024-01-01T00:00:00.000Z""",
         help=r"""Filter by taken date (before)
 
 Example: 2024-01-01T00:00:00.000Z""",
+        parser=parse_datetime,
+        metavar="<ISO 8601>",
     ),
     trashed_after: datetime | None = typer.Option(
         None,
@@ -559,6 +664,8 @@ Example: 2024-01-01T00:00:00.000Z""",
         help=r"""Filter by trash date (after)
 
 Example: 2024-01-01T00:00:00.000Z""",
+        parser=parse_datetime,
+        metavar="<ISO 8601>",
     ),
     trashed_before: datetime | None = typer.Option(
         None,
@@ -566,6 +673,8 @@ Example: 2024-01-01T00:00:00.000Z""",
         help=r"""Filter by trash date (before)
 
 Example: 2024-01-01T00:00:00.000Z""",
+        parser=parse_datetime,
+        metavar="<ISO 8601>",
     ),
     type: AssetTypeEnum | None = typer.Option(None, "--type", help=r"""Asset type"""),
     updated_after: datetime | None = typer.Option(
@@ -574,6 +683,8 @@ Example: 2024-01-01T00:00:00.000Z""",
         help=r"""Filter by update date (after)
 
 Example: 2024-01-01T00:00:00.000Z""",
+        parser=parse_datetime,
+        metavar="<ISO 8601>",
     ),
     updated_before: datetime | None = typer.Option(
         None,
@@ -581,6 +692,8 @@ Example: 2024-01-01T00:00:00.000Z""",
         help=r"""Filter by update date (before)
 
 Example: 2024-01-01T00:00:00.000Z""",
+        parser=parse_datetime,
+        metavar="<ISO 8601>",
     ),
     visibility: AssetVisibility | None = typer.Option(
         None, "--visibility", help=r"""Asset visibility"""
@@ -1061,6 +1174,8 @@ def search_assets(
         help=r"""Filter by creation date (after)
 
 Example: 2024-01-01T00:00:00.000Z""",
+        parser=parse_datetime,
+        metavar="<ISO 8601>",
     ),
     created_before: datetime | None = typer.Option(
         None,
@@ -1068,6 +1183,8 @@ Example: 2024-01-01T00:00:00.000Z""",
         help=r"""Filter by creation date (before)
 
 Example: 2024-01-01T00:00:00.000Z""",
+        parser=parse_datetime,
+        metavar="<ISO 8601>",
     ),
     cursor: str | None = typer.Option(
         None, "--cursor", help=r"""Cursor for the next page of results"""
@@ -1120,22 +1237,46 @@ Example: 2024-01-01T00:00:00.000Z""",
         None, "--filter-country-not-in", help=r""""""
     ),
     filter_created_at_eq: datetime | None = typer.Option(
-        None, "--filter-created-at-eq", help=r"""Example: 2024-01-01T00:00:00.000Z"""
+        None,
+        "--filter-created-at-eq",
+        help=r"""Example: 2024-01-01T00:00:00.000Z""",
+        parser=parse_datetime,
+        metavar="<ISO 8601>",
     ),
     filter_created_at_gt: datetime | None = typer.Option(
-        None, "--filter-created-at-gt", help=r"""Example: 2024-01-01T00:00:00.000Z"""
+        None,
+        "--filter-created-at-gt",
+        help=r"""Example: 2024-01-01T00:00:00.000Z""",
+        parser=parse_datetime,
+        metavar="<ISO 8601>",
     ),
     filter_created_at_gte: datetime | None = typer.Option(
-        None, "--filter-created-at-gte", help=r"""Example: 2024-01-01T00:00:00.000Z"""
+        None,
+        "--filter-created-at-gte",
+        help=r"""Example: 2024-01-01T00:00:00.000Z""",
+        parser=parse_datetime,
+        metavar="<ISO 8601>",
     ),
     filter_created_at_lt: datetime | None = typer.Option(
-        None, "--filter-created-at-lt", help=r"""Example: 2024-01-01T00:00:00.000Z"""
+        None,
+        "--filter-created-at-lt",
+        help=r"""Example: 2024-01-01T00:00:00.000Z""",
+        parser=parse_datetime,
+        metavar="<ISO 8601>",
     ),
     filter_created_at_lte: datetime | None = typer.Option(
-        None, "--filter-created-at-lte", help=r"""Example: 2024-01-01T00:00:00.000Z"""
+        None,
+        "--filter-created-at-lte",
+        help=r"""Example: 2024-01-01T00:00:00.000Z""",
+        parser=parse_datetime,
+        metavar="<ISO 8601>",
     ),
     filter_created_at_ne: datetime | None = typer.Option(
-        None, "--filter-created-at-ne", help=r"""Example: 2024-01-01T00:00:00.000Z"""
+        None,
+        "--filter-created-at-ne",
+        help=r"""Example: 2024-01-01T00:00:00.000Z""",
+        parser=parse_datetime,
+        metavar="<ISO 8601>",
     ),
     filter_description_ends_with: str | None = typer.Option(
         None, "--filter-description-ends-with", help=r""""""
@@ -1361,40 +1502,88 @@ Example: 2024-01-01T00:00:00.000Z""",
         None, "--filter-tag-ids-none", help=r""""""
     ),
     filter_taken_at_eq: datetime | None = typer.Option(
-        None, "--filter-taken-at-eq", help=r"""Example: 2024-01-01T00:00:00.000Z"""
+        None,
+        "--filter-taken-at-eq",
+        help=r"""Example: 2024-01-01T00:00:00.000Z""",
+        parser=parse_datetime,
+        metavar="<ISO 8601>",
     ),
     filter_taken_at_gt: datetime | None = typer.Option(
-        None, "--filter-taken-at-gt", help=r"""Example: 2024-01-01T00:00:00.000Z"""
+        None,
+        "--filter-taken-at-gt",
+        help=r"""Example: 2024-01-01T00:00:00.000Z""",
+        parser=parse_datetime,
+        metavar="<ISO 8601>",
     ),
     filter_taken_at_gte: datetime | None = typer.Option(
-        None, "--filter-taken-at-gte", help=r"""Example: 2024-01-01T00:00:00.000Z"""
+        None,
+        "--filter-taken-at-gte",
+        help=r"""Example: 2024-01-01T00:00:00.000Z""",
+        parser=parse_datetime,
+        metavar="<ISO 8601>",
     ),
     filter_taken_at_lt: datetime | None = typer.Option(
-        None, "--filter-taken-at-lt", help=r"""Example: 2024-01-01T00:00:00.000Z"""
+        None,
+        "--filter-taken-at-lt",
+        help=r"""Example: 2024-01-01T00:00:00.000Z""",
+        parser=parse_datetime,
+        metavar="<ISO 8601>",
     ),
     filter_taken_at_lte: datetime | None = typer.Option(
-        None, "--filter-taken-at-lte", help=r"""Example: 2024-01-01T00:00:00.000Z"""
+        None,
+        "--filter-taken-at-lte",
+        help=r"""Example: 2024-01-01T00:00:00.000Z""",
+        parser=parse_datetime,
+        metavar="<ISO 8601>",
     ),
     filter_taken_at_ne: datetime | None = typer.Option(
-        None, "--filter-taken-at-ne", help=r"""Example: 2024-01-01T00:00:00.000Z"""
+        None,
+        "--filter-taken-at-ne",
+        help=r"""Example: 2024-01-01T00:00:00.000Z""",
+        parser=parse_datetime,
+        metavar="<ISO 8601>",
     ),
     filter_trashed_at_eq: datetime | None = typer.Option(
-        None, "--filter-trashed-at-eq", help=r"""Example: 2024-01-01T00:00:00.000Z"""
+        None,
+        "--filter-trashed-at-eq",
+        help=r"""Example: 2024-01-01T00:00:00.000Z""",
+        parser=parse_datetime,
+        metavar="<ISO 8601>",
     ),
     filter_trashed_at_gt: datetime | None = typer.Option(
-        None, "--filter-trashed-at-gt", help=r"""Example: 2024-01-01T00:00:00.000Z"""
+        None,
+        "--filter-trashed-at-gt",
+        help=r"""Example: 2024-01-01T00:00:00.000Z""",
+        parser=parse_datetime,
+        metavar="<ISO 8601>",
     ),
     filter_trashed_at_gte: datetime | None = typer.Option(
-        None, "--filter-trashed-at-gte", help=r"""Example: 2024-01-01T00:00:00.000Z"""
+        None,
+        "--filter-trashed-at-gte",
+        help=r"""Example: 2024-01-01T00:00:00.000Z""",
+        parser=parse_datetime,
+        metavar="<ISO 8601>",
     ),
     filter_trashed_at_lt: datetime | None = typer.Option(
-        None, "--filter-trashed-at-lt", help=r"""Example: 2024-01-01T00:00:00.000Z"""
+        None,
+        "--filter-trashed-at-lt",
+        help=r"""Example: 2024-01-01T00:00:00.000Z""",
+        parser=parse_datetime,
+        metavar="<ISO 8601>",
     ),
     filter_trashed_at_lte: datetime | None = typer.Option(
-        None, "--filter-trashed-at-lte", help=r"""Example: 2024-01-01T00:00:00.000Z"""
+        None,
+        "--filter-trashed-at-lte",
+        help=r"""Example: 2024-01-01T00:00:00.000Z""",
+        parser=parse_datetime,
+        metavar="<ISO 8601>",
     ),
     filter_trashed_at_ne: datetime | None = typer.Option(
-        None, "--filter-trashed-at-ne", help=r"""Example: 2024-01-01T00:00:00.000Z"""
+        None,
+        "--filter-trashed-at-ne",
+        help=r"""Example: 2024-01-01T00:00:00.000Z""",
+        parser=parse_datetime,
+        metavar="<ISO 8601>",
     ),
     filter_type_eq: AssetTypeEnum | None = typer.Option(
         None, "--filter-type-eq", help=r"""Asset type"""
@@ -1409,22 +1598,46 @@ Example: 2024-01-01T00:00:00.000Z""",
         None, "--filter-type-not-in", help=r""""""
     ),
     filter_updated_at_eq: datetime | None = typer.Option(
-        None, "--filter-updated-at-eq", help=r"""Example: 2024-01-01T00:00:00.000Z"""
+        None,
+        "--filter-updated-at-eq",
+        help=r"""Example: 2024-01-01T00:00:00.000Z""",
+        parser=parse_datetime,
+        metavar="<ISO 8601>",
     ),
     filter_updated_at_gt: datetime | None = typer.Option(
-        None, "--filter-updated-at-gt", help=r"""Example: 2024-01-01T00:00:00.000Z"""
+        None,
+        "--filter-updated-at-gt",
+        help=r"""Example: 2024-01-01T00:00:00.000Z""",
+        parser=parse_datetime,
+        metavar="<ISO 8601>",
     ),
     filter_updated_at_gte: datetime | None = typer.Option(
-        None, "--filter-updated-at-gte", help=r"""Example: 2024-01-01T00:00:00.000Z"""
+        None,
+        "--filter-updated-at-gte",
+        help=r"""Example: 2024-01-01T00:00:00.000Z""",
+        parser=parse_datetime,
+        metavar="<ISO 8601>",
     ),
     filter_updated_at_lt: datetime | None = typer.Option(
-        None, "--filter-updated-at-lt", help=r"""Example: 2024-01-01T00:00:00.000Z"""
+        None,
+        "--filter-updated-at-lt",
+        help=r"""Example: 2024-01-01T00:00:00.000Z""",
+        parser=parse_datetime,
+        metavar="<ISO 8601>",
     ),
     filter_updated_at_lte: datetime | None = typer.Option(
-        None, "--filter-updated-at-lte", help=r"""Example: 2024-01-01T00:00:00.000Z"""
+        None,
+        "--filter-updated-at-lte",
+        help=r"""Example: 2024-01-01T00:00:00.000Z""",
+        parser=parse_datetime,
+        metavar="<ISO 8601>",
     ),
     filter_updated_at_ne: datetime | None = typer.Option(
-        None, "--filter-updated-at-ne", help=r"""Example: 2024-01-01T00:00:00.000Z"""
+        None,
+        "--filter-updated-at-ne",
+        help=r"""Example: 2024-01-01T00:00:00.000Z""",
+        parser=parse_datetime,
+        metavar="<ISO 8601>",
     ),
     filter_visibility_eq: AssetVisibility | None = typer.Option(
         None, "--filter-visibility-eq", help=r"""Asset visibility"""
@@ -1515,6 +1728,8 @@ Example: 2024-01-01T00:00:00.000Z""",
         help=r"""Filter by taken date (after)
 
 Example: 2024-01-01T00:00:00.000Z""",
+        parser=parse_datetime,
+        metavar="<ISO 8601>",
     ),
     taken_before: datetime | None = typer.Option(
         None,
@@ -1522,6 +1737,8 @@ Example: 2024-01-01T00:00:00.000Z""",
         help=r"""Filter by taken date (before)
 
 Example: 2024-01-01T00:00:00.000Z""",
+        parser=parse_datetime,
+        metavar="<ISO 8601>",
     ),
     thumbnail_path: str | None = typer.Option(
         None, "--thumbnail-path", help=r"""Filter by thumbnail file path"""
@@ -1532,6 +1749,8 @@ Example: 2024-01-01T00:00:00.000Z""",
         help=r"""Filter by trash date (after)
 
 Example: 2024-01-01T00:00:00.000Z""",
+        parser=parse_datetime,
+        metavar="<ISO 8601>",
     ),
     trashed_before: datetime | None = typer.Option(
         None,
@@ -1539,6 +1758,8 @@ Example: 2024-01-01T00:00:00.000Z""",
         help=r"""Filter by trash date (before)
 
 Example: 2024-01-01T00:00:00.000Z""",
+        parser=parse_datetime,
+        metavar="<ISO 8601>",
     ),
     type: AssetTypeEnum | None = typer.Option(None, "--type", help=r"""Asset type"""),
     updated_after: datetime | None = typer.Option(
@@ -1547,6 +1768,8 @@ Example: 2024-01-01T00:00:00.000Z""",
         help=r"""Filter by update date (after)
 
 Example: 2024-01-01T00:00:00.000Z""",
+        parser=parse_datetime,
+        metavar="<ISO 8601>",
     ),
     updated_before: datetime | None = typer.Option(
         None,
@@ -1554,6 +1777,8 @@ Example: 2024-01-01T00:00:00.000Z""",
         help=r"""Filter by update date (before)
 
 Example: 2024-01-01T00:00:00.000Z""",
+        parser=parse_datetime,
+        metavar="<ISO 8601>",
     ),
     visibility: AssetVisibility | None = typer.Option(
         None, "--visibility", help=r"""Asset visibility"""
@@ -2081,6 +2306,8 @@ def search_large_assets(
         help=r"""Filter by creation date (after)
 
 Example: 2024-01-01T00:00:00.000Z""",
+        parser=parse_datetime,
+        metavar="<ISO 8601>",
     ),
     created_before: datetime | None = typer.Option(
         None,
@@ -2088,6 +2315,8 @@ Example: 2024-01-01T00:00:00.000Z""",
         help=r"""Filter by creation date (before)
 
 Example: 2024-01-01T00:00:00.000Z""",
+        parser=parse_datetime,
+        metavar="<ISO 8601>",
     ),
     is_encoded: Literal["true", "false"] | None = typer.Option(
         None, "--is-encoded", help=r"""Filter by encoded status"""
@@ -2149,6 +2378,8 @@ Example: 2024-01-01T00:00:00.000Z""",
         help=r"""Filter by taken date (after)
 
 Example: 2024-01-01T00:00:00.000Z""",
+        parser=parse_datetime,
+        metavar="<ISO 8601>",
     ),
     taken_before: datetime | None = typer.Option(
         None,
@@ -2156,6 +2387,8 @@ Example: 2024-01-01T00:00:00.000Z""",
         help=r"""Filter by taken date (before)
 
 Example: 2024-01-01T00:00:00.000Z""",
+        parser=parse_datetime,
+        metavar="<ISO 8601>",
     ),
     trashed_after: datetime | None = typer.Option(
         None,
@@ -2163,6 +2396,8 @@ Example: 2024-01-01T00:00:00.000Z""",
         help=r"""Filter by trash date (after)
 
 Example: 2024-01-01T00:00:00.000Z""",
+        parser=parse_datetime,
+        metavar="<ISO 8601>",
     ),
     trashed_before: datetime | None = typer.Option(
         None,
@@ -2170,6 +2405,8 @@ Example: 2024-01-01T00:00:00.000Z""",
         help=r"""Filter by trash date (before)
 
 Example: 2024-01-01T00:00:00.000Z""",
+        parser=parse_datetime,
+        metavar="<ISO 8601>",
     ),
     type: AssetTypeEnum | None = typer.Option(None, "--type", help=r""""""),
     updated_after: datetime | None = typer.Option(
@@ -2178,6 +2415,8 @@ Example: 2024-01-01T00:00:00.000Z""",
         help=r"""Filter by update date (after)
 
 Example: 2024-01-01T00:00:00.000Z""",
+        parser=parse_datetime,
+        metavar="<ISO 8601>",
     ),
     updated_before: datetime | None = typer.Option(
         None,
@@ -2185,6 +2424,8 @@ Example: 2024-01-01T00:00:00.000Z""",
         help=r"""Filter by update date (before)
 
 Example: 2024-01-01T00:00:00.000Z""",
+        parser=parse_datetime,
+        metavar="<ISO 8601>",
     ),
     visibility: AssetVisibility | None = typer.Option(
         None, "--visibility", help=r""""""
@@ -2321,6 +2562,8 @@ def search_random(
         help=r"""Filter by creation date (after)
 
 Example: 2024-01-01T00:00:00.000Z""",
+        parser=parse_datetime,
+        metavar="<ISO 8601>",
     ),
     created_before: datetime | None = typer.Option(
         None,
@@ -2328,6 +2571,8 @@ Example: 2024-01-01T00:00:00.000Z""",
         help=r"""Filter by creation date (before)
 
 Example: 2024-01-01T00:00:00.000Z""",
+        parser=parse_datetime,
+        metavar="<ISO 8601>",
     ),
     filter_album_ids_all: list[UUID] | None = typer.Option(
         None, "--filter-album-ids-all", help=r""""""
@@ -2371,22 +2616,46 @@ Example: 2024-01-01T00:00:00.000Z""",
         None, "--filter-country-not-in", help=r""""""
     ),
     filter_created_at_eq: datetime | None = typer.Option(
-        None, "--filter-created-at-eq", help=r"""Example: 2024-01-01T00:00:00.000Z"""
+        None,
+        "--filter-created-at-eq",
+        help=r"""Example: 2024-01-01T00:00:00.000Z""",
+        parser=parse_datetime,
+        metavar="<ISO 8601>",
     ),
     filter_created_at_gt: datetime | None = typer.Option(
-        None, "--filter-created-at-gt", help=r"""Example: 2024-01-01T00:00:00.000Z"""
+        None,
+        "--filter-created-at-gt",
+        help=r"""Example: 2024-01-01T00:00:00.000Z""",
+        parser=parse_datetime,
+        metavar="<ISO 8601>",
     ),
     filter_created_at_gte: datetime | None = typer.Option(
-        None, "--filter-created-at-gte", help=r"""Example: 2024-01-01T00:00:00.000Z"""
+        None,
+        "--filter-created-at-gte",
+        help=r"""Example: 2024-01-01T00:00:00.000Z""",
+        parser=parse_datetime,
+        metavar="<ISO 8601>",
     ),
     filter_created_at_lt: datetime | None = typer.Option(
-        None, "--filter-created-at-lt", help=r"""Example: 2024-01-01T00:00:00.000Z"""
+        None,
+        "--filter-created-at-lt",
+        help=r"""Example: 2024-01-01T00:00:00.000Z""",
+        parser=parse_datetime,
+        metavar="<ISO 8601>",
     ),
     filter_created_at_lte: datetime | None = typer.Option(
-        None, "--filter-created-at-lte", help=r"""Example: 2024-01-01T00:00:00.000Z"""
+        None,
+        "--filter-created-at-lte",
+        help=r"""Example: 2024-01-01T00:00:00.000Z""",
+        parser=parse_datetime,
+        metavar="<ISO 8601>",
     ),
     filter_created_at_ne: datetime | None = typer.Option(
-        None, "--filter-created-at-ne", help=r"""Example: 2024-01-01T00:00:00.000Z"""
+        None,
+        "--filter-created-at-ne",
+        help=r"""Example: 2024-01-01T00:00:00.000Z""",
+        parser=parse_datetime,
+        metavar="<ISO 8601>",
     ),
     filter_description_ends_with: str | None = typer.Option(
         None, "--filter-description-ends-with", help=r""""""
@@ -2612,40 +2881,88 @@ Example: 2024-01-01T00:00:00.000Z""",
         None, "--filter-tag-ids-none", help=r""""""
     ),
     filter_taken_at_eq: datetime | None = typer.Option(
-        None, "--filter-taken-at-eq", help=r"""Example: 2024-01-01T00:00:00.000Z"""
+        None,
+        "--filter-taken-at-eq",
+        help=r"""Example: 2024-01-01T00:00:00.000Z""",
+        parser=parse_datetime,
+        metavar="<ISO 8601>",
     ),
     filter_taken_at_gt: datetime | None = typer.Option(
-        None, "--filter-taken-at-gt", help=r"""Example: 2024-01-01T00:00:00.000Z"""
+        None,
+        "--filter-taken-at-gt",
+        help=r"""Example: 2024-01-01T00:00:00.000Z""",
+        parser=parse_datetime,
+        metavar="<ISO 8601>",
     ),
     filter_taken_at_gte: datetime | None = typer.Option(
-        None, "--filter-taken-at-gte", help=r"""Example: 2024-01-01T00:00:00.000Z"""
+        None,
+        "--filter-taken-at-gte",
+        help=r"""Example: 2024-01-01T00:00:00.000Z""",
+        parser=parse_datetime,
+        metavar="<ISO 8601>",
     ),
     filter_taken_at_lt: datetime | None = typer.Option(
-        None, "--filter-taken-at-lt", help=r"""Example: 2024-01-01T00:00:00.000Z"""
+        None,
+        "--filter-taken-at-lt",
+        help=r"""Example: 2024-01-01T00:00:00.000Z""",
+        parser=parse_datetime,
+        metavar="<ISO 8601>",
     ),
     filter_taken_at_lte: datetime | None = typer.Option(
-        None, "--filter-taken-at-lte", help=r"""Example: 2024-01-01T00:00:00.000Z"""
+        None,
+        "--filter-taken-at-lte",
+        help=r"""Example: 2024-01-01T00:00:00.000Z""",
+        parser=parse_datetime,
+        metavar="<ISO 8601>",
     ),
     filter_taken_at_ne: datetime | None = typer.Option(
-        None, "--filter-taken-at-ne", help=r"""Example: 2024-01-01T00:00:00.000Z"""
+        None,
+        "--filter-taken-at-ne",
+        help=r"""Example: 2024-01-01T00:00:00.000Z""",
+        parser=parse_datetime,
+        metavar="<ISO 8601>",
     ),
     filter_trashed_at_eq: datetime | None = typer.Option(
-        None, "--filter-trashed-at-eq", help=r"""Example: 2024-01-01T00:00:00.000Z"""
+        None,
+        "--filter-trashed-at-eq",
+        help=r"""Example: 2024-01-01T00:00:00.000Z""",
+        parser=parse_datetime,
+        metavar="<ISO 8601>",
     ),
     filter_trashed_at_gt: datetime | None = typer.Option(
-        None, "--filter-trashed-at-gt", help=r"""Example: 2024-01-01T00:00:00.000Z"""
+        None,
+        "--filter-trashed-at-gt",
+        help=r"""Example: 2024-01-01T00:00:00.000Z""",
+        parser=parse_datetime,
+        metavar="<ISO 8601>",
     ),
     filter_trashed_at_gte: datetime | None = typer.Option(
-        None, "--filter-trashed-at-gte", help=r"""Example: 2024-01-01T00:00:00.000Z"""
+        None,
+        "--filter-trashed-at-gte",
+        help=r"""Example: 2024-01-01T00:00:00.000Z""",
+        parser=parse_datetime,
+        metavar="<ISO 8601>",
     ),
     filter_trashed_at_lt: datetime | None = typer.Option(
-        None, "--filter-trashed-at-lt", help=r"""Example: 2024-01-01T00:00:00.000Z"""
+        None,
+        "--filter-trashed-at-lt",
+        help=r"""Example: 2024-01-01T00:00:00.000Z""",
+        parser=parse_datetime,
+        metavar="<ISO 8601>",
     ),
     filter_trashed_at_lte: datetime | None = typer.Option(
-        None, "--filter-trashed-at-lte", help=r"""Example: 2024-01-01T00:00:00.000Z"""
+        None,
+        "--filter-trashed-at-lte",
+        help=r"""Example: 2024-01-01T00:00:00.000Z""",
+        parser=parse_datetime,
+        metavar="<ISO 8601>",
     ),
     filter_trashed_at_ne: datetime | None = typer.Option(
-        None, "--filter-trashed-at-ne", help=r"""Example: 2024-01-01T00:00:00.000Z"""
+        None,
+        "--filter-trashed-at-ne",
+        help=r"""Example: 2024-01-01T00:00:00.000Z""",
+        parser=parse_datetime,
+        metavar="<ISO 8601>",
     ),
     filter_type_eq: AssetTypeEnum | None = typer.Option(
         None, "--filter-type-eq", help=r"""Asset type"""
@@ -2660,22 +2977,46 @@ Example: 2024-01-01T00:00:00.000Z""",
         None, "--filter-type-not-in", help=r""""""
     ),
     filter_updated_at_eq: datetime | None = typer.Option(
-        None, "--filter-updated-at-eq", help=r"""Example: 2024-01-01T00:00:00.000Z"""
+        None,
+        "--filter-updated-at-eq",
+        help=r"""Example: 2024-01-01T00:00:00.000Z""",
+        parser=parse_datetime,
+        metavar="<ISO 8601>",
     ),
     filter_updated_at_gt: datetime | None = typer.Option(
-        None, "--filter-updated-at-gt", help=r"""Example: 2024-01-01T00:00:00.000Z"""
+        None,
+        "--filter-updated-at-gt",
+        help=r"""Example: 2024-01-01T00:00:00.000Z""",
+        parser=parse_datetime,
+        metavar="<ISO 8601>",
     ),
     filter_updated_at_gte: datetime | None = typer.Option(
-        None, "--filter-updated-at-gte", help=r"""Example: 2024-01-01T00:00:00.000Z"""
+        None,
+        "--filter-updated-at-gte",
+        help=r"""Example: 2024-01-01T00:00:00.000Z""",
+        parser=parse_datetime,
+        metavar="<ISO 8601>",
     ),
     filter_updated_at_lt: datetime | None = typer.Option(
-        None, "--filter-updated-at-lt", help=r"""Example: 2024-01-01T00:00:00.000Z"""
+        None,
+        "--filter-updated-at-lt",
+        help=r"""Example: 2024-01-01T00:00:00.000Z""",
+        parser=parse_datetime,
+        metavar="<ISO 8601>",
     ),
     filter_updated_at_lte: datetime | None = typer.Option(
-        None, "--filter-updated-at-lte", help=r"""Example: 2024-01-01T00:00:00.000Z"""
+        None,
+        "--filter-updated-at-lte",
+        help=r"""Example: 2024-01-01T00:00:00.000Z""",
+        parser=parse_datetime,
+        metavar="<ISO 8601>",
     ),
     filter_updated_at_ne: datetime | None = typer.Option(
-        None, "--filter-updated-at-ne", help=r"""Example: 2024-01-01T00:00:00.000Z"""
+        None,
+        "--filter-updated-at-ne",
+        help=r"""Example: 2024-01-01T00:00:00.000Z""",
+        parser=parse_datetime,
+        metavar="<ISO 8601>",
     ),
     filter_visibility_eq: AssetVisibility | None = typer.Option(
         None, "--filter-visibility-eq", help=r"""Asset visibility"""
@@ -2742,6 +3083,8 @@ Example: 2024-01-01T00:00:00.000Z""",
         help=r"""Filter by taken date (after)
 
 Example: 2024-01-01T00:00:00.000Z""",
+        parser=parse_datetime,
+        metavar="<ISO 8601>",
     ),
     taken_before: datetime | None = typer.Option(
         None,
@@ -2749,6 +3092,8 @@ Example: 2024-01-01T00:00:00.000Z""",
         help=r"""Filter by taken date (before)
 
 Example: 2024-01-01T00:00:00.000Z""",
+        parser=parse_datetime,
+        metavar="<ISO 8601>",
     ),
     trashed_after: datetime | None = typer.Option(
         None,
@@ -2756,6 +3101,8 @@ Example: 2024-01-01T00:00:00.000Z""",
         help=r"""Filter by trash date (after)
 
 Example: 2024-01-01T00:00:00.000Z""",
+        parser=parse_datetime,
+        metavar="<ISO 8601>",
     ),
     trashed_before: datetime | None = typer.Option(
         None,
@@ -2763,6 +3110,8 @@ Example: 2024-01-01T00:00:00.000Z""",
         help=r"""Filter by trash date (before)
 
 Example: 2024-01-01T00:00:00.000Z""",
+        parser=parse_datetime,
+        metavar="<ISO 8601>",
     ),
     type: AssetTypeEnum | None = typer.Option(None, "--type", help=r"""Asset type"""),
     updated_after: datetime | None = typer.Option(
@@ -2771,6 +3120,8 @@ Example: 2024-01-01T00:00:00.000Z""",
         help=r"""Filter by update date (after)
 
 Example: 2024-01-01T00:00:00.000Z""",
+        parser=parse_datetime,
+        metavar="<ISO 8601>",
     ),
     updated_before: datetime | None = typer.Option(
         None,
@@ -2778,6 +3129,8 @@ Example: 2024-01-01T00:00:00.000Z""",
         help=r"""Filter by update date (before)
 
 Example: 2024-01-01T00:00:00.000Z""",
+        parser=parse_datetime,
+        metavar="<ISO 8601>",
     ),
     visibility: AssetVisibility | None = typer.Option(
         None, "--visibility", help=r"""Asset visibility"""
@@ -3275,6 +3628,8 @@ def search_smart(
         help=r"""Filter by creation date (after)
 
 Example: 2024-01-01T00:00:00.000Z""",
+        parser=parse_datetime,
+        metavar="<ISO 8601>",
     ),
     created_before: datetime | None = typer.Option(
         None,
@@ -3282,6 +3637,8 @@ Example: 2024-01-01T00:00:00.000Z""",
         help=r"""Filter by creation date (before)
 
 Example: 2024-01-01T00:00:00.000Z""",
+        parser=parse_datetime,
+        metavar="<ISO 8601>",
     ),
     filter_album_ids_all: list[UUID] | None = typer.Option(
         None, "--filter-album-ids-all", help=r""""""
@@ -3325,22 +3682,46 @@ Example: 2024-01-01T00:00:00.000Z""",
         None, "--filter-country-not-in", help=r""""""
     ),
     filter_created_at_eq: datetime | None = typer.Option(
-        None, "--filter-created-at-eq", help=r"""Example: 2024-01-01T00:00:00.000Z"""
+        None,
+        "--filter-created-at-eq",
+        help=r"""Example: 2024-01-01T00:00:00.000Z""",
+        parser=parse_datetime,
+        metavar="<ISO 8601>",
     ),
     filter_created_at_gt: datetime | None = typer.Option(
-        None, "--filter-created-at-gt", help=r"""Example: 2024-01-01T00:00:00.000Z"""
+        None,
+        "--filter-created-at-gt",
+        help=r"""Example: 2024-01-01T00:00:00.000Z""",
+        parser=parse_datetime,
+        metavar="<ISO 8601>",
     ),
     filter_created_at_gte: datetime | None = typer.Option(
-        None, "--filter-created-at-gte", help=r"""Example: 2024-01-01T00:00:00.000Z"""
+        None,
+        "--filter-created-at-gte",
+        help=r"""Example: 2024-01-01T00:00:00.000Z""",
+        parser=parse_datetime,
+        metavar="<ISO 8601>",
     ),
     filter_created_at_lt: datetime | None = typer.Option(
-        None, "--filter-created-at-lt", help=r"""Example: 2024-01-01T00:00:00.000Z"""
+        None,
+        "--filter-created-at-lt",
+        help=r"""Example: 2024-01-01T00:00:00.000Z""",
+        parser=parse_datetime,
+        metavar="<ISO 8601>",
     ),
     filter_created_at_lte: datetime | None = typer.Option(
-        None, "--filter-created-at-lte", help=r"""Example: 2024-01-01T00:00:00.000Z"""
+        None,
+        "--filter-created-at-lte",
+        help=r"""Example: 2024-01-01T00:00:00.000Z""",
+        parser=parse_datetime,
+        metavar="<ISO 8601>",
     ),
     filter_created_at_ne: datetime | None = typer.Option(
-        None, "--filter-created-at-ne", help=r"""Example: 2024-01-01T00:00:00.000Z"""
+        None,
+        "--filter-created-at-ne",
+        help=r"""Example: 2024-01-01T00:00:00.000Z""",
+        parser=parse_datetime,
+        metavar="<ISO 8601>",
     ),
     filter_description_ends_with: str | None = typer.Option(
         None, "--filter-description-ends-with", help=r""""""
@@ -3566,40 +3947,88 @@ Example: 2024-01-01T00:00:00.000Z""",
         None, "--filter-tag-ids-none", help=r""""""
     ),
     filter_taken_at_eq: datetime | None = typer.Option(
-        None, "--filter-taken-at-eq", help=r"""Example: 2024-01-01T00:00:00.000Z"""
+        None,
+        "--filter-taken-at-eq",
+        help=r"""Example: 2024-01-01T00:00:00.000Z""",
+        parser=parse_datetime,
+        metavar="<ISO 8601>",
     ),
     filter_taken_at_gt: datetime | None = typer.Option(
-        None, "--filter-taken-at-gt", help=r"""Example: 2024-01-01T00:00:00.000Z"""
+        None,
+        "--filter-taken-at-gt",
+        help=r"""Example: 2024-01-01T00:00:00.000Z""",
+        parser=parse_datetime,
+        metavar="<ISO 8601>",
     ),
     filter_taken_at_gte: datetime | None = typer.Option(
-        None, "--filter-taken-at-gte", help=r"""Example: 2024-01-01T00:00:00.000Z"""
+        None,
+        "--filter-taken-at-gte",
+        help=r"""Example: 2024-01-01T00:00:00.000Z""",
+        parser=parse_datetime,
+        metavar="<ISO 8601>",
     ),
     filter_taken_at_lt: datetime | None = typer.Option(
-        None, "--filter-taken-at-lt", help=r"""Example: 2024-01-01T00:00:00.000Z"""
+        None,
+        "--filter-taken-at-lt",
+        help=r"""Example: 2024-01-01T00:00:00.000Z""",
+        parser=parse_datetime,
+        metavar="<ISO 8601>",
     ),
     filter_taken_at_lte: datetime | None = typer.Option(
-        None, "--filter-taken-at-lte", help=r"""Example: 2024-01-01T00:00:00.000Z"""
+        None,
+        "--filter-taken-at-lte",
+        help=r"""Example: 2024-01-01T00:00:00.000Z""",
+        parser=parse_datetime,
+        metavar="<ISO 8601>",
     ),
     filter_taken_at_ne: datetime | None = typer.Option(
-        None, "--filter-taken-at-ne", help=r"""Example: 2024-01-01T00:00:00.000Z"""
+        None,
+        "--filter-taken-at-ne",
+        help=r"""Example: 2024-01-01T00:00:00.000Z""",
+        parser=parse_datetime,
+        metavar="<ISO 8601>",
     ),
     filter_trashed_at_eq: datetime | None = typer.Option(
-        None, "--filter-trashed-at-eq", help=r"""Example: 2024-01-01T00:00:00.000Z"""
+        None,
+        "--filter-trashed-at-eq",
+        help=r"""Example: 2024-01-01T00:00:00.000Z""",
+        parser=parse_datetime,
+        metavar="<ISO 8601>",
     ),
     filter_trashed_at_gt: datetime | None = typer.Option(
-        None, "--filter-trashed-at-gt", help=r"""Example: 2024-01-01T00:00:00.000Z"""
+        None,
+        "--filter-trashed-at-gt",
+        help=r"""Example: 2024-01-01T00:00:00.000Z""",
+        parser=parse_datetime,
+        metavar="<ISO 8601>",
     ),
     filter_trashed_at_gte: datetime | None = typer.Option(
-        None, "--filter-trashed-at-gte", help=r"""Example: 2024-01-01T00:00:00.000Z"""
+        None,
+        "--filter-trashed-at-gte",
+        help=r"""Example: 2024-01-01T00:00:00.000Z""",
+        parser=parse_datetime,
+        metavar="<ISO 8601>",
     ),
     filter_trashed_at_lt: datetime | None = typer.Option(
-        None, "--filter-trashed-at-lt", help=r"""Example: 2024-01-01T00:00:00.000Z"""
+        None,
+        "--filter-trashed-at-lt",
+        help=r"""Example: 2024-01-01T00:00:00.000Z""",
+        parser=parse_datetime,
+        metavar="<ISO 8601>",
     ),
     filter_trashed_at_lte: datetime | None = typer.Option(
-        None, "--filter-trashed-at-lte", help=r"""Example: 2024-01-01T00:00:00.000Z"""
+        None,
+        "--filter-trashed-at-lte",
+        help=r"""Example: 2024-01-01T00:00:00.000Z""",
+        parser=parse_datetime,
+        metavar="<ISO 8601>",
     ),
     filter_trashed_at_ne: datetime | None = typer.Option(
-        None, "--filter-trashed-at-ne", help=r"""Example: 2024-01-01T00:00:00.000Z"""
+        None,
+        "--filter-trashed-at-ne",
+        help=r"""Example: 2024-01-01T00:00:00.000Z""",
+        parser=parse_datetime,
+        metavar="<ISO 8601>",
     ),
     filter_type_eq: AssetTypeEnum | None = typer.Option(
         None, "--filter-type-eq", help=r"""Asset type"""
@@ -3614,22 +4043,46 @@ Example: 2024-01-01T00:00:00.000Z""",
         None, "--filter-type-not-in", help=r""""""
     ),
     filter_updated_at_eq: datetime | None = typer.Option(
-        None, "--filter-updated-at-eq", help=r"""Example: 2024-01-01T00:00:00.000Z"""
+        None,
+        "--filter-updated-at-eq",
+        help=r"""Example: 2024-01-01T00:00:00.000Z""",
+        parser=parse_datetime,
+        metavar="<ISO 8601>",
     ),
     filter_updated_at_gt: datetime | None = typer.Option(
-        None, "--filter-updated-at-gt", help=r"""Example: 2024-01-01T00:00:00.000Z"""
+        None,
+        "--filter-updated-at-gt",
+        help=r"""Example: 2024-01-01T00:00:00.000Z""",
+        parser=parse_datetime,
+        metavar="<ISO 8601>",
     ),
     filter_updated_at_gte: datetime | None = typer.Option(
-        None, "--filter-updated-at-gte", help=r"""Example: 2024-01-01T00:00:00.000Z"""
+        None,
+        "--filter-updated-at-gte",
+        help=r"""Example: 2024-01-01T00:00:00.000Z""",
+        parser=parse_datetime,
+        metavar="<ISO 8601>",
     ),
     filter_updated_at_lt: datetime | None = typer.Option(
-        None, "--filter-updated-at-lt", help=r"""Example: 2024-01-01T00:00:00.000Z"""
+        None,
+        "--filter-updated-at-lt",
+        help=r"""Example: 2024-01-01T00:00:00.000Z""",
+        parser=parse_datetime,
+        metavar="<ISO 8601>",
     ),
     filter_updated_at_lte: datetime | None = typer.Option(
-        None, "--filter-updated-at-lte", help=r"""Example: 2024-01-01T00:00:00.000Z"""
+        None,
+        "--filter-updated-at-lte",
+        help=r"""Example: 2024-01-01T00:00:00.000Z""",
+        parser=parse_datetime,
+        metavar="<ISO 8601>",
     ),
     filter_updated_at_ne: datetime | None = typer.Option(
-        None, "--filter-updated-at-ne", help=r"""Example: 2024-01-01T00:00:00.000Z"""
+        None,
+        "--filter-updated-at-ne",
+        help=r"""Example: 2024-01-01T00:00:00.000Z""",
+        parser=parse_datetime,
+        metavar="<ISO 8601>",
     ),
     filter_visibility_eq: AssetVisibility | None = typer.Option(
         None, "--filter-visibility-eq", help=r"""Asset visibility"""
@@ -3708,6 +4161,8 @@ Example: 2024-01-01T00:00:00.000Z""",
         help=r"""Filter by taken date (after)
 
 Example: 2024-01-01T00:00:00.000Z""",
+        parser=parse_datetime,
+        metavar="<ISO 8601>",
     ),
     taken_before: datetime | None = typer.Option(
         None,
@@ -3715,6 +4170,8 @@ Example: 2024-01-01T00:00:00.000Z""",
         help=r"""Filter by taken date (before)
 
 Example: 2024-01-01T00:00:00.000Z""",
+        parser=parse_datetime,
+        metavar="<ISO 8601>",
     ),
     trashed_after: datetime | None = typer.Option(
         None,
@@ -3722,6 +4179,8 @@ Example: 2024-01-01T00:00:00.000Z""",
         help=r"""Filter by trash date (after)
 
 Example: 2024-01-01T00:00:00.000Z""",
+        parser=parse_datetime,
+        metavar="<ISO 8601>",
     ),
     trashed_before: datetime | None = typer.Option(
         None,
@@ -3729,6 +4188,8 @@ Example: 2024-01-01T00:00:00.000Z""",
         help=r"""Filter by trash date (before)
 
 Example: 2024-01-01T00:00:00.000Z""",
+        parser=parse_datetime,
+        metavar="<ISO 8601>",
     ),
     type: AssetTypeEnum | None = typer.Option(None, "--type", help=r"""Asset type"""),
     updated_after: datetime | None = typer.Option(
@@ -3737,6 +4198,8 @@ Example: 2024-01-01T00:00:00.000Z""",
         help=r"""Filter by update date (after)
 
 Example: 2024-01-01T00:00:00.000Z""",
+        parser=parse_datetime,
+        metavar="<ISO 8601>",
     ),
     updated_before: datetime | None = typer.Option(
         None,
@@ -3744,6 +4207,8 @@ Example: 2024-01-01T00:00:00.000Z""",
         help=r"""Filter by update date (before)
 
 Example: 2024-01-01T00:00:00.000Z""",
+        parser=parse_datetime,
+        metavar="<ISO 8601>",
     ),
     visibility: AssetVisibility | None = typer.Option(
         None, "--visibility", help=r"""Asset visibility"""

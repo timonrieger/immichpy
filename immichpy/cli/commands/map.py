@@ -10,7 +10,7 @@ import typer
 if TYPE_CHECKING:
     from immichpy import AsyncClient
 
-from immichpy.cli.runtime import print_response, run_command
+from immichpy.cli.runtime import parse_datetime, print_response, run_command
 
 app = typer.Typer(
     help="""Map endpoints include supplemental functionality related to geolocation, such as reverse geocoding and retrieving map markers for assets with geolocation data.\n\n[link=https://api.immich.app/endpoints/map]Immich API documentation[/link]"""
@@ -26,6 +26,8 @@ def get_map_markers(
         help=r"""Filter assets created after this date
 
 Example: 2024-01-01T00:00:00.000Z""",
+        parser=parse_datetime,
+        metavar="<ISO 8601>",
     ),
     file_created_before: datetime | None = typer.Option(
         None,
@@ -33,6 +35,8 @@ Example: 2024-01-01T00:00:00.000Z""",
         help=r"""Filter assets created before this date
 
 Example: 2024-01-01T00:00:00.000Z""",
+        parser=parse_datetime,
+        metavar="<ISO 8601>",
     ),
     is_archived: Literal["true", "false"] | None = typer.Option(
         None, "--is-archived", help=r"""Filter by archived status"""
