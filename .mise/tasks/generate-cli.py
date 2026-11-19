@@ -71,7 +71,8 @@ class RequestParam(BaseModel):
 
     @property
     def flag_name(self) -> str:
-        return to_kebab_case(self.name)
+        name = self.name.removeprefix("var_")
+        return to_kebab_case(name if keyword.iskeyword(name) else self.name)
 
 
 def openapi_url(ref: str) -> str:
@@ -107,16 +108,17 @@ def to_kebab_case(name: str) -> str:
 
 
 def to_python_ident(name: str) -> str:
-    """Convert an OpenAPI name into a safe Python identifier.
-
-    This must match (or be compatible with) openapi-generator's Python naming:
-    - snake_case
-    - avoid keywords like `for`, `from`, `class`, etc.
-    """
+    """Convert an OpenAPI name into a safe snake_case Python identifier, suffixing keywords like `for` with `_`."""
     ident = to_snake_case(name)
     if keyword.iskeyword(ident):
         ident = ident + "_"
     return ident
+
+
+def to_client_param_name(name: str) -> str:
+    """Name of a path or query parameter in the generated client, which prefixes keywords with `var_`."""
+    ident = to_snake_case(name)
+    return "var_" + ident if keyword.iskeyword(ident) else ident
 
 
 def python_type_from_schema(
@@ -391,7 +393,7 @@ def generate_command_function(
                     oaschema=schema,
                     type=python_type_from_schema(schema, spec),
                     required=param.get("required", False),
-                    name=to_python_ident(param["name"]),
+                    name=to_client_param_name(param["name"]),
                     description="\n\n".join(description_parts),
                     operation_id=operation_id,
                 )
@@ -411,7 +413,7 @@ def generate_command_function(
     lines.append(f"def {func_name}(")
     lines.append("    ctx: typer.Context,")
 
-    for param in sorted(param_data, key=lambda x: (x.location != "path", x.name)):
+    for param in sorted(param_data, key=lambda x: (x.location != "path", x.flag_name)):
         help_arg = f", help=r{param.description}"
         minimum = param.oaschema.get("minimum")
         maximum = param.oaschema.get("maximum")

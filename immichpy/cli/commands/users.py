@@ -95,7 +95,7 @@ def delete_user_onboarding(
 )
 def get_my_calendar_heatmap(
     ctx: typer.Context,
-    from_: str | None = typer.Option(
+    var_from: str | None = typer.Option(
         None,
         "--from",
         help=r"""Start date in UTC
@@ -116,8 +116,8 @@ Example: 2024-01-01""",
     [link=https://api.immich.app/endpoints/users/getMyCalendarHeatmap]Immich API documentation[/link]
     """
     kwargs = {}
-    if from_ is not None:
-        kwargs["from_"] = from_
+    if var_from is not None:
+        kwargs["var_from"] = var_from
     if to is not None:
         kwargs["to"] = to
     if type is not None:

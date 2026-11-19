@@ -169,7 +169,7 @@ def get_memory(
 @app.command("memories-statistics", deprecated=False, rich_help_panel="API commands")
 def memories_statistics(
     ctx: typer.Context,
-    for_: str | None = typer.Option(
+    var_for: str | None = typer.Option(
         None,
         "--for",
         help=r"""Filter by date
@@ -206,8 +206,8 @@ Example: 2024-01-01""",
     [link=https://api.immich.app/endpoints/memories/memoriesStatistics]Immich API documentation[/link]
     """
     kwargs = {}
-    if for_ is not None:
-        kwargs["for_"] = for_
+    if var_for is not None:
+        kwargs["var_for"] = var_for
     if id is not None:
         kwargs["id"] = id
     if is_saved is not None:
@@ -253,7 +253,7 @@ def remove_memory_assets(
 @app.command("search-memories", deprecated=False, rich_help_panel="API commands")
 def search_memories(
     ctx: typer.Context,
-    for_: str | None = typer.Option(
+    var_for: str | None = typer.Option(
         None,
         "--for",
         help=r"""Filter by date
@@ -290,8 +290,8 @@ Example: 2024-01-01""",
     [link=https://api.immich.app/endpoints/memories/searchMemories]Immich API documentation[/link]
     """
     kwargs = {}
-    if for_ is not None:
-        kwargs["for_"] = for_
+    if var_for is not None:
+        kwargs["var_for"] = var_for
     if id is not None:
         kwargs["id"] = id
     if is_saved is not None:
