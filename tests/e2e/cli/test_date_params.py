@@ -1,6 +1,7 @@
 """Test date and datetime params → values reach the server in a format it accepts.
 
-The server requires datetimes with a timezone. The CLI reads naive input as local time.
+The server requires datetimes with a timezone. The CLI reads naive input as local time,
+and the client serializes datetime query params as ISO 8601.
 """
 
 import asyncio
@@ -17,8 +18,10 @@ from immichpy.cli.main import app as cli_app
     [
         # datetime in a request body
         ["search", "search-asset-statistics", "--taken-after", "2020-01-01"],
+        # datetime in a query param
+        ["map", "get-map-markers", "--file-created-after", "2020-01-01T00:00:00+02:00"],
     ],
-    ids=["datetime-body"],
+    ids=["datetime-body", "datetime-query"],
 )
 async def test_date_params(runner_with_api_key: CliRunner, args: list[str]) -> None:
     result = await asyncio.to_thread(runner_with_api_key.invoke, cli_app, args)

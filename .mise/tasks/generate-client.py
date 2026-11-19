@@ -14,6 +14,7 @@ from __future__ import annotations
 import ast
 import json
 import os
+import re
 import shutil
 import subprocess  # nosec: B404
 import tempfile
@@ -62,6 +63,14 @@ ENUM_MISSING_METHOD = """
 """
 
 
+# `%z` renders +0000, but the server requires Z or +00:00.
+# TODO: drop once https://github.com/OpenAPITools/openapi-generator/pull/25098
+# is released and generate-client uses that openapi-generator-cli version
+DATETIME_QUERY_FORMAT = re.compile(
+    r"\.strftime\(\s*self\.api_client\.configuration\.datetime_format\s*\)"
+)
+
+
 def rewrite_imports_in_tree(root: Path) -> int:
     """
     Rewrite OpenAPI generator absolute imports:
@@ -69,7 +78,7 @@ def rewrite_imports_in_tree(root: Path) -> int:
       import generated... -> import immichpy.client.generated...
 
     Also swap `dateutil` for `fromisoformat`, which parses ISO 8601 since 3.11,
-    and make enums accept unknown values.
+    serialize datetime query params with `isoformat`, and make enums accept unknown values.
     """
     replacements: list[tuple[str, str]] = [
         ("from generated.", "from immichpy.client.generated."),
@@ -92,6 +101,7 @@ def rewrite_imports_in_tree(root: Path) -> int:
         new_text = text
         for old, new in replacements:
             new_text = new_text.replace(old, new)
+        new_text = DATETIME_QUERY_FORMAT.sub(".isoformat()", new_text)
         if new_text != text:
             path.write_text(new_text, encoding="utf-8")
             changed += 1

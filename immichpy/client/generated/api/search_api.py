@@ -2225,27 +2225,13 @@ class SearchApi:
 
         if created_after is not None:
             if isinstance(created_after, datetime):
-                _query_params.append(
-                    (
-                        "createdAfter",
-                        created_after.strftime(
-                            self.api_client.configuration.datetime_format
-                        ),
-                    )
-                )
+                _query_params.append(("createdAfter", created_after.isoformat()))
             else:
                 _query_params.append(("createdAfter", created_after))
 
         if created_before is not None:
             if isinstance(created_before, datetime):
-                _query_params.append(
-                    (
-                        "createdBefore",
-                        created_before.strftime(
-                            self.api_client.configuration.datetime_format
-                        ),
-                    )
-                )
+                _query_params.append(("createdBefore", created_before.isoformat()))
             else:
                 _query_params.append(("createdBefore", created_before))
 
@@ -2299,53 +2285,25 @@ class SearchApi:
 
         if taken_after is not None:
             if isinstance(taken_after, datetime):
-                _query_params.append(
-                    (
-                        "takenAfter",
-                        taken_after.strftime(
-                            self.api_client.configuration.datetime_format
-                        ),
-                    )
-                )
+                _query_params.append(("takenAfter", taken_after.isoformat()))
             else:
                 _query_params.append(("takenAfter", taken_after))
 
         if taken_before is not None:
             if isinstance(taken_before, datetime):
-                _query_params.append(
-                    (
-                        "takenBefore",
-                        taken_before.strftime(
-                            self.api_client.configuration.datetime_format
-                        ),
-                    )
-                )
+                _query_params.append(("takenBefore", taken_before.isoformat()))
             else:
                 _query_params.append(("takenBefore", taken_before))
 
         if trashed_after is not None:
             if isinstance(trashed_after, datetime):
-                _query_params.append(
-                    (
-                        "trashedAfter",
-                        trashed_after.strftime(
-                            self.api_client.configuration.datetime_format
-                        ),
-                    )
-                )
+                _query_params.append(("trashedAfter", trashed_after.isoformat()))
             else:
                 _query_params.append(("trashedAfter", trashed_after))
 
         if trashed_before is not None:
             if isinstance(trashed_before, datetime):
-                _query_params.append(
-                    (
-                        "trashedBefore",
-                        trashed_before.strftime(
-                            self.api_client.configuration.datetime_format
-                        ),
-                    )
-                )
+                _query_params.append(("trashedBefore", trashed_before.isoformat()))
             else:
                 _query_params.append(("trashedBefore", trashed_before))
 
@@ -2354,27 +2312,13 @@ class SearchApi:
 
         if updated_after is not None:
             if isinstance(updated_after, datetime):
-                _query_params.append(
-                    (
-                        "updatedAfter",
-                        updated_after.strftime(
-                            self.api_client.configuration.datetime_format
-                        ),
-                    )
-                )
+                _query_params.append(("updatedAfter", updated_after.isoformat()))
             else:
                 _query_params.append(("updatedAfter", updated_after))
 
         if updated_before is not None:
             if isinstance(updated_before, datetime):
-                _query_params.append(
-                    (
-                        "updatedBefore",
-                        updated_before.strftime(
-                            self.api_client.configuration.datetime_format
-                        ),
-                    )
-                )
+                _query_params.append(("updatedBefore", updated_before.isoformat()))
             else:
                 _query_params.append(("updatedBefore", updated_before))
 
