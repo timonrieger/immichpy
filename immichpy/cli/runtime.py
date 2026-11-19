@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import asyncio
 import json
+import keyword
 import sys
 import traceback
 from collections.abc import Awaitable, Callable
@@ -105,6 +106,26 @@ def parse_json_options(
     return [parse_json_option(value, option, ctx=ctx) for value in values]
 
 
+def restore_keyword_keys(obj: Any) -> Any:
+    """Rename fields the generated models prefix with `var_`, like `var_from`, back to their API name.
+
+    :param obj: A dumped model, possibly nested
+    :return: The same data with keyword field names restored
+    """
+    if isinstance(obj, list):
+        return [restore_keyword_keys(item) for item in obj]
+    if isinstance(obj, dict):
+        return {
+            (
+                key.removeprefix("var_")
+                if keyword.iskeyword(key.removeprefix("var_"))
+                else key
+            ): restore_keyword_keys(value)
+            for key, value in obj.items()
+        }
+    return obj
+
+
 def print_response(data: MaybeBaseModel, ctx: Context) -> None:
     """Print response data. Binary data is written raw, so it can be redirected to a file.
 
@@ -125,7 +146,7 @@ def print_response(data: MaybeBaseModel, ctx: Context) -> None:
         if isinstance(obj, list):
             return [convert_to_dict(item) for item in obj]
         elif isinstance(obj, BaseModel):
-            return obj.model_dump(mode="json")
+            return restore_keyword_keys(obj.model_dump(mode="json"))
         else:
             return obj
 

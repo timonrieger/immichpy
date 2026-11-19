@@ -198,6 +198,24 @@ class TestPrintResponse:
         output = json.loads(captured.out)
         assert output == "simple string"
 
+    def test_print_response_restores_keyword_keys(
+        self, capsys: CaptureFixture[str]
+    ) -> None:
+        """Generated `var_` prefixes for keyword fields are printed as their API name."""
+        ctx: Mock = Mock(spec=Context)
+        ctx.obj = {"format": "json"}
+
+        class TestModel(BaseModel):
+            var_from: str
+            var_name: str
+
+        print_response(TestModel(var_from="2024-01-01", var_name="x"), ctx=ctx)
+
+        assert json.loads(capsys.readouterr().out) == {
+            "from": "2024-01-01",
+            "var_name": "x",
+        }
+
     def test_print_response_bytes_raw(
         self, capsysbinary: CaptureFixture[bytes]
     ) -> None:
