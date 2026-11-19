@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from enum import Enum
 from typing import TYPE_CHECKING, Literal
 from uuid import UUID
 
@@ -26,6 +27,13 @@ from immichpy.client.generated.models import (
 app = typer.Typer(
     help="""Administrative endpoints for managing users, including creating, updating, deleting, and restoring users. Also includes endpoints for resetting passwords and PIN codes.\n\n[link=https://api.immich.app/endpoints/users-admin]Immich API documentation[/link]"""
 )
+
+
+class CreateUserAdminUnset(str, Enum):
+    AVATAR_COLOR = "avatar-color"
+    PIN_CODE = "pin-code"
+    QUOTA_SIZE_IN_BYTES = "quota-size-in-bytes"
+    STORAGE_LABEL = "storage-label"
 
 
 @app.command("create-user-admin", deprecated=False, rich_help_panel="API commands")
@@ -65,6 +73,9 @@ Example: 123456""",
     storage_label: str | None = typer.Option(
         None, "--storage-label", help=r"""Storage label"""
     ),
+    unset: list[CreateUserAdminUnset] = typer.Option(
+        [], "--unset", help="Set a field to null, repeat for several"
+    ),
 ) -> None:
     """Create a user
 
@@ -93,6 +104,17 @@ Example: 123456""",
         )
     if storage_label is not None:
         set_nested(json_data, ["storageLabel"], storage_label)
+    for field in unset:
+        set_nested(
+            json_data,
+            {
+                "avatar-color": ["avatarColor"],
+                "pin-code": ["pinCode"],
+                "quota-size-in-bytes": ["quotaSizeInBytes"],
+                "storage-label": ["storageLabel"],
+            }[field.value],
+            None,
+        )
     user_admin_create_dto = UserAdminCreateDto.model_validate(json_data)
     kwargs["user_admin_create_dto"] = user_admin_create_dto
     client: AsyncClient = ctx.obj["client"]
@@ -292,6 +314,13 @@ def search_users_admin(
     print_response(result, ctx=ctx)
 
 
+class UpdateUserAdminUnset(str, Enum):
+    AVATAR_COLOR = "avatar-color"
+    PIN_CODE = "pin-code"
+    QUOTA_SIZE_IN_BYTES = "quota-size-in-bytes"
+    STORAGE_LABEL = "storage-label"
+
+
 @app.command("update-user-admin", deprecated=False, rich_help_panel="API commands")
 def update_user_admin(
     ctx: typer.Context,
@@ -327,6 +356,9 @@ Example: 123456""",
     storage_label: str | None = typer.Option(
         None, "--storage-label", help=r"""Storage label"""
     ),
+    unset: list[UpdateUserAdminUnset] = typer.Option(
+        [], "--unset", help="Set a field to null, repeat for several"
+    ),
 ) -> None:
     """Update a user
 
@@ -357,6 +389,17 @@ Example: 123456""",
         )
     if storage_label is not None:
         set_nested(json_data, ["storageLabel"], storage_label)
+    for field in unset:
+        set_nested(
+            json_data,
+            {
+                "avatar-color": ["avatarColor"],
+                "pin-code": ["pinCode"],
+                "quota-size-in-bytes": ["quotaSizeInBytes"],
+                "storage-label": ["storageLabel"],
+            }[field.value],
+            None,
+        )
     user_admin_update_dto = UserAdminUpdateDto.model_validate(json_data)
     kwargs["user_admin_update_dto"] = user_admin_update_dto
     client: AsyncClient = ctx.obj["client"]

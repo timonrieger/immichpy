@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from enum import Enum
 from typing import TYPE_CHECKING, Literal
 from uuid import UUID
 
@@ -102,6 +103,10 @@ As a JSON string with keys: role (string), userId (string)""",
     print_response(result, ctx=ctx)
 
 
+class CreateAlbumUnset(str, Enum):
+    DESCRIPTION = "description"
+
+
 @app.command("create-album", deprecated=False, rich_help_panel="API commands")
 def create_album(
     ctx: typer.Context,
@@ -119,6 +124,9 @@ As a JSON string with keys: role (string), userId (string)""",
     description: str | None = typer.Option(
         None, "--description", help=r"""Album description"""
     ),
+    unset: list[CreateAlbumUnset] = typer.Option(
+        [], "--unset", help="Set a field to null, repeat for several"
+    ),
 ) -> None:
     """Create an album
 
@@ -134,6 +142,8 @@ As a JSON string with keys: role (string), userId (string)""",
         set_nested(json_data, ["assetIds"], asset_ids)
     if description is not None:
         set_nested(json_data, ["description"], description)
+    for field in unset:
+        set_nested(json_data, {"description": ["description"]}[field.value], None)
     create_album_dto = CreateAlbumDto.model_validate(json_data)
     kwargs["create_album_dto"] = create_album_dto
     client: AsyncClient = ctx.obj["client"]
@@ -301,6 +311,10 @@ def remove_user_from_album(
     print_response(result, ctx=ctx)
 
 
+class UpdateAlbumInfoUnset(str, Enum):
+    DESCRIPTION = "description"
+
+
 @app.command("update-album-info", deprecated=False, rich_help_panel="API commands")
 def update_album_info(
     ctx: typer.Context,
@@ -317,6 +331,9 @@ def update_album_info(
     ),
     order: AssetOrder | None = typer.Option(
         None, "--order", help=r"""Asset sort order"""
+    ),
+    unset: list[UpdateAlbumInfoUnset] = typer.Option(
+        [], "--unset", help="Set a field to null, repeat for several"
     ),
 ) -> None:
     """Update an album
@@ -338,6 +355,8 @@ def update_album_info(
         )
     if order is not None:
         set_nested(json_data, ["order"], order)
+    for field in unset:
+        set_nested(json_data, {"description": ["description"]}[field.value], None)
     update_album_dto = UpdateAlbumDto.model_validate(json_data)
     kwargs["update_album_dto"] = update_album_dto
     client: AsyncClient = ctx.obj["client"]

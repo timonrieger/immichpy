@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from datetime import datetime
+from enum import Enum
 from typing import TYPE_CHECKING, Literal
 from uuid import UUID
 
@@ -30,6 +31,11 @@ app = typer.Typer(
 )
 
 
+class CreateWorkflowUnset(str, Enum):
+    DESCRIPTION = "description"
+    NAME = "name"
+
+
 @app.command("create-workflow", deprecated=False, rich_help_panel="API commands")
 def create_workflow(
     ctx: typer.Context,
@@ -51,6 +57,9 @@ def create_workflow(
     trigger: WorkflowTrigger = typer.Option(
         ..., "--trigger", help=r"""Plugin trigger type"""
     ),
+    unset: list[CreateWorkflowUnset] = typer.Option(
+        [], "--unset", help="Set a field to null, repeat for several"
+    ),
 ) -> None:
     """Create a workflow
 
@@ -70,6 +79,12 @@ def create_workflow(
         value_steps = parse_json_options(steps, "--steps", ctx=ctx)
         set_nested(json_data, ["steps"], value_steps)
     set_nested(json_data, ["trigger"], trigger)
+    for field in unset:
+        set_nested(
+            json_data,
+            {"description": ["description"], "name": ["name"]}[field.value],
+            None,
+        )
     workflow_create_dto = WorkflowCreateDto.model_validate(json_data)
     kwargs["workflow_create_dto"] = workflow_create_dto
     client: AsyncClient = ctx.obj["client"]
@@ -216,6 +231,11 @@ def search_workflows(
     print_response(result, ctx=ctx)
 
 
+class UpdateWorkflowUnset(str, Enum):
+    DESCRIPTION = "description"
+    NAME = "name"
+
+
 @app.command("update-workflow", deprecated=False, rich_help_panel="API commands")
 def update_workflow(
     ctx: typer.Context,
@@ -238,6 +258,9 @@ def update_workflow(
     trigger: WorkflowTrigger | None = typer.Option(
         None, "--trigger", help=r"""Plugin trigger type"""
     ),
+    unset: list[UpdateWorkflowUnset] = typer.Option(
+        [], "--unset", help="Set a field to null, repeat for several"
+    ),
 ) -> None:
     """Update a workflow
 
@@ -259,6 +282,12 @@ def update_workflow(
         set_nested(json_data, ["steps"], value_steps)
     if trigger is not None:
         set_nested(json_data, ["trigger"], trigger)
+    for field in unset:
+        set_nested(
+            json_data,
+            {"description": ["description"], "name": ["name"]}[field.value],
+            None,
+        )
     workflow_update_dto = WorkflowUpdateDto.model_validate(json_data)
     kwargs["workflow_update_dto"] = workflow_update_dto
     client: AsyncClient = ctx.obj["client"]

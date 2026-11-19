@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from datetime import datetime
+from enum import Enum
 from pathlib import Path
 from typing import TYPE_CHECKING, Literal
 from uuid import UUID
@@ -527,6 +528,11 @@ def run_asset_jobs(
     print_response(result, ctx=ctx)
 
 
+class UpdateAssetUnset(str, Enum):
+    LIVE_PHOTO_VIDEO_ID = "live-photo-video-id"
+    RATING = "rating"
+
+
 @app.command("update-asset", deprecated=False, rich_help_panel="API commands")
 def update_asset(
     ctx: typer.Context,
@@ -559,6 +565,9 @@ def update_asset(
     visibility: AssetVisibility | None = typer.Option(
         None, "--visibility", help=r"""Asset visibility"""
     ),
+    unset: list[UpdateAssetUnset] = typer.Option(
+        [], "--unset", help="Set a field to null, repeat for several"
+    ),
 ) -> None:
     """Update an asset
 
@@ -583,6 +592,14 @@ def update_asset(
         set_nested(json_data, ["rating"], rating)
     if visibility is not None:
         set_nested(json_data, ["visibility"], visibility)
+    for field in unset:
+        set_nested(
+            json_data,
+            {"live-photo-video-id": ["livePhotoVideoId"], "rating": ["rating"]}[
+                field.value
+            ],
+            None,
+        )
     update_asset_dto = UpdateAssetDto.model_validate(json_data)
     kwargs["update_asset_dto"] = update_asset_dto
     client: AsyncClient = ctx.obj["client"]
@@ -616,6 +633,11 @@ As a JSON string with keys: key (string), value (object)""",
     client: AsyncClient = ctx.obj["client"]
     result = run_command(client.assets.update_asset_metadata, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)
+
+
+class UpdateAssetsUnset(str, Enum):
+    DUPLICATE_ID = "duplicate-id"
+    RATING = "rating"
 
 
 @app.command("update-assets", deprecated=False, rich_help_panel="API commands")
@@ -660,6 +682,9 @@ def update_assets(
     visibility: AssetVisibility | None = typer.Option(
         None, "--visibility", help=r"""Asset visibility"""
     ),
+    unset: list[UpdateAssetsUnset] = typer.Option(
+        [], "--unset", help="Set a field to null, repeat for several"
+    ),
 ) -> None:
     """Update assets
 
@@ -688,6 +713,12 @@ def update_assets(
         set_nested(json_data, ["timeZone"], time_zone)
     if visibility is not None:
         set_nested(json_data, ["visibility"], visibility)
+    for field in unset:
+        set_nested(
+            json_data,
+            {"duplicate-id": ["duplicateId"], "rating": ["rating"]}[field.value],
+            None,
+        )
     asset_bulk_update_dto = AssetBulkUpdateDto.model_validate(json_data)
     kwargs["asset_bulk_update_dto"] = asset_bulk_update_dto
     client: AsyncClient = ctx.obj["client"]

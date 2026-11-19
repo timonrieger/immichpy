@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from datetime import datetime
+from enum import Enum
 from typing import TYPE_CHECKING, Literal
 from uuid import UUID
 
@@ -106,6 +107,10 @@ def get_notifications(
     print_response(result, ctx=ctx)
 
 
+class UpdateNotificationUnset(str, Enum):
+    READ_AT = "read-at"
+
+
 @app.command("update-notification", deprecated=False, rich_help_panel="API commands")
 def update_notification(
     ctx: typer.Context,
@@ -119,6 +124,9 @@ Example: 2024-01-01T00:00:00.000Z""",
         parser=parse_datetime,
         metavar="<ISO 8601>",
     ),
+    unset: list[UpdateNotificationUnset] = typer.Option(
+        [], "--unset", help="Set a field to null, repeat for several"
+    ),
 ) -> None:
     """Update a notification
 
@@ -129,11 +137,17 @@ Example: 2024-01-01T00:00:00.000Z""",
     kwargs["id"] = id
     if read_at is not None:
         set_nested(json_data, ["readAt"], read_at)
+    for field in unset:
+        set_nested(json_data, {"read-at": ["readAt"]}[field.value], None)
     notification_update_dto = NotificationUpdateDto.model_validate(json_data)
     kwargs["notification_update_dto"] = notification_update_dto
     client: AsyncClient = ctx.obj["client"]
     result = run_command(client.notifications.update_notification, ctx=ctx, **kwargs)
     print_response(result, ctx=ctx)
+
+
+class UpdateNotificationsUnset(str, Enum):
+    READ_AT = "read-at"
 
 
 @app.command("update-notifications", deprecated=False, rich_help_panel="API commands")
@@ -151,6 +165,9 @@ Example: 2024-01-01T00:00:00.000Z""",
         parser=parse_datetime,
         metavar="<ISO 8601>",
     ),
+    unset: list[UpdateNotificationsUnset] = typer.Option(
+        [], "--unset", help="Set a field to null, repeat for several"
+    ),
 ) -> None:
     """Update notifications
 
@@ -161,6 +178,8 @@ Example: 2024-01-01T00:00:00.000Z""",
     set_nested(json_data, ["ids"], ids)
     if read_at is not None:
         set_nested(json_data, ["readAt"], read_at)
+    for field in unset:
+        set_nested(json_data, {"read-at": ["readAt"]}[field.value], None)
     notification_update_all_dto = NotificationUpdateAllDto.model_validate(json_data)
     kwargs["notification_update_all_dto"] = notification_update_all_dto
     client: AsyncClient = ctx.obj["client"]

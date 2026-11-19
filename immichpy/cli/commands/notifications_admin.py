@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from datetime import datetime
+from enum import Enum
 from typing import TYPE_CHECKING
 from uuid import UUID
 
@@ -29,6 +30,11 @@ from immichpy.client.generated.models import (
 app = typer.Typer(
     help="""Notification administrative endpoints.\n\n[link=https://api.immich.app/endpoints/notifications-admin]Immich API documentation[/link]"""
 )
+
+
+class CreateNotificationUnset(str, Enum):
+    DESCRIPTION = "description"
+    READ_AT = "read-at"
 
 
 @app.command("create-notification", deprecated=False, rich_help_panel="API commands")
@@ -63,6 +69,9 @@ Example: 2024-01-01T00:00:00.000Z""",
     user_id: UUID = typer.Option(
         ..., "--user-id", help=r"""User ID to send notification to"""
     ),
+    unset: list[CreateNotificationUnset] = typer.Option(
+        [], "--unset", help="Set a field to null, repeat for several"
+    ),
 ) -> None:
     """Create a notification
 
@@ -83,6 +92,12 @@ Example: 2024-01-01T00:00:00.000Z""",
     if type is not None:
         set_nested(json_data, ["type"], type)
     set_nested(json_data, ["userId"], user_id)
+    for field in unset:
+        set_nested(
+            json_data,
+            {"description": ["description"], "read-at": ["readAt"]}[field.value],
+            None,
+        )
     notification_create_dto = NotificationCreateDto.model_validate(json_data)
     kwargs["notification_create_dto"] = notification_create_dto
     client: AsyncClient = ctx.obj["client"]

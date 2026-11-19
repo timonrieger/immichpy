@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from enum import Enum
 from typing import TYPE_CHECKING, Literal
 
 import typer
@@ -62,6 +63,11 @@ def get_admin_config_defaults(
         client.config_admin.get_admin_config_defaults, ctx=ctx, **kwargs
     )
     print_response(result, ctx=ctx)
+
+
+class UpdateAdminConfigUnset(str, Enum):
+    OAUTH_DEFAULT_STORAGE_QUOTA = "oauth-default-storage-quota"
+    PASSKEY_DOMAIN = "passkey-domain"
 
 
 @app.command("update-admin-config", deprecated=False, rich_help_panel="API commands")
@@ -655,6 +661,9 @@ def update_admin_config(
         min=1,
         max=9007199254740991,
     ),
+    unset: list[UpdateAdminConfigUnset] = typer.Option(
+        [], "--unset", help="Set a field to null, repeat for several"
+    ),
 ) -> None:
     """Update the system configuration
 
@@ -1043,6 +1052,15 @@ def update_admin_config(
     set_nested(json_data, ["trash", "days"], trash_days)
     set_nested(json_data, ["trash", "enabled"], trash_enabled)
     set_nested(json_data, ["user", "deleteDelay"], user_delete_delay)
+    for field in unset:
+        set_nested(
+            json_data,
+            {
+                "oauth-default-storage-quota": ["oauth", "defaultStorageQuota"],
+                "passkey-domain": ["passkey", "domain"],
+            }[field.value],
+            None,
+        )
     admin_config_dto = AdminConfigDto.model_validate(json_data)
     kwargs["admin_config_dto"] = admin_config_dto
     client: AsyncClient = ctx.obj["client"]
