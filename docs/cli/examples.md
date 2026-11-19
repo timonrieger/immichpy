@@ -301,7 +301,7 @@ Print photos and storage per user, for example for a dashboard or a cron job:
 
 ```console
 $ immichpy server get-server-statistics \
-  | jq -r '.usage_by_user[] | "\(.user_name)\t\(.photos) photos\t\(.usage / 1e9 * 100 | round / 100) GB"'
+  | jq -r '.usage_by_user[] | "\(.user_name) \(.photos) photos \(.usage / 1e9 * 100 | round / 100) GB"'
 Jane Doe 32566 photos 13.43 GB
 Alex 0 photos 0 GB
 Jason 26 photos 0.1 GB
