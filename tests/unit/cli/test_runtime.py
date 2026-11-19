@@ -216,6 +216,17 @@ class TestPrintResponse:
             "var_name": "x",
         }
 
+    def test_print_response_none_prints_nothing(
+        self, capsys: CaptureFixture[str]
+    ) -> None:
+        """Empty responses print nothing instead of `null`."""
+        ctx: Mock = Mock(spec=Context)
+        ctx.obj = {"format": "json"}
+
+        print_response(None, ctx=ctx)
+
+        assert capsys.readouterr().out == ""
+
     def test_print_response_bytes_raw(
         self, capsysbinary: CaptureFixture[bytes]
     ) -> None:
