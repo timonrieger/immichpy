@@ -202,7 +202,8 @@ def normalize_schema(
 
 def _schema_type_hint(schema: dict[str, Any], spec: dict[str, Any]) -> str:
     schema = normalize_schema(schema, spec)
-    t = schema.get("type", "string")
+    composite = any(key in schema for key in ("oneOf", "anyOf", "allOf"))
+    t = schema.get("type", "object" if composite else "string")
     if t == "array":
         item_hint = _schema_type_hint(schema.get("items", {}), spec)
         return f"{item_hint}[]"

@@ -847,7 +847,7 @@ immichpy assets edit-asset [OPTIONS] {id}
 
 * `--edits <str>`: List of edit actions to apply (crop, rotate, or mirror)
 
-As a JSON string with keys: action (string), parameters (string)  [required]
+As a JSON string with keys: action (string), parameters (object)  [required]
 
 * `--help`: Show this message and exit.
 
