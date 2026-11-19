@@ -220,7 +220,7 @@ def edit_asset(
         "--edits",
         help=r"""List of edit actions to apply (crop, rotate, or mirror)
 
-As a JSON string with keys: action (string), parameters (string)""",
+As a JSON string with keys: action (string), parameters (object)""",
     ),
 ) -> None:
     """Apply edits to an existing asset

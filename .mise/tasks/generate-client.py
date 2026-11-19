@@ -62,6 +62,21 @@ ENUM_MISSING_METHOD = """
         return member
 """
 
+# anyOf/oneOf wrappers only (de)serialize `actual_instance` in `from_json`/`to_dict`; plain
+# `model_validate` drops raw values and `model_dump` returns the wrapper's own fields.
+WRAPPER_RAW_METHODS = """    @model_validator(mode="before")
+    @classmethod
+    def _from_raw(cls, data: Any) -> Any:
+        if isinstance(data, dict) and "actual_instance" not in data:
+            return {"actual_instance": cls.from_dict(data).actual_instance}
+        return data
+
+    @model_serializer
+    def _to_raw(self) -> Any:
+        return self.actual_instance
+
+    def __init__(self, *args, **kwargs) -> None:"""
+
 
 # `%z` renders +0000, but the server requires Z or +00:00.
 # TODO: drop once https://github.com/OpenAPITools/openapi-generator/pull/25098
@@ -78,7 +93,8 @@ def rewrite_imports_in_tree(root: Path) -> int:
       import generated... -> import immichpy.client.generated...
 
     Also swap `dateutil` for `fromisoformat`, which parses ISO 8601 since 3.11,
-    serialize datetime query params with `isoformat`, and make enums accept unknown values.
+    serialize datetime query params with `isoformat`, make enums accept unknown values,
+    and let anyOf/oneOf wrappers validate and dump raw values.
     """
     replacements: list[tuple[str, str]] = [
         ("from generated.", "from immichpy.client.generated."),
@@ -92,6 +108,11 @@ def rewrite_imports_in_tree(root: Path) -> int:
         (
             "return cls(json.loads(json_str))\n",
             "return cls(json.loads(json_str))\n" + ENUM_MISSING_METHOD,
+        ),
+        ("    def __init__(self, *args, **kwargs) -> None:", WRAPPER_RAW_METHODS),
+        (
+            "from typing_extensions import Literal, Self\n",
+            "from typing_extensions import Literal, Self\nfrom pydantic import model_serializer, model_validator\n",
         ),
     ]
 

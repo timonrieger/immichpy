@@ -30,6 +30,7 @@ from immichpy.client.generated.models.mirror_parameters import MirrorParameters
 from immichpy.client.generated.models.rotate_parameters import RotateParameters
 from typing import Union, Any, List, Set, TYPE_CHECKING, Optional, Dict
 from typing_extensions import Literal, Self
+from pydantic import model_serializer, model_validator
 from pydantic import Field
 
 ASSETEDITACTIONITEMDTOPARAMETERS_ANY_OF_SCHEMAS = [
@@ -66,6 +67,17 @@ class AssetEditActionItemDtoParameters(BaseModel):
         "validate_assignment": True,
         "protected_namespaces": (),
     }
+
+    @model_validator(mode="before")
+    @classmethod
+    def _from_raw(cls, data: Any) -> Any:
+        if isinstance(data, dict) and "actual_instance" not in data:
+            return {"actual_instance": cls.from_dict(data).actual_instance}
+        return data
+
+    @model_serializer
+    def _to_raw(self) -> Any:
+        return self.actual_instance
 
     def __init__(self, *args, **kwargs) -> None:
         if args:
