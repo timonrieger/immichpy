@@ -146,7 +146,7 @@ def get_user_admin(
 def get_user_calendar_heatmap_admin(
     ctx: typer.Context,
     id: UUID = typer.Argument(..., help=r""""""),
-    from_: str | None = typer.Option(
+    var_from: str | None = typer.Option(
         None,
         "--from",
         help=r"""Start date in UTC
@@ -167,8 +167,8 @@ Example: 2024-01-01""",
     [link=https://api.immich.app/endpoints/users-admin/getUserCalendarHeatmapAdmin]Immich API documentation[/link]
     """
     kwargs = {}
-    if from_ is not None:
-        kwargs["from_"] = from_
+    if var_from is not None:
+        kwargs["var_from"] = var_from
     kwargs["id"] = id
     if to is not None:
         kwargs["to"] = to
