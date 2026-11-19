@@ -1,11 +1,10 @@
 # Examples
 
 This page contains practical examples of using the immichpy CLI for common tasks.
-> Have an example? You’re welcome to suggest it on [GitHub issues](https://github.com/timonrieger/immichpy/issues).
 
 ## List all albums and parse with jq
 
-Get all albums and their name and ID:
+Get all albums and their name and ID using [`albums get-all-albums`](reference.md#immichpy-albums-get-all-albums):
 
 <!-- termynal -->
 
@@ -16,9 +15,60 @@ Vacation 2023 851c8f67-9bf3-48f5-8130-59da9ab17c06
 Selfies c980670b-69d1-42ee-b4a5-86947f169d99
 ```
 
+## List all users
+
+Get all users in a table format using [`users search-users`](reference.md#immichpy-users-search-users):
+
+<!-- termynal -->
+
+```console
+$ immichpy --format table users search-users
+┏━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃ Key                ┃ Value                                ┃
+┡━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┩
+│ avatar_color       │ primary                              │
+│ email              │ demo@immich.app                      │
+│ id                 │ 6733f307-4f31-43b0-906c-95ea45d4680e │
+│ name               │ demo                                 │
+│ profile_changed_at │ 2025-11-11 16:45:16.871000+00:00     │
+│ profile_image_path │                                      │
+└────────────────────┴──────────────────────────────────────┘
+…
+```
+
+## Upload a folder into an album
+
+Upload a folder and add the assets to an album, creating it if it does not exist, using [`assets upload`](reference.md#immichpy-assets-upload):
+
+<!-- termynal -->
+
+```console
+$ immichpy assets upload ~/Pictures/paris/ --album-name "Paris 2025"
+{
+  "uploaded": [
+    {
+      "asset": {
+        "id": "81acecd9-ac4e-467d-a007-d83783116997",
+        "status": "created"
+      },
+      "filepath": "~/Pictures/paris/IMG_0001.jpg"
+    },
+    …
+  ],
+  "rejected": [],
+  "failed": [],
+  "stats": {
+    "total": 3,
+    "uploaded": 3,
+    "rejected": 0,
+    "failed": 0
+  }
+}
+```
+
 ## Download an album archive
 
-Download an album archive to a directory with progress bar:
+Download an album archive to a directory with progress bar using [`download download-archive-to-file`](reference.md#immichpy-download-download-archive-to-file):
 
 <!-- termynal -->
 
@@ -33,90 +83,9 @@ $ immichpy download download-archive-to-file out-dir/ \
 ]
 ```
 
-## Upload assets
-
-Upload assets to your Immich server. Use `--dry-run` to preview what would be uploaded:
-
-<!-- termynal -->
-
-```console
-$ immichpy assets upload ~/timelapse.mp4 --dry-run
-{
-  "uploaded": [
-    {
-      "asset": {
-        "id": "ba199326-210b-492c-b5cb-4fc54e00f032",
-        "status": "created"
-      },
-      "filepath": "~/timelapse.mp4"
-    }
-  ],
-  "rejected": [],
-  "failed": [],
-  "stats": {
-    "total": 1,
-    "uploaded": 1,
-    "rejected": 0,
-    "failed": 0
-  }
-}
-```
-
-## List all people with names
-
-Get all people and filter to only show those with names:
-
-<!-- termynal -->
-
-```console
-$ immichpy people get-all-people | jq '.people[] | select(.name != "")'
-{
-  "birth_date": null,
-  "color": null,
-  "id": "6130d2d5-5f96-4aa0-9725-36929c5c8f19",
-  "is_favorite": false,
-  "is_hidden": false,
-  "name": "Timon",
-  "thumbnail_path": "/data/thumbs/0245136d-b027-4144-a764-81ecca080cf8/
-    61/30/6130d2d5-5f96-4aa0-9725-36929c5c8f19.jpeg",
-  "updated_at": "2026-01-20 22:30:00.771000+00:00"
-}
-```
-
-## List all users
-
-Get all users in a table format:
-
-<!-- termynal -->
-
-```console
-$ immichpy --format table users search-users
-┏━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
-┃ Key                ┃ Value                                ┃
-┡━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┩
-│ avatar_color       │ green                                │
-│ email              │ admin@immich.cloud                   │
-│ id                 │ f1c0dc5f-a938-4480-a27f-dcb127c421c6 │
-│ name               │ admin                                │
-│ profile_changed_at │ 2026-01-09 00:03:59.798000+00:00     │
-│ profile_image_path │                                      │
-└────────────────────┴──────────────────────────────────────┘
-
-┏━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
-┃ Key                ┃ Value                                ┃
-┡━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┩
-│ avatar_color       │ primary                              │
-│ email              │ demo@immich.app                      │
-│ id                 │ 6733f307-4f31-43b0-906c-95ea45d4680e │
-│ name               │ demo                                 │
-│ profile_changed_at │ 2025-11-11 16:45:16.871000+00:00     │
-│ profile_image_path │                                      │
-└────────────────────┴──────────────────────────────────────┘
-```
-
 ## Share an album with multiple users
 
-Add multiple users to an album by repeating `--album-users`:
+Add multiple users to an album by repeating `--album-users` in [`albums add-users-to-album`](reference.md#immichpy-albums-add-users-to-album):
 
 <!-- termynal -->
 
@@ -127,14 +96,6 @@ $ immichpy albums add-users-to-album cccdd9f7-6a0f-4ed1-9dc0-ad8774ff9798 \
 {
   "album_name": "2025'04 - April's Pictures",
   "album_users": [
-    {
-      "role": "editor",
-      "user": {
-        "email": "mich@immich.app",
-        "id": "743f389e-ee80-4682-8d56-2cd45f692c40",
-        "name": "Mich"
-      }
-    },
     {
       "role": "viewer",
       "user": {
@@ -152,13 +113,42 @@ $ immichpy albums add-users-to-album cccdd9f7-6a0f-4ed1-9dc0-ad8774ff9798 \
       }
     }
   ],
-  ...
+  …
 }
+```
+
+## Share an album with a link
+
+Create a password-protected link with a custom name for people without an Immich account using [`shared-links create-shared-link`](reference.md#immichpy-shared-links-create-shared-link):
+
+<!-- termynal -->
+
+```console
+$ immichpy shared-links create-shared-link --type ALBUM \
+  --album-id 851c8f67-9bf3-48f5-8130-59da9ab17c06 --password s3cret --slug paris-2025
+{
+  "allow_download": true,
+  "id": "3146a36e-abc2-447d-a890-3b26ab08e36f",
+  "slug": "paris-2025",
+  "type": "ALBUM",
+  …
+}
+```
+
+## Find an asset by its file path
+
+Find an asset using [`search search-assets`](reference.md#immichpy-search-search-assets), where `--original-path` matches any part of the path:
+
+<!-- termynal -->
+
+```console
+$ immichpy search search-assets --original-path 2025/09/IMG_9419.jpg | jq -r '.assets.items[].id'
+16101f82-1407-4725-ba58-3ffb67a3ef7c
 ```
 
 ## Trigger library scan
 
-Trigger an external library scan by using it's ID:
+Look up the library ID using [`libraries get-all-libraries`](reference.md#immichpy-libraries-get-all-libraries) and trigger a scan using [`libraries scan-library`](reference.md#immichpy-libraries-scan-library):
 
 <!-- termynal -->
 
@@ -172,6 +162,32 @@ $ immichpy libraries get-all-libraries
 ]
 
 $ immichpy libraries scan-library 098adb6d-0a9b-494a-bd66-2ae6c0bf28ff
+```
 
-Success!
+## Show storage usage per user
+
+Print the photos and storage per user using [`server get-server-statistics`](reference.md#immichpy-server-get-server-statistics):
+
+<!-- termynal -->
+
+```console
+$ immichpy server get-server-statistics \
+  | jq -r '.usage_by_user[] | "\(.user_name) \(.photos) photos \(.usage / 1e9 * 100 | round / 100) GB"'
+Jane Doe 32566 photos 13.43 GB
+Jason 26 photos 0.1 GB
+Mich 8 photos 0.03 GB
+```
+
+## Use another profile
+
+Run a command against another server or account with a profile:
+
+<!-- termynal -->
+
+```console
+$ immichpy --profile john server get-about-info
+{
+  "version": "v2.4.1",
+  …
+}
 ```
